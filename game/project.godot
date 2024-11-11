@@ -12,8 +12,18 @@ config_version=5
 
 config/name="History of Balls"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="res://assets/icon.svg"
 
 [dotnet]
 
 project/assembly_name="History of Balls"
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "blue",
+"res://assets/": "yellow",
+"res://res/": "green",
+"res://scenes/": "pink",
+"res://src/": "purple"
+}
