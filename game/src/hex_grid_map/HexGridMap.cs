@@ -5,14 +5,13 @@ using Godot;
 
 // https://www.redblobgames.com/grids/hexagons/implementation.html
 
-
 [GlobalClass]
 public partial class HexGridMap : Node3D {
-  // TEMPORARY
-  [Export] private Mesh _mesh;
+  [Export] private Mesh _mesh; // TEMP
   [Export] public Layout Layout { get; private set; }
   [Export] public MapShape MapShape { get; private set; }
 
+  // FIXME: i dont know if its good way to store map
   public HashSet<Hex> Map = new();
 
   public override void _Ready() {
@@ -26,7 +25,6 @@ public partial class HexGridMap : Node3D {
 
       var pixel = Layout.HexToPoint(hex);
       mesh.Position = new(pixel.X, 0, pixel.Y);
-      GD.Print(pixel);
 
       AddChild(mesh);
     }
