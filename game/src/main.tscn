@@ -1,3 +1,7 @@
-[gd_scene format=3 uid="uid://muo6aa7px3eg"]
+[gd_scene load_steps=2 format=3 uid="uid://muo6aa7px3eg"]
+
+[ext_resource type="PackedScene" uid="uid://bitrkh00v5cot" path="res://src/hex_grid_map/tests/test_grid_map.tscn" id="1_2a0hs"]
 
 [node name="Main" type="Node"]
+
+[node name="TestGridMap" parent="." instance=ExtResource("1_2a0hs")]
