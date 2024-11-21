@@ -15,7 +15,7 @@ public partial class HexMapShape : MapShape {
       var r1 = Mathf.Max(-Size, -q - Size);
       var r2 = Mathf.Min(Size, -q + Size);
       for (var r = r1; r <= r2; r++) {
-        gridMap.Map.Add(new(new(q, r, -q - r)));
+        gridMap.AddHex(new(new(q, r, -q - r)));
       }
     }
   }
