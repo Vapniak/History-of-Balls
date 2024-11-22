@@ -1,7 +1,11 @@
-[gd_resource type="CylinderMesh" format=3 uid="uid://bi7mfwx1d4onx"]
+[gd_resource type="CylinderMesh" load_steps=2 format=3 uid="uid://bi7mfwx1d4onx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_514ky"]
 
 [resource]
+material = SubResource("StandardMaterial3D_514ky")
 top_radius = 0.9
 bottom_radius = 0.9
 height = 0.5
 radial_segments = 6
+cap_bottom = false

@@ -30,9 +30,17 @@ public partial class Board : Node3D {
       var pos = HexGridMap.Layout.HexToPoint(hex);
 
       Transform3D transform = new() {
-        Origin = new(pos.X, hex.Height, pos.Y),
+        Origin = new(pos.X, 0, pos.Y),
         Basis = Basis.Identity
       };
+
+      transform = transform.Scaled(new(1, hex.Height + .1f, 1));
+
+
+      // IT HAS TO BE THIS WAY, DON'T CHANGE PLEASEE :)
+      transform.Origin += Vector3.Up * hex.Height / 4;
+
+
 
       multiMesh.SetInstanceTransform(count, transform);
 
