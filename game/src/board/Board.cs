@@ -11,26 +11,34 @@ public partial class Board : Node3D {
   public override void _Ready() {
     HexGridMap.BuildMap();
 
-    MultiMesh multiMesh = new();
-    multiMesh.TransformFormat = MultiMesh.TransformFormatEnum.Transform3D;
-    multiMesh.InstanceCount = 1000;
-    multiMesh.VisibleInstanceCount = 1000;
-    multiMesh.Mesh = _hexMesh;
+    MultiMeshInstance3D multiMeshInstance = new() {
+      TopLevel = true,
+    };
+
+    MultiMesh multiMesh = new() {
+      TransformFormat = MultiMesh.TransformFormatEnum.Transform3D,
+      InstanceCount = HexGridMap.Size(),
+      Mesh = _hexMesh
+    };
+
+    AddChild(multiMeshInstance);
 
     var enumerator = HexGridMap.GetMapEnumerator();
-    int count = 0;
-    while (enumerator.MoveNext()) {
+    var count = 0;
+    while (count < multiMesh.InstanceCount && enumerator.MoveNext()) {
       var hex = enumerator.Current;
       var pos = HexGridMap.Layout.HexToPoint(hex);
 
-      Transform3D transform = new();
-      transform.Origin = new(pos.X, hex.Height, pos.Y);
+      Transform3D transform = new() {
+        Origin = new(pos.X, hex.Height, pos.Y),
+        Basis = Basis.Identity
+      };
 
       multiMesh.SetInstanceTransform(count, transform);
+
+      count++;
     }
 
-    MultiMeshInstance3D instance = new();
-    instance.Multimesh = multiMesh;
-    AddChild(instance);
+    multiMeshInstance.Multimesh = multiMesh;
   }
 }

@@ -23,6 +23,10 @@ public partial class HexGridMap : Resource {
     _map.Add(hex);
   }
 
+  public int Size() {
+    return _map.Count;
+  }
+
   public void RemoveHex(Hex hex) {
     _map.Remove(hex);
   }

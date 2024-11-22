@@ -25,11 +25,13 @@ glow_enabled = true
 script = ExtResource("3_2ytrs")
 Size = Vector2(1, 1)
 Origin = Vector2(0, 0)
-OrientationType = 0
+OrientationType = 1
 
 [sub_resource type="Resource" id="Resource_jfosg"]
 script = ExtResource("5_idi1s")
 HeightMap = ExtResource("4_gskyh")
+MaxHexHeight = 3.0
+InverseScale = 10
 
 [sub_resource type="Resource" id="Resource_yq31v"]
 script = ExtResource("1_aqeel")
