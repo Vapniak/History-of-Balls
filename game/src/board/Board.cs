@@ -34,11 +34,11 @@ public partial class Board : Node3D {
         Basis = Basis.Identity
       };
 
-      transform = transform.Scaled(new(1, hex.Height + .1f, 1));
+      transform = transform.Scaled(new(1, hex.Height + 0.1f, 1));
 
 
       // IT HAS TO BE THIS WAY, DON'T CHANGE PLEASEE :)
-      transform.Origin += Vector3.Up * hex.Height / 4;
+      transform.Origin += Vector3.Up * (hex.Height + 0.1f) / 4;
 
 
 
