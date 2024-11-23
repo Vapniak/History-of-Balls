@@ -9,7 +9,7 @@ public enum OrientationType {
 
 [GlobalClass]
 public partial class Layout : Resource {
-  [Export] public Vector2 Size { get; private set; }
+  [Export] public Vector2 Size { get; private set; } = Vector2.One;
   [Export] public Vector2 Origin { get; private set; }
   [Export] public OrientationType OrientationType = OrientationType.FlatTop;
 
