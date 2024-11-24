@@ -23,7 +23,7 @@ glow_enabled = true
 
 [sub_resource type="Resource" id="Resource_1xxed"]
 script = ExtResource("3_2ytrs")
-Size = Vector2(1, 1)
+Size = Vector2(2, 2)
 Origin = Vector2(0, 0)
 OrientationType = 1
 
@@ -56,8 +56,9 @@ _hexMesh = ExtResource("3_jjgh0")
 HexGridMap = SubResource("Resource_yq31v")
 
 [node name="Player" parent="." instance=ExtResource("7_yh5yy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
 _minHeight = 0.0
-_baseY = 10.0
+_baseY = 5.0
 _zoomSpeed = 1000.0
-_minAngle = 0.0
+_moveSpeed = 20.0
+_minMoveSpeed = 3.0

@@ -14,14 +14,14 @@ public partial class Player : CharacterBody3D {
   [Export] private float _maxAngle = -90;
 
   [Export] private float _moveSpeed = 10;
+  [Export] private float _minMoveSpeed = 2;
+  private float HeightPercent => _currentHeight / _maxHeight;
   private float _targetAngle;
   private float _currentAngle;
 
   private float _currentHeight;
 
   private bool _dragging;
-
-  private Vector2 _mouseMovement;
 
   public override void _Ready() {
     _targetAngle = _minAngle;
@@ -39,10 +39,7 @@ public partial class Player : CharacterBody3D {
     }
     else {
       if (@event is InputEventMouseMotion motionEvent && _dragging) {
-        _mouseMovement = motionEvent.Relative;
-      }
-      else {
-        _mouseMovement = Vector2.Zero;
+        Move(motionEvent.Relative);
       }
     }
   }
@@ -57,15 +54,24 @@ public partial class Player : CharacterBody3D {
 
     _currentHeight = Mathf.Clamp(_currentHeight, _minHeight, _maxHeight);
 
-    _targetAngle = _minAngle + ((_maxAngle - _minAngle) * _currentHeight / _maxHeight);
+    _targetAngle = _minAngle + ((_maxAngle - _minAngle) * HeightPercent);
     _currentAngle = Mathf.Lerp(_currentAngle, _targetAngle, (float)delta * _cameraLerpSpeed);
 
     GlobalPosition = GlobalPosition.Lerp(new(GlobalPosition.X, _baseY + _currentHeight, GlobalPosition.Z), (float)delta * _cameraLerpSpeed);
 
     Basis = Basis.Identity;
     RotateX(Mathf.DegToRad(_currentAngle));
+  }
 
-    Velocity = new Vector3(-_mouseMovement.X, 0, -_mouseMovement.Y) * _moveSpeed;
+  private void Move(Vector2 mouseMovement) {
+    Vector3 move = new(-mouseMovement.X, 0, -mouseMovement.Y);
+
+    float speedMulti = Input.IsKeyPressed(Key.Shift) ? 2 : 1;
+
+    move *= Mathf.Max(_moveSpeed * HeightPercent, _minMoveSpeed) * speedMulti;
+
+    Velocity = move.Rotated(UpDirection, Rotation.Y);
+
     MoveAndSlide();
   }
 }
