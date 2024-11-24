@@ -1,12 +1,12 @@
 [gd_scene load_steps=14 format=3 uid="uid://bitrkh00v5cot"]
 
-[ext_resource type="Script" path="res://addons/hex_grid_map/map/HexGridMap.cs" id="1_aqeel"]
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/map/HexGridMap.cs" id="1_aqeel"]
 [ext_resource type="Script" path="res://src/board/Board.cs" id="2_usn0d"]
-[ext_resource type="Script" path="res://addons/hex_grid_map/map/Layout.cs" id="3_2ytrs"]
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/map/Layout.cs" id="3_2ytrs"]
 [ext_resource type="CylinderMesh" uid="uid://bi7mfwx1d4onx" path="res://src/board/test_board/hex_mesh.tres" id="3_jjgh0"]
 [ext_resource type="Texture2D" uid="uid://mywa2om4ppmh" path="res://assets/map.jpg" id="4_gskyh"]
-[ext_resource type="PackedScene" uid="uid://c0cpxyka4cj2a" path="res://src/free_look_camera/free_look_camera.tscn" id="5_bqvxw"]
-[ext_resource type="Script" path="res://addons/hex_grid_map/map_shape/ImageMapShape.cs" id="5_idi1s"]
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/map_shape/ImageMapShape.cs" id="5_idi1s"]
+[ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player.tscn" id="7_yh5yy"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_vstpj"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -40,8 +40,6 @@ _mapShape = SubResource("Resource_jfosg")
 
 [node name="TestBoard" type="Node3D"]
 
-[node name="FreeLookCamera" parent="." instance=ExtResource("5_bqvxw")]
-
 [node name="Env" type="Node3D" parent="."]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Env"]
@@ -56,3 +54,10 @@ shadow_blur = 0.0
 script = ExtResource("2_usn0d")
 _hexMesh = ExtResource("3_jjgh0")
 HexGridMap = SubResource("Resource_yq31v")
+
+[node name="Player" parent="." instance=ExtResource("7_yh5yy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+_minHeight = 0.0
+_baseY = 10.0
+_zoomSpeed = 1000.0
+_minAngle = 0.0
