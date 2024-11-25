@@ -30,8 +30,7 @@ OrientationType = 1
 [sub_resource type="Resource" id="Resource_jfosg"]
 script = ExtResource("5_idi1s")
 HeightMap = ExtResource("4_gskyh")
-MaxHexHeight = 20.0
-InverseScale = 10
+Size = 100
 
 [sub_resource type="Resource" id="Resource_yq31v"]
 script = ExtResource("1_aqeel")
@@ -54,6 +53,7 @@ shadow_blur = 0.0
 script = ExtResource("2_usn0d")
 _hexMesh = ExtResource("3_jjgh0")
 HexGridMap = SubResource("Resource_yq31v")
+_elevationStep = 0.2
 
 [node name="Player" parent="." instance=ExtResource("7_yh5yy")]
 transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)

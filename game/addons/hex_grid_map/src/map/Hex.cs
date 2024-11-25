@@ -5,11 +5,10 @@ using Godot;
 [GlobalClass]
 public partial class Hex : RefCounted {
   public readonly Vector3 CubeCoords;
-
-  public readonly float Height;
-  public Hex(Vector3 cubeCoords, float height = 0) {
+  public readonly int Elevation;
+  public Hex(Vector3 cubeCoords, int eleveation = 0) {
     CubeCoords = cubeCoords;
-    Height = height;
+    Elevation = eleveation;
 
     if ((cubeCoords.X + cubeCoords.Y + cubeCoords.Z) != 0) {
       GD.PrintErr("q + r + s must be 0");

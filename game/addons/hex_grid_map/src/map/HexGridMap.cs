@@ -7,10 +7,11 @@ using Godot;
 
 [GlobalClass]
 public partial class HexGridMap : Resource {
+
+  [ExportGroup("Map Properties")]
   [Export] public Layout Layout { get; private set; }
   [Export] private MapShape _mapShape;
   private readonly HashSet<Hex> _map = new();
-
   public HexGridMap() {
 
   }
