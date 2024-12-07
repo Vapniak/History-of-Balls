@@ -15,4 +15,11 @@ public partial class HexCoordinates : Resource {
 
   public float HexZ => Z * HexUtils.OUTER_TO_INNER;
 
+  public HexCoordinates() { }
+  public HexCoordinates(int x, int z) {
+    X = x;
+    Z = z;
+  }
+
+  public static HexCoordinates FromOffsetCoordinates(int x, int z) => new(x - (z / 2), z);
 }

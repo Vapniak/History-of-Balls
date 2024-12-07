@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cggxu23tt2j6n"]
+
+[ext_resource type="PackedScene" uid="uid://deu3h2bqc0pcj" path="res://src/game/level_base.tscn" id="1_yhyot"]
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="2_th33j"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ww6en"]
+size = Vector2(10, 10)
+
+[node name="LevelTests" instance=ExtResource("1_yhyot")]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="." index="2"]
+mesh = SubResource("PlaneMesh_ww6en")
+
+[node name="HexGrid" type="Node3D" parent="." index="3"]
+script = ExtResource("2_th33j")

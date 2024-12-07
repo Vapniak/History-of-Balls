@@ -1,16 +1,14 @@
 [gd_scene load_steps=4 format=3 uid="uid://muo6aa7px3eg"]
 
-[ext_resource type="PackedScene" uid="uid://bitrkh00v5cot" path="res://src/board/test_board/test_board.tscn" id="1_2a0hs"]
 [ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_bic4u"]
+[ext_resource type="PackedScene" uid="uid://dtf4lnq4g5gj7" path="res://src/game/game.tscn" id="2_ontv1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_drpva"]
 bg_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
 
-[node name="TestGridMap" parent="." instance=ExtResource("1_2a0hs")]
-
-[node name="Control" type="Control" parent="."]
+[node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -19,7 +17,7 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="Control"]
+[node name="PanelContainer" type="PanelContainer" parent="HUD"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -29,10 +27,12 @@ offset_bottom = 40.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_drpva")
 
-[node name="FPSLabel" type="Label" parent="Control/PanelContainer"]
+[node name="FPSLabel" type="Label" parent="HUD/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Test"
 horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_bic4u")
+
+[node name="Game" parent="." instance=ExtResource("2_ontv1")]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtf4lnq4g5gj7"]
+
+[ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player.tscn" id="1_7xqtf"]
+[ext_resource type="PackedScene" uid="uid://cggxu23tt2j6n" path="res://src/game/levels/tests/level_tests.tscn" id="2_ws3uk"]
+
+[node name="Game" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_7xqtf")]
+_baseY = 0.0
+_maxHeight = 20.0
+_zoomSpeed = 100.0
+
+[node name="LevelTests" parent="." instance=ExtResource("2_ws3uk")]
