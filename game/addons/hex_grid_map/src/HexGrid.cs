@@ -6,7 +6,6 @@ using Godot;
 public partial class HexGrid : Node3D {
 
   [Export] private int _seed;
-  [Export] private NoiseTexture2D _noiseSource;
 
   public int CellCountX { get; private set; }
   public int CellCountZ { get; private set; }
@@ -19,9 +18,8 @@ public partial class HexGrid : Node3D {
   private int _chunkCountX, _chunkCountZ;
 
   public override void _Ready() {
+    // FIXME: temp size
     CreateMap(16, 16);
-
-    HexUtils.NOISE_SOURCE = _noiseSource;
   }
 
   public bool CreateMap(int sizeX, int sizeZ) {

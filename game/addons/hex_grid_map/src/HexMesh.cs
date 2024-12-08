@@ -1,5 +1,6 @@
 namespace HexGridMap;
 
+using System;
 using Godot;
 using Godot.Collections;
 
@@ -28,14 +29,16 @@ public partial class HexMesh : MeshInstance3D {
     st.Commit(_hexMesh);
 
     SetMesh(_hexMesh);
+    // FIXME: temp collision shape
+    CreateTrimeshCollision();
   }
 
   public void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3) {
     var vertexIndex = _vertices.Count;
 
-    _vertices.Add(HexUtils.Perturb(v1));
-    _vertices.Add(HexUtils.Perturb(v2));
-    _vertices.Add(HexUtils.Perturb(v3));
+    _vertices.Add(v1);
+    _vertices.Add(v2);
+    _vertices.Add(v3);
 
     _triangles.Add(vertexIndex);
     _triangles.Add(vertexIndex + 1);

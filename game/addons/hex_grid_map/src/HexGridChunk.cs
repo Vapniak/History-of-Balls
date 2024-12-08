@@ -1,7 +1,6 @@
 namespace HexGridMap;
 
 using Godot;
-using System;
 
 public partial class HexGridChunk : Node3D {
   public HexGrid Grid { get; set; }
@@ -17,6 +16,7 @@ public partial class HexGridChunk : Node3D {
     AddChild(_terrain);
   }
   public override void _Process(double delta) {
+    // TODO: find some better way, more decentrailzed way to triangulate
     Triangulate();
     SetProcess(false);
   }
@@ -44,7 +44,7 @@ public partial class HexGridChunk : Node3D {
   }
 
   private void Triangulate(HexDirection direction, HexCellData data, int cellIndex, Vector3 center) {
-    var e = new HexEdge(center + HexUtils.GetFirstSolidCorner(direction), center + HexUtils.GetSecondSolidCorner(direction));
+    var e = new HexEdge(center + HexUtils.GetSolidCorner(direction), center + HexUtils.GetSolidCorner(direction.Next()));
 
     TriangulateEdgeFan(center, e, cellIndex);
   }

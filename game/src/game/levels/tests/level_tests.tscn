@@ -1,15 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cggxu23tt2j6n"]
+[gd_scene load_steps=3 format=3 uid="uid://cggxu23tt2j6n"]
 
 [ext_resource type="PackedScene" uid="uid://deu3h2bqc0pcj" path="res://src/game/level_base.tscn" id="1_yhyot"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="2_th33j"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_elqhd"]
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_3bfql"]
-noise = SubResource("FastNoiseLite_elqhd")
 
 [node name="LevelTests" instance=ExtResource("1_yhyot")]
 
 [node name="HexGrid" type="Node3D" parent="." index="2"]
 script = ExtResource("2_th33j")
-_noiseSource = SubResource("NoiseTexture2D_3bfql")

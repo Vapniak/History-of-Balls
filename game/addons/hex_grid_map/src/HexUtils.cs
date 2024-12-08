@@ -1,11 +1,13 @@
 namespace HexGridMap;
 
+using System;
 using Godot;
 
 /// <summary>
 /// Utilities for hex map.
 /// </summary>
 public static class HexUtils {
+  // TODO: change this to some grid map settings
   public const float OUTER_TO_INNER = 0.866025404f;
 
   public const float INNER_TO_OUTER = 1f / OUTER_TO_INNER;
@@ -21,33 +23,18 @@ public static class HexUtils {
 
   public const float SOLID_FACTOR = 0.8f;
 
-  public const float CELL_PERTURB_STRENGTH = 4f;
-
-  public static NoiseTexture2D NOISE_SOURCE = new();
-  public const float NOISE_SCALE = 0.003f;
-
-  public static readonly Vector3[] CORNERS = {
+  private static readonly Vector3[] _corners = {
     new (0f, 0f, OUTER_RADIUS),
     new (INNER_RADIUS, 0f, 0.5f * OUTER_RADIUS),
     new (INNER_RADIUS, 0f, -0.5f * OUTER_RADIUS),
     new (0f, 0f, -OUTER_RADIUS),
     new (-INNER_RADIUS, 0f, -0.5f * OUTER_RADIUS),
     new (-INNER_RADIUS, 0f, 0.5f * OUTER_RADIUS),
-    new (0f, 0f, OUTER_RADIUS)
   };
 
-  public static float SampleNoise(Vector3 position) {
-    var sample = NOISE_SOURCE.Noise.GetNoise2D((int)(position.X * NOISE_SCALE), (int)(position.Z * NOISE_SCALE));
+  public static Vector3 GetCorner(HexDirection direction) {
 
-    return sample;
+    return _corners[(int)direction];
   }
-  public static Vector3 Perturb(Vector3 position) {
-    var sample = SampleNoise(position);
-    position.X += ((sample * 2f) - 1f) * CELL_PERTURB_STRENGTH;
-    position.Z += ((sample * 2f) - 1f) * CELL_PERTURB_STRENGTH;
-    return position;
-  }
-
-  public static Vector3 GetFirstSolidCorner(HexDirection direction) => CORNERS[(int)direction] * SOLID_FACTOR;
-  public static Vector3 GetSecondSolidCorner(HexDirection direction) => CORNERS[(int)direction + 1] * SOLID_FACTOR;
+  public static Vector3 GetSolidCorner(HexDirection direction) => GetCorner(direction) * SOLID_FACTOR;
 }
