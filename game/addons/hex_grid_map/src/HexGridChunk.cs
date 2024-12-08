@@ -44,7 +44,7 @@ public partial class HexGridChunk : Node3D {
   }
 
   private void Triangulate(HexDirection direction, HexCellData data, int cellIndex, Vector3 center) {
-    var e = new HexEdge(center + HexUtils.GetFirstSolidCorner(direction), center + HexUtils.GetSecondSolidCorner(direction - 1));
+    var e = new HexEdge(center + HexUtils.GetFirstSolidCorner(direction), center + HexUtils.GetSecondSolidCorner(direction));
 
     TriangulateEdgeFan(center, e, cellIndex);
   }

@@ -17,9 +17,6 @@ public partial class HexGrid : Node3D {
   private HexGridChunk[] _chunks;
 
   private int _chunkCountX, _chunkCountZ;
-  private HexGridChunk[] _cellGridChunks;
-
-  private int _currentCenterColumnIndex = -1;
 
   public override void _Ready() {
     CreateMap(16, 16);
@@ -39,7 +36,6 @@ public partial class HexGrid : Node3D {
 
     CellCountX = sizeX;
     CellCountZ = sizeZ;
-    _currentCenterColumnIndex = -1;
     _chunkCountX = CellCountX / HexUtils.CHUNK_SIZE_X;
     _chunkCountZ = CellCountZ / HexUtils.CHUNK_SIZE_Z;
 
@@ -62,7 +58,6 @@ public partial class HexGrid : Node3D {
   private void CreateCells() {
     CellData = new HexCellData[CellCountX * CellCountZ];
     CellPositions = new Vector3[CellData.Length];
-    _cellGridChunks = new HexGridChunk[CellData.Length];
 
     for (int z = 0, i = 0; z < CellCountZ; z++) {
       for (var x = 0; x < CellCountX; x++) {
@@ -86,7 +81,6 @@ public partial class HexGrid : Node3D {
 
     var localX = x - (chunkX * HexUtils.CHUNK_SIZE_X);
     var localZ = z - (chunkZ * HexUtils.CHUNK_SIZE_Z);
-    _cellGridChunks[i] = chunk;
     chunk.AddCell(localX + (localZ * HexUtils.CHUNK_SIZE_X), i);
   }
 }

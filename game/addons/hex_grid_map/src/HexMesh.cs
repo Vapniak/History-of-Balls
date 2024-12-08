@@ -1,42 +1,44 @@
 namespace HexGridMap;
 
-
 using Godot;
 using Godot.Collections;
-using System;
-using System.Data.SqlTypes;
 
 public partial class HexMesh : MeshInstance3D {
-  private Array<Vector3> _vertices;
+  private Array<Vector3> _vertices = new();
+  private Array<int> _triangles = new();
 
-  private Mesh _hexMesh;
+  private ArrayMesh _hexMesh = new();
   private CollisionShape3D _collisionShape;
-
-  public override void _Ready() {
-    Mesh = _hexMesh = new ArrayMesh();
-  }
 
   public void Clear() {
     _hexMesh = new ArrayMesh();
     _vertices = new();
+    _triangles = new();
   }
 
   public void Apply() {
-    SurfaceTool st = new();
+    var st = new SurfaceTool();
     st.Begin(Mesh.PrimitiveType.Triangles);
 
-    // FIX: TEMP COLOR
-    st.SetColor(Colors.White);
-    foreach (var vertex in _vertices) {
-      st.AddVertex(vertex);
+    _vertices.Reverse();
+    for (var i = 0; i < _vertices.Count; i++) {
+      st.AddVertex(_vertices[i]);
     }
-    _hexMesh = st.Commit();
+
+    st.Commit(_hexMesh);
+
+    SetMesh(_hexMesh);
   }
 
   public void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3) {
     var vertexIndex = _vertices.Count;
+
     _vertices.Add(HexUtils.Perturb(v1));
     _vertices.Add(HexUtils.Perturb(v2));
     _vertices.Add(HexUtils.Perturb(v3));
+
+    _triangles.Add(vertexIndex);
+    _triangles.Add(vertexIndex + 1);
+    _triangles.Add(vertexIndex + 2);
   }
 }

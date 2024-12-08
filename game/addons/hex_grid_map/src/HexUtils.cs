@@ -6,7 +6,7 @@ using Godot;
 /// Utilities for hex map.
 /// </summary>
 public static class HexUtils {
-  public const float OUTER_TO_INNER = 866025404f;
+  public const float OUTER_TO_INNER = 0.866025404f;
 
   public const float INNER_TO_OUTER = 1f / OUTER_TO_INNER;
 
@@ -27,12 +27,13 @@ public static class HexUtils {
   public const float NOISE_SCALE = 0.003f;
 
   public static readonly Vector3[] CORNERS = {
-    new(0f, 0f, OUTER_RADIUS),
+    new (0f, 0f, OUTER_RADIUS),
     new (INNER_RADIUS, 0f, 0.5f * OUTER_RADIUS),
     new (INNER_RADIUS, 0f, -0.5f * OUTER_RADIUS),
     new (0f, 0f, -OUTER_RADIUS),
     new (-INNER_RADIUS, 0f, -0.5f * OUTER_RADIUS),
-    new (-INNER_RADIUS, 0f, 0.5f * OUTER_RADIUS)
+    new (-INNER_RADIUS, 0f, 0.5f * OUTER_RADIUS),
+    new (0f, 0f, OUTER_RADIUS)
   };
 
   public static float SampleNoise(Vector3 position) {
