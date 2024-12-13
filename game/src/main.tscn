@@ -8,7 +8,9 @@ bg_color = Color(0, 0, 0, 1)
 
 [node name="Main" type="Node"]
 
-[node name="HUD" type="Control" parent="."]
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="HUDLayer"]
 layout_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
@@ -17,7 +19,7 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 
-[node name="PanelContainer" type="PanelContainer" parent="HUD"]
+[node name="PanelContainer" type="PanelContainer" parent="HUDLayer/HUD"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -27,7 +29,7 @@ offset_bottom = 40.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBoxFlat_drpva")
 
-[node name="FPSLabel" type="Label" parent="HUD/PanelContainer"]
+[node name="FPSLabel" type="Label" parent="HUDLayer/HUD/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 1
 text = "Test"
