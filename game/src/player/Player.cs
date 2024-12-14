@@ -1,7 +1,6 @@
 namespace HOB;
 
 using Godot;
-using System;
 
 public partial class Player : CharacterBody3D {
   [Export] private float _minHeight = 10;
@@ -45,10 +44,10 @@ public partial class Player : CharacterBody3D {
   }
 
   public override void _Process(double delta) {
-    if (Input.IsActionJustPressed("zoom_in")) {
+    if (Input.IsActionJustPressed(GameInputs.ZoomIn)) {
       _currentHeight -= (float)delta * _zoomSpeed;
     }
-    else if (Input.IsActionJustPressed("zoom_out")) {
+    else if (Input.IsActionJustPressed(GameInputs.ZoomOut)) {
       _currentHeight += (float)delta * _zoomSpeed;
     }
 
