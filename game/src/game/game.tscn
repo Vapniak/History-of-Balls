@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://dtf4lnq4g5gj7"]
+[gd_scene load_steps=4 format=3 uid="uid://dtf4lnq4g5gj7"]
 
+[ext_resource type="Script" path="res://src/game/Game.cs" id="1_gmwlu"]
 [ext_resource type="PackedScene" uid="uid://c0cpxyka4cj2a" path="res://src/free_look_camera/free_look_camera.tscn" id="2_tet1e"]
 [ext_resource type="PackedScene" uid="uid://cggxu23tt2j6n" path="res://src/game/levels/tests/level_tests.tscn" id="2_ws3uk"]
 
 [node name="Game" type="Node3D"]
+script = ExtResource("1_gmwlu")
 
 [node name="LevelTests" parent="." instance=ExtResource("2_ws3uk")]
 

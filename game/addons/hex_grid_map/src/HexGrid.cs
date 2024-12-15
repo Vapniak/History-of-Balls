@@ -1,6 +1,7 @@
 namespace HexGridMap;
 
 using Godot;
+using HOB;
 
 [GlobalClass]
 public partial class HexGrid : Node3D {
@@ -14,6 +15,7 @@ public partial class HexGrid : Node3D {
   public Vector3[] CellPositions { get; private set; }
 
   private HexGridChunk[] _chunks;
+  private HexGridChunk[] _cellGridChunks;
 
   private int _chunkCountX, _chunkCountZ;
 
@@ -42,6 +44,38 @@ public partial class HexGrid : Node3D {
     return true;
   }
 
+  public void RefreshCell(int cellIndex) => _chunks[cellIndex].Refresh();
+  public HexCell GetCell(int cellIndex) => new(cellIndex, this);
+  public HexCell GetCell(HexCoordinates coordinates) {
+    var z = coordinates.Z;
+    var x = coordinates.X + (z / 2);
+    if (z < 0 || z >= CellCountZ || x < 0 || x >= CellCountX) {
+      return default;
+    }
+
+    return new HexCell(x + (z * CellCountX), this);
+  }
+  public HexCell GetCell(Vector3 position) {
+    position = GlobalTransform.Basis.Inverse() * position;
+    var coordinates = HexCoordinates.FromPosition(position);
+    return GetCell(coordinates);
+  }
+
+  public HexCell GetCellFromRayNormal(Vector3 origin, Vector3 normal, float rayLength) {
+    var spaceState = GetWorld3D().DirectSpaceState;
+
+    var query = PhysicsRayQueryParameters3D.Create(origin, origin + (normal * rayLength));
+
+    var result = spaceState.IntersectRay(query);
+
+    if (result.Count > 0) {
+      return GetCell(result["position"].AsVector3());
+    }
+    else {
+      return default;
+    }
+  }
+
   private void CreateChunks() {
     _chunks = new HexGridChunk[_chunkCountX * _chunkCountZ];
     for (int z = 0, i = 0; z < _chunkCountZ; z++) {
@@ -56,6 +90,7 @@ public partial class HexGrid : Node3D {
   private void CreateCells() {
     CellData = new HexCellData[CellCountX * CellCountZ];
     CellPositions = new Vector3[CellData.Length];
+    _cellGridChunks = new HexGridChunk[CellData.Length];
 
     for (int z = 0, i = 0; z < CellCountZ; z++) {
       for (var x = 0; x < CellCountX; x++) {
@@ -79,6 +114,8 @@ public partial class HexGrid : Node3D {
 
     var localX = x - (chunkX * HexUtils.CHUNK_SIZE_X);
     var localZ = z - (chunkZ * HexUtils.CHUNK_SIZE_Z);
+
+    _cellGridChunks[i] = chunk;
     chunk.AddCell(localX + (localZ * HexUtils.CHUNK_SIZE_X), i);
   }
 }
