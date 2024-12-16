@@ -1,7 +1,6 @@
 namespace HexGridMap;
 
 using Godot;
-using HOB;
 
 [GlobalClass]
 public partial class HexGrid : Node3D {

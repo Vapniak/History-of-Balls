@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://cggxu23tt2j6n"]
-
-[ext_resource type="PackedScene" uid="uid://deu3h2bqc0pcj" path="res://src/game/levels/level_base.tscn" id="1_yhyot"]
-[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="2_th33j"]
-
-[node name="LevelTests" instance=ExtResource("1_yhyot")]
-
-[node name="HexGrid" type="Node3D" parent="." index="2"]
-script = ExtResource("2_th33j")
