@@ -1,47 +1,26 @@
-[gd_scene load_steps=13 format=3 uid="uid://7op7pws1x2yk"]
+[gd_scene load_steps=10 format=3 uid="uid://7op7pws1x2yk"]
 
 [ext_resource type="Script" path="res://src/core/game/world/World.cs" id="1_pvfbt"]
 [ext_resource type="Script" path="res://src/core/game/GameState.cs" id="2_hv013"]
 [ext_resource type="PackedScene" uid="uid://c0cpxyka4cj2a" path="res://src/free_look_camera/free_look_camera.tscn" id="3_spxox"]
 [ext_resource type="Script" path="res://src/core/game/PlayerState.cs" id="4_6717s"]
 [ext_resource type="Script" path="res://src/core/game/GameMode.cs" id="5_v6s46"]
-[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="6_232d2"]
+[ext_resource type="PackedScene" uid="uid://dq50a8e3adq5a" path="res://src/game/levels/level_tests.tscn" id="6_upbwt"]
 
-[sub_resource type="Resource" id="Resource_tpp7a"]
+[sub_resource type="Resource" id="Resource_ypp5p"]
 script = ExtResource("2_hv013")
 
-[sub_resource type="Resource" id="Resource_t1um1"]
+[sub_resource type="Resource" id="Resource_rc301"]
 script = ExtResource("4_6717s")
 
 [sub_resource type="Resource" id="Resource_rggnu"]
 script = ExtResource("5_v6s46")
 PlayerScene = ExtResource("3_spxox")
-GameState = SubResource("Resource_tpp7a")
-PlayerState = SubResource("Resource_t1um1")
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6iugy"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_iiu3a"]
-sky_material = SubResource("ProceduralSkyMaterial_6iugy")
-
-[sub_resource type="Environment" id="Environment_g3txb"]
-background_mode = 2
-sky = SubResource("Sky_iiu3a")
-tonemap_mode = 2
-glow_enabled = true
+GameState = SubResource("Resource_ypp5p")
+PlayerState = SubResource("Resource_rc301")
 
 [node name="WorldTests" type="Node3D"]
 script = ExtResource("1_pvfbt")
 GameMode = SubResource("Resource_rggnu")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_g3txb")
-
-[node name="HexGrid" type="Node3D" parent="."]
-script = ExtResource("6_232d2")
+[node name="LevelTests" parent="." instance=ExtResource("6_upbwt")]

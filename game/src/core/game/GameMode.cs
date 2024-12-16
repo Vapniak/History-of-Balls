@@ -1,14 +1,14 @@
 namespace HOB.Core;
 
 using Godot;
+using System;
 
 /// <summary>
-/// Overall game manager.
+/// Manages game logic.
 /// </summary>
 [GlobalClass]
-public partial class GameMode : Resource {
-  [Export] public PackedScene PlayerScene { get; private set; } = new();
-  [Export] public GameState GameState { get; private set; } = new();
-  [Export] public PlayerState PlayerState { get; private set; } = new();
-  public GameMode() { }
+public partial class GameMode : Node {
+  [Export] internal PackedScene PlayerScene { get; set; }
+  [Export] internal GameState GameState { get; set; } = new();
+  [Export] internal PlayerState PlayerState { get; set; } = new();
 }

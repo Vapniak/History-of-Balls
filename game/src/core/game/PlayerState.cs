@@ -8,6 +8,5 @@ using System;
 /// </summary>
 [GlobalClass]
 public partial class PlayerState : Resource {
-
   public PlayerState() { }
 }
