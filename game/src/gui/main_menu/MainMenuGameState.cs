@@ -1,7 +1,7 @@
 namespace HOB;
 
 using Godot;
-using HOB.Core;
+using GameplayFramework;
 
 [GlobalClass]
 public partial class MainMenuGameState : GameState {

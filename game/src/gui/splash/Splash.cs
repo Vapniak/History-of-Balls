@@ -1,7 +1,7 @@
 namespace HOB;
 
 using Godot;
-using HOB.Core;
+using GameplayFramework;
 
 public partial class Splash : Control {
   [Export] private AnimationPlayer _animationPlayer;

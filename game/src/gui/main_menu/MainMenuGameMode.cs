@@ -1,7 +1,7 @@
 namespace HOB;
 
 using Godot;
-using HOB.Core;
+using GameplayFramework;
 
 public partial class MainMenuGameMode : GameMode {
   [Export] public Splash Splash { get; private set; }

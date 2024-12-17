@@ -1,4 +1,4 @@
-namespace HOB.Core;
+namespace GameplayFramework;
 
 using Godot;
 using Godot.Collections;

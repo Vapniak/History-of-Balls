@@ -1,16 +1,16 @@
 [gd_scene load_steps=11 format=3 uid="uid://w616yj3x5lot"]
 
-[ext_resource type="Script" path="res://src/core/game/world/World.cs" id="1_2llq8"]
+[ext_resource type="Script" path="res://src/core/gameplay_framework/world/World.cs" id="1_s7lo4"]
 [ext_resource type="Script" path="res://src/gui/main_menu/MainMenuGameMode.cs" id="2_giwgg"]
 [ext_resource type="Script" path="res://src/gui/main_menu/MainMenuGameState.cs" id="3_a62u2"]
-[ext_resource type="Script" path="res://src/core/game/PlayerState.cs" id="4_6s30l"]
+[ext_resource type="Script" path="res://src/core/gameplay_framework/PlayerState.cs" id="4_rxmjh"]
 [ext_resource type="PackedScene" uid="uid://bbsd3dhi0iesf" path="res://src/gui/splash/splash.tscn" id="4_sbd18"]
 
 [sub_resource type="Resource" id="Resource_whvlj"]
 script = ExtResource("3_a62u2")
 
 [sub_resource type="Resource" id="Resource_2eno0"]
-script = ExtResource("4_6s30l")
+script = ExtResource("4_rxmjh")
 
 [sub_resource type="Animation" id="Animation_unbpb"]
 resource_name = "fade_in"
@@ -49,7 +49,7 @@ _data = {
 }
 
 [node name="MainMenuWorld" type="Node" node_paths=PackedStringArray("GameMode")]
-script = ExtResource("1_2llq8")
+script = ExtResource("1_s7lo4")
 GameMode = NodePath("GameMode")
 
 [node name="GameMode" type="Node" parent="." node_paths=PackedStringArray("Splash", "BlankScreen", "AnimationPlayer")]

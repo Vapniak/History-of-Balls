@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://7op7pws1x2yk"]
 
-[ext_resource type="Script" path="res://src/core/game/world/World.cs" id="1_pvfbt"]
-[ext_resource type="Script" path="res://src/core/game/GameState.cs" id="2_hv013"]
+[ext_resource type="Script" path="res://src/core/gameplay_framework/world/World.cs" id="1_pvfbt"]
+[ext_resource type="Script" path="res://src/core/gameplay_framework/GameState.cs" id="2_hv013"]
 [ext_resource type="PackedScene" uid="uid://c0cpxyka4cj2a" path="res://src/free_look_camera/free_look_camera.tscn" id="3_spxox"]
-[ext_resource type="Script" path="res://src/core/game/PlayerState.cs" id="4_6717s"]
-[ext_resource type="Script" path="res://src/core/game/GameMode.cs" id="5_v6s46"]
+[ext_resource type="Script" path="res://src/core/gameplay_framework/PlayerState.cs" id="4_6717s"]
+[ext_resource type="Script" path="res://src/core/gameplay_framework/GameMode.cs" id="5_v6s46"]
 [ext_resource type="PackedScene" uid="uid://dq50a8e3adq5a" path="res://src/levels/level_tests.tscn" id="6_upbwt"]
 
 [sub_resource type="Resource" id="Resource_ypp5p"]
