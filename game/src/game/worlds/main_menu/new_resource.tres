@@ -1,6 +1,0 @@
-[gd_resource type="Resource" script_class="MainMenuGameState" load_steps=2 format=3 uid="uid://ccgu8w7ok82w7"]
-
-[ext_resource type="Script" path="res://src/game/worlds/main_menu/MainMenuGameState.cs" id="1_f3ccj"]
-
-[resource]
-script = ExtResource("1_f3ccj")

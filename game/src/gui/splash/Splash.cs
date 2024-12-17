@@ -2,7 +2,6 @@ namespace HOB;
 
 using Godot;
 using HOB.Core;
-using System;
 
 public partial class Splash : Control {
   [Export] private AnimationPlayer _animationPlayer;
@@ -21,7 +20,10 @@ public partial class Splash : Control {
     }
   }
 
+  public void PlayIntro() => _animationPlayer.Play("intro");
+
   private void OnAnimationFinished(StringName name) {
+    GD.Print(name);
     Game.GetGameState<MainMenuGameState>().SkipSplashScreen();
   }
 }

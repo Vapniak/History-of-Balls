@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dq50a8e3adq5a"]
 
-[ext_resource type="Script" path="res://src/core/game/level/Level.cs" id="1_gi2o1"]
-[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="2_fkff7"]
+[ext_resource type="Script" path="res://src/core/game/level/Level.cs" id="1_e5qev"]
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="2_dd3q8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rc1t2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,7 +17,7 @@ tonemap_mode = 2
 glow_enabled = true
 
 [node name="LevelTests" type="Node"]
-script = ExtResource("1_gi2o1")
+script = ExtResource("1_e5qev")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -27,4 +27,4 @@ shadow_enabled = true
 environment = SubResource("Environment_mxfj4")
 
 [node name="HexGrid" type="Node3D" parent="."]
-script = ExtResource("2_fkff7")
+script = ExtResource("2_dd3q8")
