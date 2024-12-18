@@ -24,10 +24,6 @@ public partial class World : Node {
     Game.Instance.World = null;
   }
 
-  public override void _Ready() {
-    SpawnPlayer();
-  }
-
   public void AddLevel(Level level) {
     AddChild(level);
     _levels.Add(level);
@@ -40,14 +36,6 @@ public partial class World : Node {
     foreach (var level in _levels) {
       _levels.Remove(level);
       level.QueueFree();
-    }
-  }
-
-  protected virtual void SpawnPlayer() {
-    // TODO: add spawn location
-    var player = GameMode.PlayerScene?.Instantiate();
-    if (player != null) {
-      AddChild(player);
     }
   }
 }

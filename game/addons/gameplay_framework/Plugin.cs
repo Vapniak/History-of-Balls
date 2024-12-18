@@ -1,6 +1,6 @@
 #if TOOLS
 
-namespace CameraSystem;
+namespace GameplayFramework;
 
 using Godot;
 using System;
