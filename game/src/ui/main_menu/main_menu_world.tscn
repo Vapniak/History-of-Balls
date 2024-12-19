@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://w616yj3x5lot"]
 
-[ext_resource type="Script" path="res://addons/gameplay_framework/src/world/World.cs" id="1_s7lo4"]
+[ext_resource type="Script" path="res://addons/gameplay_framework/src/World.cs" id="1_s7lo4"]
 [ext_resource type="Script" path="res://src/ui/main_menu/MainMenuGameMode.cs" id="2_giwgg"]
 [ext_resource type="Script" path="res://src/ui/main_menu/MainMenuGameState.cs" id="3_a62u2"]
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/PlayerState.cs" id="4_rxmjh"]

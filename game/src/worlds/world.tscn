@@ -1,17 +1,18 @@
-[gd_scene load_steps=9 format=3 uid="uid://7op7pws1x2yk"]
+[gd_scene load_steps=10 format=3 uid="uid://7op7pws1x2yk"]
 
-[ext_resource type="Script" path="res://addons/gameplay_framework/src/world/World.cs" id="1_nceb3"]
+[ext_resource type="Script" path="res://addons/gameplay_framework/src/World.cs" id="1_nceb3"]
 [ext_resource type="PackedScene" uid="uid://dq50a8e3adq5a" path="res://src/levels/tests_level.tscn" id="2_cpcjy"]
 [ext_resource type="Script" path="res://src/game_modes/test/TestsGameMode.cs" id="3_nx2u0"]
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player.tscn" id="4_ro8lb"]
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/GameState.cs" id="5_syhq1"]
+[ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/player/player_controller.tscn" id="6_qkp1u"]
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/PlayerState.cs" id="6_xicie"]
-
-[sub_resource type="Resource" id="Resource_atk6h"]
-script = ExtResource("5_syhq1")
 
 [sub_resource type="Resource" id="Resource_36jdh"]
 script = ExtResource("6_xicie")
+
+[sub_resource type="Resource" id="Resource_atk6h"]
+script = ExtResource("5_syhq1")
 
 [node name="World" type="Node" node_paths=PackedStringArray("GameMode")]
 script = ExtResource("1_nceb3")
@@ -22,5 +23,6 @@ GameMode = NodePath("TestsGameMode")
 [node name="TestsGameMode" type="Node" parent="."]
 script = ExtResource("3_nx2u0")
 PlayerScene = ExtResource("4_ro8lb")
-GameState = SubResource("Resource_atk6h")
 PlayerState = SubResource("Resource_36jdh")
+PlayerControllerScene = ExtResource("6_qkp1u")
+GameState = SubResource("Resource_atk6h")

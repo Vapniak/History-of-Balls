@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dq50a8e3adq5a"]
 
-[ext_resource type="Script" path="res://addons/gameplay_framework/src/level/Level.cs" id="1_wnfpl"]
+[ext_resource type="Script" path="res://addons/gameplay_framework/src/Level.cs" id="1_wnfpl"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="2_dd3q8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rc1t2"]

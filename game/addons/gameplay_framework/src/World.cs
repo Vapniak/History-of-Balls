@@ -14,10 +14,16 @@ public partial class World : Node {
 
   public override void _EnterTree() {
     if (Game.Instance.World != null) {
-      GD.PrintErr("Last Level is not deleted before next one is added.");
+      GD.PrintErr("World already exists.");
     }
 
     Game.Instance.World = this;
+
+    foreach (var child in GetChildren()) {
+      if (child is Level level) {
+        _levels.Add(level);
+      }
+    }
   }
 
   public override void _ExitTree() {

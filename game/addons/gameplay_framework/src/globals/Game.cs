@@ -2,6 +2,7 @@ namespace GameplayFramework;
 
 using Godot;
 
+// maybe don't make it global node and just make it static instance
 public partial class Game : Node {
   public static Game Instance { get; private set; }
 
@@ -35,21 +36,18 @@ public partial class Game : Node {
   public static T GetGameState<T>() where T : GameState {
     return GetGameState() as T;
   }
-  public static void SetGameState(GameState gameState) {
-    Instance.World.GameMode.GameState = gameState;
-  }
 
   // TODO: get and set game mode
 
 
-  public static PlayerState GetPlayerState() {
-    return Instance.World.GameMode.PlayerState;
+  public static PlayerState GetPlayerState(int index) {
+    return Instance.World.GameMode.GameState.PlayerArray[index];
   }
-  public static T GetPlayerState<T>() where T : PlayerState {
-    return GetPlayerState() as T;
+  public static T GetPlayerState<T>(int index) where T : PlayerState {
+    return GetPlayerState(index) as T;
   }
-  public static void SetPlayerState(PlayerState playerState) {
-    Instance.World.GameMode.PlayerState = playerState;
+  public static void SetPlayerState(int index, PlayerState playerState) {
+    Instance.World.GameMode.GameState.PlayerArray[index] = playerState;
   }
 
   public static World GetWorld() {
