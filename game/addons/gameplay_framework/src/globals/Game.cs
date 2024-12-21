@@ -3,6 +3,9 @@ namespace GameplayFramework;
 using Godot;
 
 // maybe don't make it global node and just make it static instance
+/// <summary>
+/// Main game manager.
+/// </summary>
 public partial class Game : Node {
   public static Game Instance { get; private set; }
 

@@ -27,29 +27,30 @@ public partial class GameMode : Node {
 
   public void SpawnPlayer() {
     var player = PlayerScene?.InstantiateOrNull<Node>();
-    if (player == null) {
-      GD.PrintErr("Player is null");
-      return;
-    }
-
     var playerController = PlayerControllerScene?.InstantiateOrNull<PlayerController>();
-    if (playerController == null) {
-      GD.PrintErr("Player controller is null");
-      return;
-    }
-
     var hud = HUDScene?.InstantiateOrNull<HUD>();
-    if (player != null && playerController != null) {
-      var world = Game.GetWorld();
-      world.AddChild(player);
+    var world = Game.GetWorld();
+
+    if (playerController != null) {
       world.AddChild(playerController);
 
-      PlayerState = new();
-      GameState.PlayerArray.Add(PlayerState);
+      if (player != null) {
+        world.AddChild(player);
+        if (player is IPlayerControllable controllable) {
+          controllable.PlayerController = playerController;
+          playerController.SetControllable(controllable);
+        }
+      }
 
-      playerController.SetPlayerState(PlayerState);
+      PlayerState = new();
+      PlayerState.SetPlayerName(DefaultPlayerName);
+      PlayerState.SetController(playerController);
+
       playerController.SetHUD(hud);
       playerController.SpawnHUD();
+      playerController.SetPlayerState(PlayerState);
+
+      GameState.PlayerArray.Add(PlayerState);
     }
   }
 }

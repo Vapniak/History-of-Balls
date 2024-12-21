@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxvvk6td13ake"]
 
-[ext_resource type="Script" path="res://src/player/Player.cs" id="1_ggdef"]
+[ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6anve"]
 
-[node name="Player" type="CharacterBody3D"]
+[node name="PlayerCharacter" type="CharacterBody3D"]
 motion_mode = 1
 script = ExtResource("1_ggdef")
 _zoomSpeed = 1000.0

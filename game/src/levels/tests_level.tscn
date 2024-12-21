@@ -16,7 +16,7 @@ sky = SubResource("Sky_iiu3a")
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="TestsLevel" type="Node"]
+[node name="TestLevel" type="Node"]
 script = ExtResource("1_wnfpl")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

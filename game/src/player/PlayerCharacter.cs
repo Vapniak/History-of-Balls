@@ -1,8 +1,9 @@
 namespace HOB;
 
+using GameplayFramework;
 using Godot;
 
-public partial class Player : CharacterBody3D {
+public partial class PlayerCharacter : CharacterBody3D, IPlayerControllable {
   [Export] private float _minHeight = 10;
   [Export] private float _baseY = 20;
   [Export] private float _maxHeight = 100;
@@ -15,6 +16,9 @@ public partial class Player : CharacterBody3D {
   [Export] private float _moveSpeed = 10;
   [Export] private float _minMoveSpeed = 2;
   private float HeightPercent => _currentHeight / _maxHeight;
+
+  public PlayerController PlayerController { get; set; }
+
   private float _targetAngle;
   private float _currentAngle;
 
@@ -73,4 +77,6 @@ public partial class Player : CharacterBody3D {
 
     MoveAndSlide();
   }
+
+  public T GetCharacter<T>() where T : Node => this as T;
 }

@@ -2,6 +2,9 @@ namespace GameplayFramework;
 
 using Godot;
 
+/// <summary>
+/// Works like bridge between game, player state and character. Controls logic of character.
+/// </summary>
 [GlobalClass]
 public partial class Controller : Node3D {
   public PlayerState PlayerState { get; private set; }
