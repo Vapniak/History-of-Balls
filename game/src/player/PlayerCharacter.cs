@@ -2,79 +2,46 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
+using HexGridMap;
 
 public partial class PlayerCharacter : CharacterBody3D, IPlayerControllable {
-  [Export] private float _minHeight = 10;
-  [Export] private float _baseY = 20;
-  [Export] private float _maxHeight = 100;
-  [Export] private float _zoomSpeed = 10;
-  [Export] private float _cameraLerpSpeed = 10;
+  [Export] private float _stickMinZoom = -250, _stickMaxZoom = -45;
+  [Export] private float _swivelMinZoomAngle = 90, _swivelMaxZoomAngle = 45;
+  [Export] private float _moveSpeedMinZoom = 400, _moveSpeedMaxZoom = 100;
+  [Export] private float _rotationSpeed = 180;
+  [Export] private Node3D _swivel, _stick;
 
-  [Export] private float _minAngle = -45;
-  [Export] private float _maxAngle = -90;
+  private float _zoom = 1f;
+  private float _rotationAngle;
 
-  [Export] private float _moveSpeed = 10;
-  [Export] private float _minMoveSpeed = 2;
-  private float HeightPercent => _currentHeight / _maxHeight;
+  public void AdjustZoom(float zoomDelta) {
+    _zoom = Mathf.Clamp(_zoom + zoomDelta, 0, 1);
+    var distance = Mathf.Lerp(_stickMinZoom, _stickMaxZoom, _zoom);
+    _stick.Position = new(0, distance, 0);
 
-  private float _targetAngle;
-  private float _currentAngle;
-
-  private float _currentHeight;
-
-  private bool _dragging;
-
-  public override void _Ready() {
-    _targetAngle = _minAngle;
-    _currentHeight = _minHeight;
+    var angle = Mathf.Lerp(_swivelMinZoomAngle, _swivelMaxZoomAngle, _zoom);
+    _swivel.Rotation = new(Mathf.DegToRad(angle), 0f, 0f);
   }
 
-  public override void _Input(InputEvent @event) {
-    if (@event is InputEventMouseButton mouseEvent && mouseEvent.ButtonIndex == MouseButton.Left) {
-      if (!_dragging && mouseEvent.Pressed) {
-        _dragging = true;
-      }
-      else if (_dragging && !mouseEvent.Pressed) {
-        _dragging = false;
-      }
-    }
-    else {
-      if (@event is InputEventMouseMotion motionEvent && _dragging) {
-        Move(motionEvent.Relative);
-      }
-    }
+  public void AdjustRotation(double delta, float rotationDelta) {
+    _rotationAngle += rotationDelta * _rotationSpeed * (float)delta;
+    _rotationAngle = Mathf.Wrap(_rotationAngle, -360, 360);
+    Rotation = new(0f, _rotationAngle, 0f);
   }
 
-  public override void _Process(double delta) {
-    if (Input.IsActionJustPressed(GameInputs.ZoomIn)) {
-      _currentHeight -= (float)delta * _zoomSpeed;
-    }
-    else if (Input.IsActionJustPressed(GameInputs.ZoomOut)) {
-      _currentHeight += (float)delta * _zoomSpeed;
-    }
-
-    _currentHeight = Mathf.Clamp(_currentHeight, _minHeight, _maxHeight);
-
-    _targetAngle = _minAngle + ((_maxAngle - _minAngle) * HeightPercent);
-    _currentAngle = Mathf.Lerp(_currentAngle, _targetAngle, (float)delta * _cameraLerpSpeed);
-
-    GlobalPosition = GlobalPosition.Lerp(new(GlobalPosition.X, _baseY + _currentHeight, GlobalPosition.Z), (float)delta * _cameraLerpSpeed);
-
-    Basis = Basis.Identity;
-    RotateX(Mathf.DegToRad(_currentAngle));
+  public void AdjustPosition(double delta, Vector3 positionDelta) {
+    var direction = Transform.Basis.Z * new Vector3(positionDelta.X, 0f, positionDelta.Z).Normalized();
+    var damping = Mathf.Max(Mathf.Abs(positionDelta.X), Mathf.Abs(positionDelta.Z));
+    var distance = Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, _zoom) * damping * (float)delta;
+    Position += direction * distance;
   }
 
-  private void Move(Vector2 mouseMovement) {
-    Vector3 move = new(-mouseMovement.X, 0, -mouseMovement.Y);
+  public void ClampPosition(HexGrid hexGrid) {
+    var pos = Position;
+    pos.X = Mathf.Clamp(pos.X, 0f, hexGrid.GetRealSizeX());
+    pos.Z = Mathf.Clamp(pos.Z, 0f, hexGrid.GetRealSizeZ());
 
-    float speedMulti = Input.IsKeyPressed(Key.Shift) ? 2 : 1;
-
-    move *= Mathf.Max(_moveSpeed * HeightPercent, _minMoveSpeed) * speedMulti;
-
-    Velocity = move.Rotated(UpDirection, Rotation.Y);
-
-    MoveAndSlide();
+    Position = new(pos.X, Position.Y, pos.Z);
   }
-
   public T GetCharacter<T>() where T : Node => this as T;
 }

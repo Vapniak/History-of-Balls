@@ -31,14 +31,15 @@ public partial class GameMode : Node {
     var world = Game.GetWorld();
 
     if (playerController != null) {
-      world.AddChild(playerController);
-
       if (player != null) {
         world.AddChild(player);
         if (player is IPlayerControllable controllable) {
           playerController.SetControllable(controllable);
         }
       }
+
+      world.AddChild(playerController);
+
 
       var playerState = CreatePlayerState();
       playerState.SetPlayerName(DefaultPlayerName);

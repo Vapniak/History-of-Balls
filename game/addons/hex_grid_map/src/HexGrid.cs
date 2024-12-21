@@ -75,6 +75,14 @@ public partial class HexGrid : Node3D {
     }
   }
 
+  public float GetRealSizeX() {
+    return (CellCountX - 0.5f) * HexUtils.INNER_DIAMETER;
+  }
+
+  public float GetRealSizeZ() {
+    return (CellCountZ - 1) * (1.5f * HexUtils.OUTER_RADIUS);
+  }
+
   private void CreateChunks() {
     _chunks = new HexGridChunk[_chunkCountX * _chunkCountZ];
     for (int z = 0, i = 0; z < _chunkCountZ; z++) {

@@ -4,13 +4,24 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6anve"]
 
-[node name="PlayerCharacter" type="CharacterBody3D"]
+[node name="PlayerCharacter" type="CharacterBody3D" node_paths=PackedStringArray("_swivel", "_stick")]
 motion_mode = 1
 script = ExtResource("1_ggdef")
-_zoomSpeed = 1000.0
+_stickMinZoom = 10.0
+_stickMaxZoom = 100.0
+_swivelMaxZoomAngle = 30.0
+_moveSpeedMinZoom = 10.0
+_moveSpeedMaxZoom = 100.0
+_rotationSpeed = 10.0
+_swivel = NodePath("Swivel")
+_stick = NodePath("Swivel/Stick")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_6anve")
 disabled = true
 
-[node name="Camera3D" type="Camera3D" parent="."]
+[node name="Swivel" type="Node3D" parent="."]
+
+[node name="Stick" type="Node3D" parent="Swivel"]
+
+[node name="Camera3D" type="Camera3D" parent="Swivel/Stick"]
