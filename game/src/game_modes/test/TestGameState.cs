@@ -1,6 +1,10 @@
+namespace HOB;
+
 using GameplayFramework;
 using Godot;
-using System;
+using HexGridMap;
 
+[GlobalClass]
 public partial class TestGameState : GameState {
+  public HexGrid HexGrid { get; set; }
 }

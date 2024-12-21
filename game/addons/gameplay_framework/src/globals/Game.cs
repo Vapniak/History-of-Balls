@@ -34,7 +34,7 @@ public partial class Game : Node {
   }
 
   public static GameState GetGameState() {
-    return Instance.World.GameMode.GameState;
+    return Instance.World.GameMode.GetGameState();
   }
   public static T GetGameState<T>() where T : GameState {
     return GetGameState() as T;
@@ -43,15 +43,15 @@ public partial class Game : Node {
   // TODO: get and set game mode
 
 
-  public static PlayerState GetPlayerState(int index) {
-    return Instance.World.GameMode.GameState.PlayerArray[index];
-  }
-  public static T GetPlayerState<T>(int index) where T : PlayerState {
-    return GetPlayerState(index) as T;
-  }
-  public static void SetPlayerState(int index, PlayerState playerState) {
-    Instance.World.GameMode.GameState.PlayerArray[index] = playerState;
-  }
+  // public static PlayerState GetPlayerState(int index) {
+  //   return Instance.World.GameMode.GameState.PlayerArray[index];
+  // }
+  // public static T GetPlayerState<T>(int index) where T : PlayerState {
+  //   return GetPlayerState(index) as T;
+  // }
+  // public static void SetPlayerState(int index, PlayerState playerState) {
+  //   Instance.World.GameMode.GameState.PlayerArray[index] = playerState;
+  // }
 
   public static World GetWorld() {
     return Instance.World;

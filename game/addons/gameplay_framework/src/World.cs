@@ -10,7 +10,7 @@ using Godot.Collections;
 public partial class World : Node {
   [Export] internal GameMode GameMode { get; private set; }
 
-  protected Array<Level> _levels = new();
+  public Level CurrentLevel { get; private set; }
 
   public override void _EnterTree() {
     if (Game.Instance.World != null) {
@@ -21,27 +21,13 @@ public partial class World : Node {
 
     foreach (var child in GetChildren()) {
       if (child is Level level) {
-        _levels.Add(level);
+        CurrentLevel = level;
+        break;
       }
     }
   }
 
   public override void _ExitTree() {
     Game.Instance.World = null;
-  }
-
-  public void AddLevel(Level level) {
-    AddChild(level);
-    _levels.Add(level);
-  }
-  public void RemoveLevel(Level level) {
-    RemoveChild(level);
-    _levels.Remove(level);
-  }
-  public void ClearLevels() {
-    foreach (var level in _levels) {
-      _levels.Remove(level);
-      level.QueueFree();
-    }
   }
 }

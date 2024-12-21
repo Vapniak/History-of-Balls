@@ -1,6 +1,7 @@
 namespace GameplayFramework;
 
 using Godot;
+using HOB;
 
 /// <summary>
 /// Manages game logic.
@@ -11,16 +12,14 @@ public partial class GameMode : Node {
   [Export] public string DefaultPlayerName { get; set; } = "Player";
 
   [Export] public PackedScene PlayerScene { get; private set; }
-  [Export] public PlayerState PlayerState { get; private set; }
   [Export] public PackedScene PlayerControllerScene { get; private set; }
-
-  [Export] public GameState GameState { get; private set; }
-
   [Export] public PackedScene HUDScene { get; private set; }
+
+  private GameState GameState { get; set; }
 
 
   public override void _Ready() {
-    GameState = new();
+    GameState = CreateGameState();
 
     CallDeferred(MethodName.SpawnPlayer);
   }
@@ -37,20 +36,30 @@ public partial class GameMode : Node {
       if (player != null) {
         world.AddChild(player);
         if (player is IPlayerControllable controllable) {
-          controllable.PlayerController = playerController;
           playerController.SetControllable(controllable);
         }
       }
 
-      PlayerState = new();
-      PlayerState.SetPlayerName(DefaultPlayerName);
-      PlayerState.SetController(playerController);
+      var playerState = CreatePlayerState();
+      playerState.SetPlayerName(DefaultPlayerName);
+      playerState.SetController(playerController);
 
       playerController.SetHUD(hud);
       playerController.SpawnHUD();
-      playerController.SetPlayerState(PlayerState);
+      playerController.SetPlayerState(playerState);
 
-      GameState.PlayerArray.Add(PlayerState);
+      GameState.PlayerArray.Add(playerState);
     }
   }
+
+  protected virtual PlayerState CreatePlayerState() {
+    return new PlayerState();
+  }
+
+  protected virtual GameState CreateGameState() {
+    return new GameState();
+  }
+
+  public T GetGameState<T>() where T : GameState => GetGameState() as T;
+  public GameState GetGameState() => GameState;
 }

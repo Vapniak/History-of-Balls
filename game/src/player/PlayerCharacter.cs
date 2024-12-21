@@ -17,8 +17,6 @@ public partial class PlayerCharacter : CharacterBody3D, IPlayerControllable {
   [Export] private float _minMoveSpeed = 2;
   private float HeightPercent => _currentHeight / _maxHeight;
 
-  public PlayerController PlayerController { get; set; }
-
   private float _targetAngle;
   private float _currentAngle;
 

@@ -5,5 +5,5 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class TestPlayerController : PlayerController {
+public partial class TestPlayerState : PlayerState {
 }

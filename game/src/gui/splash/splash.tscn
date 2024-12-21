@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://bbsd3dhi0iesf"]
 
 [ext_resource type="Texture2D" uid="uid://cuecdkq467xga" path="res://assets/godot_logo.png" id="1_153f5"]
-[ext_resource type="Script" path="res://src/ui/splash/Splash.cs" id="1_pj6um"]
-[ext_resource type="PackedScene" uid="uid://w616yj3x5lot" path="res://src/ui/main_menu/main_menu_world.tscn" id="2_c8pvq"]
+[ext_resource type="Script" path="res://src/gui/splash/Splash.cs" id="1_pj6um"]
+[ext_resource type="PackedScene" uid="uid://w616yj3x5lot" path="res://src/gui/main_menu/main_menu_world.tscn" id="2_c8pvq"]
 
 [sub_resource type="Animation" id="Animation_8baay"]
 resource_name = "intro"
