@@ -8,13 +8,14 @@ using Godot.Collections;
 /// </summary>
 [GlobalClass]
 public partial class World : Node {
-  [Export] internal GameMode GameMode { get; private set; }
+  [Export] private GameMode GameMode { get; set; }
 
   public Level CurrentLevel { get; private set; }
 
   public override void _EnterTree() {
     if (Game.Instance.World != null) {
       GD.PrintErr("World already exists.");
+      return;
     }
 
     Game.Instance.World = this;
@@ -30,4 +31,6 @@ public partial class World : Node {
   public override void _ExitTree() {
     Game.Instance.World = null;
   }
+
+  public GameMode GetGameMode() => GameMode;
 }

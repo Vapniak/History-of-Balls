@@ -16,6 +16,20 @@ public partial class TestPlayerController : PlayerController {
   public override void _Process(double delta) {
     base._Process(delta);
 
-    // TODO: character movement
+    float zoomDelta = 0;
+    if (Input.IsActionJustPressed(GameInputs.ZoomIn)) {
+      zoomDelta = 1;
+    }
+    else if (Input.IsActionJustPressed(GameInputs.ZoomOut)) {
+      zoomDelta = -1;
+    }
+
+    if (zoomDelta != 0) {
+      _character.AdjustZoom(zoomDelta);
+    }
+
+    var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
+    _character.AdjustPosition(delta, moveVector.X, moveVector.Y);
+    _character.ClampPosition(Game.GetGameState<TestGameState>().HexGrid);
   }
 }

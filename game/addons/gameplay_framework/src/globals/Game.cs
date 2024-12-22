@@ -34,7 +34,7 @@ public partial class Game : Node {
   }
 
   public static GameState GetGameState() {
-    return Instance.World.GameMode.GetGameState();
+    return Instance.World.GetGameMode().GetGameState();
   }
   public static T GetGameState<T>() where T : GameState {
     return GetGameState() as T;
