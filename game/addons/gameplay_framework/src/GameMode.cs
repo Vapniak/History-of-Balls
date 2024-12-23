@@ -17,8 +17,7 @@ public partial class GameMode : Node {
 
   private GameState GameState { get; set; }
 
-  // TODO: add game mode components, like player managment component
-  public override void _Ready() {
+  public void Init() {
     GameState = CreateGameState();
 
     CallDeferred(MethodName.SpawnPlayer);

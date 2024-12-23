@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://diw8kotx1evqt"]
+
+[ext_resource type="Script" path="res://src/game_modes/main_menu/MainMenuGameMode.cs" id="1_30ibs"]
+
+[node name="MainMenuGameMode" type="Node"]
+script = ExtResource("1_30ibs")

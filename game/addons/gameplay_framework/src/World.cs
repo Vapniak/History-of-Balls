@@ -7,9 +7,7 @@ using Godot.Collections;
 /// Base class for all worlds.
 /// </summary>
 [GlobalClass]
-public partial class World : Node {
-  [Export] private GameMode GameMode { get; set; }
-
+public sealed partial class World : Node {
   public Level CurrentLevel { get; private set; }
 
   public override void _EnterTree() {
@@ -20,17 +18,22 @@ public partial class World : Node {
 
     Game.Instance.World = this;
 
-    foreach (var child in GetChildren()) {
-      if (child is Level level) {
-        CurrentLevel = level;
-        break;
-      }
-    }
+    CurrentLevel = GetChild<Level>(0);
+    CurrentLevel?.Load();
   }
 
   public override void _ExitTree() {
     Game.Instance.World = null;
   }
 
-  public GameMode GetGameMode() => GameMode;
+  public void OpenLevel(Level level) {
+    if (CurrentLevel != null) {
+      CurrentLevel.UnLoad();
+      CurrentLevel.QueueFree();
+    }
+    CurrentLevel = level;
+    CurrentLevel.Load();
+    AddChild(CurrentLevel);
+  }
+  public GameMode GetGameMode() => CurrentLevel.GameMode;
 }

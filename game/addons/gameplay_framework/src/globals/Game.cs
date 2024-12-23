@@ -26,13 +26,6 @@ public partial class Game : Node {
     }
   }
 
-  public void ChangeWorld(World world) {
-    var parent = Instance.World.GetParent();
-    parent.RemoveChild(World);
-    Instance.World = world;
-    parent.AddChild(World);
-  }
-
   public static GameState GetGameState() {
     return Instance.World.GetGameMode().GetGameState();
   }
@@ -55,5 +48,17 @@ public partial class Game : Node {
 
   public static World GetWorld() {
     return Instance.World;
+  }
+
+  public static GameMode GetGameMode() {
+    return Instance.World.GetGameMode();
+  }
+
+  public static T GetGameMode<T>() where T : GameMode {
+    return GetGameMode() as T;
+  }
+
+  public void QuitGame() {
+    GetTree().Quit();
   }
 }

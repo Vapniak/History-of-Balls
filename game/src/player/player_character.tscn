@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bxvvk6td13ake"]
+[gd_scene load_steps=3 format=3 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
 
@@ -6,12 +6,10 @@
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_6anve"]
-
-[node name="PlayerCharacter" type="CharacterBody3D" node_paths=PackedStringArray("_camera")]
-motion_mode = 1
+[node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("_camera")]
 script = ExtResource("1_ggdef")
 _distanceCurve = SubResource("Curve_t3eex")
+_acceleration = 20.0
 _stickMinZoomDistance = 50.0
 _stickMaxZoomDistance = 20.0
 _stickMinZoomHeight = 80.0
@@ -20,8 +18,5 @@ _moveSpeedMinZoom = 100.0
 _moveSpeedMaxZoom = 50.0
 _camera = NodePath("Camera3D")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("SphereShape3D_6anve")
-disabled = true
-
 [node name="Camera3D" type="Camera3D" parent="."]
+current = true

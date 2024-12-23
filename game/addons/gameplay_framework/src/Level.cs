@@ -4,4 +4,19 @@ using Godot;
 
 [GlobalClass]
 public partial class Level : Node {
+  [Export] private PackedScene GameModeScene { get; set; }
+  internal GameMode GameMode { get; private set; }
+  public void Load() {
+    GameMode = GameModeScene.InstantiateOrNull<GameMode>();
+    if (GameMode == null) {
+      GD.PrintErr("Game Mode Scene is null");
+      return;
+    }
+
+    AddChild(GameMode);
+    GameMode.Init();
+  }
+  public void UnLoad() {
+
+  }
 }

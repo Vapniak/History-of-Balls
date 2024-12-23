@@ -5,6 +5,11 @@ using Godot;
 [GlobalClass]
 public partial class HexGrid : Node3D {
 
+  [Export]
+  private bool RegenerateMap {
+    get => false;
+    set => CreateMap(16, 16);
+  }
   [Export] private int _seed;
 
   public int CellCountX { get; private set; }
@@ -19,7 +24,6 @@ public partial class HexGrid : Node3D {
   private int _chunkCountX, _chunkCountZ;
 
   public override void _Ready() {
-    // FIXME: temp size
     CreateMap(16, 16);
   }
 

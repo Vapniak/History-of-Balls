@@ -13,6 +13,8 @@ public partial class TestPlayerController : PlayerController {
 
     _character = GetCharacter<PlayerCharacter>();
   }
+
+  // TODO: move it into physics process and add acceleration, also add movement on moving mouse to screen corners
   public override void _Process(double delta) {
     base._Process(delta);
 
@@ -29,7 +31,8 @@ public partial class TestPlayerController : PlayerController {
     }
 
     var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
-    _character.AdjustPosition(delta, moveVector.X, moveVector.Y);
+    _character.Accelerate(delta, moveVector.X, moveVector.Y);
+    _character.Move(delta);
     _character.ClampPosition(Game.GetGameState<TestGameState>().HexGrid);
   }
 }

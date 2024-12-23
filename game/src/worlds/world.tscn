@@ -1,18 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://7op7pws1x2yk"]
+[gd_scene load_steps=3 format=3 uid="uid://7op7pws1x2yk"]
 
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/World.cs" id="1_nceb3"]
-[ext_resource type="PackedScene" uid="uid://dq50a8e3adq5a" path="res://src/levels/tests_level.tscn" id="2_cpcjy"]
-[ext_resource type="Script" path="res://src/game_modes/test/TestGameMode.cs" id="3_nx2u0"]
-[ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="4_ro8lb"]
-[ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/player/player_controller.tscn" id="6_qkp1u"]
+[ext_resource type="PackedScene" uid="uid://bho42afyokt62" path="res://src/levels/main_menu_level.tscn" id="2_16nw8"]
 
-[node name="World" type="Node" node_paths=PackedStringArray("GameMode")]
+[node name="World" type="Node"]
 script = ExtResource("1_nceb3")
-GameMode = NodePath("TestGameMode")
 
-[node name="TestLevel" parent="." instance=ExtResource("2_cpcjy")]
-
-[node name="TestGameMode" type="Node" parent="."]
-script = ExtResource("3_nx2u0")
-PlayerScene = ExtResource("4_ro8lb")
-PlayerControllerScene = ExtResource("6_qkp1u")
+[node name="MainMenuLevel" parent="." instance=ExtResource("2_16nw8")]

@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=3 uid="uid://k0w7kdfh2ctc"]
+
+[ext_resource type="Script" path="res://src/game_modes/test/TestGameMode.cs" id="1_pal7c"]
+[ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="2_5iywb"]
+[ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/player/player_controller.tscn" id="3_u4cum"]
+
+[node name="TestGameMode" type="Node"]
+script = ExtResource("1_pal7c")
+PlayerScene = ExtResource("2_5iywb")
+PlayerControllerScene = ExtResource("3_u4cum")
