@@ -13,5 +13,4 @@ public partial class TestGameMode : GameMode {
   }
 
   protected override GameState CreateGameState() => new TestGameState();
-  protected override PlayerState CreatePlayerState() => new TestPlayerState();
 }

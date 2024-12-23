@@ -19,4 +19,6 @@ public partial class Level : Node {
   public void UnLoad() {
 
   }
+
+  // TODO: level streaming, so you can add multiple levels but keep the same game mode
 }

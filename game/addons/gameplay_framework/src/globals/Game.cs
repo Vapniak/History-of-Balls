@@ -33,19 +33,6 @@ public partial class Game : Node {
     return GetGameState() as T;
   }
 
-  // TODO: get and set game mode
-
-
-  // public static PlayerState GetPlayerState(int index) {
-  //   return Instance.World.GameMode.GameState.PlayerArray[index];
-  // }
-  // public static T GetPlayerState<T>(int index) where T : PlayerState {
-  //   return GetPlayerState(index) as T;
-  // }
-  // public static void SetPlayerState(int index, PlayerState playerState) {
-  //   Instance.World.GameMode.GameState.PlayerArray[index] = playerState;
-  // }
-
   public static World GetWorld() {
     return Instance.World;
   }
