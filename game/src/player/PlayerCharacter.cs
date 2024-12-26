@@ -40,13 +40,13 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     _velocity = _velocity.Lerp(direction * distance, (float)delta * _acceleration);
   }
 
-  public void ClampPosition(HexGrid hexGrid) {
-    var pos = Position;
-    pos.X = Mathf.Clamp(pos.X, 0f, hexGrid.GetRealSizeX());
-    pos.Z = Mathf.Clamp(pos.Z, 0f, hexGrid.GetRealSizeZ());
+  // public void ClampPosition(HexGrid hexGrid) {
+  //   var pos = Position;
+  //   pos.X = Mathf.Clamp(pos.X, 0f, hexGrid.GetRealSizeX());
+  //   pos.Z = Mathf.Clamp(pos.Z, 0f, hexGrid.GetRealSizeZ());
 
-    Position = new(pos.X, Position.Y, pos.Z);
-  }
+  //   Position = new(pos.X, Position.Y, pos.Z);
+  // }
 
   public void Move(double delta) {
     Position += _velocity * (float)delta;

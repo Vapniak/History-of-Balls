@@ -1,53 +1,38 @@
 namespace HexGridMap;
 
 using Godot;
-using System;
 
-public partial class HexCoordinates : Resource {
-  [field: Export]
-  public int X { get; }
-  [field: Export]
-  public int Z { get; }
-
-  public int Y => -X - Z;
-
-  public float HexX => X + (Z / 2) + ((Z & 1) == 0 ? 0f : 0.5f);
-
-  public float HexZ => Z * HexUtils.OUTER_TO_INNER;
-
-  public HexCoordinates() { }
-  public HexCoordinates(int x, int z) {
-    X = x;
-    Z = z;
+public struct HexCoordinates {
+  public float Q { get; private set; }
+  public float R { get; private set; }
+  public readonly float S => -Q - R;
+  public HexCoordinates(float q, float r) {
+    Q = q;
+    R = r;
   }
 
-  public static HexCoordinates FromOffsetCoordinates(int x, int z) => new(x - (z / 2), z);
+  private static readonly HexCoordinates[] _directions = {
+    new(1, 0),
+    new(1, -1),
+    new(0, -1),
+    new(-1, 0),
+    new(-1, 1),
+    new(0, 1)
+  };
 
-  public static HexCoordinates FromPosition(Vector3 position) {
-    var x = position.X / HexUtils.INNER_DIAMETER;
-    var y = -x;
+  public static HexCoordinates operator +(HexCoordinates hex, HexCoordinates other) => new(hex.Q + other.Q, hex.R + other.R);
+  public static HexCoordinates operator -(HexCoordinates hex, HexCoordinates other) => new(hex.Q - other.Q, hex.R - other.R);
+  public static HexCoordinates operator *(HexCoordinates hex, float scale) => new(hex.Q * scale, hex.R * scale);
 
-    var offset = position.Z / (HexUtils.OUTER_RADIUS * 3f);
-    x -= offset;
-    y -= offset;
+  public static HexCoordinates Direction(HexDirection direction) {
+    return _directions[(int)direction];
+  }
 
-    var iX = Mathf.RoundToInt(x);
-    var iY = Mathf.RoundToInt(y);
-    var iZ = Mathf.RoundToInt(-x - y);
+  public readonly float Length() {
+    return (Mathf.Abs(Q) + Mathf.Abs(R) + Mathf.Abs(S)) / 2;
+  }
 
-    if (iX + iY + iZ != 0) {
-      var dX = Mathf.Abs(x - iX);
-      var dY = Mathf.Abs(y - iY);
-      var dZ = Mathf.Abs(-x - y - iZ);
-
-      if (dX > dY && dX > dZ) {
-        iX = -iY - iZ;
-      }
-      else if (dZ > dY) {
-        iZ = -iX - iY;
-      }
-    }
-
-    return new HexCoordinates(iX, iZ);
+  public readonly float Distance(HexCoordinates other) {
+    return (this - other).Length();
   }
 }

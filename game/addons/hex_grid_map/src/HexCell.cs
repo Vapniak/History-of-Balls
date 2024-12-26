@@ -1,11 +1,10 @@
 namespace HexGridMap;
 
-public struct HexCell {
-  private readonly int _index;
-  private HexGrid _grid;
 
-  public HexCell(int index, HexGrid grid) {
-    _index = index;
-    _grid = grid;
+public struct HexCell {
+  public HexCoordinates Coordinates { get; private set; }
+
+  public HexCell(HexCoordinates coordinates) {
+    Coordinates = coordinates;
   }
 }

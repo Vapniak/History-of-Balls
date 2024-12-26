@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq50a8e3adq5a"]
+[gd_scene load_steps=9 format=3 uid="uid://dq50a8e3adq5a"]
 
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/Level.cs" id="1_wnfpl"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="2_dd3q8"]
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/test/test_game_mode.tscn" id="2_h6h6r"]
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/map_shape/HexMapShape.cs" id="4_m3sx0"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rc1t2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,6 +18,10 @@ sky = SubResource("Sky_iiu3a")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="Resource" id="Resource_b0v4w"]
+script = ExtResource("4_m3sx0")
+Size = 10
+
 [node name="TestLevel" type="Node"]
 script = ExtResource("1_wnfpl")
 GameModeScene = ExtResource("2_h6h6r")
@@ -30,3 +35,4 @@ environment = SubResource("Environment_mxfj4")
 
 [node name="HexGrid" type="Node3D" parent="."]
 script = ExtResource("2_dd3q8")
+MapShape = SubResource("Resource_b0v4w")

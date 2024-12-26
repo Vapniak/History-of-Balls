@@ -33,6 +33,6 @@ public partial class TestPlayerController : PlayerController {
     var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
     _character.Accelerate(delta, moveVector.X, moveVector.Y);
     _character.Move(delta);
-    _character.ClampPosition(Game.GetGameState<TestGameState>().HexGrid);
+    // _character.ClampPosition(Game.GetGameState<TestGameState>().HexGrid);
   }
 }

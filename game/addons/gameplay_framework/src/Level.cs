@@ -3,7 +3,7 @@ namespace GameplayFramework;
 using Godot;
 
 [GlobalClass]
-public partial class Level : Node {
+public sealed partial class Level : Node {
   [Export] private PackedScene GameModeScene { get; set; }
   internal GameMode GameMode { get; private set; }
   public void Load() {
