@@ -10,7 +10,7 @@ public partial class MainMenu : Control {
   }
 
   private void OnSettingsButtonPressed() {
-    Game.GetGameMode<MainMenuGameMode>().Settings();
+    Game.GetGameMode<MainMenuGameMode>().OpenSettings();
   }
 
   private void OnQuitButtonPressed() {

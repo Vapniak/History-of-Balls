@@ -1,8 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://diw8kotx1evqt"]
+[gd_scene load_steps=4 format=3 uid="uid://diw8kotx1evqt"]
 
 [ext_resource type="Script" path="res://src/game_modes/main_menu/MainMenuGameMode.cs" id="1_30ibs"]
 [ext_resource type="PackedScene" uid="uid://dq50a8e3adq5a" path="res://src/levels/tests_level.tscn" id="2_td4o1"]
+[ext_resource type="PackedScene" uid="uid://bc1qqk4div8dj" path="res://src/gui/settings_menu/settings_menu.tscn" id="3_my7m2"]
 
 [node name="MainMenuGameMode" type="Node"]
 script = ExtResource("1_30ibs")
-_startLevel = ExtResource("2_td4o1")
+_startLevelScene = ExtResource("2_td4o1")
+_settingsScene = ExtResource("3_my7m2")
