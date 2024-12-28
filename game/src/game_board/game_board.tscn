@@ -8,8 +8,7 @@
 
 [sub_resource type="Resource" id="Resource_ok4hm"]
 script = ExtResource("3_7dghw")
-Scale = Vector2(10, 10)
-Origin = Vector2(0, 0)
+HexCellScale = 10.0
 OrientationType = 1
 
 [sub_resource type="Resource" id="Resource_x6l3f"]

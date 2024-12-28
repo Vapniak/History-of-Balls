@@ -10,17 +10,23 @@ public partial class GameBoard : Node3D {
 
   [Export] private PackedScene _debugMesh;
 
+  public Vector3[] CellPositions { get; private set; }
   public override void _Ready() {
     Grid.CreateGrid();
 
-    var enumerator = Grid.GetGridEnumerator();
-    while (enumerator.MoveNext()) {
+    var cells = Grid.GetCells();
+    var count = cells.Length;
+    CellPositions = new Vector3[count];
+
+    for (var i = 0; i < count; i++) {
+      var cell = cells[i];
+      var point = Grid.Layout.HexCoordinatesToPoint(cell.Coordinates);
       var mesh = _debugMesh.Instantiate<Node3D>();
 
-      var hex = enumerator.Current;
-      var point = Grid.Layout.HexToPoint(hex);
+      CellPositions[i] = new(point.X, 0, point.Y);
 
       mesh.Position = new(point.X, 0, point.Y);
+      mesh.Scale = Vector3.One * Grid.Layout.HexCellScale;
       AddChild(mesh);
     }
   }

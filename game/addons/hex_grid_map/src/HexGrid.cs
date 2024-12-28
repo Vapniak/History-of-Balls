@@ -1,6 +1,7 @@
 namespace HexGridMap;
 
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
 
 [GlobalClass]
@@ -9,9 +10,6 @@ public partial class HexGrid : Node {
   [Export] public GridShape GridShape { get; private set; }
   private readonly HashSet<HexCell> _grid = new();
 
-  public HexGrid() {
-
-  }
   public void CreateGrid() {
     _grid.Clear();
     GridShape.CreateGrid(this);
@@ -29,7 +27,7 @@ public partial class HexGrid : Node {
     _grid.Remove(hex);
   }
 
-  public HashSet<HexCell>.Enumerator GetGridEnumerator() {
-    return _grid.GetEnumerator();
+  public HexCell[] GetCells() {
+    return _grid.ToArray();
   }
 }

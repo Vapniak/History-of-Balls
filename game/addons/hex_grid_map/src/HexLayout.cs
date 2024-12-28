@@ -9,8 +9,7 @@ public enum OrientationType {
 
 [GlobalClass]
 public partial class HexLayout : Resource {
-  [Export] public Vector2 Scale { get; private set; } = Vector2.One;
-  [Export] public Vector2 Origin { get; private set; }
+  [Export] public float HexCellScale { get; private set; } = 1;
   [Export] public OrientationType OrientationType = OrientationType.FlatTop;
 
   public HexOrientation Orientation {
@@ -32,23 +31,22 @@ public partial class HexLayout : Resource {
 
   }
 
-  public HexLayout(OrientationType orientationType, Vector2 size, Vector2 origin) {
+  public HexLayout(OrientationType orientationType, float hexCellScale) {
     OrientationType = orientationType;
-    Scale = size;
-    Origin = origin;
+    HexCellScale = hexCellScale;
   }
 
-  public Vector2 HexToPoint(HexCell hex) {
-    var x = ((Orientation.F0 * hex.Coordinates.Q) + (Orientation.F1 * hex.Coordinates.R)) * Scale.X;
-    var y = ((Orientation.F2 * hex.Coordinates.Q) + (Orientation.F3 * hex.Coordinates.R)) * Scale.Y;
-    return new(x + Origin.X, y + Origin.Y);
+  public Vector2 HexCoordinatesToPoint(HexCoordinates coordinates) {
+    var x = ((Orientation.F0 * coordinates.Q) + (Orientation.F1 * coordinates.R)) * HexCellScale;
+    var y = ((Orientation.F2 * coordinates.Q) + (Orientation.F3 * coordinates.R)) * HexCellScale;
+    return new(x, y);
   }
 
-  public HexCell PointToHex(Vector2 point) {
-    Vector2 pointOnGrid = new((point.X - Origin.X) / Scale.X, (point.Y - Origin.Y) / Scale.Y);
+  public HexCoordinates PointToHexCoordinates(Vector2 point) {
+    Vector2 pointOnGrid = new(point.X / HexCellScale, point.Y / HexCellScale);
     var x = (Orientation.B0 * pointOnGrid.X) + (Orientation.B1 * pointOnGrid.Y);
     var y = (Orientation.B2 * pointOnGrid.X) + (Orientation.B3 * pointOnGrid.Y);
 
-    return new(new(x, y));
+    return new HexFractionalCoordinates(x, y).HexRound();
   }
 }

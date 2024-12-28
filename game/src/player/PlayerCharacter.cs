@@ -12,7 +12,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   [Export] private float _stickMinZoomDistance = 100, _stickMaxZoomDistance = 10;
   [Export] private float _stickMinZoomHeight = 300, _stickMaxZoomHeight = 40;
   [Export] private float _moveSpeedMinZoom = 400, _moveSpeedMaxZoom = 100;
-  [Export] private Camera3D _camera;
+  [Export] public Camera3D Camera { get; private set; }
 
   private float _zoom = 1f;
   private float _targetZoom = 1f;
@@ -25,9 +25,9 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
     var distance = Mathf.Lerp(_stickMinZoomDistance, _stickMaxZoomDistance, _distanceCurve.Sample(_zoom));
     var height = Mathf.Lerp(_stickMinZoomHeight, _stickMaxZoomHeight, _zoom);
-    _camera.Position = new(0, height, Mathf.Max(distance, 1));
+    Camera.Position = new(0, height, Mathf.Max(distance, 1));
 
-    _camera.LookAt(Position);
+    Camera.LookAt(Position);
   }
 
   public void AdjustZoom(float zoomDelta) {
@@ -40,6 +40,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     _velocity = _velocity.Lerp(direction * distance, (float)delta * _acceleration);
   }
 
+  // TODO: position clamping to grid size
   // public void ClampPosition(HexGrid hexGrid) {
   //   var pos = Position;
   //   pos.X = Mathf.Clamp(pos.X, 0f, hexGrid.GetRealSizeX());

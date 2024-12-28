@@ -16,8 +16,4 @@ public partial class HexGridShape : GridShape {
       }
     }
   }
-
-  public override Vector2 GetSize() {
-    return new(10, 10);
-  }
 }

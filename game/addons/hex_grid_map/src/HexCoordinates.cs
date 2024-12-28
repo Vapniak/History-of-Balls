@@ -2,11 +2,13 @@ namespace HexGridMap;
 
 using Godot;
 
-public struct HexCoordinates {
-  public float Q { get; private set; }
-  public float R { get; private set; }
-  public readonly float S => -Q - R;
-  public HexCoordinates(float q, float r) {
+public struct HexCoordinates : IHexCoordinates<int> {
+  public int Q { get; private set; }
+  public int R { get; private set; }
+
+  public readonly int S => -Q - R;
+
+  public HexCoordinates(int q, int r) {
     Q = q;
     R = r;
   }
@@ -20,19 +22,23 @@ public struct HexCoordinates {
     new(0, 1)
   };
 
-  public static HexCoordinates operator +(HexCoordinates hex, HexCoordinates other) => new(hex.Q + other.Q, hex.R + other.R);
-  public static HexCoordinates operator -(HexCoordinates hex, HexCoordinates other) => new(hex.Q - other.Q, hex.R - other.R);
-  public static HexCoordinates operator *(HexCoordinates hex, float scale) => new(hex.Q * scale, hex.R * scale);
-
-  public static HexCoordinates Direction(HexDirection direction) {
+  public static HexCoordinates GetDirection(HexDirection direction) {
     return _directions[(int)direction];
   }
 
-  public readonly float Length() {
+  public readonly int Length() {
     return (Mathf.Abs(Q) + Mathf.Abs(R) + Mathf.Abs(S)) / 2;
   }
 
-  public readonly float Distance(HexCoordinates other) {
-    return (this - other).Length();
+  public readonly int Distance(IHexCoordinates<int> other) {
+    return Substract(other).Length();
   }
+
+  public override readonly string ToString() {
+    return "Q: " + Q + ", R: " + R + ", S: " + S;
+  }
+
+  public readonly IHexCoordinates<int> Add(IHexCoordinates<int> other) => new HexCoordinates(Q + other.Q, R + other.R);
+  public readonly IHexCoordinates<int> Substract(IHexCoordinates<int> other) => new HexCoordinates(Q - other.Q, R - other.R);
+  public readonly IHexCoordinates<int> Multiply(int scalar) => new HexCoordinates(Q * scalar, R * scalar);
 }
