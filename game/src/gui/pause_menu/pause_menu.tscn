@@ -1,19 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://y6icx2blahqk"]
+[gd_scene load_steps=3 format=3 uid="uid://y6icx2blahqk"]
 
 [ext_resource type="Script" path="res://src/gui/pause_menu/PauseMenu.cs" id="1_moos1"]
+[ext_resource type="PackedScene" uid="uid://bc1qqk4div8dj" path="res://src/gui/settings_menu/settings_menu.tscn" id="2_lucjv"]
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("SettingsMenu")]
 process_mode = 2
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 script = ExtResource("1_moos1")
+SettingsMenu = NodePath("SettingsMenu")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -22,6 +17,7 @@ grow_vertical = 2
 
 [node name="ColorRect" type="ColorRect" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 color = Color(0, 0, 0, 0.25098)
 
 [node name="Label" type="Label" parent="MarginContainer"]
@@ -52,6 +48,9 @@ text = "Main Menu"
 [node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="SettingsMenu" parent="." instance=ExtResource("2_lucjv")]
+visible = false
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/ResumeButton" to="." method="OnResumePressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/SettingsButton" to="." method="OnSettingsPressed"]

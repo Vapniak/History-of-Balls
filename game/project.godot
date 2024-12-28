@@ -19,8 +19,8 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
-Game="*res://addons/gameplay_framework/src/globals/Game.cs"
 Panku="*res://addons/panku_console/console.tscn"
+Game="*res://addons/gameplay_framework/src/globals/game.tscn"
 
 [display]
 

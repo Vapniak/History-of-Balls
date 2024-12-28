@@ -15,7 +15,7 @@ public partial class PlayerController : Controller {
     HUD ??= new();
     HUD.Name = "HUD";
 
-    Game.GetWorld().AddChild(HUD);
+    AddChild(HUD);
   }
 
   public void SetHUD(HUD hud) {

@@ -1,27 +1,37 @@
 namespace HOB;
 
+using GameplayFramework;
 using Godot;
 using System;
 
-public partial class PauseMenu : Control {
-  [Signal] public delegate void ResumeEventHandler();
-  [Signal] public delegate void SettingsEventHandler();
-  [Signal] public delegate void MainMenuEventHandler();
-  [Signal] public delegate void QuitEventHandler();
+public partial class PauseMenu : CanvasLayer, IPauseMenu {
+  [Export] private SettingsMenu SettingsMenu { get; set; }
+  public Action Resume { get; set; }
+
+  public Action MainMenu { get; set; }
+
+  public Action Quit { get; set; }
+
+  public override void _Ready() {
+    base._Ready();
+
+    SettingsMenu.Closed += () => SettingsMenu.Visible = false;
+  }
 
   private void OnResumePressed() {
-    EmitSignal(SignalName.Resume);
+    Resume?.Invoke();
   }
 
   private void OnSettingsPressed() {
-    EmitSignal(SignalName.Settings);
+    SettingsMenu.Visible = true;
   }
 
   private void OnMainMenuPressed() {
-    EmitSignal(SignalName.MainMenu);
+    MainMenu?.Invoke();
   }
 
   private void OnQuitPressed() {
-    EmitSignal(SignalName.Quit);
+    Quit?.Invoke();
   }
+
 }

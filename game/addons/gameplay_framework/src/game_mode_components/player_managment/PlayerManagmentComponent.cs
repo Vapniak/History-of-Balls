@@ -22,17 +22,17 @@ public partial class PlayerManagmentComponent : GameModeComponent, IGameModeComp
     var player = PlayerScene?.InstantiateOrNull<Node>();
     var playerController = PlayerControllerScene?.InstantiateOrNull<PlayerController>();
     var hud = HUDScene?.InstantiateOrNull<HUD>();
-    var world = Game.GetWorld();
+    var parent = Game.GetWorld().CurrentLevel;
 
     if (playerController != null) {
       if (player != null) {
-        world.AddChild(player);
+        parent.AddChild(player);
         if (player is IPlayerControllable controllable) {
           playerController.SetControllable(controllable);
         }
       }
 
-      world.AddChild(playerController);
+      parent.AddChild(playerController);
 
 
       var playerState = CreatePlayerState();

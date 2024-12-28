@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=8 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/test/TestGameMode.cs" id="1_pal7c"]
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="2_5iywb"]
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/game_mode_components/player_managment/PlayerManagmentComponent.cs" id="2_i585b"]
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/player/player_controller.tscn" id="3_u4cum"]
 [ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/gui/hud/hud.tscn" id="5_m3qk3"]
+[ext_resource type="Script" path="res://src/game_modes/game_mode_components/pause/PauseComponent.cs" id="6_7ianu"]
+[ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="7_rcove"]
 
 [node name="TestGameMode" type="Node"]
 script = ExtResource("1_pal7c")
@@ -14,3 +16,7 @@ script = ExtResource("2_i585b")
 PlayerScene = ExtResource("2_5iywb")
 PlayerControllerScene = ExtResource("3_u4cum")
 HUDScene = ExtResource("5_m3qk3")
+
+[node name="PauseComponent" type="Node" parent="."]
+script = ExtResource("6_7ianu")
+PauseMenuScene = ExtResource("7_rcove")

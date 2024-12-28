@@ -7,6 +7,8 @@ using Godot;
 /// Main game manager.
 /// </summary>
 public partial class Game : Node {
+  // TODO: better flow of creation and deletion of nodes
+  [Export(PropertyHint.Dir)] public string LevelsDirectoryPath { get; private set; }
   public static Game Instance { get; private set; }
 
   internal World World { get; set; }
@@ -43,6 +45,10 @@ public partial class Game : Node {
 
   public static T GetGameMode<T>() where T : GameMode {
     return GetGameMode() as T;
+  }
+
+  public void PauseGame() {
+    GetTree().Paused = !GetTree().Paused;
   }
 
   public void QuitGame() {

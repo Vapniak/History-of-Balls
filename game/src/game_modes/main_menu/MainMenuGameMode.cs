@@ -5,15 +5,11 @@ using GameplayFramework;
 
 [GlobalClass]
 public partial class MainMenuGameMode : GameMode {
-  [Export] private PackedScene _startLevelScene;
   [Export] private PackedScene _settingsScene;
 
   private SettingsMenu _settings;
   public void StartGame() {
-    // FIXME: temp level selection
-    // TODO: level selection screen and transitions
-    var level = _startLevelScene.InstantiateOrNull<Level>();
-    Game.GetWorld().OpenLevel(level);
+    Game.GetWorld().OpenLevel("tests_level");
   }
 
   public void OpenSettings() {

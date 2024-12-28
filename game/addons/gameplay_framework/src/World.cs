@@ -25,7 +25,11 @@ public sealed partial class World : Node {
     Game.Instance.World = null;
   }
 
-  public void OpenLevel(Level level) {
+  private void OpenLevel(Level level) {
+    if (level == null) {
+      GD.PrintErr("Loaded level is null.");
+      return;
+    }
     if (CurrentLevel != null) {
       CurrentLevel.UnLoad();
       CurrentLevel.QueueFree();
@@ -33,6 +37,17 @@ public sealed partial class World : Node {
     CurrentLevel = level;
     CurrentLevel.Load();
     AddChild(CurrentLevel);
+  }
+
+
+  /// <summary>
+  /// Loads level by its name.
+  /// </summary>
+  /// <param name="levelName">Name of saved level scene.</param>
+  public void OpenLevel(string levelName) {
+    var scene = ResourceLoader.Load<PackedScene>(Game.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn");
+    var level = scene.Instantiate<Level>();
+    OpenLevel(level);
   }
   public GameMode GetGameMode() => CurrentLevel.GameMode;
 }

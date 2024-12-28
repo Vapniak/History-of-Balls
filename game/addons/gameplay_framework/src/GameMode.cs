@@ -15,6 +15,7 @@ public partial class GameMode : Node {
 
   public virtual void Init() {
     GameState = CreateGameState();
+    GameState.Init();
 
     foreach (var child in GetChildren()) {
       if (child is GameModeComponent component) {
