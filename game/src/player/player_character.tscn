@@ -12,7 +12,6 @@ Camera = NodePath("Camera3D")
 _acceleration = 20.0
 _moveSpeedMinZoom = 300.0
 _moveSpeedMaxZoom = 70.0
-_edgeMarginPixels = 100
 _maxZoomOffset = Vector3(0, 40, 40)
 _distanceCurve = SubResource("Curve_t3eex")
 

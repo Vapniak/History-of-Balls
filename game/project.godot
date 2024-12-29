@@ -8,6 +8,18 @@
 
 config_version=5
 
+[addons]
+
+resources_spreadsheet_view/array_color_tint=100.0
+resources_spreadsheet_view/color_rows=true
+resources_spreadsheet_view/array_min_width=128.0
+resources_spreadsheet_view/resource_preview_size=32.0
+resources_spreadsheet_view/clip_headers=false
+resources_spreadsheet_view/dupe_arrays=true
+resources_spreadsheet_view/context_menu_on_leftclick=false
+resources_spreadsheet_view/fold_docks=true
+resources_spreadsheet_view/resource_cell_label_mode=1
+
 [application]
 
 config/name="History of Balls"
@@ -21,6 +33,7 @@ config/icon="res://assets/icon.svg"
 
 Panku="*res://addons/panku_console/console.tscn"
 Game="*res://addons/gameplay_framework/src/globals/game.tscn"
+RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
 
 [display]
 
@@ -37,7 +50,7 @@ project/assembly_name="History of Balls"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/camera_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg")
+enabled=PackedStringArray("res://addons/camera_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
 
 [file_customization]
 

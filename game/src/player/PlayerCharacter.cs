@@ -1,15 +1,14 @@
 namespace HOB;
 
-using System;
 using GameplayFramework;
 using Godot;
-using HexGridMap;
 
 public partial class PlayerCharacter : Node3D, IPlayerControllable {
   [Export] public Camera3D Camera { get; private set; }
+  [Export] public int EdgeMarginPixels { get; private set; } = 50;
   [Export] private float _acceleration = 10f;
   [Export] private float _moveSpeedMinZoom = 400, _moveSpeedMaxZoom = 100;
-  [Export] private int _edgeMarginPixels = 50;
+  [Export] private float _dragForce = 10f;
 
   [ExportGroup("Zoom")]
   [Export] public bool AllowZoom { get; private set; } = true;
@@ -54,29 +53,18 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   }
 
   public void HandlePanning(double delta, Vector2 mouseDisplacement) {
+    // TODO: load from settings
     var panSpeedMulti = .2f;
     Velocity = Vector3.Zero;
     GlobalTranslate(new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * (float)delta * MoveSpeed * panSpeedMulti);
   }
 
-  public void HandleEdgeMovement(double delta, Vector2 mousePosition, Vector2 screenRect) {
-    var dir = Vector2.Zero;
-
-    if (mousePosition.X < _edgeMarginPixels) {
-      dir.X -= 1;
-    }
-    else if (mousePosition.X > screenRect.X - _edgeMarginPixels) {
-      dir.X += 1;
+  public void ApplyDrag(double delta) {
+    if (Velocity == Vector3.Zero) {
+      return;
     }
 
-    if (mousePosition.Y < _edgeMarginPixels) {
-      dir.Y -= 1;
-    }
-    else if (mousePosition.Y > screenRect.Y - _edgeMarginPixels) {
-      dir.Y += 1;
-    }
-
-    HandleDirectionalMovement(delta, dir);
+    Velocity -= new Vector3(Velocity.X, 0, Velocity.Z).Normalized() * Velocity.Length() * (float)delta * _dragForce;
   }
 
   // TODO: position clamping to grid size

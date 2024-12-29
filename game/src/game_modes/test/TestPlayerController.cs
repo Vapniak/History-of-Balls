@@ -2,6 +2,7 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
+using RaycastSystem;
 using System;
 
 [GlobalClass]
@@ -43,16 +44,44 @@ public partial class TestPlayerController : PlayerController {
   public override void _Process(double delta) {
     base._Process(delta);
 
+
     if (!_isPanning) {
+      Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
       var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
       if (moveVector != Vector2.Zero) {
         _character.HandleDirectionalMovement(delta, moveVector);
       }
       else {
-        _character.HandleEdgeMovement(delta, GetViewport().GetMousePosition(), GetViewport().GetVisibleRect().Size);
+        var mousePosition = GetViewport().GetMousePosition();
+        var edgeMarginPixels = _character.EdgeMarginPixels;
+        var screenRect = GetViewport().GetVisibleRect().Size;
+        var dir = Vector2.Zero;
+
+        if (mousePosition.X < edgeMarginPixels) {
+          dir.X -= 1;
+        }
+        else if (mousePosition.X > screenRect.X - edgeMarginPixels) {
+          dir.X += 1;
+        }
+
+        if (mousePosition.Y < edgeMarginPixels) {
+          dir.Y -= 1;
+        }
+        else if (mousePosition.Y > screenRect.Y - edgeMarginPixels) {
+          dir.Y += 1;
+        }
+
+        if (dir != Vector2.Zero) {
+          Input.SetDefaultCursorShape(Input.CursorShape.Drag);
+          _character.HandleDirectionalMovement(delta, dir);
+        }
+        else {
+          _character.ApplyDrag(delta);
+        }
       }
     }
     else if (_character.AllowPan) {
+      Input.SetDefaultCursorShape(Input.CursorShape.Drag);
       var currentMousePos = GetViewport().GetMousePosition();
       var displacement = currentMousePos - _lastMousePosition;
       _lastMousePosition = currentMousePos;
@@ -68,14 +97,9 @@ public partial class TestPlayerController : PlayerController {
   }
 
   private void SelectCell() {
-    var mousePos = GetViewport().GetMousePosition();
-    var from = _character.Camera.ProjectRayOrigin(mousePos);
-    var to = from + (_character.Camera.ProjectRayNormal(mousePos) * 1000);
-    var rayQuery = PhysicsRayQueryParameters3D.Create(from, to);
-    var space = GetWorld3D().DirectSpaceState;
-    var raycastResult = space.IntersectRay(rayQuery);
-    if (raycastResult.Count > 0) {
-      var point = raycastResult["position"].AsVector3();
+    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport());
+    if (raycastResult != null) {
+      var point = raycastResult.Position;
       var coordinates = Game.GetGameState<TestGameState>().GameBoard.Grid.Layout.PointToHexCoordinates(new(point.X, point.Z));
       GD.Print(coordinates.ToString());
     }
