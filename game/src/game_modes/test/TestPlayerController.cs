@@ -8,35 +8,60 @@ using System;
 public partial class TestPlayerController : PlayerController {
 
   private PlayerCharacter _character;
+
+  private bool _isPanning;
+  private Vector2 _lastMousePosition;
   public override void _Ready() {
     base._Ready();
 
     _character = GetCharacter<PlayerCharacter>();
   }
 
-  // TODO: move it into physics process and add acceleration, also add movement on moving mouse to screen corners
+  public override void _Input(InputEvent @event) {
+    if (@event.IsActionPressed(GameInputs.CameraPan)) {
+      _isPanning = true;
+      _lastMousePosition = GetViewport().GetMousePosition();
+    }
+    else if (@event.IsActionReleased(GameInputs.CameraPan)) {
+      _isPanning = false;
+    }
+
+    if (_character.AllowZoom) {
+      if (@event.IsActionPressed(GameInputs.ZoomIn)) {
+        _character.AdjustZoom(1);
+      }
+      else if (@event.IsActionPressed(GameInputs.ZoomOut)) {
+        _character.AdjustZoom(-1);
+      }
+    }
+
+    if (@event.IsActionPressed(GameInputs.Select)) {
+      SelectCell();
+    }
+  }
+
   public override void _Process(double delta) {
     base._Process(delta);
 
-    if (Input.IsActionJustPressed(GameInputs.Select)) {
-      SelectCell();
+    if (!_isPanning) {
+      var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
+      if (moveVector != Vector2.Zero) {
+        _character.HandleDirectionalMovement(delta, moveVector);
+      }
+      else {
+        _character.HandleEdgeMovement(delta, GetViewport().GetMousePosition(), GetViewport().GetVisibleRect().Size);
+      }
+    }
+    else if (_character.AllowPan) {
+      var currentMousePos = GetViewport().GetMousePosition();
+      var displacement = currentMousePos - _lastMousePosition;
+      _lastMousePosition = currentMousePos;
+
+      _character.HandlePanning(delta, displacement);
     }
 
-    float zoomDelta = 0;
-    if (Input.IsActionJustPressed(GameInputs.ZoomIn)) {
-      zoomDelta = 1;
-    }
-    else if (Input.IsActionJustPressed(GameInputs.ZoomOut)) {
-      zoomDelta = -1;
-    }
-
-    if (zoomDelta != 0) {
-      _character.AdjustZoom(zoomDelta);
-    }
-
-    var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
-    _character.Accelerate(delta, moveVector.X, moveVector.Y);
     _character.Move(delta);
+
 
     // TODO: position clamping
     // _character.ClampPosition(Game.GetGameState<TestGameState>().HexGrid);
@@ -50,7 +75,6 @@ public partial class TestPlayerController : PlayerController {
     var space = GetWorld3D().DirectSpaceState;
     var raycastResult = space.IntersectRay(rayQuery);
     if (raycastResult.Count > 0) {
-      GD.Print(raycastResult);
       var point = raycastResult["position"].AsVector3();
       var coordinates = Game.GetGameState<TestGameState>().GameBoard.Grid.Layout.PointToHexCoordinates(new(point.X, point.Z));
       GD.Print(coordinates.ToString());

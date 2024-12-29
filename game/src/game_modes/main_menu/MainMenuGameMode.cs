@@ -8,6 +8,9 @@ public partial class MainMenuGameMode : GameMode {
   [Export] private PackedScene _settingsScene;
 
   private SettingsMenu _settings;
+
+  protected override GameState CreateGameState() => new MainMenuGameState();
+
   public void StartGame() {
     Game.GetWorld().OpenLevel("tests_level");
   }
