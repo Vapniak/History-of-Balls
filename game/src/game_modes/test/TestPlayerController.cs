@@ -18,7 +18,7 @@ public partial class TestPlayerController : PlayerController {
     _character = GetCharacter<PlayerCharacter>();
   }
 
-  public override void _Input(InputEvent @event) {
+  public override void _UnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
       _lastMousePosition = GetViewport().GetMousePosition();
@@ -81,6 +81,7 @@ public partial class TestPlayerController : PlayerController {
       }
     }
     else if (_character.AllowPan) {
+      // TODO: pan movement smoothing
       Input.SetDefaultCursorShape(Input.CursorShape.Drag);
       var currentMousePos = GetViewport().GetMousePosition();
       var displacement = currentMousePos - _lastMousePosition;
@@ -90,7 +91,6 @@ public partial class TestPlayerController : PlayerController {
     }
 
     _character.Move(delta);
-
 
     // TODO: position clamping
     // _character.ClampPosition(Game.GetGameState<TestGameState>().HexGrid);

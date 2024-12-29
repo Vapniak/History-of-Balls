@@ -6,13 +6,14 @@ using Godot;
 /// <summary>
 /// Main game manager.
 /// </summary>
+
+// TODO: rename it to game instance
 public partial class Game : Node {
   // TODO: better flow of creation and deletion of nodes
   [Export(PropertyHint.Dir)] public string LevelsDirectoryPath { get; private set; }
   public static Game Instance { get; private set; }
 
-  internal World World { get; set; }
-
+  private World World { get; set; }
   public override void _EnterTree() {
     if (Instance == null) {
       Instance = this;
@@ -35,10 +36,6 @@ public partial class Game : Node {
     return GetGameState() as T;
   }
 
-  public static World GetWorld() {
-    return Instance.World;
-  }
-
   public static GameMode GetGameMode() {
     return Instance.World.GetGameMode();
   }
@@ -47,11 +44,29 @@ public partial class Game : Node {
     return GetGameMode() as T;
   }
 
-  public void PauseGame() {
-    GetTree().Paused = !GetTree().Paused;
+  public static void CreateWorld(string startLevelName = null) {
+    var world = new World();
+    Instance.World = world;
+
+    Instance.GetTree().CurrentScene.Free();
+    Instance.GetTree().Root.AddChild(world);
+    Instance.GetTree().CurrentScene = world;
+
+    if (startLevelName != null) {
+      world.OpenLevel(startLevelName);
+    }
   }
 
-  public void QuitGame() {
-    GetTree().Quit();
+  public static World GetWorld() {
+    return Instance.World;
+  }
+
+
+  public static void PauseGame() {
+    Instance.GetTree().Paused = !Instance.GetTree().Paused;
+  }
+
+  public static void QuitGame() {
+    Instance.GetTree().Quit();
   }
 }

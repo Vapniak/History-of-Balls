@@ -1,7 +1,6 @@
 namespace GameplayFramework;
 
 using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
 /// <summary>
@@ -27,12 +26,22 @@ public partial class GameMode : Node {
     }
   }
 
-  protected virtual GameState CreateGameState() {
-    return new GameState();
-  }
 
   public T GetGameState<T>() where T : GameState => GetGameState() as T;
   public GameState GetGameState() => GameState;
 
-  public T GetGameModeComponent<T>() where T : GameModeComponent => GameModeComponents.OfType<T>().First();
+  public T GetGameModeComponent<T>() where T : GameModeComponent {
+    foreach (var component in GameModeComponents) {
+      if (component is T comp) {
+        return comp;
+      }
+    }
+
+    return null;
+  }
+
+  protected virtual GameState CreateGameState() {
+    return new GameState();
+  }
+
 }

@@ -21,7 +21,6 @@ public class RaycastResult {
   public int FaceIndex;
 }
 
-[GlobalClass]
 public partial class RaycastSystem : Node {
   /// <summary>
   ///

@@ -17,6 +17,7 @@ script = ExtResource("1_7t7wu")
 layout_mode = 1
 offset_right = 19.0
 offset_bottom = 23.0
+mouse_filter = 2
 
 [node name="Label" type="Label" parent="PanelContainer"]
 layout_mode = 2

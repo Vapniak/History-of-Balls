@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbsd3dhi0iesf"]
+[gd_scene load_steps=6 format=3 uid="uid://bbsd3dhi0iesf"]
 
 [ext_resource type="Texture2D" uid="uid://cuecdkq467xga" path="res://assets/godot_logo.png" id="1_153f5"]
 [ext_resource type="Script" path="res://src/gui/splash/Splash.cs" id="1_pj6um"]
-[ext_resource type="PackedScene" uid="uid://7op7pws1x2yk" path="res://src/worlds/world.tscn" id="2_w8fl6"]
 
 [sub_resource type="Animation" id="Animation_vde50"]
 length = 0.001
@@ -50,7 +49,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_pj6um")
-_mainMenuScene = ExtResource("2_w8fl6")
 _animationPlayer = NodePath("AnimationPlayer")
 
 [node name="ColorRect" type="ColorRect" parent="."]

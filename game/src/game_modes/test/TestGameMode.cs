@@ -26,15 +26,11 @@ public partial class TestGameMode : GameMode {
 
   protected override GameState CreateGameState() => new TestGameState();
 
-  private void OnResume() {
-    PauseComponent.Resume();
-  }
+  private void OnResume() => PauseComponent.Resume();
   private void OnMainMenu() {
     OnResume();
     Game.GetWorld().OpenLevel("main_menu_level");
   }
 
-  private void OnQuit() {
-    Game.Instance.QuitGame();
-  }
+  private void OnQuit() => Game.QuitGame();
 }

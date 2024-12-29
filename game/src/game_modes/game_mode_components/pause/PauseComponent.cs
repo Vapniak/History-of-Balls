@@ -2,7 +2,6 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
-using System;
 
 [GlobalClass]
 public partial class PauseComponent : GameModeComponent, IGameModeComponent<IPauseGameState> {
@@ -24,7 +23,7 @@ public partial class PauseComponent : GameModeComponent, IGameModeComponent<IPau
   public void Resume() {
     _pauseMenu.Visible = false;
     if (GetGameState().PauseGame) {
-      Game.Instance.PauseGame();
+      Game.PauseGame();
     }
 
     _pauseMenuShown = false;
@@ -37,7 +36,7 @@ public partial class PauseComponent : GameModeComponent, IGameModeComponent<IPau
     _pauseMenuShown = true;
 
     if (GetGameState().PauseGame) {
-      Game.Instance.PauseGame();
+      Game.PauseGame();
     }
   }
 

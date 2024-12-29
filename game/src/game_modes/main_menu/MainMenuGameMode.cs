@@ -11,9 +11,7 @@ public partial class MainMenuGameMode : GameMode {
 
   protected override GameState CreateGameState() => new MainMenuGameState();
 
-  public void StartGame() {
-    Game.GetWorld().OpenLevel("tests_level");
-  }
+  public void StartGame() => Game.GetWorld().OpenLevel("tests_level");
 
   public void OpenSettings() {
     _settings = _settingsScene.Instantiate<SettingsMenu>();
@@ -26,7 +24,5 @@ public partial class MainMenuGameMode : GameMode {
     _settings.Closed -= CloseSettings;
   }
 
-  public void Quit() {
-    Game.Instance.QuitGame();
-  }
+  public void Quit() => Game.QuitGame();
 }

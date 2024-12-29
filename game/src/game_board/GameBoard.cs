@@ -29,5 +29,7 @@ public partial class GameBoard : Node3D {
       mesh.Scale = Vector3.One * Grid.Layout.HexCellScale;
       AddChild(mesh);
     }
+
+    // TODO: hex units
   }
 }
