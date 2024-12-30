@@ -67,7 +67,6 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   public void ClampPosition(Aabb aabb) {
     var pos = GlobalPosition;
-    GD.Print(aabb.GetCenter() - (aabb.Size / 4), GlobalPosition);
     pos = pos.Clamp(aabb.GetCenter() - (aabb.Size / 2), aabb.GetCenter() + (aabb.Size / 2));
     GlobalPosition = new(pos.X, GlobalPosition.Y, pos.Z);
   }

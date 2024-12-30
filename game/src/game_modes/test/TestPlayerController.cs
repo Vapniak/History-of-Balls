@@ -91,9 +91,7 @@ public partial class TestPlayerController : PlayerController {
 
     _character.Move(delta);
 
-
-    // TODO: get it to working
-    //_character.ClampPosition(Game.GetGameState<TestGameState>().GameBoard.GetAabb());
+    _character.ClampPosition(Game.GetGameState<TestGameState>().GameBoard.GetAabb());
   }
 
   private void SelectCell() {

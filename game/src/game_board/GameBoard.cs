@@ -17,6 +17,8 @@ public partial class GameBoard : Node3D {
     var count = cells.Length;
     CellPositions = new Vector3[count];
 
+    _combinedAabb = new();
+
     // TODO: procedural map generation
     for (var i = 0; i < count; i++) {
       var cell = cells[i];
@@ -29,11 +31,10 @@ public partial class GameBoard : Node3D {
       mesh.Scale = Vector3.One * Grid.GetLayout().HexCellScale;
       AddChild(mesh);
 
-      _combinedAabb = _combinedAabb.Merge(mesh.GetAabb() * GlobalTransform);
+      _combinedAabb = _combinedAabb.Merge(mesh.GlobalTransform * mesh.GetAabb());
     }
 
     // TODO: hex units
   }
-
   public Aabb GetAabb() => _combinedAabb;
 }
