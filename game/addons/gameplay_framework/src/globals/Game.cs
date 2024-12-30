@@ -48,7 +48,7 @@ public partial class Game : Node {
     var world = new World();
     Instance.World = world;
 
-    Instance.GetTree().CurrentScene.Free();
+    Instance.GetTree().CurrentScene.QueueFree();
     Instance.GetTree().Root.AddChild(world);
     Instance.GetTree().CurrentScene = world;
 

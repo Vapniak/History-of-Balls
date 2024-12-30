@@ -6,8 +6,8 @@ using Godot;
 
 [GlobalClass]
 public partial class HexGrid : Node {
-  [Export] public HexLayout Layout { get; private set; } = new();
-  [Export] public GridShape GridShape { get; private set; }
+  [Export] private GridShape GridShape { get; set; }
+  [Export] private HexLayout Layout { get; set; } = new();
   private readonly HashSet<HexCell> _grid = new();
 
   public void CreateGrid() {
@@ -30,4 +30,6 @@ public partial class HexGrid : Node {
   public HexCell[] GetCells() {
     return _grid.ToArray();
   }
+
+  public HexLayout GetLayout() => Layout;
 }

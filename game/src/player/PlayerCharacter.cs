@@ -21,6 +21,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   [ExportGroup("Panning")]
   [Export] public bool AllowPan { get; private set; } = true;
+  [Export] private float _panSpeedMulti = 20f;
 
   public Vector3 Velocity { get; private set; }
   public float Zoom { get; private set; } = 1f;
@@ -53,10 +54,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   }
 
   public void HandlePanning(double delta, Vector2 mouseDisplacement) {
-    // TODO: load from settings
-    var panSpeedMulti = .2f;
-    Velocity = Vector3.Zero;
-    GlobalTranslate(new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * (float)delta * MoveSpeed * panSpeedMulti);
+    Velocity = new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * (float)delta * MoveSpeed * _panSpeedMulti;
   }
 
   public void ApplyDrag(double delta) {
@@ -67,14 +65,12 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     Velocity -= new Vector3(Velocity.X, 0, Velocity.Z).Normalized() * Velocity.Length() * (float)delta * _dragForce;
   }
 
-  // TODO: position clamping to grid size
-  // public void ClampPosition(HexGrid hexGrid) {
-  //   var pos = Position;
-  //   pos.X = Mathf.Clamp(pos.X, 0f, hexGrid.GetRealSizeX());
-  //   pos.Z = Mathf.Clamp(pos.Z, 0f, hexGrid.GetRealSizeZ());
-
-  //   Position = new(pos.X, Position.Y, pos.Z);
-  // }
+  public void ClampPosition(Aabb aabb) {
+    var pos = GlobalPosition;
+    GD.Print(aabb.GetCenter() - (aabb.Size / 4), GlobalPosition);
+    pos = pos.Clamp(aabb.GetCenter() - (aabb.Size / 2), aabb.GetCenter() + (aabb.Size / 2));
+    GlobalPosition = new(pos.X, GlobalPosition.Y, pos.Z);
+  }
 
   public void Move(double delta) {
     GlobalTranslate(Velocity * (float)delta);

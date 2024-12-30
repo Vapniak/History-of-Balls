@@ -2,15 +2,14 @@ namespace HOB;
 
 using Godot;
 using HexGridMap;
-using System;
 
 public partial class GameBoard : Node3D {
-
   [Export] public HexGrid Grid { get; private set; }
-
   [Export] private PackedScene _debugMesh;
 
   public Vector3[] CellPositions { get; private set; }
+
+  private Aabb _combinedAabb;
   public override void _Ready() {
     Grid.CreateGrid();
 
@@ -18,18 +17,23 @@ public partial class GameBoard : Node3D {
     var count = cells.Length;
     CellPositions = new Vector3[count];
 
+    // TODO: procedural map generation
     for (var i = 0; i < count; i++) {
       var cell = cells[i];
-      var point = Grid.Layout.HexCoordinatesToPoint(cell.Coordinates);
-      var mesh = _debugMesh.Instantiate<Node3D>();
+      var point = Grid.GetLayout().HexCoordinatesToPoint(cell.Coordinates);
+      var mesh = _debugMesh.Instantiate<MeshInstance3D>();
 
       CellPositions[i] = new(point.X, 0, point.Y);
 
       mesh.Position = new(point.X, 0, point.Y);
-      mesh.Scale = Vector3.One * Grid.Layout.HexCellScale;
+      mesh.Scale = Vector3.One * Grid.GetLayout().HexCellScale;
       AddChild(mesh);
+
+      _combinedAabb = _combinedAabb.Merge(mesh.GetAabb() * GlobalTransform);
     }
 
     // TODO: hex units
   }
+
+  public Aabb GetAabb() => _combinedAabb;
 }

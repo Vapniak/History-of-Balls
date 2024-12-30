@@ -44,7 +44,7 @@ public partial class TestPlayerController : PlayerController {
   public override void _Process(double delta) {
     base._Process(delta);
 
-
+    // TODO: maybe make it more readable?
     if (!_isPanning) {
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
       var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
@@ -81,7 +81,6 @@ public partial class TestPlayerController : PlayerController {
       }
     }
     else if (_character.AllowPan) {
-      // TODO: pan movement smoothing
       Input.SetDefaultCursorShape(Input.CursorShape.Drag);
       var currentMousePos = GetViewport().GetMousePosition();
       var displacement = currentMousePos - _lastMousePosition;
@@ -92,15 +91,16 @@ public partial class TestPlayerController : PlayerController {
 
     _character.Move(delta);
 
-    // TODO: position clamping
-    // _character.ClampPosition(Game.GetGameState<TestGameState>().HexGrid);
+
+    // TODO: get it to working
+    //_character.ClampPosition(Game.GetGameState<TestGameState>().GameBoard.GetAabb());
   }
 
   private void SelectCell() {
     var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport());
     if (raycastResult != null) {
       var point = raycastResult.Position;
-      var coordinates = Game.GetGameState<TestGameState>().GameBoard.Grid.Layout.PointToHexCoordinates(new(point.X, point.Z));
+      var coordinates = Game.GetGameState<TestGameState>().GameBoard.Grid.GetLayout().PointToHexCoordinates(new(point.X, point.Z));
       GD.Print(coordinates.ToString());
     }
     else {
