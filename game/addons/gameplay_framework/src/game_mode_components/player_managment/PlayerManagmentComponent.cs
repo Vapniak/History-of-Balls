@@ -51,5 +51,5 @@ public partial class PlayerManagmentComponent : GameModeComponent, IGameModeComp
     return new PlayerState();
   }
 
-  public IPlayerManagmentGameState GetGameState() => GameState as IPlayerManagmentGameState;
+  public override IPlayerManagmentGameState GetGameState() => base.GetGameState() as IPlayerManagmentGameState;
 }

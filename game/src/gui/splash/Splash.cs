@@ -14,5 +14,5 @@ public partial class Splash : Control {
     }
   }
   public void PlayIntro() => _animationPlayer.Play("intro");
-  private void GoToMainMenu() => Game.CreateWorld("main_menu_level");
+  private static void GoToMainMenu() => Game.CreateWorld("main_menu_level");
 }

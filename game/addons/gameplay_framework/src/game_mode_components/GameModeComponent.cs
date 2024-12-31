@@ -4,9 +4,11 @@ using Godot;
 using System;
 
 [GlobalClass]
-public abstract partial class GameModeComponent : Node {
+public abstract partial class GameModeComponent : Node, IGameModeComponent<IGameState> {
   public GameMode OwnerGameMode { get; set; }
 
-  public GameState GameState { get; set; }
+  internal GameState GameState { get; set; }
+
   public virtual void Init() { }
+  public virtual IGameState GetGameState() => GameState;
 }

@@ -10,7 +10,7 @@ public partial class GameBoard : Node3D {
   public Vector3[] CellPositions { get; private set; }
 
   private Aabb _combinedAabb;
-  public override void _Ready() {
+  public override async void _Ready() {
     Grid.CreateGrid();
 
     var cells = Grid.GetCells();
@@ -19,7 +19,9 @@ public partial class GameBoard : Node3D {
 
     _combinedAabb = new();
 
-    // TODO: procedural map generation
+    // TODO: procedural map generation and divide it into chunks and optimalize
+    // TODO: chunk loading of nearest visible nodes
+    // TODO: option to load map from external file
     for (var i = 0; i < count; i++) {
       var cell = cells[i];
       var point = Grid.GetLayout().HexCoordinatesToPoint(cell.Coordinates);
@@ -33,8 +35,6 @@ public partial class GameBoard : Node3D {
 
       _combinedAabb = _combinedAabb.Merge(mesh.GlobalTransform * mesh.GetAabb());
     }
-
-    // TODO: hex units
   }
   public Aabb GetAabb() => _combinedAabb;
 }

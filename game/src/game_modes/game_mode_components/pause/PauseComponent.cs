@@ -40,6 +40,6 @@ public partial class PauseComponent : GameModeComponent, IGameModeComponent<IPau
     }
   }
 
-  public IPauseGameState GetGameState() => GameState as IPauseGameState;
+  public override IPauseGameState GetGameState() => base.GetGameState() as IPauseGameState;
   public IPauseMenu GetPauseMenu() => _pauseMenu;
 }
