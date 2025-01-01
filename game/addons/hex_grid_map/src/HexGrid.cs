@@ -8,14 +8,14 @@ using Godot;
 public partial class HexGrid : Node {
   [Export] private GridShape GridShape { get; set; }
   [Export] private HexLayout Layout { get; set; } = new();
-  private readonly HashSet<HexCell> _grid = new();
+  private readonly HashSet<HexCoordinates> _grid = new();
 
   public void CreateGrid() {
     _grid.Clear();
     GridShape.CreateGrid(this);
   }
 
-  public void AddHex(HexCell hex) {
+  public void AddHex(HexCoordinates hex) {
     _grid.Add(hex);
   }
 
@@ -23,11 +23,11 @@ public partial class HexGrid : Node {
     return _grid.Count;
   }
 
-  public void RemoveHex(HexCell hex) {
+  public void RemoveHex(HexCoordinates hex) {
     _grid.Remove(hex);
   }
 
-  public HexCell[] GetCells() {
+  public HexCoordinates[] GetCells() {
     return _grid.ToArray();
   }
 

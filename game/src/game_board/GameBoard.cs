@@ -4,8 +4,9 @@ using Godot;
 using HexGridMap;
 
 public partial class GameBoard : Node3D {
-  [Export] public HexGrid Grid { get; private set; }
+  [Export] private HexGrid Grid { get; set; }
   [Export] private PackedScene _debugMesh;
+  [Export] private PackedScene _testUnit;
 
   public Vector3[] CellPositions { get; private set; }
 
@@ -24,7 +25,7 @@ public partial class GameBoard : Node3D {
     // TODO: option to load map from external file
     for (var i = 0; i < count; i++) {
       var cell = cells[i];
-      var point = Grid.GetLayout().HexCoordinatesToPoint(cell.Coordinates);
+      var point = Grid.GetLayout().HexToPoint(cell);
       var mesh = _debugMesh.Instantiate<MeshInstance3D>();
 
       CellPositions[i] = new(point.X, 0, point.Y);
@@ -37,4 +38,10 @@ public partial class GameBoard : Node3D {
     }
   }
   public Aabb GetAabb() => _combinedAabb;
+
+  // TODO: cell selection and showing actions
+
+  public HexCoordinates GetHexCoordinates(Vector3 point) {
+    return Grid.GetLayout().PointToHex(new(point.X, point.Z));
+  }
 }

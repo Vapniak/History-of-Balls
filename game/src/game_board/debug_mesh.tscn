@@ -13,6 +13,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 mesh = SubResource("CylinderMesh_dyr4p")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_b3nya")

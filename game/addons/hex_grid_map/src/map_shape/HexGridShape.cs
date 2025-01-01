@@ -12,7 +12,7 @@ public partial class HexGridShape : GridShape {
       var r1 = Mathf.Max(-Size, -q - Size);
       var r2 = Mathf.Min(Size, -q + Size);
       for (var r = r1; r <= r2; r++) {
-        grid.AddHex(new(new(q, r)));
+        grid.AddHex(new(q, r));
       }
     }
   }

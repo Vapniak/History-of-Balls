@@ -36,13 +36,13 @@ public partial class HexLayout : Resource {
     HexCellScale = hexCellScale;
   }
 
-  public Vector2 HexCoordinatesToPoint(HexCoordinates coordinates) {
-    var x = ((Orientation.F0 * coordinates.Q) + (Orientation.F1 * coordinates.R)) * HexCellScale;
-    var y = ((Orientation.F2 * coordinates.Q) + (Orientation.F3 * coordinates.R)) * HexCellScale;
+  public Vector2 HexToPoint(HexCoordinates hex) {
+    var x = ((Orientation.F0 * hex.Q) + (Orientation.F1 * hex.R)) * HexCellScale;
+    var y = ((Orientation.F2 * hex.Q) + (Orientation.F3 * hex.R)) * HexCellScale;
     return new(x, y);
   }
 
-  public HexCoordinates PointToHexCoordinates(Vector2 point) {
+  public HexCoordinates PointToHex(Vector2 point) {
     Vector2 pointOnGrid = new(point.X / HexCellScale, point.Y / HexCellScale);
     var x = (Orientation.B0 * pointOnGrid.X) + (Orientation.B1 * pointOnGrid.Y);
     var y = (Orientation.B2 * pointOnGrid.X) + (Orientation.B3 * pointOnGrid.Y);

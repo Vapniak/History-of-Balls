@@ -98,7 +98,7 @@ public partial class TestPlayerController : PlayerController {
     var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport());
     if (raycastResult != null) {
       var point = raycastResult.Position;
-      var coordinates = Game.GetGameState<TestGameState>().GameBoard.Grid.GetLayout().PointToHexCoordinates(new(point.X, point.Z));
+      var coordinates = Game.GetGameState<TestGameState>().GameBoard.GetHexCoordinates(point);
       GD.Print(coordinates.ToString());
     }
     else {

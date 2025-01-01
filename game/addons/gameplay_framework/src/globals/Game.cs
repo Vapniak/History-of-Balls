@@ -45,7 +45,9 @@ public partial class Game : Node {
   }
 
   public static void CreateWorld(string startLevelName = null) {
-    var world = new World();
+    var world = new World() {
+      Name = "World"
+    };
     Instance.World = world;
 
     Instance.GetTree().CurrentScene.QueueFree();
