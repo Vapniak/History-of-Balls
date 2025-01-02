@@ -54,7 +54,7 @@ project/assembly_name="History of Balls"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/game_entity_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
+enabled=PackedStringArray("res://addons/gameplay_framework/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/raycast_system/plugin.cfg")
 
 [file_customization]
 

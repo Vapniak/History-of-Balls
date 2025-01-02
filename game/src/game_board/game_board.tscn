@@ -1,10 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=8 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="PackedScene" uid="uid://c0iv14ql11gtj" path="res://src/game_board/debug_mesh.tscn" id="2_a2u1n"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/HexLayout.cs" id="3_7dghw"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="3_323vx"]
-[ext_resource type="PackedScene" uid="uid://cvv3km15wpck0" path="res://src/game_entities/units/test_unit.tscn" id="3_jkgls"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/map_shape/HexGridShape.cs" id="4_qjpr2"]
 
 [sub_resource type="Resource" id="Resource_x6l3f"]
@@ -20,7 +19,6 @@ OrientationType = 1
 script = ExtResource("1_fetkt")
 Grid = NodePath("HexGrid")
 _debugMesh = ExtResource("2_a2u1n")
-_testUnit = ExtResource("3_jkgls")
 
 [node name="HexGrid" type="Node" parent="."]
 script = ExtResource("3_323vx")

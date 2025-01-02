@@ -19,12 +19,12 @@ public partial class HexGrid : Node {
     _grid.Add(hex);
   }
 
-  public int CellCount() {
-    return _grid.Count;
-  }
-
   public void RemoveHex(HexCoordinates hex) {
     _grid.Remove(hex);
+  }
+
+  public int CellCount() {
+    return _grid.Count;
   }
 
   public HexCoordinates[] GetCells() {

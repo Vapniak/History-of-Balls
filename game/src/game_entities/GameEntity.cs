@@ -1,38 +1,29 @@
-namespace HOB;
+namespace HOB.Entity;
 
 using Godot;
-using Godot.Collections;
 using System;
+using System.Collections.Generic;
 
 public partial class GameEntity : Node3D {
+  [Export] public GameEntityData GameEntityData { get; private set; }
+
+  private readonly Dictionary<Type, GameEntityTrait> _traits = new();
+
   public override void _Ready() {
-    InitComponents();
-  }
-
-  public T GetComponent<T>() where T : GameEntityComponent {
-    foreach (var comp in GetAllComponents()) {
-      if (comp is T) {
-        return comp as T;
-      }
-    }
-
-    return null;
-  }
-
-  public Array<GameEntityComponent> GetAllComponents() {
-    var components = new Array<GameEntityComponent>();
     foreach (var child in GetChildren()) {
-      if (child is GameEntityComponent comp) {
-        components.Add(comp);
+      if (child is GameEntityTrait trait) {
+        trait.Owner = this;
+        trait.SetData(GameEntityData);
+        AddTrait(trait);
       }
     }
-
-    return components;
   }
 
-  private void InitComponents() {
-    foreach (var comp in GetAllComponents()) {
-      comp.Owner = this;
-    }
+  public T GetTrait<T>() where T : GameEntityTrait {
+    return (T)_traits[typeof(T)];
+  }
+
+  private void AddTrait<T>(T trait) where T : GameEntityTrait {
+    _traits[typeof(T)] = trait;
   }
 }

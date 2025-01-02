@@ -43,5 +43,4 @@ public partial class GameMode : Node {
   protected virtual GameState CreateGameState() {
     return new GameState();
   }
-
 }

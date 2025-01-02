@@ -6,12 +6,11 @@ using HexGridMap;
 public partial class GameBoard : Node3D {
   [Export] private HexGrid Grid { get; set; }
   [Export] private PackedScene _debugMesh;
-  [Export] private PackedScene _testUnit;
 
   public Vector3[] CellPositions { get; private set; }
 
   private Aabb _combinedAabb;
-  public override async void _Ready() {
+  public override void _Ready() {
     Grid.CreateGrid();
 
     var cells = Grid.GetCells();
@@ -31,7 +30,6 @@ public partial class GameBoard : Node3D {
       CellPositions[i] = new(point.X, 0, point.Y);
 
       mesh.Position = new(point.X, 0, point.Y);
-      mesh.Scale = Vector3.One * Grid.GetLayout().HexCellScale;
       AddChild(mesh);
 
       _combinedAabb = _combinedAabb.Merge(mesh.GlobalTransform * mesh.GetAabb());
