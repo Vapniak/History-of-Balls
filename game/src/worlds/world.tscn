@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://7op7pws1x2yk"]
+
+[ext_resource type="Script" path="res://addons/gameplay_framework/src/World.cs" id="1_nceb3"]
+[ext_resource type="PackedScene" uid="uid://bho42afyokt62" path="res://src/levels/main_menu_level.tscn" id="2_16nw8"]
+
+[node name="World" type="Node"]
+script = ExtResource("1_nceb3")
+
+[node name="MainMenuLevel" parent="." instance=ExtResource("2_16nw8")]

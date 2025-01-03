@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bho42afyokt62"]
+
+[ext_resource type="Script" path="res://addons/gameplay_framework/src/Level.cs" id="1_3j1o7"]
+[ext_resource type="PackedScene" uid="uid://diw8kotx1evqt" path="res://src/game_modes/main_menu/main_menu_game_mode.tscn" id="2_2q8va"]
+[ext_resource type="PackedScene" uid="uid://d4knun30ujmci" path="res://src/gui/main_menu/main_menu.tscn" id="3_stilb"]
+
+[node name="MainMenuLevel" type="Node"]
+script = ExtResource("1_3j1o7")
+GameModeScene = ExtResource("2_2q8va")
+
+[node name="MainMenu" parent="." instance=ExtResource("3_stilb")]

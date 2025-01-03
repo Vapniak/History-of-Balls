@@ -1,17 +1,8 @@
 [gd_scene load_steps=3 format=3 uid="uid://muo6aa7px3eg"]
 
-[ext_resource type="PackedScene" uid="uid://bitrkh00v5cot" path="res://src/board/test_board/test_board.tscn" id="1_2a0hs"]
-[ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_bic4u"]
+[ext_resource type="Script" path="res://src/Main.cs" id="1_she4k"]
+[ext_resource type="PackedScene" uid="uid://bbsd3dhi0iesf" path="res://src/gui/splash/splash.tscn" id="2_kmx20"]
 
 [node name="Main" type="Node"]
-
-[node name="TestGridMap" parent="." instance=ExtResource("1_2a0hs")]
-
-[node name="FPSLabel" type="Label" parent="."]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
-grow_horizontal = 0
-script = ExtResource("2_bic4u")
+script = ExtResource("1_she4k")
+_splashScreenScene = ExtResource("2_kmx20")
