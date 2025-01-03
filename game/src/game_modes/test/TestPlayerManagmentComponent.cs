@@ -2,9 +2,18 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
-using System;
+using Godot.Collections;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class TestPlayerManagmentComponent : PlayerManagmentComponent {
-  protected override PlayerState CreatePlayerState() => new TestPlayerState();
+  [Export] private Array<EntityDefinition> PlayerEntities { get; set; }
+
+  protected override PlayerState CreatePlayerState() {
+    var state = new TestPlayerState {
+      Entities = PlayerEntities
+    };
+
+    return state;
+  }
 }

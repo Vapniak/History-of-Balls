@@ -2,6 +2,7 @@ namespace HOB;
 
 using Godot;
 using HexGridMap;
+using HOB.GameEntity;
 
 public partial class GameBoard : Node3D {
   [Export] private HexGrid Grid { get; set; }
@@ -41,5 +42,18 @@ public partial class GameBoard : Node3D {
 
   public HexCoordinates GetHexCoordinates(Vector3 point) {
     return Grid.GetLayout().PointToHex(new(point.X, point.Z));
+  }
+
+  public Vector3 GetPoint(HexCoordinates coordinates) {
+    var point = Grid.GetLayout().HexToPoint(coordinates);
+    return new(point.X, GetAabb().Size.Y, point.Y);
+  }
+
+
+  // FIXME: temp
+  // TODO: better spawning
+  public void SpawnEntity(Entity entity, HexCoordinates coordinates) {
+    AddChild(entity);
+    entity.Position = GetPoint(coordinates);
   }
 }

@@ -2,6 +2,7 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
+using HOB.GameEntity;
 using RaycastSystem;
 using System;
 
@@ -100,6 +101,7 @@ public partial class TestPlayerController : PlayerController {
       var point = raycastResult.Position;
       var coordinates = Game.GetGameState<TestGameState>().GameBoard.GetHexCoordinates(point);
       GD.Print(coordinates.ToString());
+      Game.GetGameState<TestGameState>().GameBoard.SpawnEntity(GetPlayerState<TestPlayerState>().Entities[0].EntityScene.Instantiate<Entity>(), coordinates);
     }
     else {
       GD.Print("No hit");
