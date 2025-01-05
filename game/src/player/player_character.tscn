@@ -9,10 +9,12 @@ point_count = 2
 [node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera")]
 script = ExtResource("1_ggdef")
 Camera = NodePath("Camera3D")
+EdgeMarginPixels = 10
 _acceleration = 20.0
-_moveSpeedMinZoom = 300.0
-_moveSpeedMaxZoom = 70.0
-_maxZoomOffset = Vector3(0, 40, 40)
+_moveSpeedMinZoom = 50.0
+_moveSpeedMaxZoom = 30.0
+_minZoomOffset = Vector3(0, 50, 30)
+_maxZoomOffset = Vector3(0, 10, 10)
 _distanceCurve = SubResource("Curve_t3eex")
 
 [node name="Camera3D" type="Camera3D" parent="."]

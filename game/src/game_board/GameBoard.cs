@@ -2,13 +2,16 @@ namespace HOB;
 
 using Godot;
 using HexGridMap;
-using HOB.GameEntity;
 
+/// <summary>
+/// Responsible for visualization and working with hex grid.
+/// </summary>
 public partial class GameBoard : Node3D {
+  [Signal] public delegate void GridCreatedEventHandler();
+
+
   [Export] private HexGrid Grid { get; set; }
   [Export] private PackedScene _debugMesh;
-
-  public Vector3[] CellPositions { get; private set; }
 
   private Aabb _combinedAabb;
   public override void _Ready() {
@@ -16,7 +19,6 @@ public partial class GameBoard : Node3D {
 
     var cells = Grid.GetCells();
     var count = cells.Length;
-    CellPositions = new Vector3[count];
 
     _combinedAabb = new();
 
@@ -28,17 +30,15 @@ public partial class GameBoard : Node3D {
       var point = Grid.GetLayout().HexToPoint(cell);
       var mesh = _debugMesh.Instantiate<MeshInstance3D>();
 
-      CellPositions[i] = new(point.X, 0, point.Y);
-
       mesh.Position = new(point.X, 0, point.Y);
       AddChild(mesh);
 
       _combinedAabb = _combinedAabb.Merge(mesh.GlobalTransform * mesh.GetAabb());
     }
+
+    EmitSignal(SignalName.GridCreated);
   }
   public Aabb GetAabb() => _combinedAabb;
-
-  // TODO: cell selection and showing actions
 
   public HexCoordinates GetHexCoordinates(Vector3 point) {
     return Grid.GetLayout().PointToHex(new(point.X, point.Z));
@@ -46,14 +46,6 @@ public partial class GameBoard : Node3D {
 
   public Vector3 GetPoint(HexCoordinates coordinates) {
     var point = Grid.GetLayout().HexToPoint(coordinates);
-    return new(point.X, GetAabb().Size.Y, point.Y);
-  }
-
-
-  // FIXME: temp
-  // TODO: better spawning
-  public void SpawnEntity(Entity entity, HexCoordinates coordinates) {
-    AddChild(entity);
-    entity.Position = GetPoint(coordinates);
+    return new(point.X, GetAabb().GetCenter().Y + (GetAabb().Size.Y / 2), point.Y);
   }
 }

@@ -2,7 +2,7 @@ namespace HexGridMap;
 
 using Godot;
 
-public struct HexFractionalCoordinates : IHexCoordinates<float> {
+public struct HexFractionalCoordinates {
   public float Q { get; private set; }
 
   public float R { get; private set; }
@@ -33,9 +33,9 @@ public struct HexFractionalCoordinates : IHexCoordinates<float> {
     }
     return new(qi, ri);
   }
-  public readonly float Distance(IHexCoordinates<float> other) => Substract(other).Length();
+  public readonly float Distance(HexFractionalCoordinates other) => Substract(other).Length();
   public readonly float Length() => (Mathf.Abs(Q) + Mathf.Abs(R) + Mathf.Abs(S)) / 2;
-  public readonly IHexCoordinates<float> Add(IHexCoordinates<float> other) => new HexFractionalCoordinates(Q + other.Q, R + other.R);
-  public readonly IHexCoordinates<float> Substract(IHexCoordinates<float> other) => new HexFractionalCoordinates(Q - other.Q, R - other.R);
-  public readonly IHexCoordinates<float> Multiply(float scalar) => new HexFractionalCoordinates(Q * scalar, R * scalar);
+  public readonly HexFractionalCoordinates Add(HexFractionalCoordinates other) => new(Q + other.Q, R + other.R);
+  public readonly HexFractionalCoordinates Substract(HexFractionalCoordinates other) => new(Q - other.Q, R - other.R);
+  public readonly HexFractionalCoordinates Multiply(float scalar) => new(Q * scalar, R * scalar);
 }

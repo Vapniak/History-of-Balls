@@ -4,7 +4,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class PlayerManagmentComponent : GameModeComponent, IGameModeComponent<IPlayerManagmentGameState> {
+public partial class PlayerManagmentComponent : GameModeComponent, IGetGameState<IPlayerManagmentGameState> {
   [Export] public string DefaultPlayerName { get; set; } = "Player";
 
   [Export] public PackedScene PlayerScene { get; private set; }
@@ -15,7 +15,6 @@ public partial class PlayerManagmentComponent : GameModeComponent, IGameModeComp
     base.Init();
 
     GetGameState().PlayerArray = new();
-
     CallDeferred(MethodName.SpawnPlayer);
   }
   public virtual void SpawnPlayer() {

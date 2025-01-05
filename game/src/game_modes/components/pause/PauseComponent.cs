@@ -5,7 +5,7 @@ using GameplayFramework;
 using Godot;
 
 [GlobalClass]
-public partial class PauseComponent : GameModeComponent, IGameModeComponent<IPauseGameState> {
+public partial class PauseComponent : GameModeComponent, IGetGameState<IPauseGameState> {
   [Export] public PackedScene PauseMenuScene { get; private set; }
 
   private PauseMenu _pauseMenu;

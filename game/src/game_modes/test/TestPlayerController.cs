@@ -2,13 +2,10 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
-using HOB.GameEntity;
 using RaycastSystem;
-using System;
 
 [GlobalClass]
 public partial class TestPlayerController : PlayerController {
-
   private PlayerCharacter _character;
 
   private bool _isPanning;
@@ -37,6 +34,9 @@ public partial class TestPlayerController : PlayerController {
       }
     }
 
+
+
+    // TODO: cooldown on selection because if someone has autoclicker i think it can crash game if you perform raycast every frame
     if (@event.IsActionPressed(GameInputs.Select)) {
       SelectCell();
     }
@@ -101,7 +101,6 @@ public partial class TestPlayerController : PlayerController {
       var point = raycastResult.Position;
       var coordinates = Game.GetGameState<TestGameState>().GameBoard.GetHexCoordinates(point);
       GD.Print(coordinates.ToString());
-      Game.GetGameState<TestGameState>().GameBoard.SpawnEntity(GetPlayerState<TestPlayerState>().Entities[0].EntityScene.Instantiate<Entity>(), coordinates);
     }
     else {
       GD.Print("No hit");

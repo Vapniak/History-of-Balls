@@ -12,7 +12,7 @@ public partial class HexGrid : Node {
 
   public void CreateGrid() {
     _grid.Clear();
-    GridShape.CreateGrid(this);
+    GridShape.CreateGridShape(this);
   }
 
   public void AddHex(HexCoordinates hex) {

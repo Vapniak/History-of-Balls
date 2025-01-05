@@ -8,7 +8,6 @@ using System.Collections.Generic;
 public partial class Entity : Node3D {
   private readonly Dictionary<Type, Trait> _traits = new();
 
-
   public override void _Ready() {
     foreach (var child in GetChildren()) {
       if (child is Trait trait) {
