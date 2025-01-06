@@ -14,6 +14,8 @@ public partial class GameMode : Node {
 
   private List<GameModeComponent> GameModeComponents { get; set; } = new();
 
+
+  // TODO: better initialization flow
   public virtual void Init() {
     GameState = CreateGameState();
     GameState.Init();

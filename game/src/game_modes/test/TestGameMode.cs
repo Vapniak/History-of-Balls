@@ -6,9 +6,6 @@ using HOB.GameEntity;
 
 [GlobalClass]
 public partial class TestGameMode : GameMode {
-  [Export] private PackedScene TestEntity { get; set; }
-
-
   private PauseComponent PauseComponent { get; set; }
   private TestPlayerManagmentComponent PlayerManagmentComponent { get; set; }
   private MatchComponent MatchComponent { get; set; }
@@ -27,12 +24,8 @@ public partial class TestGameMode : GameMode {
 
     MatchComponent = GetGameModeComponent<MatchComponent>();
 
-
-    // TODO: initialization of entities from map
-    GetGameState<TestGameState>().GameBoard.GridCreated += () => {
-      var entity = TestEntity.InstantiateOrNull<Entity>();
-      MatchComponent.SpawnEntity(entity, new(0, 0));
-    };
+    PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
+    GetGameState<TestGameState>().GameBoard.GridCreated += PlayerManagmentComponent.SpawnPlayerDeffered;
   }
 
   public override void _Process(double delta) {

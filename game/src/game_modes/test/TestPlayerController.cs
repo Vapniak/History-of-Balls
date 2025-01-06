@@ -1,11 +1,16 @@
 namespace HOB;
 
+using System;
 using GameplayFramework;
 using Godot;
+using HexGridMap;
 using RaycastSystem;
 
 [GlobalClass]
 public partial class TestPlayerController : PlayerController {
+  public event Action<HexCoordinates> CellSelected;
+
+
   private PlayerCharacter _character;
 
   private bool _isPanning;
@@ -100,10 +105,10 @@ public partial class TestPlayerController : PlayerController {
     if (raycastResult != null) {
       var point = raycastResult.Position;
       var coordinates = Game.GetGameState<TestGameState>().GameBoard.GetHexCoordinates(point);
-      GD.Print(coordinates.ToString());
+      CellSelected?.Invoke(coordinates);
     }
     else {
-      GD.Print("No hit");
+      //GD.Print("No hit");
     }
   }
 }

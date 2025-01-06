@@ -12,7 +12,6 @@
 
 [node name="TestGameMode" type="Node"]
 script = ExtResource("1_pal7c")
-TestEntity = ExtResource("5_yad7m")
 
 [node name="PauseComponent" type="Node" parent="."]
 script = ExtResource("6_1rqn6")
@@ -26,3 +25,4 @@ HUDScene = ExtResource("5_m3qk3")
 
 [node name="MatchComponent" type="Node" parent="."]
 script = ExtResource("8_km8w8")
+TestEntity = ExtResource("5_yad7m")

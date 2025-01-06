@@ -38,6 +38,9 @@ public struct HexCoordinates {
     return "Q: " + Q + ", R: " + R + ", S: " + S;
   }
 
+
+  public static bool operator ==(HexCoordinates first, HexCoordinates other) => first.Q == other.Q && first.R == other.R;
+  public static bool operator !=(HexCoordinates first, HexCoordinates other) => first.Q != other.Q || first.R != other.R;
   public readonly HexCoordinates Add(HexCoordinates other) => new(Q + other.Q, R + other.R);
   public readonly HexCoordinates Substract(HexCoordinates other) => new(Q - other.Q, R - other.R);
   public readonly HexCoordinates Multiply(int scalar) => new(Q * scalar, R * scalar);
