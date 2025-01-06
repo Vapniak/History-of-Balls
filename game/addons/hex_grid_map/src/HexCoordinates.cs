@@ -26,6 +26,10 @@ public struct HexCoordinates {
     return _directions[(int)direction];
   }
 
+  public readonly HexCoordinates GetNeighbor(HexDirection direction) {
+    return Add(GetDirection(direction));
+  }
+
   public readonly int Length() {
     return (Mathf.Abs(Q) + Mathf.Abs(R) + Mathf.Abs(S)) / 2;
   }
@@ -39,8 +43,8 @@ public struct HexCoordinates {
   }
 
 
-  public static bool operator ==(HexCoordinates first, HexCoordinates other) => first.Q == other.Q && first.R == other.R;
-  public static bool operator !=(HexCoordinates first, HexCoordinates other) => first.Q != other.Q || first.R != other.R;
+  public static bool operator ==(HexCoordinates lhs, HexCoordinates rhs) => lhs.Q == rhs.Q && lhs.R == rhs.R;
+  public static bool operator !=(HexCoordinates lhs, HexCoordinates rhs) => lhs.Q != rhs.Q || lhs.R != rhs.R;
   public readonly HexCoordinates Add(HexCoordinates other) => new(Q + other.Q, R + other.R);
   public readonly HexCoordinates Substract(HexCoordinates other) => new(Q - other.Q, R - other.R);
   public readonly HexCoordinates Multiply(int scalar) => new(Q * scalar, R * scalar);

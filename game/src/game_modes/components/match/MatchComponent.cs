@@ -1,6 +1,5 @@
 namespace HOB;
 
-using System.Collections.Generic;
 using GameplayFramework;
 using Godot;
 using HexGridMap;
@@ -21,15 +20,16 @@ public partial class MatchComponent : GameModeComponent, IGetGameState<IMatchGam
     // TODO: spawning from map
     var entity = TestEntity.InstantiateOrNull<Entity>();
     var entity2 = TestEntity.InstantiateOrNull<Entity>();
-    GetGameState().GameBoard.AddEntity(playerState, entity, new(0, 0));
-    GetGameState().GameBoard.AddEntity(playerState, entity2, new(1, 0));
+    GetGameState().GameBoard.EntityManager.AddEntity(entity, new(0, 0), playerState.GetController<IMatchController>());
+    GetGameState().GameBoard.EntityManager.AddEntity(entity2, new(1, 0), playerState.GetController<IMatchController>());
 
-    playerState.GetController<TestPlayerController>().CellSelected += (coords) => OnCellCelected(playerState, coords);
+    playerState.GetController<IMatchController>().CellSelected += (coords) => OnCellCelected(playerState.GetController<IMatchController>(), coords);
   }
 
-  private void OnCellCelected(PlayerState playerState, HexCoordinates coords) {
-    var entities = GetGameState().GameBoard.GetEntitiesOnCoords(playerState, coords);
+  private void OnCellCelected(IMatchController controller, HexCoordinates coords) {
+    var entities = GetGameState().GameBoard.EntityManager.GetEntitiesOnCoords(controller, coords);
 
-    GD.PrintS(playerState.PlayerName, entities.Count);
+    // TODO: entity selection
+    GD.PrintS(controller.GetPlayerState().PlayerName, entities.Count);
   }
 }

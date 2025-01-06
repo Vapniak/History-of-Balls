@@ -1,6 +1,5 @@
 namespace HOB.GameEntity;
 
-using GameplayFramework;
 using Godot;
 using HexGridMap;
 using System;
@@ -8,7 +7,6 @@ using System.Collections.Generic;
 
 [GlobalClass]
 public partial class Entity : Node3D {
-  public PlayerState OwnerState { get; set; }
   public HexCoordinates Coordinates { get; set; }
 
   private readonly Dictionary<Type, Trait> _traits = new();

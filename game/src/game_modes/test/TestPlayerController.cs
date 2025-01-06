@@ -1,23 +1,31 @@
 namespace HOB;
 
 using System;
+using System.Collections.Generic;
 using GameplayFramework;
 using Godot;
 using HexGridMap;
+using HOB.GameEntity;
 using RaycastSystem;
 
 [GlobalClass]
-public partial class TestPlayerController : PlayerController {
+public partial class TestPlayerController : PlayerController, IMatchController {
   public event Action<HexCoordinates> CellSelected;
+  public List<Entity> OwnedEntities { get; set; }
+
+  // TODO: highlight trait for entities that have actions
 
 
   private PlayerCharacter _character;
 
   private bool _isPanning;
   private Vector2 _lastMousePosition;
+
+
   public override void _Ready() {
     base._Ready();
 
+    OwnedEntities = new();
     _character = GetCharacter<PlayerCharacter>();
   }
 
