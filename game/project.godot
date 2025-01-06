@@ -31,9 +31,9 @@ config/icon="res://assets/icon.svg"
 
 [autoload]
 
-Panku="*res://addons/panku_console/console.tscn"
 Game="*res://addons/gameplay_framework/src/globals/game.tscn"
 RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
+Panku="*res://addons/panku_console/console.tscn"
 
 [debug_draw_3d]
 

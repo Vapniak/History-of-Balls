@@ -32,9 +32,9 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   public override void _UnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
-      _lastMousePosition = GetViewport().GetMousePosition();
     }
     else if (@event.IsActionReleased(GameInputs.CameraPan)) {
+      _lastMousePosition = GetViewport().GetMousePosition();
       _isPanning = false;
     }
 
@@ -49,14 +49,19 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
 
 
-    // TODO: cooldown on selection because if someone has autoclicker i think it can crash game if you perform raycast every frame
+    // TODO: cooldown on selection because if someone has autoclicker I think it can crash game if you perform raycast every frame
     if (@event.IsActionPressed(GameInputs.Select)) {
       SelectCell();
     }
+
+
+    // I saw a lot of objects created when I moved my mouse
+    @event.Dispose();
   }
 
   public override void _Process(double delta) {
     base._Process(delta);
+
 
     // TODO: maybe make it more readable?
     if (!_isPanning) {
