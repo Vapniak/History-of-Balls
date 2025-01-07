@@ -25,6 +25,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   public override void _Ready() {
     base._Ready();
 
+    Input.MouseMode = Input.MouseModeEnum.Confined;
+
     OwnedEntities = new();
     _character = GetCharacter<PlayerCharacter>();
   }
@@ -32,9 +34,9 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   public override void _UnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
+      _lastMousePosition = GetViewport().GetMousePosition();
     }
     else if (@event.IsActionReleased(GameInputs.CameraPan)) {
-      _lastMousePosition = GetViewport().GetMousePosition();
       _isPanning = false;
     }
 
@@ -104,6 +106,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
       var currentMousePos = GetViewport().GetMousePosition();
       var displacement = currentMousePos - _lastMousePosition;
       _lastMousePosition = currentMousePos;
+
+      // TODO: mouse wrap around screen when panning
 
       _character.HandlePanning(delta, displacement);
     }

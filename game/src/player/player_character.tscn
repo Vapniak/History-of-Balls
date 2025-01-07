@@ -16,6 +16,7 @@ _moveSpeedMaxZoom = 20.0
 _minZoomOffset = Vector3(0, 50, 30)
 _maxZoomOffset = Vector3(0, 10, 10)
 _distanceCurve = SubResource("Curve_t3eex")
+_panSpeedMulti = 0.1
 
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true
