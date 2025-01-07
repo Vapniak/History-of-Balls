@@ -24,7 +24,7 @@ public partial class PlayerController : Controller {
     }
 
     HUD = hud;
-    hud.PlayerOwner = this;
+    hud.SetPlayerController(this);
   }
   public T GetHUD<T>() where T : HUD {
     return HUD as T;

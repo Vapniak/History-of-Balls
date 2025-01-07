@@ -66,6 +66,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
 
     // TODO: maybe make it more readable?
+    // TODO: better movement, not using lerps
     if (!_isPanning) {
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
       var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);

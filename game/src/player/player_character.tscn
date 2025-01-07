@@ -10,7 +10,6 @@ point_count = 2
 script = ExtResource("1_ggdef")
 Camera = NodePath("Camera3D")
 EdgeMarginPixels = 10
-_acceleration = 20.0
 _moveSpeedMinZoom = 60.0
 _moveSpeedMaxZoom = 20.0
 _minZoomOffset = Vector3(0, 50, 30)
