@@ -28,6 +28,8 @@ public partial class GameBoard : Node3D {
     // TODO: procedural map generation and divide it into chunks and optimalize
     // TODO: chunk loading of nearest visible nodes
     // TODO: option to load map from external file
+
+    // TODO: work on shader for hex cell
     foreach (var coord in Grid.CreateGridShape()) {
       var point = Grid.GetLayout().HexToPoint(coord);
       var mesh = _debugMesh.Instantiate<MeshInstance3D>();

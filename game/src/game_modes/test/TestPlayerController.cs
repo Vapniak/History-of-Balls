@@ -98,7 +98,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
           _character.HandleDirectionalMovement(delta, dir);
         }
         else {
-          _character.ApplyDrag(delta);
+          _character.Friction(delta);
         }
       }
     }
