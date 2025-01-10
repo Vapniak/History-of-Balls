@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="HexGridSettings" load_steps=6 format=3 uid="uid://brjnjr1bav2nc"]
+
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/map_shape/HexRectShape.cs" id="1_8ipis"]
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexLayout.cs" id="1_bp2gc"]
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGridSettings.cs" id="2_7ayfn"]
+
+[sub_resource type="Resource" id="Resource_nske6"]
+script = ExtResource("1_8ipis")
+Size = Vector2i(10, 10)
+Offset = 0
+OffsetType = 0
+
+[sub_resource type="Resource" id="Resource_i6tvf"]
+script = ExtResource("1_bp2gc")
+HexCellScale = 2.0
+OrientationType = 0
+
+[resource]
+script = ExtResource("2_7ayfn")
+GridShape = SubResource("Resource_nske6")
+Layout = SubResource("Resource_i6tvf")

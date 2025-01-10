@@ -20,4 +20,6 @@ public partial class HexGridShape : GridShape {
 
     return grid.ToArray();
   }
+
+  public override Vector2I GetRectSize() => Vector2I.One * 2 * Size;
 }

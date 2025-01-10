@@ -27,9 +27,9 @@ public struct HexOffsetCoordinates {
   }
 
 
-  public static HexCoordinates QoffsetToCube(Offset offset, HexOffsetCoordinates h) {
-    var q = h.Col;
-    var r = h.Row - ((h.Col + ((int)offset * (h.Col & 1))) / 2);
+  public readonly HexCoordinates QoffsetToCube(Offset offset) {
+    var q = Col;
+    var r = Row - ((Col + ((int)offset * (Col & 1))) / 2);
     return new HexCoordinates(q, r);
   }
 
@@ -43,9 +43,9 @@ public struct HexOffsetCoordinates {
   }
 
 
-  public static HexCoordinates RoffsetToCube(Offset offset, HexOffsetCoordinates h) {
-    var q = h.Col - ((h.Row + ((int)offset * (h.Row & 1))) / 2);
-    var r = h.Row;
+  public readonly HexCoordinates RoffsetToCube(Offset offset) {
+    var q = Col - ((Row + ((int)offset * (Row & 1))) / 2);
+    var r = Row;
 
     return new HexCoordinates(q, r);
   }

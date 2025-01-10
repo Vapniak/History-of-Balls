@@ -1,26 +1,31 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=7 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
-[ext_resource type="PackedScene" uid="uid://c0iv14ql11gtj" path="res://src/game_board/debug_mesh.tscn" id="2_a2u1n"]
-[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexLayout.cs" id="3_7dghw"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="3_323vx"]
-[ext_resource type="Script" path="res://addons/hex_grid_map/src/map_shape/HexGridShape.cs" id="6_y4swi"]
+[ext_resource type="Resource" uid="uid://brjnjr1bav2nc" path="res://src/game_board/grid_settings.tres" id="4_1agjx"]
+[ext_resource type="Material" uid="uid://c6655v1arx6kw" path="res://res/materials/terrain_mat.tres" id="4_frcd5"]
 
-[sub_resource type="Resource" id="Resource_5a73w"]
-script = ExtResource("6_y4swi")
-Size = 10
+[sub_resource type="PlaneMesh" id="PlaneMesh_2ghrd"]
+material = ExtResource("4_frcd5")
+subdivide_width = 32
+subdivide_depth = 32
 
-[sub_resource type="Resource" id="Resource_ok4hm"]
-script = ExtResource("3_7dghw")
-HexCellScale = 2.0
-OrientationType = 1
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_xm51f"]
 
-[node name="GameBoard" type="Node3D" node_paths=PackedStringArray("Grid")]
+[node name="GameBoard" type="Node3D" node_paths=PackedStringArray("Grid", "_gridMesh")]
 script = ExtResource("1_fetkt")
 Grid = NodePath("HexGrid")
-_debugMesh = ExtResource("2_a2u1n")
+_gridMesh = NodePath("StaticBody3D/MeshInstance3D")
 
 [node name="HexGrid" type="Node" parent="."]
 script = ExtResource("3_323vx")
-GridShape = SubResource("Resource_5a73w")
-Layout = SubResource("Resource_ok4hm")
+GridSettings = ExtResource("4_1agjx")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("PlaneMesh_2ghrd")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_xm51f")

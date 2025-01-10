@@ -1,10 +1,7 @@
 namespace HOB;
 
-using System.Collections.Generic;
-using GameplayFramework;
 using Godot;
 using HexGridMap;
-using HOB.GameEntity;
 
 /// <summary>
 /// Responsible for visualization and working with hex grid.
@@ -12,37 +9,37 @@ using HOB.GameEntity;
 public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
   [Export] private HexGrid Grid { get; set; }
-  [Export] private PackedScene _debugMesh;
+  [Export] private MeshInstance3D _gridMesh;
 
   public EntityManager EntityManager { get; private set; }
-
-  private Aabb _combinedAabb;
   public override void _Ready() {
     EntityManager = new() {
       GameBoard = this
     };
     AddChild(EntityManager);
 
-    _combinedAabb = new();
-
     // TODO: procedural map generation and divide it into chunks and optimalize
     // TODO: chunk loading of nearest visible nodes
     // TODO: option to load map from external file
 
     // TODO: work on shader for hex cell
-    foreach (var coord in Grid.CreateGridShape()) {
-      var point = Grid.GetLayout().HexToPoint(coord);
-      var mesh = _debugMesh.Instantiate<MeshInstance3D>();
 
-      mesh.Position = new(point.X, 0, point.Y);
-      AddChild(mesh);
-
-      _combinedAabb = _combinedAabb.Merge(mesh.GlobalTransform * mesh.GetAabb());
-    }
-
+    ((PlaneMesh)_gridMesh.Mesh).Size = Grid.GetRectSize();
     EmitSignal(SignalName.GridCreated);
   }
-  public Aabb GetAabb() => _combinedAabb;
+
+  public override void _PhysicsProcess(double delta) {
+    DebugDraw3D.DrawAabb(GetAabb(), Colors.Red);
+  }
+  public Aabb GetAabb() {
+    var aabb = new Aabb();
+
+
+    // TODO: find better solution for this
+    aabb.Size = new(Grid.GetRectSize().X, 1, Grid.GetRectSize().Y);
+    aabb.Position = new(-Grid.GetRectSize().X / 2, 0, -Grid.GetRectSize().Y / 2);
+    return aabb;
+  }
 
   public HexCoordinates GetHexCoordinates(Vector3 point) {
     return Grid.GetLayout().PointToHex(new(point.X, point.Z));
@@ -50,6 +47,6 @@ public partial class GameBoard : Node3D {
 
   public Vector3 GetPoint(HexCoordinates coordinates) {
     var point = Grid.GetLayout().HexToPoint(coordinates);
-    return new(point.X, GetAabb().GetCenter().Y + (GetAabb().Size.Y / 2), point.Y);
+    return new(point.X, 0, point.Y);
   }
 }
