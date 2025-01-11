@@ -8,8 +8,6 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_2ghrd"]
 material = ExtResource("4_frcd5")
 size = Vector2(10, 10)
-subdivide_width = 32
-subdivide_depth = 32
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_xm51f"]
 

@@ -12,6 +12,7 @@ public partial class GameBoard : Node3D {
   [Export] private MeshInstance3D _gridMesh;
 
   public EntityManager EntityManager { get; private set; }
+
   public override void _Ready() {
     EntityManager = new() {
       GameBoard = this
@@ -22,8 +23,8 @@ public partial class GameBoard : Node3D {
     // TODO: chunk loading of nearest visible nodes
     // TODO: option to load map from external file
 
-    // TODO: work on shader for hex cell
-    ((PlaneMesh)_gridMesh.Mesh).Size = Grid.GetRectSize();
+    ((PlaneMesh)_gridMesh.Mesh).Size = Grid.GetRectSize() * 10;
+
     EmitSignal(SignalName.GridCreated);
   }
 

@@ -1,7 +1,16 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://c6655v1arx6kw"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://c6655v1arx6kw"]
 
 [ext_resource type="Shader" path="res://res/shaders/terrain.gdshader" id="1_votpp"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_no7aj"]
+frequency = 1.0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_s72bi"]
+generate_mipmaps = false
+normalize = false
+noise = SubResource("FastNoiseLite_no7aj")
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_votpp")
+shader_parameter/highlight_data = SubResource("NoiseTexture2D_s72bi")
