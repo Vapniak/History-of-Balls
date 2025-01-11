@@ -13,7 +13,6 @@ EdgeMarginPixels = 10
 _acceleration = 15.0
 _moveSpeedMinZoom = 60.0
 _moveSpeedMaxZoom = 20.0
-_stopSpeed = 1.0
 _minZoomOffset = Vector3(0, 50, 30)
 _maxZoomOffset = Vector3(0, 10, 10)
 _distanceCurve = SubResource("Curve_t3eex")

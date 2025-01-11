@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="HexGridSettings" load_steps=6 format=3 uid="uid://brjnjr1bav2nc"]
+[gd_resource type="Resource" script_class="HexGridSettings" load_steps=6 format=3 uid="uid://bj52nw0gcvarw"]
 
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/map_shape/HexRectShape.cs" id="1_8ipis"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/HexLayout.cs" id="1_bp2gc"]
