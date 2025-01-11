@@ -2,21 +2,30 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class TestGameMode : GameMode {
   private PauseComponent PauseComponent { get; set; }
   private TestPlayerManagmentComponent PlayerManagmentComponent { get; set; }
+  private MatchComponent MatchComponent { get; set; }
+
   public override void Init() {
     base.Init();
 
     GetGameState<TestGameState>().GameBoard = Game.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
+
     PauseComponent = GetGameModeComponent<PauseComponent>();
     PauseComponent.GetPauseMenu().Resume += OnResume;
     PauseComponent.GetPauseMenu().MainMenu += OnMainMenu;
     PauseComponent.GetPauseMenu().Quit += OnQuit;
 
     PlayerManagmentComponent = GetGameModeComponent<TestPlayerManagmentComponent>();
+
+    MatchComponent = GetGameModeComponent<MatchComponent>();
+
+    PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
+    GetGameState<TestGameState>().GameBoard.GridCreated += PlayerManagmentComponent.SpawnPlayerDeffered;
   }
 
   public override void _Process(double delta) {

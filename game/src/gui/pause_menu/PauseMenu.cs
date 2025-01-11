@@ -1,10 +1,10 @@
 namespace HOB;
 
-using GameplayFramework;
 using Godot;
 using System;
 
 public partial class PauseMenu : CanvasLayer, IPauseMenu {
+  // BUG: when panku console is opened when game is paused it unpauses it
   [Export] private SettingsMenu SettingsMenu { get; set; }
   public Action Resume { get; set; }
 

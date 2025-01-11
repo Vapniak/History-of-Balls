@@ -1,12 +1,14 @@
+namespace HOB;
+
 using Godot;
 using System;
 
 public partial class SettingsManager : Node {
-  private readonly string configFilePath = "user://settings.cfg";
-  private ConfigFile configFile;
+  private readonly string _configFilePath = "user://settings.cfg";
+  private ConfigFile _configFile;
 
   public override void _Ready() {
-    configFile = new ConfigFile();
+    _configFile = new ConfigFile();
     LoadSettings();
   }
 
@@ -15,27 +17,27 @@ public partial class SettingsManager : Node {
     var width = GetWindow().Size.X;
     var height = GetWindow().Size.Y;
 
-    configFile.SetValue("display", "screen_mode", mode);
-    configFile.SetValue("display", "resolution", $"{width}x{height}");
+    _configFile.SetValue("display", "screen_mode", mode);
+    _configFile.SetValue("display", "resolution", $"{width}x{height}");
 
-    var error = configFile.Save(configFilePath);
+    var error = _configFile.Save(_configFilePath);
     if (error != Error.Ok) {
       GD.PrintErr("File saving problem :" + error);
     }
   }
 
   public void LoadSettings() {
-    var error = configFile.Load(configFilePath);
+    var error = _configFile.Load(_configFilePath);
     if (error != Error.Ok) {
       GD.Print("Settings file is not exist!");
       return;
     }
 
-    var modeValue = (string)configFile.GetValue("display", "screen_mode", "Fullscreen");
+    var modeValue = (string)_configFile.GetValue("display", "screen_mode", "Fullscreen");
     var mode = modeValue == "Fullscreen" ? Window.ModeEnum.Fullscreen : Window.ModeEnum.Windowed;
     GetWindow().Mode = mode;
 
-    var resolutionValue = (string)configFile.GetValue("display", "resolution", "1920x1080");
+    var resolutionValue = (string)_configFile.GetValue("display", "resolution", "1920x1080");
     var resolution = resolutionValue.Split('x');
     var width = int.Parse(resolution[0]);
     var height = int.Parse(resolution[1]);

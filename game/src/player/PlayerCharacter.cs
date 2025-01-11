@@ -8,7 +8,8 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   [Export] public int EdgeMarginPixels { get; private set; } = 50;
   [Export] private float _acceleration = 10f;
   [Export] private float _moveSpeedMinZoom = 400, _moveSpeedMaxZoom = 100;
-  [Export] private float _dragForce = 10f;
+  [Export] private float _friction = 10f;
+  [Export] private float _stopSpeed = 5f;
 
   [ExportGroup("Zoom")]
   [Export] public bool AllowZoom { get; private set; } = true;
@@ -54,15 +55,32 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   }
 
   public void HandlePanning(double delta, Vector2 mouseDisplacement) {
-    Velocity = new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * (float)delta * MoveSpeed * _panSpeedMulti;
+    Velocity = Velocity.Lerp(new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti, (float)delta * _acceleration);
   }
 
-  public void ApplyDrag(double delta) {
-    if (Velocity == Vector3.Zero) {
+  public void Friction(double delta) {
+    var vel = Velocity;
+    vel.Y = 0;
+
+    var control = vel.Length() < _stopSpeed ? _stopSpeed : vel.Length();
+    var drop = control * _friction * (float)delta;
+
+
+    if (drop <= 0) {
       return;
     }
 
-    Velocity -= new Vector3(Velocity.X, 0, Velocity.Z).Normalized() * Velocity.Length() * (float)delta * _dragForce;
+    var newSpeed = vel.Length() - drop;
+
+    if (newSpeed < 0) {
+      newSpeed = 0;
+    }
+
+    if (vel.LengthSquared() > 0) {
+      newSpeed /= vel.Length();
+    }
+
+    Velocity *= new Vector3(newSpeed, 1, newSpeed);
   }
 
   public void ClampPosition(Aabb aabb) {

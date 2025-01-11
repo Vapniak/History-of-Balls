@@ -4,21 +4,30 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class PlayerManagmentComponent : GameModeComponent, IGameModeComponent<IPlayerManagmentGameState> {
+public partial class PlayerManagmentComponent : GameModeComponent, IGetGameState<IPlayerManagmentGameState> {
+  [Signal] public delegate void PlayerSpawnedEventHandler(PlayerState playerState);
+
   [Export] public string DefaultPlayerName { get; set; } = "Player";
 
+  [Export] public bool AutoSpawn { get; private set; } = false;
   [Export] public PackedScene PlayerScene { get; private set; }
   [Export] public PackedScene PlayerControllerScene { get; private set; }
   [Export] public PackedScene HUDScene { get; private set; }
+
 
   public override void Init() {
     base.Init();
 
     GetGameState().PlayerArray = new();
-
+    if (AutoSpawn) {
+      SpawnPlayerDeffered();
+    }
+  }
+  public virtual void SpawnPlayerDeffered() {
     CallDeferred(MethodName.SpawnPlayer);
   }
-  public virtual void SpawnPlayer() {
+
+  private void SpawnPlayer() {
     var player = PlayerScene?.InstantiateOrNull<Node>();
     var playerController = PlayerControllerScene?.InstantiateOrNull<PlayerController>();
     var hud = HUDScene?.InstantiateOrNull<HUD>();
@@ -44,6 +53,8 @@ public partial class PlayerManagmentComponent : GameModeComponent, IGameModeComp
       playerController.SetPlayerState(playerState);
 
       GetGameState().PlayerArray.Add(playerState);
+
+      EmitSignal(SignalName.PlayerSpawned, playerState);
     }
   }
 

@@ -1,21 +1,33 @@
 namespace HOB;
 
+using System;
+using System.Collections.Generic;
 using GameplayFramework;
 using Godot;
+using HexGridMap;
 using HOB.GameEntity;
 using RaycastSystem;
-using System;
 
 [GlobalClass]
-public partial class TestPlayerController : PlayerController {
+public partial class TestPlayerController : PlayerController, IMatchController {
+  public event Action<HexCoordinates> CellSelected;
+  public List<Entity> OwnedEntities { get; set; }
+
+  // TODO: highlight trait for entities that have actions
+
 
   private PlayerCharacter _character;
 
   private bool _isPanning;
   private Vector2 _lastMousePosition;
+
+
   public override void _Ready() {
     base._Ready();
 
+    Input.MouseMode = Input.MouseModeEnum.Confined;
+
+    OwnedEntities = new();
     _character = GetCharacter<PlayerCharacter>();
   }
 
@@ -37,15 +49,24 @@ public partial class TestPlayerController : PlayerController {
       }
     }
 
+
+
+    // TODO: cooldown on selection because if someone has autoclicker I think it can crash game if you perform raycast every frame
     if (@event.IsActionPressed(GameInputs.Select)) {
       SelectCell();
     }
+
+
+    // I saw a lot of objects created when I moved my mouse
+    @event.Dispose();
   }
 
   public override void _Process(double delta) {
     base._Process(delta);
 
+
     // TODO: maybe make it more readable?
+    // TODO: better movement, not using lerps
     if (!_isPanning) {
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
       var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
@@ -77,7 +98,7 @@ public partial class TestPlayerController : PlayerController {
           _character.HandleDirectionalMovement(delta, dir);
         }
         else {
-          _character.ApplyDrag(delta);
+          _character.Friction(delta);
         }
       }
     }
@@ -86,6 +107,8 @@ public partial class TestPlayerController : PlayerController {
       var currentMousePos = GetViewport().GetMousePosition();
       var displacement = currentMousePos - _lastMousePosition;
       _lastMousePosition = currentMousePos;
+
+      // TODO: mouse wrap around screen when panning
 
       _character.HandlePanning(delta, displacement);
     }
@@ -100,11 +123,10 @@ public partial class TestPlayerController : PlayerController {
     if (raycastResult != null) {
       var point = raycastResult.Position;
       var coordinates = Game.GetGameState<TestGameState>().GameBoard.GetHexCoordinates(point);
-      GD.Print(coordinates.ToString());
-      Game.GetGameState<TestGameState>().GameBoard.SpawnEntity(GetPlayerState<TestPlayerState>().Entities[0].EntityScene.Instantiate<Entity>(), coordinates);
+      CellSelected?.Invoke(coordinates);
     }
     else {
-      GD.Print("No hit");
+      //GD.Print("No hit");
     }
   }
 }

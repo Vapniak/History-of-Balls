@@ -1,7 +1,9 @@
 namespace GameplayFramework;
 
+using System;
 using System.Collections.Generic;
 using Godot;
+using Godot.Collections;
 
 /// <summary>
 /// Manages game logic.
@@ -12,17 +14,17 @@ public partial class GameMode : Node {
 
   private List<GameModeComponent> GameModeComponents { get; set; } = new();
 
+
+  // TODO: better initialization flow
   public virtual void Init() {
     GameState = CreateGameState();
     GameState.Init();
 
-    foreach (var child in GetChildren()) {
-      if (child is GameModeComponent component) {
-        GameModeComponents.Add(component);
-        component.OwnerGameMode = this;
-        component.GameState = GameState;
-        component.Init();
-      }
+    foreach (var component in GetAllComponents()) {
+      GameModeComponents.Add(component);
+      component.OwnerGameMode = this;
+      component.GameState = GameState;
+      component.Init();
     }
   }
 
@@ -42,5 +44,16 @@ public partial class GameMode : Node {
 
   protected virtual GameState CreateGameState() {
     return new GameState();
+  }
+
+  private Array<GameModeComponent> GetAllComponents() {
+    Array<GameModeComponent> comps = new();
+    foreach (var child in GetChildren()) {
+      if (child is GameModeComponent comp) {
+        comps.Add(comp);
+      }
+    }
+
+    return comps;
   }
 }

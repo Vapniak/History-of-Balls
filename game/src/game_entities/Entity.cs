@@ -1,13 +1,15 @@
 namespace HOB.GameEntity;
 
 using Godot;
+using HexGridMap;
 using System;
 using System.Collections.Generic;
 
 [GlobalClass]
 public partial class Entity : Node3D {
-  private readonly Dictionary<Type, Trait> _traits = new();
+  public HexCoordinates Coordinates { get; set; }
 
+  private readonly Dictionary<Type, Trait> _traits = new();
 
   public override void _Ready() {
     foreach (var child in GetChildren()) {

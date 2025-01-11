@@ -1,35 +1,26 @@
 namespace HexGridMap;
 
-using System.Collections.Generic;
-using System.Linq;
 using Godot;
 
 [GlobalClass]
 public partial class HexGrid : Node {
-  [Export] private GridShape GridShape { get; set; }
-  [Export] private HexLayout Layout { get; set; } = new();
-  private readonly HashSet<HexCoordinates> _grid = new();
+  [Export] private HexGridSettings GridSettings { get; set; }
 
-  public void CreateGrid() {
-    _grid.Clear();
-    GridShape.CreateGrid(this);
+  public HexCoordinates[] CreateGrid() {
+    return GridSettings.GridShape.CreateGridShape();
   }
 
-  public void AddHex(HexCoordinates hex) {
-    _grid.Add(hex);
-  }
+  public HexLayout GetLayout() => GridSettings.Layout;
+  public GridShape GetGridShape() => GridSettings.GridShape;
 
-  public void RemoveHex(HexCoordinates hex) {
-    _grid.Remove(hex);
-  }
+  public Vector2 GetRectSize() {
+    var size = new Vector2();
 
-  public int CellCount() {
-    return _grid.Count;
-  }
+    var m = GetLayout().Orientation;
+    // FIXME: fix the size, some misaligment is visible
+    size.X = GetGridShape().GetRectSize().X * GetLayout().HexCellScale * m.F0;
+    size.Y = GetGridShape().GetRectSize().Y * GetLayout().HexCellScale * m.F3;
 
-  public HexCoordinates[] GetCells() {
-    return _grid.ToArray();
+    return size;
   }
-
-  public HexLayout GetLayout() => Layout;
 }

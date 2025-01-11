@@ -1,21 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq50a8e3adq5a"]
+[gd_scene load_steps=5 format=3 uid="uid://dq50a8e3adq5a"]
 
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/Level.cs" id="1_wnfpl"]
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/test/test_game_mode.tscn" id="2_h6h6r"]
 [ext_resource type="PackedScene" uid="uid://b7p0e45e0ng0f" path="res://src/game_board/game_board.tscn" id="3_2l1x2"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rc1t2"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_iiu3a"]
-sky_material = SubResource("ProceduralSkyMaterial_rc1t2")
-
 [sub_resource type="Environment" id="Environment_mxfj4"]
-background_mode = 2
-sky = SubResource("Sky_iiu3a")
-tonemap_mode = 2
+background_mode = 1
+background_color = Color(0.0253638, 0.0253638, 0.0253638, 1)
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
 glow_enabled = true
+glow_normalized = true
+glow_intensity = 0.1
+glow_mix = 0.1
+glow_bloom = 1.0
+glow_blend_mode = 1
 
 [node name="TestLevel" type="Node"]
 script = ExtResource("1_wnfpl")

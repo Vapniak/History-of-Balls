@@ -2,7 +2,7 @@ namespace HexGridMap;
 
 using Godot;
 
-public struct HexCoordinates : IHexCoordinates<int> {
+public struct HexCoordinates {
   public int Q { get; private set; }
   public int R { get; private set; }
 
@@ -26,11 +26,15 @@ public struct HexCoordinates : IHexCoordinates<int> {
     return _directions[(int)direction];
   }
 
+  public readonly HexCoordinates GetNeighbor(HexDirection direction) {
+    return Add(GetDirection(direction));
+  }
+
   public readonly int Length() {
     return (Mathf.Abs(Q) + Mathf.Abs(R) + Mathf.Abs(S)) / 2;
   }
 
-  public readonly int Distance(IHexCoordinates<int> other) {
+  public readonly int Distance(HexCoordinates other) {
     return Substract(other).Length();
   }
 
@@ -38,7 +42,10 @@ public struct HexCoordinates : IHexCoordinates<int> {
     return "Q: " + Q + ", R: " + R + ", S: " + S;
   }
 
-  public readonly IHexCoordinates<int> Add(IHexCoordinates<int> other) => new HexCoordinates(Q + other.Q, R + other.R);
-  public readonly IHexCoordinates<int> Substract(IHexCoordinates<int> other) => new HexCoordinates(Q - other.Q, R - other.R);
-  public readonly IHexCoordinates<int> Multiply(int scalar) => new HexCoordinates(Q * scalar, R * scalar);
+
+  public static bool operator ==(HexCoordinates lhs, HexCoordinates rhs) => lhs.Q == rhs.Q && lhs.R == rhs.R;
+  public static bool operator !=(HexCoordinates lhs, HexCoordinates rhs) => lhs.Q != rhs.Q || lhs.R != rhs.R;
+  public readonly HexCoordinates Add(HexCoordinates other) => new(Q + other.Q, R + other.R);
+  public readonly HexCoordinates Substract(HexCoordinates other) => new(Q - other.Q, R - other.R);
+  public readonly HexCoordinates Multiply(int scalar) => new(Q * scalar, R * scalar);
 }
