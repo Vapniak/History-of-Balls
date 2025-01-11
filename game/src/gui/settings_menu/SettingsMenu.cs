@@ -5,8 +5,10 @@ using System;
 
 public partial class SettingsMenu : Control {
   [Signal] public delegate void ClosedEventHandler();
+  [Export] private OptionButton _resolutionOptionButton;
+  [Export] private OptionButton _screenModeOptionButton;
 
-  public string[] Resolutions = new string[] {
+  public string[] Resolutions { get; private set; } = new string[] {
           "1152x648",
           "1280x1024",
           "1360x768",
@@ -16,18 +18,15 @@ public partial class SettingsMenu : Control {
           "1680x1050",
           "1920x1080",
       };
-  public string[] ScreenModes = new string[] {
+  public string[] ScreenModes { get; private set; } = new string[] {
           "Windowed",
           "Fullscreen",
       };
 
-  private OptionButton ResolutionOptionButton;
-  private OptionButton ScreenModeOptionButton;
-  private SettingsManager SettingsManager => GetNode<SettingsManager>("/root/SettingsManager");
+  private SettingsManager SettingsManager;
 
   public override void _Ready() {
-    ResolutionOptionButton = GetNode<OptionButton>("MarginContainer/TabContainer/Video/VBoxContainer/ResolutionOption");
-    ScreenModeOptionButton = GetNode<OptionButton>("MarginContainer/TabContainer/Video/VBoxContainer/ScreenModeOption");
+    SettingsManager = GetNode<SettingsManager>("/root/SettingsManager");
 
     InitializeScreenModeOptions();
     InitializeResolutionOptions();
@@ -40,38 +39,38 @@ public partial class SettingsMenu : Control {
   }
 
   private void InitializeScreenModeOptions() {
-    ScreenModeOptionButton.Clear();
+    _screenModeOptionButton.Clear();
 
     foreach (var screenMode in ScreenModes) {
-      ScreenModeOptionButton.AddItem(screenMode);
+      _screenModeOptionButton.AddItem(screenMode);
     }
 
     var currentMode = GetWindow().Mode == Window.ModeEnum.Fullscreen ? "Fullscreen" : "Windowed";
     var index = Array.IndexOf(ScreenModes, currentMode);
     if (index >= 0) {
-      ScreenModeOptionButton.Selected = index;
+      _screenModeOptionButton.Selected = index;
     }
   }
 
   private void InitializeResolutionOptions() {
-    ResolutionOptionButton.Clear();
+    _resolutionOptionButton.Clear();
 
     if (GetWindow().Mode == Window.ModeEnum.Windowed) {
       foreach (var resolution in Resolutions) {
-        ResolutionOptionButton.AddItem(resolution);
+        _resolutionOptionButton.AddItem(resolution);
       }
 
       var windowSize = GetWindow().Size;
       var currentResolution = $"{windowSize.X}x{windowSize.Y}";
       var index = Array.IndexOf(Resolutions, currentResolution);
       if (index >= 0) {
-        ResolutionOptionButton.Selected = index;
+        _resolutionOptionButton.Selected = index;
       }
 
-      ResolutionOptionButton.Disabled = false;
+      _resolutionOptionButton.Disabled = false;
     }
     else {
-      ResolutionOptionButton.Disabled = true;
+      _resolutionOptionButton.Disabled = true;
     }
   }
 
@@ -106,13 +105,13 @@ public partial class SettingsMenu : Control {
       GetWindow().Size = screenSize;
       GetWindow().Position = Vector2I.Zero;
 
-      ResolutionOptionButton.Disabled = true;
+      _resolutionOptionButton.Disabled = true;
     }
     else {
-      ResolutionOptionButton.Disabled = false;
+      _resolutionOptionButton.Disabled = false;
 
-      if (ResolutionOptionButton.GetItemCount() > 0) {
-        var selectedIndex = ResolutionOptionButton.Selected;
+      if (_resolutionOptionButton.GetItemCount() > 0) {
+        var selectedIndex = _resolutionOptionButton.Selected;
         OnResolutionOptionButtonPressed(selectedIndex);
       }
     }
