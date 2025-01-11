@@ -23,13 +23,12 @@ public partial class GameBoard : Node3D {
     // TODO: option to load map from external file
 
     // TODO: work on shader for hex cell
-
     ((PlaneMesh)_gridMesh.Mesh).Size = Grid.GetRectSize();
     EmitSignal(SignalName.GridCreated);
   }
 
   public override void _PhysicsProcess(double delta) {
-    DebugDraw3D.DrawAabb(GetAabb(), Colors.Red);
+    // DebugDraw3D.DrawAabb(GetAabb(), Colors.Red);
   }
   public Aabb GetAabb() {
     var aabb = new Aabb();
