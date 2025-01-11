@@ -32,6 +32,33 @@ current_tab = 0
 layout_mode = 2
 metadata/_tab_index = 0
 
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Video"]
+layout_mode = 2
+
+[node name="ScreenMode" type="Label" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Screen Mode"
+
+[node name="ScreenModeOption" type="OptionButton" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Resolution" type="Label" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 50
+text = "Resolution"
+
+[node name="ResolutionOption" type="OptionButton" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 0
 offset_right = 8.0
@@ -39,4 +66,6 @@ offset_bottom = 8.0
 text = "Close
 "
 
+[connection signal="item_selected" from="MarginContainer/TabContainer/Video/VBoxContainer/ScreenModeOption" to="." method="OnScreenModeOptionButtonPressed"]
+[connection signal="item_selected" from="MarginContainer/TabContainer/Video/VBoxContainer/ResolutionOption" to="." method="OnResolutionOptionButtonPressed"]
 [connection signal="pressed" from="CloseButton" to="." method="OnClosePressed"]
