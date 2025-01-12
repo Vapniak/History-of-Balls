@@ -1,15 +1,3 @@
-#define HEX_ANGLED_EDGE_VECTOR vec2(1, sqrt(3))
-
-#define OUTER_TO_INNER 0.866025404
-// HEIGHT CELL IN METERS, WE ARE USING POINTY TOP ORIENTATION
-#define OUTER_RADIUS 2.
-
-// TODO: rework mapping world to hex space, also when you get texture coords should be between 0 and 1 so find way to map hex coordinates to texture space
-vec2 world_to_hex_space(vec2 p)
-{
-	return p * (1.0 / (2.0 * OUTER_RADIUS * OUTER_TO_INNER));
-}
-
 ivec2 axial_round(vec2 frac)
 {
 	float s0 = -frac.x - frac.y;
@@ -32,11 +20,26 @@ ivec2 axial_round(vec2 frac)
     return ivec2( int( q  ), int( r ));
 }
 
-ivec2 get_axial_coords(vec2 xy){
-	float x = xy.x;
-	float q = (2./3. * x);
-	float r = (-1./3. * x + sqrt(3)/3. * xy.y);
-	return axial_round(vec2(q, r));
+vec2 point_to_axial_space(vec2 xy){
+	float q = (sqrt(3) / 3. * xy.x) + (-1. / 3. * xy.y);
+	float r = (2./3. * xy.y);
+	return vec2(q, r);
+}
+
+ivec2 point_to_axial(vec2 xy){
+	return axial_round(point_to_axial_space(xy));
+}
+
+
+
+vec2 axial_to_point(ivec2 axial){
+	float x = (float(axial.x) * sqrt(3)) + (float(axial.y) * sqrt(3) / 2.);
+	float y = (float(axial.y) * 3. / 2.);
+	return vec2(x, y);
+}
+
+vec2 point_axial_center(vec2 xy){
+	return axial_to_point(point_to_axial(xy));
 }
 
 ivec2 axial_to_oddq(ivec2 hex){
@@ -45,8 +48,8 @@ ivec2 axial_to_oddq(ivec2 hex){
 	return ivec2(col, row);
 }
 
-ivec2 get_oddq(vec2 xy){
-	return axial_to_oddq(get_axial_coords(xy));
+ivec2 point_to_oddq(vec2 xy){
+	return axial_to_oddq(point_to_axial(xy));
 }
 
 
@@ -54,6 +57,7 @@ struct HexCellData{
 	vec2 center;
 	ivec2 offsetCoords;
 	vec2 UV;
+	float distanceToEdge;
 	float distanceToCenter;
 	float distanceSmoothing;
 };
@@ -63,14 +67,14 @@ float smoothstep01(HexCellData data, float threshold)
 	return smoothstep(
 		threshold - data.distanceSmoothing,
 		threshold + data.distanceSmoothing,
-		data.distanceToCenter);
+		data.distanceToEdge);
 }
 
 float smoothstep10(HexCellData data, float threshold){
 	return smoothstep(
 		threshold + data.distanceSmoothing,
 		threshold - data.distanceSmoothing,
-		data.distanceToCenter);
+		data.distanceToEdge);
 }
 
 float smoothstep_range(HexCellData data, float innerThreshold, float outerThreshold)
@@ -78,8 +82,11 @@ float smoothstep_range(HexCellData data, float innerThreshold, float outerThresh
 	return smoothstep01(data, innerThreshold) * smoothstep10(data, outerThreshold);
 }
 
+#define HEX_ANGLED_EDGE_VECTOR vec2(1, sqrt(3))
 
-float hex_center_to_edge_distance(vec2 p)
+// Calculate hexagonal center-edge distance for point relative to
+// the center in hex space. 0 at cell center and 1 at edges.
+float point_to_edge_distance(vec2 p)
 {
 	// Reduce problem to one quadrant.
 	p = abs(p);
@@ -91,31 +98,17 @@ float hex_center_to_edge_distance(vec2 p)
 	return 2. * d;
 }
 
-// Calculate hex-based modulo to find position vector.
-vec2 hex_modulo(vec2 p)
+HexCellData get_hex_cell_data(vec2 worldPositionXZ, int cell_scale)
 {
-	return p - HEX_ANGLED_EDGE_VECTOR * floor(p / HEX_ANGLED_EDGE_VECTOR);
-}
-
-HexCellData get_hex_cell_data(vec2 worldPositionXZ)
-{
-	vec2 p = world_to_hex_space(worldPositionXZ);
-
-	// Vectors from nearest two cell centers to position.
-	vec2 gridOffset = HEX_ANGLED_EDGE_VECTOR * 0.5;
-	vec2 a = hex_modulo(p) - gridOffset;
-	vec2 b = hex_modulo(p - gridOffset) - gridOffset;
-	bool aIsNearest = dot(a, a) < dot(b, b);
-
-	vec2 vectorFromCenterToPosition = aIsNearest ? a : b;
+	worldPositionXZ /= float(cell_scale);
+	vec2 center = point_axial_center(worldPositionXZ);
 
 	HexCellData d;
-	d.center = p - vectorFromCenterToPosition;
-	d.offsetCoords = get_oddq(worldPositionXZ);
-	d.UV = vectorFromCenterToPosition + 0.5;
-	d.distanceToCenter = hex_center_to_edge_distance(
-		vectorFromCenterToPosition);
-	d.distanceSmoothing = 0.01;
+	d.center = center;
+	d.offsetCoords = point_to_oddq(worldPositionXZ) * cell_scale;
+	d.distanceToEdge = point_to_edge_distance(center - worldPositionXZ) / float(cell_scale);
+	d.distanceToCenter = distance(worldPositionXZ, center);
+	d.distanceSmoothing = .001;
 	return d;
 }
 

@@ -28,8 +28,12 @@ public partial class EntityManager : Node {
     Entities.Add(entity);
   }
 
-  public List<Entity> GetEntitiesOnCoords(IMatchController controller, HexCoordinates coords) {
-    var entities = controller.OwnedEntities.Where(e => e.Coordinates == coords).ToList();
+  public List<Entity> GetOwnedEntitiesOnCoords(IMatchController owner, HexCoordinates coords) {
+    var entities = owner.OwnedEntities.Where(e => e.Coordinates == coords).ToList();
     return entities;
+  }
+
+  public List<Entity> GetEntitiesOnCoords(HexCoordinates coords) {
+    return Entities.Where(e => e.Coordinates == coords).ToList();
   }
 }

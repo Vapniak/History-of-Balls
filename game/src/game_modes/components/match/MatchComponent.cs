@@ -24,11 +24,10 @@ public partial class MatchComponent : GameModeComponent, IGetGameState<IMatchGam
     GetGameState().GameBoard.EntityManager.AddEntity(entity2, new(1, 0), playerState.GetController<IMatchController>());
 
     playerState.GetController<IMatchController>().CellSelected += (coords) => OnCellCelected(playerState.GetController<IMatchController>(), coords);
-
   }
 
   private void OnCellCelected(IMatchController controller, HexCoordinates coords) {
-    var entities = GetGameState().GameBoard.EntityManager.GetEntitiesOnCoords(controller, coords);
+    var entities = GetGameState().GameBoard.EntityManager.GetOwnedEntitiesOnCoords(controller, coords);
 
     // TODO: entity selection
     GD.PrintS(controller.GetPlayerState().PlayerName, entities.Count);
