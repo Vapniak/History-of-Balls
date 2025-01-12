@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="3_323vx"]
 [ext_resource type="Resource" uid="uid://bj52nw0gcvarw" path="res://src/game_board/grid_settings.tres" id="4_1agjx"]
-[ext_resource type="Material" uid="uid://c6655v1arx6kw" path="res://res/materials/terrain_mat.tres" id="4_frcd5"]
+[ext_resource type="Material" uid="uid://c6655v1arx6kw" path="res://res/materials/hex_grid_mat.tres" id="4_frcd5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2ghrd"]
 material = ExtResource("4_frcd5")
@@ -14,7 +14,7 @@ size = Vector2(100, 100)
 [node name="GameBoard" type="Node3D" node_paths=PackedStringArray("Grid", "_terrainMesh")]
 script = ExtResource("1_fetkt")
 Grid = NodePath("HexGrid")
-_terrainMesh = NodePath("StaticBody3D/MeshInstance3D")
+_terrainMesh = NodePath("StaticBody3D/HexGrid")
 
 [node name="HexGrid" type="Node" parent="."]
 script = ExtResource("3_323vx")
@@ -22,7 +22,7 @@ GridSettings = ExtResource("4_1agjx")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+[node name="HexGrid" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("PlaneMesh_2ghrd")
 skeleton = NodePath("../..")
 

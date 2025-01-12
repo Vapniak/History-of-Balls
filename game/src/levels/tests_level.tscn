@@ -6,7 +6,6 @@
 
 [sub_resource type="Environment" id="Environment_mxfj4"]
 background_mode = 1
-background_color = Color(0.0253638, 0.0253638, 0.0253638, 1)
 ambient_light_source = 2
 ambient_light_color = Color(1, 1, 1, 1)
 glow_enabled = true
