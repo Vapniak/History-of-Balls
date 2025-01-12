@@ -29,7 +29,9 @@ public partial class TerrainManager : Node {
     HighlightData.Fill(Colors.Transparent);
     foreach (var coord in coords) {
       var offset = coord.Roffset(Offset.Even);
-      HighlightData.SetPixel(offset.Col, offset.Row, new(1, 1, 1, 1));
+      if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
+        HighlightData.SetPixel(offset.Col, offset.Row, new(1, 1, 1, 1));
+      }
     }
 
     UpdateHighlightTextureData();

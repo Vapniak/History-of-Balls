@@ -32,6 +32,6 @@ public partial class MatchComponent : GameModeComponent, IGetGameState<IMatchGam
     GetGameState().GameBoard.HighlightCells(new[] { coords });
     // TODO: entity selection
     var offset = coords.Roffset(Offset.Even);
-    GD.PrintS(controller.GetPlayerState().PlayerName, entities.Count, "Q: " + coords.Q, "R: " + coords.R, "COL: " + offset.Col, "ROW: " + offset.Row);
+    GD.PrintS("Entities: " + entities.Count, "Q: " + coords.Q, "R: " + coords.R, "COL: " + offset.Col, "ROW: " + offset.Row);
   }
 }

@@ -108,7 +108,7 @@ HexCellData get_hex_cell_data(vec2 worldPositionXZ, int cell_scale)
 	d.center = center;
 	d.distanceToEdge = point_to_edge_distance(center - pos) / float(cell_scale);
 	d.distanceToCenter = distance(pos, center);
-	d.distanceSmoothing = .001;
+	d.distanceSmoothing = .01;
 	return d;
 }
 
