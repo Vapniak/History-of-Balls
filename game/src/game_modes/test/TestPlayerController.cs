@@ -29,6 +29,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
     OwnedEntities = new();
     _character = GetCharacter<PlayerCharacter>();
+
+    _character.CenterPositionOn(Game.GetGameState<TestGameState>().GameBoard.GetAabb());
   }
 
   public override void _UnhandledInput(InputEvent @event) {

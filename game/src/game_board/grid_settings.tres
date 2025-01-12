@@ -7,7 +7,7 @@
 [sub_resource type="Resource" id="Resource_nske6"]
 script = ExtResource("1_8ipis")
 Size = Vector2i(10, 10)
-Offset = 0
+Offset = 1
 OffsetType = 0
 
 [sub_resource type="Resource" id="Resource_i6tvf"]

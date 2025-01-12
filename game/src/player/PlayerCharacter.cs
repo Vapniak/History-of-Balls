@@ -83,6 +83,9 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     Velocity *= new Vector3(newSpeed, 1, newSpeed);
   }
 
+  public void CenterPositionOn(Aabb aabb) {
+    GlobalPosition = new(aabb.GetCenter().X, GlobalPosition.Y, aabb.GetCenter().Z);
+  }
   public void ClampPosition(Aabb aabb) {
     var pos = GlobalPosition;
     pos = pos.Clamp(aabb.GetCenter() - (aabb.Size / 2), aabb.GetCenter() + (aabb.Size / 2));

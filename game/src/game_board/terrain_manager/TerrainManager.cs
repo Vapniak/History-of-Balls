@@ -2,26 +2,46 @@ namespace HOB;
 
 using Godot;
 using HexGridMap;
-using System;
 
 public partial class TerrainManager : Node {
+  [Signal] public delegate void TerrainDataTextureChangedEventHandler(ImageTexture texture);
+  [Signal] public delegate void HighlightDataTextureChangedEventHandler(ImageTexture texture);
   public GameBoard GameBoard { get; set; }
 
   public ImageTexture TerrainDataTexture { get; private set; }
   private Image TerrainData { get; set; }
 
 
+  public ImageTexture HighlightDataTexture { get; private set; }
+  private Image HighlightData { get; set; }
+
   public void CreateData(int width, int height) {
     TerrainData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
+    HighlightData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
 
-    TerrainData.SetPixel(0, 0, Colors.White);
-    UpdateTextureData();
+    TerrainData.Fill(Colors.LawnGreen);
+
+
+    UpdateHighlightTextureData();
+    UpdateTerrainTextureData();
   }
-  public void HighlightCells(HexOffsetCoordinates[] coords) {
+  public void HighlightCells(HexCoordinates[] coords) {
+    HighlightData.Fill(Colors.Transparent);
+    foreach (var coord in coords) {
+      var offset = coord.Roffset(Offset.Even);
+      HighlightData.SetPixel(offset.Col, offset.Row, new(1, 1, 1, 1));
+    }
 
+    UpdateHighlightTextureData();
   }
 
-  private void UpdateTextureData() {
+  private void UpdateTerrainTextureData() {
     TerrainDataTexture = ImageTexture.CreateFromImage(TerrainData);
+    EmitSignal(SignalName.TerrainDataTextureChanged, TerrainDataTexture);
+  }
+
+  private void UpdateHighlightTextureData() {
+    HighlightDataTexture = ImageTexture.CreateFromImage(HighlightData);
+    EmitSignal(SignalName.HighlightDataTextureChanged, HighlightDataTexture);
   }
 }

@@ -6,8 +6,8 @@ using Godot;
 public partial class HexGrid : Node {
   [Export] private HexGridSettings GridSettings { get; set; }
 
-  public HexCoordinates[] CreateGrid() {
-    return GridSettings.GridShape.CreateGridShape();
+  public HexCoordinates[] GetHexGrid() {
+    return GridSettings.GridShape.GetGrid();
   }
 
   public HexLayout GetLayout() => GridSettings.Layout;

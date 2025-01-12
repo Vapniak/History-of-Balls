@@ -8,7 +8,7 @@ public partial class HexGridShape : GridShape {
   [Export] public int Size { get; private set; } = 10;
 
   public HexGridShape() { }
-  public override HexCoordinates[] CreateGridShape() {
+  protected override HexCoordinates[] CreateGrid() {
     List<HexCoordinates> grid = new();
     for (var q = -Size; q <= Size; q++) {
       var r1 = Mathf.Max(-Size, -q - Size);

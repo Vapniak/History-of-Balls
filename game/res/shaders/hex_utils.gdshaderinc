@@ -42,14 +42,14 @@ vec2 point_axial_center(vec2 xy){
 	return axial_to_point(point_to_axial(xy));
 }
 
-ivec2 axial_to_oddq(ivec2 hex){
-	int col = hex.x;
-	int row = hex.y + ((hex.x + (hex.x % 2)) / 2);
+ivec2 axial_to_evenr(ivec2 hex){
+	int col = hex.x + ((hex.y + ((hex.y % 2))) / 2);
+	int row = hex.y;
 	return ivec2(col, row);
 }
 
-ivec2 point_to_oddq(vec2 xy){
-	return axial_to_oddq(point_to_axial(xy));
+ivec2 point_to_evenr(vec2 xy){
+	return axial_to_evenr(point_to_axial(xy));
 }
 
 
@@ -100,20 +100,22 @@ float point_to_edge_distance(vec2 p)
 
 HexCellData get_hex_cell_data(vec2 worldPositionXZ, int cell_scale)
 {
-	worldPositionXZ /= float(cell_scale);
-	vec2 center = point_axial_center(worldPositionXZ);
+	vec2 pos = worldPositionXZ / float(cell_scale);
+	vec2 center = point_axial_center(pos);
 
 	HexCellData d;
+	d.offsetCoords = point_to_evenr(pos);
 	d.center = center;
-	d.offsetCoords = point_to_oddq(worldPositionXZ) * cell_scale;
-	d.distanceToEdge = point_to_edge_distance(center - worldPositionXZ) / float(cell_scale);
-	d.distanceToCenter = distance(worldPositionXZ, center);
+	d.distanceToEdge = point_to_edge_distance(center - pos) / float(cell_scale);
+	d.distanceToCenter = distance(pos, center);
 	d.distanceSmoothing = .001;
 	return d;
 }
 
 bool is_highlighted(HexCellData data, sampler2D highlight_texture){
-	vec4 color = texture(highlight_texture, vec2(data.offsetCoords));
-
+	vec4 color = texelFetch(highlight_texture, data.offsetCoords, 0);
+	if(color.a > 0.){
+		return true;
+	}
 	return false;
 }

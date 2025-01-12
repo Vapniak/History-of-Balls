@@ -48,4 +48,20 @@ public struct HexCoordinates {
   public readonly HexCoordinates Add(HexCoordinates other) => new(Q + other.Q, R + other.R);
   public readonly HexCoordinates Substract(HexCoordinates other) => new(Q - other.Q, R - other.R);
   public readonly HexCoordinates Multiply(int scalar) => new(Q * scalar, R * scalar);
+
+
+  public readonly HexOffsetCoordinates Qoffset(Offset offset) {
+    var col = Q;
+    var row = R + ((Q + ((int)offset * (Q & 1))) / 2);
+    return new HexOffsetCoordinates(col, row);
+  }
+
+
+  public readonly HexOffsetCoordinates Roffset(Offset offset) {
+    var col = Q + ((R + ((int)offset * (R & 1))) / 2);
+    var row = R;
+
+
+    return new HexOffsetCoordinates(col, row);
+  }
 }

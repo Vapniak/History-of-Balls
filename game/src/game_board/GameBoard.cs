@@ -3,6 +3,10 @@ namespace HOB;
 using Godot;
 using HexGridMap;
 
+// TODO: procedural map generation and divide it into chunks and optimalize
+// TODO: chunk loading of nearest visible nodes
+// TODO: option to load map from external file
+
 /// <summary>
 /// Responsible for visualization and working with hex grid.
 /// </summary>
@@ -24,34 +28,31 @@ public partial class GameBoard : Node3D {
       GameBoard = this
     };
 
-    TerrainManager.CreateData(Grid.GetRectSize().X, Grid.GetRectSize().Y);
+    ((PlaneMesh)_terrainMesh.Mesh).Size = Grid.GetRealSize() * 10;
+    TerrainManager.TerrainDataTextureChanged += (tex) => _terrainMesh.GetActiveMaterial(0).Set("shader_parameter/terrain_data_texture", tex);
+    TerrainManager.HighlightDataTextureChanged += (tex) => _terrainMesh.GetActiveMaterial(0).Set("shader_parameter/highlight_data_texture", tex);
 
+    _terrainMesh.GetActiveMaterial(0).Set("shader_parameter/terrain_size", Grid.GetRectSize());
+
+
+    TerrainManager.CreateData(Grid.GetRectSize().X, Grid.GetRectSize().Y);
 
     AddChild(TerrainManager);
     AddChild(EntityManager);
-
-    // TODO: procedural map generation and divide it into chunks and optimalize
-    // TODO: chunk loading of nearest visible nodes
-    // TODO: option to load map from external file
-
-    ((PlaneMesh)_terrainMesh.Mesh).Size = Grid.GetRealSize() * 10;
-    _terrainMesh.GetActiveMaterial(0).Set("shader_parameter/terrain_data", TerrainManager.TerrainDataTexture);
-    _terrainMesh.GetActiveMaterial(0).Set("shader_parameter/terrain_size", new Vector2(Grid.GetRectSize().X, Grid.GetRectSize().Y));
-
 
     EmitSignal(SignalName.GridCreated);
   }
 
   public override void _PhysicsProcess(double delta) {
-    DebugDraw3D.DrawAabb(GetAabb(), Colors.Red);
+    //DebugDraw3D.DrawAabb(GetAabb(), Colors.Red);
   }
   public Aabb GetAabb() {
-    var aabb = new Aabb();
-
-
-    // TODO: find better solution for this
-    aabb.Size = new(Grid.GetRealSize().X, 1, Grid.GetRealSize().Y);
-    aabb.Position = new(-Grid.GetRealSize().X / 2, 0, -Grid.GetRealSize().Y / 2);
+    var aabb = new Aabb {
+      // TODO: find better solution for this
+      Size = new(Grid.GetRealSize().X, 1, Grid.GetRealSize().Y),
+      // TODO: add offset
+      Position = new(-Grid.GetLayout().HexCellScale * Mathf.Sqrt(3), 0, -Grid.GetLayout().HexCellScale)
+    };
     return aabb;
   }
 
@@ -62,5 +63,13 @@ public partial class GameBoard : Node3D {
   public Vector3 GetPoint(HexCoordinates coordinates) {
     var point = Grid.GetLayout().HexToPoint(coordinates);
     return new(point.X, 0, point.Y);
+  }
+
+  public HexCoordinates[] GetGrid() {
+    return Grid.GetHexGrid();
+  }
+
+  public void HighlightCells(HexCoordinates[] coordinates) {
+    TerrainManager.HighlightCells(coordinates);
   }
 }
