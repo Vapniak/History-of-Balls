@@ -26,10 +26,12 @@ public partial class TerrainManager : Node {
   }
   public void HighlightCells(HexCell[] cells) {
     HighlightData.Fill(Colors.Transparent);
-    foreach (var cell in cells) {
-      var offset = cell.GetOffsetCoordinates();
-      if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
-        HighlightData.SetPixel(offset.Col, offset.Row, Colors.White);
+    if (cells != null) {
+      foreach (var cell in cells) {
+        var offset = cell.GetOffsetCoordinates();
+        if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
+          HighlightData.SetPixel(offset.Col, offset.Row, Colors.White);
+        }
       }
     }
 

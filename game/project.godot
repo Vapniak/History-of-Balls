@@ -33,8 +33,8 @@ config/icon="res://assets/icon.svg"
 
 Game="*res://addons/gameplay_framework/src/globals/game.tscn"
 RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
-SettingsManager="*res://src/gui/settings_menu/SettingsManager.cs"
 Panku="*res://addons/panku_console/console.tscn"
+SettingsManager="*res://src/gui/settings_menu/SettingsManager.cs"
 
 [debug_draw_3d]
 

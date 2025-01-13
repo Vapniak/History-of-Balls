@@ -66,6 +66,13 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   public override void _Process(double delta) {
     base._Process(delta);
 
+    _character.Move(delta);
+
+    _character.ClampPosition(Game.GetGameState<TestGameState>().GameBoard.GetAabb());
+  }
+
+  public override void _PhysicsProcess(double delta) {
+    base._PhysicsProcess(delta);
 
     // TODO: maybe make it more readable?
     // TODO: better movement, not using lerps
@@ -112,12 +119,9 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
       // TODO: mouse wrap around screen when panning
 
+      _character.Friction(delta);
       _character.HandlePanning(delta, displacement);
     }
-
-    _character.Move(delta);
-
-    _character.ClampPosition(Game.GetGameState<TestGameState>().GameBoard.GetAabb());
   }
 
   private void SelectCell() {

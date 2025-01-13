@@ -20,13 +20,21 @@ public partial class HexGrid : Node {
   }
 
   public HexCell GetCell(HexCoordinates coordinates) {
-    return Cells[CoordToIndexMap[coordinates]];
+    if (CoordToIndexMap.TryGetValue(coordinates, out var index)) {
+      return Cells[index];
+    }
+    return null;
   }
+
 
   public HexCell[] GetCells(HexCoordinates[] coordinates) {
     List<HexCell> cells = new();
     foreach (var coord in coordinates) {
-      cells.Add(GetCell(coord));
+      var cell = GetCell(coord);
+      // TODO: find better solution to get cells and check if they exist
+      if (cell != null) {
+        cells.Add(cell);
+      }
     }
 
     return cells.ToArray();

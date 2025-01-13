@@ -80,7 +80,6 @@ public partial class GameBoard : Node3D {
   }
 
   public void HighlightCoords(HexCoordinates[] coords) {
-
     TerrainManager.HighlightCells(Grid.GetCells(coords));
   }
 }

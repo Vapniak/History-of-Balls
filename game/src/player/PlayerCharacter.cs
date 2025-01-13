@@ -55,7 +55,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   }
 
   public void HandlePanning(double delta, Vector2 mouseDisplacement) {
-    Velocity = Velocity.Lerp(new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti, (float)delta * _acceleration);
+    Velocity += new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti * (float)delta;
   }
 
   public void Friction(double delta) {

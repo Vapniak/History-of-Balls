@@ -2,10 +2,10 @@ namespace HexGridMap;
 
 using Godot;
 
-public struct HexCell {
+public class HexCell {
   public HexCoordinates Coordinates { get; private set; }
 
-  private readonly HexLayout Layout { get; }
+  private HexLayout Layout { get; }
   public HexCell(HexCoordinates coordinates, HexLayout layout) {
     Coordinates = coordinates;
     Layout = layout;
@@ -15,11 +15,11 @@ public struct HexCell {
 
   }
 
-  public readonly Vector2 GetPoint() {
+  public Vector2 GetPoint() {
     return Layout.HexToPoint(Coordinates);
   }
 
-  public readonly HexOffsetCoordinates GetOffsetCoordinates() {
+  public HexOffsetCoordinates GetOffsetCoordinates() {
     return Layout.HexToOffset(Coordinates);
   }
 }
