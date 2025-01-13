@@ -1,14 +1,35 @@
 namespace HexGridMap;
 
+using System.Collections.Generic;
 using Godot;
 
 [GlobalClass]
 public partial class HexGrid : Node {
-  [Export] public GridShape GridShape { get; private set; }
-  [Export] public HexLayout Layout { get; private set; } = new();
+  [Export] private GridShape GridShape { get; set; }
+  [Export] private HexLayout Layout { get; set; }
 
-  public HexCoordinates[] GetHexGrid() {
-    return GridShape.GetGrid(GetLayout());
+  public HexCell[] Cells { get; private set; }
+
+  private Dictionary<HexCoordinates, int> CoordToIndexMap { get; set; }
+  public void CreateGrid() {
+    CoordToIndexMap = new();
+    Cells = GridShape.CreateCells(GetLayout());
+    for (var i = 0; i < Cells.Length; i++) {
+      CoordToIndexMap.Add(Cells[i].Coordinates, i);
+    }
+  }
+
+  public HexCell GetCell(HexCoordinates coordinates) {
+    return Cells[CoordToIndexMap[coordinates]];
+  }
+
+  public HexCell[] GetCells(HexCoordinates[] coordinates) {
+    List<HexCell> cells = new();
+    foreach (var coord in coordinates) {
+      cells.Add(GetCell(coord));
+    }
+
+    return cells.ToArray();
   }
 
   public HexLayout GetLayout() => Layout;

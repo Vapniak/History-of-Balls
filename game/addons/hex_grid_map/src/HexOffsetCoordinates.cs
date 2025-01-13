@@ -21,13 +21,13 @@ public struct HexOffsetCoordinates {
   }
 
 
-  internal readonly HexCoordinates QoffsetToCube(Offset offset) {
+  public readonly HexCoordinates QoffsetToCube(Offset offset) {
     var q = Col;
     var r = Row - ((Col + ((int)offset * (Col & 1))) / 2);
     return new HexCoordinates(q, r);
   }
 
-  internal readonly HexCoordinates RoffsetToCube(Offset offset) {
+  public readonly HexCoordinates RoffsetToCube(Offset offset) {
     var q = Col - ((Row + ((int)offset * (Row & 1))) / 2);
     var r = Row;
 

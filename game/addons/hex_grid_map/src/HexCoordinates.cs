@@ -50,14 +50,14 @@ public struct HexCoordinates {
   public readonly HexCoordinates Multiply(int scalar) => new(Q * scalar, R * scalar);
 
 
-  internal readonly HexOffsetCoordinates Qoffset(Offset offset) {
+  public readonly HexOffsetCoordinates Qoffset(Offset offset) {
     var col = Q;
     var row = R + ((Q + ((int)offset * (Q & 1))) / 2);
     return new HexOffsetCoordinates(col, row);
   }
 
 
-  internal readonly HexOffsetCoordinates Roffset(Offset offset) {
+  public readonly HexOffsetCoordinates Roffset(Offset offset) {
     var col = Q + ((R + ((int)offset * (R & 1))) / 2);
     var row = R;
 

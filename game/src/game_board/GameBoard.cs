@@ -20,6 +20,9 @@ public partial class GameBoard : Node3D {
   private TerrainManager TerrainManager { get; set; }
 
   public override void _Ready() {
+    Grid.CreateGrid();
+
+
     EntityManager = new() {
       GameBoard = this
     };
@@ -72,11 +75,12 @@ public partial class GameBoard : Node3D {
     return Grid.GetLayout().OffsetToHex(offsetCoordinates);
   }
 
-  public HexCoordinates[] GetGrid() {
-    return Grid.GetHexGrid();
+  public HexCell[] GetCells() {
+    return Grid.Cells;
   }
 
-  public void HighlightCells(HexCoordinates[] coordinates) {
-    TerrainManager.HighlightCells(coordinates);
+  public void HighlightCoords(HexCoordinates[] coords) {
+
+    TerrainManager.HighlightCells(Grid.GetCells(coords));
   }
 }

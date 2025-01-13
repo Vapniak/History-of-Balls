@@ -24,10 +24,10 @@ public partial class TerrainManager : Node {
     UpdateHighlightTextureData();
     UpdateTerrainTextureData();
   }
-  public void HighlightCells(HexCoordinates[] coords) {
+  public void HighlightCells(HexCell[] cells) {
     HighlightData.Fill(Colors.Transparent);
-    foreach (var coord in coords) {
-      var offset = GameBoard.HexToOffset(coord);
+    foreach (var cell in cells) {
+      var offset = cell.GetOffsetCoordinates();
       if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
         HighlightData.SetPixel(offset.Col, offset.Row, Colors.White);
       }

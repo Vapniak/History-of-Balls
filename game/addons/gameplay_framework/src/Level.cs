@@ -5,7 +5,8 @@ using Godot;
 [GlobalClass]
 public sealed partial class Level : Node {
   [Export] private PackedScene GameModeScene { get; set; }
-  internal GameMode GameMode { get; private set; }
+
+  public GameMode GameMode { get; private set; }
 
   private bool _canChangeGameMode = true;
 

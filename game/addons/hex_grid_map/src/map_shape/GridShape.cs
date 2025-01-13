@@ -1,24 +1,18 @@
 namespace HexGridMap;
 
-using System.Collections.Generic;
 using Godot;
 
 [GlobalClass]
 public abstract partial class GridShape : Resource {
-  private HexCoordinates[] HexGrid { get; set; }
+
   public GridShape() { }
 
-  public HexCoordinates[] GetGrid(HexLayout layout) {
-    HexGrid ??= CreateGrid(layout);
-
-    return HexGrid;
-  }
+  public abstract HexCell[] CreateCells(HexLayout layout);
 
   /// <summary>
-  /// Size of rect which fill fit the map inside it.
+  /// Size of rect which fits whole map inside it.
   /// </summary>
   /// <returns></returns>
   public abstract Vector2I GetRectSize();
 
-  protected abstract HexCoordinates[] CreateGrid(HexLayout layout);
 }

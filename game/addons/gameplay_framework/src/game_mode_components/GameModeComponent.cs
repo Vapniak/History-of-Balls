@@ -7,7 +7,7 @@ using System;
 public abstract partial class GameModeComponent : Node, IGetGameState<IGameState> {
   public GameMode OwnerGameMode { get; set; }
 
-  internal GameState GameState { get; set; }
+  public GameState GameState { get; set; }
 
   public virtual void Init() { }
 

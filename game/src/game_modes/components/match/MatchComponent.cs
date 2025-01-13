@@ -29,9 +29,9 @@ public partial class MatchComponent : GameModeComponent, IGetGameState<IMatchGam
   private void OnCellCelected(IMatchController controller, HexCoordinates coords) {
     var entities = GetGameState().GameBoard.EntityManager.GetOwnedEntitiesOnCoords(controller, coords);
 
-    GetGameState().GameBoard.HighlightCells(new[] { coords });
+    GetGameState().GameBoard.HighlightCoords(new[] { coords });
     // TODO: entity selection
-    var offset = coords.Roffset(Offset.Even);
-    GD.PrintS("Entities: " + entities.Count, "Q: " + coords.Q, "R: " + coords.R, "COL: " + offset.Col, "ROW: " + offset.Row);
+
+    GD.PrintS("Entities: " + entities.Count, "Q: " + coords.Q, "R: ");
   }
 }
