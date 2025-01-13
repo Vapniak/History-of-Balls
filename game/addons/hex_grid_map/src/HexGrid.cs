@@ -4,14 +4,15 @@ using Godot;
 
 [GlobalClass]
 public partial class HexGrid : Node {
-  [Export] private HexGridSettings GridSettings { get; set; }
+  [Export] public GridShape GridShape { get; private set; }
+  [Export] public HexLayout Layout { get; private set; } = new();
 
   public HexCoordinates[] GetHexGrid() {
-    return GridSettings.GridShape.GetGrid();
+    return GridShape.GetGrid(GetLayout());
   }
 
-  public HexLayout GetLayout() => GridSettings.Layout;
-  public GridShape GetGridShape() => GridSettings.GridShape;
+  public HexLayout GetLayout() => Layout;
+  public GridShape GetGridShape() => GridShape;
 
   public Vector2I GetRectSize() {
     return GetGridShape().GetRectSize();

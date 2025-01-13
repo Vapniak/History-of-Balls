@@ -8,8 +8,8 @@ public abstract partial class GridShape : Resource {
   private HexCoordinates[] HexGrid { get; set; }
   public GridShape() { }
 
-  public HexCoordinates[] GetGrid() {
-    HexGrid ??= CreateGrid();
+  public HexCoordinates[] GetGrid(HexLayout layout) {
+    HexGrid ??= CreateGrid(layout);
 
     return HexGrid;
   }
@@ -20,5 +20,5 @@ public abstract partial class GridShape : Resource {
   /// <returns></returns>
   public abstract Vector2I GetRectSize();
 
-  protected abstract HexCoordinates[] CreateGrid();
+  protected abstract HexCoordinates[] CreateGrid(HexLayout layout);
 }

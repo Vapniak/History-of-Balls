@@ -34,7 +34,6 @@ public partial class GameBoard : Node3D {
 
     _terrainMesh.GetActiveMaterial(0).Set("shader_parameter/terrain_size", Grid.GetRectSize());
 
-
     TerrainManager.CreateData(Grid.GetRectSize().X, Grid.GetRectSize().Y);
 
     AddChild(TerrainManager);
@@ -63,6 +62,14 @@ public partial class GameBoard : Node3D {
   public Vector3 GetPoint(HexCoordinates coordinates) {
     var point = Grid.GetLayout().HexToPoint(coordinates);
     return new(point.X, 0, point.Y);
+  }
+
+  public HexOffsetCoordinates HexToOffset(HexCoordinates coordinates) {
+    return Grid.GetLayout().HexToOffset(coordinates);
+  }
+
+  public HexCoordinates OffsetToHex(HexOffsetCoordinates offsetCoordinates) {
+    return Grid.GetLayout().OffsetToHex(offsetCoordinates);
   }
 
   public HexCoordinates[] GetGrid() {

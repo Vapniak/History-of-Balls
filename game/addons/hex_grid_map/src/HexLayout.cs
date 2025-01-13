@@ -10,7 +10,9 @@ public enum OrientationType {
 [GlobalClass]
 public partial class HexLayout : Resource {
   [Export] public float HexCellScale { get; private set; } = 1;
-  [Export] public OrientationType OrientationType = OrientationType.FlatTop;
+  [Export] public OrientationType OrientationType { get; private set; } = OrientationType.FlatTop;
+  [Export] public Offset Offset { get; private set; } = Offset.Even;
+  [Export] public OffsetType OffsetType { get; private set; } = OffsetType.QOffset;
 
   public HexOrientation Orientation {
     get {
@@ -71,5 +73,21 @@ public partial class HexLayout : Resource {
     var y = (Orientation.B2 * pointOnGrid.X) + (Orientation.B3 * pointOnGrid.Y);
 
     return new HexFractionalCoordinates(x, y).HexRound();
+  }
+
+  public HexOffsetCoordinates HexToOffset(HexCoordinates hexCoordinates) {
+    return OffsetType switch {
+      OffsetType.ROffset => hexCoordinates.Roffset(Offset),
+      OffsetType.QOffset => hexCoordinates.Qoffset(Offset),
+      _ => new(),// TODO: add null
+    };
+  }
+
+  public HexCoordinates OffsetToHex(HexOffsetCoordinates offsetCoordinates) {
+    return OffsetType switch {
+      OffsetType.ROffset => offsetCoordinates.RoffsetToCube(Offset),
+      OffsetType.QOffset => offsetCoordinates.QoffsetToCube(Offset),
+      _ => new(),
+    };
   }
 }

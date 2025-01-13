@@ -1,6 +1,7 @@
 namespace HexGridMap;
 
 using System.Collections.Generic;
+using System.Reflection.Metadata;
 using Godot;
 
 [GlobalClass]
@@ -8,7 +9,7 @@ public partial class HexGridShape : GridShape {
   [Export] public int Size { get; private set; } = 10;
 
   public HexGridShape() { }
-  protected override HexCoordinates[] CreateGrid() {
+  protected override HexCoordinates[] CreateGrid(HexLayout layout) {
     List<HexCoordinates> grid = new();
     for (var q = -Size; q <= Size; q++) {
       var r1 = Mathf.Max(-Size, -q - Size);
