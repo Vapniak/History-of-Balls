@@ -3,9 +3,6 @@ namespace HOB;
 using Godot;
 using HexGridMap;
 
-// TODO: procedural map generation and divide it into chunks and optimalize
-// TODO: chunk loading of nearest visible nodes
-// TODO: option to load map from external file
 
 /// <summary>
 /// Responsible for visualization and working with hex grid.
@@ -31,6 +28,7 @@ public partial class GameBoard : Node3D {
       GameBoard = this
     };
 
+    // TODO: make terrain grid infinite
     ((PlaneMesh)_terrainMesh.Mesh).Size = Grid.GetRealSize() * 10;
     TerrainManager.TerrainDataTextureChanged += (tex) => _terrainMesh.GetActiveMaterial(0).Set("shader_parameter/terrain_data_texture", tex);
     TerrainManager.HighlightDataTextureChanged += (tex) => _terrainMesh.GetActiveMaterial(0).Set("shader_parameter/highlight_data_texture", tex);
@@ -46,14 +44,13 @@ public partial class GameBoard : Node3D {
   }
 
   public override void _PhysicsProcess(double delta) {
-    //DebugDraw3D.DrawAabb(GetAabb(), Colors.Red);
+    DebugDraw3D.DrawAabb(GetAabb(), Colors.Red);
   }
   public Aabb GetAabb() {
     var aabb = new Aabb {
-      // TODO: find better solution for this
       Size = new(Grid.GetRealSize().X, 1, Grid.GetRealSize().Y),
       // TODO: add offset
-      Position = new(-Grid.GetLayout().HexCellScale * Mathf.Sqrt(3), 0, -Grid.GetLayout().HexCellScale)
+      //Position = new(-Grid.GetLayout().GetRealHexSize().X / 2, 0, -Grid.GetLayout().GetRealHexSize().Y / 2),
     };
     return aabb;
   }

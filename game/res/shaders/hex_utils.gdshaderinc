@@ -111,11 +111,3 @@ HexCellData get_hex_cell_data(vec2 worldPositionXZ, int cell_scale)
 	d.distanceSmoothing = .001;
 	return d;
 }
-
-bool is_highlighted(HexCellData data, sampler2D highlight_texture){
-	vec4 color = texelFetch(highlight_texture, data.offsetCoords, 0);
-	if(color.a > 0.){
-		return true;
-	}
-	return false;
-}

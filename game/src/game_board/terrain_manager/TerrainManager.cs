@@ -8,11 +8,11 @@ public partial class TerrainManager : Node {
   [Signal] public delegate void HighlightDataTextureChangedEventHandler(ImageTexture texture);
   public GameBoard GameBoard { get; set; }
 
-  public ImageTexture TerrainDataTexture { get; private set; }
+  private ImageTexture TerrainDataTexture { get; set; }
   private Image TerrainData { get; set; }
 
 
-  public ImageTexture HighlightDataTexture { get; private set; }
+  private ImageTexture HighlightDataTexture { get; set; }
   private Image HighlightData { get; set; }
 
   public void CreateData(int width, int height) {
@@ -24,6 +24,9 @@ public partial class TerrainManager : Node {
     UpdateHighlightTextureData();
     UpdateTerrainTextureData();
   }
+
+
+
   public void HighlightCells(HexCell[] cells) {
     HighlightData.Fill(Colors.Transparent);
     if (cells != null) {

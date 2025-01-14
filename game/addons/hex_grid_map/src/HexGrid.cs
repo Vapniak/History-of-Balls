@@ -48,13 +48,6 @@ public partial class HexGrid : Node {
   }
 
   public Vector2 GetRealSize() {
-    var size = new Vector2();
-
-    var m = GetLayout().Orientation;
-    // FIXME: fix the size, some misaligment is visible
-    size.X = GetRectSize().X * GetLayout().HexCellScale * m.F0;
-    size.Y = GetRectSize().Y * GetLayout().HexCellScale * m.F3;
-
-    return size;
+    return (Vector2)GetRectSize() * GetLayout().GetRealHexSize();
   }
 }

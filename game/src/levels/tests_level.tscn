@@ -1,13 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://dq50a8e3adq5a"]
+[gd_scene load_steps=7 format=3 uid="uid://dq50a8e3adq5a"]
 
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/Level.cs" id="1_wnfpl"]
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/test/test_game_mode.tscn" id="2_h6h6r"]
 [ext_resource type="PackedScene" uid="uid://b7p0e45e0ng0f" path="res://src/game_board/game_board.tscn" id="3_2l1x2"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u3d2l"]
+sky_top_color = Color(0.273589, 0.44456, 0.727337, 1)
+sky_horizon_color = Color(0.571694, 0.65848, 0.812901, 1)
+
+[sub_resource type="Sky" id="Sky_pjgwy"]
+sky_material = SubResource("ProceduralSkyMaterial_u3d2l")
+
 [sub_resource type="Environment" id="Environment_mxfj4"]
-background_mode = 1
-ambient_light_source = 2
-ambient_light_color = Color(1, 1, 1, 1)
+background_mode = 2
+sky = SubResource("Sky_pjgwy")
+ambient_light_source = 3
 glow_enabled = true
 glow_normalized = true
 glow_intensity = 0.1
