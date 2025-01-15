@@ -48,6 +48,8 @@ public partial class HexGrid : Node {
   }
 
   public Vector2 GetRealSize() {
-    return (Vector2)GetRectSize() * GetLayout().GetRealHexSize();
+
+    // TODO: that's good for now
+    return (Vector2)GetRectSize() * GetLayout().GetSpacingBetweenHexes();
   }
 }

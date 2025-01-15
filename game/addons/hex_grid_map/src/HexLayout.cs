@@ -100,4 +100,8 @@ public partial class HexLayout : Resource {
     } * HexCellSize;
     return size;
   }
+
+  public Vector2 GetSpacingBetweenHexes() {
+    return new Vector2(Orientation.F0, Orientation.F3) * HexCellSize;
+  }
 }

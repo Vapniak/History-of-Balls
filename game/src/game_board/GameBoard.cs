@@ -41,16 +41,22 @@ public partial class GameBoard : Node3D {
     AddChild(EntityManager);
 
     EmitSignal(SignalName.GridCreated);
-  }
 
-  public override void _PhysicsProcess(double delta) {
-    DebugDraw3D.DrawAabb(GetAabb(), Colors.Red);
+
+    // TODO: add console and command for showing debug
+    // #if DEBUG
+    //     DebugDraw3D.DrawAabb(GetAabb(), Colors.Red, float.MaxValue);
+
+    //     foreach (var cell in GetCells()) {
+    //       DebugDraw3D.DrawSphere(new(cell.GetPoint().X, 0, cell.GetPoint().Y), 0.5f, Colors.Blue, float.MaxValue);
+    //     }
+    // #endif
   }
   public Aabb GetAabb() {
     var aabb = new Aabb {
       Size = new(Grid.GetRealSize().X, 1, Grid.GetRealSize().Y),
-      // TODO: add offset
-      //Position = new(-Grid.GetLayout().GetRealHexSize().X / 2, 0, -Grid.GetLayout().GetRealHexSize().Y / 2),
+      // TODO: that offset probably will be wrong with different hex oreintations
+      Position = new(-Grid.GetLayout().GetRealHexSize().X / 2, 0, -Grid.GetLayout().GetRealHexSize().Y / 2),
     };
     return aabb;
   }
