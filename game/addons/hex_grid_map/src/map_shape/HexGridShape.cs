@@ -14,7 +14,7 @@ public partial class HexGridShape : GridShape {
       var r1 = Mathf.Max(-Size, -q - Size);
       var r2 = Mathf.Min(Size, -q + Size);
       for (var r = r1; r <= r2; r++) {
-        grid.Add(new(new HexCoordinates(q, r), layout));
+        grid.Add(new(new CubeCoord(q, r), layout));
       }
     }
 

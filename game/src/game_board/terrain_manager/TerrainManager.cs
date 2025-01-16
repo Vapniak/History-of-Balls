@@ -6,7 +6,6 @@ using HexGridMap;
 public partial class TerrainManager : Node {
   [Signal] public delegate void TerrainDataTextureChangedEventHandler(ImageTexture texture);
   [Signal] public delegate void HighlightDataTextureChangedEventHandler(ImageTexture texture);
-  public GameBoard GameBoard { get; set; }
 
   private ImageTexture TerrainDataTexture { get; set; }
   private Image TerrainData { get; set; }
@@ -25,20 +24,35 @@ public partial class TerrainManager : Node {
     UpdateTerrainTextureData();
   }
 
-
-
-  public void HighlightCells(HexCell[] cells) {
+  // TODO: add colors to cells
+  public void ClearHighlights() {
     HighlightData.Fill(Colors.Transparent);
+  }
+
+  public void AddHighlightToCells(HexCell[] cells) {
     if (cells != null) {
       foreach (var cell in cells) {
-        var offset = cell.GetOffsetCoordinates();
-        if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
-          HighlightData.SetPixel(offset.Col, offset.Row, Colors.White);
-        }
+        SetHighlighPixel(cell.GetOffsetCoord(), Colors.White);
       }
     }
+  }
 
+  public void RemoveHighlightFromCells(HexCell[] cells) {
+    if (cells != null) {
+      foreach (var cell in cells) {
+        SetHighlighPixel(cell.GetOffsetCoord(), Colors.Transparent);
+      }
+    }
+  }
+
+  public void UpdateHighlights() {
     UpdateHighlightTextureData();
+  }
+
+  private void SetHighlighPixel(OffsetCoord offset, Color color) {
+    if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
+      HighlightData.SetPixel(offset.Col, offset.Row, color);
+    }
   }
 
   private void UpdateTerrainTextureData() {

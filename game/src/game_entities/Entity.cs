@@ -7,7 +7,7 @@ using System.Collections.Generic;
 
 [GlobalClass]
 public partial class Entity : Node3D {
-  public HexCoordinates Coordinates { get; set; }
+  public CubeCoord coords { get; set; }
 
   private readonly Dictionary<Type, Trait> _traits = new();
 

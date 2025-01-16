@@ -8,28 +8,28 @@ public partial class HexGrid : Node {
   [Export] private GridShape GridShape { get; set; }
   [Export] private HexLayout Layout { get; set; }
 
-  public HexCell[] Cells { get; private set; }
+  private HexCell[] Cells { get; set; }
 
-  private Dictionary<HexCoordinates, int> CoordToIndexMap { get; set; }
+  private Dictionary<CubeCoord, int> CoordToIndexMap { get; set; }
   public void CreateGrid() {
     CoordToIndexMap = new();
     Cells = GridShape.CreateCells(GetLayout());
     for (var i = 0; i < Cells.Length; i++) {
-      CoordToIndexMap.Add(Cells[i].Coordinates, i);
+      CoordToIndexMap.Add(Cells[i].Coord, i);
     }
   }
 
-  public HexCell GetCell(HexCoordinates coordinates) {
-    if (CoordToIndexMap.TryGetValue(coordinates, out var index)) {
+  public HexCell GetCell(CubeCoord coord) {
+    if (CoordToIndexMap.TryGetValue(coord, out var index)) {
       return Cells[index];
     }
     return null;
   }
 
-
-  public HexCell[] GetCells(HexCoordinates[] coordinates) {
+  public HexCell[] GetCells() => Cells;
+  public HexCell[] GetCells(CubeCoord[] coords) {
     List<HexCell> cells = new();
-    foreach (var coord in coordinates) {
+    foreach (var coord in coords) {
       var cell = GetCell(coord);
       // TODO: find better solution to get cells and check if they exist
       if (cell != null) {

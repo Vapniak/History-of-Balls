@@ -1,6 +1,5 @@
 namespace HOB;
 
-using GameplayFramework;
 using Godot;
 using HexGridMap;
 using HOB.GameEntity;
@@ -8,19 +7,17 @@ using System.Collections.Generic;
 using System.Linq;
 
 public partial class EntityManager : Node {
-  public GameBoard GameBoard { get; set; }
-
   private List<Entity> Entities { get; set; }
   public override void _Ready() {
     Entities = new();
   }
 
-  public void AddEntity(Entity entity, HexCoordinates coords, IMatchController controller = null) {
+  public void AddEntity(Entity entity, CubeCoord coord, Vector3 position, IMatchController controller = null) {
     entity.Ready += () => {
-      entity.GlobalPosition = GameBoard.GetPoint(coords);
+      entity.GlobalPosition = position;
     };
 
-    entity.Coordinates = coords;
+    entity.coords = coord;
 
     AddChild(entity);
 
@@ -28,12 +25,12 @@ public partial class EntityManager : Node {
     Entities.Add(entity);
   }
 
-  public List<Entity> GetOwnedEntitiesOnCoords(IMatchController owner, HexCoordinates coords) {
-    var entities = owner.OwnedEntities.Where(e => e.Coordinates == coords).ToList();
-    return entities;
+  public Entity[] GetOwnedEntitiesOnCoords(IMatchController owner, CubeCoord coord) {
+    var entities = owner.OwnedEntities.Where(e => e.coords == coord).ToList();
+    return entities.ToArray();
   }
 
-  public List<Entity> GetEntitiesOnCoords(HexCoordinates coords) {
-    return Entities.Where(e => e.Coordinates == coords).ToList();
+  public Entity[] GetEntitiesOnCoords(CubeCoord coord) {
+    return Entities.Where(e => e.coords == coord).ToArray();
   }
 }

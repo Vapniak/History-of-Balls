@@ -25,7 +25,7 @@ public partial class TestGameMode : GameMode {
     MatchComponent = GetGameModeComponent<MatchComponent>();
 
     PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
-    GetGameState<TestGameState>().GameBoard.GridCreated += PlayerManagmentComponent.SpawnPlayerDeffered;
+    GetGameState<TestGameState>().GameBoard.GridCreated += OnStartGame;
   }
 
   public override void _Process(double delta) {
@@ -45,4 +45,8 @@ public partial class TestGameMode : GameMode {
   }
 
   private void OnQuit() => Game.QuitGame();
+
+  private void OnStartGame() {
+    PlayerManagmentComponent.SpawnPlayerDeffered();
+  }
 }

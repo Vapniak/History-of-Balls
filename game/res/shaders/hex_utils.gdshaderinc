@@ -55,7 +55,7 @@ ivec2 point_to_evenr(vec2 xy){
 
 struct HexCellData{
 	vec2 center;
-	ivec2 offsetCoords;
+	ivec2 offsetCoord;
 	vec2 UV;
 	float distanceToEdge;
 	float distanceToCenter;
@@ -104,7 +104,7 @@ HexCellData get_hex_cell_data(vec2 worldPositionXZ, int cell_scale)
 	vec2 center = point_axial_center(pos);
 
 	HexCellData d;
-	d.offsetCoords = point_to_evenr(pos);
+	d.offsetCoord = point_to_evenr(pos);
 	d.center = center;
 	d.distanceToEdge = point_to_edge_distance(center - pos) / float(cell_scale);
 	d.distanceToCenter = distance(pos, center);

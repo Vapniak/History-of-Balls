@@ -7,6 +7,6 @@ using HexGridMap;
 using HOB.GameEntity;
 
 public interface IMatchController : IController {
-  event Action<HexCoordinates> CellSelected;
-  List<Entity> OwnedEntities { get; set; }
+  public event Action<CubeCoord> CellSelected;
+  public List<Entity> OwnedEntities { get; set; }
 }

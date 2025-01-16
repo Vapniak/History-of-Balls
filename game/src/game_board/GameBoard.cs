@@ -2,6 +2,7 @@ namespace HOB;
 
 using Godot;
 using HexGridMap;
+using HOB.GameEntity;
 
 
 /// <summary>
@@ -12,21 +13,17 @@ public partial class GameBoard : Node3D {
   [Export] private HexGrid Grid { get; set; }
   [Export] private MeshInstance3D _terrainMesh;
 
-  public EntityManager EntityManager { get; private set; }
 
+  private EntityManager EntityManager { get; set; }
   private TerrainManager TerrainManager { get; set; }
 
   public override void _Ready() {
     Grid.CreateGrid();
 
 
-    EntityManager = new() {
-      GameBoard = this
-    };
+    EntityManager = new();
 
-    TerrainManager = new() {
-      GameBoard = this
-    };
+    TerrainManager = new();
 
     // TODO: make terrain grid infinite
     ((PlaneMesh)_terrainMesh.Mesh).Size = Grid.GetRealSize() * 10;
@@ -61,28 +58,41 @@ public partial class GameBoard : Node3D {
     return aabb;
   }
 
-  public HexCoordinates GetHexCoordinates(Vector3 point) {
+  public CubeCoord GetCubeCoord(Vector3 point) {
     return Grid.GetLayout().PointToHex(new(point.X, point.Z));
   }
 
-  public Vector3 GetPoint(HexCoordinates coordinates) {
-    var point = Grid.GetLayout().HexToPoint(coordinates);
+  public Vector3 GetPoint(CubeCoord coord) {
+    var point = Grid.GetLayout().HexToPoint(coord);
     return new(point.X, 0, point.Y);
   }
 
-  public HexOffsetCoordinates HexToOffset(HexCoordinates coordinates) {
-    return Grid.GetLayout().HexToOffset(coordinates);
+  public OffsetCoord CubeToOffset(CubeCoord coord) {
+    return Grid.GetLayout().HexToOffset(coord);
   }
 
-  public HexCoordinates OffsetToHex(HexOffsetCoordinates offsetCoordinates) {
-    return Grid.GetLayout().OffsetToHex(offsetCoordinates);
+  public CubeCoord OffsetToCube(OffsetCoord offsetCoord) {
+    return Grid.GetLayout().OffsetToHex(offsetCoord);
   }
 
   public HexCell[] GetCells() {
-    return Grid.Cells;
+    return Grid.GetCells();
   }
 
-  public void HighlightCoords(HexCoordinates[] coords) {
-    TerrainManager.HighlightCells(Grid.GetCells(coords));
+  public HexCell[] GetCells(CubeCoord[] coords) {
+    return Grid.GetCells(coords);
+  }
+
+  public void AddEntity(Entity entity, CubeCoord coord, IMatchController controller) {
+    EntityManager.AddEntity(entity, coord, GetPoint(coord), controller);
+  }
+
+  public Entity[] GetOwnedEntitiesOnCoord(IMatchController owner, CubeCoord coord) {
+    return EntityManager.GetOwnedEntitiesOnCoords(owner, coord);
+  }
+
+  public void AddHighlightToCoords(CubeCoord[] coords) {
+    TerrainManager.AddHighlightToCells(GetCells(coords));
+    TerrainManager.UpdateHighlights();
   }
 }

@@ -11,26 +11,26 @@ public enum OffsetType {
   QOffset
 }
 
-public struct HexOffsetCoordinates {
+public struct OffsetCoord {
   public int Col { get; private set; }
   public int Row { get; private set; }
 
-  public HexOffsetCoordinates(int col, int row) {
+  public OffsetCoord(int col, int row) {
     Col = col;
     Row = row;
   }
 
 
-  public readonly HexCoordinates QoffsetToCube(Offset offset) {
+  public readonly CubeCoord QoffsetToCube(Offset offset) {
     var q = Col;
     var r = Row - ((Col + ((int)offset * (Col & 1))) / 2);
-    return new HexCoordinates(q, r);
+    return new CubeCoord(q, r);
   }
 
-  public readonly HexCoordinates RoffsetToCube(Offset offset) {
+  public readonly CubeCoord RoffsetToCube(Offset offset) {
     var q = Col - ((Row + ((int)offset * (Row & 1))) / 2);
     var r = Row;
 
-    return new HexCoordinates(q, r);
+    return new CubeCoord(q, r);
   }
 }

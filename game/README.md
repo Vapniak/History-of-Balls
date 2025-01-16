@@ -1,6 +1,6 @@
 ### HEX GRID 
 
-Project uses even r offset coordinates.
+Project uses even r offset coords.
 
 
 ### Folder structure

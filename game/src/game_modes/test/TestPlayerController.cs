@@ -10,7 +10,7 @@ using RaycastSystem;
 
 [GlobalClass]
 public partial class TestPlayerController : PlayerController, IMatchController {
-  public event Action<HexCoordinates> CellSelected;
+  public event Action<CubeCoord> CellSelected;
   public List<Entity> OwnedEntities { get; set; }
 
   // TODO: highlight trait for entities that have actions
@@ -128,8 +128,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport());
     if (raycastResult != null) {
       var point = raycastResult.Position;
-      var coordinates = Game.GetGameState<TestGameState>().GameBoard.GetHexCoordinates(point);
-      CellSelected?.Invoke(coordinates);
+      var coord = Game.GetGameState<TestGameState>().GameBoard.GetCubeCoord(point);
+      CellSelected?.Invoke(coord);
     }
     else {
       //GD.Print("No hit");

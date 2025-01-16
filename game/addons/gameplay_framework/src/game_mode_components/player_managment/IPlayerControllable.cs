@@ -5,5 +5,5 @@ using Godot;
 
 // TODO: find better way to make nodes controllable
 public interface IPlayerControllable {
-  T GetCharacter<T>() where T : Node;
+  public T GetCharacter<T>() where T : Node;
 }

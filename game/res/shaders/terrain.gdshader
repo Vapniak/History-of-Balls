@@ -15,19 +15,19 @@ void vertex() {
 void fragment() {
     vec3 world_pos = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
     HexCellData data = get_hex_cell_data(vec2(world_pos.x, world_pos.z), CELL_SCALE);
-	
-	vec4 terrain_color = texelFetch(terrain_data_texture, data.offsetCoords, 0);
-	if(terrain_color.a > 0.){	
+
+	vec4 terrain_color = texelFetch(terrain_data_texture, data.offsetCoord, 0);
+	if(terrain_color.a > 0.){
 		ALBEDO = terrain_color.rgb;
 	}
 	else {
 		ALBEDO = vec3(0, 0, 0);
 	}
-	
+
 	// apply grid
 	ALBEDO = mix(ALBEDO, ALBEDO - vec3(0.1), step(.85, data.distanceToEdge)); //* 0.01;
 
-	vec4 highlight_color = texelFetch(highlight_data_texture, data.offsetCoords, 0);
+	vec4 highlight_color = texelFetch(highlight_data_texture, data.offsetCoord, 0);
     if (highlight_color.a > 0.) {
     	ALBEDO = mix(ALBEDO, highlight_color.rgb, smoothstep_range(data, .5, .7));
     }
