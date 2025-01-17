@@ -7,6 +7,8 @@ using Godot;
 /// </summary>
 [GlobalClass]
 public sealed partial class World : Node {
+  [Signal] public delegate void LevelOpenedEventHandler(Level level);
+
   public Level CurrentLevel { get; private set; }
 
   public GameMode GetGameMode() => CurrentLevel.GameMode;
@@ -31,8 +33,11 @@ public sealed partial class World : Node {
       CurrentLevel.UnLoad();
       CurrentLevel.QueueFree();
     }
+
+    EmitSignal(SignalName.LevelOpened, level);
     CurrentLevel = level;
+
+    CurrentLevel.Loaded += () => AddChild(CurrentLevel);
     CurrentLevel.Load();
-    AddChild(CurrentLevel);
   }
 }

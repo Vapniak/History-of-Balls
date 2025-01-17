@@ -4,7 +4,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class PlayerManagmentComponent : GameModeComponent, IGetGameState<IPlayerManagmentGameState> {
+public partial class PlayerManagmentComponent : GameModeComponent {
   [Signal] public delegate void PlayerSpawnedEventHandler(PlayerState playerState);
 
   [Export] public string DefaultPlayerName { get; set; } = "Player";

@@ -2,7 +2,6 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
-using HOB.GameEntity;
 
 [GlobalClass]
 public partial class TestGameMode : GameMode {
@@ -13,7 +12,7 @@ public partial class TestGameMode : GameMode {
   public override void Init() {
     base.Init();
 
-    GetGameState<TestGameState>().GameBoard = Game.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
+    GetGameState().GameBoard = Game.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
 
     PauseComponent = GetGameModeComponent<PauseComponent>();
     PauseComponent.GetPauseMenu().Resume += OnResume;
@@ -25,7 +24,9 @@ public partial class TestGameMode : GameMode {
     MatchComponent = GetGameModeComponent<MatchComponent>();
 
     PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
-    GetGameState<TestGameState>().GameBoard.GridCreated += OnStartGame;
+    GetGameState().GameBoard.GridCreated += OnStartGame;
+
+    GetGameState().GameBoard.Init();
   }
 
   public override void _Process(double delta) {
@@ -35,6 +36,8 @@ public partial class TestGameMode : GameMode {
       PauseComponent.Pause();
     }
   }
+
+  public override TestGameState GetGameState() => base.GetGameState() as TestGameState;
 
   protected override GameState CreateGameState() => new TestGameState();
 

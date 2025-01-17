@@ -13,9 +13,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   public event Action<CubeCoord> CellSelected;
   public List<Entity> OwnedEntities { get; set; }
 
-  // TODO: highlight trait for entities that have actions
-
-
   private PlayerCharacter _character;
 
   private bool _isPanning;
@@ -30,7 +27,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     OwnedEntities = new();
     _character = GetCharacter<PlayerCharacter>();
 
-    _character.CenterPositionOn(Game.GetGameState<TestGameState>().GameBoard.GetAabb());
+    _character.CenterPositionOn(GetGameState().GameBoard.GetAabb());
   }
 
   public override void _UnhandledInput(InputEvent @event) {
@@ -68,7 +65,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
     _character.Move(delta);
 
-    _character.ClampPosition(Game.GetGameState<TestGameState>().GameBoard.GetAabb());
+    _character.ClampPosition(GetGameState().GameBoard.GetAabb());
   }
 
   public override void _PhysicsProcess(double delta) {
@@ -77,6 +74,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     // TODO: maybe make it more readable?
     // TODO: better movement, not using lerps
     if (!_isPanning) {
+      GetGameState().GameBoard.SetMouseHighlight(true);
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
       var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
       if (moveVector != Vector2.Zero) {
@@ -117,6 +115,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
       var displacement = currentMousePos - _lastMousePosition;
       _lastMousePosition = currentMousePos;
 
+      GetGameState().GameBoard.SetMouseHighlight(false);
+
       // TODO: mouse wrap around screen when panning
 
       _character.Friction(delta);
@@ -124,11 +124,14 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     }
   }
 
+  // TODO: make controller not game state compatibile but game mode
+  public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
+
   private void SelectCell() {
-    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport());
+    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
     if (raycastResult != null) {
       var point = raycastResult.Position;
-      var coord = Game.GetGameState<TestGameState>().GameBoard.GetCubeCoord(point);
+      var coord = GetGameState().GameBoard.GetCubeCoord(point);
       CellSelected?.Invoke(coord);
     }
     else {

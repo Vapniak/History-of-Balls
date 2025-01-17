@@ -10,7 +10,7 @@ using HOB.GameEntity;
 /// Manages entities and turns of each player.
 /// </summary>
 [GlobalClass]
-public partial class MatchComponent : GameModeComponent, IGetGameState<IMatchGameState> {
+public partial class MatchComponent : GameModeComponent {
   // TODO: handle current player turns
 
 
@@ -28,7 +28,7 @@ public partial class MatchComponent : GameModeComponent, IGetGameState<IMatchGam
 
     // TODO: add better highlighting system
     foreach (var e in playerState.GetController<IMatchController>().OwnedEntities) {
-      GetGameState().GameBoard.AddHighlightToCoords(new[] { e.coords });
+      GetGameState().GameBoard.AddHighlightToCoords(new[] { e.Coords });
     }
 
     playerState.GetController<IMatchController>().CellSelected += (coords) => OnCellCelected(playerState.GetController<IMatchController>(), coords);

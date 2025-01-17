@@ -27,6 +27,7 @@ GridShape = SubResource("Resource_0w5lv")
 Layout = ExtResource("4_t5s1m")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
 
 [node name="TerrainMesh" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("PlaneMesh_2ghrd")

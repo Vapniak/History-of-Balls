@@ -29,10 +29,10 @@ public partial class Game : Node {
     }
   }
 
-  public static GameState GetGameState() {
+  public static IGameState GetGameState() {
     return Instance.World.GetGameMode().GetGameState();
   }
-  public static T GetGameState<T>() where T : GameState {
+  public static T GetGameState<T>() where T : class, IGameState {
     return GetGameState() as T;
   }
 

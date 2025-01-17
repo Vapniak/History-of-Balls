@@ -17,7 +17,7 @@ public partial class EntityManager : Node {
       entity.GlobalPosition = position;
     };
 
-    entity.coords = coord;
+    entity.Coords = coord;
 
     AddChild(entity);
 
@@ -26,11 +26,11 @@ public partial class EntityManager : Node {
   }
 
   public Entity[] GetOwnedEntitiesOnCoords(IMatchController owner, CubeCoord coord) {
-    var entities = owner.OwnedEntities.Where(e => e.coords == coord).ToList();
+    var entities = owner.OwnedEntities.Where(e => e.Coords == coord).ToList();
     return entities.ToArray();
   }
 
   public Entity[] GetEntitiesOnCoords(CubeCoord coord) {
-    return Entities.Where(e => e.coords == coord).ToArray();
+    return Entities.Where(e => e.Coords == coord).ToArray();
   }
 }
