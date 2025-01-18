@@ -20,8 +20,8 @@ public partial class MainMenuGameMode : GameMode {
   }
 
   public void CloseSettings() {
-    _settings.QueueFree();
     _settings.Closed -= CloseSettings;
+    _settings.QueueFree();
   }
 
   public void Quit() => Game.QuitGame();

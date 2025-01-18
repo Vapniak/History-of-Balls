@@ -26,8 +26,10 @@ public partial class PlayerController : Controller {
     HUD = hud;
     hud.SetPlayerController(this);
   }
+
+  public HUD GetHUD() => HUD;
   public T GetHUD<T>() where T : HUD {
-    return HUD as T;
+    return GetHUD() as T;
   }
 
   public void SetControllable(IPlayerControllable controllable) => Controllable = controllable;

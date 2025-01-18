@@ -34,13 +34,13 @@ public sealed partial class Level : Node {
     GameMode.Init();
   }
   public void Load() {
-    GameMode = GameModeScene.InstantiateOrNull<GameMode>();
-    if (GameMode == null) {
+    var gameMode = GameModeScene.InstantiateOrNull<GameMode>();
+    if (gameMode == null) {
       GD.PrintErr("Game Mode Scene is null");
       return;
     }
 
-    ChangeGameMode(GameMode);
+    ChangeGameMode(gameMode);
     _canChangeGameMode = false;
 
     EmitSignal(SignalName.Loaded);

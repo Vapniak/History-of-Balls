@@ -30,7 +30,7 @@ public partial class Game : Node {
   }
 
   public static IGameState GetGameState() {
-    return Instance.World.GetGameMode().GetGameState();
+    return GetWorld().GetGameMode().GetGameState();
   }
   public static T GetGameState<T>() where T : class, IGameState {
     return GetGameState() as T;
@@ -64,8 +64,8 @@ public partial class Game : Node {
   }
 
 
-  public static void PauseGame() {
-    Instance.GetTree().Paused = !Instance.GetTree().Paused;
+  public static void SetPause(bool value) {
+    Instance.GetTree().Paused = value;
   }
 
   public static void QuitGame() {

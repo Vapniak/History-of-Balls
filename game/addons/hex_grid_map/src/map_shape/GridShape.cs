@@ -7,7 +7,7 @@ public abstract partial class GridShape : Resource {
 
   public GridShape() { }
 
-  public abstract HexCell[] CreateCells(HexLayout layout);
+  public abstract HexCell[] CreateCells(HexGrid grid);
 
   /// <summary>
   /// Size of rect which fits whole map inside it.

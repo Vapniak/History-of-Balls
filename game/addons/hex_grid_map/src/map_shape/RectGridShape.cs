@@ -8,15 +8,15 @@ using System.Collections.Generic;
 public partial class RectGridShape : GridShape {
   [Export] public Vector2I Size { get; private set; } = new(10, 10);
 
-  public override HexCell[] CreateCells(HexLayout layout) {
-    List<HexCell> grid = new();
+  public override HexCell[] CreateCells(HexGrid grid) {
+    List<HexCell> cells = new();
     for (var x = 0; x < Size.X; x++) {
       for (var y = 0; y < Size.Y; y++) {
-        grid.Add(new(new OffsetCoord(x, y), layout));
+        cells.Add(new(new OffsetCoord(x, y), grid));
       }
     }
 
-    return grid.ToArray();
+    return cells.ToArray();
   }
 
   public override Vector2I GetRectSize() => Size;

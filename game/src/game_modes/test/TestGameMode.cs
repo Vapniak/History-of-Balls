@@ -34,6 +34,7 @@ public partial class TestGameMode : GameMode {
 
     if (Input.IsActionJustPressed(BuiltinInputActions.UICancel)) {
       PauseComponent.Pause();
+      PlayerManagmentComponent.GetLocalPlayer().GetController<PlayerController>().GetHUD().Hide();
     }
   }
 
@@ -41,7 +42,10 @@ public partial class TestGameMode : GameMode {
 
   protected override GameState CreateGameState() => new TestGameState();
 
-  private void OnResume() => PauseComponent.Resume();
+  private void OnResume() {
+    PauseComponent.Resume();
+    PlayerManagmentComponent.GetLocalPlayer().GetController<PlayerController>().GetHUD().Show();
+  }
   private void OnMainMenu() {
     OnResume();
     Game.GetWorld().OpenLevel("main_menu_level");

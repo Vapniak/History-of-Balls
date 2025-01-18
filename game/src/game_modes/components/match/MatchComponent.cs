@@ -28,18 +28,18 @@ public partial class MatchComponent : GameModeComponent {
 
     // TODO: add better highlighting system
     foreach (var e in playerState.GetController<IMatchController>().OwnedEntities) {
-      GetGameState().GameBoard.AddHighlightToCoords(new[] { e.Coords });
+      GetGameState().GameBoard.AddHighlightToCoords(new[] { e.Cell });
     }
 
     playerState.GetController<IMatchController>().CellSelected += (coords) => OnCellCelected(playerState.GetController<IMatchController>(), coords);
   }
 
-  private void OnCellCelected(IMatchController controller, CubeCoord coords) {
-    var entities = GetGameState().GameBoard.GetOwnedEntitiesOnCoord(controller, coords);
+  private void OnCellCelected(IMatchController controller, HexCell cell) {
+    var entities = GetGameState().GameBoard.GetOwnedEntitiesOnCell(controller, cell);
 
 
     // TODO: entity selection
 
-    GD.PrintS("Entities: " + entities.Length, "Q: " + coords.Q, "R: ");
+    GD.PrintS("Entities: " + entities.Length, "Q: " + cell.Coord.Q, "R: ", cell.Coord.R);
   }
 }

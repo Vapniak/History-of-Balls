@@ -18,7 +18,7 @@ public partial class TerrainManager : Node {
     TerrainData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
 
-    TerrainData.Fill(Colors.LawnGreen);
+    TerrainData.Fill(Colors.DarkOliveGreen);
 
     UpdateHighlightTextureData();
     UpdateTerrainTextureData();

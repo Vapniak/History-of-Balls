@@ -24,7 +24,7 @@ public partial class PauseComponent : GameModeComponent {
   public void Resume() {
     _pauseMenu.Visible = false;
     if (GetGameState().PauseGame) {
-      Game.PauseGame();
+      Game.SetPause(false);
     }
 
     _pauseMenuShown = false;
@@ -37,7 +37,7 @@ public partial class PauseComponent : GameModeComponent {
     _pauseMenuShown = true;
 
     if (GetGameState().PauseGame) {
-      Game.PauseGame();
+      Game.SetPause(true);
     }
   }
 

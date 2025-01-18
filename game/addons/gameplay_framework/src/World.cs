@@ -1,5 +1,6 @@
 namespace GameplayFramework;
 
+using System.Diagnostics;
 using Godot;
 
 /// <summary>
@@ -29,11 +30,19 @@ public sealed partial class World : Node {
       GD.PrintErr("Loaded level is null.");
       return;
     }
+
+
     if (CurrentLevel != null) {
       CurrentLevel.UnLoad();
+      CurrentLevel.TreeExited += () => SwitchLevel(level);
       CurrentLevel.QueueFree();
     }
+    else {
+      SwitchLevel(level);
+    }
+  }
 
+  private void SwitchLevel(Level level) {
     EmitSignal(SignalName.LevelOpened, level);
     CurrentLevel = level;
 

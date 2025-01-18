@@ -13,12 +13,16 @@ public partial class HexGrid : Node {
   private Dictionary<CubeCoord, int> CoordToIndexMap { get; set; }
   public void CreateGrid() {
     CoordToIndexMap = new();
-    Cells = GridShape.CreateCells(GetLayout());
+    Cells = GridShape.CreateCells(this);
     for (var i = 0; i < Cells.Length; i++) {
       CoordToIndexMap.Add(Cells[i].Coord, i);
     }
   }
 
+  public HexCell GetCell(Vector3 point) {
+    var hex = GetLayout().PointToHex(new(point.X, point.Z));
+    return GetCell(hex);
+  }
   public HexCell GetCell(CubeCoord coord) {
     if (CoordToIndexMap.TryGetValue(coord, out var index)) {
       return Cells[index];

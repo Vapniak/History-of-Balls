@@ -78,21 +78,11 @@ public partial class GameBoard : Node3D {
     _terrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
   }
 
-  public CubeCoord GetCubeCoord(Vector3 point) {
-    return Grid.GetLayout().PointToHex(new(point.X, point.Z));
+  public HexCell GetCell(CubeCoord coord) {
+    return Grid.GetCell(coord);
   }
-
-  public Vector3 GetPoint(CubeCoord coord) {
-    var point = Grid.GetLayout().HexToPoint(coord);
-    return new(point.X, 0, point.Y);
-  }
-
-  public OffsetCoord CubeToOffset(CubeCoord coord) {
-    return Grid.GetLayout().HexToOffset(coord);
-  }
-
-  public CubeCoord OffsetToCube(OffsetCoord offsetCoord) {
-    return Grid.GetLayout().OffsetToHex(offsetCoord);
+  public HexCell GetCell(Vector3 point) {
+    return Grid.GetCell(point);
   }
 
   public HexCell[] GetCells() {
@@ -104,20 +94,21 @@ public partial class GameBoard : Node3D {
   }
 
   public void AddEntity(Entity entity, CubeCoord coord, IMatchController controller) {
-    EntityManager.AddEntity(entity, coord, GetPoint(coord), controller);
+    var cell = GetCell(coord);
+    EntityManager.AddEntity(entity, cell, new(cell.GetPoint().X, 0, cell.GetPoint().Y), controller);
   }
 
-  public Entity[] GetOwnedEntitiesOnCoord(IMatchController owner, CubeCoord coord) {
-    return EntityManager.GetOwnedEntitiesOnCoords(owner, coord);
+  public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, HexCell cell) {
+    return EntityManager.GetOwnedEntitiesOnCell(owner, cell);
   }
 
-  public void AddHighlightToCoords(CubeCoord[] coords) {
-    TerrainManager.AddHighlightToCells(GetCells(coords));
+  public void AddHighlightToCoords(HexCell[] cells) {
+    TerrainManager.AddHighlightToCells(cells);
     TerrainManager.UpdateHighlights();
   }
 
-  public void RemoveHighlightFromCoords(CubeCoord[] coords) {
-    TerrainManager.RemoveHighlightFromCells(GetCells(coords));
+  public void RemoveHighlightFromCoords(HexCell[] cells) {
+    TerrainManager.RemoveHighlightFromCells(cells);
     TerrainManager.UpdateHighlights();
   }
 }

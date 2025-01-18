@@ -5,21 +5,29 @@ using Godot;
 public class HexCell {
   public CubeCoord Coord { get; private set; }
 
-  private HexLayout Layout { get; }
-  public HexCell(CubeCoord coord, HexLayout layout) {
+  private HexGrid Grid { get; }
+  public HexCell(CubeCoord coord, HexGrid grid) {
     Coord = coord;
-    Layout = layout;
+    Grid = grid;
   }
 
-  public HexCell(OffsetCoord coord, HexLayout layout) : this(layout.OffsetToHex(coord), layout) {
+  public HexCell(OffsetCoord coord, HexGrid grid) {
+    Grid = grid;
 
+    Coord = GetLayout().OffsetToHex(coord);
   }
 
   public Vector2 GetPoint() {
-    return Layout.HexToPoint(Coord);
+    return GetLayout().HexToPoint(Coord);
   }
 
   public OffsetCoord GetOffsetCoord() {
-    return Layout.HexToOffset(Coord);
+    return GetLayout().HexToOffset(Coord);
   }
+
+  public HexCell[] GetCellsInRange(int range) {
+    return Grid.GetCells(GetLayout().CoordsInRange(Coord, range));
+  }
+
+  public HexLayout GetLayout() => Grid.GetLayout();
 }

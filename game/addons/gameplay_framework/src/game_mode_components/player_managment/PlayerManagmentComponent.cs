@@ -26,6 +26,10 @@ public partial class PlayerManagmentComponent : GameModeComponent {
   public virtual void SpawnPlayerDeffered() {
     CallDeferred(MethodName.SpawnPlayer);
   }
+  public override IPlayerManagmentGameState GetGameState() => base.GetGameState() as IPlayerManagmentGameState;
+
+  public PlayerState GetLocalPlayer() => GetGameState().PlayerArray[0];
+
 
   private void SpawnPlayer() {
     var player = PlayerScene?.InstantiateOrNull<Node>();
@@ -41,7 +45,7 @@ public partial class PlayerManagmentComponent : GameModeComponent {
         }
       }
 
-      parent.AddChild(playerController);
+      player.AddChild(playerController);
 
 
       var playerState = CreatePlayerState();
@@ -62,5 +66,4 @@ public partial class PlayerManagmentComponent : GameModeComponent {
     return new PlayerState();
   }
 
-  public override IPlayerManagmentGameState GetGameState() => base.GetGameState() as IPlayerManagmentGameState;
 }

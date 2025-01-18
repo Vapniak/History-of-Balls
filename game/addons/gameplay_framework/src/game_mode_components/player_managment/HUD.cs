@@ -13,8 +13,4 @@ public partial class HUD : CanvasLayer {
 
   public PlayerController GetPlayerController() => PlayerController;
   public T GetPlayerController<T>() where T : PlayerController => GetPlayerController() as T;
-
-  public void ShowHUD() {
-    Visible = !Visible;
-  }
 }

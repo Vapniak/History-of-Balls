@@ -1,5 +1,6 @@
 namespace HexGridMap;
 
+using System.Collections.Generic;
 using Godot;
 
 public enum OrientationType {
@@ -89,6 +90,18 @@ public partial class HexLayout : Resource {
       OffsetType.QOffset => offsetCoord.QoffsetToCube(Offset),
       _ => new(),
     };
+  }
+
+  public CubeCoord[] CoordsInRange(CubeCoord center, int range) {
+    var coords = new List<CubeCoord>();
+
+    for (var q = -range; q <= range; q++) {
+      for (var r = Mathf.Max(-range, -q - range); r <= Mathf.Min(range, -q + range); r++) {
+        coords.Add(center.Add(new(q, r)));
+      }
+    }
+
+    return coords.ToArray();
   }
 
   public Vector2 GetRealHexSize() {
