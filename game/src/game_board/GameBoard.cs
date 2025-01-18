@@ -78,6 +78,10 @@ public partial class GameBoard : Node3D {
     _terrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
   }
 
+  public CubeCoord PointToCube(Vector3 point) {
+    return Grid.GetLayout().PointToHex(new(point.X, point.Z));
+  }
+
   public HexCell GetCell(CubeCoord coord) {
     return Grid.GetCell(coord);
   }
@@ -102,12 +106,12 @@ public partial class GameBoard : Node3D {
     return EntityManager.GetOwnedEntitiesOnCell(owner, cell);
   }
 
-  public void AddHighlightToCoords(HexCell[] cells) {
+  public void AddHighlightToCells(HexCell[] cells) {
     TerrainManager.AddHighlightToCells(cells);
     TerrainManager.UpdateHighlights();
   }
 
-  public void RemoveHighlightFromCoords(HexCell[] cells) {
+  public void RemoveHighlightFromCells(HexCell[] cells) {
     TerrainManager.RemoveHighlightFromCells(cells);
     TerrainManager.UpdateHighlights();
   }

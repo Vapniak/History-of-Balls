@@ -15,16 +15,18 @@ public partial class Entity : Node3D {
     foreach (var child in GetChildren()) {
       if (child is Trait trait) {
         trait.Owner = this;
-        AddTrait(trait);
+        _traits.Add(trait.GetType(), trait);
       }
     }
   }
 
-  public T GetTrait<T>() where T : Trait {
-    return (T)_traits[typeof(T)];
-  }
+  public bool TryGetTrait<T>(out T trait) where T : Trait {
+    if (_traits.TryGetValue(typeof(T), out var t)) {
+      trait = t as T;
+      return true;
+    }
 
-  private void AddTrait<T>(T trait) where T : Trait {
-    _traits[typeof(T)] = trait;
+    trait = null;
+    return false;
   }
 }

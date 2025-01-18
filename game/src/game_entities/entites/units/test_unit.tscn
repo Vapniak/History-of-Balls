@@ -15,7 +15,7 @@ size = Vector3(0.175, 0.21, 0.49)
 
 [sub_resource type="Resource" id="Resource_ons63"]
 script = ExtResource("3_2gl2j")
-Move = 0
+Move = 5
 
 [node name="TestUnit" type="Node3D"]
 script = ExtResource("1_l4gw0")

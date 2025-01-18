@@ -21,7 +21,7 @@ public partial class TerrainManager : Node {
     TerrainData.Fill(Colors.DarkOliveGreen);
 
     UpdateHighlightTextureData();
-    UpdateTerrainTextureData();
+    // UpdateTerrainTextureData();
   }
 
   // TODO: add colors to cells

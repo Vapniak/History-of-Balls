@@ -14,13 +14,14 @@ fill_from = Vector2(0, 1)
 fill_to = Vector2(0.534188, 0.495726)
 
 [sub_resource type="Gradient" id="Gradient_clnyb"]
-colors = PackedColorArray(0.474904, 0.678394, 0.586483, 1, 1, 0.392157, 0.392157, 1)
+offsets = PackedFloat32Array(0, 0.444134, 1)
+colors = PackedColorArray(0, 0.65717, 0.648107, 1, 1.10701e-05, 0.796239, 0.323067, 1, 1, 0.392157, 0.392157, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_p7b1c"]
 gradient = SubResource("Gradient_clnyb")
 width = 10
 height = 10
-fill_from = Vector2(0.230769, 0.179487)
+fill_from = Vector2(0.264957, 0.0598291)
 fill_to = Vector2(0.888889, 0.41453)
 
 [resource]

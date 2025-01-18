@@ -10,7 +10,7 @@ using RaycastSystem;
 
 [GlobalClass]
 public partial class TestPlayerController : PlayerController, IMatchController {
-  public event Action<HexCell> CellSelected;
+  public event Action<CubeCoord> CoordClicked;
   public List<Entity> OwnedEntities { get; set; }
 
   private PlayerCharacter _character;
@@ -131,8 +131,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
     if (raycastResult != null) {
       var point = raycastResult.Position;
-      var cell = GetGameState().GameBoard.GetCell(point);
-      CellSelected?.Invoke(cell);
+      var coord = GetGameState().GameBoard.PointToCube(point);
+      CoordClicked?.Invoke(coord);
     }
     else {
       //GD.Print("No hit");

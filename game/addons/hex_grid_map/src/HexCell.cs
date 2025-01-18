@@ -25,7 +25,7 @@ public class HexCell {
     return GetLayout().HexToOffset(Coord);
   }
 
-  public HexCell[] GetCellsInRange(int range) {
+  public HexCell[] GetCellsInRange(uint range) {
     return Grid.GetCells(GetLayout().CoordsInRange(Coord, range));
   }
 

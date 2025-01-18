@@ -92,11 +92,12 @@ public partial class HexLayout : Resource {
     };
   }
 
-  public CubeCoord[] CoordsInRange(CubeCoord center, int range) {
+  public CubeCoord[] CoordsInRange(CubeCoord center, uint range) {
     var coords = new List<CubeCoord>();
 
-    for (var q = -range; q <= range; q++) {
-      for (var r = Mathf.Max(-range, -q - range); r <= Mathf.Min(range, -q + range); r++) {
+    var rg = (int)range;
+    for (var q = -rg; q <= rg; q++) {
+      for (var r = Mathf.Max(-rg, -q - rg); r <= Mathf.Min(rg, -q + rg); r++) {
         coords.Add(center.Add(new(q, r)));
       }
     }
