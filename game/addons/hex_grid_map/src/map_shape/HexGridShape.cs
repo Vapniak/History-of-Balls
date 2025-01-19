@@ -1,5 +1,6 @@
 namespace HexGridMap;
 
+using System;
 using System.Collections.Generic;
 using Godot;
 
@@ -14,7 +15,7 @@ public partial class HexGridShape : GridShape {
       var r1 = Mathf.Max(-Size, -q - Size);
       var r2 = Mathf.Min(Size, -q + Size);
       for (var r = r1; r <= r2; r++) {
-        cells.Add(new(new CubeCoord(q, r), grid));
+        cells.Add(grid.CreateCell(new CubeCoord(q, r)));
       }
     }
 

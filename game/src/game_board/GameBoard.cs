@@ -11,7 +11,7 @@ using RaycastSystem;
 /// </summary>
 public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
-  [Export] private HexGrid Grid { get; set; }
+  [Export] private GameGrid Grid { get; set; }
   [Export] private MeshInstance3D _terrainMesh;
 
 

@@ -14,9 +14,18 @@ public partial class HexGrid : Node {
   public void CreateGrid() {
     CoordToIndexMap = new();
     Cells = GridShape.CreateCells(this);
+
     for (var i = 0; i < Cells.Length; i++) {
       CoordToIndexMap.Add(Cells[i].Coord, i);
     }
+  }
+
+  public HexCell CreateCell(CubeCoord coord) {
+    return new(coord, this);
+  }
+
+  public HexCell CreateCell(OffsetCoord coord) {
+    return new(coord, this);
   }
 
   public HexCell GetCell(Vector3 point) {

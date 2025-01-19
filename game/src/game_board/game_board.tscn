@@ -1,12 +1,12 @@
 [gd_scene load_steps=9 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
-[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexGrid.cs" id="3_323vx"]
 [ext_resource type="Script" path="res://addons/hex_grid_map/src/map_shape/RectGridShape.cs" id="3_ai37k"]
+[ext_resource type="Script" path="res://src/game_board/GameGrid.cs" id="3_ct6mh"]
 [ext_resource type="Material" uid="uid://c6655v1arx6kw" path="res://res/materials/hex_grid_mat.tres" id="4_frcd5"]
 [ext_resource type="Resource" uid="uid://ca43u8x72ydv5" path="res://src/game_board/grid_layout.tres" id="4_t5s1m"]
 
-[sub_resource type="Resource" id="Resource_0w5lv"]
+[sub_resource type="Resource" id="Resource_smrum"]
 script = ExtResource("3_ai37k")
 Size = Vector2i(10, 10)
 
@@ -18,12 +18,12 @@ size = Vector2(100, 100)
 
 [node name="GameBoard" type="Node3D" node_paths=PackedStringArray("Grid", "_terrainMesh")]
 script = ExtResource("1_fetkt")
-Grid = NodePath("HexGrid")
+Grid = NodePath("GameGrid")
 _terrainMesh = NodePath("StaticBody3D/TerrainMesh")
 
-[node name="HexGrid" type="Node" parent="."]
-script = ExtResource("3_323vx")
-GridShape = SubResource("Resource_0w5lv")
+[node name="GameGrid" type="Node" parent="."]
+script = ExtResource("3_ct6mh")
+GridShape = SubResource("Resource_smrum")
 Layout = ExtResource("4_t5s1m")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

@@ -1,5 +1,6 @@
 namespace HexGridMap;
 
+using System;
 using Godot;
 
 [GlobalClass]
