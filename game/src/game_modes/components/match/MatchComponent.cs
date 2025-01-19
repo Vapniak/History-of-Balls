@@ -16,6 +16,8 @@ public partial class MatchComponent : GameModeComponent {
 
   [Export] private PackedScene TestEntity { get; set; }
 
+  private HexCell _lastSelectedCell;
+
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
   public virtual void OnPlayerSpawned(PlayerState playerState) {
@@ -37,15 +39,32 @@ public partial class MatchComponent : GameModeComponent {
   private void OnCoordClicked(IMatchController controller, CubeCoord coord) {
     var cell = GetGameState().GameBoard.GetCell(coord);
 
+
+
     if (cell == null) {
+      if (_lastSelectedCell != null) {
+        DeselectCell(controller, _lastSelectedCell);
+      }
+
       return;
     }
 
+    // TODO: better selection logic
+    if (_lastSelectedCell != null) {
+      if (_lastSelectedCell != cell) {
+        DeselectCell(controller, _lastSelectedCell);
+        SelectCell(controller, cell);
+        _lastSelectedCell = cell;
+      }
+    }
+    else {
+      SelectCell(controller, cell);
+      _lastSelectedCell = cell;
+    }
+  }
+
+  private void SelectCell(IMatchController controller, HexCell cell) {
     var entities = GetGameState().GameBoard.GetOwnedEntitiesOnCell(controller, cell);
-
-
-    // TODO: entity selection
-    // TODO: selecting works but deselecting not
     foreach (var entity in entities) {
       if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
         GetGameState().GameBoard.AddHighlightToCells(cell.GetCellsInRange(moveTrait.Data.Move));
@@ -53,5 +72,18 @@ public partial class MatchComponent : GameModeComponent {
     }
 
     GD.PrintS("Entities:", entities.Length, "Q:", cell.Coord.Q, "R:", cell.Coord.R);
+  }
+
+  private void DeselectCell(IMatchController controller, HexCell cell) {
+    var entities = GetGameState().GameBoard.GetOwnedEntitiesOnCell(controller, cell);
+    foreach (var entity in entities) {
+      if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
+        foreach (var c in cell.GetCellsInRange(moveTrait.Data.Move)) {
+          if (GetGameState().GameBoard.GetEntitiesOnCell(c).Length == 0) {
+            GetGameState().GameBoard.RemoveHighlightFromCells(new[] { c });
+          }
+        }
+      }
+    }
   }
 }

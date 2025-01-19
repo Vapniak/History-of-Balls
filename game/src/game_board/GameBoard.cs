@@ -106,6 +106,10 @@ public partial class GameBoard : Node3D {
     return EntityManager.GetOwnedEntitiesOnCell(owner, cell);
   }
 
+  public Entity[] GetEntitiesOnCell(HexCell cell) {
+    return EntityManager.GetEntitiesOnCell(cell);
+  }
+
   public void AddHighlightToCells(HexCell[] cells) {
     TerrainManager.AddHighlightToCells(cells);
     TerrainManager.UpdateHighlights();
