@@ -29,8 +29,4 @@ public partial class MoveTrait : Trait {
     _targetPosition = new(pos.X, 0, pos.Y);
     _move = true;
   }
-
-  public HexCell[] GetCellsInMoveRange() {
-    return GetEntity().Cell.GetCellsInRange(Data.MoveRange);
-  }
 }

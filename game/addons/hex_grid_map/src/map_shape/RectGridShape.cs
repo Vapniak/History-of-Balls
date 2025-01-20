@@ -8,11 +8,11 @@ using System.Collections.Generic;
 public partial class RectGridShape : GridShape {
   [Export] public Vector2I Size { get; private set; } = new(10, 10);
 
-  public override HexCell[] CreateCells(HexGrid grid) {
-    List<HexCell> cells = new();
+  public override T[] CreateCells<T>(Func<CubeCoord, T> createCell, HexLayout layout) {
+    List<T> cells = new();
     for (var x = 0; x < Size.X; x++) {
       for (var y = 0; y < Size.Y; y++) {
-        cells.Add(grid.CreateCell(new OffsetCoord(x, y)));
+        cells.Add(createCell(layout.OffsetToHex(new OffsetCoord(x, y))));
       }
     }
 

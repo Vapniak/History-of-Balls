@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System.Data;
 using Godot;
 using HexGridMap;
 
@@ -14,14 +15,18 @@ public partial class TerrainManager : Node {
   private ImageTexture HighlightDataTexture { get; set; }
   private Image HighlightData { get; set; }
 
-  public void CreateData(int width, int height) {
+  public void CreateData(int width, int height, HexCell[] cells) {
     TerrainData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
 
-    TerrainData.Fill(Colors.DarkOliveGreen);
+    //TerrainData.Fill(Colors.Transparent);
+
+    // foreach (var cell in cells) {
+    //   TerrainData.SetPixel(cell.GetOffsetCoord().Col, cell.GetOffsetCoord().Row, Colors.DarkOliveGreen);
+    // }
 
     UpdateHighlightTextureData();
-    // UpdateTerrainTextureData();
+    //UpdateTerrainTextureData();
   }
 
   // TODO: add colors to cells

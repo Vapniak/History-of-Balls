@@ -11,18 +11,19 @@ using RaycastSystem;
 /// </summary>
 public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
-  [Export] private GameGrid Grid { get; set; }
   [Export] private MeshInstance3D _terrainMesh;
+  [Export] private HexLayout Layout { get; set; }
+  [Export] private GridShape GridShape { get; set; }
 
 
+  private GameGrid Grid { get; set; }
   private EntityManager EntityManager { get; set; }
   private TerrainManager TerrainManager { get; set; }
 
   private Material _terrainMaterial;
 
   public void Init() {
-    Grid.CreateGrid();
-
+    Grid = new(Layout, GridShape);
 
     EntityManager = new();
 
@@ -37,7 +38,7 @@ public partial class GameBoard : Node3D {
 
     _terrainMaterial.Set("shader_parameter/terrain_size", Grid.GetRectSize());
 
-    TerrainManager.CreateData(Grid.GetRectSize().X, Grid.GetRectSize().Y);
+    TerrainManager.CreateData(Grid.GetRectSize().X, Grid.GetRectSize().Y, GetCells());
 
     SetMouseHighlight(true);
 
@@ -95,6 +96,10 @@ public partial class GameBoard : Node3D {
 
   public HexCell[] GetCells(CubeCoord[] coords) {
     return Grid.GetCells(coords);
+  }
+
+  public HexCell[] GetCellsInRange(CubeCoord center, uint range) {
+    return Grid.GetCellsInRange(center, range);
   }
 
   public void AddEntity(Entity entity, CubeCoord coord, IMatchController controller) {

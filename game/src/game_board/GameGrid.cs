@@ -1,10 +1,12 @@
 namespace HOB;
 
-using Godot;
+
 using HexGridMap;
-using System;
 
 
-[GlobalClass]
-public partial class GameGrid : HexGrid {
+public class GameGrid : HexGrid<GameCell> {
+  public GameGrid(HexLayout layout, GridShape shape) : base(layout, shape) {
+  }
+
+  public override GameCell CreateCell(CubeCoord coord) => new(coord, GetLayout());
 }

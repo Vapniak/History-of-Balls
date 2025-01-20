@@ -3,45 +3,44 @@ namespace HexGridMap;
 using System.Collections.Generic;
 using Godot;
 
-[GlobalClass]
-public partial class HexGrid : Node {
+public abstract partial class HexGrid<T> where T : HexCell {
   [Export] private GridShape GridShape { get; set; }
   [Export] private HexLayout Layout { get; set; }
 
-  private HexCell[] Cells { get; set; }
+  private T[] Cells { get; set; }
 
   private Dictionary<CubeCoord, int> CoordToIndexMap { get; set; }
-  public void CreateGrid() {
+
+  public HexGrid(HexLayout layout, GridShape shape) {
+    Layout = layout;
+    GridShape = shape;
+
+
     CoordToIndexMap = new();
-    Cells = GridShape.CreateCells(this);
+    Cells = GridShape.CreateCells(CreateCell, layout);
 
     for (var i = 0; i < Cells.Length; i++) {
       CoordToIndexMap.Add(Cells[i].Coord, i);
     }
   }
 
-  public HexCell CreateCell(CubeCoord coord) {
-    return new(coord, this);
-  }
 
-  public HexCell CreateCell(OffsetCoord coord) {
-    return new(coord, this);
-  }
+  public abstract T CreateCell(CubeCoord coord);
 
-  public HexCell GetCell(Vector3 point) {
+  public T GetCell(Vector3 point) {
     var hex = GetLayout().PointToHex(new(point.X, point.Z));
     return GetCell(hex);
   }
-  public HexCell GetCell(CubeCoord coord) {
+  public T GetCell(CubeCoord coord) {
     if (CoordToIndexMap.TryGetValue(coord, out var index)) {
       return Cells[index];
     }
     return null;
   }
 
-  public HexCell[] GetCells() => Cells;
-  public HexCell[] GetCells(CubeCoord[] coords) {
-    List<HexCell> cells = new();
+  public T[] GetCells() => Cells;
+  public T[] GetCells(CubeCoord[] coords) {
+    List<T> cells = new();
     foreach (var coord in coords) {
       var cell = GetCell(coord);
       // TODO: find better solution to get cells and check if they exist
@@ -51,6 +50,10 @@ public partial class HexGrid : Node {
     }
 
     return cells.ToArray();
+  }
+
+  public T[] GetCellsInRange(CubeCoord center, uint range) {
+    return GetCells(GetLayout().CoordsInRange(center, range));
   }
 
   public HexLayout GetLayout() => Layout;

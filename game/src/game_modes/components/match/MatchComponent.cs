@@ -52,7 +52,7 @@ public partial class MatchComponent : GameModeComponent {
     var entities = GetGameState().GameBoard.GetOwnedEntitiesOnCell(controller, cell);
     foreach (var entity in entities) {
       if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
-        foreach (var c in moveTrait.GetCellsInMoveRange()) {
+        foreach (var c in GetGameState().GameBoard.GetCellsInRange(entity.Cell.Coord, moveTrait.Data.MoveRange)) {
           // TODO: use terrain cost not range
           if (GetGameState().GameBoard.GetEntitiesOnCell(c).Length == 0) {
             GetGameState().GameBoard.AddHighlightToCells(new[] { c });
@@ -72,7 +72,7 @@ public partial class MatchComponent : GameModeComponent {
     var entities = GetGameState().GameBoard.GetOwnedEntitiesOnCell(controller, cell);
     foreach (var entity in entities) {
       if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
-        foreach (var c in moveTrait.GetCellsInMoveRange()) {
+        foreach (var c in GetGameState().GameBoard.GetCellsInRange(entity.Cell.Coord, moveTrait.Data.MoveRange)) {
           if (GetGameState().GameBoard.GetEntitiesOnCell(c).Length == 0) {
             GetGameState().GameBoard.RemoveHighlightFromCells(new[] { c });
           }

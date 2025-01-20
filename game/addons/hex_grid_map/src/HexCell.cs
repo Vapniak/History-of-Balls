@@ -4,17 +4,10 @@ using Godot;
 
 public class HexCell {
   public CubeCoord Coord { get; private set; }
-
-  private HexGrid Grid { get; }
-  public HexCell(CubeCoord coord, HexGrid grid) {
+  private HexLayout Layout { get; set; }
+  public HexCell(CubeCoord coord, HexLayout layout) {
     Coord = coord;
-    Grid = grid;
-  }
-
-  public HexCell(OffsetCoord coord, HexGrid grid) {
-    Grid = grid;
-
-    Coord = GetLayout().OffsetToHex(coord);
+    Layout = layout;
   }
 
   public Vector2 GetPoint() {
@@ -25,9 +18,5 @@ public class HexCell {
     return GetLayout().HexToOffset(Coord);
   }
 
-  public HexCell[] GetCellsInRange(uint range) {
-    return Grid.GetCells(GetLayout().CoordsInRange(Coord, range));
-  }
-
-  public HexLayout GetLayout() => Grid.GetLayout();
+  public HexLayout GetLayout() => Layout;
 }

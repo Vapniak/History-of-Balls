@@ -3,7 +3,7 @@ namespace HOB;
 using HexGridMap;
 
 public class GameCell : HexCell {
-  public GameCell(CubeCoord coord, GameGrid grid) : base(coord, grid) { }
+  public GameCell(CubeCoord coord, HexLayout layout) : base(coord, layout) {
 
-  public GameCell(OffsetCoord coord, GameGrid grid) : base(coord, grid) { }
+  }
 }
