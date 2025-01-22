@@ -11,7 +11,6 @@ using RaycastSystem;
 [GlobalClass]
 public partial class TestPlayerController : PlayerController, IMatchController {
   public event Action<CubeCoord> CoordClicked;
-  public List<Entity> OwnedEntities { get; set; }
 
   private PlayerCharacter _character;
 
@@ -24,7 +23,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
     Input.MouseMode = Input.MouseModeEnum.Confined;
 
-    OwnedEntities = new();
     _character = GetCharacter<PlayerCharacter>();
 
     _character.CenterPositionOn(GetGameState().GameBoard.GetAabb());

@@ -24,9 +24,11 @@ public partial class MoveTrait : Trait {
       }
     }
   }
-  public void Move(HexCell targetCell) {
-    var pos = targetCell.GetPoint();
+  public void Move(GameCell targetCell) {
+    var pos = targetCell.Position;
     _targetPosition = new(pos.X, 0, pos.Y);
     _move = true;
+
+    GetEntity().Cell = targetCell;
   }
 }

@@ -16,7 +16,7 @@ public partial class MatchComponent : GameModeComponent {
 
   [Export] private PackedScene TestEntity { get; set; }
 
-  private HexCell _lastSelectedCell;
+  private GameCell _lastSelectedCell;
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
@@ -29,7 +29,7 @@ public partial class MatchComponent : GameModeComponent {
 
 
     // TODO: add better highlighting system
-    foreach (var e in playerState.GetController<IMatchController>().OwnedEntities) {
+    foreach (var e in GetGameState().GameBoard.GetOwnedEntities(playerState.GetController<IMatchController>())) {
       GetGameState().GameBoard.AddHighlightToCells(new[] { e.Cell });
     }
 
@@ -48,7 +48,7 @@ public partial class MatchComponent : GameModeComponent {
     SelectCell(controller, cell);
   }
 
-  private void SelectCell(IMatchController controller, HexCell cell) {
+  private void SelectCell(IMatchController controller, GameCell cell) {
     var entities = GetGameState().GameBoard.GetOwnedEntitiesOnCell(controller, cell);
     foreach (var entity in entities) {
       if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
@@ -68,7 +68,7 @@ public partial class MatchComponent : GameModeComponent {
     _lastSelectedCell = cell;
   }
 
-  private void DeselectCell(IMatchController controller, HexCell cell) {
+  private void DeselectCell(IMatchController controller, GameCell cell) {
     var entities = GetGameState().GameBoard.GetOwnedEntitiesOnCell(controller, cell);
     foreach (var entity in entities) {
       if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {

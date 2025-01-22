@@ -1,13 +1,12 @@
 namespace HOB.GameEntity;
 
 using Godot;
-using HexGridMap;
 using System;
 using System.Collections.Generic;
 
 [GlobalClass]
 public partial class Entity : Node3D {
-  public HexCell Cell { get; set; }
+  public GameCell Cell { get; set; }
 
   private readonly Dictionary<Type, Trait> _traits = new();
 

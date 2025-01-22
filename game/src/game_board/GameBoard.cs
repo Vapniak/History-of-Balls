@@ -54,7 +54,7 @@ public partial class GameBoard : Node3D {
     //     DebugDraw3D.DrawAabb(GetAabb(), Colors.Red, float.MaxValue);
 
     //     foreach (var cell in GetCells()) {
-    //       DebugDraw3D.DrawSphere(new(cell.GetPoint().X, 0, cell.GetPoint().Y), 0.5f, Colors.Blue, float.MaxValue);
+    //       DebugDraw3D.DrawSphere(new(cell.Position.X, 0, cell.Position.Y), 0.5f, Colors.Blue, float.MaxValue);
     //     }
     // #endif
   }
@@ -83,44 +83,48 @@ public partial class GameBoard : Node3D {
     return Grid.GetLayout().PointToHex(new(point.X, point.Z));
   }
 
-  public HexCell GetCell(CubeCoord coord) {
+  public GameCell GetCell(CubeCoord coord) {
     return Grid.GetCell(coord);
   }
-  public HexCell GetCell(Vector3 point) {
+  public GameCell GetCell(Vector3 point) {
     return Grid.GetCell(point);
   }
 
-  public HexCell[] GetCells() {
+  public GameCell[] GetCells() {
     return Grid.GetCells();
   }
 
-  public HexCell[] GetCells(CubeCoord[] coords) {
+  public GameCell[] GetCells(CubeCoord[] coords) {
     return Grid.GetCells(coords);
   }
 
-  public HexCell[] GetCellsInRange(CubeCoord center, uint range) {
+  public GameCell[] GetCellsInRange(CubeCoord center, uint range) {
     return Grid.GetCellsInRange(center, range);
   }
 
   public void AddEntity(Entity entity, CubeCoord coord, IMatchController controller) {
     var cell = GetCell(coord);
-    EntityManager.AddEntity(entity, cell, new(cell.GetPoint().X, 0, cell.GetPoint().Y), controller);
+    EntityManager.AddEntity(entity, cell, new(cell.Position.X, 0, cell.Position.Y), controller);
   }
 
-  public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, HexCell cell) {
+  public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {
     return EntityManager.GetOwnedEntitiesOnCell(owner, cell);
   }
 
-  public Entity[] GetEntitiesOnCell(HexCell cell) {
+  public Entity[] GetEntitiesOnCell(GameCell cell) {
     return EntityManager.GetEntitiesOnCell(cell);
   }
 
-  public void AddHighlightToCells(HexCell[] cells) {
+  public Entity[] GetOwnedEntities(IMatchController owner) {
+    return EntityManager.GetOwnedEntites(owner);
+  }
+
+  public void AddHighlightToCells(GameCell[] cells) {
     TerrainManager.AddHighlightToCells(cells);
     TerrainManager.UpdateHighlights();
   }
 
-  public void RemoveHighlightFromCells(HexCell[] cells) {
+  public void RemoveHighlightFromCells(GameCell[] cells) {
     TerrainManager.RemoveHighlightFromCells(cells);
     TerrainManager.UpdateHighlights();
   }

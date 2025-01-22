@@ -3,7 +3,7 @@ namespace HexGridMap;
 using System.Collections.Generic;
 using Godot;
 
-public abstract partial class HexGrid<T> where T : HexCell {
+public abstract class HexGrid<T> where T : HexCell {
   [Export] private GridShape GridShape { get; set; }
   [Export] private HexLayout Layout { get; set; }
 
