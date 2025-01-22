@@ -7,8 +7,12 @@ public partial class SettingsMenu : Control {
   [Signal] public delegate void ClosedEventHandler();
   [Export] private OptionButton _resolutionOptionButton;
   [Export] private OptionButton _screenModeOptionButton;
+  [Export] private CheckBox _borderlessCheckbox;
+  [Export] private CheckBox _vsyncCheckbox;
+  [Export] private Slider _fpsLimitSlider;
+  [Export] private Label _fpsLimitLabel;
 
-  public string[] Resolutions { get; private set; } = new string[] {
+  public string[] Resolutions { get; private set; } = [
           "1152x648",
           "1280x1024",
           "1360x768",
@@ -16,12 +20,12 @@ public partial class SettingsMenu : Control {
           "1440x900",
           "1600x900",
           "1680x1050",
-          "1920x1080",
-      };
-  public string[] ScreenModes { get; private set; } = new string[] {
-          "Windowed",
-          "Fullscreen",
-      };
+          "1920x1080"
+  ];
+  public string[] ScreenModes { get; private set; } = [
+    "Windowed",
+          "Fullscreen"
+  ];
 
   private SettingsManager SettingsManager;
 
@@ -30,6 +34,9 @@ public partial class SettingsMenu : Control {
 
     InitializeScreenModeOptions();
     InitializeResolutionOptions();
+    InitializeBorderlessCheckbox();
+    InitializeVsyncCheckbox();
+    InitializeFpsLimit();
   }
 
   public override void _Process(double delta) {
@@ -74,9 +81,18 @@ public partial class SettingsMenu : Control {
     }
   }
 
-  public void OnClosePressed() {
-    EmitSignal(SignalName.Closed);
+  private void InitializeBorderlessCheckbox() => _borderlessCheckbox.ButtonPressed = GetWindow().Borderless;
+
+  private void InitializeVsyncCheckbox() => _vsyncCheckbox.ButtonPressed = DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled;
+
+  private void InitializeFpsLimit() {
+    var maxFps = Engine.MaxFps;
+    _fpsLimitSlider.Value = maxFps == 0 ? 250 : maxFps;
+    _fpsLimitLabel.Text = $"FPS Limit : {(maxFps is 0 or 250? "Unlimited" : maxFps)}";
   }
+
+
+  public void OnClosePressed() => EmitSignal(SignalName.Closed);
 
   private void OnResolutionOptionButtonPressed(long index) {
     if (GetWindow().Mode != Window.ModeEnum.Windowed) {
@@ -109,7 +125,6 @@ public partial class SettingsMenu : Control {
     }
     else {
       _resolutionOptionButton.Disabled = false;
-
       if (_resolutionOptionButton.GetItemCount() > 0) {
         var selectedIndex = _resolutionOptionButton.Selected;
         OnResolutionOptionButtonPressed(selectedIndex);
@@ -120,5 +135,22 @@ public partial class SettingsMenu : Control {
     SettingsManager.SaveSettings();
 
     InitializeResolutionOptions();
+  }
+
+  private void OnBorderlessCheckboxToggled(bool buttonPressed) {
+    GetWindow().Borderless = buttonPressed;
+    SettingsManager.SaveSettings();
+  }
+
+  private void OnVsyncCheckboxToggled(bool buttonPressed) {
+
+    DisplayServer.WindowSetVsyncMode(buttonPressed ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
+    SettingsManager.SaveSettings();
+  }
+
+  private void OnFpsLimiterSliderValueChanged(float value) {
+    Engine.MaxFps = (int)value == 250 ? 0 : (int)value;
+    _fpsLimitLabel.Text = $"FPS Limit : {(value is 0 or 250? "Unlimited" : value)}";
+    SettingsManager.SaveSettings();
   }
 }
