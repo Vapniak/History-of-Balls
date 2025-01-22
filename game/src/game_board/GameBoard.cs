@@ -119,13 +119,7 @@ public partial class GameBoard : Node3D {
     return EntityManager.GetOwnedEntites(owner);
   }
 
-  public void AddHighlightToCells(GameCell[] cells) {
-    TerrainManager.AddHighlightToCells(cells);
-    TerrainManager.UpdateHighlights();
-  }
-
-  public void RemoveHighlightFromCells(GameCell[] cells) {
-    TerrainManager.RemoveHighlightFromCells(cells);
+  public void UpdateHighlights() {
     TerrainManager.UpdateHighlights();
   }
 }

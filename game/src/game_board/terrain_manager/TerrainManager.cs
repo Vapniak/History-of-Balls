@@ -15,10 +15,14 @@ public partial class TerrainManager : Node {
   private ImageTexture HighlightDataTexture { get; set; }
   private Image HighlightData { get; set; }
 
+  private GameCell[] Cells { get; set; }
+
   public void CreateData(int width, int height, GameCell[] cells) {
     TerrainData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
 
+
+    Cells = cells;
     //TerrainData.Fill(Colors.Transparent);
 
     // TODO: offset all coords so they fit in texture and start from 0 offset
@@ -26,32 +30,16 @@ public partial class TerrainManager : Node {
     //   TerrainData.SetPixel(cell.OffsetCoord().Col, cell.OffsetCoord().Row, Colors.DarkOliveGreen);
     // }
 
-    UpdateHighlightTextureData();
     //UpdateTerrainTextureData();
-  }
 
-  // TODO: add colors to cells
-  public void ClearHighlights() {
-    HighlightData.Fill(Colors.Transparent);
-  }
-
-  public void AddHighlightToCells(GameCell[] cells) {
-    if (cells != null) {
-      foreach (var cell in cells) {
-        SetHighlighPixel(cell.OffsetCoord, Colors.White);
-      }
-    }
-  }
-
-  public void RemoveHighlightFromCells(GameCell[] cells) {
-    if (cells != null) {
-      foreach (var cell in cells) {
-        SetHighlighPixel(cell.OffsetCoord, Colors.Transparent);
-      }
-    }
+    UpdateHighlights();
   }
 
   public void UpdateHighlights() {
+    foreach (var cell in Cells) {
+      SetHighlighPixel(cell.OffsetCoord, cell.HighlightColor);
+    }
+
     UpdateHighlightTextureData();
   }
 

@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cptcei88nkfhr"]
+[gd_scene load_steps=10 format=3 uid="uid://cptcei88nkfhr"]
 
 [ext_resource type="Script" path="res://src/game_entities/Entity.cs" id="1_l4gw0"]
 [ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTrait.cs" id="2_wfck8"]
 [ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTraitData.cs" id="3_2gl2j"]
+[ext_resource type="Script" path="res://src/game_entities/traits/actions/ActionsTrait.cs" id="4_fa5rq"]
+[ext_resource type="Script" path="res://src/game_entities/actions/MoveAction.cs" id="5_b3shj"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5gvtn"]
 
@@ -31,3 +33,10 @@ mesh = SubResource("BoxMesh_k4tq3")
 [node name="MoveTrait" type="Node" parent="."]
 script = ExtResource("2_wfck8")
 Data = SubResource("Resource_ons63")
+
+[node name="ActionsTrait" type="Node" parent="." node_paths=PackedStringArray("Actions")]
+script = ExtResource("4_fa5rq")
+Actions = [NodePath("MoveAction")]
+
+[node name="MoveAction" type="Node" parent="ActionsTrait"]
+script = ExtResource("5_b3shj")

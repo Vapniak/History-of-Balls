@@ -22,6 +22,7 @@ public partial class EntityManager : Node {
     };
 
     entity.Cell = cell;
+    entity.OwnerController = controller;
 
     AddChild(entity);
 

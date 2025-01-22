@@ -8,6 +8,8 @@ using System.Collections.Generic;
 public partial class Entity : Node3D {
   public GameCell Cell { get; set; }
 
+  public IMatchController OwnerController { get; set; }
+
   private readonly Dictionary<Type, Trait> _traits = new();
 
   public override void _Ready() {
