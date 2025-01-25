@@ -9,15 +9,12 @@ public partial class TestGameMode : GameMode {
   private TestPlayerManagmentComponent PlayerManagmentComponent { get; set; }
   private MatchComponent MatchComponent { get; set; }
 
-  public override void Init() {
-    base.Init();
+  public override void _EnterTree() {
+    base._EnterTree();
 
     GetGameState().GameBoard = Game.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
 
     PauseComponent = GetGameModeComponent<PauseComponent>();
-    PauseComponent.GetPauseMenu().Resume += OnResume;
-    PauseComponent.GetPauseMenu().MainMenu += OnMainMenu;
-    PauseComponent.GetPauseMenu().Quit += OnQuit;
 
     PlayerManagmentComponent = GetGameModeComponent<TestPlayerManagmentComponent>();
 
@@ -25,6 +22,15 @@ public partial class TestGameMode : GameMode {
 
     PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
     GetGameState().GameBoard.GridCreated += OnStartGame;
+  }
+
+  public override void _Ready() {
+    base._Ready();
+
+    // TODO: unsubscribe from all events and use handlers
+    PauseComponent.GetPauseMenu().Resume += OnResume;
+    PauseComponent.GetPauseMenu().MainMenu += OnMainMenu;
+    PauseComponent.GetPauseMenu().Quit += OnQuit;
 
     GetGameState().GameBoard.Init();
   }

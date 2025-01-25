@@ -12,8 +12,8 @@ public partial class PauseComponent : GameModeComponent {
 
   private bool _pauseMenuShown;
 
-  public override void Init() {
-    base.Init();
+  public override void _Ready() {
+    base._Ready();
 
     _pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
     _pauseMenu.Visible = false;

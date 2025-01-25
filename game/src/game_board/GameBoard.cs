@@ -122,4 +122,10 @@ public partial class GameBoard : Node3D {
   public void UpdateHighlights() {
     TerrainManager.UpdateHighlights();
   }
+
+  public void ClearHighlights() {
+    foreach (var cell in GetCells()) {
+      cell.HighlightColor = Colors.Transparent;
+    }
+  }
 }

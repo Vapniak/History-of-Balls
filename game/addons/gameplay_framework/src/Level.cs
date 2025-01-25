@@ -31,7 +31,6 @@ public sealed partial class Level : Node {
     }
     GameMode = newGameMode;
     AddChild(GameMode);
-    GameMode.Init();
   }
   public void Load() {
     var gameMode = GameModeScene.InstantiateOrNull<GameMode>();

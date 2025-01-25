@@ -15,8 +15,8 @@ public partial class PlayerManagmentComponent : GameModeComponent {
   [Export] public PackedScene HUDScene { get; private set; }
 
 
-  public override void Init() {
-    base.Init();
+  public override void _Ready() {
+    base._Ready();
 
     GetGameState().PlayerArray = new();
     if (AutoSpawn) {
