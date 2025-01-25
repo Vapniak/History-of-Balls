@@ -1,35 +1,57 @@
 namespace HOB;
 
-using GameplayFramework;
 using Godot;
 using HexGridMap;
 using HOB.GameEntity;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 public partial class EntityManager : Node {
-  public GameBoard GameBoard { get; set; }
-
   private List<Entity> Entities { get; set; }
+  private Dictionary<IMatchController, List<Entity>> OwnedEntities { get; set; }
+
   public override void _Ready() {
     Entities = new();
+    OwnedEntities = new();
   }
 
-  public void AddEntity(Entity entity, HexCoordinates coords, IMatchController controller = null) {
+  public void AddEntity(Entity entity, GameCell cell, Vector3 position, IMatchController controller) {
     entity.Ready += () => {
-      entity.GlobalPosition = GameBoard.GetPoint(coords);
+      entity.GlobalPosition = position;
     };
 
-    entity.Coordinates = coords;
+    entity.Cell = cell;
+    entity.OwnerController = controller;
 
     AddChild(entity);
 
-    controller?.OwnedEntities.Add(entity);
+
+    if (OwnedEntities.TryGetValue(controller, out var entites)) {
+      entites.Add(entity);
+    }
+    else {
+      OwnedEntities.Add(controller, new() { entity });
+    }
+
     Entities.Add(entity);
   }
 
-  public List<Entity> GetEntitiesOnCoords(IMatchController controller, HexCoordinates coords) {
-    var entities = controller.OwnedEntities.Where(e => e.Coordinates == coords).ToList();
-    return entities;
+  public void RemoveEntity(Entity entity) {
+    entity.QueueFree();
+    Entities.Remove(entity);
+    Entities.Remove(entity);
+  }
+
+  public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {
+    return GetOwnedEntites(owner).Where(e => e.Cell == cell).ToArray();
+  }
+
+  public Entity[] GetOwnedEntites(IMatchController owner) {
+    return OwnedEntities.GetValueOrDefault(owner).ToArray();
+  }
+
+  public Entity[] GetEntitiesOnCell(GameCell cell) {
+    return Entities.Where(e => e.Cell == cell).ToArray();
   }
 }

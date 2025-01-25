@@ -16,21 +16,17 @@ public partial class GameMode : Node {
 
 
   // TODO: better initialization flow
-  public virtual void Init() {
+
+  public override void _EnterTree() {
     GameState = CreateGameState();
-    GameState.Init();
 
     foreach (var component in GetAllComponents()) {
       GameModeComponents.Add(component);
       component.OwnerGameMode = this;
-      component.GameState = GameState;
-      component.Init();
     }
   }
 
-
-  public T GetGameState<T>() where T : GameState => GetGameState() as T;
-  public GameState GetGameState() => GameState;
+  public virtual GameState GetGameState() => GameState;
 
   public T GetGameModeComponent<T>() where T : GameModeComponent {
     foreach (var component in GameModeComponents) {

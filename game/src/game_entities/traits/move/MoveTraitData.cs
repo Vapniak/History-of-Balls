@@ -5,5 +5,5 @@ using System;
 
 [GlobalClass]
 public partial class MoveTraitData : TraitData {
-  [Export] public uint Move { get; private set; }
+  [Export] public uint MoveRange { get; private set; }
 }

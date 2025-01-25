@@ -2,7 +2,9 @@ namespace GameplayFramework;
 
 
 public interface IController {
-  void SetPlayerState(PlayerState playerState);
-  PlayerState GetPlayerState();
-  T GetPlayerState<T>() where T : PlayerState;
+  public void SetPlayerState(PlayerState playerState);
+  public PlayerState GetPlayerState();
+  public T GetPlayerState<T>() where T : PlayerState;
+
+  public IGameState GetGameState();
 }

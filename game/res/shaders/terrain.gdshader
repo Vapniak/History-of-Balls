@@ -1,33 +1,54 @@
 shader_type spatial;
-render_mode unshaded;
 
 #include "hex_utils.gdshaderinc"
 
-uniform sampler2D highlight_data : source_color;
+uniform sampler2D highlight_data_texture : source_color, repeat_disable;
+uniform sampler2D terrain_data_texture : source_color, repeat_disable;
+uniform ivec2 terrain_size = ivec2(10, 10);
 
-vec3 apply_grid(vec3 base_color, vec3 grid_color, HexCellData data){
-	return mix(grid_color, base_color, smoothstep10(data, 0.95));
+uniform vec2 mouse_world_pos;
+uniform bool show_mouse_highlight;
+
+const int CELL_SCALE = 2;
+
+vec3 apply_highlight(vec3 base_color, vec3 highlight_color, HexCellData data){
+	return mix(base_color, highlight_color.rgb, smoothstep_range(data, .5, .7));
 }
-
-vec3 apply_highlight(vec3 base_color, HexCellData data)
-{
-	// TODO: apply white highligh but add textures
-	return mix(base_color, vec3(0, 1, 1), smoothstep_range(data, 0.7, 0.8));
-}
-
 
 void vertex() {
-
+    // Vertex shader logic (if needed)
 }
 
 void fragment() {
-	vec3 world_pos = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
-	HexCellData data = get_hex_cell_data(vec2(world_pos.x, world_pos.z));
-	
-	ALBEDO = apply_grid(vec3(1, 1, 1), vec3(1, 0, 0), data);
-	
-	//if(is_highlighted(data, highlight_texture)){	
-		//ALBEDO = apply_highlight(ALBEDO, data);
-	//}
-}
+    vec3 world_pos = (INV_VIEW_MATRIX * vec4(VERTEX, 1.0)).xyz;
+    HexCellData data = get_hex_cell_data(vec2(world_pos.x, world_pos.z), CELL_SCALE);
 
+	vec4 terrain_color = texelFetch(terrain_data_texture, data.offsetCoord, 0);
+	if(terrain_color.a > 0.){
+		ALBEDO = terrain_color.rgb;
+	}
+	else {
+		ALBEDO = vec3(0, 0, 0);
+	}
+
+	// apply grid
+	ALBEDO = mix(ALBEDO, max(ALBEDO * 0.8, vec3(0.01)), step(.85, data.distanceToEdge)); //* 0.01;
+	
+	HexCellData mouse_hex_data = get_hex_cell_data(mouse_world_pos, CELL_SCALE);
+
+	vec4 highlight_color = texelFetch(highlight_data_texture, data.offsetCoord, 0);
+	
+	if(mouse_hex_data.offsetCoord == data.offsetCoord && show_mouse_highlight){
+		if (highlight_color.a > 0.) {
+    		ALBEDO = apply_highlight(ALBEDO, highlight_color.rgb, data);
+		}
+		else {	
+			ALBEDO = apply_highlight(ALBEDO, ALBEDO + 0.1, data);
+		}
+	}
+	else {
+		if (highlight_color.a > 0.) {
+    		ALBEDO = apply_highlight(ALBEDO, highlight_color.rgb * 0.8, data);
+		}
+	}
+}

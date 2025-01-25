@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=11 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/test/TestGameMode.cs" id="1_pal7c"]
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="2_5iywb"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://src/game_modes/components/pause/PauseComponent.cs" id="6_1rqn6"]
 [ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="7_rcove"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="8_km8w8"]
+[ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/test_unit_2.tscn" id="10_dxag6"]
 
 [node name="TestGameMode" type="Node"]
 script = ExtResource("1_pal7c")
@@ -26,3 +27,4 @@ HUDScene = ExtResource("5_m3qk3")
 [node name="MatchComponent" type="Node" parent="."]
 script = ExtResource("8_km8w8")
 TestEntity = ExtResource("5_yad7m")
+TestEntity2 = ExtResource("10_dxag6")

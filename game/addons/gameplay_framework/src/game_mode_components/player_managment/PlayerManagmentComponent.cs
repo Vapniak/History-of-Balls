@@ -4,7 +4,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class PlayerManagmentComponent : GameModeComponent, IGetGameState<IPlayerManagmentGameState> {
+public partial class PlayerManagmentComponent : GameModeComponent {
   [Signal] public delegate void PlayerSpawnedEventHandler(PlayerState playerState);
 
   [Export] public string DefaultPlayerName { get; set; } = "Player";
@@ -15,8 +15,8 @@ public partial class PlayerManagmentComponent : GameModeComponent, IGetGameState
   [Export] public PackedScene HUDScene { get; private set; }
 
 
-  public override void Init() {
-    base.Init();
+  public override void _Ready() {
+    base._Ready();
 
     GetGameState().PlayerArray = new();
     if (AutoSpawn) {
@@ -26,6 +26,10 @@ public partial class PlayerManagmentComponent : GameModeComponent, IGetGameState
   public virtual void SpawnPlayerDeffered() {
     CallDeferred(MethodName.SpawnPlayer);
   }
+  public override IPlayerManagmentGameState GetGameState() => base.GetGameState() as IPlayerManagmentGameState;
+
+  public PlayerState GetLocalPlayer() => GetGameState().PlayerArray[0];
+
 
   private void SpawnPlayer() {
     var player = PlayerScene?.InstantiateOrNull<Node>();
@@ -41,7 +45,7 @@ public partial class PlayerManagmentComponent : GameModeComponent, IGetGameState
         }
       }
 
-      parent.AddChild(playerController);
+      player.AddChild(playerController);
 
 
       var playerState = CreatePlayerState();
@@ -62,5 +66,4 @@ public partial class PlayerManagmentComponent : GameModeComponent, IGetGameState
     return new PlayerState();
   }
 
-  public override IPlayerManagmentGameState GetGameState() => base.GetGameState() as IPlayerManagmentGameState;
 }

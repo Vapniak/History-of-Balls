@@ -2,7 +2,6 @@ namespace HOB;
 
 using GameplayFramework;
 using Godot;
-using HOB.GameEntity;
 
 [GlobalClass]
 public partial class TestGameMode : GameMode {
@@ -10,22 +9,30 @@ public partial class TestGameMode : GameMode {
   private TestPlayerManagmentComponent PlayerManagmentComponent { get; set; }
   private MatchComponent MatchComponent { get; set; }
 
-  public override void Init() {
-    base.Init();
+  public override void _EnterTree() {
+    base._EnterTree();
 
-    GetGameState<TestGameState>().GameBoard = Game.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
+    GetGameState().GameBoard = Game.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
 
     PauseComponent = GetGameModeComponent<PauseComponent>();
-    PauseComponent.GetPauseMenu().Resume += OnResume;
-    PauseComponent.GetPauseMenu().MainMenu += OnMainMenu;
-    PauseComponent.GetPauseMenu().Quit += OnQuit;
 
     PlayerManagmentComponent = GetGameModeComponent<TestPlayerManagmentComponent>();
 
     MatchComponent = GetGameModeComponent<MatchComponent>();
 
     PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
-    GetGameState<TestGameState>().GameBoard.GridCreated += PlayerManagmentComponent.SpawnPlayerDeffered;
+    GetGameState().GameBoard.GridCreated += OnStartGame;
+  }
+
+  public override void _Ready() {
+    base._Ready();
+
+    // TODO: unsubscribe from all events and use handlers
+    PauseComponent.GetPauseMenu().Resume += OnResume;
+    PauseComponent.GetPauseMenu().MainMenu += OnMainMenu;
+    PauseComponent.GetPauseMenu().Quit += OnQuit;
+
+    GetGameState().GameBoard.Init();
   }
 
   public override void _Process(double delta) {
@@ -33,16 +40,26 @@ public partial class TestGameMode : GameMode {
 
     if (Input.IsActionJustPressed(BuiltinInputActions.UICancel)) {
       PauseComponent.Pause();
+      PlayerManagmentComponent.GetLocalPlayer().GetController<PlayerController>().GetHUD().Hide();
     }
   }
 
+  public override TestGameState GetGameState() => base.GetGameState() as TestGameState;
+
   protected override GameState CreateGameState() => new TestGameState();
 
-  private void OnResume() => PauseComponent.Resume();
+  private void OnResume() {
+    PauseComponent.Resume();
+    PlayerManagmentComponent.GetLocalPlayer().GetController<PlayerController>().GetHUD().Show();
+  }
   private void OnMainMenu() {
     OnResume();
     Game.GetWorld().OpenLevel("main_menu_level");
   }
 
   private void OnQuit() => Game.QuitGame();
+
+  private void OnStartGame() {
+    PlayerManagmentComponent.SpawnPlayerDeffered();
+  }
 }

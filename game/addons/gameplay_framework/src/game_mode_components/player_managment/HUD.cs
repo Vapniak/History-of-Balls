@@ -4,7 +4,7 @@ using Godot;
 using System;
 
 [GlobalClass]
-public partial class HUD : Control {
+public partial class HUD : CanvasLayer {
   private PlayerController PlayerController { get; set; }
 
   public void SetPlayerController(PlayerController playerController) {
@@ -13,8 +13,4 @@ public partial class HUD : Control {
 
   public PlayerController GetPlayerController() => PlayerController;
   public T GetPlayerController<T>() where T : PlayerController => GetPlayerController() as T;
-
-  public void ShowHUD() {
-    Visible = !Visible;
-  }
 }

@@ -29,10 +29,14 @@ public partial class RaycastSystem : Node {
   /// <param name="viewport"></param>
   /// <param name="collisionMask"></param>
   /// <returns>Null if not hit anything.</returns>
-  public static RaycastResult RaycastOnMousePosition(World3D world, Viewport viewport, uint collisionMask = 1) {
+  public static RaycastResult RaycastOnMousePosition(World3D world, Viewport viewport, uint collisionMask = 0) {
     var spaceState = world.DirectSpaceState;
     var camera = viewport.GetCamera3D();
     var mousePos = viewport.GetMousePosition();
+
+    if (camera == null) {
+      return null;
+    }
 
     var origin = camera.ProjectRayOrigin(mousePos);
     var end = origin + (camera.ProjectRayNormal(mousePos) * camera.Far);

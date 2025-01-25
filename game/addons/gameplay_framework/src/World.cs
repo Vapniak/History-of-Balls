@@ -1,5 +1,6 @@
 namespace GameplayFramework;
 
+using System.Diagnostics;
 using Godot;
 
 /// <summary>
@@ -7,6 +8,8 @@ using Godot;
 /// </summary>
 [GlobalClass]
 public sealed partial class World : Node {
+  [Signal] public delegate void LevelOpenedEventHandler(Level level);
+
   public Level CurrentLevel { get; private set; }
 
   public GameMode GetGameMode() => CurrentLevel.GameMode;
@@ -27,12 +30,23 @@ public sealed partial class World : Node {
       GD.PrintErr("Loaded level is null.");
       return;
     }
+
+
     if (CurrentLevel != null) {
       CurrentLevel.UnLoad();
+      CurrentLevel.TreeExited += () => SwitchLevel(level);
       CurrentLevel.QueueFree();
     }
+    else {
+      SwitchLevel(level);
+    }
+  }
+
+  private void SwitchLevel(Level level) {
+    EmitSignal(SignalName.LevelOpened, level);
     CurrentLevel = level;
+
+    CurrentLevel.Loaded += () => AddChild(CurrentLevel);
     CurrentLevel.Load();
-    AddChild(CurrentLevel);
   }
 }

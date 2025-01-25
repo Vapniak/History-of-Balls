@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="HexLayout" load_steps=2 format=3 uid="uid://ca43u8x72ydv5"]
+
+[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexLayout.cs" id="1_wfofg"]
+
+[resource]
+script = ExtResource("1_wfofg")
+HexCellSize = 2.0
+OrientationType = 1
+Offset = 1
+OffsetType = 0

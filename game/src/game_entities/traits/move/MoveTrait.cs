@@ -1,10 +1,11 @@
 namespace HOB.GameEntity;
 
 using Godot;
+using HexGridMap;
 using System;
 
 [GlobalClass]
-public partial class MoveTrait : Trait, IGetTraitData<MoveTraitData> {
+public partial class MoveTrait : Trait {
   [Signal] public delegate void MoveFinishedEventHandler();
 
   [Export] public MoveTraitData Data { get; private set; }
@@ -16,15 +17,20 @@ public partial class MoveTrait : Trait, IGetTraitData<MoveTraitData> {
     base._PhysicsProcess(delta);
 
     if (_move) {
-      GetEntity().GlobalPosition += _targetPosition.Normalized() * (float)delta * _moveSpeed;
+      GetEntity().GlobalPosition = GetEntity().GlobalPosition.Lerp(_targetPosition, (float)delta * _moveSpeed);
       if (GetEntity().GlobalPosition == _targetPosition) {
         EmitSignal(SignalName.MoveFinished);
         _move = false;
       }
     }
   }
-  public void Move(Vector3 targetPosition) {
-    _targetPosition = targetPosition;
+  public void Move(GameCell targetCell) {
+    var pos = targetCell.Position;
+    _targetPosition = new(pos.X, 0, pos.Y);
     _move = true;
+
+    GetEntity().LookAt(_targetPosition, Vector3.Up);
+
+    GetEntity().Cell = targetCell;
   }
 }

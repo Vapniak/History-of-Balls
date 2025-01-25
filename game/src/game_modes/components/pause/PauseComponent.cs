@@ -5,15 +5,15 @@ using GameplayFramework;
 using Godot;
 
 [GlobalClass]
-public partial class PauseComponent : GameModeComponent, IGetGameState<IPauseGameState> {
+public partial class PauseComponent : GameModeComponent {
   [Export] public PackedScene PauseMenuScene { get; private set; }
 
   private PauseMenu _pauseMenu;
 
   private bool _pauseMenuShown;
 
-  public override void Init() {
-    base.Init();
+  public override void _Ready() {
+    base._Ready();
 
     _pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
     _pauseMenu.Visible = false;
@@ -24,7 +24,7 @@ public partial class PauseComponent : GameModeComponent, IGetGameState<IPauseGam
   public void Resume() {
     _pauseMenu.Visible = false;
     if (GetGameState().PauseGame) {
-      Game.PauseGame();
+      Game.SetPause(false);
     }
 
     _pauseMenuShown = false;
@@ -37,7 +37,7 @@ public partial class PauseComponent : GameModeComponent, IGetGameState<IPauseGam
     _pauseMenuShown = true;
 
     if (GetGameState().PauseGame) {
-      Game.PauseGame();
+      Game.SetPause(true);
     }
   }
 
