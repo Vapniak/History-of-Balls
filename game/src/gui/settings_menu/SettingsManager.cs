@@ -19,6 +19,9 @@ public partial class SettingsManager : Node {
 
     _configFile.SetValue("display", "screen_mode", mode);
     _configFile.SetValue("display", "resolution", $"{width}x{height}");
+    _configFile.SetValue("display", "vsync", DisplayServer.WindowGetVsyncMode().ToString());
+    _configFile.SetValue("display", "borderless", GetWindow().Borderless.ToString());
+    _configFile.SetValue("display", "fps-limit", Engine.MaxFps);
 
     var error = _configFile.Save(_configFilePath);
     if (error != Error.Ok) {
@@ -32,11 +35,12 @@ public partial class SettingsManager : Node {
       GD.Print("Settings file is not exist!");
       return;
     }
-
+    // Screen mode
     var modeValue = (string)_configFile.GetValue("display", "screen_mode", "Fullscreen");
     var mode = modeValue == "Fullscreen" ? Window.ModeEnum.Fullscreen : Window.ModeEnum.Windowed;
     GetWindow().Mode = mode;
 
+    // Resolution
     var resolutionValue = (string)_configFile.GetValue("display", "resolution", "1920x1080");
     var resolution = resolutionValue.Split('x');
     var width = int.Parse(resolution[0]);
@@ -52,6 +56,20 @@ public partial class SettingsManager : Node {
       GetWindow().Size = screenSize;
       GetWindow().Position = Vector2I.Zero;
     }
+
+    // Vsync
+    var vsyncValue = (string)_configFile.GetValue("display", "vsync", "Disabled");
+    var vsync = vsyncValue == "Enabled" ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled;
+    DisplayServer.WindowSetVsyncMode(vsync);
+
+    // Borderless
+    var borderlessValue = (string)_configFile.GetValue("display", "borderless", "false");
+    GetWindow().Borderless = bool.Parse(borderlessValue);
+
+    // Fps limit
+    var fpsLimit = (int)_configFile.GetValue("display", "fps-limit", 60);
+    Engine.MaxFps = fpsLimit;
+
   }
 
   public void CenterWindowOnCurrentMonitor() {
