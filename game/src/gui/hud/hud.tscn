@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=5 format=3 uid="uid://knv3bilnx05e"]
 
-[ext_resource type="Script" path="res://addons/gameplay_framework/src/game_mode_components/player_managment/HUD.cs" id="1_7t7wu"]
+[ext_resource type="Script" path="res://src/game_modes/test/TestHUD.cs" id="1_ep1kh"]
 [ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_v4qhv"]
+[ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/gui/entity_ui/command_panel/command_panel.tscn" id="3_a41a7"]
+[ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/entity_ui/stat_panel/stat_panel.tscn" id="4_yxp0t"]
 
-[node name="HUD" type="CanvasLayer"]
-script = ExtResource("1_7t7wu")
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("StatPanel", "CommandPanel")]
+script = ExtResource("1_ep1kh")
+StatPanel = NodePath("StatPanel")
+CommandPanel = NodePath("CommandPanel")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_right = 19.0
@@ -17,3 +21,7 @@ text = "60
 "
 horizontal_alignment = 1
 script = ExtResource("2_v4qhv")
+
+[node name="CommandPanel" parent="." instance=ExtResource("3_a41a7")]
+
+[node name="StatPanel" parent="." instance=ExtResource("4_yxp0t")]

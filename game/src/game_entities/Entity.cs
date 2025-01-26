@@ -6,6 +6,7 @@ using System.Collections.Generic;
 
 [GlobalClass]
 public partial class Entity : Node3D {
+  [Export] public string EntityName { get; private set; }
   public GameCell Cell { get; set; }
 
   public IMatchController OwnerController { get; set; }

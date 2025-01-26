@@ -27,7 +27,6 @@ public partial class TestGameMode : GameMode {
   public override void _Ready() {
     base._Ready();
 
-    // TODO: unsubscribe from all events and use handlers
     PauseComponent.GetPauseMenu().Resume += OnResume;
     PauseComponent.GetPauseMenu().MainMenu += OnMainMenu;
     PauseComponent.GetPauseMenu().Quit += OnQuit;

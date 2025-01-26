@@ -45,7 +45,6 @@ public partial class PlayerManagmentComponent : GameModeComponent {
         }
       }
 
-      player.AddChild(playerController);
 
 
       var playerState = CreatePlayerState();
@@ -59,6 +58,7 @@ public partial class PlayerManagmentComponent : GameModeComponent {
       GetGameState().PlayerArray.Add(playerState);
 
       EmitSignal(SignalName.PlayerSpawned, playerState);
+      player.AddChild(playerController);
     }
   }
 

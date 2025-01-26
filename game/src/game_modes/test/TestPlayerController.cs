@@ -10,7 +10,8 @@ using RaycastSystem;
 
 [GlobalClass]
 public partial class TestPlayerController : PlayerController, IMatchController {
-  public event Action<CubeCoord> CoordClicked;
+  private GameBoard GameBoard { get; set; }
+  private Entity SelectedEntity { get; set; }
 
   private PlayerCharacter _character;
 
@@ -18,14 +19,22 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   private Vector2 _lastMousePosition;
 
 
+
   public override void _Ready() {
     base._Ready();
 
+
+    // TODO: unconfine mouse when in windowed mode
     Input.MouseMode = Input.MouseModeEnum.Confined;
+
+    GameBoard = GetGameState().GameBoard;
 
     _character = GetCharacter<PlayerCharacter>();
 
-    _character.CenterPositionOn(GetGameState().GameBoard.GetAabb());
+    _character.CenterPositionOn(GameBoard.GetAabb());
+
+    GetHUD().HideCommandPanel();
+    GetHUD().HideStatPanel();
   }
 
   public override void _UnhandledInput(InputEvent @event) {
@@ -50,7 +59,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
     // TODO: cooldown on selection because if someone has autoclicker I think it can crash game if you perform raycast every frame
     if (@event.IsActionPressed(GameInputs.Select)) {
-      SelectCell();
+      CheckSelection();
     }
 
 
@@ -124,16 +133,63 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
   // TODO: make controller not game state compatibile but game mode
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
+  public override TestHUD GetHUD() => base.GetHUD() as TestHUD;
 
-  private void SelectCell() {
+  private void CheckSelection() {
     var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
-    if (raycastResult != null) {
-      var point = raycastResult.Position;
-      var coord = GetGameState().GameBoard.PointToCube(point);
-      CoordClicked?.Invoke(coord);
+    if (raycastResult == null) {
+      return;
     }
-    else {
-      //GD.Print("No hit");
+
+    var point = raycastResult.Position;
+    var coord = GetGameState().GameBoard.PointToCube(point);
+
+    var cell = GameBoard.GetCell(coord);
+    if (cell == null) {
+      return;
     }
+
+    CellClicked(cell);
+  }
+
+  private void CellClicked(GameCell cell) {
+    var entities = GameBoard.GetOwnedEntitiesOnCell(this, cell);
+
+
+    if (entities.Length > 0) {
+      if (entities[0] != SelectedEntity) {
+        if (SelectedEntity != null) {
+          DeselectEntity(SelectedEntity);
+        }
+        SelectedEntity = entities[0];
+        SelectEntity(SelectedEntity);
+      }
+    }
+    else if (SelectedEntity != null) {
+      DeselectEntity(SelectedEntity);
+      SelectedEntity = null;
+    }
+
+    GD.PrintS("Entities:", entities.Length, "Q:", cell.Coord.Q, "R:", cell.Coord.R);
+  }
+
+  private void SelectEntity(Entity entity) {
+    entity.Cell.HighlightColor = Colors.White;
+
+
+    GetHUD().ShowStatPanel(entity);
+    GetHUD().ShowCommandPanel(entity);
+
+    GameBoard.UpdateHighlights();
+  }
+
+  private void DeselectEntity(Entity entity) {
+    GetHUD().HideStatPanel();
+    GetHUD().HideCommandPanel();
+
+    // TODO: add events when entity is selected and deselected to listen in game board and do highlighting there
+    GameBoard.ClearHighlights();
+    // highlight units which you can select
+    GameBoard.UpdateHighlights();
   }
 }

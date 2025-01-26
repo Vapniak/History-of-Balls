@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=3 uid="uid://c82pepvsx7i4"]
+
+[ext_resource type="Script" path="res://src/gui/entity_ui/command_panel/CommandPanel.cs" id="1_74ul0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_530vj"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_hgjj6"]
+
+[node name="CommandPanel" type="Control" node_paths=PackedStringArray("CommandList")]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("1_74ul0")
+CommandList = NodePath("PanelContainer/VBoxContainer/CommandList")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -82.935
+offset_top = -87.02
+offset_right = -42.935
+offset_bottom = -47.02
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_530vj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "COMMANDS"
+label_settings = SubResource("LabelSettings_hgjj6")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="CommandList" type="ItemList" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+allow_search = false
+auto_height = true
+item_count = 1
+item_0/text = "ENTRY 1"
