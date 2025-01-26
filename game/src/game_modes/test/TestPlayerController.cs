@@ -18,8 +18,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   private bool _isPanning;
   private Vector2 _lastMousePosition;
 
-
-
   public override void _Ready() {
     base._Ready();
 
@@ -28,6 +26,9 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     Input.MouseMode = Input.MouseModeEnum.Confined;
 
     GameBoard = GetGameState().GameBoard;
+
+    GetGameState().NextTurnEvent += (turn) => GetHUD().SetPlayerTurnLabel(turn);
+    GetGameState().NextRoundEvent += (round) => GetHUD().SetRoundLabel(round);
 
     _character = GetCharacter<PlayerCharacter>();
 
@@ -155,7 +156,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   private void CellClicked(GameCell cell) {
     var entities = GameBoard.GetOwnedEntitiesOnCell(this, cell);
 
-
     if (entities.Length > 0) {
       if (entities[0] != SelectedEntity) {
         if (SelectedEntity != null) {
@@ -176,9 +176,11 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   private void SelectEntity(Entity entity) {
     entity.Cell.HighlightColor = Colors.White;
 
-
     GetHUD().ShowStatPanel(entity);
+
+    // TODO: only issue commands if it is your turn
     GetHUD().ShowCommandPanel(entity);
+
 
     GameBoard.UpdateHighlights();
   }
@@ -192,4 +194,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     // highlight units which you can select
     GameBoard.UpdateHighlights();
   }
+
+  public bool OwnTurn() => GetGameState().CurrentPlayerIndex == GetPlayerState().PlayerIndex;
 }

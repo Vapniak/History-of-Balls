@@ -39,7 +39,11 @@ public partial class TestGameMode : GameMode {
 
     if (Input.IsActionJustPressed(BuiltinInputActions.UICancel)) {
       PauseComponent.Pause();
-      PlayerManagmentComponent.GetLocalPlayer().GetController<PlayerController>().GetHUD().Hide();
+      foreach (var player in GetGameState().PlayerArray) {
+        if (player.GetController() is PlayerController playerController) {
+          playerController.GetHUD().Hide();
+        }
+      }
     }
   }
 
@@ -49,7 +53,12 @@ public partial class TestGameMode : GameMode {
 
   private void OnResume() {
     PauseComponent.Resume();
-    PlayerManagmentComponent.GetLocalPlayer().GetController<PlayerController>().GetHUD().Show();
+
+    foreach (var player in GetGameState().PlayerArray) {
+      if (player.GetController() is PlayerController playerController) {
+        playerController.GetHUD().Show();
+      }
+    }
   }
   private void OnMainMenu() {
     OnResume();

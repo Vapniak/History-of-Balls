@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System;
 using GameplayFramework;
 using Godot;
 using Godot.Collections;
@@ -9,5 +10,26 @@ public partial class TestGameState : GameState, IPlayerManagmentGameState, IPaus
   public GameBoard GameBoard { get; set; }
 
   public Array<PlayerState> PlayerArray { get; set; }
-  public bool PauseGame { get; set; } = true;
+  public bool PauseGame { get; private set; } = true;
+
+  public int CurrentPlayerIndex { get; private set; }
+  public int CurrentRound { get; private set; }
+
+  public event Action<int> NextTurnEvent;
+
+  public event Action<int> NextRoundEvent;
+
+  public void NextTurn() {
+    if (CurrentPlayerIndex >= PlayerArray.Count) {
+      CurrentRound++;
+      CurrentPlayerIndex = 0;
+
+      NextRoundEvent(CurrentRound);
+    }
+    else {
+      CurrentPlayerIndex++;
+    }
+
+    NextTurnEvent(CurrentPlayerIndex);
+  }
 }
