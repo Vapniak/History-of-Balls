@@ -11,12 +11,15 @@
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="8_km8w8"]
 [ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/test_unit_2.tscn" id="10_dxag6"]
 
-[node name="TestGameMode" type="Node"]
+[node name="TestGameMode" type="Node" node_paths=PackedStringArray("LoadingScreen")]
 script = ExtResource("1_pal7c")
+LoadingScreen = NodePath("CanvasLayer")
 
-[node name="PauseComponent" type="Node" parent="."]
+[node name="PauseComponent" type="Node" parent="." node_paths=PackedStringArray("PauseMenu")]
 script = ExtResource("6_1rqn6")
-PauseMenuScene = ExtResource("7_rcove")
+PauseMenu = NodePath("PauseMenu")
+
+[node name="PauseMenu" parent="PauseComponent" instance=ExtResource("7_rcove")]
 
 [node name="TestPlayerManagmentComponent" type="Node" parent="."]
 script = ExtResource("4_gydgo")
@@ -28,3 +31,29 @@ HUDScene = ExtResource("5_m3qk3")
 script = ExtResource("8_km8w8")
 TestEntity = ExtResource("5_yad7m")
 TestEntity2 = ExtResource("10_dxag6")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 128
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "LOADING"

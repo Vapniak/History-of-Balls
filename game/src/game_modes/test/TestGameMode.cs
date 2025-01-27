@@ -5,6 +5,8 @@ using Godot;
 
 [GlobalClass]
 public partial class TestGameMode : GameMode {
+  [Export] private CanvasLayer LoadingScreen { get; set; }
+
   private PauseComponent PauseComponent { get; set; }
   private TestPlayerManagmentComponent PlayerManagmentComponent { get; set; }
   private MatchComponent MatchComponent { get; set; }
@@ -22,6 +24,17 @@ public partial class TestGameMode : GameMode {
 
     PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
     GetGameState().GameBoard.GridCreated += OnStartGame;
+
+    Game.GetWorld().LevelLoaded += (level) => {
+      var timer = new Timer();
+      AddChild(timer);
+      timer.Timeout += () => {
+        LoadingScreen.Visible = false;
+        timer.QueueFree();
+      };
+      timer.WaitTime = 1;
+      timer.Start();
+    };
   }
 
   public override void _Ready() {
@@ -37,6 +50,8 @@ public partial class TestGameMode : GameMode {
   public override void _Process(double delta) {
     base._Process(delta);
 
+
+    // TODO: add unpausing on escape
     if (Input.IsActionJustPressed(BuiltinInputActions.UICancel)) {
       PauseComponent.Pause();
       foreach (var player in GetGameState().PlayerArray) {

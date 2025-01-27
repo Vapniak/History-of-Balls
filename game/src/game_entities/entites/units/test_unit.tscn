@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://cptcei88nkfhr"]
+[gd_scene load_steps=9 format=3 uid="uid://cptcei88nkfhr"]
 
 [ext_resource type="Script" path="res://src/game_entities/Entity.cs" id="1_l4gw0"]
 [ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTrait.cs" id="2_wfck8"]
 [ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTraitData.cs" id="3_2gl2j"]
+[ext_resource type="Script" path="res://src/game_entities/traits/commands/CommandTrait.cs" id="4_1u6kp"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5gvtn"]
 
@@ -33,3 +34,6 @@ mesh = SubResource("BoxMesh_k4tq3")
 script = ExtResource("2_wfck8")
 Data = SubResource("Resource_xum65")
 _moveSpeed = 5.0
+
+[node name="CommandTrait" type="Node" parent="."]
+script = ExtResource("4_1u6kp")

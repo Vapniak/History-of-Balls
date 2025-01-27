@@ -1,0 +1,36 @@
+[gd_scene load_steps=2 format=3 uid="uid://drssf88xstodq"]
+
+[ext_resource type="Script" path="res://src/gui/hud/stat_panel/StatPanel.cs" id="1_sgk3d"]
+
+[node name="StatPanel" type="PanelContainer" node_paths=PackedStringArray("NameLabel", "MovePointsLabel")]
+offset_right = 74.0
+offset_bottom = 78.0
+mouse_filter = 2
+script = ExtResource("1_sgk3d")
+NameLabel = NodePath("VBoxContainer/Label")
+MovePointsLabel = NodePath("VBoxContainer/StatEntries/HBoxContainer/Label2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "ENTITY"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="StatEntries" type="VBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/StatEntries"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/StatEntries/HBoxContainer"]
+layout_mode = 2
+text = "MP: "
+
+[node name="Label2" type="Label" parent="VBoxContainer/StatEntries/HBoxContainer"]
+layout_mode = 2
+text = "0
+"

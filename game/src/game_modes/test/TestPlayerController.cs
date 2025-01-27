@@ -1,10 +1,7 @@
 namespace HOB;
 
-using System;
-using System.Collections.Generic;
 using GameplayFramework;
 using Godot;
-using HexGridMap;
 using HOB.GameEntity;
 using RaycastSystem;
 
@@ -173,14 +170,15 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     GD.PrintS("Entities:", entities.Length, "Q:", cell.Coord.Q, "R:", cell.Coord.R);
   }
 
+  // TODO: statemachine for selecting, entity move, attack
   private void SelectEntity(Entity entity) {
     entity.Cell.HighlightColor = Colors.White;
 
     GetHUD().ShowStatPanel(entity);
 
-    // TODO: only issue commands if it is your turn
-    GetHUD().ShowCommandPanel(entity);
-
+    if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      GetHUD().ShowCommandPanel(entity);
+    }
 
     GameBoard.UpdateHighlights();
   }
