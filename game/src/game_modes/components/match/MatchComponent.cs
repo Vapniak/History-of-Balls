@@ -1,9 +1,7 @@
 namespace HOB;
 
-using System.Linq;
 using GameplayFramework;
 using Godot;
-using HexGridMap;
 using HOB.GameEntity;
 
 

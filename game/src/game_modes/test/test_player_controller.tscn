@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dfgh62iuf4b5x"]
+[gd_scene load_steps=3 format=3 uid="uid://dfgh62iuf4b5x"]
 
 [ext_resource type="Script" path="res://src/game_modes/test/TestPlayerController.cs" id="1_cr46l"]
+[ext_resource type="Script" path="res://addons/state_machine/src/StateMachine.cs" id="2_0o85e"]
 
 [node name="TestPlayerController" type="Node3D"]
 script = ExtResource("1_cr46l")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_0o85e")

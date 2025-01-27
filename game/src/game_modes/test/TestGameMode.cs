@@ -25,16 +25,13 @@ public partial class TestGameMode : GameMode {
     PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
     GetGameState().GameBoard.GridCreated += OnStartGame;
 
-    Game.GetWorld().LevelLoaded += (level) => {
-      var timer = new Timer();
-      AddChild(timer);
-      timer.Timeout += () => {
-        LoadingScreen.Visible = false;
-        timer.QueueFree();
-      };
-      timer.WaitTime = 1;
-      timer.Start();
-    };
+    Game.GetWorld().LevelLoaded += OnLevelLoaded;
+  }
+
+  public override void _ExitTree() {
+    base._ExitTree();
+
+    Game.GetWorld().LevelLoaded -= OnLevelLoaded;
   }
 
   public override void _Ready() {
@@ -66,6 +63,15 @@ public partial class TestGameMode : GameMode {
 
   protected override GameState CreateGameState() => new TestGameState();
 
+  private void OnLevelLoaded(Level level) {
+    var timer = new Timer();
+    AddChild(timer);
+    timer.Timeout += () => {
+      LoadingScreen.Visible = false;
+      timer.QueueFree();
+    };
+    timer.Start(1);
+  }
   private void OnResume() {
     PauseComponent.Resume();
 

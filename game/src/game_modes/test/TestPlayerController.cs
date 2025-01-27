@@ -177,7 +177,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     GetHUD().ShowStatPanel(entity);
 
     if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      GetHUD().ShowCommandPanel(entity);
+      GetHUD().ShowCommandPanel(commandTrait);
     }
 
     GameBoard.UpdateHighlights();
@@ -193,5 +193,5 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     GameBoard.UpdateHighlights();
   }
 
-  public bool OwnTurn() => GetGameState().CurrentPlayerIndex == GetPlayerState().PlayerIndex;
+  public bool IsOwnTurn() => GetGameState().CurrentPlayerIndex == GetPlayerState().PlayerIndex;
 }

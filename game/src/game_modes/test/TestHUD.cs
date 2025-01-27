@@ -35,7 +35,12 @@ public partial class TestHUD : HUD {
     }
   }
 
-  public void ShowCommandPanel(Entity entity) {
+  public void ShowCommandPanel(CommandTrait commandTrait) {
+    CommandPanel.ClearCommands();
+    foreach (var command in commandTrait.GetCommands()) {
+      // TODO: callback when command selected
+      CommandPanel.AddCommand(command);
+    }
     CommandPanel.Show();
   }
 
