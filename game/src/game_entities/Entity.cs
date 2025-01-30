@@ -31,4 +31,8 @@ public partial class Entity : Node3D {
     trait = null;
     return false;
   }
+
+  public T GetTrait<T>() where T : Trait {
+    return _traits.GetValueOrDefault(typeof(T)) as T;
+  }
 }

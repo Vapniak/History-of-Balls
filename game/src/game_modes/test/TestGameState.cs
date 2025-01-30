@@ -19,6 +19,8 @@ public partial class TestGameState : GameState, IPlayerManagmentGameState, IPaus
 
   public event Action<int> NextRoundEvent;
 
+
+  // TODO: better turn managment
   public void NextTurn() {
     if (CurrentPlayerIndex >= PlayerArray.Count) {
       CurrentRound++;

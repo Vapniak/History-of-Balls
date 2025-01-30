@@ -1,7 +1,10 @@
 namespace HOB;
 
+using System;
+using System.Collections.Generic;
 using GameplayFramework;
 using Godot;
+using HexGridMap;
 using HOB.GameEntity;
 using RaycastSystem;
 
@@ -9,11 +12,14 @@ using RaycastSystem;
 public partial class TestPlayerController : PlayerController, IMatchController {
   private GameBoard GameBoard { get; set; }
   private Entity SelectedEntity { get; set; }
+  private Command SelectedCommand { get; set; }
+
 
   private PlayerCharacter _character;
 
   private bool _isPanning;
   private Vector2 _lastMousePosition;
+
 
   public override void _Ready() {
     base._Ready();
@@ -153,6 +159,15 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   private void CellClicked(GameCell cell) {
     var entities = GameBoard.GetOwnedEntitiesOnCell(this, cell);
 
+    if (SelectedCommand != null) {
+      if (SelectedCommand is MoveCommand moveCommand) {
+        moveCommand.TryMove(cell);
+        DeselectEntity(SelectedEntity);
+        SelectedEntity = null;
+        SelectedCommand = null;
+      }
+    }
+
     if (entities.Length > 0) {
       if (entities[0] != SelectedEntity) {
         if (SelectedEntity != null) {
@@ -173,24 +188,55 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   // TODO: statemachine for selecting, entity move, attack
   private void SelectEntity(Entity entity) {
     entity.Cell.HighlightColor = Colors.White;
+    GameBoard.UpdateHighlights();
 
     GetHUD().ShowStatPanel(entity);
 
     if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      commandTrait.CommandSelected += OnCommandSelected;
+
       GetHUD().ShowCommandPanel(commandTrait);
     }
-
-    GameBoard.UpdateHighlights();
   }
 
   private void DeselectEntity(Entity entity) {
     GetHUD().HideStatPanel();
     GetHUD().HideCommandPanel();
 
+    if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      commandTrait.CommandSelected -= OnCommandSelected;
+    }
+
     // TODO: add events when entity is selected and deselected to listen in game board and do highlighting there
     GameBoard.ClearHighlights();
     // highlight units which you can select
     GameBoard.UpdateHighlights();
+  }
+
+  private void OnCommandSelected(Command command) {
+    if (command is MoveCommand moveCommand) {
+      List<GameCell> availableCells = new();
+      // TODO: add path finding
+      foreach (var cell in GameBoard.GetCellsInRange(SelectedEntity.Cell.Coord, SelectedEntity.GetTrait<MoveTrait>().Data.MovePoints)) {
+        if (cell == SelectedEntity.Cell) {
+          continue;
+        }
+
+        if (GameBoard.GetEntitiesOnCell(cell).Length == 0) {
+          cell.HighlightColor = Colors.Green;
+          availableCells.Add(cell);
+        }
+        else {
+          cell.HighlightColor = Colors.DarkRed;
+        }
+      }
+
+      moveCommand.CellsToMove = availableCells.ToArray();
+    }
+
+    GameBoard.UpdateHighlights();
+
+    SelectedCommand = command;
   }
 
   public bool IsOwnTurn() => GetGameState().CurrentPlayerIndex == GetPlayerState().PlayerIndex;

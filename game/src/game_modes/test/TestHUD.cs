@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System.Linq;
 using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
@@ -36,12 +37,25 @@ public partial class TestHUD : HUD {
   }
 
   public void ShowCommandPanel(CommandTrait commandTrait) {
+    // TODO: activate move command on show if exists
+
     CommandPanel.ClearCommands();
     foreach (var command in commandTrait.GetCommands()) {
-      // TODO: callback when command selected
       CommandPanel.AddCommand(command);
     }
+
+    CommandPanel.CommandSelected += commandTrait.SelectCommand;
+    CommandPanel.SelectCommand(commandTrait.GetCommands().First(c => c is MoveCommand));
+
+
+    void onHidden() {
+      CommandPanel.CommandSelected -= commandTrait.SelectCommand;
+      CommandPanel.Hidden -= onHidden;
+    }
+    CommandPanel.Hidden += onHidden;
     CommandPanel.Show();
+
+
   }
 
   public void HideCommandPanel() => CommandPanel.Hide();

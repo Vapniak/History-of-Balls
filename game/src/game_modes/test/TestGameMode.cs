@@ -5,7 +5,11 @@ using Godot;
 
 [GlobalClass]
 public partial class TestGameMode : GameMode {
-  [Export] private CanvasLayer LoadingScreen { get; set; }
+  [Export] private PackedScene PlayerControllerScene { get; set; }
+  [Export] private PackedScene PlayerCharacterScene { get; set; }
+  [Export] private PackedScene AIControllerScene { get; set; }
+  [Export] private PackedScene HUDScene { get; set; }
+
 
   private PauseComponent PauseComponent { get; set; }
   private TestPlayerManagmentComponent PlayerManagmentComponent { get; set; }
@@ -24,14 +28,6 @@ public partial class TestGameMode : GameMode {
 
     PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
     GetGameState().GameBoard.GridCreated += OnStartGame;
-
-    Game.GetWorld().LevelLoaded += OnLevelLoaded;
-  }
-
-  public override void _ExitTree() {
-    base._ExitTree();
-
-    Game.GetWorld().LevelLoaded -= OnLevelLoaded;
   }
 
   public override void _Ready() {
@@ -46,7 +42,6 @@ public partial class TestGameMode : GameMode {
 
   public override void _Process(double delta) {
     base._Process(delta);
-
 
     // TODO: add unpausing on escape
     if (Input.IsActionJustPressed(BuiltinInputActions.UICancel)) {
@@ -63,15 +58,6 @@ public partial class TestGameMode : GameMode {
 
   protected override GameState CreateGameState() => new TestGameState();
 
-  private void OnLevelLoaded(Level level) {
-    var timer = new Timer();
-    AddChild(timer);
-    timer.Timeout += () => {
-      LoadingScreen.Visible = false;
-      timer.QueueFree();
-    };
-    timer.Start(1);
-  }
   private void OnResume() {
     PauseComponent.Resume();
 
@@ -89,6 +75,7 @@ public partial class TestGameMode : GameMode {
   private void OnQuit() => Game.QuitGame();
 
   private void OnStartGame() {
-    PlayerManagmentComponent.SpawnPlayerDeffered();
+    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new TestPlayerState(), "AI", null, null));
+    PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new TestPlayerState(), "Player", HUDScene, PlayerCharacterScene));
   }
 }

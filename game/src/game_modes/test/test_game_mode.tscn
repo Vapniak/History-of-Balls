@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=12 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/test/TestGameMode.cs" id="1_pal7c"]
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="2_5iywb"]
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game_modes/test/test_player_controller.tscn" id="3_u4cum"]
+[ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game_modes/test/ai_controller.tscn" id="4_dfiau"]
 [ext_resource type="Script" path="res://src/game_modes/test/TestPlayerManagmentComponent.cs" id="4_gydgo"]
 [ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/gui/hud/hud.tscn" id="5_m3qk3"]
 [ext_resource type="PackedScene" uid="uid://cptcei88nkfhr" path="res://src/game_entities/entites/units/test_unit.tscn" id="5_yad7m"]
@@ -11,9 +12,12 @@
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="8_km8w8"]
 [ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/test_unit_2.tscn" id="10_dxag6"]
 
-[node name="TestGameMode" type="Node" node_paths=PackedStringArray("LoadingScreen")]
+[node name="TestGameMode" type="Node"]
 script = ExtResource("1_pal7c")
-LoadingScreen = NodePath("CanvasLayer")
+PlayerControllerScene = ExtResource("3_u4cum")
+PlayerCharacterScene = ExtResource("2_5iywb")
+AIControllerScene = ExtResource("4_dfiau")
+HUDScene = ExtResource("5_m3qk3")
 
 [node name="PauseComponent" type="Node" parent="." node_paths=PackedStringArray("PauseMenu")]
 script = ExtResource("6_1rqn6")
@@ -23,37 +27,8 @@ PauseMenu = NodePath("PauseMenu")
 
 [node name="TestPlayerManagmentComponent" type="Node" parent="."]
 script = ExtResource("4_gydgo")
-PlayerScene = ExtResource("2_5iywb")
-PlayerControllerScene = ExtResource("3_u4cum")
-HUDScene = ExtResource("5_m3qk3")
 
 [node name="MatchComponent" type="Node" parent="."]
 script = ExtResource("8_km8w8")
 TestEntity = ExtResource("5_yad7m")
 TestEntity2 = ExtResource("10_dxag6")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 128
-
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -11.5
-offset_right = 20.0
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "LOADING"

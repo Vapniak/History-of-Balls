@@ -26,9 +26,17 @@ public partial class MatchComponent : GameModeComponent {
 
   public virtual void OnPlayerSpawned(PlayerState playerState) {
     // TODO: spawning from map
-    var entity = TestEntity.InstantiateOrNull<Entity>();
-    var entity2 = TestEntity2.InstantiateOrNull<Entity>();
-    GameBoard.AddEntity(entity, new(0, 0), playerState.GetController<IMatchController>());
-    GameBoard.AddEntity(entity2, new(1, 0), playerState.GetController<IMatchController>());
+    if (playerState.GetController() is PlayerController) {
+      var entity = TestEntity.InstantiateOrNull<Entity>();
+      var entity2 = TestEntity2.InstantiateOrNull<Entity>();
+      GameBoard.AddEntity(entity, new(0, 0), playerState.GetController<IMatchController>());
+      GameBoard.AddEntity(entity2, new(1, 0), playerState.GetController<IMatchController>());
+    }
+    else {
+      var entity = TestEntity.InstantiateOrNull<Entity>();
+      var entity2 = TestEntity2.InstantiateOrNull<Entity>();
+      GameBoard.AddEntity(entity, new(5, 0), playerState.GetController<IMatchController>());
+      GameBoard.AddEntity(entity2, new(6, 0), playerState.GetController<IMatchController>());
+    }
   }
 }
