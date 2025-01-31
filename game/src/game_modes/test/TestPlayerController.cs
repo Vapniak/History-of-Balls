@@ -4,12 +4,13 @@ using System;
 using System.Collections.Generic;
 using GameplayFramework;
 using Godot;
-using HexGridMap;
 using HOB.GameEntity;
 using RaycastSystem;
 
 [GlobalClass]
 public partial class TestPlayerController : PlayerController, IMatchController {
+  public event Action EndTurnEvent;
+
   private GameBoard GameBoard { get; set; }
   private Entity SelectedEntity { get; set; }
   private Command SelectedCommand { get; set; }
@@ -24,19 +25,22 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   public override void _Ready() {
     base._Ready();
 
-
     // TODO: unconfine mouse when in windowed mode
     Input.MouseMode = Input.MouseModeEnum.Confined;
 
     GameBoard = GetGameState().GameBoard;
 
-    GetGameState().NextTurnEvent += (turn) => GetHUD().SetPlayerTurnLabel(turn);
-    GetGameState().NextRoundEvent += (round) => GetHUD().SetRoundLabel(round);
+    GetGameState().TurnChangedEvent += (playerIndex, round) => {
+      GetHUD().OnTurnChanged(playerIndex, round);
+      DeselectEntity();
+    };
+
+    GetHUD().EndTurn += () => EndTurnEvent?.Invoke();
+
 
     _character = GetCharacter<PlayerCharacter>();
 
     _character.CenterPositionOn(GameBoard.GetAabb());
-
     GetHUD().HideCommandPanel();
     GetHUD().HideStatPanel();
   }
@@ -159,27 +163,22 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   private void CellClicked(GameCell cell) {
     var entities = GameBoard.GetOwnedEntitiesOnCell(this, cell);
 
-    if (SelectedCommand != null) {
+    if (IsCurrentTurn() && SelectedCommand != null) {
       if (SelectedCommand is MoveCommand moveCommand) {
-        moveCommand.TryMove(cell);
-        DeselectEntity(SelectedEntity);
-        SelectedEntity = null;
-        SelectedCommand = null;
+        moveCommand.TryMove(SelectedEntity.GetTrait<MoveTrait>(), cell);
+        DeselectEntity();
       }
     }
 
+
     if (entities.Length > 0) {
       if (entities[0] != SelectedEntity) {
-        if (SelectedEntity != null) {
-          DeselectEntity(SelectedEntity);
-        }
-        SelectedEntity = entities[0];
-        SelectEntity(SelectedEntity);
+        DeselectEntity();
+        SelectEntity(entities[0]);
       }
     }
-    else if (SelectedEntity != null) {
-      DeselectEntity(SelectedEntity);
-      SelectedEntity = null;
+    else {
+      DeselectEntity();
     }
 
     GD.PrintS("Entities:", entities.Length, "Q:", cell.Coord.Q, "R:", cell.Coord.R);
@@ -187,30 +186,37 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
   // TODO: statemachine for selecting, entity move, attack
   private void SelectEntity(Entity entity) {
-    entity.Cell.HighlightColor = Colors.White;
+    SelectedEntity = entity;
+
+    SelectedEntity.Cell.HighlightColor = Colors.White;
     GameBoard.UpdateHighlights();
 
-    GetHUD().ShowStatPanel(entity);
+    GetHUD().ShowStatPanel(SelectedEntity);
 
-    if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+    if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
       commandTrait.CommandSelected += OnCommandSelected;
 
       GetHUD().ShowCommandPanel(commandTrait);
     }
+
   }
 
-  private void DeselectEntity(Entity entity) {
+  private void DeselectEntity() {
     GetHUD().HideStatPanel();
     GetHUD().HideCommandPanel();
-
-    if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      commandTrait.CommandSelected -= OnCommandSelected;
-    }
 
     // TODO: add events when entity is selected and deselected to listen in game board and do highlighting there
     GameBoard.ClearHighlights();
     // highlight units which you can select
     GameBoard.UpdateHighlights();
+
+    if (SelectedEntity != null) {
+      if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+        commandTrait.CommandSelected -= OnCommandSelected;
+      }
+      SelectedEntity = null;
+      SelectedCommand = null;
+    }
   }
 
   private void OnCommandSelected(Command command) {
@@ -239,5 +245,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     SelectedCommand = command;
   }
 
-  public bool IsOwnTurn() => GetGameState().CurrentPlayerIndex == GetPlayerState().PlayerIndex;
+  // TODO: implement this inside interface and somehow call this inside this class
+  public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
 }

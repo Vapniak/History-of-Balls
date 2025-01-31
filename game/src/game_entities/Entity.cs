@@ -13,10 +13,10 @@ public partial class Entity : Node3D {
 
   private readonly Dictionary<Type, Trait> _traits = new();
 
-  public override void _Ready() {
+  public override void _EnterTree() {
     foreach (var child in GetChildren()) {
       if (child is Trait trait) {
-        trait.Owner = this;
+        trait.Entity = this;
         _traits.Add(trait.GetType(), trait);
       }
     }

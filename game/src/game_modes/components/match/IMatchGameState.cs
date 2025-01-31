@@ -5,12 +5,13 @@ using GameplayFramework;
 using Godot;
 
 public interface IMatchGameState : IGameState, IPlayerManagmentGameState {
-  public event Action<int> NextTurnEvent;
-  public event Action<int> NextRoundEvent;
+  public delegate void TurnChangedEventHandler(int playerIndex, int roundNumber);
+  public event TurnChangedEventHandler TurnChangedEvent;
 
   public GameBoard GameBoard { get; }
   public int CurrentPlayerIndex { get; }
   public int CurrentRound { get; }
 
   public void NextTurn();
+  public bool IsCurrentTurn(IMatchController controller);
 }

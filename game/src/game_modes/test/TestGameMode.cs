@@ -33,9 +33,9 @@ public partial class TestGameMode : GameMode {
   public override void _Ready() {
     base._Ready();
 
-    PauseComponent.GetPauseMenu().Resume += OnResume;
-    PauseComponent.GetPauseMenu().MainMenu += OnMainMenu;
-    PauseComponent.GetPauseMenu().Quit += OnQuit;
+    PauseComponent.GetPauseMenu().ResumeEvent += OnResume;
+    PauseComponent.GetPauseMenu().MainMenuEvent += OnMainMenu;
+    PauseComponent.GetPauseMenu().QuitEvent += OnQuit;
 
     GetGameState().GameBoard.Init();
   }
@@ -75,7 +75,7 @@ public partial class TestGameMode : GameMode {
   private void OnQuit() => Game.QuitGame();
 
   private void OnStartGame() {
-    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new TestPlayerState(), "AI", null, null));
     PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new TestPlayerState(), "Player", HUDScene, PlayerCharacterScene));
+    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new TestPlayerState(), "AI", null, null));
   }
 }

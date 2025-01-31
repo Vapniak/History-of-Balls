@@ -1,10 +1,7 @@
 namespace HOB;
-
 using Godot;
-using HexGridMap;
 using HOB.GameEntity;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 public partial class EntityManager : Node {

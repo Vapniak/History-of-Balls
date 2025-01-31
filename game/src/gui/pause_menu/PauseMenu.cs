@@ -5,11 +5,9 @@ using System;
 
 public partial class PauseMenu : CanvasLayer, IPauseMenu {
   [Export] private SettingsMenu SettingsMenu { get; set; }
-  public Action Resume { get; set; }
-
-  public Action MainMenu { get; set; }
-
-  public Action Quit { get; set; }
+  public event Action ResumeEvent;
+  public event Action MainMenuEvent;
+  public event Action QuitEvent;
 
   public override void _Ready() {
     base._Ready();
@@ -18,7 +16,7 @@ public partial class PauseMenu : CanvasLayer, IPauseMenu {
   }
 
   private void OnResumePressed() {
-    Resume?.Invoke();
+    ResumeEvent?.Invoke();
   }
 
   private void OnSettingsPressed() {
@@ -26,11 +24,11 @@ public partial class PauseMenu : CanvasLayer, IPauseMenu {
   }
 
   private void OnMainMenuPressed() {
-    MainMenu?.Invoke();
+    MainMenuEvent?.Invoke();
   }
 
   private void OnQuitPressed() {
-    Quit?.Invoke();
+    QuitEvent?.Invoke();
   }
 
 }

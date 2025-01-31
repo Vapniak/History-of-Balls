@@ -17,8 +17,8 @@ public partial class MoveTrait : Trait {
     base._PhysicsProcess(delta);
 
     if (_move) {
-      GetEntity().GlobalPosition = GetEntity().GlobalPosition.Lerp(_targetPosition, (float)delta * _moveSpeed);
-      if (GetEntity().GlobalPosition == _targetPosition) {
+      Entity.GlobalPosition = Entity.GlobalPosition.Lerp(_targetPosition, (float)delta * _moveSpeed);
+      if (Entity.GlobalPosition == _targetPosition) {
         EmitSignal(SignalName.MoveFinished);
         _move = false;
       }
@@ -29,8 +29,8 @@ public partial class MoveTrait : Trait {
     _targetPosition = new(pos.X, 0, pos.Y);
     _move = true;
 
-    GetEntity().LookAt(_targetPosition, Vector3.Up);
+    Entity.LookAt(_targetPosition, Vector3.Up);
 
-    GetEntity().Cell = targetCell;
+    Entity.Cell = targetCell;
   }
 }

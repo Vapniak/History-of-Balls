@@ -5,12 +5,13 @@
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/gui/hud/command_panel/command_panel.tscn" id="3_a41a7"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/hud/stat_panel/stat_panel.tscn" id="4_yxp0t"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("StatPanel", "CommandPanel", "RoundLabel", "PlayerTurnLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("StatPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "PlayerTurnLabel")]
 script = ExtResource("1_ep1kh")
-StatPanel = NodePath("MarginContainer2/StatPanel")
-CommandPanel = NodePath("MarginContainer2/CommandPanel")
-RoundLabel = NodePath("MarginContainer/VBoxContainer/Label")
-PlayerTurnLabel = NodePath("MarginContainer/VBoxContainer/Label2")
+StatPanel = NodePath("MarginContainer4/StatPanel")
+EndTurnButton = NodePath("MarginContainer4/Button")
+CommandPanel = NodePath("MarginContainer4/CommandPanel")
+RoundLabel = NodePath("MarginContainer4/VBoxContainer/Label")
+PlayerTurnLabel = NodePath("MarginContainer4/VBoxContainer/Label2")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 offset_right = 19.0
@@ -24,46 +25,46 @@ text = "60
 horizontal_alignment = 1
 script = ExtResource("2_v4qhv")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 40.0
+[node name="MarginContainer4" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="Button" type="Button" parent="MarginContainer4"]
 layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "END TURN"
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="CommandPanel" parent="MarginContainer4" instance=ExtResource("3_a41a7")]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="StatPanel" parent="MarginContainer4" instance=ExtResource("4_yxp0t")]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer4/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 26
 text = "ROUND 0"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer4/VBoxContainer"]
 layout_mode = 2
 text = "PLAYER 0 TURN"
 
-[node name="MarginContainer2" type="MarginContainer" parent="."]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -170.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/margin_left = 100
-theme_override_constants/margin_right = 100
-theme_override_constants/margin_bottom = 100
-
-[node name="CommandPanel" parent="MarginContainer2" instance=ExtResource("3_a41a7")]
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-
-[node name="StatPanel" parent="MarginContainer2" instance=ExtResource("4_yxp0t")]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 8
+[connection signal="pressed" from="MarginContainer4/Button" to="." method="OnEndTurnPressed"]

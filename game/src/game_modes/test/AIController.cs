@@ -7,9 +7,9 @@ using System;
 
 [GlobalClass]
 public partial class AIController : Controller, IMatchController {
-  // TODO: add behavior tree
-  public Action<CubeCoord> CoordsClicked { get; set; }
+  public event Action EndTurnEvent;
 
-  public bool IsOwnTurn() => GetGameState().CurrentPlayerIndex == GetPlayerState().PlayerIndex;
+  // TODO: add behavior tree
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
+  public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
 }

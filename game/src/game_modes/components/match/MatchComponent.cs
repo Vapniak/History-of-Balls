@@ -10,7 +10,6 @@ using HOB.GameEntity;
 /// </summary>
 [GlobalClass]
 public partial class MatchComponent : GameModeComponent {
-  // TODO: handle current player turns
   [Export] private PackedScene TestEntity { get; set; }
   [Export] private PackedScene TestEntity2 { get; set; }
 
@@ -26,17 +25,29 @@ public partial class MatchComponent : GameModeComponent {
 
   public virtual void OnPlayerSpawned(PlayerState playerState) {
     // TODO: spawning from map
-    if (playerState.GetController() is PlayerController) {
-      var entity = TestEntity.InstantiateOrNull<Entity>();
-      var entity2 = TestEntity2.InstantiateOrNull<Entity>();
-      GameBoard.AddEntity(entity, new(0, 0), playerState.GetController<IMatchController>());
-      GameBoard.AddEntity(entity2, new(1, 0), playerState.GetController<IMatchController>());
+
+    var controller = playerState.GetController<IMatchController>();
+    controller.EndTurnEvent += () => OnEndTurn(controller);
+
+    if (controller is PlayerController) {
+      var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
+      var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
+      var entity3 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
+      GameBoard.AddEntity(entity, new(0, 0), controller);
+      GameBoard.AddEntity(entity2, new(1, 0), controller);
+      GameBoard.AddEntity(entity3, new(2, 0), controller);
     }
     else {
-      var entity = TestEntity.InstantiateOrNull<Entity>();
-      var entity2 = TestEntity2.InstantiateOrNull<Entity>();
-      GameBoard.AddEntity(entity, new(5, 0), playerState.GetController<IMatchController>());
-      GameBoard.AddEntity(entity2, new(6, 0), playerState.GetController<IMatchController>());
+      var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
+      var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
+      GameBoard.AddEntity(entity, new(5, 0), controller);
+      GameBoard.AddEntity(entity2, new(6, 0), controller);
+    }
+  }
+
+  private void OnEndTurn(IMatchController controller) {
+    if (GetGameState().IsCurrentTurn(controller)) {
+      GetGameState().NextTurn();
     }
   }
 }
