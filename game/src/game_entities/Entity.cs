@@ -35,4 +35,8 @@ public partial class Entity : Node3D {
   public T GetTrait<T>() where T : Trait {
     return _traits.GetValueOrDefault(typeof(T)) as T;
   }
+
+  public bool IsOwnedBy(IMatchController controller) {
+    return controller == OwnerController;
+  }
 }

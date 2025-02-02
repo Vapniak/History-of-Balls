@@ -14,7 +14,11 @@ public partial class CommandPanel : Control {
     //CommandList.Clear();
     Commands = new();
 
-    CommandList.ItemSelected += (index) => EmitSignal(SignalName.CommandSelected, Commands[(int)index]);
+    CommandList.ItemSelected += (index) => {
+      if (Commands[(int)index].IsAvailable()) {
+        EmitSignal(SignalName.CommandSelected, Commands[(int)index]);
+      }
+    };
   }
 
   public void SelectCommand(Command command) {
@@ -30,7 +34,7 @@ public partial class CommandPanel : Control {
     Commands.Clear();
   }
   public void AddCommand(Command command) {
-    CommandList.AddItem(command.Name, null, command.IsAvailable());
+    CommandList.AddItem(command.CommandName, null, command.IsAvailable());
     Commands.Add(command);
   }
 }

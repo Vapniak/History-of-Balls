@@ -38,6 +38,9 @@ public abstract class HexGrid<T> where T : HexCell {
     return null;
   }
 
+  public T GetCell(T cell, HexDirection direction) {
+    return GetCell(cell.Coord.GetNeighbor(direction));
+  }
   public T[] GetCells() => Cells;
   public T[] GetCells(CubeCoord[] coords) {
     List<T> cells = new();

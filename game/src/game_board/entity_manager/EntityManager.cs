@@ -23,6 +23,7 @@ public partial class EntityManager : Node {
 
     AddChild(entity);
 
+    entity.TreeExiting += () => RemoveEntity(entity);
 
     if (OwnedEntities.TryGetValue(controller, out var entites)) {
       entites.Add(entity);

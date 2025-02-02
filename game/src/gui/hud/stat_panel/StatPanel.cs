@@ -4,14 +4,24 @@ using Godot;
 using System;
 
 public partial class StatPanel : Control {
-  [Export] private Label NameLabel { get; set; }
+  [Export] private Label EntityNameLabel { get; set; }
+  [Export] private PackedScene EntryScene { get; set; }
+  [Export] private Control Entries { get; set; }
 
-  [Export] private Label MovePointsLabel { get; set; }
-
-  public void SetNameLabel(string name) {
-    NameLabel.Text = name;
+  public void SetEntityName(string name) {
+    EntityNameLabel.Text = name;
   }
-  public void SetMovePointsLabel(int movePoints) {
-    MovePointsLabel.Text = movePoints.ToString();
+  public void ClearEntries() {
+    foreach (var child in Entries.GetChildren()) {
+      child.QueueFree();
+    }
+  }
+
+  public void AddEntry(string name, string value) {
+    var entry = EntryScene.Instantiate<StatPanelEntry>();
+    entry.SetEntryName(name);
+    entry.SetEntryValue(value);
+
+    Entries.AddChild(entry);
   }
 }

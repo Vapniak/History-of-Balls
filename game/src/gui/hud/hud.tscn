@@ -31,6 +31,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
@@ -43,9 +44,11 @@ size_flags_vertical = 0
 text = "END TURN"
 
 [node name="CommandPanel" parent="MarginContainer4" instance=ExtResource("3_a41a7")]
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+mouse_filter = 1
 
 [node name="StatPanel" parent="MarginContainer4" instance=ExtResource("4_yxp0t")]
 layout_mode = 2
@@ -59,12 +62,14 @@ size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="MarginContainer4/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
 text = "ROUND 0"
 horizontal_alignment = 1
 
 [node name="Label2" type="Label" parent="MarginContainer4/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
 text = "PLAYER 0 TURN"
 
 [connection signal="pressed" from="MarginContainer4/Button" to="." method="OnEndTurnPressed"]

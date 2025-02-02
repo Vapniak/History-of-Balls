@@ -94,6 +94,10 @@ public partial class GameBoard : Node3D {
     return Grid.GetCells();
   }
 
+  public GameCell GetCell(GameCell cell, HexDirection direction) {
+    return Grid.GetCell(cell, direction);
+  }
+
   public GameCell[] GetCells(CubeCoord[] coords) {
     return Grid.GetCells(coords);
   }

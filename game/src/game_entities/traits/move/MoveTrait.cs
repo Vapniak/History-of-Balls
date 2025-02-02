@@ -3,13 +3,19 @@ namespace HOB.GameEntity;
 using Godot;
 using HexGridMap;
 using System;
+using System.Linq;
 
 [GlobalClass]
 public partial class MoveTrait : Trait {
   [Signal] public delegate void MoveFinishedEventHandler();
 
-  [Export] public MoveTraitData Data { get; private set; }
+
+  // TODO: move that data somewhere else
+  // TODO: make some simple entity editor plugin
+  [Export] public uint MovePoints { get; private set; } = 0;
   [Export] private float _moveSpeed = 10;
+
+  public GameCell[] CellsToMove;
   private Vector3 _targetPosition;
   private bool _move;
 
@@ -24,7 +30,11 @@ public partial class MoveTrait : Trait {
       }
     }
   }
-  public void Move(GameCell targetCell) {
+  public bool TryMove(GameCell targetCell) {
+    if (!CellsToMove.Contains(targetCell)) {
+      return false;
+    }
+
     var pos = targetCell.Position;
     _targetPosition = new(pos.X, 0, pos.Y);
     _move = true;
@@ -32,5 +42,9 @@ public partial class MoveTrait : Trait {
     Entity.LookAt(_targetPosition, Vector3.Up);
 
     Entity.Cell = targetCell;
+
+
+    // TODO: path finding and return true if targetCell is reachable
+    return true;
   }
 }

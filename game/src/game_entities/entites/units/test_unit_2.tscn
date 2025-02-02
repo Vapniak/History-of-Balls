@@ -1,10 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://gsbrhj8onefx"]
+[gd_scene load_steps=10 format=3 uid="uid://gsbrhj8onefx"]
 
 [ext_resource type="Script" path="res://src/game_entities/Entity.cs" id="1_0jdgj"]
 [ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTrait.cs" id="2_jiyhb"]
-[ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTraitData.cs" id="3_4fye3"]
-[ext_resource type="Script" path="res://src/game_entities/traits/commands/CommandTrait.cs" id="4_2wr3p"]
-[ext_resource type="Script" path="res://src/game_entities/traits/commands/MoveCommand.cs" id="5_qdvx0"]
+[ext_resource type="Script" path="res://src/game_entities/traits/command/CommandTrait.cs" id="4_2wr3p"]
+[ext_resource type="Script" path="res://src/game_entities/traits/health/HealthTrait.cs" id="5_mrqaj"]
+[ext_resource type="Script" path="res://src/game_entities/traits/command/commands/MoveCommand.cs" id="5_qdvx0"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egvh3"]
 albedo_color = Color(1, 0.533333, 0.454902, 1)
@@ -18,14 +18,6 @@ albedo_color = Color(1, 0, 0, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_k4tq3"]
 material = SubResource("StandardMaterial3D_5tqfe")
 size = Vector3(0.175, 0.21, 0.49)
-
-[sub_resource type="Resource" id="Resource_ons63"]
-script = ExtResource("3_4fye3")
-MovePoints = 3
-
-[sub_resource type="Resource" id="Resource_g30j4"]
-script = ExtResource("5_qdvx0")
-Name = "Command"
 
 [node name="TestUnit2" type="Node3D"]
 script = ExtResource("1_0jdgj")
@@ -41,9 +33,15 @@ mesh = SubResource("BoxMesh_k4tq3")
 
 [node name="MoveTrait" type="Node" parent="."]
 script = ExtResource("2_jiyhb")
-Data = SubResource("Resource_ons63")
+MovePoints = 2
 _moveSpeed = 5.0
 
 [node name="CommandTrait" type="Node" parent="."]
 script = ExtResource("4_2wr3p")
-Commands = Array[Object]([SubResource("Resource_g30j4")])
+
+[node name="MoveCommand" type="Node" parent="CommandTrait"]
+script = ExtResource("5_qdvx0")
+CommandName = "Move"
+
+[node name="HealthTrait" type="Node" parent="."]
+script = ExtResource("5_mrqaj")

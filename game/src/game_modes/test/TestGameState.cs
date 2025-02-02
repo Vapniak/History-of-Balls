@@ -16,25 +16,28 @@ public partial class TestGameState : GameState, IPlayerManagmentGameState, IPaus
   public int CurrentRound { get; private set; }
 
   public event IMatchGameState.TurnChangedEventHandler TurnChangedEvent;
-
+  public event IMatchGameState.RoundChangedEventHandler RoundStartedEvent;
+  public event IMatchGameState.RoundChangedEventHandler RoundEndedEvent;
 
   public override void Init() {
     base.Init();
 
-    TurnChangedEvent?.Invoke(0, 0);
+    TurnChangedEvent?.Invoke(0);
+    RoundStartedEvent?.Invoke(0);
   }
   // TODO: better turn managment
   public void NextTurn() {
-    if (CurrentPlayerIndex >= PlayerArray.Count) {
+    if (CurrentPlayerIndex >= PlayerArray.Count - 1) {
       CurrentRound++;
       CurrentPlayerIndex = 0;
-
+      RoundEndedEvent?.Invoke(CurrentRound - 1);
+      RoundStartedEvent?.Invoke(CurrentRound);
     }
     else {
       CurrentPlayerIndex++;
     }
 
-    TurnChangedEvent?.Invoke(CurrentPlayerIndex, CurrentRound);
+    TurnChangedEvent?.Invoke(CurrentPlayerIndex);
   }
 
   public bool IsCurrentTurn(IMatchController controller) => controller.GetPlayerState().PlayerIndex == CurrentPlayerIndex;

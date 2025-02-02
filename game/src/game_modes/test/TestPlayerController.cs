@@ -30,9 +30,13 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
     GameBoard = GetGameState().GameBoard;
 
-    GetGameState().TurnChangedEvent += (playerIndex, round) => {
-      GetHUD().OnTurnChanged(playerIndex, round);
-      DeselectEntity();
+    GetGameState().TurnChangedEvent += (playerIndex) => {
+      GetHUD().OnTurnChanged(playerIndex);
+    };
+
+    GetGameState().RoundStartedEvent += (roundNumber) => {
+      GetHUD().OnRoundChanged(roundNumber);
+      ReselectEntity();
     };
 
     GetHUD().EndTurn += () => EndTurnEvent?.Invoke();
@@ -161,12 +165,24 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   }
 
   private void CellClicked(GameCell cell) {
-    var entities = GameBoard.GetOwnedEntitiesOnCell(this, cell);
+    var entities = GameBoard.GetEntitiesOnCell(cell);
 
     if (IsCurrentTurn() && SelectedCommand != null) {
       if (SelectedCommand is MoveCommand moveCommand) {
-        moveCommand.TryMove(SelectedEntity.GetTrait<MoveTrait>(), cell);
-        DeselectEntity();
+        if (moveCommand.TryMove(cell)) {
+          ReselectEntity();
+          return;
+        }
+      }
+      else if (SelectedCommand is AttackCommand attackCommand) {
+        if (entities.Length > 0) {
+          if (attackCommand.TryAttack(entities[0])) {
+            DeselectEntity();
+          }
+        }
+        else {
+          return;
+        }
       }
     }
 
@@ -181,24 +197,31 @@ public partial class TestPlayerController : PlayerController, IMatchController {
       DeselectEntity();
     }
 
-    GD.PrintS("Entities:", entities.Length, "Q:", cell.Coord.Q, "R:", cell.Coord.R);
+    // GD.PrintS("Entities:", entities.Length, "Q:", cell.Coord.Q, "R:", cell.Coord.R);
   }
 
   // TODO: statemachine for selecting, entity move, attack
   private void SelectEntity(Entity entity) {
-    SelectedEntity = entity;
+    GameBoard.ClearHighlights();
 
-    SelectedEntity.Cell.HighlightColor = Colors.White;
-    GameBoard.UpdateHighlights();
+    SelectedEntity = entity;
 
     GetHUD().ShowStatPanel(SelectedEntity);
 
-    if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      commandTrait.CommandSelected += OnCommandSelected;
 
-      GetHUD().ShowCommandPanel(commandTrait);
+    if (SelectedEntity.IsOwnedBy(this)) {
+      SelectedEntity.Cell.HighlightColor = Colors.White;
+      if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+        commandTrait.CommandSelected += OnCommandSelected;
+
+        GetHUD().ShowCommandPanel(commandTrait);
+      }
+    }
+    else {
+      SelectedEntity.Cell.HighlightColor = Colors.Red;
     }
 
+    GameBoard.UpdateHighlights();
   }
 
   private void DeselectEntity() {
@@ -219,12 +242,22 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     }
   }
 
+  private void ReselectEntity() {
+    if (SelectedEntity == null) {
+      return;
+    }
+
+    var entity = SelectedEntity;
+    DeselectEntity();
+    SelectEntity(entity);
+  }
+
   private void OnCommandSelected(Command command) {
     if (command is MoveCommand moveCommand) {
       List<GameCell> availableCells = new();
       // TODO: add path finding
-      foreach (var cell in GameBoard.GetCellsInRange(SelectedEntity.Cell.Coord, SelectedEntity.GetTrait<MoveTrait>().Data.MovePoints)) {
-        if (cell == SelectedEntity.Cell) {
+      foreach (var cell in GameBoard.GetCellsInRange(moveCommand.GetEntity().Cell.Coord, moveCommand.GetEntity().GetTrait<MoveTrait>().MovePoints)) {
+        if (cell == moveCommand.GetEntity().Cell) {
           continue;
         }
 
@@ -233,11 +266,35 @@ public partial class TestPlayerController : PlayerController, IMatchController {
           availableCells.Add(cell);
         }
         else {
-          cell.HighlightColor = Colors.DarkRed;
+          cell.HighlightColor = Colors.Gray;
         }
       }
 
-      moveCommand.CellsToMove = availableCells.ToArray();
+      moveCommand.GetEntity().GetTrait<MoveTrait>().CellsToMove = availableCells.ToArray();
+    }
+    else if (command is AttackCommand attackCommand) {
+      List<Entity> attackable = new();
+      foreach (var cell in GameBoard.GetCellsInRange(attackCommand.GetEntity().Cell.Coord, attackCommand.GetEntity().GetTrait<AttackTrait>().Range)) {
+        if (cell == attackCommand.GetEntity().Cell) {
+          continue;
+        }
+
+        var entites = GameBoard.GetEntitiesOnCell(cell);
+        if (entites.Length == 0) {
+          cell.HighlightColor = Colors.DarkRed;
+        }
+        else {
+          if (entites[0].IsOwnedBy(this)) {
+            cell.HighlightColor = Colors.Gray;
+          }
+          else {
+            cell.HighlightColor = Colors.Red;
+            attackable.Add(entites[0]);
+          }
+        }
+      }
+
+      attackCommand.AttackableEntities = attackable.ToArray();
     }
 
     GameBoard.UpdateHighlights();

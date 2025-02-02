@@ -14,11 +14,14 @@ public partial class TestHUD : HUD {
   [Export] private Label RoundLabel { get; set; }
   [Export] private Label PlayerTurnLabel { get; set; }
 
-  public void OnTurnChanged(int playerIndex, int round) {
-    RoundLabel.Text = "ROUND " + round;
+  public void OnTurnChanged(int playerIndex) {
     PlayerTurnLabel.Text = "PLAYER " + playerIndex + " TURN";
 
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
+  }
+
+  public void OnRoundChanged(int roundNumber) {
+    RoundLabel.Text = "ROUND " + roundNumber;
   }
 
   public void ShowStatPanel(Entity entity) {
@@ -41,7 +44,7 @@ public partial class TestHUD : HUD {
     }
 
     CommandPanel.CommandSelected += commandTrait.SelectCommand;
-    CommandPanel.SelectCommand(commandTrait.GetCommands().First(c => c is MoveCommand));
+    CommandPanel.SelectCommand(commandTrait.GetCommands().FirstOrDefault(c => c.IsAvailable() && c is MoveCommand or AttackCommand));
 
 
     void onHidden() {
@@ -54,9 +57,23 @@ public partial class TestHUD : HUD {
 
   public void HideCommandPanel() => CommandPanel.Hide();
   private void UpdateStatPanel(Entity entity) {
-    StatPanel.SetNameLabel(entity.EntityName);
-    if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
-      StatPanel.SetMovePointsLabel((int)moveTrait.Data.MovePoints);
+    var isOwned = entity.IsOwnedBy(GetPlayerController<IMatchController>());
+
+    if (isOwned) {
+      StatPanel.SetEntityName(entity.EntityName);
+    }
+    else {
+      StatPanel.SetEntityName("ENEMY " + entity.EntityName);
+    }
+
+    StatPanel.ClearEntries();
+
+    if (isOwned && entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
+      StatPanel.AddEntry("Move Points:", moveTrait.MovePoints.ToString());
+    }
+
+    if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
+      StatPanel.AddEntry("Health:", healthTrait.CurrentHealth.ToString());
     }
   }
 

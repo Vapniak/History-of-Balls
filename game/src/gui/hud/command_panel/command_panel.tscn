@@ -5,8 +5,8 @@
 [sub_resource type="LabelSettings" id="LabelSettings_hgjj6"]
 
 [node name="CommandPanel" type="PanelContainer" node_paths=PackedStringArray("CommandList")]
-offset_right = 116.0
-offset_bottom = 90.0
+offset_right = 235.0
+offset_bottom = 70.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_74ul0")
@@ -30,4 +30,4 @@ allow_search = false
 auto_height = true
 text_overrun_behavior = 0
 item_count = 1
-item_0/text = "ENTRY 1"
+item_0/text = "COMMAND"
