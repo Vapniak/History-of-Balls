@@ -25,7 +25,7 @@ public sealed partial class Level : Node {
       return;
     }
 
-    if (GameMode != null) {
+    if (IsInstanceValid(GameMode)) {
       EmitSignal(SignalName.GameModeChanged, GameMode, newGameMode);
       GameMode.QueueFree();
     }

@@ -12,45 +12,67 @@ public sealed partial class World : Node {
 
   public Level CurrentLevel { get; private set; }
 
-  private bool LoadLevel { get; set; }
+  private bool LoadingLevel { get; set; }
 
   private string _loadedLevelPath;
-  private Node _loadingScreen;
+  private LoadingScreen _loadingScreen;
 
   public GameMode GetGameMode() => CurrentLevel.GameMode;
+
+  public override void _Ready() {
+    LevelLoaded += (level) => {
+      if (IsInstanceValid(_loadingScreen)) {
+        Timer timer = new();
+        timer.Timeout += () => {
+          _loadingScreen.QueueFree();
+          _loadingScreen = null;
+          timer.QueueFree();
+        };
+        AddChild(timer);
+        timer.Start(1);
+      }
+    };
+  }
 
   /// <summary>
   /// Loads level by its name.
   /// </summary>
   /// <param name="levelName">Name of saved level scene.</param>
-  public void OpenLevel(string levelName, PackedScene loadingScreenScene = null) {
+  public void OpenLevelThreaded(string levelName, PackedScene loadingScreenScene = null) {
     _loadedLevelPath = Game.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
-    var scene = ResourceLoader.LoadThreadedRequest(_loadedLevelPath, useSubThreads: true);
-    LoadLevel = true;
+    var error = ResourceLoader.LoadThreadedRequest(_loadedLevelPath, useSubThreads: true);
 
-    if (loadingScreenScene != null) {
-      _loadingScreen = loadingScreenScene.Instantiate();
-      AddChild(_loadingScreen);
+    if (error == Error.Ok) {
+      if (loadingScreenScene != null) {
+        _loadingScreen = loadingScreenScene.Instantiate<LoadingScreen>();
+        AddChild(_loadingScreen);
+      }
+
+      LoadingLevel = true;
     }
   }
 
+  public void OpenLevel(string levelName) {
+    var levelpath = Game.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
+    var level = ResourceLoader.Load<PackedScene>(levelpath).Instantiate<Level>();
+    OpenLevel(level);
+  }
+
   public override void _Process(double delta) {
-    if (LoadLevel) {
-      GetLevelLoadStatus(out var status, out _);
+    if (LoadingLevel) {
+      GetLevelLoadStatus(out var status, out var progress);
 
       switch (status) {
         case ResourceLoader.ThreadLoadStatus.Loaded:
           var level = ((PackedScene)ResourceLoader.LoadThreadedGet(_loadedLevelPath)).Instantiate<Level>();
+          _loadingScreen?.SetProgressBarValue(100);
           OpenLevel(level);
-          // FIXME: some flickering of scene when loading
-          if (IsInstanceValid(_loadingScreen)) {
-            _loadingScreen.QueueFree();
-          }
-          LoadLevel = false;
+          LoadingLevel = false;
           break;
         case ResourceLoader.ThreadLoadStatus.InvalidResource:
           break;
         case ResourceLoader.ThreadLoadStatus.InProgress:
+          _loadingScreen?.SetProgressBarValue(progress * 100);
           break;
         case ResourceLoader.ThreadLoadStatus.Failed:
           break;
@@ -60,7 +82,7 @@ public sealed partial class World : Node {
     }
   }
 
-  public void GetLevelLoadStatus(out ResourceLoader.ThreadLoadStatus status, out float progress) {
+  private void GetLevelLoadStatus(out ResourceLoader.ThreadLoadStatus status, out float progress) {
     Array progressArr = new();
     status = ResourceLoader.LoadThreadedGetStatus(_loadedLevelPath, progressArr);
     progress = progressArr[0].As<float>();
@@ -73,11 +95,10 @@ public sealed partial class World : Node {
       return;
     }
 
-
     if (CurrentLevel != null) {
       CurrentLevel.UnLoad();
       CurrentLevel.TreeExited += () => SwitchLevel(level);
-      CurrentLevel.Free();
+      CurrentLevel.QueueFree();
     }
     else {
       SwitchLevel(level);
@@ -87,9 +108,11 @@ public sealed partial class World : Node {
   private void SwitchLevel(Level level) {
     CurrentLevel = level;
 
-    CurrentLevel.Load();
-    AddChild(CurrentLevel);
+    CurrentLevel.TreeEntered += () => {
+      CurrentLevel.Load();
+      EmitSignal(SignalName.LevelLoaded, level);
+    };
 
-    EmitSignal(SignalName.LevelLoaded, level);
+    AddChild(CurrentLevel);
   }
 }

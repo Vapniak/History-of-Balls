@@ -69,7 +69,7 @@ public partial class TestGameMode : GameMode {
   }
   private void OnMainMenu() {
     OnResume();
-    Game.GetWorld().OpenLevel("main_menu_level");
+    Game.GetWorld().OpenLevelThreaded("main_menu_level");
   }
 
   private void OnQuit() => Game.QuitGame();

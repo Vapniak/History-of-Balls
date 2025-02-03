@@ -18,7 +18,7 @@ public partial class MainMenuGameMode : GameMode {
 
   }
 
-  public void StartGame() => Game.GetWorld().OpenLevel("tests_level", _loadingScreenScene);
+  public void StartGame() => Game.GetWorld().OpenLevelThreaded("tests_level", _loadingScreenScene);
 
   public void OpenSettings() {
     _settings = _settingsScene.Instantiate<SettingsMenu>();
