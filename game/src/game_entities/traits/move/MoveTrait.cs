@@ -43,8 +43,6 @@ public partial class MoveTrait : Trait {
 
     Entity.Cell = targetCell;
 
-
-    // TODO: path finding and return true if targetCell is reachable
     return true;
   }
 }

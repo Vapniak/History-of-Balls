@@ -132,4 +132,6 @@ public partial class GameBoard : Node3D {
       cell.HighlightColor = Colors.Transparent;
     }
   }
+
+  // TODO: A* pathfinding algorithm
 }

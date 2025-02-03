@@ -30,14 +30,14 @@ public partial class Game : Node {
   }
 
   public static IGameState GetGameState() {
-    return GetWorld().GetGameMode().GetGameState();
+    return GetGameMode().GetGameState();
   }
   public static T GetGameState<T>() where T : class, IGameState {
     return GetGameState() as T;
   }
 
   public static GameMode GetGameMode() {
-    return Instance.World.GetGameMode();
+    return GetWorld().GetGameMode();
   }
 
   public static T GetGameMode<T>() where T : GameMode {

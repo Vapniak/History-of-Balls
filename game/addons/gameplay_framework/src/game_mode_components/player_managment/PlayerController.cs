@@ -1,6 +1,7 @@
 namespace GameplayFramework;
 
 using Godot;
+using HOB;
 using System;
 
 /// <summary>

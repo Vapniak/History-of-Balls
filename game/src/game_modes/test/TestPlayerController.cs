@@ -143,7 +143,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     }
   }
 
-  // TODO: make controller not game state compatibile but game mode
+
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
   public override TestHUD GetHUD() => base.GetHUD() as TestHUD;
 
@@ -154,7 +154,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     }
 
     var point = raycastResult.Position;
-    var coord = GetGameState().GameBoard.PointToCube(point);
+    var coord = GameBoard.PointToCube(point);
 
     var cell = GameBoard.GetCell(coord);
     if (cell == null) {

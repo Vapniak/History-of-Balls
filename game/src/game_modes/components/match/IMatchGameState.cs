@@ -9,6 +9,8 @@ public interface IMatchGameState : IGameState, IPlayerManagmentGameState {
   public delegate void RoundChangedEventHandler(int roundNumber);
   public event TurnChangedEventHandler TurnChangedEvent;
 
+  // TODO: add match state like: before start, in progress, end
+
   public event RoundChangedEventHandler RoundStartedEvent;
   public event RoundChangedEventHandler RoundEndedEvent;
 

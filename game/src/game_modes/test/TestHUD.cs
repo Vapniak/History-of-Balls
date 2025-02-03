@@ -36,8 +36,6 @@ public partial class TestHUD : HUD {
 
 
   public void ShowCommandPanel(CommandTrait commandTrait) {
-    // TODO: activate move command on show if exists
-
     CommandPanel.ClearCommands();
     foreach (var command in commandTrait.GetCommands()) {
       CommandPanel.AddCommand(command);
