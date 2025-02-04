@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System;
 using System.Data;
 using Godot;
 using HexGridMap;
@@ -23,14 +24,17 @@ public partial class TerrainManager : Node {
 
 
     Cells = cells;
-    //TerrainData.Fill(Colors.Transparent);
+    TerrainData.Fill(Colors.Transparent);
 
     // TODO: offset all coords so they fit in texture and start from 0 offset
-    // foreach (var cell in cells) {
-    //   TerrainData.SetPixel(cell.OffsetCoord().Col, cell.OffsetCoord().Row, Colors.DarkOliveGreen);
-    // }
 
-    //UpdateTerrainTextureData();
+    Random rnd = new();
+    foreach (var cell in cells) {
+      cell.MoveCost = rnd.Next(0, 3);
+      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, new Color(cell.MoveCost == 0 ? 0 : 1f / cell.MoveCost, 0, 0));
+    }
+
+    UpdateTerrainTextureData();
 
     UpdateHighlights();
   }

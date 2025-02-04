@@ -9,7 +9,7 @@ public partial class Splash : Control {
   [Export] private VideoStreamPlayer _videoStreamPlayer;
 
   public override void _Ready() {
-    //_videoStreamPlayer.Finished += GoToMainMenu;
+    _videoStreamPlayer.Finished += GoToMainMenu;
 
     // TODO: I can use yt-dlp godot plugin to download video and play it locally using ffmpeg but I don't know if thats legal hehe
     GoToMainMenu();

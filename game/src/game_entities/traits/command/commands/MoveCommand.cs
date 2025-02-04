@@ -6,9 +6,10 @@ using System.Linq;
 
 [GlobalClass]
 public partial class MoveCommand : Command {
+  // TODO: wait for finish until you use next command
   public bool Moved { get; private set; }
-  public bool TryMove(GameCell targetCell) {
-    if (GetEntity().GetTrait<MoveTrait>().TryMove(targetCell)) {
+  public bool TryMove(GameCell[] path) {
+    if (GetEntity().GetTrait<MoveTrait>().TryMove(path)) {
       Moved = true;
       return true;
     }

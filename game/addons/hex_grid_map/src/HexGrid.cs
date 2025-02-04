@@ -1,7 +1,9 @@
 namespace HexGridMap;
 
+using System;
 using System.Collections.Generic;
 using Godot;
+using HOB;
 
 public abstract class HexGrid<T> where T : HexCell {
   [Export] private GridShape GridShape { get; set; }
@@ -36,6 +38,10 @@ public abstract class HexGrid<T> where T : HexCell {
       return Cells[index];
     }
     return null;
+  }
+
+  public int GetCellIndex(GameCell cell) {
+    return Array.IndexOf(Cells, cell);
   }
 
   public T GetCell(T cell, HexDirection direction) {

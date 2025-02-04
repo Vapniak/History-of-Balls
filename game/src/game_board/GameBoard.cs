@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System.Collections.Generic;
 using Godot;
 using HexGridMap;
 using HOB.GameEntity;
@@ -44,6 +45,11 @@ public partial class GameBoard : Node3D {
 
     AddChild(TerrainManager);
     AddChild(EntityManager);
+
+    EntityManager.EntityRemoved += (entity) => {
+      entity.Cell.HighlightColor = Colors.Transparent;
+      UpdateHighlights();
+    };
 
     EmitSignal(SignalName.GridCreated);
   }
@@ -108,7 +114,7 @@ public partial class GameBoard : Node3D {
 
   public void AddEntity(Entity entity, CubeCoord coord, IMatchController controller) {
     var cell = GetCell(coord);
-    EntityManager.AddEntity(entity, cell, new(cell.Position.X, 0, cell.Position.Y), controller);
+    EntityManager.AddEntity(entity, cell, controller);
   }
 
   public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {
@@ -134,4 +140,92 @@ public partial class GameBoard : Node3D {
   }
 
   // TODO: A* pathfinding algorithm
+
+  public GameCell[] FindReachableCells(GameCell start, int maxCost) {
+    var minCost = new int[Grid.GetCells().Length];
+    for (var i = 0; i < minCost.Length; i++) {
+      minCost[i] = int.MaxValue;
+    }
+
+    minCost[Grid.GetCellIndex(start)] = 0;
+
+    var reachableCells = new List<GameCell>();
+    var pq = new PriorityQueue<GameCell, int>();
+    pq.Enqueue(start, 0);
+
+    while (pq.Count > 0) {
+      var current = pq.Dequeue();
+      var currentCost = minCost[Grid.GetCellIndex(current)];
+
+      if (currentCost > maxCost) {
+        continue;
+      }
+
+      reachableCells.Add(current);
+
+      for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
+        var cell = GetCell(current, (HexDirection)i);
+        if (cell != null && cell.MoveCost > 0) {
+          var newCost = currentCost + cell.MoveCost;
+          var cellIndex = Grid.GetCellIndex(cell);
+          if (newCost < minCost[cellIndex]) {
+            minCost[cellIndex] = newCost;
+            pq.Enqueue(cell, newCost);
+          }
+        }
+      }
+    }
+
+    return reachableCells.ToArray();
+  }
+
+
+  // TODO: merge that into one
+  public GameCell[] FindPath(GameCell start, GameCell target, int maxCost) {
+    var minCost = new int[Grid.GetCells().Length];
+    var parent = new GameCell[Grid.GetCells().Length];
+
+    for (var i = 0; i < minCost.Length; i++) {
+      minCost[i] = int.MaxValue;
+      parent[i] = null;
+    }
+
+    minCost[Grid.GetCellIndex(start)] = 0;
+
+    var pq = new PriorityQueue<GameCell, int>();
+    pq.Enqueue(start, 0);
+
+    while (pq.Count > 0) {
+      var current = pq.Dequeue();
+      var currentCost = minCost[Grid.GetCellIndex(current)];
+
+      if (current == target) {
+        break;
+      }
+
+      for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
+        var cell = GetCell(current, (HexDirection)i);
+        if (cell != null && cell.MoveCost > 0) {
+          var newCost = currentCost + cell.MoveCost;
+          var cellIndex = Grid.GetCellIndex(cell);
+          if (newCost < minCost[cellIndex]) {
+            minCost[cellIndex] = newCost;
+            parent[cellIndex] = current;
+            pq.Enqueue(cell, newCost);
+          }
+        }
+      }
+    }
+
+    var path = new List<GameCell>();
+    var currentCell = target;
+
+    while (currentCell != null) {
+      path.Add(currentCell);
+      currentCell = parent[Grid.GetCellIndex(currentCell)];
+    }
+
+    path.Reverse();
+    return path.ToArray();
+  }
 }

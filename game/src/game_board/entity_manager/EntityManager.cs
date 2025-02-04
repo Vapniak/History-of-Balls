@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 public partial class EntityManager : Node {
+  [Signal] public delegate void EntityRemovedEventHandler(Entity entity);
+
   private List<Entity> Entities { get; set; }
   private Dictionary<IMatchController, List<Entity>> OwnedEntities { get; set; }
 
@@ -13,9 +15,9 @@ public partial class EntityManager : Node {
     OwnedEntities = new();
   }
 
-  public void AddEntity(Entity entity, GameCell cell, Vector3 position, IMatchController controller) {
+  public void AddEntity(Entity entity, GameCell cell, IMatchController controller) {
     entity.Ready += () => {
-      entity.GlobalPosition = position;
+      entity.SetPosition(cell.GetRealPosition());
     };
 
     entity.Cell = cell;
@@ -38,7 +40,12 @@ public partial class EntityManager : Node {
   public void RemoveEntity(Entity entity) {
     entity.QueueFree();
     Entities.Remove(entity);
-    Entities.Remove(entity);
+
+    if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
+      entites.Remove(entity);
+    }
+
+    EmitSignal(SignalName.EntityRemoved, entity);
   }
 
   public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {

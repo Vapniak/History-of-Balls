@@ -1,7 +1,7 @@
 namespace HexGridMap;
 
 public enum HexDirection {
-  Min,
+  Min = 0,
   Max = 6
 }
 

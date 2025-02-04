@@ -5,8 +5,9 @@ using System;
 using System.Collections.Generic;
 
 [GlobalClass]
-public partial class Entity : Node3D {
+public partial class Entity : Node {
   [Export] public string EntityName { get; private set; }
+  [Export] private Node3D Body { get; set; }
   public GameCell Cell { get; set; }
 
   public IMatchController OwnerController { get; set; }
@@ -38,5 +39,14 @@ public partial class Entity : Node3D {
 
   public bool IsOwnedBy(IMatchController controller) {
     return controller == OwnerController;
+  }
+
+  public void SetPosition(Vector3 position) {
+    Body.GlobalPosition = position;
+  }
+  public Vector3 GetPosition() => Body.GlobalPosition;
+
+  public void LookAt(Vector3 pos) {
+    Body.LookAt(pos);
   }
 }

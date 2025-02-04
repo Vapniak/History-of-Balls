@@ -3,6 +3,7 @@ namespace HOB.GameEntity;
 using Godot;
 using HexGridMap;
 using System;
+using System.IO;
 using System.Linq;
 
 [GlobalClass]
@@ -12,37 +13,36 @@ public partial class MoveTrait : Trait {
 
   // TODO: move that data somewhere else
   // TODO: make some simple entity editor plugin
-  [Export] public uint MovePoints { get; private set; } = 0;
+  [Export] public int MovePoints { get; private set; } = 0;
   [Export] private float _moveSpeed = 10;
 
   public GameCell[] CellsToMove;
   private Vector3 _targetPosition;
   private bool _move;
-
+  private GameCell[] _path;
+  private int _pathIndex;
   public override void _PhysicsProcess(double delta) {
     base._PhysicsProcess(delta);
 
     if (_move) {
-      Entity.GlobalPosition = Entity.GlobalPosition.Lerp(_targetPosition, (float)delta * _moveSpeed);
-      if (Entity.GlobalPosition == _targetPosition) {
-        EmitSignal(SignalName.MoveFinished);
-        _move = false;
+      _targetPosition = _path[_pathIndex].GetRealPosition();
+      if (Entity.GetPosition().DistanceTo(_targetPosition) < 1) {
+        if (_pathIndex < _path.Length - 1) {
+          _pathIndex++;
+        }
       }
+
+      if (_targetPosition.DistanceSquaredTo(Entity.GetPosition()) > 1) {
+        Entity.LookAt(_targetPosition);
+      }
+      Entity.SetPosition(Entity.GetPosition().Lerp(_targetPosition, (float)delta * _moveSpeed));
     }
   }
-  public bool TryMove(GameCell targetCell) {
-    if (!CellsToMove.Contains(targetCell)) {
-      return false;
-    }
-
-    var pos = targetCell.Position;
-    _targetPosition = new(pos.X, 0, pos.Y);
+  public bool TryMove(GameCell[] path) {
+    _path = path;
+    _pathIndex = 0;
+    Entity.Cell = path.Last();
     _move = true;
-
-    Entity.LookAt(_targetPosition, Vector3.Up);
-
-    Entity.Cell = targetCell;
-
     return true;
   }
 }

@@ -9,7 +9,7 @@ public partial class AttackTrait : Trait {
   [Export] public uint Range { get; private set; } = 1;
 
   public void Attack(Entity entity) {
-    Entity.LookAt(entity.GlobalPosition, Vector3.Up);
+    Entity.LookAt(entity.GetPosition());
 
     // animations
 

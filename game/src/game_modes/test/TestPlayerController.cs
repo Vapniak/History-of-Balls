@@ -169,9 +169,12 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
     if (IsCurrentTurn() && SelectedCommand != null) {
       if (SelectedCommand is MoveCommand moveCommand) {
-        if (moveCommand.TryMove(cell)) {
-          ReselectEntity();
-          return;
+        if (entities.Length == 0) {
+          var path = GameBoard.FindPath(moveCommand.GetEntity().Cell, cell, SelectedCommand.GetEntity().GetTrait<MoveTrait>().MovePoints);
+          if (moveCommand.TryMove(path)) {
+            ReselectEntity();
+            return;
+          }
         }
       }
       else if (SelectedCommand is AttackCommand attackCommand) {
@@ -253,11 +256,14 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   }
 
   private void OnCommandSelected(Command command) {
+    GameBoard.ClearHighlights();
+
     if (command is MoveCommand moveCommand) {
       List<GameCell> availableCells = new();
-      // TODO: add path finding
-      foreach (var cell in GameBoard.GetCellsInRange(moveCommand.GetEntity().Cell.Coord, moveCommand.GetEntity().GetTrait<MoveTrait>().MovePoints)) {
+
+      foreach (var cell in GameBoard.FindReachableCells(moveCommand.GetEntity().Cell, (int)moveCommand.GetEntity().GetTrait<MoveTrait>().MovePoints)) {
         if (cell == moveCommand.GetEntity().Cell) {
+          cell.HighlightColor = Colors.White;
           continue;
         }
 
@@ -276,6 +282,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
       List<Entity> attackable = new();
       foreach (var cell in GameBoard.GetCellsInRange(attackCommand.GetEntity().Cell.Coord, attackCommand.GetEntity().GetTrait<AttackTrait>().Range)) {
         if (cell == attackCommand.GetEntity().Cell) {
+          cell.HighlightColor = Colors.White;
           continue;
         }
 
