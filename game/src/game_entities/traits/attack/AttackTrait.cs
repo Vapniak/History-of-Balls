@@ -7,7 +7,7 @@ using System;
 public partial class AttackTrait : Trait {
   [Signal] public delegate void AttackFinishedEventHandler();
 
-  [Export] public int Damage { get; private set; } = 1;
+  [Export] public uint Damage { get; private set; } = 1;
   [Export] public uint Range { get; private set; } = 1;
 
   public void Attack(Entity entity) {

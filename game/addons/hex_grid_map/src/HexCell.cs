@@ -4,6 +4,7 @@ using System.Drawing;
 using Godot;
 
 // TODO: add hex cell interface, and use it in hex grid generic type
+
 public class HexCell {
   public CubeCoord Coord { get; private set; }
   public OffsetCoord OffsetCoord => Layout.HexToOffset(Coord);

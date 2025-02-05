@@ -15,6 +15,8 @@ public partial class Game : Node {
 
   private World World { get; set; }
   public override void _EnterTree() {
+    ProcessMode = ProcessModeEnum.Always;
+
     if (Instance == null) {
       Instance = this;
     }
@@ -70,5 +72,9 @@ public partial class Game : Node {
 
   public static void QuitGame() {
     Instance.GetTree().Quit();
+  }
+
+  public override void _Process(double delta) {
+    GetWorld().ProcessThrededLevelLoad();
   }
 }

@@ -12,7 +12,7 @@ public sealed partial class World : Node {
 
   public Level CurrentLevel { get; private set; }
 
-  private bool LoadingLevel { get; set; }
+  public bool LoadingLevel { get; private set; }
 
   private string _loadedLevelPath;
   private LoadingScreen _loadingScreen;
@@ -22,14 +22,8 @@ public sealed partial class World : Node {
   public override void _Ready() {
     LevelLoaded += (level) => {
       if (IsInstanceValid(_loadingScreen)) {
-        Timer timer = new();
-        timer.Timeout += () => {
-          _loadingScreen.QueueFree();
-          _loadingScreen = null;
-          timer.QueueFree();
-        };
-        AddChild(timer);
-        timer.Start(1);
+        _loadingScreen.QueueFree();
+        _loadingScreen = null;
       }
     };
   }
@@ -58,7 +52,7 @@ public sealed partial class World : Node {
     OpenLevel(level);
   }
 
-  public override void _Process(double delta) {
+  public void ProcessThrededLevelLoad() {
     if (LoadingLevel) {
       GetLevelLoadStatus(out var status, out var progress);
 
@@ -98,7 +92,6 @@ public sealed partial class World : Node {
     if (CurrentLevel != null) {
       CurrentLevel.UnLoad();
       CurrentLevel.TreeExited += () => SwitchLevel(level);
-      CurrentLevel.QueueFree();
     }
     else {
       SwitchLevel(level);

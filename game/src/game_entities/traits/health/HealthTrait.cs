@@ -9,14 +9,14 @@ public partial class HealthTrait : Trait {
 
   [Export] public uint StartHealth { get; set; } = 1;
 
-  public int CurrentHealth { get; private set; }
+  public uint CurrentHealth { get; private set; }
 
   public override void _Ready() {
     base._Ready();
-    CurrentHealth = (int)StartHealth;
+    CurrentHealth = StartHealth;
   }
 
-  public void Damage(int damage) {
+  public void Damage(uint damage) {
     if (damage > 0) {
       CurrentHealth -= damage;
 

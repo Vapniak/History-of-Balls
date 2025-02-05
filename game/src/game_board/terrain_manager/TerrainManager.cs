@@ -18,25 +18,36 @@ public partial class TerrainManager : Node {
 
   private GameCell[] Cells { get; set; }
 
-  public void CreateData(int width, int height, GameCell[] cells) {
+  private readonly Random _rnd;
+
+  public TerrainManager() {
+    _rnd = new();
+  }
+  public void CreateData(int width, int height) {
     TerrainData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
 
-
-    Cells = cells;
-    TerrainData.Fill(Colors.Transparent);
-
     // TODO: offset all coords so they fit in texture and start from 0 offset
+  }
 
-    Random rnd = new();
+  //TODO: we should not update them but read from map data file
+  public void UpdateData(GameCell[] cells) {
+    TerrainData.Fill(Colors.Transparent);
+    Cells = cells;
     foreach (var cell in cells) {
-      cell.MoveCost = rnd.Next(0, 3);
-      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, new Color(cell.MoveCost == 0 ? 0 : 1f / cell.MoveCost, 1f, 0));
+      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, new Color(cell.MoveCost == 0 ? 0 : 1f / cell.MoveCost, 0, 0));
     }
 
     UpdateTerrainTextureData();
 
     UpdateHighlights();
+  }
+  public GameCell CreateCell(CubeCoord coord, HexLayout layout) {
+    var cell = new GameCell(coord, layout);
+
+    cell.MoveCost = _rnd.Next(0, 3);
+
+    return cell;
   }
 
   public void UpdateHighlights() {

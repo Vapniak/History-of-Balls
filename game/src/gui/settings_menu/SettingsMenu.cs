@@ -88,7 +88,7 @@ public partial class SettingsMenu : Control {
   private void InitializeFpsLimit() {
     var maxFps = Engine.MaxFps;
     _fpsLimitSlider.Value = maxFps == 0 ? 250 : maxFps;
-    _fpsLimitLabel.Text = $"FPS Limit : {(maxFps is 0 or 250? "Unlimited" : maxFps)}";
+    _fpsLimitLabel.Text = $"FPS Limit : {(maxFps is 0 or 250 ? "Unlimited" : maxFps)}";
   }
 
 
@@ -150,7 +150,7 @@ public partial class SettingsMenu : Control {
 
   private void OnFpsLimiterSliderValueChanged(float value) {
     Engine.MaxFps = (int)value == 250 ? 0 : (int)value;
-    _fpsLimitLabel.Text = $"FPS Limit : {(value is 0 or 250? "Unlimited" : value)}";
+    _fpsLimitLabel.Text = $"FPS Limit : {(value is 0 or 250 ? "Unlimited" : value)}";
     SettingsManager.SaveSettings();
   }
 }

@@ -3,9 +3,7 @@ namespace GameplayFramework;
 using Godot;
 
 [GlobalClass]
-public sealed partial class Level : Node {
-  [Signal] public delegate void LoadedEventHandler();
-  [Signal] public delegate void UnloadedEventHandler();
+public partial class Level : Node {
   [Signal] public delegate void GameModeChangedEventHandler(GameMode old, GameMode @new);
 
   [Export] private PackedScene GameModeScene { get; set; }
@@ -32,7 +30,7 @@ public sealed partial class Level : Node {
     GameMode = newGameMode;
     AddChild(GameMode);
   }
-  public void Load() {
+  public virtual void Load() {
     var gameMode = GameModeScene.InstantiateOrNull<GameMode>();
     if (gameMode == null) {
       GD.PrintErr("Game Mode Scene is null");
@@ -41,13 +39,11 @@ public sealed partial class Level : Node {
 
     ChangeGameMode(gameMode);
     _canChangeGameMode = false;
-
-    EmitSignal(SignalName.Loaded);
   }
 
   // TODO: level streaming, so you can add multiple levels but keep the same game mode
 
-  public void UnLoad() {
-    EmitSignal(SignalName.Unloaded);
+  public virtual void UnLoad() {
+    QueueFree();
   }
 }

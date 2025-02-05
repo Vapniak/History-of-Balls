@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Godot;
 using HOB;
 
-public abstract class HexGrid<T> where T : HexCell {
+public abstract partial class HexGrid<T> where T : HexCell {
   [Export] private GridShape GridShape { get; set; }
   [Export] private HexLayout Layout { get; set; }
 
@@ -16,18 +16,16 @@ public abstract class HexGrid<T> where T : HexCell {
   public HexGrid(HexLayout layout, GridShape shape) {
     Layout = layout;
     GridShape = shape;
+  }
 
-
+  public void CreateCells(Func<CubeCoord, T> createCell) {
     CoordToIndexMap = new();
-    Cells = GridShape.CreateCells(CreateCell, layout);
+    Cells = GridShape.CreateCells(createCell, Layout);
 
     for (var i = 0; i < Cells.Length; i++) {
       CoordToIndexMap.Add(Cells[i].Coord, i);
     }
   }
-
-
-  public abstract T CreateCell(CubeCoord coord);
 
   public T GetCell(Vector3 point) {
     var hex = GetLayout().PointToHex(new(point.X, point.Z));

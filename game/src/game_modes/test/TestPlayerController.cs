@@ -189,6 +189,9 @@ public partial class TestPlayerController : PlayerController, IMatchController {
             return;
           }
         }
+        else {
+          return;
+        }
       }
     }
 

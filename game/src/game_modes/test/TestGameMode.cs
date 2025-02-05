@@ -30,6 +30,14 @@ public partial class TestGameMode : GameMode {
     GetGameState().GameBoard.GridCreated += OnStartGame;
   }
 
+  public override void _ExitTree() {
+    base._ExitTree();
+
+    if (GetGameState().PauseGame) {
+      Game.SetPause(false);
+    }
+  }
+
   public override void _Ready() {
     base._Ready();
 
@@ -68,7 +76,6 @@ public partial class TestGameMode : GameMode {
     }
   }
   private void OnMainMenu() {
-    OnResume();
     Game.GetWorld().OpenLevelThreaded("main_menu_level");
   }
 

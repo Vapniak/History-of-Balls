@@ -25,10 +25,9 @@ public partial class GameBoard : Node3D {
 
   public void Init() {
     Grid = new(Layout, GridShape);
-
     EntityManager = new();
-
     TerrainManager = new();
+
 
     _terrainMaterial = _terrainMesh.GetActiveMaterial(0);
 
@@ -39,7 +38,8 @@ public partial class GameBoard : Node3D {
 
     _terrainMaterial.Set("shader_parameter/terrain_size", Grid.GetRectSize());
 
-    TerrainManager.CreateData(Grid.GetRectSize().X, Grid.GetRectSize().Y, GetCells());
+    TerrainManager.CreateData(Grid.GetRectSize().X, Grid.GetRectSize().Y);
+
 
     SetMouseHighlight(true);
 
@@ -50,6 +50,11 @@ public partial class GameBoard : Node3D {
       entity.Cell.HighlightColor = Colors.Transparent;
       UpdateHighlights();
     };
+
+
+    Grid.CreateCells((coord) => TerrainManager.CreateCell(coord, Layout));
+
+    TerrainManager.UpdateData(GetCells());
 
     EmitSignal(SignalName.GridCreated);
   }
