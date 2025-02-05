@@ -1,15 +1,22 @@
 namespace HOB.GameEntity;
 
 using Godot;
-using System;
-using System.Linq;
 
 [GlobalClass]
 public partial class MoveCommand : Command {
   // TODO: wait for finish until you use next command
   public bool Moved { get; private set; }
+
+  public MoveTrait EntityMoveTrait { get; private set; }
+  public override void _Ready() {
+    base._Ready();
+
+    EntityMoveTrait = GetEntity().GetTrait<MoveTrait>();
+    EntityMoveTrait.MoveFinished += Finish;
+  }
   public bool TryMove(GameCell[] path) {
-    if (GetEntity().GetTrait<MoveTrait>().TryMove(path)) {
+    if (EntityMoveTrait.TryMove(path)) {
+      Start();
       Moved = true;
       return true;
     }
@@ -30,6 +37,6 @@ public partial class MoveCommand : Command {
       attacked = attack.Attacked;
     }
 
-    return !Moved && !attacked;
+    return base.IsAvailable() && !Moved && !attacked;
   }
 }

@@ -165,7 +165,7 @@ public partial class GameBoard : Node3D {
 
       for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
         var cell = GetCell(current, (HexDirection)i);
-        if (cell != null && cell.MoveCost > 0) {
+        if (cell != null && IsCellWalkable(cell)) {
           var newCost = currentCost + cell.MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
@@ -180,7 +180,6 @@ public partial class GameBoard : Node3D {
   }
 
 
-  // TODO: merge that into one
   public GameCell[] FindPath(GameCell start, GameCell target, int maxCost) {
     var minCost = new int[Grid.GetCells().Length];
     var parent = new GameCell[Grid.GetCells().Length];
@@ -205,7 +204,7 @@ public partial class GameBoard : Node3D {
 
       for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
         var cell = GetCell(current, (HexDirection)i);
-        if (cell != null && cell.MoveCost > 0) {
+        if (cell != null && IsCellWalkable(cell)) {
           var newCost = currentCost + cell.MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
@@ -215,6 +214,10 @@ public partial class GameBoard : Node3D {
           }
         }
       }
+    }
+
+    if (minCost[Grid.GetCellIndex(target)] == int.MaxValue) {
+      return null;
     }
 
     var path = new List<GameCell>();
@@ -227,5 +230,9 @@ public partial class GameBoard : Node3D {
 
     path.Reverse();
     return path.ToArray();
+  }
+
+  private bool IsCellWalkable(GameCell cell) {
+    return cell.MoveCost > 0 && GetEntitiesOnCell(cell).Length == 0;
   }
 }

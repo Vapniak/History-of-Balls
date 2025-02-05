@@ -1,19 +1,33 @@
 namespace HOB.GameEntity;
 
 using Godot;
-using Godot.Collections;
 
-// TODO: make commands be nodes
 [GlobalClass]
 public abstract partial class Command : Node {
+  [Signal] public delegate void StartedEventHandler();
+  [Signal] public delegate void FinishedEventHandler();
+
   [Export] public string CommandName { get; private set; } = "Command";
 
   public CommandTrait CommandTrait { get; set; }
 
+  protected bool IsExecuting { get; private set; }
+
   public override void _Ready() {
     GetEntity().OwnerController.GetGameState().RoundEndedEvent += OnRoundChanged;
   }
-  public abstract bool IsAvailable();
+
+  public void Start() {
+    IsExecuting = true;
+    EmitSignal(SignalName.Started);
+  }
+  public void Finish() {
+    IsExecuting = false;
+    EmitSignal(SignalName.Finished);
+  }
+  public virtual bool IsAvailable() {
+    return CommandTrait.CurrentExecutedCommand == null;
+  }
   public virtual void OnRoundChanged(int roundNumber) {
 
   }

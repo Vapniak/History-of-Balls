@@ -15,7 +15,7 @@ public partial class CommandPanel : Control {
     Commands = new();
 
     CommandList.ItemSelected += (index) => {
-      if (Commands[(int)index].IsAvailable()) {
+      if (CommandList.IsItemSelectable((int)index)) {
         EmitSignal(SignalName.CommandSelected, Commands[(int)index]);
       }
     };

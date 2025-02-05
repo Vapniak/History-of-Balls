@@ -6,7 +6,10 @@ using Godot;
 
 [GlobalClass]
 public partial class CommandTrait : Trait {
+  [Signal] public delegate void CommandFinishedEventHandler(Command command);
   [Signal] public delegate void CommandSelectedEventHandler(Command command);
+
+  public Command CurrentExecutedCommand { get; private set; }
 
   // AAAAHHHH, the commands were shared between units and I spend 3 hours figuring out why all commands get changed when I change only one
   private List<Command> Commands { get; set; }
@@ -19,6 +22,12 @@ public partial class CommandTrait : Trait {
       if (child is Command command) {
         Commands.Add(command);
         command.CommandTrait = this;
+
+        command.Started += () => CurrentExecutedCommand = command;
+        command.Finished += () => {
+          CurrentExecutedCommand = null;
+          EmitSignal(SignalName.CommandFinished, command);
+        };
       }
     }
   }

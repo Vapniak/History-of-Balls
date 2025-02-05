@@ -2,6 +2,7 @@ namespace HOB;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
@@ -170,6 +171,10 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     if (IsCurrentTurn() && SelectedCommand != null) {
       if (SelectedCommand is MoveCommand moveCommand) {
         if (entities.Length == 0) {
+          if (!moveCommand.GetEntity().GetTrait<MoveTrait>().ReachableCells.Contains(cell)) {
+            return;
+          }
+
           var path = GameBoard.FindPath(moveCommand.GetEntity().Cell, cell, SelectedCommand.GetEntity().GetTrait<MoveTrait>().MovePoints);
           if (moveCommand.TryMove(path)) {
             ReselectEntity();
@@ -180,11 +185,9 @@ public partial class TestPlayerController : PlayerController, IMatchController {
       else if (SelectedCommand is AttackCommand attackCommand) {
         if (entities.Length > 0) {
           if (attackCommand.TryAttack(entities[0])) {
-            DeselectEntity();
+            ReselectEntity();
+            return;
           }
-        }
-        else {
-          return;
         }
       }
     }
@@ -203,7 +206,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     // GD.PrintS("Entities:", entities.Length, "Q:", cell.Coord.Q, "R:", cell.Coord.R);
   }
 
-  // TODO: statemachine for selecting, entity move, attack
   private void SelectEntity(Entity entity) {
     GameBoard.ClearHighlights();
 
@@ -216,6 +218,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
       SelectedEntity.Cell.HighlightColor = Colors.White;
       if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
         commandTrait.CommandSelected += OnCommandSelected;
+        commandTrait.CommandFinished += OnCommandFinished;
+
 
         GetHUD().ShowCommandPanel(commandTrait);
       }
@@ -239,6 +243,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     if (SelectedEntity != null) {
       if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
         commandTrait.CommandSelected -= OnCommandSelected;
+        commandTrait.CommandFinished -= OnCommandFinished;
       }
       SelectedEntity = null;
       SelectedCommand = null;
@@ -259,9 +264,9 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     GameBoard.ClearHighlights();
 
     if (command is MoveCommand moveCommand) {
-      List<GameCell> availableCells = new();
+      List<GameCell> reachableCells = new();
 
-      foreach (var cell in GameBoard.FindReachableCells(moveCommand.GetEntity().Cell, (int)moveCommand.GetEntity().GetTrait<MoveTrait>().MovePoints)) {
+      foreach (var cell in GameBoard.FindReachableCells(moveCommand.GetEntity().Cell, moveCommand.GetEntity().GetTrait<MoveTrait>().MovePoints)) {
         if (cell == moveCommand.GetEntity().Cell) {
           cell.HighlightColor = Colors.White;
           continue;
@@ -269,14 +274,14 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
         if (GameBoard.GetEntitiesOnCell(cell).Length == 0) {
           cell.HighlightColor = Colors.Green;
-          availableCells.Add(cell);
+          reachableCells.Add(cell);
         }
         else {
           cell.HighlightColor = Colors.Gray;
         }
       }
 
-      moveCommand.GetEntity().GetTrait<MoveTrait>().CellsToMove = availableCells.ToArray();
+      moveCommand.GetEntity().GetTrait<MoveTrait>().ReachableCells = reachableCells.ToArray();
     }
     else if (command is AttackCommand attackCommand) {
       List<Entity> attackable = new();
@@ -292,7 +297,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
         }
         else {
           if (entites[0].IsOwnedBy(this)) {
-            cell.HighlightColor = Colors.Gray;
+
           }
           else {
             cell.HighlightColor = Colors.Red;
@@ -307,6 +312,10 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     GameBoard.UpdateHighlights();
 
     SelectedCommand = command;
+  }
+
+  private void OnCommandFinished(Command command) {
+    GetHUD().ShowCommandPanel(command.CommandTrait);
   }
 
   // TODO: implement this inside interface and somehow call this inside this class

@@ -1,51 +1,27 @@
-[gd_scene load_steps=10 format=3 uid="uid://gsbrhj8onefx"]
+[gd_scene load_steps=6 format=3 uid="uid://gsbrhj8onefx"]
 
-[ext_resource type="Script" path="res://src/game_entities/Entity.cs" id="1_0jdgj"]
-[ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTrait.cs" id="2_jiyhb"]
-[ext_resource type="Script" path="res://src/game_entities/traits/command/CommandTrait.cs" id="4_2wr3p"]
-[ext_resource type="Script" path="res://src/game_entities/traits/health/HealthTrait.cs" id="5_mrqaj"]
-[ext_resource type="Script" path="res://src/game_entities/traits/command/commands/MoveCommand.cs" id="5_qdvx0"]
+[ext_resource type="PackedScene" uid="uid://7qgblpake46j" path="res://src/game_entities/entites/units/base_unit.tscn" id="1_rpodb"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egvh3"]
 albedo_color = Color(1, 0.533333, 0.454902, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5gvtn"]
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ljlec"]
 material = SubResource("StandardMaterial3D_egvh3")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tqfe"]
 albedo_color = Color(1, 0, 0, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_k4tq3"]
+[sub_resource type="BoxMesh" id="BoxMesh_0mfon"]
 material = SubResource("StandardMaterial3D_5tqfe")
 size = Vector3(0.175, 0.21, 0.49)
 
-[node name="TestUnit2" type="Node" node_paths=PackedStringArray("Body")]
-script = ExtResource("1_0jdgj")
-EntityName = "TestUnit2"
-Body = NodePath("Node3D")
+[node name="BaseUnit" instance=ExtResource("1_rpodb")]
 
-[node name="Node3D" type="Node3D" parent="."]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_5gvtn")
+mesh = SubResource("CapsuleMesh_ljlec")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/MeshInstance3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D" index="0"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.6, -0.5)
-mesh = SubResource("BoxMesh_k4tq3")
-
-[node name="MoveTrait" type="Node" parent="."]
-script = ExtResource("2_jiyhb")
-MovePoints = 2
-_moveSpeed = 5.0
-
-[node name="CommandTrait" type="Node" parent="."]
-script = ExtResource("4_2wr3p")
-
-[node name="MoveCommand" type="Node" parent="CommandTrait"]
-script = ExtResource("5_qdvx0")
-CommandName = "Move"
-
-[node name="HealthTrait" type="Node" parent="."]
-script = ExtResource("5_mrqaj")
+mesh = SubResource("BoxMesh_0mfon")

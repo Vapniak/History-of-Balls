@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bbsd3dhi0iesf"]
 
 [ext_resource type="Script" path="res://src/gui/splash/Splash.cs" id="1_pj6um"]
-[ext_resource type="VideoStream" path="res://assets/Boomballer-ident.ogv" id="3_0legj"]
+[ext_resource type="VideoStream" path="res://assets/HoB-ident.ogv" id="2_5oo5l"]
 [ext_resource type="AudioStream" uid="uid://bbbe7wyprdlly" path="res://assets/HoB-ident.wav" id="3_nc0yi"]
 
 [node name="Splash" type="Control" node_paths=PackedStringArray("_videoStreamPlayer")]
@@ -31,7 +31,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 audio_track = 1
-stream = ExtResource("3_0legj")
+stream = ExtResource("2_5oo5l")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_nc0yi")

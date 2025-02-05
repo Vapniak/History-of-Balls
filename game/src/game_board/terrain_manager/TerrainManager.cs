@@ -31,7 +31,7 @@ public partial class TerrainManager : Node {
     Random rnd = new();
     foreach (var cell in cells) {
       cell.MoveCost = rnd.Next(0, 3);
-      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, new Color(cell.MoveCost == 0 ? 0 : 1f / cell.MoveCost, 0, 0));
+      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, new Color(cell.MoveCost == 0 ? 0 : 1f / cell.MoveCost, 1f, 0));
     }
 
     UpdateTerrainTextureData();

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game_modes/test/ai_controller.tscn" id="4_dfiau"]
 [ext_resource type="Script" path="res://src/game_modes/test/TestPlayerManagmentComponent.cs" id="4_gydgo"]
 [ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/gui/hud/hud.tscn" id="5_m3qk3"]
-[ext_resource type="PackedScene" uid="uid://cptcei88nkfhr" path="res://src/game_entities/entites/units/test_unit.tscn" id="5_yad7m"]
+[ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/test_unit_1.tscn" id="5_yad7m"]
 [ext_resource type="Script" path="res://src/game_modes/components/pause/PauseComponent.cs" id="6_1rqn6"]
 [ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="7_rcove"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="8_km8w8"]
