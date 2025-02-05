@@ -35,7 +35,7 @@ public partial class TerrainManager : Node {
     TerrainData.Fill(Colors.Transparent);
     Cells = cells;
     foreach (var cell in cells) {
-      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, new Color(cell.MoveCost == 0 ? 0 : 1f / cell.MoveCost, 0, 0));
+      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, new Color(cell.MoveCost == 0 ? 0 : 1f / cell.MoveCost, 0f, 0f));
     }
 
     UpdateTerrainTextureData();
@@ -43,9 +43,9 @@ public partial class TerrainManager : Node {
     UpdateHighlights();
   }
   public GameCell CreateCell(CubeCoord coord, HexLayout layout) {
-    var cell = new GameCell(coord, layout);
-
-    cell.MoveCost = _rnd.Next(0, 3);
+    var cell = new GameCell(coord, layout) {
+      MoveCost = _rnd.Next(0, 3)
+    };
 
     return cell;
   }

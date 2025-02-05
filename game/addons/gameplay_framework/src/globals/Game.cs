@@ -75,6 +75,6 @@ public partial class Game : Node {
   }
 
   public override void _Process(double delta) {
-    GetWorld().ProcessThrededLevelLoad();
+    GetWorld()?.ProcessThrededLevelLoad();
   }
 }
