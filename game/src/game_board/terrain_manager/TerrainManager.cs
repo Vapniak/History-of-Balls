@@ -1,8 +1,8 @@
 namespace HOB;
 
 using System;
-using System.Data;
 using Godot;
+using Godot.Collections;
 using HexGridMap;
 
 public partial class TerrainManager : Node {
@@ -23,11 +23,6 @@ public partial class TerrainManager : Node {
 
   private GameCell[] Cells { get; set; }
 
-  private readonly Random _rnd;
-
-  public TerrainManager() {
-    _rnd = new();
-  }
   public void CreateData(int width, int height) {
     TerrainData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
@@ -36,24 +31,19 @@ public partial class TerrainManager : Node {
   }
 
   //TODO: we should not update them but read from map data file
-  public void UpdateData(GameCell[] cells) {
+  public void UpdateData(GameCell[] cells, MapData mapData) {
     TerrainData.Fill(Colors.Transparent);
     Cells = cells;
+
+    var i = 0;
     foreach (var cell in cells) {
-      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, new Color(cell.MoveCost == 0 ? 0 : 1f / cell.MoveCost, 0f, 0f));
+      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, mapData.HexList[i].Color);
+      i++;
     }
 
     UpdateTerrainTextureData();
 
     UpdateHighlights();
-  }
-  public GameCell CreateCell(CubeCoord coord, HexLayout layout) {
-    var cell = new GameCell(coord, layout) {
-      // TODO: get from data
-      MoveCost = _rnd.Next(0, 3)
-    };
-
-    return cell;
   }
 
   public void UpdateHighlights() {

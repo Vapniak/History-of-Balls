@@ -6,6 +6,21 @@ using HexGridMap;
 using HOB.GameEntity;
 using RaycastSystem;
 
+public partial class Hex : Resource {
+  public int Q;
+  public int R;
+  public Color Color;
+  public int ObjectId;
+}
+public partial class MapData : Resource {
+
+  public string Title;
+  public string Description;
+  public int Cols;
+  public int Rows;
+  public Hex[] HexList;
+};
+
 
 /// <summary>
 /// Responsible for visualization and working with hex grid.
@@ -14,8 +29,9 @@ public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
   [Export] private MeshInstance3D _terrainMesh;
   [Export] private HexLayout Layout { get; set; }
-  [Export] private GridShape GridShape { get; set; }
+  [Export(PropertyHint.File, "*.json")] private string MapPath { get; set; }
 
+  public MapData MapData { get; private set; }
 
   private GameGrid Grid { get; set; }
   private EntityManager EntityManager { get; set; }
@@ -24,10 +40,21 @@ public partial class GameBoard : Node3D {
   private Material _terrainMaterial;
 
   public void Init() {
-    Grid = new(Layout, GridShape);
+    Grid = new(Layout);
     EntityManager = new();
     TerrainManager = new();
 
+
+    AddChild(TerrainManager);
+    AddChild(EntityManager);
+
+    EntityManager.EntityRemoved += (entity) => {
+      entity.Cell.HighlightColor = Colors.Transparent;
+      UpdateHighlights();
+    };
+
+    var json = ResourceLoader.Load<Json>(MapPath);
+    ParseMap(json);
 
     _terrainMaterial = _terrainMesh.GetActiveMaterial(0);
 
@@ -40,21 +67,9 @@ public partial class GameBoard : Node3D {
 
     TerrainManager.CreateData(Grid.GetRectSize().X, Grid.GetRectSize().Y);
 
+    TerrainManager.UpdateData(GetCells(), MapData);
 
     SetMouseHighlight(true);
-
-    AddChild(TerrainManager);
-    AddChild(EntityManager);
-
-    EntityManager.EntityRemoved += (entity) => {
-      entity.Cell.HighlightColor = Colors.Transparent;
-      UpdateHighlights();
-    };
-
-
-    Grid.CreateCells((coord) => TerrainManager.CreateCell(coord, Layout));
-
-    TerrainManager.UpdateData(GetCells());
 
     EmitSignal(SignalName.GridCreated);
   }
@@ -129,6 +144,10 @@ public partial class GameBoard : Node3D {
 
   public bool TryAddEntity(Entity entity, CubeCoord coord, IMatchController controller) {
     var cell = GetCell(coord);
+    if (cell == null) {
+      return false;
+    }
+
     if (GetEntitiesOnCell(cell).Length > 0 || !IsCellReachable(cell)) {
       return false;
     }
@@ -276,5 +295,46 @@ public partial class GameBoard : Node3D {
   // TODO: find better name
   private bool IsCellReachable(GameCell cell) {
     return cell.MoveCost > 0 && GetEntitiesOnCell(cell).Length == 0;
+  }
+
+  private void ParseMap(Json json) {
+    var data = json.Data.AsGodotDictionary();
+
+    var mapData = new MapData();
+    mapData.Title = data["title"].AsString();
+    mapData.Description = data["description"].AsString();
+    mapData.Cols = data["cols"].AsInt32();
+    mapData.Rows = data["rows"].AsInt32();
+
+    var hexList = new List<Hex>();
+
+
+    foreach (var item in data["hexMap"].AsGodotArray()) {
+      var hex = item.AsGodotDictionary();
+
+      var hexToAdd = new Hex() {
+        Q = hex["q"].AsInt32(),
+        R = hex["r"].AsInt32(),
+        Color = Color.FromHtml(hex["color"].AsString())
+      };
+      hexList.Add(hexToAdd);
+    }
+
+    mapData.HexList = hexList.ToArray();
+
+
+    LoadMap(mapData);
+  }
+
+  private void LoadMap(MapData mapData) {
+    MapData = mapData;
+
+    var cells = new List<GameCell>();
+    foreach (var hex in MapData.HexList) {
+      var cell = new GameCell(new(hex.Q, hex.R), Layout);
+      cells.Add(cell);
+    }
+
+    Grid.CreateCells(cells.ToArray());
   }
 }

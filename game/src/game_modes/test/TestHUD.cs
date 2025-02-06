@@ -61,6 +61,7 @@ public partial class TestHUD : HUD {
   public void ShowStatPanel(Entity entity) {
     UpdateStatPanel(StatPanel, entity);
 
+
     StatPanel.Show();
   }
 
@@ -69,12 +70,12 @@ public partial class TestHUD : HUD {
   }
 
   public void ShowHoverStatPanel(Entity entity) {
-    HoverStatPanel.Position = GetViewport().GetCamera3D().UnprojectPosition(entity.GetPosition());
 
     HoveredEntity = entity;
 
     UpdateStatPanel(HoverStatPanel, entity);
 
+    HoverStatPanel.Position = GetViewport().GetCamera3D().UnprojectPosition(entity.GetPosition());
     HoverStatPanel.Show();
   }
 
@@ -124,8 +125,6 @@ public partial class TestHUD : HUD {
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
       panel.AddEntry("Health:", healthTrait.CurrentHealth.ToString());
     }
-
-    panel.ResetSize();
   }
 
   private void OnEndTurnPressed() {

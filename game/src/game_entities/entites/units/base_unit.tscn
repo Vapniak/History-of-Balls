@@ -10,14 +10,12 @@
 
 [node name="BaseUnit" type="Node" node_paths=PackedStringArray("Body")]
 script = ExtResource("1_qq0qu")
-EntityName = "Unit"
 Body = NodePath("Body")
 
 [node name="Body" type="Node3D" parent="."]
 
 [node name="MoveTrait" type="Node" parent="."]
 script = ExtResource("2_ij3tv")
-MovePoints = 5
 
 [node name="HealthTrait" type="Node" parent="."]
 script = ExtResource("3_o8eew")
@@ -30,8 +28,6 @@ script = ExtResource("4_i77k5")
 
 [node name="MoveCommand" type="Node" parent="CommandTrait"]
 script = ExtResource("5_rwx5j")
-CommandName = "Move"
 
 [node name="AttackCommand" type="Node" parent="CommandTrait"]
 script = ExtResource("7_1xu63")
-CommandName = "Attack"

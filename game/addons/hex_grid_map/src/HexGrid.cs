@@ -6,22 +6,28 @@ using Godot;
 using HOB;
 
 public abstract partial class HexGrid<T> where T : HexCell {
-  [Export] private GridShape GridShape { get; set; }
-  [Export] private HexLayout Layout { get; set; }
+  private HexLayout Layout { get; set; }
 
   private T[] Cells { get; set; }
 
   private Dictionary<CubeCoord, int> CoordToIndexMap { get; set; }
 
-  public HexGrid(HexLayout layout, GridShape shape) {
+  public HexGrid(HexLayout layout) {
     Layout = layout;
-    GridShape = shape;
   }
 
-  public void CreateCells(Func<CubeCoord, T> createCell) {
-    CoordToIndexMap = new();
-    Cells = GridShape.CreateCells(createCell, Layout);
+  public void CreateCells(Func<CubeCoord, T> createCell, GridShape gridShape) {
+    Cells = gridShape.CreateCells(createCell, Layout);
+    Init();
+  }
 
+  public void CreateCells(T[] cells) {
+    Cells = cells;
+    Init();
+  }
+
+  private void Init() {
+    CoordToIndexMap = new();
     for (var i = 0; i < Cells.Length; i++) {
       CoordToIndexMap.Add(Cells[i].Coord, i);
     }
@@ -116,10 +122,11 @@ public abstract partial class HexGrid<T> where T : HexCell {
   }
 
   public HexLayout GetLayout() => Layout;
-  public GridShape GetGridShape() => GridShape;
+
 
   public Vector2I GetRectSize() {
-    return GetGridShape().GetRectSize();
+    // TODO: get size from cells
+    return Vector2I.One * 100;
   }
 
   public Vector2 GetRealSize() {

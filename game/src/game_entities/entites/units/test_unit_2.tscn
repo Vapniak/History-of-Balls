@@ -16,6 +16,7 @@ material = SubResource("StandardMaterial3D_5tqfe")
 size = Vector3(0.175, 0.21, 0.49)
 
 [node name="BaseUnit" instance=ExtResource("1_rpodb")]
+EntityName = "Unit 2"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Body" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -26,5 +27,11 @@ skeleton = NodePath("../..")
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.6, -0.5)
 mesh = SubResource("BoxMesh_0mfon")
 
-[node name="AttackTrait" parent="." index="3"]
-Range = 2
+[node name="MoveTrait" parent="." index="1"]
+MovePoints = 5
+
+[node name="MoveCommand" parent="CommandTrait" index="0"]
+CommandName = "Move"
+
+[node name="AttackCommand" parent="CommandTrait" index="1"]
+CommandName = "Attack"

@@ -213,6 +213,12 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     var entities = GameBoard.GetEntitiesOnCell(cell);
 
     if (IsCurrentTurn() && SelectedCommand != null) {
+
+      if (SelectedEntity == entities[0]) {
+        DeselectEntity();
+        return;
+      }
+
       if (SelectedCommand is MoveCommand moveCommand) {
         if (entities.Length == 0) {
           if (!moveCommand.GetEntity().GetTrait<MoveTrait>().ReachableCells.Contains(cell)) {
