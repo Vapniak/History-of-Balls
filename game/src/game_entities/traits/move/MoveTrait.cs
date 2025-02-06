@@ -16,6 +16,8 @@ public partial class MoveTrait : Trait {
   [Export] public int MovePoints { get; private set; } = 0;
   [Export] private float _moveSpeed = 10;
 
+
+  // TODO: this field shouldn't be there, find better way to check if can reach the cell, also AI will have to fill that in
   public GameCell[] ReachableCells;
   private Vector3 _targetPosition;
   private bool _move;
@@ -44,7 +46,7 @@ public partial class MoveTrait : Trait {
     }
   }
   public bool TryMove(GameCell[] path) {
-    if (path == null) {
+    if (path == null || !ReachableCells.Contains(path.Last())) {
       return false;
     }
 

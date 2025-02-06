@@ -5,8 +5,8 @@ using HexGridMap;
 
 public class GameCell : HexCell {
   public Color HighlightColor { get; set; } = Colors.Transparent;
-  public int MoveCost { get; set; } = 1;
-  public int Elevation { get; set; }
+  public int MoveCost { get; init; } = 1;
+  public int Elevation { get; init; }
   public GameCell(CubeCoord coord, HexLayout layout) : base(coord, layout) {
   }
 

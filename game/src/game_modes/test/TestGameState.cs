@@ -19,12 +19,6 @@ public partial class TestGameState : GameState, IPlayerManagmentGameState, IPaus
   public event IMatchGameState.RoundChangedEventHandler RoundStartedEvent;
   public event IMatchGameState.RoundChangedEventHandler RoundEndedEvent;
 
-  public override void Init() {
-    base.Init();
-
-    TurnChangedEvent?.Invoke(0);
-    RoundStartedEvent?.Invoke(0);
-  }
   // TODO: better turn managment
   public void NextTurn() {
     if (CurrentPlayerIndex >= PlayerArray.Count - 1) {

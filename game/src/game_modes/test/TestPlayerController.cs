@@ -15,6 +15,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   private GameBoard GameBoard { get; set; }
   private Entity SelectedEntity { get; set; }
   private Command SelectedCommand { get; set; }
+  private GameCell HoveredCell { get; set; }
 
 
   private PlayerCharacter _character;
@@ -46,8 +47,10 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     _character = GetCharacter<PlayerCharacter>();
 
     _character.CenterPositionOn(GameBoard.GetAabb());
+
     GetHUD().HideCommandPanel();
     GetHUD().HideStatPanel();
+    GetHUD().HideHoverStatPanel();
   }
 
   public override void _UnhandledInput(InputEvent @event) {
@@ -142,6 +145,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
       _character.Friction(delta);
       _character.HandlePanning(delta, displacement);
     }
+
+    CheckHover();
   }
 
 
@@ -163,6 +168,45 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     }
 
     CellClicked(cell);
+  }
+
+  private void CheckHover() {
+    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
+    if (raycastResult == null) {
+      return;
+    }
+
+    var point = raycastResult.Position;
+    var coord = GameBoard.PointToCube(point);
+
+    var cell = GameBoard.GetCell(coord);
+
+    var entities = GameBoard.GetEntitiesOnCell(cell);
+    if (cell == null || _isPanning || entities.Length == 0) {
+      UnHoverCell();
+      return;
+    }
+
+
+    if (HoveredCell != cell) {
+      HoverCell(cell);
+    }
+  }
+
+  private void HoverCell(GameCell cell) {
+    HoveredCell = cell;
+
+    var entities = GameBoard.GetEntitiesOnCell(cell);
+
+    if (entities.Length > 0) {
+      GetHUD().ShowHoverStatPanel(entities[0]);
+    }
+  }
+
+  private void UnHoverCell() {
+    GetHUD().HideHoverStatPanel();
+
+    HoveredCell = null;
   }
 
   private void CellClicked(GameCell cell) {
@@ -288,7 +332,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     }
     else if (command is AttackCommand attackCommand) {
       List<Entity> attackable = new();
-      foreach (var cell in GameBoard.GetCellsInRange(attackCommand.GetEntity().Cell.Coord, attackCommand.GetEntity().GetTrait<AttackTrait>().Range)) {
+      foreach (var cell in GameBoard.GetCellsInSight(attackCommand.GetEntity().Cell, attackCommand.GetEntity().GetTrait<AttackTrait>().Range)) {
         if (cell == attackCommand.GetEntity().Cell) {
           cell.HighlightColor = Colors.White;
           continue;
@@ -296,7 +340,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
         var entites = GameBoard.GetEntitiesOnCell(cell);
         if (entites.Length == 0) {
-          cell.HighlightColor = Colors.DarkRed;
+          cell.HighlightColor = Colors.DarkOrange;
         }
         else {
           if (entites[0].IsOwnedBy(this)) {
@@ -323,4 +367,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
   // TODO: implement this inside interface and somehow call this inside this class
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
+  public void OwnTurnStarted() { GD.Print("test"); }
+  public void OwnTurnEnded() { }
 }

@@ -90,6 +90,8 @@ public partial class GameBoard : Node3D {
     _terrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
   }
 
+
+  // TODO: somehow only encapsulate this methods from grid
   public CubeCoord PointToCube(Vector3 point) {
     return Grid.GetLayout().PointToHex(new(point.X, point.Z));
   }
@@ -117,9 +119,22 @@ public partial class GameBoard : Node3D {
     return Grid.GetCellsInRange(center, range);
   }
 
-  public void AddEntity(Entity entity, CubeCoord coord, IMatchController controller) {
+  public GameCell[] GetCellsInLine(GameCell from, GameCell to) {
+    return Grid.GetCellsInLine(from, to);
+  }
+
+  public GameCell[] GetNeighbors(GameCell cell) {
+    return Grid.GetNeighbors(cell);
+  }
+
+  public bool TryAddEntity(Entity entity, CubeCoord coord, IMatchController controller) {
     var cell = GetCell(coord);
+    if (GetEntitiesOnCell(cell).Length > 0 || !IsCellReachable(cell)) {
+      return false;
+    }
+
     EntityManager.AddEntity(entity, cell, controller);
+    return true;
   }
 
   public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {
@@ -144,7 +159,27 @@ public partial class GameBoard : Node3D {
     }
   }
 
-  // TODO: A* pathfinding algorithm
+
+  // TODO: proper line of sight, for now it can be like this...
+  public GameCell[] GetCellsInSight(GameCell center, uint range) {
+    var visibleHexes = new List<GameCell>();
+
+    foreach (var cell in Grid.GetCellsInRing(center, range)) {
+      foreach (var c in GetCellsInLine(center, cell)) {
+        if (c == center) {
+          continue;
+        }
+
+        visibleHexes.Add(c);
+
+        if (GetEntitiesOnCell(c).Length != 0) {
+          break;
+        }
+      }
+    }
+
+    return visibleHexes.ToArray();
+  }
 
   public GameCell[] FindReachableCells(GameCell start, int maxCost) {
     var minCost = new int[Grid.GetCells().Length];
@@ -168,9 +203,9 @@ public partial class GameBoard : Node3D {
 
       reachableCells.Add(current);
 
-      for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
-        var cell = GetCell(current, (HexDirection)i);
-        if (cell != null && IsCellWalkable(cell)) {
+      for (var i = HexDirection.Min; i < HexDirection.Max; i++) {
+        var cell = GetCell(current, i);
+        if (cell != null && IsCellReachable(cell)) {
           var newCost = currentCost + cell.MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
@@ -209,7 +244,8 @@ public partial class GameBoard : Node3D {
 
       for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
         var cell = GetCell(current, (HexDirection)i);
-        if (cell != null && IsCellWalkable(cell)) {
+        // TODO: take into account elevation changes
+        if (cell != null && IsCellReachable(cell)) {
           var newCost = currentCost + cell.MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
@@ -237,7 +273,8 @@ public partial class GameBoard : Node3D {
     return path.ToArray();
   }
 
-  private bool IsCellWalkable(GameCell cell) {
+  // TODO: find better name
+  private bool IsCellReachable(GameCell cell) {
     return cell.MoveCost > 0 && GetEntitiesOnCell(cell).Length == 0;
   }
 }

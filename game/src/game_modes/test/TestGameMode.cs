@@ -82,6 +82,8 @@ public partial class TestGameMode : GameMode {
   private void OnQuit() => Game.QuitGame();
 
   private void OnStartGame() {
+    GetGameState().Init();
+
     PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new TestPlayerState(), "Player", HUDScene, PlayerCharacterScene));
     PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new TestPlayerState(), "AI", null, null));
   }

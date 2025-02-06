@@ -15,10 +15,12 @@ public partial class MatchComponent : GameModeComponent {
 
   private GameBoard GameBoard { get; set; }
 
+  private IMatchController _lastPlayer;
   public override void _Ready() {
     base._Ready();
 
     GameBoard = GetGameState().GameBoard;
+    GetGameState().TurnChangedEvent += OnTurnChanged;
   }
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
@@ -33,16 +35,23 @@ public partial class MatchComponent : GameModeComponent {
       var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
       var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
       var entity3 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      GameBoard.AddEntity(entity, new(0, 0), controller);
-      GameBoard.AddEntity(entity2, new(1, 0), controller);
-      GameBoard.AddEntity(entity3, new(2, 0), controller);
+      GameBoard.TryAddEntity(entity, new(0, 0), controller);
+      GameBoard.TryAddEntity(entity2, new(1, 0), controller);
+      GameBoard.TryAddEntity(entity3, new(2, 0), controller);
     }
     else {
       var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
       var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      GameBoard.AddEntity(entity, new(5, 0), controller);
-      GameBoard.AddEntity(entity2, new(6, 0), controller);
+      GameBoard.TryAddEntity(entity, new(5, 0), controller);
+      GameBoard.TryAddEntity(entity2, new(6, 0), controller);
     }
+  }
+
+  private void OnTurnChanged(int playerIndex) {
+    _lastPlayer?.OwnTurnEnded();
+    var player = GetGameState().PlayerArray[playerIndex].GetController<IMatchController>();
+    player.OwnTurnStarted();
+    _lastPlayer = player;
   }
 
   private void OnEndTurn(IMatchController controller) {

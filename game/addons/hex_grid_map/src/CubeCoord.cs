@@ -45,10 +45,14 @@ public struct CubeCoord {
 
   public static bool operator ==(CubeCoord lhs, CubeCoord rhs) => lhs.Q == rhs.Q && lhs.R == rhs.R;
   public static bool operator !=(CubeCoord lhs, CubeCoord rhs) => lhs.Q != rhs.Q || lhs.R != rhs.R;
+  public static implicit operator CubeCoordF(CubeCoord coord) => new(coord);
   public readonly CubeCoord Add(CubeCoord other) => new(Q + other.Q, R + other.R);
   public readonly CubeCoord Substract(CubeCoord other) => new(Q - other.Q, R - other.R);
   public readonly CubeCoord Multiply(int scalar) => new(Q * scalar, R * scalar);
 
+  public readonly CubeCoord Lerp(CubeCoord to, double weight) {
+    return new CubeCoordF(this).Lerp(to, weight);
+  }
 
   public readonly OffsetCoord Qoffset(Offset offset) {
     var col = Q;

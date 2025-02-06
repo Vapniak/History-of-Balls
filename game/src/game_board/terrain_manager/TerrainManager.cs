@@ -6,6 +6,11 @@ using Godot;
 using HexGridMap;
 
 public partial class TerrainManager : Node {
+  public enum EdgeType {
+    Flat, // ELEVATION DIFF 0
+    Slope, // ELEVATION DIFF 1
+    Hill // ELEVATION DIFF > 1
+  }
   [Signal] public delegate void TerrainDataTextureChangedEventHandler(ImageTexture texture);
   [Signal] public delegate void HighlightDataTextureChangedEventHandler(ImageTexture texture);
 
@@ -44,6 +49,7 @@ public partial class TerrainManager : Node {
   }
   public GameCell CreateCell(CubeCoord coord, HexLayout layout) {
     var cell = new GameCell(coord, layout) {
+      // TODO: get from data
       MoveCost = _rnd.Next(0, 3)
     };
 

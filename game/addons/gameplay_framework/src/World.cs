@@ -38,9 +38,13 @@ public sealed partial class World : Node {
 
     if (error == Error.Ok) {
       if (loadingScreenScene != null) {
-        _loadingScreen = loadingScreenScene.Instantiate<LoadingScreen>();
-        AddChild(_loadingScreen);
+        CurrentLevel.TreeExited += () => {
+          _loadingScreen = loadingScreenScene.Instantiate<LoadingScreen>();
+          AddChild(_loadingScreen);
+        };
       }
+
+      CurrentLevel?.UnLoad();
 
       LoadingLevel = true;
     }

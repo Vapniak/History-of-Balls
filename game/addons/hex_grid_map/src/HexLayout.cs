@@ -105,6 +105,32 @@ public partial class HexLayout : Resource {
     return coords.ToArray();
   }
 
+  public CubeCoord[] CoordsInLine(CubeCoord from, CubeCoord to) {
+    var dist = from.Distance(to);
+    List<CubeCoord> cells = new();
+
+    for (var i = 0; i <= dist; i++) {
+      cells.Add(from.Lerp(to, 1f / dist * i));
+    }
+
+    return cells.ToArray();
+  }
+
+  public CubeCoord[] CoordsInRing(CubeCoord center, uint radius) {
+    List<CubeCoord> cells = new();
+
+    var cell = center.Add(CubeCoord.GetDirection((HexDirection)4).Multiply((int)radius));
+
+    for (var dir = HexDirection.Min; dir < HexDirection.Max; dir++) {
+      for (var i = 0; i < radius; i++) {
+        cells.Add(cell);
+        cell = cell.GetNeighbor(dir);
+      }
+    }
+
+    return cells.ToArray();
+  }
+
   public Vector2 GetRealHexSize() {
     // TODO: fix the sizes to be correct
     var size = OrientationType switch {

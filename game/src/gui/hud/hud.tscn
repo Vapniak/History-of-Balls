@@ -5,9 +5,10 @@
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/gui/hud/command_panel/command_panel.tscn" id="3_a41a7"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/hud/stat_panel/stat_panel.tscn" id="4_yxp0t"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("StatPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "PlayerTurnLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("StatPanel", "HoverStatPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "PlayerTurnLabel")]
 script = ExtResource("1_ep1kh")
 StatPanel = NodePath("MarginContainer4/StatPanel")
+HoverStatPanel = NodePath("MarginContainer4/HoverStatPanel")
 EndTurnButton = NodePath("MarginContainer4/Button")
 CommandPanel = NodePath("MarginContainer4/CommandPanel")
 RoundLabel = NodePath("MarginContainer4/VBoxContainer/Label")
@@ -37,6 +38,11 @@ theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 50
 
+[node name="HoverStatPanel" parent="MarginContainer4" instance=ExtResource("4_yxp0t")]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
 [node name="Button" type="Button" parent="MarginContainer4"]
 layout_mode = 2
 size_flags_horizontal = 8
@@ -48,11 +54,11 @@ custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
+focus_mode = 2
 mouse_filter = 1
 
 [node name="StatPanel" parent="MarginContainer4" instance=ExtResource("4_yxp0t")]
 layout_mode = 2
-size_flags_horizontal = 0
 size_flags_vertical = 8
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer4"]

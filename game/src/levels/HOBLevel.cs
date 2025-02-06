@@ -6,6 +6,7 @@ using System;
 
 [GlobalClass]
 public partial class HOBLevel : Level {
+  // TODO: more centralised approach like level transition manager inside game instance scene
   [Export] private PackedScene LoadLevelTransitionScene { get; set; }
   [Export] private PackedScene UnLoadLevelTransitionScene { get; set; }
 

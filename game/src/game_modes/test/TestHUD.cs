@@ -9,10 +9,44 @@ public partial class TestHUD : HUD {
   [Signal] public delegate void EndTurnEventHandler();
 
   [Export] private StatPanel StatPanel { get; set; }
+  [Export] private StatPanel HoverStatPanel { get; set; }
   [Export] private Button EndTurnButton { get; set; }
   [Export] private CommandPanel CommandPanel { get; set; }
   [Export] private Label RoundLabel { get; set; }
   [Export] private Label PlayerTurnLabel { get; set; }
+
+  private Entity HoveredEntity { get; set; }
+
+  public override void _Process(double delta) {
+    if (HoverStatPanel.Visible && IsInstanceValid(HoveredEntity)) {
+      // TODO: check if not obsuring other ui and is in view
+      HoverStatPanel.Position = GetViewport().GetCamera3D().UnprojectPosition(HoveredEntity.GetPosition());
+    }
+  }
+
+  public override void _Input(InputEvent @event) {
+    if (@event is InputEventKey eventKey) {
+      if (@event.IsPressed()) {
+        switch (eventKey.Keycode) {
+          // TODO: for now its okay but later I want to make shortcuts for commands
+          case Key.Key1:
+            CommandPanel.SelectCommand(0);
+            break;
+          case Key.Key2:
+            CommandPanel.SelectCommand(1);
+            break;
+          case Key.Key3:
+            CommandPanel.SelectCommand(2);
+            break;
+          case Key.Key4:
+            CommandPanel.SelectCommand(3);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
 
   public void OnTurnChanged(int playerIndex) {
     PlayerTurnLabel.Text = "PLAYER " + playerIndex + " TURN";
@@ -25,18 +59,34 @@ public partial class TestHUD : HUD {
   }
 
   public void ShowStatPanel(Entity entity) {
-    StatPanel.Visible = true;
+    UpdateStatPanel(StatPanel, entity);
 
-    UpdateStatPanel(entity);
+    StatPanel.Show();
   }
 
   public void HideStatPanel() {
-    StatPanel.Visible = false;
+    StatPanel.Hide();
+  }
+
+  public void ShowHoverStatPanel(Entity entity) {
+    HoverStatPanel.Position = GetViewport().GetCamera3D().UnprojectPosition(entity.GetPosition());
+
+    HoveredEntity = entity;
+
+    UpdateStatPanel(HoverStatPanel, entity);
+
+    HoverStatPanel.Show();
+  }
+
+  public void HideHoverStatPanel() {
+    HoveredEntity = null;
+    HoverStatPanel.Hide();
   }
 
 
   public void ShowCommandPanel(CommandTrait commandTrait) {
     CommandPanel.ClearCommands();
+    CommandPanel.GrabFocus();
     foreach (var command in commandTrait.GetCommands()) {
       CommandPanel.AddCommand(command);
     }
@@ -51,28 +101,31 @@ public partial class TestHUD : HUD {
     }
     CommandPanel.Hidden += onHidden;
     CommandPanel.Show();
+    CommandPanel.ResetSize();
   }
 
   public void HideCommandPanel() => CommandPanel.Hide();
-  private void UpdateStatPanel(Entity entity) {
+  private void UpdateStatPanel(StatPanel panel, Entity entity) {
     var isOwned = entity.IsOwnedBy(GetPlayerController<IMatchController>());
 
     if (isOwned) {
-      StatPanel.SetEntityName(entity.EntityName);
+      panel.SetEntityName(entity.EntityName);
     }
     else {
-      StatPanel.SetEntityName("ENEMY " + entity.EntityName);
+      panel.SetEntityName("ENEMY " + entity.EntityName);
     }
 
-    StatPanel.ClearEntries();
+    panel.ClearEntries();
 
     if (isOwned && entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
-      StatPanel.AddEntry("Move Points:", moveTrait.MovePoints.ToString());
+      panel.AddEntry("Move Points:", moveTrait.MovePoints.ToString());
     }
 
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
-      StatPanel.AddEntry("Health:", healthTrait.CurrentHealth.ToString());
+      panel.AddEntry("Health:", healthTrait.CurrentHealth.ToString());
     }
+
+    panel.ResetSize();
   }
 
   private void OnEndTurnPressed() {

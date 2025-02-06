@@ -17,23 +17,24 @@ public partial class AIController : Controller, IMatchController {
   public override void _Ready() {
     base._Ready();
 
-    GetGameState().TurnChangedEvent += OnTurnChanged;
-
     GameBoard = GetGameState().GameBoard;
   }
 
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
-  private void OnTurnChanged(int playerIndex) {
-    if (IsCurrentTurn()) {
-      var timer = new Timer();
-      AddChild(timer);
-      timer.Timeout += () => {
-        EndTurnEvent?.Invoke();
-        timer.QueueFree();
-      };
-      timer.Start(1);
-    }
+  private void EndTurn() {
+    EndTurnEvent?.Invoke();
   }
+
+  public void OwnTurnStarted() {
+    var timer = new Timer();
+    AddChild(timer);
+    timer.Timeout += () => {
+      EndTurn();
+      timer.QueueFree();
+    };
+    timer.Start(1);
+  }
+  public void OwnTurnEnded() { }
 }
