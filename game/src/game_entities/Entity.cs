@@ -8,6 +8,7 @@ using System.Collections.Generic;
 public partial class Entity : Node {
   [Export] public string EntityName { get; private set; }
   [Export] private Node3D Body { get; set; }
+  [Export] private Node TraitsContainer { get; set; }
   public GameCell Cell { get; set; }
 
   public IMatchController OwnerController { get; set; }
@@ -15,7 +16,7 @@ public partial class Entity : Node {
   private readonly Dictionary<Type, Trait> _traits = new();
 
   public override void _EnterTree() {
-    foreach (var child in GetChildren()) {
+    foreach (var child in TraitsContainer.GetAllChildren()) {
       if (child is Trait trait) {
         trait.Entity = this;
         _traits.Add(trait.GetType(), trait);

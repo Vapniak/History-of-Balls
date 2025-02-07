@@ -2,7 +2,7 @@ namespace HOB;
 
 using Godot;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class Hex : Resource {
   [Export] public int Col;
   [Export] public int Row;

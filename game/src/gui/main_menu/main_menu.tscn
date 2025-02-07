@@ -1,8 +1,41 @@
-[gd_scene load_steps=2 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=23 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/gui/main_menu/MainMenu.cs" id="1_pi010"]
+[ext_resource type="Texture2D" uid="uid://dr1u23201hpet" path="res://assets/HoB-menu-parallax/14.png" id="2_x4h0o"]
+[ext_resource type="VideoStream" path="res://assets/HoB-second.ogv" id="3_5fccu"]
+[ext_resource type="Texture2D" uid="uid://e7sgv1ls4r31" path="res://assets/HoB-menu-parallax/13.png" id="3_sjgfb"]
+[ext_resource type="Texture2D" uid="uid://cc8j0eiga5hdt" path="res://assets/HoB-menu-parallax/12.png" id="4_8tjak"]
+[ext_resource type="Texture2D" uid="uid://b4lcmswxraal1" path="res://assets/HoB-menu-parallax/11.png" id="5_06dit"]
+[ext_resource type="Texture2D" uid="uid://wf7odikib66d" path="res://assets/HoB-menu-parallax/10.png" id="6_rpti7"]
+[ext_resource type="Texture2D" uid="uid://c5s6uqkukwr6u" path="res://assets/HoB-menu-parallax/9.png" id="7_wcigi"]
+[ext_resource type="Texture2D" uid="uid://dytsmijax0y04" path="res://assets/HoB-menu-parallax/8.png" id="8_6xvlt"]
+[ext_resource type="Texture2D" uid="uid://bvac7ii1m3frg" path="res://assets/HoB-menu-parallax/7.png" id="9_x8usb"]
+[ext_resource type="Texture2D" uid="uid://1m50f2cxdglh" path="res://assets/HoB-menu-parallax/6.png" id="10_u3l5q"]
+[ext_resource type="Texture2D" uid="uid://csaj65st5tu0v" path="res://assets/HoB-menu-parallax/5.png" id="11_i00bl"]
+[ext_resource type="Texture2D" uid="uid://dw0fu1fw3s7bt" path="res://assets/HoB-menu-parallax/4.png" id="12_6i0fk"]
+[ext_resource type="Texture2D" uid="uid://crl16l1r8mttw" path="res://assets/HoB-menu-parallax/3.png" id="13_08sr8"]
+[ext_resource type="Texture2D" uid="uid://cnox7nc47jgg7" path="res://assets/HoB-menu-parallax/2.png" id="14_em2or"]
+[ext_resource type="Texture2D" uid="uid://c6mdo6dqfc0s" path="res://assets/HoB-menu-parallax/1.png" id="15_pgedg"]
+[ext_resource type="Texture2D" uid="uid://cxvin15p5jeev" path="res://assets/HoB-menu-parallax/0.png" id="16_7cge3"]
+[ext_resource type="Shader" path="res://res/shaders/noise_wiggle.gdshader" id="18_yynn6"]
 
-[node name="MainMenu" type="Control"]
+[sub_resource type="LabelSettings" id="LabelSettings_t67j1"]
+font_size = 128
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rhxaj"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7cupl"]
+noise = SubResource("FastNoiseLite_rhxaj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hvcl"]
+shader = ExtResource("18_yynn6")
+shader_parameter/strength = 3.1
+shader_parameter/uv_scaling = 1.0
+shader_parameter/movement_direction = Vector2(1, 6.195)
+shader_parameter/movement_speed = 0.01
+shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_7cupl")
+
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("VideoStreamPlayer", "ParallaxBackground")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -10,52 +43,246 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pi010")
+VideoStreamPlayer = NodePath("VideoStreamPlayer")
+ParallaxBackground = NodePath("MarginContainer/ParallaxBackground")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -44.0
-offset_right = 44.0
-offset_bottom = 23.0
-grow_horizontal = 2
-text = "Main menu"
-uppercase = true
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+offset_top = -4.0
+offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="MarginContainer"]
+visible = false
+scroll_base_offset = Vector2(-960, -540)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("2_x4h0o")
+expand_mode = 1
+
+[node name="ParallaxLayer2" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer2"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("3_sjgfb")
+expand_mode = 1
+
+[node name="ParallaxLayer3" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer3"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("4_8tjak")
+expand_mode = 1
+
+[node name="ParallaxLayer4" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer4"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("5_06dit")
+expand_mode = 1
+
+[node name="ParallaxLayer5" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer5"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("6_rpti7")
+expand_mode = 1
+
+[node name="ParallaxLayer6" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer6"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("7_wcigi")
+expand_mode = 1
+
+[node name="ParallaxLayer7" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer7"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("8_6xvlt")
+expand_mode = 1
+
+[node name="ParallaxLayer8" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer8"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("9_x8usb")
+expand_mode = 1
+
+[node name="ParallaxLayer9" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer9"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("10_u3l5q")
+expand_mode = 1
+
+[node name="ParallaxLayer10" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer10"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("11_i00bl")
+expand_mode = 1
+
+[node name="ParallaxLayer11" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0, 0)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer11"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("12_6i0fk")
+expand_mode = 1
+
+[node name="ParallaxLayer12" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0.08, 0.05)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer12"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("13_08sr8")
+expand_mode = 1
+
+[node name="ParallaxLayer13" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0.09, 0.05)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer13"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("14_em2or")
+expand_mode = 1
+
+[node name="ParallaxLayer14" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0.1, 0.08)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer14"]
+offset_left = -115.0
+offset_top = -65.0
+offset_right = 2035.0
+offset_bottom = 1145.0
+texture = ExtResource("15_pgedg")
+expand_mode = 1
+
+[node name="ParallaxLayer15" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
+motion_scale = Vector2(0.03, 0.03)
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/ParallaxBackground/ParallaxLayer15"]
+offset_left = -260.0
+offset_top = -241.0
+offset_right = 2176.0
+offset_bottom = 1369.0
+texture = ExtResource("16_7cge3")
+expand_mode = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="StartButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Start"
 
-[node name="SettigsButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="SettigsButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Settings"
 
-[node name="QuitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="QuitButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Quit
 "
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/SettigsButton" to="." method="OnSettingsButtonPressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_override_constants/margin_top = 100
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "HISTORY OF BALLS"
+label_settings = SubResource("LabelSettings_t67j1")
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
+layout_mode = 2
+offset_top = -4.0
+offset_right = 1920.0
+offset_bottom = 1084.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+stream = ExtResource("3_5fccu")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_4hvcl")
+layout_mode = 2
+offset_top = -4.0
+offset_right = 1920.0
+offset_bottom = 1084.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/SettigsButton" to="." method="OnSettingsButtonPressed"]
+[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]

@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://djmy308ykthsu"]
+
+[ext_resource type="PackedScene" uid="uid://dlhc830cg2mt4" path="res://src/game_entities/entites/base_entity.tscn" id="1_4g52y"]
+[ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/unit/unit_traits.tscn" id="2_iqmdf"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_q8mu6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tqfe"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lqswr"]
+material = SubResource("StandardMaterial3D_5tqfe")
+size = Vector3(0.175, 0.21, 0.49)
+
+[node name="BaseEntity" instance=ExtResource("1_4g52y")]
+EntityName = "Unit 1"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_q8mu6")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.6, -0.5)
+mesh = SubResource("BoxMesh_lqswr")
+
+[node name="UnitTraits" parent="Traits" index="0" instance=ExtResource("2_iqmdf")]
+
+[editable path="Traits/UnitTraits"]

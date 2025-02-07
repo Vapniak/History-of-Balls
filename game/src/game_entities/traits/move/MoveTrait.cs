@@ -13,12 +13,10 @@ public partial class MoveTrait : Trait {
 
   // TODO: move that data somewhere else
   // TODO: make some simple entity editor plugin
-  [Export] public int MovePoints { get; private set; } = 0;
+  [Export] public uint MovePoints { get; private set; } = 0;
   [Export] private float _moveSpeed = 10;
 
-
-  // TODO: this field shouldn't be there, find better way to check if can reach the cell, also AI will have to fill that in
-  public GameCell[] ReachableCells;
+  private GameCell[] _reachableCells;
   private Vector3 _targetPosition;
   private bool _move;
   private GameCell[] _path;
@@ -34,6 +32,7 @@ public partial class MoveTrait : Trait {
         }
         else {
           _move = false;
+          _reachableCells = null;
           EmitSignal(SignalName.MoveFinished);
         }
       }
@@ -45,8 +44,16 @@ public partial class MoveTrait : Trait {
       Entity.SetPosition(Entity.GetPosition().Lerp(_targetPosition, (float)delta * _moveSpeed));
     }
   }
-  public bool TryMove(GameCell[] path) {
-    if (path == null || !ReachableCells.Contains(path.Last())) {
+
+  // TODO: function to filter reachble cells
+  public GameCell[] GetReachableCells(GameBoard board) {
+    var cells = board.FindReachableCells(Entity.Cell, MovePoints, (start, end) => IsReachable(start, end, board));
+    _reachableCells = cells;
+    return cells;
+  }
+  public bool TryMove(GameCell targetCell, GameBoard board) {
+    var path = board.FindPath(Entity.Cell, targetCell, MovePoints, (start, end) => IsReachable(start, end, board));
+    if (path == null || !_reachableCells.Contains(path.Last())) {
       return false;
     }
 
@@ -55,5 +62,9 @@ public partial class MoveTrait : Trait {
     Entity.Cell = path.Last();
     _move = true;
     return true;
+  }
+
+  public bool IsReachable(GameCell start, GameCell end, GameBoard board) {
+    return board.GetEntitiesOnCell(end).Length == 0 && end.MoveCost > 0;
   }
 }

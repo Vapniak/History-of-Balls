@@ -5,3550 +5,3550 @@
 [ext_resource type="Script" path="res://src/maps/data/HexSetting.cs" id="2_smlxi"]
 [ext_resource type="Script" path="res://src/maps/data/MapSettings.cs" id="3_ng25x"]
 
-[sub_resource type="Resource" id="Resource_s2vse"]
+[sub_resource type="Resource" id="Resource_5hagq"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_kwj6u"]
+[sub_resource type="Resource" id="Resource_2s2gj"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_8q84q"]
+[sub_resource type="Resource" id="Resource_t3usq"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_sej60"]
+[sub_resource type="Resource" id="Resource_x3vue"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vdmxf"]
+[sub_resource type="Resource" id="Resource_hybd2"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5s86q"]
+[sub_resource type="Resource" id="Resource_3f3uw"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_q6nob"]
+[sub_resource type="Resource" id="Resource_cem4n"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_qy4wm"]
+[sub_resource type="Resource" id="Resource_dveey"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_8cshd"]
+[sub_resource type="Resource" id="Resource_3xged"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_safgp"]
+[sub_resource type="Resource" id="Resource_80ek4"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_kb4n6"]
+[sub_resource type="Resource" id="Resource_tqt8t"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w4inc"]
+[sub_resource type="Resource" id="Resource_4rh0e"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 0
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0l530"]
+[sub_resource type="Resource" id="Resource_xnmed"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_j1ydb"]
+[sub_resource type="Resource" id="Resource_pbmw8"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_povcj"]
+[sub_resource type="Resource" id="Resource_8tgqr"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mnmqo"]
+[sub_resource type="Resource" id="Resource_gfdtb"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_h66lp"]
+[sub_resource type="Resource" id="Resource_uw3q1"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cl1ne"]
+[sub_resource type="Resource" id="Resource_k0sts"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_16m2u"]
+[sub_resource type="Resource" id="Resource_1vq2w"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ogvmm"]
+[sub_resource type="Resource" id="Resource_4o4i6"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gvsnl"]
+[sub_resource type="Resource" id="Resource_jn80r"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_fr4gw"]
+[sub_resource type="Resource" id="Resource_wvo4w"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mlhl0"]
+[sub_resource type="Resource" id="Resource_cqgn0"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4h3jm"]
+[sub_resource type="Resource" id="Resource_qn18g"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2ma7k"]
+[sub_resource type="Resource" id="Resource_kcap5"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cjcd6"]
+[sub_resource type="Resource" id="Resource_rms7v"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_kfuqw"]
+[sub_resource type="Resource" id="Resource_avoxv"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_31svb"]
+[sub_resource type="Resource" id="Resource_pfcpr"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_xa52f"]
+[sub_resource type="Resource" id="Resource_ftq0g"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 0
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t85qy"]
+[sub_resource type="Resource" id="Resource_ioe16"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nuimj"]
+[sub_resource type="Resource" id="Resource_d0dxf"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gimts"]
+[sub_resource type="Resource" id="Resource_2bcba"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mk2xl"]
+[sub_resource type="Resource" id="Resource_cstao"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_qwygc"]
+[sub_resource type="Resource" id="Resource_n0mo3"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0lo28"]
+[sub_resource type="Resource" id="Resource_2ea3j"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_fyckh"]
+[sub_resource type="Resource" id="Resource_f4lxu"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6q33i"]
+[sub_resource type="Resource" id="Resource_i12dd"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_lthcg"]
+[sub_resource type="Resource" id="Resource_jakn4"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_m1kiw"]
+[sub_resource type="Resource" id="Resource_smepe"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4ldek"]
+[sub_resource type="Resource" id="Resource_si0u0"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7wduo"]
+[sub_resource type="Resource" id="Resource_t72j1"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_n0qn8"]
+[sub_resource type="Resource" id="Resource_ioyyi"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_aow25"]
+[sub_resource type="Resource" id="Resource_irfga"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mauqr"]
+[sub_resource type="Resource" id="Resource_r23l3"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wweci"]
+[sub_resource type="Resource" id="Resource_xf71i"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_uq12m"]
+[sub_resource type="Resource" id="Resource_ds083"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6y1pe"]
+[sub_resource type="Resource" id="Resource_vgy2w"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t2jug"]
+[sub_resource type="Resource" id="Resource_jicbq"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_n67nx"]
+[sub_resource type="Resource" id="Resource_jkiyg"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cvu6g"]
+[sub_resource type="Resource" id="Resource_r0ncd"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7hw6p"]
+[sub_resource type="Resource" id="Resource_fpo2k"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 1
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rx3xx"]
+[sub_resource type="Resource" id="Resource_vq1ll"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4u7kc"]
+[sub_resource type="Resource" id="Resource_ean3k"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cpkjq"]
+[sub_resource type="Resource" id="Resource_m3ynt"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_na3q6"]
+[sub_resource type="Resource" id="Resource_0in0p"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bpgv5"]
+[sub_resource type="Resource" id="Resource_7lue7"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_a0gqs"]
+[sub_resource type="Resource" id="Resource_wct36"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_g05dl"]
+[sub_resource type="Resource" id="Resource_fj8vn"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 1
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w508r"]
+[sub_resource type="Resource" id="Resource_lxxfq"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_map0o"]
+[sub_resource type="Resource" id="Resource_1wybl"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t4be0"]
+[sub_resource type="Resource" id="Resource_n84ou"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vw1pi"]
+[sub_resource type="Resource" id="Resource_6f3vj"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6y2fp"]
+[sub_resource type="Resource" id="Resource_8owfn"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_g0aor"]
+[sub_resource type="Resource" id="Resource_fhfq5"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gxwxf"]
+[sub_resource type="Resource" id="Resource_xtk48"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 2
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_pwel4"]
+[sub_resource type="Resource" id="Resource_egidq"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 2
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mryfr"]
+[sub_resource type="Resource" id="Resource_4xll1"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 2
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_s7d70"]
+[sub_resource type="Resource" id="Resource_myakf"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 2
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4sfi6"]
+[sub_resource type="Resource" id="Resource_17orn"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 2
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_pjsqd"]
+[sub_resource type="Resource" id="Resource_oob66"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 2
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_iub7j"]
+[sub_resource type="Resource" id="Resource_0kcb2"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2ic1q"]
+[sub_resource type="Resource" id="Resource_chuhu"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_8r7eb"]
+[sub_resource type="Resource" id="Resource_mpbsy"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_dgf37"]
+[sub_resource type="Resource" id="Resource_vacdy"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_kfgq1"]
+[sub_resource type="Resource" id="Resource_7l2nm"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rnhqn"]
+[sub_resource type="Resource" id="Resource_eljew"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ylwpy"]
+[sub_resource type="Resource" id="Resource_n71ug"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_i3ruf"]
+[sub_resource type="Resource" id="Resource_qffyr"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7mglw"]
+[sub_resource type="Resource" id="Resource_yknop"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rru18"]
+[sub_resource type="Resource" id="Resource_puc8j"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jwi2n"]
+[sub_resource type="Resource" id="Resource_w6plp"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_aa78c"]
+[sub_resource type="Resource" id="Resource_wti0d"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 2
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nikt0"]
+[sub_resource type="Resource" id="Resource_g37t1"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 2
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ssqmi"]
+[sub_resource type="Resource" id="Resource_bom8o"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 2
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_1kef3"]
+[sub_resource type="Resource" id="Resource_2hkpn"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 2
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ox42l"]
+[sub_resource type="Resource" id="Resource_rnpbv"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 2
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_uo4w8"]
+[sub_resource type="Resource" id="Resource_pxnkk"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 2
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_em14v"]
+[sub_resource type="Resource" id="Resource_8aeif"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 3
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ap383"]
+[sub_resource type="Resource" id="Resource_fr2ss"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wa36b"]
+[sub_resource type="Resource" id="Resource_74v5g"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_e5o2y"]
+[sub_resource type="Resource" id="Resource_re8aj"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cbfwv"]
+[sub_resource type="Resource" id="Resource_63c0m"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ore7k"]
+[sub_resource type="Resource" id="Resource_wnkhi"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 3
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_yka2p"]
+[sub_resource type="Resource" id="Resource_nsp2e"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 3
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w5mri"]
+[sub_resource type="Resource" id="Resource_dh4kx"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 3
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wsvtx"]
+[sub_resource type="Resource" id="Resource_1u5wr"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 3
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ff0i4"]
+[sub_resource type="Resource" id="Resource_idymk"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 3
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jdv6q"]
+[sub_resource type="Resource" id="Resource_wxd3g"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 3
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ss0d7"]
+[sub_resource type="Resource" id="Resource_53l5t"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 3
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7aw0f"]
+[sub_resource type="Resource" id="Resource_qxxsl"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 3
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_n1wtm"]
+[sub_resource type="Resource" id="Resource_8ya16"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 3
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mgufl"]
+[sub_resource type="Resource" id="Resource_asy4e"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 3
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6fvub"]
+[sub_resource type="Resource" id="Resource_b5mlv"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 3
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_f6x5f"]
+[sub_resource type="Resource" id="Resource_rc8i0"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_31t5a"]
+[sub_resource type="Resource" id="Resource_s2mvr"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_d65fx"]
+[sub_resource type="Resource" id="Resource_vgxaf"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ijbls"]
+[sub_resource type="Resource" id="Resource_su06i"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ukk7o"]
+[sub_resource type="Resource" id="Resource_8fsy4"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 3
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_eoiwo"]
+[sub_resource type="Resource" id="Resource_fbdf0"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_e6mcm"]
+[sub_resource type="Resource" id="Resource_o7rw0"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vedte"]
+[sub_resource type="Resource" id="Resource_268b1"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 3
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_add7j"]
+[sub_resource type="Resource" id="Resource_uahua"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 3
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_a1nwt"]
+[sub_resource type="Resource" id="Resource_fjckq"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 3
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_imppe"]
+[sub_resource type="Resource" id="Resource_vaam1"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 3
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mkipi"]
+[sub_resource type="Resource" id="Resource_iqquh"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 3
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2x0e2"]
+[sub_resource type="Resource" id="Resource_nipbj"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 3
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t6cqq"]
+[sub_resource type="Resource" id="Resource_na8tg"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 4
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_40v3t"]
+[sub_resource type="Resource" id="Resource_amh0l"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 4
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hhqqf"]
+[sub_resource type="Resource" id="Resource_rdfbr"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 4
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_61kmn"]
+[sub_resource type="Resource" id="Resource_lq1c7"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 4
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t1t5s"]
+[sub_resource type="Resource" id="Resource_15442"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 4
 Color = Color(0.803922, 0.521569, 0.247059, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_eiydv"]
+[sub_resource type="Resource" id="Resource_lnwnq"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 4
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vh6t3"]
+[sub_resource type="Resource" id="Resource_apdxm"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 4
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wswsu"]
+[sub_resource type="Resource" id="Resource_jhsbu"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 4
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_r3xdy"]
+[sub_resource type="Resource" id="Resource_3hqon"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 4
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tyqw2"]
+[sub_resource type="Resource" id="Resource_xdgyx"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 4
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ynoru"]
+[sub_resource type="Resource" id="Resource_xr07u"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 4
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_p6r43"]
+[sub_resource type="Resource" id="Resource_vq0p2"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 4
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_lfhey"]
+[sub_resource type="Resource" id="Resource_hm04q"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 4
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hxfin"]
+[sub_resource type="Resource" id="Resource_ytali"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 4
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_h58q3"]
+[sub_resource type="Resource" id="Resource_0idxc"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 4
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nsm1f"]
+[sub_resource type="Resource" id="Resource_u0h6u"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 4
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_caqmy"]
+[sub_resource type="Resource" id="Resource_xuarm"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 4
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ujccb"]
+[sub_resource type="Resource" id="Resource_2lk6g"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 4
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_v4upn"]
+[sub_resource type="Resource" id="Resource_37fh2"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 4
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_o61sp"]
+[sub_resource type="Resource" id="Resource_uyhml"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 4
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ogn8p"]
+[sub_resource type="Resource" id="Resource_8ebhi"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 4
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_1twmv"]
+[sub_resource type="Resource" id="Resource_ojoc6"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 4
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vwijj"]
+[sub_resource type="Resource" id="Resource_xxwwb"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 4
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_a6x7o"]
+[sub_resource type="Resource" id="Resource_fuqdk"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 4
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t8xhc"]
+[sub_resource type="Resource" id="Resource_xw0xj"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 4
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_d1bi4"]
+[sub_resource type="Resource" id="Resource_jibvc"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 4
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jy5xo"]
+[sub_resource type="Resource" id="Resource_ago3k"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 4
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nh7id"]
+[sub_resource type="Resource" id="Resource_pv4xh"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 4
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wkf5k"]
+[sub_resource type="Resource" id="Resource_dkbnd"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 4
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_51djq"]
+[sub_resource type="Resource" id="Resource_d25vc"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 5
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0bwjp"]
+[sub_resource type="Resource" id="Resource_7kee3"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 5
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ycvup"]
+[sub_resource type="Resource" id="Resource_vd0qf"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 5
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_52e54"]
+[sub_resource type="Resource" id="Resource_dx5wx"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 5
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w3s8u"]
+[sub_resource type="Resource" id="Resource_eem1m"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 5
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_th2lg"]
+[sub_resource type="Resource" id="Resource_ojamr"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 5
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vtj7w"]
+[sub_resource type="Resource" id="Resource_vhwnb"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 5
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3g2wv"]
+[sub_resource type="Resource" id="Resource_ltln6"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 5
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vug32"]
+[sub_resource type="Resource" id="Resource_r4ja4"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 5
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6l0ba"]
+[sub_resource type="Resource" id="Resource_vb8li"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_s6qg7"]
+[sub_resource type="Resource" id="Resource_01b5k"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_44pcv"]
+[sub_resource type="Resource" id="Resource_4wulx"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gsjwo"]
+[sub_resource type="Resource" id="Resource_u5w6t"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ij3di"]
+[sub_resource type="Resource" id="Resource_pmddf"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_fjs7q"]
+[sub_resource type="Resource" id="Resource_rfsmc"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 5
 Color = Color(0.133333, 0.545098, 0.4, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jq0js"]
+[sub_resource type="Resource" id="Resource_ccefx"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4t8u4"]
+[sub_resource type="Resource" id="Resource_n0kpk"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jdssb"]
+[sub_resource type="Resource" id="Resource_smelh"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hb767"]
+[sub_resource type="Resource" id="Resource_1g1dt"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 5
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_u0yi5"]
+[sub_resource type="Resource" id="Resource_gpg6b"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wy5m6"]
+[sub_resource type="Resource" id="Resource_1pofb"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 5
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_qxqcu"]
+[sub_resource type="Resource" id="Resource_ii8hs"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 5
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_shlvx"]
+[sub_resource type="Resource" id="Resource_imnh0"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 5
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bbj3p"]
+[sub_resource type="Resource" id="Resource_xx0lh"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 5
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_e512l"]
+[sub_resource type="Resource" id="Resource_yxklm"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 5
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_05ypp"]
+[sub_resource type="Resource" id="Resource_pmhh5"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 5
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2rbe7"]
+[sub_resource type="Resource" id="Resource_tkxf0"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 5
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_lpdbw"]
+[sub_resource type="Resource" id="Resource_8hkme"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 5
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_myc6g"]
+[sub_resource type="Resource" id="Resource_abc01"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 5
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ly8tl"]
+[sub_resource type="Resource" id="Resource_i7ba2"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 6
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_8jaay"]
+[sub_resource type="Resource" id="Resource_2q4ky"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 6
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ay225"]
+[sub_resource type="Resource" id="Resource_11slq"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 6
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_f4vsd"]
+[sub_resource type="Resource" id="Resource_5tkks"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 6
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_77d3a"]
+[sub_resource type="Resource" id="Resource_nx1a5"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 6
 Color = Color(1, 0.843137, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_giv3s"]
+[sub_resource type="Resource" id="Resource_f6fwa"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 6
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ux57u"]
+[sub_resource type="Resource" id="Resource_dwfhb"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 6
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tglog"]
+[sub_resource type="Resource" id="Resource_3r16a"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 6
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bqnaw"]
+[sub_resource type="Resource" id="Resource_drf83"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 6
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_g7i81"]
+[sub_resource type="Resource" id="Resource_wok3l"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 6
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bywf4"]
+[sub_resource type="Resource" id="Resource_n5qe3"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 6
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jw8fi"]
+[sub_resource type="Resource" id="Resource_fnm3q"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 6
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4fwup"]
+[sub_resource type="Resource" id="Resource_f5mb0"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 6
 Color = Color(0.247059, 0.670588, 0.666667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bh3q0"]
+[sub_resource type="Resource" id="Resource_prs2h"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 6
 Color = Color(0.133333, 0.545098, 0.4, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_oegc5"]
+[sub_resource type="Resource" id="Resource_uorgu"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 6
 Color = Color(0.133333, 0.545098, 0.4, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_roior"]
+[sub_resource type="Resource" id="Resource_cx0eh"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 6
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_enp7d"]
+[sub_resource type="Resource" id="Resource_bs14f"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 6
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vk78h"]
+[sub_resource type="Resource" id="Resource_lhccr"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 6
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7q1wo"]
+[sub_resource type="Resource" id="Resource_qqw7a"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 6
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3n5aw"]
+[sub_resource type="Resource" id="Resource_2k4cf"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 6
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_c8fbl"]
+[sub_resource type="Resource" id="Resource_d2yib"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 6
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_phah1"]
+[sub_resource type="Resource" id="Resource_yfr7k"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 6
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_leilg"]
+[sub_resource type="Resource" id="Resource_4g2ad"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 6
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_sey5i"]
+[sub_resource type="Resource" id="Resource_wi18c"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 6
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_8xmjr"]
+[sub_resource type="Resource" id="Resource_am56w"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 6
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4d32o"]
+[sub_resource type="Resource" id="Resource_25v0g"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 6
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ohpn8"]
+[sub_resource type="Resource" id="Resource_a5rd4"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 6
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_v0obe"]
+[sub_resource type="Resource" id="Resource_ghmpv"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 6
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jptqs"]
+[sub_resource type="Resource" id="Resource_j5owe"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 6
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_u4nu3"]
+[sub_resource type="Resource" id="Resource_ut2eb"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_iix1s"]
+[sub_resource type="Resource" id="Resource_85oe4"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_s8qaw"]
+[sub_resource type="Resource" id="Resource_mkv8i"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_i2jlt"]
+[sub_resource type="Resource" id="Resource_femvx"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0188v"]
+[sub_resource type="Resource" id="Resource_kc3ea"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 7
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vsvbn"]
+[sub_resource type="Resource" id="Resource_p3fxy"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 7
 Color = Color(1, 0.843137, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6escg"]
+[sub_resource type="Resource" id="Resource_16l36"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 7
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_kyeha"]
+[sub_resource type="Resource" id="Resource_ibljr"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 7
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3lj0c"]
+[sub_resource type="Resource" id="Resource_6befi"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 7
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_exs73"]
+[sub_resource type="Resource" id="Resource_tvor1"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 7
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2nvdw"]
+[sub_resource type="Resource" id="Resource_xoy7i"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 7
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6fqy5"]
+[sub_resource type="Resource" id="Resource_kkqlp"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 7
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5ntoa"]
+[sub_resource type="Resource" id="Resource_lw0aq"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 7
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3rm54"]
+[sub_resource type="Resource" id="Resource_8nboh"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 7
 Color = Color(0.247059, 0.670588, 0.666667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6qsty"]
+[sub_resource type="Resource" id="Resource_385bj"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 7
 Color = Color(0.247059, 0.670588, 0.666667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5acyg"]
+[sub_resource type="Resource" id="Resource_yn8dh"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 7
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_q3pdx"]
+[sub_resource type="Resource" id="Resource_vxw0t"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 7
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_u6dhq"]
+[sub_resource type="Resource" id="Resource_fbn5y"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3f3xp"]
+[sub_resource type="Resource" id="Resource_r0fpr"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 7
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tye3i"]
+[sub_resource type="Resource" id="Resource_b0f7b"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 7
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wstdq"]
+[sub_resource type="Resource" id="Resource_wophr"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 7
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_omrg8"]
+[sub_resource type="Resource" id="Resource_bfw33"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_fdw30"]
+[sub_resource type="Resource" id="Resource_hu27o"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_euekh"]
+[sub_resource type="Resource" id="Resource_xysht"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_fbplk"]
+[sub_resource type="Resource" id="Resource_k8cnt"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0roh2"]
+[sub_resource type="Resource" id="Resource_la2k3"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 7
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_igmd1"]
+[sub_resource type="Resource" id="Resource_7qnv3"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 7
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7txim"]
+[sub_resource type="Resource" id="Resource_sto1p"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 7
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tpmnv"]
+[sub_resource type="Resource" id="Resource_ns66f"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 7
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_fsvjy"]
+[sub_resource type="Resource" id="Resource_pyytj"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nsgh8"]
+[sub_resource type="Resource" id="Resource_mfsau"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gdrs8"]
+[sub_resource type="Resource" id="Resource_ehdc5"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gtp2e"]
+[sub_resource type="Resource" id="Resource_708my"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cq8ur"]
+[sub_resource type="Resource" id="Resource_er84p"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_v6e28"]
+[sub_resource type="Resource" id="Resource_ydwd1"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 8
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vduq4"]
+[sub_resource type="Resource" id="Resource_6eed2"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 8
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_fikxk"]
+[sub_resource type="Resource" id="Resource_lr12n"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 8
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5ayec"]
+[sub_resource type="Resource" id="Resource_evdla"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 8
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_28xcs"]
+[sub_resource type="Resource" id="Resource_187t1"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 8
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5lwnr"]
+[sub_resource type="Resource" id="Resource_orlh3"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 8
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jcqyv"]
+[sub_resource type="Resource" id="Resource_8n3dr"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 8
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3qewk"]
+[sub_resource type="Resource" id="Resource_p00b8"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 8
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_725q6"]
+[sub_resource type="Resource" id="Resource_a856y"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 8
 Color = Color(0.247059, 0.670588, 0.666667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rwumm"]
+[sub_resource type="Resource" id="Resource_um7y2"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rbh2x"]
+[sub_resource type="Resource" id="Resource_o5ewv"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wpxon"]
+[sub_resource type="Resource" id="Resource_y3guy"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_1urb4"]
+[sub_resource type="Resource" id="Resource_6kkmt"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hrvao"]
+[sub_resource type="Resource" id="Resource_16qe1"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mc5jt"]
+[sub_resource type="Resource" id="Resource_mfra3"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_urlo3"]
+[sub_resource type="Resource" id="Resource_lqr4l"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rifwp"]
+[sub_resource type="Resource" id="Resource_ny8go"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_s5cmp"]
+[sub_resource type="Resource" id="Resource_5rs6q"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hdinq"]
+[sub_resource type="Resource" id="Resource_joej4"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_1m4ps"]
+[sub_resource type="Resource" id="Resource_d4a7x"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 8
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nmqqj"]
+[sub_resource type="Resource" id="Resource_gw13x"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 8
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_j32fq"]
+[sub_resource type="Resource" id="Resource_i3h2r"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 8
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_8id11"]
+[sub_resource type="Resource" id="Resource_mwnut"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 8
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hb5v0"]
+[sub_resource type="Resource" id="Resource_nikys"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 8
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_pj6bl"]
+[sub_resource type="Resource" id="Resource_5wgon"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_746to"]
+[sub_resource type="Resource" id="Resource_nm0uy"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2ify6"]
+[sub_resource type="Resource" id="Resource_ul8yb"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_yeeiu"]
+[sub_resource type="Resource" id="Resource_owk8u"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jc8ar"]
+[sub_resource type="Resource" id="Resource_d65w7"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_lpegt"]
+[sub_resource type="Resource" id="Resource_headi"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_p4nqb"]
+[sub_resource type="Resource" id="Resource_sjsam"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_qskuy"]
+[sub_resource type="Resource" id="Resource_3kl1m"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 9
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_sbh7f"]
+[sub_resource type="Resource" id="Resource_uy3yx"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 9
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ai2bj"]
+[sub_resource type="Resource" id="Resource_oj2yt"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 9
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_1e0hq"]
+[sub_resource type="Resource" id="Resource_3ymxe"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 9
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_86rvg"]
+[sub_resource type="Resource" id="Resource_oc8b8"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 9
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w041f"]
+[sub_resource type="Resource" id="Resource_b1uqr"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 9
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_p0ke8"]
+[sub_resource type="Resource" id="Resource_e7e7x"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 9
 Color = Color(0.247059, 0.670588, 0.666667, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_yj8dy"]
+[sub_resource type="Resource" id="Resource_6wnkf"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_c2xwo"]
+[sub_resource type="Resource" id="Resource_7q68j"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cr8kw"]
+[sub_resource type="Resource" id="Resource_sf8xo"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nidst"]
+[sub_resource type="Resource" id="Resource_5gppj"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_lncti"]
+[sub_resource type="Resource" id="Resource_5uvd8"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_a7vlq"]
+[sub_resource type="Resource" id="Resource_df2db"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jjshv"]
+[sub_resource type="Resource" id="Resource_7sghd"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w0j2v"]
+[sub_resource type="Resource" id="Resource_atwn6"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_kpto7"]
+[sub_resource type="Resource" id="Resource_mmfuj"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_plmrf"]
+[sub_resource type="Resource" id="Resource_c00wq"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 9
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_b7ti0"]
+[sub_resource type="Resource" id="Resource_5phjr"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 9
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0pigd"]
+[sub_resource type="Resource" id="Resource_a3vrj"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 9
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tllcb"]
+[sub_resource type="Resource" id="Resource_ddaap"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 9
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_03b41"]
+[sub_resource type="Resource" id="Resource_6ah7q"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 9
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2np7b"]
+[sub_resource type="Resource" id="Resource_2wl58"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 9
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_iyavh"]
+[sub_resource type="Resource" id="Resource_4lsiv"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ffjru"]
+[sub_resource type="Resource" id="Resource_cq6tj"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_yemxx"]
+[sub_resource type="Resource" id="Resource_gamlg"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hmrb1"]
+[sub_resource type="Resource" id="Resource_i043f"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_yq4lh"]
+[sub_resource type="Resource" id="Resource_sfrdl"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_em36r"]
+[sub_resource type="Resource" id="Resource_hb46i"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_klafv"]
+[sub_resource type="Resource" id="Resource_h2mgr"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 10
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_iovwa"]
+[sub_resource type="Resource" id="Resource_4qhjt"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 10
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ebt47"]
+[sub_resource type="Resource" id="Resource_q74xc"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 10
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7l82d"]
+[sub_resource type="Resource" id="Resource_t72qp"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 10
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_s5ne0"]
+[sub_resource type="Resource" id="Resource_e7oes"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 10
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_1aujg"]
+[sub_resource type="Resource" id="Resource_2kn4j"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 10
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_m2fhk"]
+[sub_resource type="Resource" id="Resource_xm7s1"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 10
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0x813"]
+[sub_resource type="Resource" id="Resource_ldtik"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_sehov"]
+[sub_resource type="Resource" id="Resource_l6p43"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vkieq"]
+[sub_resource type="Resource" id="Resource_2g5ud"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hjstf"]
+[sub_resource type="Resource" id="Resource_ryrk8"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_qq8ei"]
+[sub_resource type="Resource" id="Resource_2h3o1"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4th4c"]
+[sub_resource type="Resource" id="Resource_c4wbh"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ihasb"]
+[sub_resource type="Resource" id="Resource_vwmhs"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cjwvg"]
+[sub_resource type="Resource" id="Resource_721sn"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_o8ri5"]
+[sub_resource type="Resource" id="Resource_6xkoo"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ut7ny"]
+[sub_resource type="Resource" id="Resource_wc7f7"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 10
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3owpi"]
+[sub_resource type="Resource" id="Resource_wceu6"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 10
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_j2spq"]
+[sub_resource type="Resource" id="Resource_ecbvf"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 10
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_sl5rd"]
+[sub_resource type="Resource" id="Resource_4fokx"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 10
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_uuhel"]
+[sub_resource type="Resource" id="Resource_xattu"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 10
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_kfvil"]
+[sub_resource type="Resource" id="Resource_xq8c8"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 10
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w0yni"]
+[sub_resource type="Resource" id="Resource_70a1f"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 10
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_h2rom"]
+[sub_resource type="Resource" id="Resource_1mls8"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mgxx3"]
+[sub_resource type="Resource" id="Resource_r2elh"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_53xj6"]
+[sub_resource type="Resource" id="Resource_l2sj7"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bq5rn"]
+[sub_resource type="Resource" id="Resource_2e62c"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2sglh"]
+[sub_resource type="Resource" id="Resource_vetgr"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4qg8l"]
+[sub_resource type="Resource" id="Resource_qjms6"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t7v40"]
+[sub_resource type="Resource" id="Resource_8ifr1"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 11
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_dr5a3"]
+[sub_resource type="Resource" id="Resource_nnsv4"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 11
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_m1nql"]
+[sub_resource type="Resource" id="Resource_q4l23"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 11
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_d5xpf"]
+[sub_resource type="Resource" id="Resource_qn1x1"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 11
 Color = Color(0.498039, 1, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_skv4p"]
+[sub_resource type="Resource" id="Resource_1ciu7"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_v2atl"]
+[sub_resource type="Resource" id="Resource_umxne"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_j4nlm"]
+[sub_resource type="Resource" id="Resource_cpicv"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4nfji"]
+[sub_resource type="Resource" id="Resource_xmayg"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 11
 Color = Color(0, 0.733333, 0, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cqlnk"]
+[sub_resource type="Resource" id="Resource_kwywv"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_f4mv8"]
+[sub_resource type="Resource" id="Resource_dxhl2"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_uljr2"]
+[sub_resource type="Resource" id="Resource_b1mxw"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ew3u1"]
+[sub_resource type="Resource" id="Resource_ijdmt"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_en7c4"]
+[sub_resource type="Resource" id="Resource_nvq6n"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 11
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_656gf"]
+[sub_resource type="Resource" id="Resource_nrrdq"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hwpc2"]
+[sub_resource type="Resource" id="Resource_h02ca"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ag2td"]
+[sub_resource type="Resource" id="Resource_qbe5f"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5fxrh"]
+[sub_resource type="Resource" id="Resource_ddvp0"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6w0ka"]
+[sub_resource type="Resource" id="Resource_54gda"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ra3ut"]
+[sub_resource type="Resource" id="Resource_wvhyp"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ojo53"]
+[sub_resource type="Resource" id="Resource_aky7y"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_twe7q"]
+[sub_resource type="Resource" id="Resource_487qc"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6r2on"]
+[sub_resource type="Resource" id="Resource_kql0r"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 11
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_e6eai"]
+[sub_resource type="Resource" id="Resource_dhyk2"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 11
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tnxed"]
+[sub_resource type="Resource" id="Resource_0ph4x"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_en3te"]
+[sub_resource type="Resource" id="Resource_hg6vu"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_j2280"]
+[sub_resource type="Resource" id="Resource_ohx70"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_a05of"]
+[sub_resource type="Resource" id="Resource_ji4qr"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7ygne"]
+[sub_resource type="Resource" id="Resource_74x56"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_iouir"]
+[sub_resource type="Resource" id="Resource_dvfft"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_qylsh"]
+[sub_resource type="Resource" id="Resource_yy855"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 12
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0537h"]
+[sub_resource type="Resource" id="Resource_1xt5p"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 12
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nnl8l"]
+[sub_resource type="Resource" id="Resource_d6xmb"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t2bcw"]
+[sub_resource type="Resource" id="Resource_84nn0"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jo1rr"]
+[sub_resource type="Resource" id="Resource_ri6cy"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_g2xro"]
+[sub_resource type="Resource" id="Resource_argpy"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_8hogs"]
+[sub_resource type="Resource" id="Resource_7i0j7"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_etoso"]
+[sub_resource type="Resource" id="Resource_injvy"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_lqcjr"]
+[sub_resource type="Resource" id="Resource_3omg4"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3llry"]
+[sub_resource type="Resource" id="Resource_2wii5"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_shc2t"]
+[sub_resource type="Resource" id="Resource_tdiwt"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ssogy"]
+[sub_resource type="Resource" id="Resource_qlfb0"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 12
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_qfo3r"]
+[sub_resource type="Resource" id="Resource_h8o42"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nqxgt"]
+[sub_resource type="Resource" id="Resource_yf364"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_c51af"]
+[sub_resource type="Resource" id="Resource_f7s12"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_387ov"]
+[sub_resource type="Resource" id="Resource_ji0ed"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2gogc"]
+[sub_resource type="Resource" id="Resource_r64si"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_xq7wd"]
+[sub_resource type="Resource" id="Resource_m8on6"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_oxekp"]
+[sub_resource type="Resource" id="Resource_c8488"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ogk5q"]
+[sub_resource type="Resource" id="Resource_482jo"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 12
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hsya6"]
+[sub_resource type="Resource" id="Resource_ihhmc"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 12
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t3kes"]
+[sub_resource type="Resource" id="Resource_k8pyj"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 12
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bogeu"]
+[sub_resource type="Resource" id="Resource_whk40"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 12
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_xjsix"]
+[sub_resource type="Resource" id="Resource_qrwbx"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_pdqnb"]
+[sub_resource type="Resource" id="Resource_c8oae"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_1cq5h"]
+[sub_resource type="Resource" id="Resource_troh1"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_8na28"]
+[sub_resource type="Resource" id="Resource_stxfj"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_a7mga"]
+[sub_resource type="Resource" id="Resource_5lkxi"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_x5ad5"]
+[sub_resource type="Resource" id="Resource_jfehl"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_h8s4q"]
+[sub_resource type="Resource" id="Resource_rbwfy"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 13
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gsqsr"]
+[sub_resource type="Resource" id="Resource_oeg0u"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_33fb0"]
+[sub_resource type="Resource" id="Resource_oxcsv"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6fhly"]
+[sub_resource type="Resource" id="Resource_j41tq"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w0h6b"]
+[sub_resource type="Resource" id="Resource_cxx72"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vengt"]
+[sub_resource type="Resource" id="Resource_d0vxf"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_va188"]
+[sub_resource type="Resource" id="Resource_lokjm"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cs630"]
+[sub_resource type="Resource" id="Resource_2e2q8"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_kwv8q"]
+[sub_resource type="Resource" id="Resource_xhfgf"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0lr83"]
+[sub_resource type="Resource" id="Resource_4txgk"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rmffv"]
+[sub_resource type="Resource" id="Resource_o6i28"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4e1sm"]
+[sub_resource type="Resource" id="Resource_y3x8i"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 13
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wod6o"]
+[sub_resource type="Resource" id="Resource_4sqf7"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_apqhp"]
+[sub_resource type="Resource" id="Resource_6xsl7"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_16rlp"]
+[sub_resource type="Resource" id="Resource_dhin1"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vle68"]
+[sub_resource type="Resource" id="Resource_rd6tj"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_m0f3d"]
+[sub_resource type="Resource" id="Resource_8mbaw"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_njhsm"]
+[sub_resource type="Resource" id="Resource_ve7oh"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gxbi7"]
+[sub_resource type="Resource" id="Resource_07rww"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ucjqf"]
+[sub_resource type="Resource" id="Resource_y567k"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 13
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_j4hse"]
+[sub_resource type="Resource" id="Resource_74h43"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 13
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_q5a0e"]
+[sub_resource type="Resource" id="Resource_jtjl5"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 13
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3y7ga"]
+[sub_resource type="Resource" id="Resource_uqkbs"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 13
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5v23r"]
+[sub_resource type="Resource" id="Resource_gxj1k"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 14
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_l8t1e"]
+[sub_resource type="Resource" id="Resource_rns64"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_nplk3"]
+[sub_resource type="Resource" id="Resource_hlr4g"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rtj6v"]
+[sub_resource type="Resource" id="Resource_3icsm"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7hw4u"]
+[sub_resource type="Resource" id="Resource_uu8rv"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_x1gf0"]
+[sub_resource type="Resource" id="Resource_n38u1"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_oaqkc"]
+[sub_resource type="Resource" id="Resource_gikkw"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_sfb1c"]
+[sub_resource type="Resource" id="Resource_qwl2c"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bxbuy"]
+[sub_resource type="Resource" id="Resource_4fsr5"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_p7xqn"]
+[sub_resource type="Resource" id="Resource_yev5b"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_yqyqn"]
+[sub_resource type="Resource" id="Resource_jrjfv"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_h8e5v"]
+[sub_resource type="Resource" id="Resource_v7joq"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mfge8"]
+[sub_resource type="Resource" id="Resource_4oa64"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_o3sqb"]
+[sub_resource type="Resource" id="Resource_vrw8h"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_sg083"]
+[sub_resource type="Resource" id="Resource_q1bj8"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 14
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ctmgq"]
+[sub_resource type="Resource" id="Resource_gn3so"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 14
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_j2pb0"]
+[sub_resource type="Resource" id="Resource_xp55w"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 14
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cl44m"]
+[sub_resource type="Resource" id="Resource_md3oi"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 14
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_0lb1g"]
+[sub_resource type="Resource" id="Resource_ndxyf"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 14
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_hom1i"]
+[sub_resource type="Resource" id="Resource_4unta"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 14
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_28dnm"]
+[sub_resource type="Resource" id="Resource_rurlo"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 14
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mc1x1"]
+[sub_resource type="Resource" id="Resource_ubblx"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 14
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_xw5ol"]
+[sub_resource type="Resource" id="Resource_vqs1d"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 14
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3cwuf"]
+[sub_resource type="Resource" id="Resource_i8xv2"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 14
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_p7te7"]
+[sub_resource type="Resource" id="Resource_ss5tn"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 14
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_wvhe2"]
+[sub_resource type="Resource" id="Resource_ob4gr"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 14
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_06ctj"]
+[sub_resource type="Resource" id="Resource_k100l"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 14
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_w1w5c"]
+[sub_resource type="Resource" id="Resource_kk2yu"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 14
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gj6kg"]
+[sub_resource type="Resource" id="Resource_0gugl"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 14
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_xb61b"]
+[sub_resource type="Resource" id="Resource_hd2dn"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 15
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tytvf"]
+[sub_resource type="Resource" id="Resource_1hsv0"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rk604"]
+[sub_resource type="Resource" id="Resource_k8jo0"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_2bjgp"]
+[sub_resource type="Resource" id="Resource_ed88m"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mp5x6"]
+[sub_resource type="Resource" id="Resource_3f0qj"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5vfqn"]
+[sub_resource type="Resource" id="Resource_1qmfe"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_5rjy6"]
+[sub_resource type="Resource" id="Resource_al3ge"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_63jp4"]
+[sub_resource type="Resource" id="Resource_h3oui"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_m73oy"]
+[sub_resource type="Resource" id="Resource_00flk"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_s755e"]
+[sub_resource type="Resource" id="Resource_oj62l"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3ewcb"]
+[sub_resource type="Resource" id="Resource_186bc"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_iqam0"]
+[sub_resource type="Resource" id="Resource_oq8oi"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_pmkyw"]
+[sub_resource type="Resource" id="Resource_q1p6q"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_7aosg"]
+[sub_resource type="Resource" id="Resource_uc7b0"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_fb1ej"]
+[sub_resource type="Resource" id="Resource_2slwk"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 15
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_3rq80"]
+[sub_resource type="Resource" id="Resource_hyy5p"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 15
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_6d874"]
+[sub_resource type="Resource" id="Resource_bo5v5"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 15
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mcl8l"]
+[sub_resource type="Resource" id="Resource_854bt"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 15
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_cu37h"]
+[sub_resource type="Resource" id="Resource_uaimd"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 15
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_dulon"]
+[sub_resource type="Resource" id="Resource_l76vy"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 15
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t8ge7"]
+[sub_resource type="Resource" id="Resource_p4xx1"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 15
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_abm67"]
+[sub_resource type="Resource" id="Resource_oygpu"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 15
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_failn"]
+[sub_resource type="Resource" id="Resource_dri1n"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 15
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_mc827"]
+[sub_resource type="Resource" id="Resource_6svk6"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 15
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_pbew5"]
+[sub_resource type="Resource" id="Resource_05g2a"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 15
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_x03d1"]
+[sub_resource type="Resource" id="Resource_jfsh8"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 15
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jawuv"]
+[sub_resource type="Resource" id="Resource_ktlr8"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 15
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_vack5"]
+[sub_resource type="Resource" id="Resource_bjidp"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 15
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_u6a6p"]
+[sub_resource type="Resource" id="Resource_h4umj"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 15
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_10sn4"]
+[sub_resource type="Resource" id="Resource_w1nyg"]
 script = ExtResource("1_lms5k")
 Col = 0
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_duifq"]
+[sub_resource type="Resource" id="Resource_oiaju"]
 script = ExtResource("1_lms5k")
 Col = 1
 Row = 16
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_igf18"]
+[sub_resource type="Resource" id="Resource_5qkcd"]
 script = ExtResource("1_lms5k")
 Col = 2
 Row = 16
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_gjf67"]
+[sub_resource type="Resource" id="Resource_kpsyn"]
 script = ExtResource("1_lms5k")
 Col = 3
 Row = 16
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_aydme"]
+[sub_resource type="Resource" id="Resource_8yjvw"]
 script = ExtResource("1_lms5k")
 Col = 4
 Row = 16
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rkpeb"]
+[sub_resource type="Resource" id="Resource_3tjuk"]
 script = ExtResource("1_lms5k")
 Col = 5
 Row = 16
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_t2cum"]
+[sub_resource type="Resource" id="Resource_jrilr"]
 script = ExtResource("1_lms5k")
 Col = 6
 Row = 16
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_pk6tk"]
+[sub_resource type="Resource" id="Resource_xjj84"]
 script = ExtResource("1_lms5k")
 Col = 7
 Row = 16
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_x0dbo"]
+[sub_resource type="Resource" id="Resource_5npcy"]
 script = ExtResource("1_lms5k")
 Col = 8
 Row = 16
 Color = Color(0.247059, 0.670588, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_djao4"]
+[sub_resource type="Resource" id="Resource_aa0ur"]
 script = ExtResource("1_lms5k")
 Col = 9
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tcnff"]
+[sub_resource type="Resource" id="Resource_5hd6j"]
 script = ExtResource("1_lms5k")
 Col = 10
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_d4nd8"]
+[sub_resource type="Resource" id="Resource_fthuj"]
 script = ExtResource("1_lms5k")
 Col = 11
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_bpyri"]
+[sub_resource type="Resource" id="Resource_ul21s"]
 script = ExtResource("1_lms5k")
 Col = 12
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_sta85"]
+[sub_resource type="Resource" id="Resource_5r8rp"]
 script = ExtResource("1_lms5k")
 Col = 13
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_lmsli"]
+[sub_resource type="Resource" id="Resource_j1jpx"]
 script = ExtResource("1_lms5k")
 Col = 14
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jycvo"]
+[sub_resource type="Resource" id="Resource_pxksb"]
 script = ExtResource("1_lms5k")
 Col = 15
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_krnlb"]
+[sub_resource type="Resource" id="Resource_r31at"]
 script = ExtResource("1_lms5k")
 Col = 16
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_skk6a"]
+[sub_resource type="Resource" id="Resource_ywfy1"]
 script = ExtResource("1_lms5k")
 Col = 17
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_4rscb"]
+[sub_resource type="Resource" id="Resource_0r8cl"]
 script = ExtResource("1_lms5k")
 Col = 18
 Row = 16
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_qs17e"]
+[sub_resource type="Resource" id="Resource_uv0t6"]
 script = ExtResource("1_lms5k")
 Col = 19
 Row = 16
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_k7x41"]
+[sub_resource type="Resource" id="Resource_x4tv7"]
 script = ExtResource("1_lms5k")
 Col = 20
 Row = 16
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_71rjf"]
+[sub_resource type="Resource" id="Resource_2d6hg"]
 script = ExtResource("1_lms5k")
 Col = 21
 Row = 16
 Color = Color(1, 1, 1, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_tcjgf"]
+[sub_resource type="Resource" id="Resource_rxl18"]
 script = ExtResource("1_lms5k")
 Col = 22
 Row = 16
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_px6vd"]
+[sub_resource type="Resource" id="Resource_m7fyu"]
 script = ExtResource("1_lms5k")
 Col = 23
 Row = 16
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_uj6yh"]
+[sub_resource type="Resource" id="Resource_imbgn"]
 script = ExtResource("1_lms5k")
 Col = 24
 Row = 16
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_ep7s8"]
+[sub_resource type="Resource" id="Resource_xr8nc"]
 script = ExtResource("1_lms5k")
 Col = 25
 Row = 16
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_pbohd"]
+[sub_resource type="Resource" id="Resource_rjqgo"]
 script = ExtResource("1_lms5k")
 Col = 26
 Row = 16
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jmfwk"]
+[sub_resource type="Resource" id="Resource_0d6y3"]
 script = ExtResource("1_lms5k")
 Col = 27
 Row = 16
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_jvpbp"]
+[sub_resource type="Resource" id="Resource_ivcey"]
 script = ExtResource("1_lms5k")
 Col = 28
 Row = 16
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 ObjectId = 0
 
-[sub_resource type="Resource" id="Resource_rsjko"]
+[sub_resource type="Resource" id="Resource_pdaff"]
 script = ExtResource("2_smlxi")
 MoveCost = 0
-Visualizaiton = Color(0.196078, 0.364706, 0.858824, 1)
+Visualizaiton = Color(0.529412, 0.866667, 0.921569, 1)
 
-[sub_resource type="Resource" id="Resource_h7viv"]
+[sub_resource type="Resource" id="Resource_gef0r"]
 script = ExtResource("2_smlxi")
 MoveCost = 0
-Visualizaiton = Color(0.247059, 0.670588, 1, 1)
-
-[sub_resource type="Resource" id="Resource_64mmu"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0, 0.733333, 0, 1)
-
-[sub_resource type="Resource" id="Resource_qoeu2"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0.101961, 0.478431, 0.101961, 1)
-
-[sub_resource type="Resource" id="Resource_1d8t0"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0.466667, 0.466667, 0.466667, 1)
-
-[sub_resource type="Resource" id="Resource_f6hey"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0.419608, 0.556863, 0.137255, 1)
-
-[sub_resource type="Resource" id="Resource_e3eu1"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0.941176, 0.901961, 0.54902, 1)
-
-[sub_resource type="Resource" id="Resource_8boio"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0.498039, 1, 0, 1)
-
-[sub_resource type="Resource" id="Resource_6dnmt"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0.803922, 0.521569, 0.247059, 1)
-
-[sub_resource type="Resource" id="Resource_m7j7q"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0.133333, 0.545098, 0.4, 1)
-
-[sub_resource type="Resource" id="Resource_4ui7y"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(1, 0.843137, 0, 1)
+Visualizaiton = Color(0.27451, 0.509804, 0.705882, 1)
 
 [sub_resource type="Resource" id="Resource_njkr0"]
 script = ExtResource("2_smlxi")
 MoveCost = 1
 Visualizaiton = Color(0.247059, 0.670588, 0.666667, 1)
 
-[sub_resource type="Resource" id="Resource_gef0r"]
+[sub_resource type="Resource" id="Resource_4ui7y"]
 script = ExtResource("2_smlxi")
 MoveCost = 1
-Visualizaiton = Color(0.27451, 0.509804, 0.705882, 1)
+Visualizaiton = Color(1, 0.843137, 0, 1)
+
+[sub_resource type="Resource" id="Resource_m7j7q"]
+script = ExtResource("2_smlxi")
+MoveCost = 1
+Visualizaiton = Color(0.133333, 0.545098, 0.4, 1)
+
+[sub_resource type="Resource" id="Resource_6dnmt"]
+script = ExtResource("2_smlxi")
+MoveCost = 1
+Visualizaiton = Color(0.803922, 0.521569, 0.247059, 1)
+
+[sub_resource type="Resource" id="Resource_8boio"]
+script = ExtResource("2_smlxi")
+MoveCost = 1
+Visualizaiton = Color(0.498039, 1, 0, 1)
+
+[sub_resource type="Resource" id="Resource_e3eu1"]
+script = ExtResource("2_smlxi")
+MoveCost = 1
+Visualizaiton = Color(0.941176, 0.901961, 0.54902, 1)
+
+[sub_resource type="Resource" id="Resource_f6hey"]
+script = ExtResource("2_smlxi")
+MoveCost = 1
+Visualizaiton = Color(0.419608, 0.556863, 0.137255, 1)
+
+[sub_resource type="Resource" id="Resource_1d8t0"]
+script = ExtResource("2_smlxi")
+MoveCost = 1
+Visualizaiton = Color(0.466667, 0.466667, 0.466667, 1)
+
+[sub_resource type="Resource" id="Resource_qoeu2"]
+script = ExtResource("2_smlxi")
+MoveCost = 1
+Visualizaiton = Color(0.101961, 0.478431, 0.101961, 1)
+
+[sub_resource type="Resource" id="Resource_64mmu"]
+script = ExtResource("2_smlxi")
+MoveCost = 1
+Visualizaiton = Color(0, 0.733333, 0, 1)
+
+[sub_resource type="Resource" id="Resource_h7viv"]
+script = ExtResource("2_smlxi")
+MoveCost = 0
+Visualizaiton = Color(0.247059, 0.670588, 1, 1)
+
+[sub_resource type="Resource" id="Resource_rsjko"]
+script = ExtResource("2_smlxi")
+MoveCost = 0
+Visualizaiton = Color(0.196078, 0.364706, 0.858824, 1)
 
 [sub_resource type="Resource" id="Resource_s47tm"]
 script = ExtResource("2_smlxi")
 MoveCost = 1
 Visualizaiton = Color(1, 1, 1, 1)
 
-[sub_resource type="Resource" id="Resource_pdaff"]
-script = ExtResource("2_smlxi")
-MoveCost = 1
-Visualizaiton = Color(0.529412, 0.866667, 0.921569, 1)
-
 [sub_resource type="Resource" id="Resource_50dp4"]
 script = ExtResource("3_ng25x")
 HexSettings = {
-Color(0.196078, 0.364706, 0.858824, 1): SubResource("Resource_rsjko"),
-Color(0.247059, 0.670588, 1, 1): SubResource("Resource_h7viv"),
-Color(0, 0.733333, 0, 1): SubResource("Resource_64mmu"),
-Color(0.101961, 0.478431, 0.101961, 1): SubResource("Resource_qoeu2"),
-Color(0.466667, 0.466667, 0.466667, 1): SubResource("Resource_1d8t0"),
-Color(0.419608, 0.556863, 0.137255, 1): SubResource("Resource_f6hey"),
-Color(0.941176, 0.901961, 0.54902, 1): SubResource("Resource_e3eu1"),
-Color(0.498039, 1, 0, 1): SubResource("Resource_8boio"),
-Color(0.803922, 0.521569, 0.247059, 1): SubResource("Resource_6dnmt"),
-Color(0.133333, 0.545098, 0.4, 1): SubResource("Resource_m7j7q"),
-Color(1, 0.843137, 0, 1): SubResource("Resource_4ui7y"),
-Color(0.247059, 0.670588, 0.666667, 1): SubResource("Resource_njkr0"),
+Color(0.529412, 0.866667, 0.921569, 1): SubResource("Resource_pdaff"),
 Color(0.27451, 0.509804, 0.705882, 1): SubResource("Resource_gef0r"),
-Color(1, 1, 1, 1): SubResource("Resource_s47tm"),
-Color(0.529412, 0.866667, 0.921569, 1): SubResource("Resource_pdaff")
+Color(0.247059, 0.670588, 0.666667, 1): SubResource("Resource_njkr0"),
+Color(1, 0.843137, 0, 1): SubResource("Resource_4ui7y"),
+Color(0.133333, 0.545098, 0.4, 1): SubResource("Resource_m7j7q"),
+Color(0.803922, 0.521569, 0.247059, 1): SubResource("Resource_6dnmt"),
+Color(0.498039, 1, 0, 1): SubResource("Resource_8boio"),
+Color(0.941176, 0.901961, 0.54902, 1): SubResource("Resource_e3eu1"),
+Color(0.419608, 0.556863, 0.137255, 1): SubResource("Resource_f6hey"),
+Color(0.466667, 0.466667, 0.466667, 1): SubResource("Resource_1d8t0"),
+Color(0.101961, 0.478431, 0.101961, 1): SubResource("Resource_qoeu2"),
+Color(0, 0.733333, 0, 1): SubResource("Resource_64mmu"),
+Color(0.247059, 0.670588, 1, 1): SubResource("Resource_h7viv"),
+Color(0.196078, 0.364706, 0.858824, 1): SubResource("Resource_rsjko"),
+Color(1, 1, 1, 1): SubResource("Resource_s47tm")
 }
 
 [resource]
@@ -3557,5 +3557,5 @@ Title = "testowy tytuł"
 Description = "testowy opis"
 Cols = 29
 Rows = 17
-HexList = [SubResource("Resource_s2vse"), SubResource("Resource_kwj6u"), SubResource("Resource_8q84q"), SubResource("Resource_sej60"), SubResource("Resource_vdmxf"), SubResource("Resource_5s86q"), SubResource("Resource_q6nob"), SubResource("Resource_qy4wm"), SubResource("Resource_8cshd"), SubResource("Resource_safgp"), SubResource("Resource_kb4n6"), SubResource("Resource_w4inc"), SubResource("Resource_0l530"), SubResource("Resource_j1ydb"), SubResource("Resource_povcj"), SubResource("Resource_mnmqo"), SubResource("Resource_h66lp"), SubResource("Resource_cl1ne"), SubResource("Resource_16m2u"), SubResource("Resource_ogvmm"), SubResource("Resource_gvsnl"), SubResource("Resource_fr4gw"), SubResource("Resource_mlhl0"), SubResource("Resource_4h3jm"), SubResource("Resource_2ma7k"), SubResource("Resource_cjcd6"), SubResource("Resource_kfuqw"), SubResource("Resource_31svb"), SubResource("Resource_xa52f"), SubResource("Resource_t85qy"), SubResource("Resource_nuimj"), SubResource("Resource_gimts"), SubResource("Resource_mk2xl"), SubResource("Resource_qwygc"), SubResource("Resource_0lo28"), SubResource("Resource_fyckh"), SubResource("Resource_6q33i"), SubResource("Resource_lthcg"), SubResource("Resource_m1kiw"), SubResource("Resource_4ldek"), SubResource("Resource_7wduo"), SubResource("Resource_n0qn8"), SubResource("Resource_aow25"), SubResource("Resource_mauqr"), SubResource("Resource_wweci"), SubResource("Resource_uq12m"), SubResource("Resource_6y1pe"), SubResource("Resource_t2jug"), SubResource("Resource_n67nx"), SubResource("Resource_cvu6g"), SubResource("Resource_7hw6p"), SubResource("Resource_rx3xx"), SubResource("Resource_4u7kc"), SubResource("Resource_cpkjq"), SubResource("Resource_na3q6"), SubResource("Resource_bpgv5"), SubResource("Resource_a0gqs"), SubResource("Resource_g05dl"), SubResource("Resource_w508r"), SubResource("Resource_map0o"), SubResource("Resource_t4be0"), SubResource("Resource_vw1pi"), SubResource("Resource_6y2fp"), SubResource("Resource_g0aor"), SubResource("Resource_gxwxf"), SubResource("Resource_pwel4"), SubResource("Resource_mryfr"), SubResource("Resource_s7d70"), SubResource("Resource_4sfi6"), SubResource("Resource_pjsqd"), SubResource("Resource_iub7j"), SubResource("Resource_2ic1q"), SubResource("Resource_8r7eb"), SubResource("Resource_dgf37"), SubResource("Resource_kfgq1"), SubResource("Resource_rnhqn"), SubResource("Resource_ylwpy"), SubResource("Resource_i3ruf"), SubResource("Resource_7mglw"), SubResource("Resource_rru18"), SubResource("Resource_jwi2n"), SubResource("Resource_aa78c"), SubResource("Resource_nikt0"), SubResource("Resource_ssqmi"), SubResource("Resource_1kef3"), SubResource("Resource_ox42l"), SubResource("Resource_uo4w8"), SubResource("Resource_em14v"), SubResource("Resource_ap383"), SubResource("Resource_wa36b"), SubResource("Resource_e5o2y"), SubResource("Resource_cbfwv"), SubResource("Resource_ore7k"), SubResource("Resource_yka2p"), SubResource("Resource_w5mri"), SubResource("Resource_wsvtx"), SubResource("Resource_ff0i4"), SubResource("Resource_jdv6q"), SubResource("Resource_ss0d7"), SubResource("Resource_7aw0f"), SubResource("Resource_n1wtm"), SubResource("Resource_mgufl"), SubResource("Resource_6fvub"), SubResource("Resource_f6x5f"), SubResource("Resource_31t5a"), SubResource("Resource_d65fx"), SubResource("Resource_ijbls"), SubResource("Resource_ukk7o"), SubResource("Resource_eoiwo"), SubResource("Resource_e6mcm"), SubResource("Resource_vedte"), SubResource("Resource_add7j"), SubResource("Resource_a1nwt"), SubResource("Resource_imppe"), SubResource("Resource_mkipi"), SubResource("Resource_2x0e2"), SubResource("Resource_t6cqq"), SubResource("Resource_40v3t"), SubResource("Resource_hhqqf"), SubResource("Resource_61kmn"), SubResource("Resource_t1t5s"), SubResource("Resource_eiydv"), SubResource("Resource_vh6t3"), SubResource("Resource_wswsu"), SubResource("Resource_r3xdy"), SubResource("Resource_tyqw2"), SubResource("Resource_ynoru"), SubResource("Resource_p6r43"), SubResource("Resource_lfhey"), SubResource("Resource_hxfin"), SubResource("Resource_h58q3"), SubResource("Resource_nsm1f"), SubResource("Resource_caqmy"), SubResource("Resource_ujccb"), SubResource("Resource_v4upn"), SubResource("Resource_o61sp"), SubResource("Resource_ogn8p"), SubResource("Resource_1twmv"), SubResource("Resource_vwijj"), SubResource("Resource_a6x7o"), SubResource("Resource_t8xhc"), SubResource("Resource_d1bi4"), SubResource("Resource_jy5xo"), SubResource("Resource_nh7id"), SubResource("Resource_wkf5k"), SubResource("Resource_51djq"), SubResource("Resource_0bwjp"), SubResource("Resource_ycvup"), SubResource("Resource_52e54"), SubResource("Resource_w3s8u"), SubResource("Resource_th2lg"), SubResource("Resource_vtj7w"), SubResource("Resource_3g2wv"), SubResource("Resource_vug32"), SubResource("Resource_6l0ba"), SubResource("Resource_s6qg7"), SubResource("Resource_44pcv"), SubResource("Resource_gsjwo"), SubResource("Resource_ij3di"), SubResource("Resource_fjs7q"), SubResource("Resource_jq0js"), SubResource("Resource_4t8u4"), SubResource("Resource_jdssb"), SubResource("Resource_hb767"), SubResource("Resource_u0yi5"), SubResource("Resource_wy5m6"), SubResource("Resource_qxqcu"), SubResource("Resource_shlvx"), SubResource("Resource_bbj3p"), SubResource("Resource_e512l"), SubResource("Resource_05ypp"), SubResource("Resource_2rbe7"), SubResource("Resource_lpdbw"), SubResource("Resource_myc6g"), SubResource("Resource_ly8tl"), SubResource("Resource_8jaay"), SubResource("Resource_ay225"), SubResource("Resource_f4vsd"), SubResource("Resource_77d3a"), SubResource("Resource_giv3s"), SubResource("Resource_ux57u"), SubResource("Resource_tglog"), SubResource("Resource_bqnaw"), SubResource("Resource_g7i81"), SubResource("Resource_bywf4"), SubResource("Resource_jw8fi"), SubResource("Resource_4fwup"), SubResource("Resource_bh3q0"), SubResource("Resource_oegc5"), SubResource("Resource_roior"), SubResource("Resource_enp7d"), SubResource("Resource_vk78h"), SubResource("Resource_7q1wo"), SubResource("Resource_3n5aw"), SubResource("Resource_c8fbl"), SubResource("Resource_phah1"), SubResource("Resource_leilg"), SubResource("Resource_sey5i"), SubResource("Resource_8xmjr"), SubResource("Resource_4d32o"), SubResource("Resource_ohpn8"), SubResource("Resource_v0obe"), SubResource("Resource_jptqs"), SubResource("Resource_u4nu3"), SubResource("Resource_iix1s"), SubResource("Resource_s8qaw"), SubResource("Resource_i2jlt"), SubResource("Resource_0188v"), SubResource("Resource_vsvbn"), SubResource("Resource_6escg"), SubResource("Resource_kyeha"), SubResource("Resource_3lj0c"), SubResource("Resource_exs73"), SubResource("Resource_2nvdw"), SubResource("Resource_6fqy5"), SubResource("Resource_5ntoa"), SubResource("Resource_3rm54"), SubResource("Resource_6qsty"), SubResource("Resource_5acyg"), SubResource("Resource_q3pdx"), SubResource("Resource_u6dhq"), SubResource("Resource_3f3xp"), SubResource("Resource_tye3i"), SubResource("Resource_wstdq"), SubResource("Resource_omrg8"), SubResource("Resource_fdw30"), SubResource("Resource_euekh"), SubResource("Resource_fbplk"), SubResource("Resource_0roh2"), SubResource("Resource_igmd1"), SubResource("Resource_7txim"), SubResource("Resource_tpmnv"), SubResource("Resource_fsvjy"), SubResource("Resource_nsgh8"), SubResource("Resource_gdrs8"), SubResource("Resource_gtp2e"), SubResource("Resource_cq8ur"), SubResource("Resource_v6e28"), SubResource("Resource_vduq4"), SubResource("Resource_fikxk"), SubResource("Resource_5ayec"), SubResource("Resource_28xcs"), SubResource("Resource_5lwnr"), SubResource("Resource_jcqyv"), SubResource("Resource_3qewk"), SubResource("Resource_725q6"), SubResource("Resource_rwumm"), SubResource("Resource_rbh2x"), SubResource("Resource_wpxon"), SubResource("Resource_1urb4"), SubResource("Resource_hrvao"), SubResource("Resource_mc5jt"), SubResource("Resource_urlo3"), SubResource("Resource_rifwp"), SubResource("Resource_s5cmp"), SubResource("Resource_hdinq"), SubResource("Resource_1m4ps"), SubResource("Resource_nmqqj"), SubResource("Resource_j32fq"), SubResource("Resource_8id11"), SubResource("Resource_hb5v0"), SubResource("Resource_pj6bl"), SubResource("Resource_746to"), SubResource("Resource_2ify6"), SubResource("Resource_yeeiu"), SubResource("Resource_jc8ar"), SubResource("Resource_lpegt"), SubResource("Resource_p4nqb"), SubResource("Resource_qskuy"), SubResource("Resource_sbh7f"), SubResource("Resource_ai2bj"), SubResource("Resource_1e0hq"), SubResource("Resource_86rvg"), SubResource("Resource_w041f"), SubResource("Resource_p0ke8"), SubResource("Resource_yj8dy"), SubResource("Resource_c2xwo"), SubResource("Resource_cr8kw"), SubResource("Resource_nidst"), SubResource("Resource_lncti"), SubResource("Resource_a7vlq"), SubResource("Resource_jjshv"), SubResource("Resource_w0j2v"), SubResource("Resource_kpto7"), SubResource("Resource_plmrf"), SubResource("Resource_b7ti0"), SubResource("Resource_0pigd"), SubResource("Resource_tllcb"), SubResource("Resource_03b41"), SubResource("Resource_2np7b"), SubResource("Resource_iyavh"), SubResource("Resource_ffjru"), SubResource("Resource_yemxx"), SubResource("Resource_hmrb1"), SubResource("Resource_yq4lh"), SubResource("Resource_em36r"), SubResource("Resource_klafv"), SubResource("Resource_iovwa"), SubResource("Resource_ebt47"), SubResource("Resource_7l82d"), SubResource("Resource_s5ne0"), SubResource("Resource_1aujg"), SubResource("Resource_m2fhk"), SubResource("Resource_0x813"), SubResource("Resource_sehov"), SubResource("Resource_vkieq"), SubResource("Resource_hjstf"), SubResource("Resource_qq8ei"), SubResource("Resource_4th4c"), SubResource("Resource_ihasb"), SubResource("Resource_cjwvg"), SubResource("Resource_o8ri5"), SubResource("Resource_ut7ny"), SubResource("Resource_3owpi"), SubResource("Resource_j2spq"), SubResource("Resource_sl5rd"), SubResource("Resource_uuhel"), SubResource("Resource_kfvil"), SubResource("Resource_w0yni"), SubResource("Resource_h2rom"), SubResource("Resource_mgxx3"), SubResource("Resource_53xj6"), SubResource("Resource_bq5rn"), SubResource("Resource_2sglh"), SubResource("Resource_4qg8l"), SubResource("Resource_t7v40"), SubResource("Resource_dr5a3"), SubResource("Resource_m1nql"), SubResource("Resource_d5xpf"), SubResource("Resource_skv4p"), SubResource("Resource_v2atl"), SubResource("Resource_j4nlm"), SubResource("Resource_4nfji"), SubResource("Resource_cqlnk"), SubResource("Resource_f4mv8"), SubResource("Resource_uljr2"), SubResource("Resource_ew3u1"), SubResource("Resource_en7c4"), SubResource("Resource_656gf"), SubResource("Resource_hwpc2"), SubResource("Resource_ag2td"), SubResource("Resource_5fxrh"), SubResource("Resource_6w0ka"), SubResource("Resource_ra3ut"), SubResource("Resource_ojo53"), SubResource("Resource_twe7q"), SubResource("Resource_6r2on"), SubResource("Resource_e6eai"), SubResource("Resource_tnxed"), SubResource("Resource_en3te"), SubResource("Resource_j2280"), SubResource("Resource_a05of"), SubResource("Resource_7ygne"), SubResource("Resource_iouir"), SubResource("Resource_qylsh"), SubResource("Resource_0537h"), SubResource("Resource_nnl8l"), SubResource("Resource_t2bcw"), SubResource("Resource_jo1rr"), SubResource("Resource_g2xro"), SubResource("Resource_8hogs"), SubResource("Resource_etoso"), SubResource("Resource_lqcjr"), SubResource("Resource_3llry"), SubResource("Resource_shc2t"), SubResource("Resource_ssogy"), SubResource("Resource_qfo3r"), SubResource("Resource_nqxgt"), SubResource("Resource_c51af"), SubResource("Resource_387ov"), SubResource("Resource_2gogc"), SubResource("Resource_xq7wd"), SubResource("Resource_oxekp"), SubResource("Resource_ogk5q"), SubResource("Resource_hsya6"), SubResource("Resource_t3kes"), SubResource("Resource_bogeu"), SubResource("Resource_xjsix"), SubResource("Resource_pdqnb"), SubResource("Resource_1cq5h"), SubResource("Resource_8na28"), SubResource("Resource_a7mga"), SubResource("Resource_x5ad5"), SubResource("Resource_h8s4q"), SubResource("Resource_gsqsr"), SubResource("Resource_33fb0"), SubResource("Resource_6fhly"), SubResource("Resource_w0h6b"), SubResource("Resource_vengt"), SubResource("Resource_va188"), SubResource("Resource_cs630"), SubResource("Resource_kwv8q"), SubResource("Resource_0lr83"), SubResource("Resource_rmffv"), SubResource("Resource_4e1sm"), SubResource("Resource_wod6o"), SubResource("Resource_apqhp"), SubResource("Resource_16rlp"), SubResource("Resource_vle68"), SubResource("Resource_m0f3d"), SubResource("Resource_njhsm"), SubResource("Resource_gxbi7"), SubResource("Resource_ucjqf"), SubResource("Resource_j4hse"), SubResource("Resource_q5a0e"), SubResource("Resource_3y7ga"), SubResource("Resource_5v23r"), SubResource("Resource_l8t1e"), SubResource("Resource_nplk3"), SubResource("Resource_rtj6v"), SubResource("Resource_7hw4u"), SubResource("Resource_x1gf0"), SubResource("Resource_oaqkc"), SubResource("Resource_sfb1c"), SubResource("Resource_bxbuy"), SubResource("Resource_p7xqn"), SubResource("Resource_yqyqn"), SubResource("Resource_h8e5v"), SubResource("Resource_mfge8"), SubResource("Resource_o3sqb"), SubResource("Resource_sg083"), SubResource("Resource_ctmgq"), SubResource("Resource_j2pb0"), SubResource("Resource_cl44m"), SubResource("Resource_0lb1g"), SubResource("Resource_hom1i"), SubResource("Resource_28dnm"), SubResource("Resource_mc1x1"), SubResource("Resource_xw5ol"), SubResource("Resource_3cwuf"), SubResource("Resource_p7te7"), SubResource("Resource_wvhe2"), SubResource("Resource_06ctj"), SubResource("Resource_w1w5c"), SubResource("Resource_gj6kg"), SubResource("Resource_xb61b"), SubResource("Resource_tytvf"), SubResource("Resource_rk604"), SubResource("Resource_2bjgp"), SubResource("Resource_mp5x6"), SubResource("Resource_5vfqn"), SubResource("Resource_5rjy6"), SubResource("Resource_63jp4"), SubResource("Resource_m73oy"), SubResource("Resource_s755e"), SubResource("Resource_3ewcb"), SubResource("Resource_iqam0"), SubResource("Resource_pmkyw"), SubResource("Resource_7aosg"), SubResource("Resource_fb1ej"), SubResource("Resource_3rq80"), SubResource("Resource_6d874"), SubResource("Resource_mcl8l"), SubResource("Resource_cu37h"), SubResource("Resource_dulon"), SubResource("Resource_t8ge7"), SubResource("Resource_abm67"), SubResource("Resource_failn"), SubResource("Resource_mc827"), SubResource("Resource_pbew5"), SubResource("Resource_x03d1"), SubResource("Resource_jawuv"), SubResource("Resource_vack5"), SubResource("Resource_u6a6p"), SubResource("Resource_10sn4"), SubResource("Resource_duifq"), SubResource("Resource_igf18"), SubResource("Resource_gjf67"), SubResource("Resource_aydme"), SubResource("Resource_rkpeb"), SubResource("Resource_t2cum"), SubResource("Resource_pk6tk"), SubResource("Resource_x0dbo"), SubResource("Resource_djao4"), SubResource("Resource_tcnff"), SubResource("Resource_d4nd8"), SubResource("Resource_bpyri"), SubResource("Resource_sta85"), SubResource("Resource_lmsli"), SubResource("Resource_jycvo"), SubResource("Resource_krnlb"), SubResource("Resource_skk6a"), SubResource("Resource_4rscb"), SubResource("Resource_qs17e"), SubResource("Resource_k7x41"), SubResource("Resource_71rjf"), SubResource("Resource_tcjgf"), SubResource("Resource_px6vd"), SubResource("Resource_uj6yh"), SubResource("Resource_ep7s8"), SubResource("Resource_pbohd"), SubResource("Resource_jmfwk"), SubResource("Resource_jvpbp")]
+HexList = [SubResource("Resource_5hagq"), SubResource("Resource_2s2gj"), SubResource("Resource_t3usq"), SubResource("Resource_x3vue"), SubResource("Resource_hybd2"), SubResource("Resource_3f3uw"), SubResource("Resource_cem4n"), SubResource("Resource_dveey"), SubResource("Resource_3xged"), SubResource("Resource_80ek4"), SubResource("Resource_tqt8t"), SubResource("Resource_4rh0e"), SubResource("Resource_xnmed"), SubResource("Resource_pbmw8"), SubResource("Resource_8tgqr"), SubResource("Resource_gfdtb"), SubResource("Resource_uw3q1"), SubResource("Resource_k0sts"), SubResource("Resource_1vq2w"), SubResource("Resource_4o4i6"), SubResource("Resource_jn80r"), SubResource("Resource_wvo4w"), SubResource("Resource_cqgn0"), SubResource("Resource_qn18g"), SubResource("Resource_kcap5"), SubResource("Resource_rms7v"), SubResource("Resource_avoxv"), SubResource("Resource_pfcpr"), SubResource("Resource_ftq0g"), SubResource("Resource_ioe16"), SubResource("Resource_d0dxf"), SubResource("Resource_2bcba"), SubResource("Resource_cstao"), SubResource("Resource_n0mo3"), SubResource("Resource_2ea3j"), SubResource("Resource_f4lxu"), SubResource("Resource_i12dd"), SubResource("Resource_jakn4"), SubResource("Resource_smepe"), SubResource("Resource_si0u0"), SubResource("Resource_t72j1"), SubResource("Resource_ioyyi"), SubResource("Resource_irfga"), SubResource("Resource_r23l3"), SubResource("Resource_xf71i"), SubResource("Resource_ds083"), SubResource("Resource_vgy2w"), SubResource("Resource_jicbq"), SubResource("Resource_jkiyg"), SubResource("Resource_r0ncd"), SubResource("Resource_fpo2k"), SubResource("Resource_vq1ll"), SubResource("Resource_ean3k"), SubResource("Resource_m3ynt"), SubResource("Resource_0in0p"), SubResource("Resource_7lue7"), SubResource("Resource_wct36"), SubResource("Resource_fj8vn"), SubResource("Resource_lxxfq"), SubResource("Resource_1wybl"), SubResource("Resource_n84ou"), SubResource("Resource_6f3vj"), SubResource("Resource_8owfn"), SubResource("Resource_fhfq5"), SubResource("Resource_xtk48"), SubResource("Resource_egidq"), SubResource("Resource_4xll1"), SubResource("Resource_myakf"), SubResource("Resource_17orn"), SubResource("Resource_oob66"), SubResource("Resource_0kcb2"), SubResource("Resource_chuhu"), SubResource("Resource_mpbsy"), SubResource("Resource_vacdy"), SubResource("Resource_7l2nm"), SubResource("Resource_eljew"), SubResource("Resource_n71ug"), SubResource("Resource_qffyr"), SubResource("Resource_yknop"), SubResource("Resource_puc8j"), SubResource("Resource_w6plp"), SubResource("Resource_wti0d"), SubResource("Resource_g37t1"), SubResource("Resource_bom8o"), SubResource("Resource_2hkpn"), SubResource("Resource_rnpbv"), SubResource("Resource_pxnkk"), SubResource("Resource_8aeif"), SubResource("Resource_fr2ss"), SubResource("Resource_74v5g"), SubResource("Resource_re8aj"), SubResource("Resource_63c0m"), SubResource("Resource_wnkhi"), SubResource("Resource_nsp2e"), SubResource("Resource_dh4kx"), SubResource("Resource_1u5wr"), SubResource("Resource_idymk"), SubResource("Resource_wxd3g"), SubResource("Resource_53l5t"), SubResource("Resource_qxxsl"), SubResource("Resource_8ya16"), SubResource("Resource_asy4e"), SubResource("Resource_b5mlv"), SubResource("Resource_rc8i0"), SubResource("Resource_s2mvr"), SubResource("Resource_vgxaf"), SubResource("Resource_su06i"), SubResource("Resource_8fsy4"), SubResource("Resource_fbdf0"), SubResource("Resource_o7rw0"), SubResource("Resource_268b1"), SubResource("Resource_uahua"), SubResource("Resource_fjckq"), SubResource("Resource_vaam1"), SubResource("Resource_iqquh"), SubResource("Resource_nipbj"), SubResource("Resource_na8tg"), SubResource("Resource_amh0l"), SubResource("Resource_rdfbr"), SubResource("Resource_lq1c7"), SubResource("Resource_15442"), SubResource("Resource_lnwnq"), SubResource("Resource_apdxm"), SubResource("Resource_jhsbu"), SubResource("Resource_3hqon"), SubResource("Resource_xdgyx"), SubResource("Resource_xr07u"), SubResource("Resource_vq0p2"), SubResource("Resource_hm04q"), SubResource("Resource_ytali"), SubResource("Resource_0idxc"), SubResource("Resource_u0h6u"), SubResource("Resource_xuarm"), SubResource("Resource_2lk6g"), SubResource("Resource_37fh2"), SubResource("Resource_uyhml"), SubResource("Resource_8ebhi"), SubResource("Resource_ojoc6"), SubResource("Resource_xxwwb"), SubResource("Resource_fuqdk"), SubResource("Resource_xw0xj"), SubResource("Resource_jibvc"), SubResource("Resource_ago3k"), SubResource("Resource_pv4xh"), SubResource("Resource_dkbnd"), SubResource("Resource_d25vc"), SubResource("Resource_7kee3"), SubResource("Resource_vd0qf"), SubResource("Resource_dx5wx"), SubResource("Resource_eem1m"), SubResource("Resource_ojamr"), SubResource("Resource_vhwnb"), SubResource("Resource_ltln6"), SubResource("Resource_r4ja4"), SubResource("Resource_vb8li"), SubResource("Resource_01b5k"), SubResource("Resource_4wulx"), SubResource("Resource_u5w6t"), SubResource("Resource_pmddf"), SubResource("Resource_rfsmc"), SubResource("Resource_ccefx"), SubResource("Resource_n0kpk"), SubResource("Resource_smelh"), SubResource("Resource_1g1dt"), SubResource("Resource_gpg6b"), SubResource("Resource_1pofb"), SubResource("Resource_ii8hs"), SubResource("Resource_imnh0"), SubResource("Resource_xx0lh"), SubResource("Resource_yxklm"), SubResource("Resource_pmhh5"), SubResource("Resource_tkxf0"), SubResource("Resource_8hkme"), SubResource("Resource_abc01"), SubResource("Resource_i7ba2"), SubResource("Resource_2q4ky"), SubResource("Resource_11slq"), SubResource("Resource_5tkks"), SubResource("Resource_nx1a5"), SubResource("Resource_f6fwa"), SubResource("Resource_dwfhb"), SubResource("Resource_3r16a"), SubResource("Resource_drf83"), SubResource("Resource_wok3l"), SubResource("Resource_n5qe3"), SubResource("Resource_fnm3q"), SubResource("Resource_f5mb0"), SubResource("Resource_prs2h"), SubResource("Resource_uorgu"), SubResource("Resource_cx0eh"), SubResource("Resource_bs14f"), SubResource("Resource_lhccr"), SubResource("Resource_qqw7a"), SubResource("Resource_2k4cf"), SubResource("Resource_d2yib"), SubResource("Resource_yfr7k"), SubResource("Resource_4g2ad"), SubResource("Resource_wi18c"), SubResource("Resource_am56w"), SubResource("Resource_25v0g"), SubResource("Resource_a5rd4"), SubResource("Resource_ghmpv"), SubResource("Resource_j5owe"), SubResource("Resource_ut2eb"), SubResource("Resource_85oe4"), SubResource("Resource_mkv8i"), SubResource("Resource_femvx"), SubResource("Resource_kc3ea"), SubResource("Resource_p3fxy"), SubResource("Resource_16l36"), SubResource("Resource_ibljr"), SubResource("Resource_6befi"), SubResource("Resource_tvor1"), SubResource("Resource_xoy7i"), SubResource("Resource_kkqlp"), SubResource("Resource_lw0aq"), SubResource("Resource_8nboh"), SubResource("Resource_385bj"), SubResource("Resource_yn8dh"), SubResource("Resource_vxw0t"), SubResource("Resource_fbn5y"), SubResource("Resource_r0fpr"), SubResource("Resource_b0f7b"), SubResource("Resource_wophr"), SubResource("Resource_bfw33"), SubResource("Resource_hu27o"), SubResource("Resource_xysht"), SubResource("Resource_k8cnt"), SubResource("Resource_la2k3"), SubResource("Resource_7qnv3"), SubResource("Resource_sto1p"), SubResource("Resource_ns66f"), SubResource("Resource_pyytj"), SubResource("Resource_mfsau"), SubResource("Resource_ehdc5"), SubResource("Resource_708my"), SubResource("Resource_er84p"), SubResource("Resource_ydwd1"), SubResource("Resource_6eed2"), SubResource("Resource_lr12n"), SubResource("Resource_evdla"), SubResource("Resource_187t1"), SubResource("Resource_orlh3"), SubResource("Resource_8n3dr"), SubResource("Resource_p00b8"), SubResource("Resource_a856y"), SubResource("Resource_um7y2"), SubResource("Resource_o5ewv"), SubResource("Resource_y3guy"), SubResource("Resource_6kkmt"), SubResource("Resource_16qe1"), SubResource("Resource_mfra3"), SubResource("Resource_lqr4l"), SubResource("Resource_ny8go"), SubResource("Resource_5rs6q"), SubResource("Resource_joej4"), SubResource("Resource_d4a7x"), SubResource("Resource_gw13x"), SubResource("Resource_i3h2r"), SubResource("Resource_mwnut"), SubResource("Resource_nikys"), SubResource("Resource_5wgon"), SubResource("Resource_nm0uy"), SubResource("Resource_ul8yb"), SubResource("Resource_owk8u"), SubResource("Resource_d65w7"), SubResource("Resource_headi"), SubResource("Resource_sjsam"), SubResource("Resource_3kl1m"), SubResource("Resource_uy3yx"), SubResource("Resource_oj2yt"), SubResource("Resource_3ymxe"), SubResource("Resource_oc8b8"), SubResource("Resource_b1uqr"), SubResource("Resource_e7e7x"), SubResource("Resource_6wnkf"), SubResource("Resource_7q68j"), SubResource("Resource_sf8xo"), SubResource("Resource_5gppj"), SubResource("Resource_5uvd8"), SubResource("Resource_df2db"), SubResource("Resource_7sghd"), SubResource("Resource_atwn6"), SubResource("Resource_mmfuj"), SubResource("Resource_c00wq"), SubResource("Resource_5phjr"), SubResource("Resource_a3vrj"), SubResource("Resource_ddaap"), SubResource("Resource_6ah7q"), SubResource("Resource_2wl58"), SubResource("Resource_4lsiv"), SubResource("Resource_cq6tj"), SubResource("Resource_gamlg"), SubResource("Resource_i043f"), SubResource("Resource_sfrdl"), SubResource("Resource_hb46i"), SubResource("Resource_h2mgr"), SubResource("Resource_4qhjt"), SubResource("Resource_q74xc"), SubResource("Resource_t72qp"), SubResource("Resource_e7oes"), SubResource("Resource_2kn4j"), SubResource("Resource_xm7s1"), SubResource("Resource_ldtik"), SubResource("Resource_l6p43"), SubResource("Resource_2g5ud"), SubResource("Resource_ryrk8"), SubResource("Resource_2h3o1"), SubResource("Resource_c4wbh"), SubResource("Resource_vwmhs"), SubResource("Resource_721sn"), SubResource("Resource_6xkoo"), SubResource("Resource_wc7f7"), SubResource("Resource_wceu6"), SubResource("Resource_ecbvf"), SubResource("Resource_4fokx"), SubResource("Resource_xattu"), SubResource("Resource_xq8c8"), SubResource("Resource_70a1f"), SubResource("Resource_1mls8"), SubResource("Resource_r2elh"), SubResource("Resource_l2sj7"), SubResource("Resource_2e62c"), SubResource("Resource_vetgr"), SubResource("Resource_qjms6"), SubResource("Resource_8ifr1"), SubResource("Resource_nnsv4"), SubResource("Resource_q4l23"), SubResource("Resource_qn1x1"), SubResource("Resource_1ciu7"), SubResource("Resource_umxne"), SubResource("Resource_cpicv"), SubResource("Resource_xmayg"), SubResource("Resource_kwywv"), SubResource("Resource_dxhl2"), SubResource("Resource_b1mxw"), SubResource("Resource_ijdmt"), SubResource("Resource_nvq6n"), SubResource("Resource_nrrdq"), SubResource("Resource_h02ca"), SubResource("Resource_qbe5f"), SubResource("Resource_ddvp0"), SubResource("Resource_54gda"), SubResource("Resource_wvhyp"), SubResource("Resource_aky7y"), SubResource("Resource_487qc"), SubResource("Resource_kql0r"), SubResource("Resource_dhyk2"), SubResource("Resource_0ph4x"), SubResource("Resource_hg6vu"), SubResource("Resource_ohx70"), SubResource("Resource_ji4qr"), SubResource("Resource_74x56"), SubResource("Resource_dvfft"), SubResource("Resource_yy855"), SubResource("Resource_1xt5p"), SubResource("Resource_d6xmb"), SubResource("Resource_84nn0"), SubResource("Resource_ri6cy"), SubResource("Resource_argpy"), SubResource("Resource_7i0j7"), SubResource("Resource_injvy"), SubResource("Resource_3omg4"), SubResource("Resource_2wii5"), SubResource("Resource_tdiwt"), SubResource("Resource_qlfb0"), SubResource("Resource_h8o42"), SubResource("Resource_yf364"), SubResource("Resource_f7s12"), SubResource("Resource_ji0ed"), SubResource("Resource_r64si"), SubResource("Resource_m8on6"), SubResource("Resource_c8488"), SubResource("Resource_482jo"), SubResource("Resource_ihhmc"), SubResource("Resource_k8pyj"), SubResource("Resource_whk40"), SubResource("Resource_qrwbx"), SubResource("Resource_c8oae"), SubResource("Resource_troh1"), SubResource("Resource_stxfj"), SubResource("Resource_5lkxi"), SubResource("Resource_jfehl"), SubResource("Resource_rbwfy"), SubResource("Resource_oeg0u"), SubResource("Resource_oxcsv"), SubResource("Resource_j41tq"), SubResource("Resource_cxx72"), SubResource("Resource_d0vxf"), SubResource("Resource_lokjm"), SubResource("Resource_2e2q8"), SubResource("Resource_xhfgf"), SubResource("Resource_4txgk"), SubResource("Resource_o6i28"), SubResource("Resource_y3x8i"), SubResource("Resource_4sqf7"), SubResource("Resource_6xsl7"), SubResource("Resource_dhin1"), SubResource("Resource_rd6tj"), SubResource("Resource_8mbaw"), SubResource("Resource_ve7oh"), SubResource("Resource_07rww"), SubResource("Resource_y567k"), SubResource("Resource_74h43"), SubResource("Resource_jtjl5"), SubResource("Resource_uqkbs"), SubResource("Resource_gxj1k"), SubResource("Resource_rns64"), SubResource("Resource_hlr4g"), SubResource("Resource_3icsm"), SubResource("Resource_uu8rv"), SubResource("Resource_n38u1"), SubResource("Resource_gikkw"), SubResource("Resource_qwl2c"), SubResource("Resource_4fsr5"), SubResource("Resource_yev5b"), SubResource("Resource_jrjfv"), SubResource("Resource_v7joq"), SubResource("Resource_4oa64"), SubResource("Resource_vrw8h"), SubResource("Resource_q1bj8"), SubResource("Resource_gn3so"), SubResource("Resource_xp55w"), SubResource("Resource_md3oi"), SubResource("Resource_ndxyf"), SubResource("Resource_4unta"), SubResource("Resource_rurlo"), SubResource("Resource_ubblx"), SubResource("Resource_vqs1d"), SubResource("Resource_i8xv2"), SubResource("Resource_ss5tn"), SubResource("Resource_ob4gr"), SubResource("Resource_k100l"), SubResource("Resource_kk2yu"), SubResource("Resource_0gugl"), SubResource("Resource_hd2dn"), SubResource("Resource_1hsv0"), SubResource("Resource_k8jo0"), SubResource("Resource_ed88m"), SubResource("Resource_3f0qj"), SubResource("Resource_1qmfe"), SubResource("Resource_al3ge"), SubResource("Resource_h3oui"), SubResource("Resource_00flk"), SubResource("Resource_oj62l"), SubResource("Resource_186bc"), SubResource("Resource_oq8oi"), SubResource("Resource_q1p6q"), SubResource("Resource_uc7b0"), SubResource("Resource_2slwk"), SubResource("Resource_hyy5p"), SubResource("Resource_bo5v5"), SubResource("Resource_854bt"), SubResource("Resource_uaimd"), SubResource("Resource_l76vy"), SubResource("Resource_p4xx1"), SubResource("Resource_oygpu"), SubResource("Resource_dri1n"), SubResource("Resource_6svk6"), SubResource("Resource_05g2a"), SubResource("Resource_jfsh8"), SubResource("Resource_ktlr8"), SubResource("Resource_bjidp"), SubResource("Resource_h4umj"), SubResource("Resource_w1nyg"), SubResource("Resource_oiaju"), SubResource("Resource_5qkcd"), SubResource("Resource_kpsyn"), SubResource("Resource_8yjvw"), SubResource("Resource_3tjuk"), SubResource("Resource_jrilr"), SubResource("Resource_xjj84"), SubResource("Resource_5npcy"), SubResource("Resource_aa0ur"), SubResource("Resource_5hd6j"), SubResource("Resource_fthuj"), SubResource("Resource_ul21s"), SubResource("Resource_5r8rp"), SubResource("Resource_j1jpx"), SubResource("Resource_pxksb"), SubResource("Resource_r31at"), SubResource("Resource_ywfy1"), SubResource("Resource_0r8cl"), SubResource("Resource_uv0t6"), SubResource("Resource_x4tv7"), SubResource("Resource_2d6hg"), SubResource("Resource_rxl18"), SubResource("Resource_m7fyu"), SubResource("Resource_imbgn"), SubResource("Resource_xr8nc"), SubResource("Resource_rjqgo"), SubResource("Resource_0d6y3"), SubResource("Resource_ivcey")]
 Settings = SubResource("Resource_50dp4")

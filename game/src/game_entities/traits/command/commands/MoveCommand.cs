@@ -4,39 +4,27 @@ using Godot;
 
 [GlobalClass]
 public partial class MoveCommand : Command {
-  // TODO: wait for finish until you use next command
-  public bool Moved { get; private set; }
-
-  public MoveTrait EntityMoveTrait { get; private set; }
+  [Export] public MoveTrait EntityMoveTrait { get; private set; }
   public override void _Ready() {
     base._Ready();
 
-    EntityMoveTrait = GetEntity().GetTrait<MoveTrait>();
     EntityMoveTrait.MoveFinished += Finish;
   }
-  public bool TryMove(GameCell[] path) {
-    if (EntityMoveTrait.TryMove(path)) {
-      Start();
-      Moved = true;
+  public bool TryMove(GameCell targetCell, GameBoard board) {
+    if (EntityMoveTrait.TryMove(targetCell, board)) {
+      Use();
       return true;
     }
 
-    Moved = false;
     return false;
-  }
-
-  public override void OnRoundChanged(int roundNumber) {
-    base.OnRoundChanged(roundNumber);
-
-    Moved = false;
   }
 
   public override bool IsAvailable() {
     var attacked = false;
     if (CommandTrait.TryGetCommand<AttackCommand>(out var attack)) {
-      attacked = attack.Attacked;
+      attacked = attack.UsedThisRound;
     }
 
-    return base.IsAvailable() && !Moved && !attacked;
+    return base.IsAvailable() && !attacked;
   }
 }

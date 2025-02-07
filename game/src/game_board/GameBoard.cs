@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System;
 using System.Collections.Generic;
 using Godot;
 using HexGridMap;
@@ -133,7 +134,7 @@ public partial class GameBoard : Node3D {
 
     foreach (var cell in GetCells()) {
       var distance = coord.Distance(cell.Coord);
-      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && IsCellReachable(cell)) {
+      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && cell.MoveCost > 0) {
         minDistance = distance;
         closestCell = cell;
       }
@@ -187,7 +188,7 @@ public partial class GameBoard : Node3D {
     return visibleHexes.ToArray();
   }
 
-  public GameCell[] FindReachableCells(GameCell start, int maxCost) {
+  public GameCell[] FindReachableCells(GameCell start, uint maxCost, Func<GameCell, GameCell, bool> isReachable) {
     var minCost = new int[Grid.GetCells().Length];
     for (var i = 0; i < minCost.Length; i++) {
       minCost[i] = int.MaxValue;
@@ -211,7 +212,7 @@ public partial class GameBoard : Node3D {
 
       for (var i = HexDirection.Min; i < HexDirection.Max; i++) {
         var cell = GetCell(current, i);
-        if (cell != null && IsCellReachable(cell)) {
+        if (cell != null && isReachable(current, cell)) {
           var newCost = currentCost + cell.MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
@@ -226,7 +227,7 @@ public partial class GameBoard : Node3D {
   }
 
 
-  public GameCell[] FindPath(GameCell start, GameCell target, int maxCost) {
+  public GameCell[] FindPath(GameCell start, GameCell target, uint maxCost, Func<GameCell, GameCell, bool> isReachable) {
     var minCost = new int[Grid.GetCells().Length];
     var parent = new GameCell[Grid.GetCells().Length];
 
@@ -250,8 +251,7 @@ public partial class GameBoard : Node3D {
 
       for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
         var cell = GetCell(current, (HexDirection)i);
-        // TODO: take into account elevation changes
-        if (cell != null && IsCellReachable(cell)) {
+        if (cell != null && isReachable(current, cell)) {
           var newCost = currentCost + cell.MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
@@ -277,11 +277,6 @@ public partial class GameBoard : Node3D {
 
     path.Reverse();
     return path.ToArray();
-  }
-
-  // TODO: find better name
-  private bool IsCellReachable(GameCell cell) {
-    return cell.MoveCost > 0 && GetEntitiesOnCell(cell).Length == 0;
   }
 
   private void LoadMap(MapData mapData) {

@@ -215,7 +215,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     var entities = GameBoard.GetEntitiesOnCell(cell);
 
     if (IsCurrentTurn() && SelectedCommand != null) {
-
       if (SelectedEntity != null && entities.Length > 0) {
         if (SelectedEntity == entities[0]) {
           DeselectEntity();
@@ -225,12 +224,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
       if (SelectedCommand is MoveCommand moveCommand) {
         if (entities.Length == 0) {
-          if (!moveCommand.GetEntity().GetTrait<MoveTrait>().ReachableCells.Contains(cell)) {
-            return;
-          }
-
-          var path = GameBoard.FindPath(moveCommand.GetEntity().Cell, cell, SelectedCommand.GetEntity().GetTrait<MoveTrait>().MovePoints);
-          if (moveCommand.TryMove(path)) {
+          if (moveCommand.TryMove(cell, GameBoard)) {
             ReselectEntity();
             return;
           }
@@ -323,22 +317,14 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     if (command is MoveCommand moveCommand) {
       List<GameCell> reachableCells = new();
 
-      foreach (var cell in GameBoard.FindReachableCells(moveCommand.GetEntity().Cell, moveCommand.GetEntity().GetTrait<MoveTrait>().MovePoints)) {
+      foreach (var cell in moveCommand.GetEntity().GetTrait<MoveTrait>().GetReachableCells(GameBoard)) {
         if (cell == moveCommand.GetEntity().Cell) {
           cell.HighlightColor = Colors.White;
           continue;
         }
 
-        if (GameBoard.GetEntitiesOnCell(cell).Length == 0) {
-          cell.HighlightColor = Colors.Green;
-          reachableCells.Add(cell);
-        }
-        else {
-          cell.HighlightColor = Colors.Gray;
-        }
+        cell.HighlightColor = Colors.Green;
       }
-
-      moveCommand.GetEntity().GetTrait<MoveTrait>().ReachableCells = reachableCells.ToArray();
     }
     else if (command is AttackCommand attackCommand) {
       List<Entity> attackable = new();
@@ -358,12 +344,9 @@ public partial class TestPlayerController : PlayerController, IMatchController {
           }
           else {
             cell.HighlightColor = Colors.Red;
-            attackable.Add(entites[0]);
           }
         }
       }
-
-      attackCommand.AttackableEntities = attackable.ToArray();
     }
 
     GameBoard.UpdateHighlights();
