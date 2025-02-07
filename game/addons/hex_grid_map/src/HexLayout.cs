@@ -62,13 +62,13 @@ public partial class HexLayout : Resource {
     HexCellSize = hexCellScale;
   }
 
-  public Vector2 HexToPoint(CubeCoord hex) {
-    var x = ((Orientation.F0 * hex.Q) + (Orientation.F1 * hex.R)) * HexCellSize;
-    var y = ((Orientation.F2 * hex.Q) + (Orientation.F3 * hex.R)) * HexCellSize;
+  public Vector2 CubeToPoint(CubeCoord coord) {
+    var x = ((Orientation.F0 * coord.Q) + (Orientation.F1 * coord.R)) * HexCellSize;
+    var y = ((Orientation.F2 * coord.Q) + (Orientation.F3 * coord.R)) * HexCellSize;
     return new(x, y);
   }
 
-  public CubeCoord PointToHex(Vector2 point) {
+  public CubeCoord PointToCube(Vector2 point) {
     Vector2 pointOnGrid = new(point.X / HexCellSize, point.Y / HexCellSize);
     var x = (Orientation.B0 * pointOnGrid.X) + (Orientation.B1 * pointOnGrid.Y);
     var y = (Orientation.B2 * pointOnGrid.X) + (Orientation.B3 * pointOnGrid.Y);
@@ -76,15 +76,15 @@ public partial class HexLayout : Resource {
     return new CubeCoordF(x, y).Round();
   }
 
-  public OffsetCoord HexToOffset(CubeCoord hexCoord) {
+  public OffsetCoord CubeToOffset(CubeCoord coord) {
     return OffsetType switch {
-      OffsetType.ROffset => hexCoord.Roffset(Offset),
-      OffsetType.QOffset => hexCoord.Qoffset(Offset),
+      OffsetType.ROffset => coord.Roffset(Offset),
+      OffsetType.QOffset => coord.Qoffset(Offset),
       _ => new(),// TODO: add null
     };
   }
 
-  public CubeCoord OffsetToHex(OffsetCoord offsetCoord) {
+  public CubeCoord OffsetToCube(OffsetCoord offsetCoord) {
     return OffsetType switch {
       OffsetType.ROffset => offsetCoord.RoffsetToCube(Offset),
       OffsetType.QOffset => offsetCoord.QoffsetToCube(Offset),

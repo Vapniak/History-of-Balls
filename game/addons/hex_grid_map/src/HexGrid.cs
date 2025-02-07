@@ -34,7 +34,7 @@ public abstract partial class HexGrid<T> where T : HexCell {
   }
 
   public T GetCell(Vector3 point) {
-    var hex = GetLayout().PointToHex(new(point.X, point.Z));
+    var hex = GetLayout().PointToCube(new(point.X, point.Z));
     return GetCell(hex);
   }
 
@@ -122,16 +122,4 @@ public abstract partial class HexGrid<T> where T : HexCell {
   }
 
   public HexLayout GetLayout() => Layout;
-
-
-  public Vector2I GetRectSize() {
-    // TODO: get size from cells
-    return Vector2I.One * 100;
-  }
-
-  public Vector2 GetRealSize() {
-
-    // TODO: that's good for now
-    return (Vector2)GetRectSize() * GetLayout().GetSpacingBetweenHexes();
-  }
 }

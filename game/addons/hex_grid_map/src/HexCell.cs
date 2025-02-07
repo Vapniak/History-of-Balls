@@ -6,8 +6,8 @@ using Godot;
 
 public class HexCell {
   public CubeCoord Coord { get; private set; }
-  public OffsetCoord OffsetCoord => Layout.HexToOffset(Coord);
-  public Vector2 Position => Layout.HexToPoint(Coord);
+  public OffsetCoord OffsetCoord => Layout.CubeToOffset(Coord);
+  public Vector2 Position => Layout.CubeToPoint(Coord);
 
   private HexLayout Layout { get; set; }
   public HexCell(CubeCoord coord, HexLayout layout) {

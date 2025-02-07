@@ -4,6 +4,7 @@ using HOB.GameEntity;
 using System.Collections.Generic;
 using System.Linq;
 
+[GlobalClass]
 public partial class EntityManager : Node {
   [Signal] public delegate void EntityRemovedEventHandler(Entity entity);
 

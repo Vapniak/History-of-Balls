@@ -5,6 +5,7 @@ using Godot;
 using Godot.Collections;
 using HexGridMap;
 
+[GlobalClass]
 public partial class TerrainManager : Node {
   public enum EdgeType {
     Flat, // ELEVATION DIFF 0
@@ -30,15 +31,12 @@ public partial class TerrainManager : Node {
     // TODO: offset all coords so they fit in texture and start from 0 offset
   }
 
-  //TODO: we should not update them but read from map data file
-  public void UpdateData(GameCell[] cells, MapData mapData) {
+  public void UpdateData(GameCell[] cells) {
     TerrainData.Fill(Colors.Transparent);
     Cells = cells;
 
-    var i = 0;
     foreach (var cell in cells) {
-      TerrainData.SetPixel(cell.OffsetCoord.Col, cell.OffsetCoord.Row, mapData.HexList[i].Color);
-      i++;
+      SetTerrainPixel(cell.OffsetCoord, cell.TerrainColor);
     }
 
     UpdateTerrainTextureData();
@@ -57,6 +55,12 @@ public partial class TerrainManager : Node {
   private void SetHighlighPixel(OffsetCoord offset, Color color) {
     if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
       HighlightData.SetPixel(offset.Col, offset.Row, color);
+    }
+  }
+
+  private void SetTerrainPixel(OffsetCoord offset, Color color) {
+    if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
+      TerrainData.SetPixel(offset.Col, offset.Row, color);
     }
   }
 

@@ -1,0 +1,2966 @@
+{
+  "hexMap": [
+    {
+      "q": 0,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 0,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 0,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 1,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 1,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 2,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 2,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 2,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 2,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 2,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 2,
+      "color": "#6B8E23",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 2,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 2,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 2,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 2,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 2,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 2,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 3,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 3,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 3,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 3,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 3,
+      "color": "#1a7a1a",
+      "object": 1
+    },
+    {
+      "q": 9,
+      "r": 3,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 3,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 3,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 3,
+      "color": "#6B8E23",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 3,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 3,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 3,
+      "color": "#6B8E23",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 3,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 3,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 3,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 3,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 3,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 3,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 3,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 4,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 4,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 4,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 4,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 4,
+      "color": "#CD853F",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 4,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 4,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 4,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 4,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 4,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 4,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 4,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 4,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 4,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 4,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 4,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 4,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 4,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 4,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 4,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 4,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 4,
+      "color": "#6B8E23",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 4,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 4,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 4,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 4,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 4,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 4,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 4,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 5,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 5,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 5,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 5,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 5,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 5,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 5,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 5,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 5,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 5,
+      "color": "#228B66",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 5,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 5,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 5,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 5,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 5,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 5,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 5,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 5,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 5,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 5,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 6,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 6,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 6,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 6,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 6,
+      "color": "#FFD700",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 6,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 6,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 6,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 6,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 6,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 6,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 6,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 6,
+      "color": "#3fabaa",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 6,
+      "color": "#228B66",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 6,
+      "color": "#228B66",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 6,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 6,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 6,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 6,
+      "color": "#6B8E23",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 6,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 6,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 6,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 6,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 6,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 6,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 6,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 6,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 6,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 6,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 7,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 7,
+      "color": "#FFD700",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 7,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 7,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 7,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 7,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 7,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 7,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 7,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 7,
+      "color": "#3fabaa",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 7,
+      "color": "#3fabaa",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 7,
+      "color": "#6B8E23",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 7,
+      "color": "#6B8E23",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 7,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 7,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 7,
+      "color": "#777777",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 7,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 7,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 7,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 7,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 8,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 8,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 8,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 8,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 8,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 8,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 8,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 8,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 8,
+      "color": "#3fabaa",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 8,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 8,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 8,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 8,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 8,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 9,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 9,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 9,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 9,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 9,
+      "color": "#00bb00",
+      "object": 2
+    },
+    {
+      "q": 12,
+      "r": 9,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 9,
+      "color": "#3fabaa",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 9,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 9,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 9,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 9,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 9,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 9,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 10,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 10,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 10,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 10,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 10,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 10,
+      "color": "#1a7a1a",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 10,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 10,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 10,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 10,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 10,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 10,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 10,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 10,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 11,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 11,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 11,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 11,
+      "color": "#7FFF00",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 11,
+      "color": "#00bb00",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 11,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 11,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 11,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 12,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 12,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 12,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 12,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 12,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 12,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 12,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 13,
+      "color": "#F0E68C",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 13,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 13,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 13,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 13,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 13,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 14,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 14,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 14,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 14,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 14,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 14,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 14,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 14,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 14,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 14,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 14,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 14,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 14,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 14,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 14,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 14,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 15,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 15,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 15,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 15,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 15,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 15,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 15,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 15,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 15,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 15,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 15,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 15,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 15,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 15,
+      "color": "#87ddEB",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 15,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 15,
+      "color": "#87ddEB",
+      "object": 0
+    },
+    {
+      "q": 0,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 1,
+      "r": 16,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 2,
+      "r": 16,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 3,
+      "r": 16,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 4,
+      "r": 16,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 5,
+      "r": 16,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 6,
+      "r": 16,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 7,
+      "r": 16,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 8,
+      "r": 16,
+      "color": "#3fabff",
+      "object": 0
+    },
+    {
+      "q": 9,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 10,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 11,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 12,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 13,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 14,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 15,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 16,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 17,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 18,
+      "r": 16,
+      "color": "#325ddb",
+      "object": 0
+    },
+    {
+      "q": 19,
+      "r": 16,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 20,
+      "r": 16,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 21,
+      "r": 16,
+      "color": "#FFFFFF",
+      "object": 0
+    },
+    {
+      "q": 22,
+      "r": 16,
+      "color": "#87ddEB",
+      "object": 0
+    },
+    {
+      "q": 23,
+      "r": 16,
+      "color": "#87ddEB",
+      "object": 0
+    },
+    {
+      "q": 24,
+      "r": 16,
+      "color": "#87ddEB",
+      "object": 0
+    },
+    {
+      "q": 25,
+      "r": 16,
+      "color": "#87ddEB",
+      "object": 0
+    },
+    {
+      "q": 26,
+      "r": 16,
+      "color": "#87ddEB",
+      "object": 0
+    },
+    {
+      "q": 27,
+      "r": 16,
+      "color": "#4682B4",
+      "object": 0
+    },
+    {
+      "q": 28,
+      "r": 16,
+      "color": "#4682B4",
+      "object": 0
+    }
+  ],
+  "title": "testowy tytuł",
+  "description": "testowy opis",
+  "cols": 29,
+  "rows": 17
+}

@@ -51,6 +51,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
     GetHUD().HideCommandPanel();
     GetHUD().HideStatPanel();
     GetHUD().HideHoverStatPanel();
+
+    GameBoard.SetMouseHighlight(true);
   }
 
   public override void _UnhandledInput(InputEvent @event) {
@@ -214,9 +216,11 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
     if (IsCurrentTurn() && SelectedCommand != null) {
 
-      if (SelectedEntity == entities[0]) {
-        DeselectEntity();
-        return;
+      if (SelectedEntity != null && entities.Length > 0) {
+        if (SelectedEntity == entities[0]) {
+          DeselectEntity();
+          return;
+        }
       }
 
       if (SelectedCommand is MoveCommand moveCommand) {
@@ -373,6 +377,6 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
   // TODO: implement this inside interface and somehow call this inside this class
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
-  public void OwnTurnStarted() { GD.Print("test"); }
+  public void OwnTurnStarted() { }
   public void OwnTurnEnded() { }
 }

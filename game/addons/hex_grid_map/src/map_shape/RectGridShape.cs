@@ -12,7 +12,7 @@ public partial class RectGridShape : GridShape {
     List<T> cells = new();
     for (var x = 0; x < Size.X; x++) {
       for (var y = 0; y < Size.Y; y++) {
-        cells.Add(createCell(layout.OffsetToHex(new OffsetCoord(x, y))));
+        cells.Add(createCell(layout.OffsetToCube(new OffsetCoord(x, y))));
       }
     }
 
