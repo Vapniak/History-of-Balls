@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://c82pepvsx7i4"]
+
+[ext_resource type="Script" path="res://src/gui/hud/command_panel/CommandPanel.cs" id="1_74ul0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hgjj6"]
+
+[node name="CommandPanel" type="PanelContainer" node_paths=PackedStringArray("CommandList")]
+offset_right = 235.0
+offset_bottom = 70.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_74ul0")
+CommandList = NodePath("VBoxContainer/CommandList")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "COMMANDS"
+label_settings = SubResource("LabelSettings_hgjj6")
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="CommandList" type="ItemList" parent="VBoxContainer"]
+layout_mode = 2
+allow_search = false
+auto_height = true
+text_overrun_behavior = 0
+item_count = 1
+item_0/text = "COMMAND"

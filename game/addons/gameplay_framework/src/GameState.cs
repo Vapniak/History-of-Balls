@@ -9,4 +9,6 @@ using Godot.Collections;
 [GlobalClass]
 public partial class GameState : Resource, IGameState {
   public GameState() { }
+
+  public virtual void Init() { }
 }

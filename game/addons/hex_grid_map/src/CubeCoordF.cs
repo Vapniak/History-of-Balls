@@ -14,6 +14,12 @@ public struct CubeCoordF {
     R = r;
   }
 
+  public CubeCoordF(CubeCoord coord) {
+    Q = coord.Q;
+    R = coord.R;
+  }
+
+
   public readonly CubeCoord Round() {
     var qi = (int)Mathf.Round(Q);
     var ri = (int)Mathf.Round(R);
@@ -35,7 +41,12 @@ public struct CubeCoordF {
   }
   public readonly float Distance(CubeCoordF other) => Substract(other).Length();
   public readonly float Length() => (Mathf.Abs(Q) + Mathf.Abs(R) + Mathf.Abs(S)) / 2;
+  public readonly CubeCoordF Lerp(CubeCoordF to, double weight) {
+    return new((float)Mathf.Lerp(Q, to.Q, weight), (float)Mathf.Lerp(R, to.R, weight));
+  }
   public readonly CubeCoordF Add(CubeCoordF other) => new(Q + other.Q, R + other.R);
   public readonly CubeCoordF Substract(CubeCoordF other) => new(Q - other.Q, R - other.R);
   public readonly CubeCoordF Multiply(float scalar) => new(Q * scalar, R * scalar);
+
+  public static implicit operator CubeCoord(CubeCoordF coord) => coord.Round();
 }

@@ -15,6 +15,8 @@ public partial class Game : Node {
 
   private World World { get; set; }
   public override void _EnterTree() {
+    ProcessMode = ProcessModeEnum.Always;
+
     if (Instance == null) {
       Instance = this;
     }
@@ -30,14 +32,14 @@ public partial class Game : Node {
   }
 
   public static IGameState GetGameState() {
-    return GetWorld().GetGameMode().GetGameState();
+    return GetGameMode().GetGameState();
   }
   public static T GetGameState<T>() where T : class, IGameState {
     return GetGameState() as T;
   }
 
   public static GameMode GetGameMode() {
-    return Instance.World.GetGameMode();
+    return GetWorld().GetGameMode();
   }
 
   public static T GetGameMode<T>() where T : GameMode {
@@ -70,5 +72,9 @@ public partial class Game : Node {
 
   public static void QuitGame() {
     Instance.GetTree().Quit();
+  }
+
+  public override void _Process(double delta) {
+    GetWorld()?.ProcessThrededLevelLoad();
   }
 }

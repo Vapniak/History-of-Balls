@@ -6,12 +6,19 @@ using GameplayFramework;
 [GlobalClass]
 public partial class MainMenuGameMode : GameMode {
   [Export] private PackedScene _settingsScene;
+  [Export] private PackedScene _loadingScreenScene;
 
   private SettingsMenu _settings;
 
   protected override GameState CreateGameState() => new MainMenuGameState();
 
-  public void StartGame() => Game.GetWorld().OpenLevel("tests_level");
+  public override void _Process(double delta) {
+    base._Process(delta);
+
+
+  }
+
+  public void StartGame() => Game.GetWorld().OpenLevelThreaded("tests_level", _loadingScreenScene);
 
   public void OpenSettings() {
     _settings = _settingsScene.Instantiate<SettingsMenu>();

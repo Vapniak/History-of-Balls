@@ -11,6 +11,8 @@ public partial class HUD : CanvasLayer {
     PlayerController = playerController;
   }
 
+
+  // TODO: interface for player controller
   public PlayerController GetPlayerController() => PlayerController;
-  public T GetPlayerController<T>() where T : PlayerController => GetPlayerController() as T;
+  public T GetPlayerController<T>() where T : class, IController => GetPlayerController() as T;
 }

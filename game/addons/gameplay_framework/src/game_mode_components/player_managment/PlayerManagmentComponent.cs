@@ -1,69 +1,69 @@
 namespace GameplayFramework;
 
 using Godot;
+using Godot.Collections;
 using System;
+
+public partial class PlayerSpawnSettings : Resource {
+  public PackedScene ControllerScene { get; private set; }
+  public PlayerState PlayerState { get; private set; }
+  public string PlayerName { get; private set; }
+  public PackedScene HUDScene { get; private set; }
+  public PackedScene CharacterScene { get; private set; }
+  public PlayerSpawnSettings(PackedScene controller, PlayerState playerState, string playerName = "Player", PackedScene hud = null, PackedScene character = null) {
+    ControllerScene = controller;
+    PlayerState = playerState;
+    PlayerName = playerName;
+    HUDScene = hud;
+    CharacterScene = character;
+  }
+}
 
 [GlobalClass]
 public partial class PlayerManagmentComponent : GameModeComponent {
   [Signal] public delegate void PlayerSpawnedEventHandler(PlayerState playerState);
 
-  [Export] public string DefaultPlayerName { get; set; } = "Player";
-
-  [Export] public bool AutoSpawn { get; private set; } = false;
-  [Export] public PackedScene PlayerScene { get; private set; }
-  [Export] public PackedScene PlayerControllerScene { get; private set; }
-  [Export] public PackedScene HUDScene { get; private set; }
-
-
   public override void _Ready() {
     base._Ready();
 
     GetGameState().PlayerArray = new();
-    if (AutoSpawn) {
-      SpawnPlayerDeffered();
-    }
   }
-  public virtual void SpawnPlayerDeffered() {
-    CallDeferred(MethodName.SpawnPlayer);
-  }
+
   public override IPlayerManagmentGameState GetGameState() => base.GetGameState() as IPlayerManagmentGameState;
 
-  public PlayerState GetLocalPlayer() => GetGameState().PlayerArray[0];
+  public void SpawnPlayerDeferred(PlayerSpawnSettings spawnSettings) {
+    CallDeferred(MethodName.SpawnPlayer, spawnSettings);
+  }
 
-
-  private void SpawnPlayer() {
-    var player = PlayerScene?.InstantiateOrNull<Node>();
-    var playerController = PlayerControllerScene?.InstantiateOrNull<PlayerController>();
-    var hud = HUDScene?.InstantiateOrNull<HUD>();
+  protected virtual void SpawnPlayer(PlayerSpawnSettings settings) {
+    var con = settings.ControllerScene.InstantiateOrNull<Controller>();
+    var character = settings.CharacterScene?.InstantiateOrNull<Node>();
+    var hud = settings.HUDScene?.InstantiateOrNull<HUD>();
     var parent = Game.GetWorld().CurrentLevel;
 
-    if (playerController != null) {
-      if (player != null) {
-        parent.AddChild(player);
-        if (player is IPlayerControllable controllable) {
+    if (character != null) {
+      parent.AddChild(character);
+      if (con is PlayerController playerController) {
+        playerController.SetHUD(hud);
+        playerController.SpawnHUD();
+
+        if (character is IPlayerControllable controllable) {
           playerController.SetControllable(controllable);
         }
       }
-
-      player.AddChild(playerController);
-
-
-      var playerState = CreatePlayerState();
-      playerState.SetPlayerName(DefaultPlayerName);
-      playerState.SetController(playerController);
-
-      playerController.SetHUD(hud);
-      playerController.SpawnHUD();
-      playerController.SetPlayerState(playerState);
-
-      GetGameState().PlayerArray.Add(playerState);
-
-      EmitSignal(SignalName.PlayerSpawned, playerState);
     }
-  }
 
-  protected virtual PlayerState CreatePlayerState() {
-    return new PlayerState();
-  }
+    var playerState = settings.PlayerState;
+    playerState.SetPlayerName(settings.PlayerName);
+    playerState.SetPlayerIndex(GetGameState().PlayerArray.Count);
+    playerState.SetController(con);
 
+    con.SetPlayerState(playerState);
+
+    GetGameState().PlayerArray.Add(playerState);
+
+    parent.AddChild(con);
+
+    EmitSignal(SignalName.PlayerSpawned, playerState);
+  }
 }

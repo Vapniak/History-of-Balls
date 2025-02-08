@@ -1,6 +1,7 @@
 namespace GameplayFramework;
 
 using Godot;
+using HOB;
 using System;
 
 /// <summary>
@@ -27,7 +28,7 @@ public partial class PlayerController : Controller {
     hud.SetPlayerController(this);
   }
 
-  public HUD GetHUD() => HUD;
+  public virtual HUD GetHUD() => HUD;
   public T GetHUD<T>() where T : HUD {
     return GetHUD() as T;
   }

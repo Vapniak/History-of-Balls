@@ -5,6 +5,12 @@ using Godot;
 
 [GlobalClass]
 public partial class TestGameMode : GameMode {
+  [Export] private PackedScene PlayerControllerScene { get; set; }
+  [Export] private PackedScene PlayerCharacterScene { get; set; }
+  [Export] private PackedScene AIControllerScene { get; set; }
+  [Export] private PackedScene HUDScene { get; set; }
+
+
   private PauseComponent PauseComponent { get; set; }
   private TestPlayerManagmentComponent PlayerManagmentComponent { get; set; }
   private MatchComponent MatchComponent { get; set; }
@@ -24,13 +30,20 @@ public partial class TestGameMode : GameMode {
     GetGameState().GameBoard.GridCreated += OnStartGame;
   }
 
+  public override void _ExitTree() {
+    base._ExitTree();
+
+    if (GetGameState().PauseGame) {
+      Game.SetPause(false);
+    }
+  }
+
   public override void _Ready() {
     base._Ready();
 
-    // TODO: unsubscribe from all events and use handlers
-    PauseComponent.GetPauseMenu().Resume += OnResume;
-    PauseComponent.GetPauseMenu().MainMenu += OnMainMenu;
-    PauseComponent.GetPauseMenu().Quit += OnQuit;
+    PauseComponent.GetPauseMenu().ResumeEvent += OnResume;
+    PauseComponent.GetPauseMenu().MainMenuEvent += OnMainMenu;
+    PauseComponent.GetPauseMenu().QuitEvent += OnQuit;
 
     GetGameState().GameBoard.Init();
   }
@@ -38,9 +51,14 @@ public partial class TestGameMode : GameMode {
   public override void _Process(double delta) {
     base._Process(delta);
 
+    // TODO: add unpausing on escape
     if (Input.IsActionJustPressed(BuiltinInputActions.UICancel)) {
       PauseComponent.Pause();
-      PlayerManagmentComponent.GetLocalPlayer().GetController<PlayerController>().GetHUD().Hide();
+      foreach (var player in GetGameState().PlayerArray) {
+        if (player.GetController() is PlayerController playerController) {
+          playerController.GetHUD().Hide();
+        }
+      }
     }
   }
 
@@ -50,16 +68,23 @@ public partial class TestGameMode : GameMode {
 
   private void OnResume() {
     PauseComponent.Resume();
-    PlayerManagmentComponent.GetLocalPlayer().GetController<PlayerController>().GetHUD().Show();
+
+    foreach (var player in GetGameState().PlayerArray) {
+      if (player.GetController() is PlayerController playerController) {
+        playerController.GetHUD().Show();
+      }
+    }
   }
   private void OnMainMenu() {
-    OnResume();
-    Game.GetWorld().OpenLevel("main_menu_level");
+    Game.GetWorld().OpenLevelThreaded("main_menu_level");
   }
 
   private void OnQuit() => Game.QuitGame();
 
   private void OnStartGame() {
-    PlayerManagmentComponent.SpawnPlayerDeffered();
+    GetGameState().Init();
+
+    PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new TestPlayerState(), "Player", HUDScene, PlayerCharacterScene));
+    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new TestPlayerState(), "AI", null, null));
   }
 }

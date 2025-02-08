@@ -1,10 +1,17 @@
 namespace HOB;
 
-using System.Data;
+using System;
 using Godot;
+using Godot.Collections;
 using HexGridMap;
 
+[GlobalClass]
 public partial class TerrainManager : Node {
+  public enum EdgeType {
+    Flat, // ELEVATION DIFF 0
+    Slope, // ELEVATION DIFF 1
+    Hill // ELEVATION DIFF > 1
+  }
   [Signal] public delegate void TerrainDataTextureChangedEventHandler(ImageTexture texture);
   [Signal] public delegate void HighlightDataTextureChangedEventHandler(ImageTexture texture);
 
@@ -17,20 +24,22 @@ public partial class TerrainManager : Node {
 
   private GameCell[] Cells { get; set; }
 
-  public void CreateData(int width, int height, GameCell[] cells) {
+  public void CreateData(int width, int height) {
     TerrainData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
 
-
-    Cells = cells;
-    //TerrainData.Fill(Colors.Transparent);
-
     // TODO: offset all coords so they fit in texture and start from 0 offset
-    // foreach (var cell in cells) {
-    //   TerrainData.SetPixel(cell.OffsetCoord().Col, cell.OffsetCoord().Row, Colors.DarkOliveGreen);
-    // }
+  }
 
-    //UpdateTerrainTextureData();
+  public void UpdateData(GameCell[] cells) {
+    TerrainData.Fill(Colors.Transparent);
+    Cells = cells;
+
+    foreach (var cell in cells) {
+      SetTerrainPixel(cell.OffsetCoord, cell.TerrainColor);
+    }
+
+    UpdateTerrainTextureData();
 
     UpdateHighlights();
   }
@@ -46,6 +55,12 @@ public partial class TerrainManager : Node {
   private void SetHighlighPixel(OffsetCoord offset, Color color) {
     if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
       HighlightData.SetPixel(offset.Col, offset.Row, color);
+    }
+  }
+
+  private void SetTerrainPixel(OffsetCoord offset, Color color) {
+    if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
+      TerrainData.SetPixel(offset.Col, offset.Row, color);
     }
   }
 

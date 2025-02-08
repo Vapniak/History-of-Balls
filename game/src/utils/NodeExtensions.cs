@@ -1,6 +1,7 @@
 namespace HOB;
 
 using Godot;
+using Godot.Collections;
 
 public static class NodeExtensions {
   public static T GetChildByType<T>(this Node node) where T : Node {
@@ -16,5 +17,18 @@ public static class NodeExtensions {
     }
 
     return null;
+  }
+
+  public static Array<Node> GetAllChildren(this Node node) {
+    Array<Node> children = new();
+
+    foreach (var child in node.GetChildren()) {
+      children.Add(child);
+      if (child.GetChildCount() > 0) {
+        children.AddRange(GetAllChildren(child));
+      }
+    }
+
+    return children;
   }
 }

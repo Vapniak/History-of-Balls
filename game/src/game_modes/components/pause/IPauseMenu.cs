@@ -4,7 +4,7 @@ using System;
 using Godot;
 
 public interface IPauseMenu {
-  public Action Resume { get; set; }
-  public Action MainMenu { get; set; }
-  public Action Quit { get; set; }
+  public event Action ResumeEvent;
+  public event Action MainMenuEvent;
+  public event Action QuitEvent;
 }

@@ -27,7 +27,7 @@ run/main_scene="res://src/main.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
-config/icon="res://assets/icon.svg"
+config/icon="res://assets/textures/icon.svg"
 
 [autoload]
 
@@ -43,7 +43,6 @@ settings/updates/check_for_updates=false
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/mode="Fullscreen"
 window/size/resizable=false
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
@@ -56,7 +55,7 @@ project/assembly_name="History of Balls"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gameplay_framework/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/gameplay_framework/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/state_machine/plugin.cfg")
 
 [file_customization]
 
@@ -118,3 +117,7 @@ camera_pan={
 
 3d_physics/layer_1="World"
 3d_physics/layer_2="Entity"
+
+[rendering]
+
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

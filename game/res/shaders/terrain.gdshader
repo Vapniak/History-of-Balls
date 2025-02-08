@@ -12,7 +12,7 @@ uniform bool show_mouse_highlight;
 const int CELL_SCALE = 2;
 
 vec3 apply_highlight(vec3 base_color, vec3 highlight_color, HexCellData data){
-	return mix(base_color, highlight_color.rgb, smoothstep_range(data, .5, .7));
+	return mix(base_color, highlight_color.rgb , smoothstep_range(data, .5, .7));
 }
 
 void vertex() {
@@ -33,16 +33,16 @@ void fragment() {
 
 	// apply grid
 	ALBEDO = mix(ALBEDO, max(ALBEDO * 0.8, vec3(0.01)), step(.85, data.distanceToEdge)); //* 0.01;
-	
+
 	HexCellData mouse_hex_data = get_hex_cell_data(mouse_world_pos, CELL_SCALE);
 
 	vec4 highlight_color = texelFetch(highlight_data_texture, data.offsetCoord, 0);
-	
+
 	if(mouse_hex_data.offsetCoord == data.offsetCoord && show_mouse_highlight){
 		if (highlight_color.a > 0.) {
     		ALBEDO = apply_highlight(ALBEDO, highlight_color.rgb, data);
 		}
-		else {	
+		else {
 			ALBEDO = apply_highlight(ALBEDO, ALBEDO + 0.1, data);
 		}
 	}

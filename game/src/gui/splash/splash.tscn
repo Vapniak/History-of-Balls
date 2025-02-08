@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bbsd3dhi0iesf"]
+[gd_scene load_steps=4 format=3 uid="uid://bbsd3dhi0iesf"]
 
 [ext_resource type="Script" path="res://src/gui/splash/Splash.cs" id="1_pj6um"]
-[ext_resource type="VideoStream" path="res://assets/Boomballer-ident.ogv" id="3_0legj"]
+[ext_resource type="VideoStream" path="res://assets/videos/HoB-ident.ogv" id="2_5oo5l"]
+[ext_resource type="AudioStream" uid="uid://bbbe7wyprdlly" path="res://assets/sounds/HoB-ident.wav" id="3_nc0yi"]
 
 [node name="Splash" type="Control" node_paths=PackedStringArray("_videoStreamPlayer")]
 layout_mode = 3
@@ -14,19 +15,17 @@ mouse_filter = 1
 script = ExtResource("1_pj6um")
 _videoStreamPlayer = NodePath("VideoStreamPlayer")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 1)
-
 [node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-stream = ExtResource("3_0legj")
+audio_track = 1
+stream = ExtResource("2_5oo5l")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_nc0yi")
+autoplay = true

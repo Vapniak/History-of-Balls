@@ -6,23 +6,18 @@ using Godot;
 
 [GlobalClass]
 public partial class PauseComponent : GameModeComponent {
-  [Export] public PackedScene PauseMenuScene { get; private set; }
-
-  private PauseMenu _pauseMenu;
+  [Export] public PauseMenu PauseMenu { get; private set; }
 
   private bool _pauseMenuShown;
 
   public override void _Ready() {
     base._Ready();
 
-    _pauseMenu = PauseMenuScene.Instantiate<PauseMenu>();
-    _pauseMenu.Visible = false;
-
-    AddChild(_pauseMenu);
+    PauseMenu.Visible = false;
   }
 
   public void Resume() {
-    _pauseMenu.Visible = false;
+    PauseMenu.Visible = false;
     if (GetGameState().PauseGame) {
       Game.SetPause(false);
     }
@@ -33,7 +28,7 @@ public partial class PauseComponent : GameModeComponent {
     if (_pauseMenuShown) {
       return;
     }
-    _pauseMenu.Visible = true;
+    PauseMenu.Visible = true;
     _pauseMenuShown = true;
 
     if (GetGameState().PauseGame) {
@@ -42,5 +37,5 @@ public partial class PauseComponent : GameModeComponent {
   }
 
   public override IPauseGameState GetGameState() => base.GetGameState() as IPauseGameState;
-  public IPauseMenu GetPauseMenu() => _pauseMenu;
+  public IPauseMenu GetPauseMenu() => PauseMenu;
 }

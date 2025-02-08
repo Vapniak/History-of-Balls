@@ -9,10 +9,12 @@ using System;
 [GlobalClass]
 public partial class PlayerState : Resource {
   public string PlayerName { get; private set; }
+  public int PlayerIndex { get; private set; }
   public Controller OwningController { get; private set; }
   public PlayerState() { }
 
   public void SetPlayerName(string playerName) => PlayerName = playerName;
+  public void SetPlayerIndex(int index) => PlayerIndex = index;
 
   public T GetController<T>() where T : class, IController => GetController() as T;
   public IController GetController() => OwningController;
