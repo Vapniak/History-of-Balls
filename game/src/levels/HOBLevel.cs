@@ -27,13 +27,13 @@ public partial class HOBLevel : Level {
 
     if (unloadTransition != null) {
       unloadTransition.Finished += () => {
-        QueueFree();
+        base.UnLoad();
       };
 
       AddChild(unloadTransition);
     }
     else {
-      QueueFree();
+      base.UnLoad();
     }
   }
 }

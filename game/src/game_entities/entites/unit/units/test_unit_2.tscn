@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://gsbrhj8onefx"]
 
-[ext_resource type="PackedScene" uid="uid://dlhc830cg2mt4" path="res://src/game_entities/entites/base_entity.tscn" id="1_vmtx1"]
+[ext_resource type="PackedScene" path="res://src/game_entities/entites/base_entity.tscn" id="1_vmtx1"]
 [ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/unit/unit_traits.tscn" id="2_41s3k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egvh3"]

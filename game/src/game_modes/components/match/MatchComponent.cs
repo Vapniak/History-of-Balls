@@ -42,8 +42,8 @@ public partial class MatchComponent : GameModeComponent {
     else {
       var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
       var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      GameBoard.TryAddEntity(entity, new(5, 0), controller);
-      GameBoard.TryAddEntity(entity2, new(6, 0), controller);
+      GameBoard.TryAddEntity(entity, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
+      GameBoard.TryAddEntity(entity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
     }
   }
 

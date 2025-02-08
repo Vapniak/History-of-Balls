@@ -1,8 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=22 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/gui/main_menu/MainMenu.cs" id="1_pi010"]
 [ext_resource type="Texture2D" uid="uid://dr1u23201hpet" path="res://assets/textures/HoB-menu-parallax/14.png" id="2_x4h0o"]
-[ext_resource type="VideoStream" path="res://assets/videos/HoB-second.ogv" id="3_5fccu"]
 [ext_resource type="Texture2D" uid="uid://e7sgv1ls4r31" path="res://assets/textures/HoB-menu-parallax/13.png" id="3_sjgfb"]
 [ext_resource type="Texture2D" uid="uid://cc8j0eiga5hdt" path="res://assets/textures/HoB-menu-parallax/12.png" id="4_8tjak"]
 [ext_resource type="Texture2D" uid="uid://b4lcmswxraal1" path="res://assets/textures/HoB-menu-parallax/11.png" id="5_06dit"]
@@ -35,7 +34,7 @@ shader_parameter/movement_direction = Vector2(1, 6.195)
 shader_parameter/movement_speed = 0.01
 shader_parameter/NOISE_TEXTURE = SubResource("NoiseTexture2D_7cupl")
 
-[node name="MainMenu" type="Control" node_paths=PackedStringArray("VideoStreamPlayer", "ParallaxBackground")]
+[node name="MainMenu" type="Control" node_paths=PackedStringArray("ParallaxBackground")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -43,7 +42,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pi010")
-VideoStreamPlayer = NodePath("VideoStreamPlayer")
 ParallaxBackground = NodePath("MarginContainer/ParallaxBackground")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -57,7 +55,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="MarginContainer"]
-visible = false
 scroll_base_offset = Vector2(-960, -540)
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="MarginContainer/ParallaxBackground"]
@@ -261,17 +258,6 @@ text = "HISTORY OF BALLS"
 label_settings = SubResource("LabelSettings_t67j1")
 horizontal_alignment = 1
 uppercase = true
-
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="."]
-layout_mode = 2
-offset_top = -4.0
-offset_right = 1920.0
-offset_bottom = 1084.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-stream = ExtResource("3_5fccu")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_4hvcl")

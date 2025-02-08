@@ -5,10 +5,7 @@ using Godot;
 using System;
 
 public partial class MainMenu : Control {
-  [Export] private VideoStreamPlayer VideoStreamPlayer { get; set; }
   [Export] private ParallaxBackground ParallaxBackground { get; set; }
-
-  public static bool FirstTimeOpening { get; private set; } = true;
 
   public override void _Ready() {
     var value = 0.00f;
@@ -34,33 +31,10 @@ public partial class MainMenu : Control {
         count++;
       }
     }
-
-    if (FirstTimeOpening) {
-      VideoStreamPlayer.Finished += FadeInMenu;
-
-      VideoStreamPlayer.Play();
-    }
-    else {
-      FadeInMenu();
-    }
-
-    FirstTimeOpening = false;
   }
 
   public override void _Process(double delta) {
     ParallaxBackground.ScrollOffset = GetViewport().GetMousePosition();
-  }
-
-  public override void _Input(InputEvent @event) {
-    if (@event is InputEventMouseButton mouseButton && mouseButton.Pressed && VideoStreamPlayer.IsPlaying()) {
-      FadeInMenu();
-      GetViewport().SetInputAsHandled();
-    }
-  }
-
-  private void FadeInMenu() {
-    VideoStreamPlayer.Stop();
-    VideoStreamPlayer.Hide();
   }
   private void OnStartButtonPressed() {
     Game.GetGameMode<MainMenuGameMode>().StartGame();

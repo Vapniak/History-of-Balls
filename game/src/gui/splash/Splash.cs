@@ -1,13 +1,27 @@
 namespace HOB;
 
+using System.Runtime.CompilerServices;
 using GameplayFramework;
 using Godot;
-using Godot.Collections;
 
 public partial class Splash : Control {
   [Export] private VideoStreamPlayer _videoStreamPlayer;
+  [Export] private AudioStreamPlayer _audioStreamPlayer;
+
+  [Export] private VideoStream _firstVideo;
+  [Export] private VideoStream _secondVideo;
+
   public override void _Ready() {
-    _videoStreamPlayer.Finished += GoToMainMenu;
+    _videoStreamPlayer.Finished += () => {
+      if (_videoStreamPlayer.Stream == _firstVideo) {
+        _videoStreamPlayer.Stream = _secondVideo;
+        _videoStreamPlayer.Play();
+      }
+      else {
+        // FIXME: video disappears when finished
+        GoToMainMenu();
+      }
+    };
 
     PlayIntro();
   }
@@ -19,7 +33,14 @@ public partial class Splash : Control {
     }
   }
   public void PlayIntro() {
+    _videoStreamPlayer.Stream = _firstVideo;
+
     _videoStreamPlayer.Play();
+    _audioStreamPlayer.Play();
   }
-  private static void GoToMainMenu() => Game.CreateWorld("main_menu_level");
+  private void GoToMainMenu() {
+    _videoStreamPlayer.Paused = true;
+    _audioStreamPlayer.StreamPaused = true;
+    Game.GetWorld().OpenLevel("main_menu_level");
+  }
 }

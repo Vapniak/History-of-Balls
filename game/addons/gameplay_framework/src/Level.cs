@@ -31,7 +31,7 @@ public partial class Level : Node {
     AddChild(GameMode);
   }
   public virtual void Load() {
-    var gameMode = GameModeScene.InstantiateOrNull<GameMode>();
+    var gameMode = GameModeScene?.InstantiateOrNull<GameMode>();
     if (gameMode == null) {
       GD.PrintErr("Game Mode Scene is null");
       return;
