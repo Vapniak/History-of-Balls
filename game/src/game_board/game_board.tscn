@@ -10,7 +10,7 @@
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2ghrd"]
 material = ExtResource("4_frcd5")
-size = Vector2(1004.59, 510)
+size = Vector2(1000, 1000)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_xm51f"]
 
@@ -40,5 +40,5 @@ script = ExtResource("6_wv76r")
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("7_e1q7g")
-MapPath = "res://assets/hexMap (11).json"
+MapPath = "res://assets/test_map.json"
 GeneratedMapData = ExtResource("8_0vqiq")

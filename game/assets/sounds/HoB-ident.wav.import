@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bbbe7wyprdlly"
-path="res://.godot/imported/HoB-ident.wav-e6836a56c23729ef1ba72dd1938bb7a5.sample"
+path="res://.godot/imported/HoB-ident.wav-d931d25b6b1c1c7b51b329afffc78b51.sample"
 
 [deps]
 
-source_file="res://assets/HoB-ident.wav"
-dest_files=["res://.godot/imported/HoB-ident.wav-e6836a56c23729ef1ba72dd1938bb7a5.sample"]
+source_file="res://assets/sounds/HoB-ident.wav"
+dest_files=["res://.godot/imported/HoB-ident.wav-d931d25b6b1c1c7b51b329afffc78b51.sample"]
 
 [params]
 

@@ -6,5 +6,5 @@ using System;
 
 [GlobalClass, Tool]
 public partial class MapSettings : Resource {
-  [Export] public Dictionary<Color, HexSetting> HexSettings { get; set; } = new();
+  [Export] public Array<CellDefinition> CellDefinitions;
 }

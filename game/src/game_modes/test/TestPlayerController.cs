@@ -314,40 +314,26 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   private void OnCommandSelected(Command command) {
     GameBoard.ClearHighlights();
 
+
     if (command is MoveCommand moveCommand) {
-      List<GameCell> reachableCells = new();
-
-      foreach (var cell in moveCommand.GetEntity().GetTrait<MoveTrait>().GetReachableCells(GameBoard)) {
-        if (cell == moveCommand.GetEntity().Cell) {
-          cell.HighlightColor = Colors.White;
-          continue;
-        }
-
+      foreach (var cell in moveCommand.EntityMoveTrait.GetReachableCells(GameBoard)) {
         cell.HighlightColor = Colors.Green;
       }
     }
     else if (command is AttackCommand attackCommand) {
-      List<Entity> attackable = new();
-      foreach (var cell in GameBoard.GetCellsInSight(attackCommand.GetEntity().Cell, attackCommand.GetEntity().GetTrait<AttackTrait>().Range)) {
-        if (cell == attackCommand.GetEntity().Cell) {
-          cell.HighlightColor = Colors.White;
-          continue;
-        }
+      var (entities, cellsInRange) = attackCommand.EntityAttackTrait.GetAttackableEntities(GameBoard);
+      foreach (var entity in entities) {
+        entity.Cell.HighlightColor = Colors.Red;
+      }
 
-        var entites = GameBoard.GetEntitiesOnCell(cell);
-        if (entites.Length == 0) {
-          cell.HighlightColor = Colors.DarkOrange;
-        }
-        else {
-          if (entites[0].IsOwnedBy(this)) {
-
-          }
-          else {
-            cell.HighlightColor = Colors.Red;
-          }
+      if (entities.Length == 0) {
+        foreach (var cell in cellsInRange) {
+          cell.HighlightColor = Colors.Gray;
         }
       }
     }
+
+    command.GetEntity().Cell.HighlightColor = Colors.White;
 
     GameBoard.UpdateHighlights();
 

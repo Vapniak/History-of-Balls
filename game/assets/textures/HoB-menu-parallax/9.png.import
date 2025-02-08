@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr1u23201hpet"
-path="res://.godot/imported/14.png-6898156612cf50620f56a439ab88f165.ctex"
+uid="uid://c5s6uqkukwr6u"
+path="res://.godot/imported/9.png-e54336643c1c81aa69c7b9ae4687827e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HoB-menu-parallax/14.png"
-dest_files=["res://.godot/imported/14.png-6898156612cf50620f56a439ab88f165.ctex"]
+source_file="res://assets/textures/HoB-menu-parallax/9.png"
+dest_files=["res://.godot/imported/9.png-e54336643c1c81aa69c7b9ae4687827e.ctex"]
 
 [params]
 

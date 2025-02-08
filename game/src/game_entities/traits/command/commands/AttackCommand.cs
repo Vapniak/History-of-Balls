@@ -14,10 +14,10 @@ public partial class AttackCommand : Command {
   }
 
   public bool TryAttack(Entity entity) {
-    Use();
-    GetEntity().GetTrait<AttackTrait>().Attack(entity);
-    return true;
-
+    if (EntityAttackTrait.TryAttack(entity)) {
+      Use();
+      return true;
+    }
     return false;
   }
 }

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bt5xecr7ql1ag"
-path="res://.godot/imported/HoB-menu-background.png-ee1ff1bb86ebe4a6a0311282a680d0c1.ctex"
+uid="uid://1m50f2cxdglh"
+path="res://.godot/imported/6.png-63a66ef1c6c5be474d0aec6b2b53b254.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/HoB-menu-background.png"
-dest_files=["res://.godot/imported/HoB-menu-background.png-ee1ff1bb86ebe4a6a0311282a680d0c1.ctex"]
+source_file="res://assets/textures/HoB-menu-parallax/6.png"
+dest_files=["res://.godot/imported/6.png-63a66ef1c6c5be474d0aec6b2b53b254.ctex"]
 
 [params]
 

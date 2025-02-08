@@ -281,10 +281,10 @@ public partial class GameBoard : Node3D {
 
   private void LoadMap(MapData mapData) {
     var cells = new List<GameCell>();
-    foreach (var hex in MapData.HexList) {
-      var setting = mapData.Settings.HexSettings[hex.Color];
+    foreach (var hex in MapData.Cells) {
+      var setting = mapData.Settings.CellDefinitions[hex.Id];
       var cell = new GameCell(Layout.OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), Layout) {
-        TerrainColor = hex.Color,
+        TerrainColor = setting.Color,
         MoveCost = setting.MoveCost
       };
       cells.Add(cell);
