@@ -1,10 +1,11 @@
 namespace HOB;
 
+using System.Text.RegularExpressions;
 using GameplayFramework;
 using Godot;
 
 [GlobalClass]
-public partial class TestGameMode : GameMode {
+public partial class HOBGameMode : GameMode {
   [Export] private PackedScene PlayerControllerScene { get; set; }
   [Export] private PackedScene PlayerCharacterScene { get; set; }
   [Export] private PackedScene AIControllerScene { get; set; }
@@ -12,7 +13,7 @@ public partial class TestGameMode : GameMode {
 
 
   private PauseComponent PauseComponent { get; set; }
-  private TestPlayerManagmentComponent PlayerManagmentComponent { get; set; }
+  private HOBPlayerManagmentComponent PlayerManagmentComponent { get; set; }
   private MatchComponent MatchComponent { get; set; }
 
   public override void _EnterTree() {
@@ -22,7 +23,7 @@ public partial class TestGameMode : GameMode {
 
     PauseComponent = GetGameModeComponent<PauseComponent>();
 
-    PlayerManagmentComponent = GetGameModeComponent<TestPlayerManagmentComponent>();
+    PlayerManagmentComponent = GetGameModeComponent<HOBPlayerManagmentComponent>();
 
     MatchComponent = GetGameModeComponent<MatchComponent>();
 
@@ -62,9 +63,9 @@ public partial class TestGameMode : GameMode {
     }
   }
 
-  public override TestGameState GetGameState() => base.GetGameState() as TestGameState;
+  public override HOBGameState GetGameState() => base.GetGameState() as HOBGameState;
 
-  protected override GameState CreateGameState() => new TestGameState();
+  protected override GameState CreateGameState() => new HOBGameState();
 
   private void OnResume() {
     PauseComponent.Resume();
@@ -84,7 +85,9 @@ public partial class TestGameMode : GameMode {
   private void OnStartGame() {
     GetGameState().Init();
 
-    PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new TestPlayerState(), "Player", HUDScene, PlayerCharacterScene));
-    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new TestPlayerState(), "AI", null, null));
+    PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new HOBPlayerState(), "Player", HUDScene, PlayerCharacterScene));
+    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new HOBPlayerState(), "AI", null, null));
+
+    MatchComponent.OnGameStarted();
   }
 }

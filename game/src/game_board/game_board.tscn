@@ -40,5 +40,5 @@ script = ExtResource("6_wv76r")
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("7_e1q7g")
-MapPath = "res://assets/test_map.json"
+MapPath = "res://res/maps/test_map.json"
 GeneratedMapData = ExtResource("8_0vqiq")

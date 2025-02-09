@@ -11,6 +11,9 @@ public partial class LevelTransition : CanvasLayer {
     Layer = 128;
     ProcessMode = ProcessModeEnum.Always;
   }
+  public override void _Input(InputEvent @event) {
+    GetViewport().SetInputAsHandled();
+  }
   private void Finish() {
     EmitSignal(SignalName.Finished);
   }

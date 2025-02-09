@@ -4,6 +4,6 @@ using GameplayFramework;
 using Godot;
 
 [GlobalClass]
-public partial class TestPlayerState : PlayerState {
+public partial class HOBPlayerState : PlayerState {
 
 }

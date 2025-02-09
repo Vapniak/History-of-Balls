@@ -37,7 +37,9 @@ public partial class MapData : Resource {
       cells.Add(cellToAdd);
     }
 
-    Settings.CellDefinitions = cells;
+    if (Settings.CellDefinitions == null) {
+      Settings.CellDefinitions = cells;
+    }
 
 
     var cellList = new List<Cell>();

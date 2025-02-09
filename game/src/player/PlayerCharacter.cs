@@ -58,6 +58,11 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     Velocity += new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti * (float)delta;
   }
 
+  public void MoveToPosition(Vector3 position) {
+    var tween = CreateTween();
+    tween.TweenProperty(this, "global_position", position, 3);
+  }
+
   public void Friction(double delta) {
     var vel = Velocity;
     vel.Y = 0;

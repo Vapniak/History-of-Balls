@@ -32,7 +32,7 @@ public partial class AttackTrait : Trait {
     AttackableEntities = new List<Entity>();
     var cellsInR = new List<GameCell>();
 
-    var cells = board.GetCellsInSight(Entity.Cell, Range);
+    var cells = board.GetCellsInRange(Entity.Cell.Coord, Range);
     foreach (var cell in cells) {
       cellsInR.Add(cell);
       var entities = board.GetEntitiesOnCell(cell);

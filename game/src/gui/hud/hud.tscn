@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://knv3bilnx05e"]
 
-[ext_resource type="Script" path="res://src/game_modes/test/TestHUD.cs" id="1_ep1kh"]
+[ext_resource type="Script" path="res://src/game_modes/hob/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_v4qhv"]
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/gui/hud/command_panel/command_panel.tscn" id="3_a41a7"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/hud/stat_panel/stat_panel.tscn" id="4_yxp0t"]

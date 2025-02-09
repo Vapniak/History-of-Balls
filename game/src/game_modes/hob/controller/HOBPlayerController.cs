@@ -8,7 +8,7 @@ using RaycastSystem;
 
 // TODO:
 [GlobalClass]
-public partial class TestPlayerController : PlayerController, IMatchController {
+public partial class HOBPlayerController : PlayerController, IMatchController {
   public event Action EndTurnEvent;
 
   private GameBoard GameBoard { get; set; }
@@ -152,7 +152,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
-  public override TestHUD GetHUD() => base.GetHUD() as TestHUD;
+  public override HOBHUD GetHUD() => base.GetHUD() as HOBHUD;
 
   private void CheckSelection() {
     var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
@@ -327,7 +327,7 @@ public partial class TestPlayerController : PlayerController, IMatchController {
 
       if (entities.Length == 0) {
         foreach (var cell in cellsInRange) {
-          cell.HighlightColor = Colors.Gray;
+          cell.HighlightColor = Colors.DarkRed;
         }
       }
     }
@@ -347,4 +347,8 @@ public partial class TestPlayerController : PlayerController, IMatchController {
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
   public void OwnTurnStarted() { }
   public void OwnTurnEnded() { }
+
+  public void OnGameStarted() {
+    _character.MoveToPosition(GameBoard.GetOwnedEntities(this)[0].GetPosition());
+  }
 }

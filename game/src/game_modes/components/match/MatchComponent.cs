@@ -47,6 +47,13 @@ public partial class MatchComponent : GameModeComponent {
     }
   }
 
+  public void OnGameStarted() {
+    foreach (var player in GetGameState().PlayerArray) {
+      var controller = player.GetController<IMatchController>();
+      controller.OnGameStarted();
+    }
+  }
+
   private void OnTurnChanged(int playerIndex) {
     _lastPlayer?.OwnTurnEnded();
     var player = GetGameState().PlayerArray[playerIndex].GetController<IMatchController>();

@@ -5,7 +5,7 @@ using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
 
-public partial class TestHUD : HUD {
+public partial class HOBHUD : HUD {
   [Signal] public delegate void EndTurnEventHandler();
 
   [Export] private StatPanel StatPanel { get; set; }

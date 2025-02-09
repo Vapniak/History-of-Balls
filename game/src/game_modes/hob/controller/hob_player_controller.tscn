@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dfgh62iuf4b5x"]
+
+[ext_resource type="Script" path="res://src/game_modes/hob/controller/HOBPlayerController.cs" id="1_cr46l"]
+
+[node name="HOBPlayerController" type="Node3D"]
+script = ExtResource("1_cr46l")

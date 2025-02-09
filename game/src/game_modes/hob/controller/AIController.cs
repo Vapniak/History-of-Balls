@@ -37,4 +37,6 @@ public partial class AIController : Controller, IMatchController {
     timer.Start(1);
   }
   public void OwnTurnEnded() { }
+
+  public void OnGameStarted() { }
 }
