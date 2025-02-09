@@ -28,6 +28,7 @@ public partial class CommandTrait : Trait {
           CurrentExecutedCommand = command;
           EmitSignal(SignalName.CommandStarted, command);
         };
+
         command.Finished += () => {
           CurrentExecutedCommand = null;
           EmitSignal(SignalName.CommandFinished, command);

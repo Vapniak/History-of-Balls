@@ -15,6 +15,13 @@ public partial class HOBHUD : HUD {
   [Export] private Label RoundLabel { get; set; }
   [Export] private Label PlayerTurnLabel { get; set; }
 
+  [ExportGroup("Resources")]
+  [Export] private Label PrimaryResourceNameLabel { get; set; }
+  [Export] private Label PrimaryResourceValueLabel { get; set; }
+  [Export] private Label SecondaryResourceNameLabel { get; set; }
+  [Export] private Label SecondaryResourceValueLabel { get; set; }
+
+
   private Entity HoveredEntity { get; set; }
 
   public override void _Process(double delta) {
@@ -47,6 +54,23 @@ public partial class HOBHUD : HUD {
       }
     }
   }
+
+  public void UpdatePrimaryResourceName(string name) {
+    PrimaryResourceNameLabel.Text = name + ": ";
+  }
+
+  public void UpdatePrimaryResourceValue(string value) {
+    PrimaryResourceValueLabel.Text = value;
+  }
+
+  public void UpdateSecondaryResourceName(string name) {
+    SecondaryResourceNameLabel.Text = name + ": ";
+  }
+
+  public void UpdateSecondaryResourceValue(string value) {
+    SecondaryResourceValueLabel.Text = value;
+  }
+
 
   public void OnTurnChanged(int playerIndex) {
     PlayerTurnLabel.Text = "PLAYER " + playerIndex + " TURN";

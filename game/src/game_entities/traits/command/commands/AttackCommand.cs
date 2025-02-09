@@ -4,7 +4,6 @@ using Godot;
 
 [GlobalClass]
 public partial class AttackCommand : Command {
-  // TODO: make it as move trait
   [Export] public AttackTrait EntityAttackTrait { get; private set; }
 
   public override void _Ready() {
@@ -16,6 +15,8 @@ public partial class AttackCommand : Command {
   public bool TryAttack(Entity entity) {
     if (EntityAttackTrait.TryAttack(entity)) {
       Use();
+      // for now
+      Finish();
       return true;
     }
     return false;

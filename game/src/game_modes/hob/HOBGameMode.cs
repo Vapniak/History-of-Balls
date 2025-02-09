@@ -27,7 +27,7 @@ public partial class HOBGameMode : GameMode {
 
     MatchComponent = GetGameModeComponent<MatchComponent>();
 
-    PlayerManagmentComponent.PlayerSpawned += MatchComponent.OnPlayerSpawned;
+    PlayerManagmentComponent.PlayerSpawned += (playerState) => MatchComponent.OnPlayerSpawned(playerState as IMatchPlayerState);
     GetGameState().GameBoard.GridCreated += OnStartGame;
   }
 

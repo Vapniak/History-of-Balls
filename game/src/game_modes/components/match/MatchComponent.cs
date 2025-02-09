@@ -12,6 +12,8 @@ using HOB.GameEntity;
 public partial class MatchComponent : GameModeComponent {
   [Export] private PackedScene TestEntity { get; set; }
   [Export] private PackedScene TestEntity2 { get; set; }
+  [Export] private ResourceType Primary { get; set; }
+  [Export] private ResourceType Secondary { get; set; }
 
   private GameBoard GameBoard { get; set; }
 
@@ -25,11 +27,17 @@ public partial class MatchComponent : GameModeComponent {
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
-  public virtual void OnPlayerSpawned(PlayerState playerState) {
+  public virtual void OnPlayerSpawned(IMatchPlayerState playerState) {
     // TODO: spawning from map
 
     var controller = playerState.GetController<IMatchController>();
     controller.EndTurnEvent += () => OnEndTurn(controller);
+
+    playerState.PrimaryResourceType = Primary;
+    playerState.SecondaryResourceType = Secondary;
+
+    playerState.PrimaryResourceType.Value = 10;
+    playerState.SecondaryResourceType.Value = 20;
 
     if (controller is PlayerController) {
       var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;

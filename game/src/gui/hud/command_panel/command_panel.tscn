@@ -8,7 +8,7 @@
 offset_right = 235.0
 offset_bottom = 70.0
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 3
 script = ExtResource("1_74ul0")
 CommandList = NodePath("VBoxContainer/CommandList")
 
@@ -26,6 +26,7 @@ layout_mode = 2
 
 [node name="CommandList" type="ItemList" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 allow_search = false
 auto_height = true
 text_overrun_behavior = 0

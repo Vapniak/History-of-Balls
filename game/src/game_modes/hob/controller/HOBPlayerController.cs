@@ -1,14 +1,12 @@
 namespace HOB;
 
 using System;
-using System.Runtime.CompilerServices;
 using GameplayFramework;
 using Godot;
 using GodotStateCharts;
 using HOB.GameEntity;
 using RaycastSystem;
 
-// TODO:
 [GlobalClass]
 public partial class HOBPlayerController : PlayerController, IMatchController {
   public event Action EndTurnEvent;
@@ -60,7 +58,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     StateChart = StateChart.Of(StateChartNode);
   }
 
-  public override void _Input(InputEvent @event) {
+  public override void _UnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
       _lastMousePosition = GetViewport().GetMousePosition();
@@ -107,6 +105,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public void OnGameStarted() {
     CallDeferred(MethodName.SelectEntity, GameBoard.GetOwnedEntities(this)[0]);
     CallDeferred(MethodName.FocusOnSelectedEntity);
+
+    var playerState = GetPlayerState<HOBPlayerState>();
+
+    GetHUD().UpdatePrimaryResourceName(playerState.PrimaryResourceType.Name);
+    GetHUD().UpdateSecondaryResourceName(playerState.SecondaryResourceType.Name);
+
+    GetHUD().UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
+    GetHUD().UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+
+    playerState.PrimaryResourceType.ValueChanged += () => GetHUD().UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
+    playerState.SecondaryResourceType.ValueChanged += () => GetHUD().UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
   }
 
   private GameCell CheckSelection() {
@@ -225,8 +234,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
   private void HandleMovement(float delta) {
-    // TODO: maybe make it more readable?
-    // TODO: better movement, not using lerps
     if (!_isPanning) {
       GetGameState().GameBoard.SetMouseHighlight(true);
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
@@ -325,19 +332,20 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     if (SelectedEntity != null) {
       // TODO: do optimalization for highlights because on bigger maps it loops over whole image and sets every pixel which is bad
-      // TODO: add events when entity is selected and deselected to listen in game board and do highlighting there
       GameBoard.ClearHighlights();
       // highlight units which you can select
       GameBoard.UpdateHighlights();
 
-      if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-        commandTrait.CommandSelected -= OnCommandSelected;
-        commandTrait.CommandStarted -= OnCommandStarted;
-        commandTrait.CommandFinished -= OnCommandFinished;
-      }
+      if (SelectedEntity.IsOwnedBy(this)) {
+        if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+          commandTrait.CommandSelected -= OnCommandSelected;
+          commandTrait.CommandStarted -= OnCommandStarted;
+          commandTrait.CommandFinished -= OnCommandFinished;
+        }
 
-      SelectedEntity = null;
-      SelectedCommand = null;
+        SelectedEntity = null;
+        SelectedCommand = null;
+      }
     }
   }
 
@@ -388,7 +396,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleEntered() {
+    SelectedEntity.Cell.HighlightColor = Colors.White;
 
+    GameBoard.UpdateHighlights();
   }
 
   private void OnSelectionIdleExited() {

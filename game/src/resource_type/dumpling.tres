@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=2 format=3 uid="uid://bxlwj2isc0xej"]
+
+[ext_resource type="Script" path="res://src/resource_type/ResourceType.cs" id="1_iy4uy"]
+
+[resource]
+script = ExtResource("1_iy4uy")
+Name = "Dumpling"

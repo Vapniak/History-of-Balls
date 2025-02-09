@@ -1,7 +1,10 @@
+namespace HOB;
+
 using GameplayFramework;
 using Godot;
 using System;
 
+// TODO: make minimap as shader for 2d
 public partial class MiniMap : MarginContainer {
   [Export]
   private Camera3D Camera { get; set; }

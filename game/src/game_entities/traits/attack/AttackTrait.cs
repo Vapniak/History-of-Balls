@@ -16,9 +16,11 @@ public partial class AttackTrait : Trait {
     if (!AttackableEntities.Contains(entity)) {
       return false;
     }
+
     Entity.LookAt(entity.GetPosition());
 
     // animations
+    // FIXME: FINISH IS BEFORE START
     EmitSignal(SignalName.AttackFinished);
 
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {

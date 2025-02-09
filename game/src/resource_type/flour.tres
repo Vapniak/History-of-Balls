@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=2 format=3 uid="uid://c0gi1dmpjjefo"]
+
+[ext_resource type="Script" path="res://src/resource_type/ResourceType.cs" id="1_he2k1"]
+
+[resource]
+script = ExtResource("1_he2k1")
+Name = "Flour"

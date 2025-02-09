@@ -26,4 +26,10 @@ mesh = SubResource("BoxMesh_lqswr")
 
 [node name="UnitTraits" parent="Traits" index="0" instance=ExtResource("2_iqmdf")]
 
+[node name="MoveTrait" parent="Traits/UnitTraits" index="0"]
+MovePoints = 20
+
+[node name="AttackTrait" parent="Traits/UnitTraits" index="2"]
+Range = 100
+
 [editable path="Traits/UnitTraits"]
