@@ -1,8 +1,10 @@
 namespace HOB;
 
 using System;
+using System.Runtime.CompilerServices;
 using GameplayFramework;
 using Godot;
+using GodotStateCharts;
 using HOB.GameEntity;
 using RaycastSystem;
 
@@ -10,6 +12,9 @@ using RaycastSystem;
 [GlobalClass]
 public partial class HOBPlayerController : PlayerController, IMatchController {
   public event Action EndTurnEvent;
+
+  [Export] private Node StateChartNode { get; set; }
+  private StateChart StateChart { get; set; }
 
   private GameBoard GameBoard { get; set; }
   private Entity SelectedEntity { get; set; }
@@ -51,9 +56,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().HideHoverStatPanel();
 
     GameBoard.SetMouseHighlight(true);
+
+    StateChart = StateChart.Of(StateChartNode);
   }
 
-  public override void _UnhandledInput(InputEvent @event) {
+  public override void _Input(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
       _lastMousePosition = GetViewport().GetMousePosition();
@@ -71,17 +78,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
     }
 
-    if (@event.IsActionPressed(GameInputs.Select)) {
-      CheckSelection();
-    }
-
     // I saw a lot of objects created when I moved my mouse
     @event.Dispose();
   }
 
-  public override void _Process(double delta) {
-    base._Process(delta);
+  public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
+  public override HOBHUD GetHUD() => base.GetHUD() as HOBHUD;
 
+  public override void _Process(double delta) {
     _character.Move(delta);
 
     _character.ClampPosition(GetGameState().GameBoard.GetAabb());
@@ -90,6 +94,137 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public override void _PhysicsProcess(double delta) {
     base._PhysicsProcess(delta);
 
+    CheckHover();
+  }
+
+  // TODO: implement this inside interface and somehow call this inside this class
+  public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
+  public void OwnTurnStarted() {
+    ReselectEntity();
+  }
+  public void OwnTurnEnded() { }
+
+  public void OnGameStarted() {
+    CallDeferred(MethodName.SelectEntity, GameBoard.GetOwnedEntities(this)[0]);
+    CallDeferred(MethodName.FocusOnSelectedEntity);
+  }
+
+  private GameCell CheckSelection() {
+    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
+    if (raycastResult == null) {
+      return null;
+    }
+
+    var point = raycastResult.Position;
+    var coord = GameBoard.PointToCube(point);
+
+    var cell = GameBoard.GetCell(coord);
+
+    return cell;
+  }
+
+  private void CheckHover() {
+    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
+    if (raycastResult == null) {
+      return;
+    }
+
+    var point = raycastResult.Position;
+    var coord = GameBoard.PointToCube(point);
+
+    var cell = GameBoard.GetCell(coord);
+
+    var entities = GameBoard.GetEntitiesOnCell(cell);
+    if (cell == null || _isPanning || entities.Length == 0) {
+      UnHoverCell();
+      return;
+    }
+
+
+    if (HoveredCell != cell) {
+      HoverCell(cell);
+    }
+  }
+
+  private void HoverCell(GameCell cell) {
+    HoveredCell = cell;
+
+    var entities = GameBoard.GetEntitiesOnCell(cell);
+
+    if (entities.Length > 0) {
+      GetHUD().ShowHoverStatPanel(entities[0]);
+    }
+  }
+
+  private void UnHoverCell() {
+    GetHUD().HideHoverStatPanel();
+
+    HoveredCell = null;
+  }
+
+  private void SelectEntity(Entity entity) {
+    SelectedEntity = entity;
+
+    StateChart.SendEvent("entity_selected");
+  }
+
+  private void DeselectEntity() {
+    StateChart.SendEvent("entity_deselected");
+  }
+
+  private void ReselectEntity() {
+    if (SelectedEntity == null) {
+      return;
+    }
+
+    var entity = SelectedEntity;
+    DeselectEntity();
+    SelectEntity(entity);
+  }
+
+  private void OnCommandSelected(Command command) {
+    GameBoard.ClearHighlights();
+
+
+    if (command is MoveCommand moveCommand) {
+      foreach (var cell in moveCommand.EntityMoveTrait.GetReachableCells(GameBoard)) {
+        cell.HighlightColor = Colors.Green;
+      }
+    }
+    else if (command is AttackCommand attackCommand) {
+      var (entities, cellsInRange) = attackCommand.EntityAttackTrait.GetAttackableEntities(GameBoard);
+      foreach (var entity in entities) {
+        entity.Cell.HighlightColor = Colors.Red;
+      }
+
+      if (entities.Length == 0) {
+        foreach (var cell in cellsInRange) {
+          cell.HighlightColor = Colors.DarkRed;
+        }
+      }
+    }
+
+    command.GetEntity().Cell.HighlightColor = Colors.White;
+
+    GameBoard.UpdateHighlights();
+
+    SelectedCommand = command;
+  }
+
+  private void OnCommandStarted(Command command) {
+    StateChart.SendEvent("command_started");
+  }
+
+  private void OnCommandFinished(Command command) {
+    StateChart.SendEvent("command_finished");
+  }
+
+  private void FocusOnSelectedEntity() {
+    if (SelectedEntity != null) {
+      _character.MoveToPosition(SelectedEntity.GetPosition(), 1, Tween.TransitionType.Cubic);
+    }
+  }
+  private void HandleMovement(float delta) {
     // TODO: maybe make it more readable?
     // TODO: better movement, not using lerps
     if (!_isPanning) {
@@ -141,127 +276,36 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       _character.Friction(delta);
       _character.HandlePanning(delta, displacement);
     }
-
-    CheckHover();
   }
 
+  private void OnIdleUnhandledInput(InputEvent @event) {
+    if (@event.IsActionPressed(GameInputs.Select)) {
+      var cell = CheckSelection();
 
-  public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
-  public override HOBHUD GetHUD() => base.GetHUD() as HOBHUD;
-
-  private void CheckSelection() {
-    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
-    if (raycastResult == null) {
-      return;
-    }
-
-    var point = raycastResult.Position;
-    var coord = GameBoard.PointToCube(point);
-
-    var cell = GameBoard.GetCell(coord);
-    if (cell == null) {
-      return;
-    }
-
-    CellClicked(cell);
-  }
-
-  private void CheckHover() {
-    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
-    if (raycastResult == null) {
-      return;
-    }
-
-    var point = raycastResult.Position;
-    var coord = GameBoard.PointToCube(point);
-
-    var cell = GameBoard.GetCell(coord);
-
-    var entities = GameBoard.GetEntitiesOnCell(cell);
-    if (cell == null || _isPanning || entities.Length == 0) {
-      UnHoverCell();
-      return;
-    }
-
-
-    if (HoveredCell != cell) {
-      HoverCell(cell);
-    }
-  }
-
-  private void HoverCell(GameCell cell) {
-    HoveredCell = cell;
-
-    var entities = GameBoard.GetEntitiesOnCell(cell);
-
-    if (entities.Length > 0) {
-      GetHUD().ShowHoverStatPanel(entities[0]);
-    }
-  }
-
-  private void UnHoverCell() {
-    GetHUD().HideHoverStatPanel();
-
-    HoveredCell = null;
-  }
-
-  private void CellClicked(GameCell cell) {
-    var entities = GameBoard.GetEntitiesOnCell(cell);
-
-    if (IsCurrentTurn() && SelectedCommand != null) {
-      if (SelectedEntity != null && entities.Length > 0) {
-        if (SelectedEntity == entities[0]) {
-          DeselectEntity();
-          return;
-        }
+      if (cell == null) {
+        return;
       }
 
-      if (SelectedCommand is MoveCommand moveCommand) {
-        if (entities.Length == 0) {
-          if (moveCommand.TryMove(cell, GameBoard)) {
-            ReselectEntity();
-            return;
-          }
-        }
-      }
-      else if (SelectedCommand is AttackCommand attackCommand) {
-        if (entities.Length > 0) {
-          if (attackCommand.TryAttack(entities[0])) {
-            ReselectEntity();
-            return;
-          }
+      var entities = GameBoard.GetEntitiesOnCell(cell);
+      if (entities.Length > 0) {
+        if (entities[0] != SelectedEntity) {
+          SelectEntity(entities[0]);
         }
       }
     }
-
-
-    if (entities.Length > 0) {
-      if (entities[0] != SelectedEntity) {
-        DeselectEntity();
-        SelectEntity(entities[0]);
-      }
-    }
-    else {
-      DeselectEntity();
-    }
-
-    // GD.PrintS("Entities:", entities.Length, "Q:", cell.Coord.Q, "R:", cell.Coord.R);
   }
 
-  private void SelectEntity(Entity entity) {
+  private void OnSelectionEntered() {
     GameBoard.ClearHighlights();
 
-    SelectedEntity = entity;
-
     GetHUD().ShowStatPanel(SelectedEntity);
-
 
     if (SelectedEntity.IsOwnedBy(this)) {
       SelectedEntity.Cell.HighlightColor = Colors.White;
       if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
         commandTrait.CommandSelected += OnCommandSelected;
+        commandTrait.CommandStarted += OnCommandStarted;
         commandTrait.CommandFinished += OnCommandFinished;
-
 
         GetHUD().ShowCommandPanel(commandTrait);
       }
@@ -273,81 +317,91 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.UpdateHighlights();
   }
 
-  private void DeselectEntity() {
-    if (SelectedEntity == null) {
-      return;
-    }
+  private void OnSelectionExited() {
+    _character.CancelMoveToPosition();
 
     GetHUD().HideStatPanel();
     GetHUD().HideCommandPanel();
 
-    // TODO: do optimalization for highlights because on bigger maps it loops over whole image and sets every pixel which is bad
-    // TODO: add events when entity is selected and deselected to listen in game board and do highlighting there
-    GameBoard.ClearHighlights();
-    // highlight units which you can select
-    GameBoard.UpdateHighlights();
-
     if (SelectedEntity != null) {
-      if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      // TODO: do optimalization for highlights because on bigger maps it loops over whole image and sets every pixel which is bad
+      // TODO: add events when entity is selected and deselected to listen in game board and do highlighting there
+      GameBoard.ClearHighlights();
+      // highlight units which you can select
+      GameBoard.UpdateHighlights();
+
+      if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
         commandTrait.CommandSelected -= OnCommandSelected;
+        commandTrait.CommandStarted -= OnCommandStarted;
         commandTrait.CommandFinished -= OnCommandFinished;
       }
+
       SelectedEntity = null;
       SelectedCommand = null;
     }
   }
 
-  private void ReselectEntity() {
-    if (SelectedEntity == null) {
-      return;
+  private void OnSelectionIdleUnhandledInput(InputEvent @event) {
+
+    if (@event.IsActionPressed(GameInputs.Focus)) {
+      FocusOnSelectedEntity();
     }
 
-    var entity = SelectedEntity;
-    DeselectEntity();
-    SelectEntity(entity);
-  }
-
-  private void OnCommandSelected(Command command) {
-    GameBoard.ClearHighlights();
-
-
-    if (command is MoveCommand moveCommand) {
-      foreach (var cell in moveCommand.EntityMoveTrait.GetReachableCells(GameBoard)) {
-        cell.HighlightColor = Colors.Green;
-      }
-    }
-    else if (command is AttackCommand attackCommand) {
-      var (entities, cellsInRange) = attackCommand.EntityAttackTrait.GetAttackableEntities(GameBoard);
-      foreach (var entity in entities) {
-        entity.Cell.HighlightColor = Colors.Red;
+    if (@event.IsActionPressed(GameInputs.Select)) {
+      var cell = CheckSelection();
+      if (cell == null) {
+        return;
       }
 
-      if (entities.Length == 0) {
-        foreach (var cell in cellsInRange) {
-          cell.HighlightColor = Colors.DarkRed;
+      var entities = GameBoard.GetEntitiesOnCell(cell);
+      if (IsCurrentTurn()) {
+        if (SelectedEntity != null && entities.Length > 0) {
+          if (SelectedEntity == entities[0]) {
+            DeselectEntity();
+            return;
+          }
+        }
+
+        if (SelectedCommand != null) {
+          if (SelectedCommand is MoveCommand moveCommand) {
+            if (entities.Length == 0) {
+              if (moveCommand.TryMove(cell, GameBoard)) {
+                return;
+              }
+            }
+          }
+          else if (SelectedCommand is AttackCommand attackCommand) {
+            if (entities.Length > 0) {
+              if (attackCommand.TryAttack(entities[0])) {
+                return;
+              }
+            }
+          }
         }
       }
-    }
 
-    command.GetEntity().Cell.HighlightColor = Colors.White;
+      DeselectEntity();
+      if (entities.Length > 0) {
+        SelectEntity(entities[0]);
+      }
+    }
+  }
+
+  private void OnSelectionIdleEntered() {
+
+  }
+
+  private void OnSelectionIdleExited() {
+    GameBoard.ClearHighlights();
 
     GameBoard.UpdateHighlights();
-
-    SelectedCommand = command;
   }
 
-  private void OnCommandFinished(Command command) {
-    GetHUD().ShowCommandPanel(command.CommandTrait);
+  private void OnCommandEntered() {
+
   }
 
-  // TODO: implement this inside interface and somehow call this inside this class
-  public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
-  public void OwnTurnStarted() {
-    ReselectEntity();
-  }
-  public void OwnTurnEnded() { }
-
-  public void OnGameStarted() {
-    _character.MoveToPosition(GameBoard.GetOwnedEntities(this)[0].GetPosition());
+  private void OnCommandExited() {
+    GetHUD().ShowCommandPanel(SelectedCommand.CommandTrait);
   }
 }

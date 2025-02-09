@@ -6,6 +6,7 @@ using Godot;
 
 [GlobalClass]
 public partial class CommandTrait : Trait {
+  [Signal] public delegate void CommandStartedEventHandler(Command command);
   [Signal] public delegate void CommandFinishedEventHandler(Command command);
   [Signal] public delegate void CommandSelectedEventHandler(Command command);
 
@@ -23,7 +24,10 @@ public partial class CommandTrait : Trait {
         Commands.Add(command);
         command.CommandTrait = this;
 
-        command.Started += () => CurrentExecutedCommand = command;
+        command.Started += () => {
+          CurrentExecutedCommand = command;
+          EmitSignal(SignalName.CommandStarted, command);
+        };
         command.Finished += () => {
           CurrentExecutedCommand = null;
           EmitSignal(SignalName.CommandFinished, command);

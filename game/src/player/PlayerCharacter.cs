@@ -27,11 +27,13 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   public Vector3 Velocity { get; private set; }
   public float Zoom { get; private set; } = 1f;
 
-  private float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom);
+  public float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom);
 
 
   private float _targetZoom = 1f;
   private float _rotationAngle;
+
+  private bool _isMovingToPosition;
 
   public override void _Process(double delta) {
     Zoom = Mathf.Lerp(Zoom, _targetZoom, _zoomLerpSpeed * (float)delta);
@@ -50,17 +52,35 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   }
 
   public void HandleDirectionalMovement(double delta, Vector2 horizontalDirection) {
+    if (_isMovingToPosition) {
+      return;
+    }
+
     var direction = Transform.Basis * new Vector3(horizontalDirection.X, 0f, horizontalDirection.Y).Normalized();
     Velocity = Velocity.Lerp(direction * MoveSpeed, (float)delta * _acceleration);
   }
 
   public void HandlePanning(double delta, Vector2 mouseDisplacement) {
-    Velocity += new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti * (float)delta;
+    if (_isMovingToPosition) {
+      return;
+    }
+
+    Velocity += new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti / (float)delta * 0.100f;
   }
 
-  public void MoveToPosition(Vector3 position) {
-    var tween = CreateTween();
-    tween.TweenProperty(this, "global_position", position, 3);
+  private Tween _moveTween;
+  public void MoveToPosition(Vector3 position, double duration, Tween.TransitionType transitionType) {
+    _moveTween = CreateTween();
+    _moveTween.TweenProperty(this, "global_position", position, duration).SetTrans(transitionType);
+    _isMovingToPosition = true;
+    _moveTween.Finished += () => _isMovingToPosition = false;
+  }
+
+  public void CancelMoveToPosition() {
+    _isMovingToPosition = false;
+    if (IsInstanceValid(_moveTween)) {
+      _moveTween.Kill();
+    }
   }
 
   public void Friction(double delta) {

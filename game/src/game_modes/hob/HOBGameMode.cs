@@ -87,7 +87,5 @@ public partial class HOBGameMode : GameMode {
 
     PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new HOBPlayerState(), "Player", HUDScene, PlayerCharacterScene));
     PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new HOBPlayerState(), "AI", null, null));
-
-    MatchComponent.OnGameStarted();
   }
 }

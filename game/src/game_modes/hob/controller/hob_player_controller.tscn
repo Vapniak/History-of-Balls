@@ -1,10 +1,86 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfgh62iuf4b5x"]
+[gd_scene load_steps=8 format=3 uid="uid://dfgh62iuf4b5x"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/controller/HOBPlayerController.cs" id="1_cr46l"]
-[ext_resource type="Script" path="res://addons/state_machine/src/StateMachine.cs" id="2_7ke82"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_60ve5"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_6hkg8"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_luned"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_fs40q"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_4cy8h"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="7_h50uw"]
 
-[node name="HOBPlayerController" type="Node3D"]
+[node name="HOBPlayerController" type="Node3D" node_paths=PackedStringArray("StateChartNode")]
 script = ExtResource("1_cr46l")
+StateChartNode = NodePath("StateChart")
 
-[node name="StateMachine" type="Node" parent="."]
-script = ExtResource("2_7ke82")
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("2_60ve5")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("3_6hkg8")
+
+[node name="States" type="Node" parent="StateChart/Root"]
+script = ExtResource("3_luned")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root/States"]
+script = ExtResource("4_fs40q")
+
+[node name="ToSelection" type="Node" parent="StateChart/Root/States/Idle"]
+script = ExtResource("5_4cy8h")
+to = NodePath("../../Selection")
+event = &"entity_selected"
+delay_in_seconds = "0.0
+"
+
+[node name="Selection" type="Node" parent="StateChart/Root/States"]
+script = ExtResource("3_luned")
+initial_state = NodePath("Idle")
+
+[node name="ToIdle" type="Node" parent="StateChart/Root/States/Selection"]
+script = ExtResource("5_4cy8h")
+to = NodePath("../../Idle")
+event = &"entity_deselected"
+delay_in_seconds = "0.0"
+
+[node name="Idle" type="Node" parent="StateChart/Root/States/Selection"]
+script = ExtResource("4_fs40q")
+
+[node name="CommandStarted" type="Node" parent="StateChart/Root/States/Selection/Idle"]
+script = ExtResource("5_4cy8h")
+to = NodePath("../../Command")
+event = &"command_started"
+delay_in_seconds = "0.0"
+
+[node name="Command" type="Node" parent="StateChart/Root/States/Selection"]
+script = ExtResource("4_fs40q")
+
+[node name="CommandFinished" type="Node" parent="StateChart/Root/States/Selection/Command"]
+script = ExtResource("5_4cy8h")
+to = NodePath("../../Idle")
+event = &"command_finished"
+delay_in_seconds = "0.0"
+
+[node name="Movement" type="Node" parent="StateChart/Root"]
+script = ExtResource("4_fs40q")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("7_h50uw")]
+visible = false
+anchors_preset = 11
+anchor_left = 1.0
+offset_left = -370.0
+offset_top = 285.0
+offset_bottom = -209.0
+grow_horizontal = 0
+enabled = false
+initial_node_to_watch = NodePath("..")
+
+[connection signal="state_unhandled_input" from="StateChart/Root/States/Idle" to="." method="OnIdleUnhandledInput"]
+[connection signal="state_entered" from="StateChart/Root/States/Selection" to="." method="OnSelectionEntered"]
+[connection signal="state_exited" from="StateChart/Root/States/Selection" to="." method="OnSelectionExited"]
+[connection signal="state_entered" from="StateChart/Root/States/Selection/Idle" to="." method="OnSelectionIdleEntered"]
+[connection signal="state_exited" from="StateChart/Root/States/Selection/Idle" to="." method="OnSelectionIdleExited"]
+[connection signal="state_unhandled_input" from="StateChart/Root/States/Selection/Idle" to="." method="OnSelectionIdleUnhandledInput"]
+[connection signal="state_entered" from="StateChart/Root/States/Selection/Command" to="." method="OnCommandEntered"]
+[connection signal="state_exited" from="StateChart/Root/States/Selection/Command" to="." method="OnCommandExited"]
+[connection signal="state_processing" from="StateChart/Root/States/Selection/Command" to="." method="OnCommandProcess"]
+[connection signal="state_physics_processing" from="StateChart/Root/Movement" to="." method="HandleMovement"]
