@@ -31,9 +31,9 @@ config/icon="res://assets/textures/icon.svg"
 
 [autoload]
 
-Game="*res://addons/gameplay_framework/src/globals/game.tscn"
 RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
 SettingsManager="*res://src/gui/settings_menu/SettingsManager.cs"
+GameInstance="*res://src/game_instance.tscn"
 
 [debug_draw_3d]
 

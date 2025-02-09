@@ -18,5 +18,5 @@ public partial class Controller : Node3D, IController {
     return GetPlayerState() as T;
   }
 
-  public virtual IGameState GetGameState() => Game.GetGameState<IGameState>();
+  public virtual IGameState GetGameState() => GameInstance.GetGameState<IGameState>();
 }

@@ -9,6 +9,6 @@ public partial class Main : Node {
   }
 
   private void CreateWorld() {
-    Game.CreateWorld("splash_level");
+    GameInstance.CreateWorld("splash_level");
   }
 }

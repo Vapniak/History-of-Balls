@@ -35,6 +35,7 @@ public partial class TerrainManager : Node {
     TerrainData.Fill(Colors.Transparent);
     Cells = cells;
 
+    // this is okay because we set it only once on start
     foreach (var cell in cells) {
       SetTerrainPixel(cell.OffsetCoord, cell.TerrainColor);
     }
@@ -45,6 +46,7 @@ public partial class TerrainManager : Node {
   }
 
   public void UpdateHighlights() {
+    // FIXME: this is bad
     foreach (var cell in Cells) {
       SetHighlighPixel(cell.OffsetCoord, cell.HighlightColor);
     }

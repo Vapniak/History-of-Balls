@@ -31,20 +31,26 @@ public partial class MainMenu : Control {
         count++;
       }
     }
-  }
 
-  public override void _Process(double delta) {
     ParallaxBackground.ScrollOffset = GetViewport().GetMousePosition();
   }
+
+  public override void _Input(InputEvent @event) {
+    if (@event is InputEventMouseMotion motion) {
+      ParallaxBackground.ScrollOffset -= motion.Relative;
+    }
+  }
+
+
   private void OnStartButtonPressed() {
-    Game.GetGameMode<MainMenuGameMode>().StartGame();
+    GameInstance.GetGameMode<MainMenuGameMode>().StartGame();
   }
 
   private void OnSettingsButtonPressed() {
-    Game.GetGameMode<MainMenuGameMode>().OpenSettings();
+    GameInstance.GetGameMode<MainMenuGameMode>().OpenSettings();
   }
 
   private void OnQuitButtonPressed() {
-    Game.GetGameMode<MainMenuGameMode>().Quit();
+    GameInstance.GetGameMode<MainMenuGameMode>().Quit();
   }
 }

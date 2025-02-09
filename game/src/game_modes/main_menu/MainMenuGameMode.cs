@@ -18,7 +18,7 @@ public partial class MainMenuGameMode : GameMode {
 
   }
 
-  public void StartGame() => Game.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene);
+  public void StartGame() => GameInstance.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene);
 
   public void OpenSettings() {
     _settings = _settingsScene.Instantiate<SettingsMenu>();
@@ -31,5 +31,5 @@ public partial class MainMenuGameMode : GameMode {
     _settings.QueueFree();
   }
 
-  public void Quit() => Game.QuitGame();
+  public void Quit() => GameInstance.QuitGame();
 }

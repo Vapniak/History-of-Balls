@@ -33,7 +33,7 @@ public sealed partial class World : Node {
   /// </summary>
   /// <param name="levelName">Name of saved level scene.</param>
   public void OpenLevelThreaded(string levelName, PackedScene loadingScreenScene = null) {
-    _loadedLevelPath = Game.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
+    _loadedLevelPath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
     var error = ResourceLoader.LoadThreadedRequest(_loadedLevelPath, useSubThreads: true);
 
     if (error == Error.Ok) {
@@ -48,10 +48,13 @@ public sealed partial class World : Node {
 
       LoadingLevel = true;
     }
+    else {
+      GD.PrintErr("Level not valid!", levelName);
+    }
   }
 
   public void OpenLevel(string levelName) {
-    var levelpath = Game.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
+    var levelpath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
     var level = ResourceLoader.Load<PackedScene>(levelpath).Instantiate<Level>();
     OpenLevel(level);
   }

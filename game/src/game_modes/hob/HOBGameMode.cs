@@ -19,7 +19,7 @@ public partial class HOBGameMode : GameMode {
   public override void _EnterTree() {
     base._EnterTree();
 
-    GetGameState().GameBoard = Game.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
+    GetGameState().GameBoard = GameInstance.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
 
     PauseComponent = GetGameModeComponent<PauseComponent>();
 
@@ -35,7 +35,7 @@ public partial class HOBGameMode : GameMode {
     base._ExitTree();
 
     if (GetGameState().PauseGame) {
-      Game.SetPause(false);
+      GameInstance.SetPause(false);
     }
   }
 
@@ -77,10 +77,10 @@ public partial class HOBGameMode : GameMode {
     }
   }
   private void OnMainMenu() {
-    Game.GetWorld().OpenLevelThreaded("main_menu_level");
+    GameInstance.GetWorld().OpenLevelThreaded("main_menu_level");
   }
 
-  private void OnQuit() => Game.QuitGame();
+  private void OnQuit() => GameInstance.QuitGame();
 
   private void OnStartGame() {
     GetGameState().Init();

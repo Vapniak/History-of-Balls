@@ -39,7 +39,7 @@ public partial class PlayerManagmentComponent : GameModeComponent {
     var con = settings.ControllerScene.InstantiateOrNull<Controller>();
     var character = settings.CharacterScene?.InstantiateOrNull<Node>();
     var hud = settings.HUDScene?.InstantiateOrNull<HUD>();
-    var parent = Game.GetWorld().CurrentLevel;
+    var parent = GameInstance.GetWorld().CurrentLevel;
 
     if (character != null) {
       parent.AddChild(character);

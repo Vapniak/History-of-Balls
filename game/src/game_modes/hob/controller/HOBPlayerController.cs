@@ -37,7 +37,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GetGameState().RoundStartedEvent += (roundNumber) => {
       GetHUD().OnRoundChanged(roundNumber);
-      ReselectEntity();
     };
 
     GetHUD().EndTurn += () => EndTurnEvent?.Invoke();
@@ -72,13 +71,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
     }
 
-
-
-    // TODO: cooldown on selection because if someone has autoclicker I think it can crash game if you perform raycast every frame
     if (@event.IsActionPressed(GameInputs.Select)) {
       CheckSelection();
     }
-
 
     // I saw a lot of objects created when I moved my mouse
     @event.Dispose();
@@ -236,9 +231,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
             return;
           }
         }
-        else {
-          return;
-        }
       }
     }
 
@@ -282,9 +274,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void DeselectEntity() {
+    if (SelectedEntity == null) {
+      return;
+    }
+
     GetHUD().HideStatPanel();
     GetHUD().HideCommandPanel();
 
+    // TODO: do optimalization for highlights because on bigger maps it loops over whole image and sets every pixel which is bad
     // TODO: add events when entity is selected and deselected to listen in game board and do highlighting there
     GameBoard.ClearHighlights();
     // highlight units which you can select
@@ -345,7 +342,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   // TODO: implement this inside interface and somehow call this inside this class
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
-  public void OwnTurnStarted() { }
+  public void OwnTurnStarted() {
+    ReselectEntity();
+  }
   public void OwnTurnEnded() { }
 
   public void OnGameStarted() {
