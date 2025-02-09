@@ -413,5 +413,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnCommandExited() {
     GetHUD().ShowCommandPanel(SelectedCommand.CommandTrait);
+
+    SelectedCommand = null;
   }
 }
