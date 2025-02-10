@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://gsbrhj8onefx"]
+[gd_scene load_steps=8 format=3 uid="uid://gsbrhj8onefx"]
 
 [ext_resource type="PackedScene" uid="uid://dlhc830cg2mt4" path="res://src/game_entities/entites/base_entity.tscn" id="1_vmtx1"]
+[ext_resource type="Resource" uid="uid://xvasgpwombwc" path="res://src/game_entities/entites/unit/units/test_unit_2.tres" id="2_6t7c8"]
 [ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/unit/unit_traits.tscn" id="2_41s3k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egvh3"]
@@ -18,6 +19,7 @@ size = Vector3(0.175, 0.21, 0.49)
 
 [node name="BaseEntity" instance=ExtResource("1_vmtx1")]
 EntityName = "Unit 2"
+Stats = ExtResource("2_6t7c8")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Body" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -29,9 +31,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.6
 mesh = SubResource("BoxMesh_j2i6m")
 
 [node name="UnitTraits" parent="Traits" index="0" instance=ExtResource("2_41s3k")]
-
-[node name="MoveTrait" parent="Traits/UnitTraits" index="0"]
-MovePoints = 20
 
 [node name="AttackCommand" parent="Traits/UnitTraits/CommandTrait" index="1"]
 CooldownRounds = 0

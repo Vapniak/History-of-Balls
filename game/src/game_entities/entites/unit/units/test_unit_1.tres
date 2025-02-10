@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="StatsContainer" load_steps=8 format=3 uid="uid://b4ylwsj1n1e1g"]
+
+[ext_resource type="Script" path="res://src/game_entities/traits/move/MovementStats.cs" id="1_e24ln"]
+[ext_resource type="Script" path="res://src/game_entities/traits/attack/AttackStats.cs" id="2_na3wh"]
+[ext_resource type="Script" path="res://src/game_entities/traits/health/HealthStats.cs" id="3_4vann"]
+[ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="4_tluwc"]
+
+[sub_resource type="Resource" id="Resource_f6nfp"]
+script = ExtResource("1_e24ln")
+MovePoints = 0
+MoveSpeed = 10.0
+
+[sub_resource type="Resource" id="Resource_krs13"]
+script = ExtResource("2_na3wh")
+Damage = 5
+Range = 5
+
+[sub_resource type="Resource" id="Resource_dyy4k"]
+script = ExtResource("3_4vann")
+Health = 5
+
+[resource]
+script = ExtResource("4_tluwc")
+Stats = Array[Object]([SubResource("Resource_f6nfp"), SubResource("Resource_krs13"), SubResource("Resource_dyy4k")])

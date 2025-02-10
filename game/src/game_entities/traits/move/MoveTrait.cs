@@ -7,13 +7,6 @@ using System.Linq;
 [GlobalClass]
 public partial class MoveTrait : Trait {
   [Signal] public delegate void MoveFinishedEventHandler();
-
-
-  // TODO: move that data somewhere else
-  // TODO: make some simple entity editor plugin
-  [Export] public uint MovePoints { get; private set; } = 0;
-  [Export] private float _moveSpeed = 10;
-
   private GameCell[] _reachableCells;
   private Vector3 _targetPosition;
   private bool _move;
@@ -39,18 +32,18 @@ public partial class MoveTrait : Trait {
         Entity.LookAt(_targetPosition);
       }
 
-      Entity.SetPosition(Entity.GetPosition().Lerp(_targetPosition, (float)delta * _moveSpeed));
+      Entity.SetPosition(Entity.GetPosition().Lerp(_targetPosition, (float)delta * GetStat<MovementStats>().MoveSpeed));
     }
   }
 
   // TODO: function to filter reachble cells
   public GameCell[] GetReachableCells() {
-    var cells = Entity.GameBoard.FindReachableCells(Entity.Cell, MovePoints, (start, end) => IsReachable(start, end));
+    var cells = Entity.GameBoard.FindReachableCells(Entity.Cell, GetStat<MovementStats>().MovePoints, IsReachable);
     _reachableCells = cells;
     return cells;
   }
   public bool TryMove(GameCell targetCell) {
-    var path = Entity.GameBoard.FindPath(Entity.Cell, targetCell, MovePoints, (start, end) => IsReachable(start, end));
+    var path = Entity.GameBoard.FindPath(Entity.Cell, targetCell, GetStat<MovementStats>().MovePoints, IsReachable);
     if (path == null || !_reachableCells.Contains(path.Last())) {
       return false;
     }
@@ -58,11 +51,16 @@ public partial class MoveTrait : Trait {
     _path = path;
     _pathIndex = 0;
     Entity.Cell = path.Last();
-    _move = true;
+
+
     return true;
   }
 
   public bool IsReachable(GameCell start, GameCell end) {
     return Entity.GameBoard.GetEntitiesOnCell(end).Length == 0 && end.Settings.MoveCost > 0;
+  }
+
+  private void Move(GameCell[] path) {
+
   }
 }

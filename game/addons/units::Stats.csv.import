@@ -1,0 +1,15 @@
+[remap]
+
+importer="csv_translation"
+type="Translation"
+uid="uid://bm15u5fdfh1dd"
+valid=false
+
+[deps]
+
+source_file="res://addons/units::Stats.csv"
+
+[params]
+
+compress=true
+delimiter=0

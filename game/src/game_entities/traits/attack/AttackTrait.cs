@@ -8,9 +8,6 @@ using System.Collections.Generic;
 public partial class AttackTrait : Trait {
   [Signal] public delegate void AttackFinishedEventHandler();
 
-  [Export] public uint Damage { get; private set; } = 1;
-  [Export] public uint Range { get; private set; } = 1;
-
   private List<Entity> AttackableEntities { get; set; }
   public bool TryAttack(Entity entity) {
     if (!AttackableEntities.Contains(entity)) {
@@ -24,7 +21,7 @@ public partial class AttackTrait : Trait {
     EmitSignal(SignalName.AttackFinished);
 
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
-      healthTrait.Damage(Damage);
+      healthTrait.Damage(GetStat<AttackStats>().Damage);
     }
 
     return true;
@@ -34,7 +31,7 @@ public partial class AttackTrait : Trait {
     AttackableEntities = new List<Entity>();
     var cellsInR = new List<GameCell>();
 
-    var cells = board.GetCellsInRange(Entity.Cell.Coord, Range);
+    var cells = board.GetCellsInRange(Entity.Cell.Coord, GetStat<AttackStats>().Range);
     foreach (var cell in cells) {
       cellsInR.Add(cell);
       var entities = board.GetEntitiesOnCell(cell);

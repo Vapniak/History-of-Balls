@@ -142,8 +142,8 @@ public partial class HOBHUD : HUD {
 
     panel.ClearEntries();
 
-    if (isOwned && entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
-      panel.AddEntry("Move Points:", moveTrait.MovePoints.ToString());
+    if (isOwned && entity.TryGetStat<MovementStats>(out var movementStats)) {
+      panel.AddEntry("Move Points:", movementStats.MovePoints.ToString());
     }
 
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {

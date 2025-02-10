@@ -9,6 +9,7 @@ public partial class Entity : Node {
   [Export] public string EntityName { get; private set; }
   [Export] private Node3D Body { get; set; }
   [Export] private Node TraitsContainer { get; set; }
+  [Export] private StatsContainer Stats { get; set; }
   public GameCell Cell { get; set; }
 
   public IMatchController OwnerController { get; private set; }
@@ -43,6 +44,13 @@ public partial class Entity : Node {
 
   public T GetTrait<T>() where T : Trait {
     return _traits.GetValueOrDefault(typeof(T)) as T;
+  }
+
+  public bool TryGetStat<T>(out T stat) where T : BaseStat {
+    return Stats.TryGetStat(out stat);
+  }
+  public T GetStat<T>() where T : BaseStat {
+    return Stats.GetStat<T>();
   }
 
   public bool IsOwnedBy(IMatchController controller) {

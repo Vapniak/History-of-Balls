@@ -24,11 +24,11 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   [Export] public bool AllowPan { get; private set; } = true;
   [Export] private float _panSpeedMulti = 20f;
 
+  public float SpeedMulti { get; private set; } = 1;
   public Vector3 Velocity { get; private set; }
   public float Zoom { get; private set; } = 1f;
 
-  public float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom);
-
+  public float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom) * SpeedMulti;
 
   private float _targetZoom = 1f;
   private float _rotationAngle;
@@ -119,6 +119,12 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   public void Move(double delta) {
     GlobalTranslate(Velocity * (float)delta);
+
+    SpeedMulti = 1f;
+  }
+
+  public void ApplySpeedMulti() {
+    SpeedMulti = 2f;
   }
   public T GetCharacter<T>() where T : Node => this as T;
 }

@@ -231,6 +231,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
   private void HandleMovement(float delta) {
+    if (Input.IsActionPressed(GameInputs.SpeedMulti)) {
+      _character.ApplySpeedMulti();
+    }
+
     if (!_isPanning) {
       GetGameState().GameBoard.SetMouseHighlight(true);
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
