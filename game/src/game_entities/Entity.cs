@@ -11,7 +11,8 @@ public partial class Entity : Node {
   [Export] private Node TraitsContainer { get; set; }
   public GameCell Cell { get; set; }
 
-  public IMatchController OwnerController { get; set; }
+  public IMatchController OwnerController { get; private set; }
+  public GameBoard GameBoard { get; private set; }
 
   private readonly Dictionary<Type, Trait> _traits = new();
 
@@ -22,6 +23,12 @@ public partial class Entity : Node {
         _traits.Add(trait.GetType(), trait);
       }
     }
+  }
+
+  public void Init(IMatchController owner, GameCell cell, GameBoard gameBoard) {
+    OwnerController = owner;
+    Cell = cell;
+    GameBoard = gameBoard;
   }
 
   public bool TryGetTrait<T>(out T trait) where T : Trait {

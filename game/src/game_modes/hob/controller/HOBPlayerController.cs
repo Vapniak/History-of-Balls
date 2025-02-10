@@ -196,24 +196,21 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
 
     if (command is MoveCommand moveCommand) {
-      foreach (var cell in moveCommand.EntityMoveTrait.GetReachableCells(GameBoard)) {
-        cell.HighlightColor = Colors.Green;
+      foreach (var cell in moveCommand.EntityMoveTrait.GetReachableCells()) {
+        GameBoard.SetHighlight(cell, Colors.Green);
       }
     }
     else if (command is AttackCommand attackCommand) {
       var (entities, cellsInRange) = attackCommand.EntityAttackTrait.GetAttackableEntities(GameBoard);
-      foreach (var entity in entities) {
-        entity.Cell.HighlightColor = Colors.Red;
+      foreach (var cell in cellsInRange) {
+        GameBoard.SetHighlight(cell, Colors.DarkRed);
       }
-
-      if (entities.Length == 0) {
-        foreach (var cell in cellsInRange) {
-          cell.HighlightColor = Colors.DarkRed;
-        }
+      foreach (var entity in entities) {
+        GameBoard.SetHighlight(entity.Cell, Colors.Red);
       }
     }
 
-    command.GetEntity().Cell.HighlightColor = Colors.White;
+    GameBoard.SetHighlight(command.GetEntity().Cell, Colors.White);
 
     GameBoard.UpdateHighlights();
 
@@ -300,6 +297,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         }
       }
     }
+
+    @event.Dispose();
   }
 
   private void OnSelectionEntered() {
@@ -308,7 +307,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().ShowStatPanel(SelectedEntity);
 
     if (SelectedEntity.IsOwnedBy(this)) {
-      SelectedEntity.Cell.HighlightColor = Colors.White;
       if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
         commandTrait.CommandSelected += OnCommandSelected;
         commandTrait.CommandStarted += OnCommandStarted;
@@ -316,9 +314,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
         GetHUD().ShowCommandPanel(commandTrait);
       }
-    }
-    else {
-      SelectedEntity.Cell.HighlightColor = Colors.Red;
     }
 
     GameBoard.UpdateHighlights();
@@ -331,9 +326,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().HideCommandPanel();
 
     if (SelectedEntity != null) {
-      // TODO: do optimalization for highlights because on bigger maps it loops over whole image and sets every pixel which is bad
       GameBoard.ClearHighlights();
-      // highlight units which you can select
       GameBoard.UpdateHighlights();
 
       if (SelectedEntity.IsOwnedBy(this)) {
@@ -373,7 +366,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         if (SelectedCommand != null) {
           if (SelectedCommand is MoveCommand moveCommand) {
             if (entities.Length == 0) {
-              if (moveCommand.TryMove(cell, GameBoard)) {
+              if (moveCommand.TryMove(cell)) {
                 return;
               }
             }
@@ -393,10 +386,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         SelectEntity(entities[0]);
       }
     }
+
+    @event.Dispose();
   }
 
   private void OnSelectionIdleEntered() {
-    SelectedEntity.Cell.HighlightColor = Colors.White;
+    if (SelectedEntity.IsOwnedBy(this)) {
+      GameBoard.SetHighlight(SelectedEntity.Cell, Colors.White);
+    }
+    else {
+      GameBoard.SetHighlight(SelectedEntity.Cell, Colors.Red);
+    }
 
     GameBoard.UpdateHighlights();
   }

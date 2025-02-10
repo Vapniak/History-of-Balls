@@ -1,12 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=9 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="Resource" uid="uid://ca43u8x72ydv5" path="res://src/game_board/grid_layout.tres" id="2_i1283"]
-[ext_resource type="Resource" uid="uid://5wuxfmlkqhss" path="res://src/maps/test_map.tres" id="3_6ofqd"]
 [ext_resource type="Material" uid="uid://c6655v1arx6kw" path="res://res/materials/hex_grid_mat.tres" id="4_frcd5"]
 [ext_resource type="Script" path="res://src/game_board/terrain_manager/TerrainManager.cs" id="5_ml5l7"]
 [ext_resource type="Script" path="res://src/game_board/entity_manager/EntityManager.cs" id="6_wv76r"]
-[ext_resource type="Script" path="res://src/maps/data/MapGenerator.cs" id="7_e1q7g"]
 [ext_resource type="Resource" uid="uid://cjs5kb22f76wy" path="res://src/maps/test_huge.tres" id="8_e3dd8"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_2ghrd"]
@@ -21,7 +19,7 @@ TerrainMesh = NodePath("StaticBody3D/TerrainMesh")
 Layout = ExtResource("2_i1283")
 TerrainManager = NodePath("TerrainManager")
 EntityManager = NodePath("EntityManager")
-MapData = ExtResource("3_6ofqd")
+MapData = ExtResource("8_e3dd8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0
@@ -38,8 +36,3 @@ script = ExtResource("5_ml5l7")
 
 [node name="EntityManager" type="Node" parent="."]
 script = ExtResource("6_wv76r")
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource("7_e1q7g")
-MapPath = "res://res/maps/test_huge.json"
-GeneratedMapData = ExtResource("8_e3dd8")

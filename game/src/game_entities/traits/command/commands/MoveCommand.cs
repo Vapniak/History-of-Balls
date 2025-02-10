@@ -10,8 +10,8 @@ public partial class MoveCommand : Command {
 
     EntityMoveTrait.MoveFinished += Finish;
   }
-  public bool TryMove(GameCell targetCell, GameBoard board) {
-    if (EntityMoveTrait.TryMove(targetCell, board)) {
+  public bool TryMove(GameCell targetCell) {
+    if (EntityMoveTrait.TryMove(targetCell)) {
       Use();
       return true;
     }

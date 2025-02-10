@@ -1,8 +1,7 @@
 namespace HOB;
 
-using System;
+using System.Runtime.InteropServices;
 using Godot;
-using Godot.Collections;
 using HexGridMap;
 
 [GlobalClass]
@@ -18,26 +17,21 @@ public partial class TerrainManager : Node {
   private ImageTexture TerrainDataTexture { get; set; }
   private Image TerrainData { get; set; }
 
-
   private ImageTexture HighlightDataTexture { get; set; }
   private Image HighlightData { get; set; }
 
-  private GameCell[] Cells { get; set; }
-
-  public void CreateData(int width, int height) {
-    TerrainData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
-    HighlightData = Image.CreateEmpty(width, height, false, Image.Format.Rgba8);
+  // TODO: divide the terrain to chunks and only update the texture in chunk
+  public void CreateData(MapData mapData) {
+    TerrainData = Image.CreateEmpty(mapData.Cols, mapData.Rows, false, Image.Format.Rgba8);
+    HighlightData = Image.CreateEmpty(mapData.Cols, mapData.Rows, false, Image.Format.Rgba8);
 
     // TODO: offset all coords so they fit in texture and start from 0 offset
-  }
 
-  public void UpdateData(GameCell[] cells) {
     TerrainData.Fill(Colors.Transparent);
-    Cells = cells;
 
-    // this is okay because we set it only once on start
-    foreach (var cell in cells) {
-      SetTerrainPixel(cell.OffsetCoord, cell.TerrainColor);
+    foreach (var hex in mapData.GetCells()) {
+      var setting = mapData.Settings.CellSettings[hex.Id];
+      SetTerrainPixel(new(hex.Col, hex.Row), setting.Color);
     }
 
     UpdateTerrainTextureData();
@@ -45,13 +39,16 @@ public partial class TerrainManager : Node {
     UpdateHighlights();
   }
 
-  public void UpdateHighlights() {
-    // FIXME: this is bad
-    foreach (var cell in Cells) {
-      SetHighlighPixel(cell.OffsetCoord, cell.HighlightColor);
-    }
+  public void SetHighlight(GameCell cell, Color color) {
+    SetHighlighPixel(cell.OffsetCoord, color);
+  }
 
+  public void UpdateHighlights() {
     UpdateHighlightTextureData();
+  }
+
+  public void ClearHighlights() {
+    HighlightData.Fill(Colors.Transparent);
   }
 
   private void SetHighlighPixel(OffsetCoord offset, Color color) {

@@ -26,7 +26,7 @@ public partial class GameBoard : Node3D {
     Grid = new(Layout);
 
     EntityManager.EntityRemoved += (entity) => {
-      entity.Cell.HighlightColor = Colors.Transparent;
+      SetHighlight(entity.Cell, Colors.Transparent);
       UpdateHighlights();
     };
 
@@ -41,9 +41,8 @@ public partial class GameBoard : Node3D {
 
     _terrainMaterial.Set("shader_parameter/terrain_size", GetMapSize());
 
-    TerrainManager.CreateData(GetMapSize().X, GetMapSize().Y);
+    TerrainManager.CreateData(MapData);
 
-    TerrainManager.UpdateData(GetCells());
 
     EmitSignal(SignalName.GridCreated);
   }
@@ -134,11 +133,13 @@ public partial class GameBoard : Node3D {
 
     foreach (var cell in GetCells()) {
       var distance = coord.Distance(cell.Coord);
-      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && cell.MoveCost > 0) {
+      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && cell.Settings.MoveCost > 0) {
         minDistance = distance;
         closestCell = cell;
       }
     }
+
+    entity.Init(controller, closestCell, this);
 
     EntityManager.AddEntity(entity, closestCell, controller);
     return true;
@@ -156,14 +157,16 @@ public partial class GameBoard : Node3D {
     return EntityManager.GetOwnedEntites(owner);
   }
 
+  public void SetHighlight(GameCell cell, Color color) {
+    TerrainManager.SetHighlight(cell, color);
+  }
+
   public void UpdateHighlights() {
     TerrainManager.UpdateHighlights();
   }
 
   public void ClearHighlights() {
-    foreach (var cell in GetCells()) {
-      cell.HighlightColor = Colors.Transparent;
-    }
+    TerrainManager.ClearHighlights();
   }
 
 
@@ -213,7 +216,7 @@ public partial class GameBoard : Node3D {
       for (var i = HexDirection.Min; i < HexDirection.Max; i++) {
         var cell = GetCell(current, i);
         if (cell != null && isReachable(current, cell)) {
-          var newCost = currentCost + cell.MoveCost;
+          var newCost = currentCost + cell.Settings.MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
             minCost[cellIndex] = newCost;
@@ -252,7 +255,7 @@ public partial class GameBoard : Node3D {
       for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
         var cell = GetCell(current, (HexDirection)i);
         if (cell != null && isReachable(current, cell)) {
-          var newCost = currentCost + cell.MoveCost;
+          var newCost = currentCost + cell.Settings.MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
             minCost[cellIndex] = newCost;
@@ -281,12 +284,9 @@ public partial class GameBoard : Node3D {
 
   private void LoadMap(MapData mapData) {
     var cells = new List<GameCell>();
-    foreach (var hex in MapData.Cells) {
-      var setting = mapData.Settings.CellDefinitions[hex.Id];
-      var cell = new GameCell(Layout.OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), Layout) {
-        TerrainColor = setting.Color,
-        MoveCost = setting.MoveCost
-      };
+    foreach (var hex in MapData.GetCells()) {
+      var cellDefinition = mapData.Settings.CellSettings[hex.Id];
+      var cell = new GameCell(Layout.OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), Layout, cellDefinition);
       cells.Add(cell);
     }
 

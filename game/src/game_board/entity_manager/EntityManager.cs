@@ -21,9 +21,6 @@ public partial class EntityManager : Node {
       entity.SetPosition(cell.GetRealPosition());
     };
 
-    entity.Cell = cell;
-    entity.OwnerController = controller;
-
     AddChild(entity);
 
     entity.TreeExiting += () => RemoveEntity(entity);

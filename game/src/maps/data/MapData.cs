@@ -6,15 +6,22 @@ using System.Collections.Generic;
 
 [GlobalClass, Tool]
 public partial class MapData : Resource {
+  [Export] private Json MapFile { get; set; }
+  [Export]
+  private bool Generate {
+    get => false; set => ParseMap();
+  }
   [Export] public string Title { get; set; }
   [Export] public string Description { get; set; }
   [Export] public int Cols { get; set; }
   [Export] public int Rows { get; set; }
-  [Export] public Cell[] Cells { get; set; }
   [Export] public MapSettings Settings { get; set; }
 
-  public void ParseMap(Json json) {
-    var data = json.Data.AsGodotDictionary();
+  private Dictionary _mapData;
+  private Array<Cell> Cells { get; set; }
+
+  public void ParseMap() {
+    var data = MapFile.Data.AsGodotDictionary();
 
     Title = data["title"].AsString();
     Description = data["description"].AsString();
@@ -24,11 +31,11 @@ public partial class MapData : Resource {
 
     Settings ??= new();
 
-    var cells = new Array<CellDefinition>();
+    var cells = new Array<CellSettings>();
     foreach (var item in data["cellDefinitions"].AsGodotArray()) {
       var cell = item.AsGodotDictionary();
 
-      var cellToAdd = new CellDefinition() {
+      var cellToAdd = new CellSettings() {
         Name = cell["name"].AsString(),
         Color = Color.FromHtml(cell["color"].AsString()),
         MoveCost = 1,
@@ -37,13 +44,19 @@ public partial class MapData : Resource {
       cells.Add(cellToAdd);
     }
 
-    if (Settings.CellDefinitions == null) {
-      Settings.CellDefinitions = cells;
+    if (Settings.CellSettings == null) {
+      Settings.CellSettings = cells;
+    }
+  }
+
+  public Array<Cell> GetCells() {
+    if (Cells != null) {
+      return Cells;
     }
 
+    Cells = new();
 
-    var cellList = new List<Cell>();
-    foreach (var item in data["cells"].AsGodotArray()) {
+    foreach (var item in MapFile.Data.AsGodotDictionary()["cells"].AsGodotArray()) {
       var hex = item.AsGodotDictionary();
 
       var hexToAdd = new Cell() {
@@ -53,9 +66,9 @@ public partial class MapData : Resource {
         ObjectId = hex["objectId"].AsInt32()
       };
 
-      cellList.Add(hexToAdd);
+      Cells.Add(hexToAdd);
     }
 
-    Cells = cellList.ToArray();
+    return Cells;
   }
 };

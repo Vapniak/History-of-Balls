@@ -1,9 +1,7 @@
 namespace HOB.GameEntity;
 
 using Godot;
-using HexGridMap;
 using System;
-using System.IO;
 using System.Linq;
 
 [GlobalClass]
@@ -46,13 +44,13 @@ public partial class MoveTrait : Trait {
   }
 
   // TODO: function to filter reachble cells
-  public GameCell[] GetReachableCells(GameBoard board) {
-    var cells = board.FindReachableCells(Entity.Cell, MovePoints, (start, end) => IsReachable(start, end, board));
+  public GameCell[] GetReachableCells() {
+    var cells = Entity.GameBoard.FindReachableCells(Entity.Cell, MovePoints, (start, end) => IsReachable(start, end));
     _reachableCells = cells;
     return cells;
   }
-  public bool TryMove(GameCell targetCell, GameBoard board) {
-    var path = board.FindPath(Entity.Cell, targetCell, MovePoints, (start, end) => IsReachable(start, end, board));
+  public bool TryMove(GameCell targetCell) {
+    var path = Entity.GameBoard.FindPath(Entity.Cell, targetCell, MovePoints, (start, end) => IsReachable(start, end));
     if (path == null || !_reachableCells.Contains(path.Last())) {
       return false;
     }
@@ -64,7 +62,7 @@ public partial class MoveTrait : Trait {
     return true;
   }
 
-  public bool IsReachable(GameCell start, GameCell end, GameBoard board) {
-    return board.GetEntitiesOnCell(end).Length == 0 && end.MoveCost > 0;
+  public bool IsReachable(GameCell start, GameCell end) {
+    return Entity.GameBoard.GetEntitiesOnCell(end).Length == 0 && end.Settings.MoveCost > 0;
   }
 }
