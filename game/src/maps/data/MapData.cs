@@ -31,11 +31,11 @@ public partial class MapData : Resource {
 
     Settings ??= new();
 
-    var cells = new Array<CellSettings>();
+    var cells = new Array<CellSetting>();
     foreach (var item in data["cellDefinitions"].AsGodotArray()) {
       var cell = item.AsGodotDictionary();
 
-      var cellToAdd = new CellSettings() {
+      var cellToAdd = new CellSetting() {
         Name = cell["name"].AsString(),
         Color = Color.FromHtml(cell["color"].AsString()),
         MoveCost = 1,

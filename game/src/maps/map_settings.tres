@@ -1,113 +1,120 @@
-[gd_resource type="Resource" script_class="MapSettings" load_steps=18 format=3 uid="uid://cdng53vtat7d5"]
+[gd_resource type="Resource" script_class="MapSettings" load_steps=19 format=3 uid="uid://cdng53vtat7d5"]
 
-[ext_resource type="Script" path="res://src/maps/data/CellSettings.cs" id="1_lon6u"]
+[ext_resource type="Script" path="res://src/maps/data/CellSetting.cs" id="1_xqou0"]
 [ext_resource type="Script" path="res://src/maps/data/MapSettings.cs" id="2_v2to7"]
 
-[sub_resource type="Resource" id="Resource_tfubo"]
-script = ExtResource("1_lon6u")
-Name = "Ocean"
-Color = Color(0.196078, 0.364706, 0.858824, 1)
-MoveCost = 0
+[sub_resource type="Resource" id="Resource_86p8r"]
+script = ExtResource("1_xqou0")
+Name = "Default"
+Color = Color(0.509126, 0.772955, 0.915614, 1)
+MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_3prrx"]
-script = ExtResource("1_lon6u")
-Name = "Water"
-Color = Color(0.247059, 0.670588, 1, 1)
-MoveCost = 0
-Elevation = 0
-
-[sub_resource type="Resource" id="Resource_d77uh"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_nr7lv"]
+script = ExtResource("1_xqou0")
 Name = "Desert"
 Color = Color(1, 0.843137, 0, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_xt6fg"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_mvdch"]
+script = ExtResource("1_xqou0")
 Name = "Cactus Desert"
 Color = Color(0.803922, 0.521569, 0.247059, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_oiq0j"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_sa7t6"]
+script = ExtResource("1_xqou0")
 Name = "Dunes"
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_exsh3"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_mf7oa"]
+script = ExtResource("1_xqou0")
 Name = "Mountains"
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_27exf"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_s66hj"]
+script = ExtResource("1_xqou0")
 Name = "Forest"
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_eel13"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_qlc2p"]
+script = ExtResource("1_xqou0")
 Name = "Meadow"
 Color = Color(0, 0.733333, 0, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_runyg"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_hig12"]
+script = ExtResource("1_xqou0")
 Name = "Grassland"
 Color = Color(0.498039, 1, 0, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_copss"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_qxryg"]
+script = ExtResource("1_xqou0")
 Name = "Jungle"
 Color = Color(0.133333, 0.545098, 0.4, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_siix3"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_60657"]
+script = ExtResource("1_xqou0")
 Name = "Swamp"
 Color = Color(0.247059, 0.670588, 0.666667, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_vm1yq"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_mvpii"]
+script = ExtResource("1_xqou0")
 Name = "Highlands"
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_xm60s"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_5fy2o"]
+script = ExtResource("1_xqou0")
 Name = "Snowfield"
 Color = Color(1, 1, 1, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_f34nd"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_ro10w"]
+script = ExtResource("1_xqou0")
 Name = "Snowy Forest"
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 MoveCost = 1
 Elevation = 0
 
-[sub_resource type="Resource" id="Resource_e3h7d"]
-script = ExtResource("1_lon6u")
+[sub_resource type="Resource" id="Resource_ie07b"]
+script = ExtResource("1_xqou0")
 Name = "Glacier"
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 MoveCost = 1
 Elevation = 0
 
+[sub_resource type="Resource" id="Resource_0xml3"]
+script = ExtResource("1_xqou0")
+Name = "Water"
+Color = Color(0.247059, 0.670588, 1, 1)
+MoveCost = 0
+Elevation = 0
+
+[sub_resource type="Resource" id="Resource_qbtof"]
+script = ExtResource("1_xqou0")
+Name = "Ocean"
+Color = Color(0.196078, 0.364706, 0.858824, 1)
+MoveCost = 0
+Elevation = 0
+
 [resource]
 script = ExtResource("2_v2to7")
-CellSettings = [SubResource("Resource_tfubo"), SubResource("Resource_3prrx"), SubResource("Resource_d77uh"), SubResource("Resource_xt6fg"), SubResource("Resource_oiq0j"), SubResource("Resource_exsh3"), SubResource("Resource_27exf"), SubResource("Resource_eel13"), SubResource("Resource_runyg"), SubResource("Resource_copss"), SubResource("Resource_siix3"), SubResource("Resource_vm1yq"), SubResource("Resource_xm60s"), SubResource("Resource_f34nd"), SubResource("Resource_e3h7d")]
+CellSettings = [SubResource("Resource_86p8r"), SubResource("Resource_nr7lv"), SubResource("Resource_mvdch"), SubResource("Resource_sa7t6"), SubResource("Resource_mf7oa"), SubResource("Resource_s66hj"), SubResource("Resource_qlc2p"), SubResource("Resource_hig12"), SubResource("Resource_qxryg"), SubResource("Resource_60657"), SubResource("Resource_mvpii"), SubResource("Resource_5fy2o"), SubResource("Resource_ro10w"), SubResource("Resource_ie07b"), SubResource("Resource_0xml3"), SubResource("Resource_qbtof")]

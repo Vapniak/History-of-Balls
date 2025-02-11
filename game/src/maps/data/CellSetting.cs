@@ -4,7 +4,7 @@ using Godot;
 using System;
 
 [GlobalClass, Tool]
-public partial class CellSettings : Resource {
+public partial class CellSetting : Resource {
   [Export] public string Name { get; set; }
   [Export] public Color Color { get; set; }
   [Export] public int MoveCost { get; set; }

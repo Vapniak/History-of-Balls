@@ -2,12 +2,8 @@
 
 [ext_resource type="Script" path="res://src/game_entities/Entity.cs" id="1_i35fj"]
 
-[node name="BaseEntity" type="Node" node_paths=PackedStringArray("Body", "TraitsContainer")]
+[node name="Entity" type="Node" node_paths=PackedStringArray("Body")]
 script = ExtResource("1_i35fj")
-EntityName = "Entity"
 Body = NodePath("Body")
-TraitsContainer = NodePath("Traits")
 
 [node name="Body" type="Node3D" parent="."]
-
-[node name="Traits" type="Node" parent="."]

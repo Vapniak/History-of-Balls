@@ -407,7 +407,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnSelectionIdleExited() {
     GameBoard.ClearHighlights();
-
     GameBoard.UpdateHighlights();
   }
 

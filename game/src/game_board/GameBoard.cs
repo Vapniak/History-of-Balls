@@ -12,15 +12,12 @@ using RaycastSystem;
 /// </summary>
 public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
-  [Export] private MeshInstance3D TerrainMesh { get; set; }
   [Export] private HexLayout Layout { get; set; }
   [Export] private TerrainManager TerrainManager { get; set; }
   [Export] private EntityManager EntityManager { get; set; }
   [Export] public MapData MapData { get; private set; }
 
   private GameGrid Grid { get; set; }
-
-  private Material _terrainMaterial;
 
   public void Init() {
     Grid = new(Layout);
@@ -32,16 +29,7 @@ public partial class GameBoard : Node3D {
 
     LoadMap(MapData);
 
-    _terrainMaterial = TerrainMesh.GetActiveMaterial(0);
-
-    // TODO: make terrain grid infinite
-    ((PlaneMesh)TerrainMesh.Mesh).Size = GetRealMapSize() * 10;
-    TerrainManager.TerrainDataTextureChanged += (tex) => _terrainMaterial.Set("shader_parameter/terrain_data_texture", tex);
-    TerrainManager.HighlightDataTextureChanged += (tex) => _terrainMaterial.Set("shader_parameter/highlight_data_texture", tex);
-
-    _terrainMaterial.Set("shader_parameter/terrain_size", GetMapSize());
-
-    TerrainManager.CreateData(MapData);
+    TerrainManager.CreateData(MapData, GetRealMapSize());
 
 
     EmitSignal(SignalName.GridCreated);
@@ -63,10 +51,6 @@ public partial class GameBoard : Node3D {
       return;
     }
 
-    var position = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World)?.Position;
-    if (position != null) {
-      _terrainMaterial.Set("shader_parameter/mouse_world_pos", new Vector2(position.Value.X, position.Value.Z));
-    }
   }
 
   public Aabb GetAabb() {
@@ -79,7 +63,7 @@ public partial class GameBoard : Node3D {
   }
 
   public void SetMouseHighlight(bool value) {
-    _terrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
+    TerrainManager.SetMouseHighlight(value);
   }
 
 
@@ -127,21 +111,20 @@ public partial class GameBoard : Node3D {
     return GetMapSize() * Layout.GetSpacingBetweenHexes();
   }
 
-  public bool TryAddEntity(Entity entity, CubeCoord coord, IMatchController controller) {
+  public bool TryAddEntity(EntityData data, CubeCoord coord, IMatchController controller) {
     GameCell closestCell = null;
     var minDistance = int.MaxValue;
 
     foreach (var cell in GetCells()) {
       var distance = coord.Distance(cell.Coord);
-      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && cell.Settings.MoveCost > 0) {
+      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && GetSetting(cell).MoveCost > 0) {
         minDistance = distance;
         closestCell = cell;
       }
     }
 
-    entity.Init(controller, closestCell, this);
-
-    EntityManager.AddEntity(entity, closestCell, controller);
+    var entity = Entity.Instantiate(controller, data, closestCell, this);
+    EntityManager.AddEntity(entity);
     return true;
   }
 
@@ -169,6 +152,9 @@ public partial class GameBoard : Node3D {
     TerrainManager.ClearHighlights();
   }
 
+  public Vector3 GetCellRealPosition(GameCell cell) {
+    return new(cell.Position.X, GetSetting(cell).Elevation, cell.Position.Y);
+  }
 
   // TODO: proper line of sight, for now it can be like this...
   public GameCell[] GetCellsInSight(GameCell center, uint range) {
@@ -216,7 +202,7 @@ public partial class GameBoard : Node3D {
       for (var i = HexDirection.Min; i < HexDirection.Max; i++) {
         var cell = GetCell(current, i);
         if (cell != null && isReachable(current, cell)) {
-          var newCost = currentCost + cell.Settings.MoveCost;
+          var newCost = currentCost + GetSetting(cell).MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
             minCost[cellIndex] = newCost;
@@ -255,7 +241,7 @@ public partial class GameBoard : Node3D {
       for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
         var cell = GetCell(current, (HexDirection)i);
         if (cell != null && isReachable(current, cell)) {
-          var newCost = currentCost + cell.Settings.MoveCost;
+          var newCost = currentCost + GetSetting(cell).MoveCost;
           var cellIndex = Grid.GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
             minCost[cellIndex] = newCost;
@@ -282,11 +268,14 @@ public partial class GameBoard : Node3D {
     return path.ToArray();
   }
 
+  public CellSetting GetSetting(GameCell cell) {
+    return MapData.Settings.CellSettings[cell.SettingId];
+  }
+
   private void LoadMap(MapData mapData) {
     var cells = new List<GameCell>();
     foreach (var hex in MapData.GetCells()) {
-      var cellDefinition = mapData.Settings.CellSettings[hex.Id];
-      var cell = new GameCell(Layout.OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), Layout, cellDefinition);
+      var cell = new GameCell(Layout.OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), Layout, hex.Id);
       cells.Add(cell);
     }
 

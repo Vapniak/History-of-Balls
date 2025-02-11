@@ -4,7 +4,6 @@ shader_type spatial;
 
 uniform sampler2D highlight_data_texture : source_color, repeat_disable;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
-uniform ivec2 terrain_size = ivec2(10, 10);
 
 uniform vec2 mouse_world_pos;
 uniform bool show_mouse_highlight;

@@ -4,12 +4,14 @@ using Godot;
 using HexGridMap;
 
 public partial class GameCell : HexCell {
-  public CellSettings Settings { get; private set; }
-  public GameCell(CubeCoord coord, HexLayout layout, CellSettings settings) : base(coord, layout) {
-    Settings = settings;
+  public enum EdgeType {
+    Flat, // ELEVATION DIFF 0
+    Slope, // ELEVATION DIFF 1
+    Hill // ELEVATION DIFF > 1
   }
 
-  public Vector3 GetRealPosition() {
-    return new(Position.X, Settings.Elevation, Position.Y);
+  public int SettingId { get; private set; }
+  public GameCell(CubeCoord coord, HexLayout layout, int settingId) : base(coord, layout) {
+    SettingId = settingId;
   }
 }

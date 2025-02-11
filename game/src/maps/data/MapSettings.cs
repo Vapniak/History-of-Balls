@@ -6,5 +6,5 @@ using System;
 
 [GlobalClass, Tool]
 public partial class MapSettings : Resource {
-  [Export] public Array<CellSettings> CellSettings;
+  [Export] public Array<CellSetting> CellSettings;
 }

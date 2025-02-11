@@ -16,7 +16,7 @@ public partial class MoveTrait : Trait {
     base._PhysicsProcess(delta);
 
     if (_move) {
-      _targetPosition = _path[_pathIndex].GetRealPosition();
+      _targetPosition = Entity.GameBoard.GetCellRealPosition(_path[_pathIndex]);
       if (Entity.GetPosition().DistanceTo(_targetPosition) < .1) {
         if (_pathIndex < _path.Length - 1) {
           _pathIndex++;
@@ -51,16 +51,13 @@ public partial class MoveTrait : Trait {
     _path = path;
     _pathIndex = 0;
     Entity.Cell = path.Last();
+    _move = true;
 
 
     return true;
   }
 
   public bool IsReachable(GameCell start, GameCell end) {
-    return Entity.GameBoard.GetEntitiesOnCell(end).Length == 0 && end.Settings.MoveCost > 0;
-  }
-
-  private void Move(GameCell[] path) {
-
+    return Entity.GameBoard.GetEntitiesOnCell(end).Length == 0 && Entity.GameBoard.GetSetting(end).MoveCost > 0;
   }
 }

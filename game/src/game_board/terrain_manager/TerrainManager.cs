@@ -1,31 +1,29 @@
 namespace HOB;
 
-using System.Runtime.InteropServices;
 using Godot;
 using HexGridMap;
+using RaycastSystem;
 
 [GlobalClass]
-public partial class TerrainManager : Node {
-  public enum EdgeType {
-    Flat, // ELEVATION DIFF 0
-    Slope, // ELEVATION DIFF 1
-    Hill // ELEVATION DIFF > 1
-  }
-  [Signal] public delegate void TerrainDataTextureChangedEventHandler(ImageTexture texture);
-  [Signal] public delegate void HighlightDataTextureChangedEventHandler(ImageTexture texture);
+public partial class TerrainManager : Node3D {
+  [Export] private MeshInstance3D TerrainMesh { get; set; }
+  private Material TerrainMaterial { get; set; }
 
-  private ImageTexture TerrainDataTexture { get; set; }
   private Image TerrainData { get; set; }
-
-  private ImageTexture HighlightDataTexture { get; set; }
   private Image HighlightData { get; set; }
 
+  public override void _PhysicsProcess(double delta) {
+    var position = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World)?.Position;
+    if (position != null) {
+      TerrainMaterial.Set("shader_parameter/mouse_world_pos", new Vector2(position.Value.X, position.Value.Z));
+    }
+  }
+
+
   // TODO: divide the terrain to chunks and only update the texture in chunk
-  public void CreateData(MapData mapData) {
+  public void CreateData(MapData mapData, Vector2 realMapSize) {
     TerrainData = Image.CreateEmpty(mapData.Cols, mapData.Rows, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(mapData.Cols, mapData.Rows, false, Image.Format.Rgba8);
-
-    // TODO: offset all coords so they fit in texture and start from 0 offset
 
     TerrainData.Fill(Colors.Transparent);
 
@@ -34,11 +32,20 @@ public partial class TerrainManager : Node {
       SetTerrainPixel(new(hex.Col, hex.Row), setting.Color);
     }
 
+    TerrainMaterial = TerrainMesh.GetActiveMaterial(0);
+
+    ((PlaneMesh)TerrainMesh.Mesh).Size = realMapSize * 10;
+
     UpdateTerrainTextureData();
 
     UpdateHighlights();
   }
 
+  public void SetMouseHighlight(bool value) {
+    TerrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
+  }
+
+  // FIXME: clicking lags game on large map
   public void SetHighlight(GameCell cell, Color color) {
     SetHighlighPixel(cell.OffsetCoord, color);
   }
@@ -64,12 +71,12 @@ public partial class TerrainManager : Node {
   }
 
   private void UpdateTerrainTextureData() {
-    TerrainDataTexture = ImageTexture.CreateFromImage(TerrainData);
-    EmitSignal(SignalName.TerrainDataTextureChanged, TerrainDataTexture);
+    var texture = ImageTexture.CreateFromImage(TerrainData);
+    TerrainMaterial.Set("shader_parameter/terrain_data_texture", texture);
   }
 
   private void UpdateHighlightTextureData() {
-    HighlightDataTexture = ImageTexture.CreateFromImage(HighlightData);
-    EmitSignal(SignalName.HighlightDataTextureChanged, HighlightDataTexture);
+    var texture = ImageTexture.CreateFromImage(HighlightData);
+    TerrainMaterial.Set("shader_parameter/highlight_data_texture", texture);
   }
 }

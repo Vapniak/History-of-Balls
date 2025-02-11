@@ -10,8 +10,10 @@ using HOB.GameEntity;
 /// </summary>
 [GlobalClass]
 public partial class MatchComponent : GameModeComponent {
-  [Export] private PackedScene TestEntity { get; set; }
-  [Export] private PackedScene TestEntity2 { get; set; }
+  [Export] private EntityData TestEntity { get; set; }
+  [Export] private EntityData TestEntity2 { get; set; }
+
+
   [Export] private ResourceType Primary { get; set; }
   [Export] private ResourceType Secondary { get; set; }
 
@@ -40,18 +42,13 @@ public partial class MatchComponent : GameModeComponent {
     playerState.SecondaryResourceType.Value = 20;
 
     if (controller is PlayerController) {
-      var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      var entity3 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      GameBoard.TryAddEntity(entity, new(0, 0), controller);
-      GameBoard.TryAddEntity(entity2, new(1, 0), controller);
-      GameBoard.TryAddEntity(entity3, new(2, 0), controller);
+      GameBoard.TryAddEntity(TestEntity, new(0, 0), controller);
+      GameBoard.TryAddEntity(TestEntity, new(1, 0), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(2, 0), controller);
     }
     else {
-      var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      GameBoard.TryAddEntity(entity, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
-      GameBoard.TryAddEntity(entity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
+      GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
 
       OnGameStarted();
     }

@@ -134,10 +134,10 @@ public partial class HOBHUD : HUD {
     var isOwned = entity.IsOwnedBy(GetPlayerController<IMatchController>());
 
     if (isOwned) {
-      panel.SetEntityName(entity.EntityName);
+      panel.SetEntityName(entity.GetEntityName());
     }
     else {
-      panel.SetEntityName("ENEMY " + entity.EntityName);
+      panel.SetEntityName("ENEMY " + entity.GetEntityName());
     }
 
     panel.ClearEntries();
