@@ -16,7 +16,7 @@ MoveSpeed = 10.0
 [sub_resource type="Resource" id="Resource_krs13"]
 script = ExtResource("3_3dukb")
 Damage = 5
-Range = 5
+Range = 100
 
 [sub_resource type="Resource" id="Resource_dyy4k"]
 script = ExtResource("4_xi6kj")

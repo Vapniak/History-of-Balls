@@ -13,4 +13,8 @@ public partial class HexCell : RefCounted {
     Coord = coord;
     Layout = layout;
   }
+
+  public Vector2 GetCorner(HexDirection direction) {
+    return Layout.GetCorner(direction);
+  }
 }

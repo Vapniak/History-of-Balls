@@ -29,7 +29,11 @@ public partial class GameBoard : Node3D {
 
     LoadMap(MapData);
 
-    TerrainManager.CreateData(MapData, GetRealMapSize());
+    TerrainManager.CreateData(this);
+
+    foreach (var cell in GetCells()) {
+      TerrainManager.AddCellToChunk(cell);
+    }
 
 
     EmitSignal(SignalName.GridCreated);
@@ -75,12 +79,20 @@ public partial class GameBoard : Node3D {
   public GameCell GetCell(CubeCoord coord) {
     return Grid.GetCell(coord);
   }
+
+  public GameCell GetCell(int index) {
+    return Grid.GetCell(index);
+  }
   public GameCell GetCell(Vector3 point) {
     return Grid.GetCell(point);
   }
 
   public GameCell[] GetCells() {
     return Grid.GetCells();
+  }
+
+  public int GetCellIndex(GameCell cell) {
+    return Grid.GetCellIndex(cell);
   }
 
   public GameCell GetCell(GameCell cell, HexDirection direction) {
@@ -151,6 +163,7 @@ public partial class GameBoard : Node3D {
   public void ClearHighlights() {
     TerrainManager.ClearHighlights();
   }
+
 
   public Vector3 GetCellRealPosition(GameCell cell) {
     return new(cell.Position.X, GetSetting(cell).Elevation, cell.Position.Y);

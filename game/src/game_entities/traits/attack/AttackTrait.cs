@@ -9,6 +9,17 @@ public partial class AttackTrait : Trait {
   [Signal] public delegate void AttackFinishedEventHandler();
 
   private List<Entity> AttackableEntities { get; set; }
+
+  private bool _attack;
+  public override void _PhysicsProcess(double delta) {
+    base._PhysicsProcess(delta);
+
+    if (_attack) {
+      // FIXME: FINISH IS BEFORE START
+      EmitSignal(SignalName.AttackFinished);
+      _attack = false;
+    }
+  }
   public bool TryAttack(Entity entity) {
     if (!AttackableEntities.Contains(entity)) {
       return false;
@@ -17,8 +28,7 @@ public partial class AttackTrait : Trait {
     Entity.LookAt(entity.GetPosition());
 
     // animations
-    // FIXME: FINISH IS BEFORE START
-    EmitSignal(SignalName.AttackFinished);
+    _attack = true;
 
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
       healthTrait.Damage(GetStat<AttackStats>().Damage);

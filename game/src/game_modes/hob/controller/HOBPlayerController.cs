@@ -212,6 +212,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GameBoard.SetHighlight(command.GetEntity().Cell, Colors.White);
 
+    GameBoard.UpdateHighlights();
+
     SelectedCommand = command;
   }
 
@@ -282,6 +284,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       _character.Friction(delta);
       _character.HandlePanning(delta, displacement);
     }
+  }
+
+  private void OnIdleEntered() {
+    GameBoard.ClearHighlights();
+    GameBoard.UpdateHighlights();
   }
 
   private void OnIdleUnhandledInput(InputEvent @event) {
