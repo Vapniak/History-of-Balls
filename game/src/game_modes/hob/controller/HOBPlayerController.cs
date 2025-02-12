@@ -212,8 +212,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GameBoard.SetHighlight(command.GetEntity().Cell, Colors.White);
 
-    GameBoard.UpdateHighlights();
-
     SelectedCommand = command;
   }
 
@@ -330,9 +328,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().HideCommandPanel();
 
     if (SelectedEntity != null) {
-      GameBoard.ClearHighlights();
-      GameBoard.UpdateHighlights();
-
       if (SelectedEntity.IsOwnedBy(this)) {
         if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
           commandTrait.CommandSelected -= OnCommandSelected;
@@ -406,17 +401,15 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleExited() {
+
+  }
+
+  private void OnCommandEntered() {
     GameBoard.ClearHighlights();
     GameBoard.UpdateHighlights();
   }
 
-  private void OnCommandEntered() {
-
-  }
-
   private void OnCommandExited() {
     GetHUD().ShowCommandPanel(SelectedCommand.CommandTrait);
-
-    SelectedCommand = null;
   }
 }

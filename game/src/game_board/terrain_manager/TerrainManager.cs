@@ -34,7 +34,8 @@ public partial class TerrainManager : Node3D {
 
     TerrainMaterial = TerrainMesh.GetActiveMaterial(0);
 
-    ((PlaneMesh)TerrainMesh.Mesh).Size = realMapSize * 10;
+    ((PlaneMesh)TerrainMesh.Mesh).Size = realMapSize * 2;
+    TerrainMesh.Position += new Vector3(realMapSize.X, 0, realMapSize.Y) / 2f;
 
     UpdateTerrainTextureData();
 

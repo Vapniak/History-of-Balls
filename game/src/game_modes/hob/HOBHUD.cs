@@ -126,7 +126,6 @@ public partial class HOBHUD : HUD {
     }
     CommandPanel.Hidden += onHidden;
     CommandPanel.Show();
-    CommandPanel.ResetSize();
   }
 
   public void HideCommandPanel() => CommandPanel.Hide();

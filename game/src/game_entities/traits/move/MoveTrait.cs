@@ -43,8 +43,13 @@ public partial class MoveTrait : Trait {
     return cells;
   }
   public bool TryMove(GameCell targetCell) {
+    if (!_reachableCells.Contains(targetCell)) {
+      return false;
+    }
+
+    // FIXME: path bottle necks when target cell is not reachable, and try to embed path into find reachable cells to not find path twice
     var path = Entity.GameBoard.FindPath(Entity.Cell, targetCell, GetStat<MovementStats>().MovePoints, IsReachable);
-    if (path == null || !_reachableCells.Contains(path.Last())) {
+    if (path == null) {
       return false;
     }
 
