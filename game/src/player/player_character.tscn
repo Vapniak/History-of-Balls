@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxvvk6td13ake"]
+[gd_scene load_steps=17 format=3 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
 [ext_resource type="Shader" path="res://res/shaders/outline.gdshader" id="2_hothr"]
@@ -27,6 +27,63 @@ material = SubResource("ShaderMaterial_l4mhp")
 flip_faces = true
 size = Vector2(2, 2)
 
+[sub_resource type="Curve" id="Curve_pjk7c"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.465789, 0.525355), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_c44mf"]
+min_value = -1.0
+_data = [Vector2(0, 0.0111561), 0.0, 0.0, 0, 0, Vector2(0.302632, 0.248479), 0.0, 0.0, 0, 0, Vector2(0.521053, -0.489858), 0.0, 0.0, 0, 0, Vector2(0.710526, 0.0111561), 0.0, 0.0, 0, 0, Vector2(1, -0.0283976), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_g3jf5"]
+curve_x = SubResource("Curve_pjk7c")
+curve_y = SubResource("Curve_c44mf")
+
+[sub_resource type="Curve" id="Curve_r1uxh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.534211, 0.175963), -1.57727, -1.57727, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_48mh7"]
+curve = SubResource("Curve_r1uxh")
+
+[sub_resource type="Curve" id="Curve_yinba"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_uv73u"]
+curve = SubResource("Curve_yinba")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpff0"]
+particle_flag_align_y = true
+emission_shape_offset = Vector3(0, 10, 0)
+emission_shape_scale = Vector3(20, 5, 20)
+emission_shape = 3
+emission_box_extents = Vector3(1, 1, 1)
+spread = 0.0
+directional_velocity_min = 4.99998
+directional_velocity_max = 9.99998
+directional_velocity_curve = SubResource("CurveXYZTexture_g3jf5")
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_48mh7")
+turbulence_enabled = true
+turbulence_influence_min = 0.056
+turbulence_influence_max = 0.218
+turbulence_influence_over_life = SubResource("CurveTexture_uv73u")
+
+[sub_resource type="Curve" id="Curve_cwdi3"]
+_data = [Vector2(0.0145631, 0.0928835), 0.0, 2.40815, 0, 0, Vector2(0.492718, 0.537431), 0.0, 0.0, 0, 0, Vector2(0.754854, 0.399261), 0.0, 0.0, 0, 0, Vector2(0.995146, 0.12292), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05snt"]
+use_particle_trails = true
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_7nnx4"]
+material = SubResource("StandardMaterial3D_05snt")
+radius = 0.2
+curve = SubResource("Curve_cwdi3")
+
 [node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera")]
 script = ExtResource("1_ggdef")
 Camera = NodePath("Camera3D")
@@ -47,3 +104,12 @@ skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.64778, -0.157656)
+amount = 1
+lifetime = 4.0
+trail_enabled = true
+trail_lifetime = 1.0
+process_material = SubResource("ParticleProcessMaterial_jpff0")
+draw_pass_1 = SubResource("TubeTrailMesh_7nnx4")
