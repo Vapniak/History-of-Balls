@@ -50,7 +50,7 @@ public abstract partial class HexGrid<T> where T : HexCell {
 
   public T[] GetNeighbors(T cell) {
     var cells = new List<T>();
-    for (var dir = HexDirection.Min; dir < HexDirection.Max; dir++) {
+    for (var dir = HexDirection.First; dir <= HexDirection.Sixth; dir++) {
       var current = GetCell(cell, dir);
       if (current != null) {
         cells.Add(GetCell(cell, dir));

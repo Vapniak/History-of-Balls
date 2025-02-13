@@ -144,10 +144,20 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     var cell = GameBoard.GetCell(coord);
 
     var entities = GameBoard.GetEntitiesOnCell(cell);
+
+
+    if (cell == null || _isPanning) {
+      GameBoard.SetMouseHighlight(false);
+    }
+    else {
+      GameBoard.SetMouseHighlight(true);
+    }
+
     if (cell == null || _isPanning || entities.Length == 0) {
       UnHoverCell();
       return;
     }
+
 
 
     if (HoveredCell != cell) {
@@ -236,7 +246,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (!_isPanning) {
-      GetGameState().GameBoard.SetMouseHighlight(true);
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
       var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
       if (moveVector != Vector2.Zero) {
@@ -276,8 +285,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       var currentMousePos = GetViewport().GetMousePosition();
       var displacement = currentMousePos - _lastMousePosition;
       _lastMousePosition = currentMousePos;
-
-      GetGameState().GameBoard.SetMouseHighlight(false);
 
       // TODO: mouse wrap around screen when panning
 
@@ -414,9 +421,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnCommandEntered() {
     GameBoard.ClearHighlights();
     GameBoard.UpdateHighlights();
+
+    GetHUD().SetEndTurnButtonDisabled(true);
   }
 
   private void OnCommandExited() {
     GetHUD().ShowCommandPanel(SelectedCommand.CommandTrait);
+
+    GetHUD().SetEndTurnButtonDisabled(false);
   }
 }

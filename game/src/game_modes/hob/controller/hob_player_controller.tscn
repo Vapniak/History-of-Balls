@@ -64,12 +64,14 @@ delay_in_seconds = "0.0"
 script = ExtResource("4_fs40q")
 
 [node name="StateChartDebugger" parent="." instance=ExtResource("7_h50uw")]
+visible = false
 anchors_preset = 11
 anchor_left = 1.0
 offset_left = -370.0
 offset_top = 285.0
 offset_bottom = -209.0
 grow_horizontal = 0
+enabled = false
 initial_node_to_watch = NodePath("..")
 
 [connection signal="state_entered" from="StateChart/Root/States/Idle" to="." method="OnIdleEntered"]

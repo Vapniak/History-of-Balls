@@ -1,5 +1,6 @@
 namespace HexGridMap;
 
+using Godot;
 
 public enum Offset {
   Even = 1,
@@ -32,5 +33,9 @@ public struct OffsetCoord {
     var r = Row;
 
     return new CubeCoord(q, r);
+  }
+
+  public override readonly string ToString() {
+    return "Col: " + Col + " Row: " + Row;
   }
 }

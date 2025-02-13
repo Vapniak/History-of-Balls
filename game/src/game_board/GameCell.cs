@@ -7,7 +7,7 @@ public partial class GameCell : HexCell {
   public enum EdgeType {
     Flat, // ELEVATION DIFF 0
     Slope, // ELEVATION DIFF 1
-    Hill // ELEVATION DIFF > 1
+    Cliff // ELEVATION DIFF > 1
   }
 
   public int SettingId { get; private set; }

@@ -19,6 +19,15 @@ public partial class GameBoard : Node3D {
 
   private GameGrid Grid { get; set; }
 
+
+  // TODO: move that data to custom hexlayout class
+  private static float SolidFactor => 0.8f;
+  private static float BlendFactor => 1f - SolidFactor;
+  private static int TerracesPerSlope => 3;
+  public static int TerraceSteps = (TerracesPerSlope * 2) + 1;
+  private static float HorizontalTerraceStepSize = 1f / TerraceSteps;
+  private static float VerticalTerraceStepSize = 1f / (TerracesPerSlope + 1);
+
   public void Init() {
     Grid = new(Layout);
 
@@ -123,6 +132,23 @@ public partial class GameBoard : Node3D {
     return GetMapSize() * Layout.GetSpacingBetweenHexes();
   }
 
+
+  public (Vector3 first, Vector3 second) GetCorners(HexDirection direction) {
+    var first = Layout.GetCorner((int)direction);
+    var second = Layout.GetCorner((int)direction.Next());
+    return (new(first.X, 0, first.Y), new(second.X, 0, second.Y));
+  }
+
+  public (Vector3 first, Vector3 second) GetSolidCorners(HexDirection direction) {
+    var (first, second) = GetCorners(direction);
+    return (first * SolidFactor, second * SolidFactor);
+  }
+
+  public Vector3 GetBridge(HexDirection direction) {
+    var (first, second) = GetCorners(direction);
+    return (first + second) * BlendFactor;
+  }
+
   public bool TryAddEntity(EntityData data, CubeCoord coord, IMatchController controller) {
     GameCell closestCell = null;
     var minDistance = int.MaxValue;
@@ -169,6 +195,41 @@ public partial class GameBoard : Node3D {
     return new(cell.Position.X, GetSetting(cell).Elevation, cell.Position.Y);
   }
 
+  public GameCell.EdgeType GetEdgeType(GameCell from, GameCell to) {
+    var fromElevation = GetSetting(from).Elevation;
+    var toEleveation = GetSetting(to).Elevation;
+
+    if (fromElevation == toEleveation) {
+      return GameCell.EdgeType.Flat;
+    }
+
+    var delta = fromElevation - toEleveation;
+    if (delta is 1 or (-1)) {
+      return GameCell.EdgeType.Slope;
+    }
+
+    return GameCell.EdgeType.Cliff;
+  }
+
+  public Vector3 TerraceLerp(Vector3 a, Vector3 b, int step) {
+    var h = step * HorizontalTerraceStepSize;
+    a.X += (b.X - a.X) * h;
+    a.Z += (b.Z - a.Z) * h;
+    var v = (step + 1) / 2f * VerticalTerraceStepSize;
+    a.Y += (b.Y - a.Y) * v;
+    return a;
+  }
+
+  public Chunk.EdgeVertices TerraceLerp(Chunk.EdgeVertices a, Chunk.EdgeVertices b, int step) {
+    Chunk.EdgeVertices result;
+    result.V1 = TerraceLerp(a.V1, b.V1, step);
+    result.V2 = TerraceLerp(a.V2, b.V2, step);
+    result.V3 = TerraceLerp(a.V3, b.V3, step);
+    result.V4 = TerraceLerp(a.V4, b.V4, step);
+    result.V5 = TerraceLerp(a.V5, b.V5, step);
+    return result;
+  }
+
   // TODO: proper line of sight, for now it can be like this...
   public GameCell[] GetCellsInSight(GameCell center, uint range) {
     var visibleHexes = new List<GameCell>();
@@ -212,7 +273,7 @@ public partial class GameBoard : Node3D {
 
       reachableCells.Add(current);
 
-      for (var i = HexDirection.Min; i < HexDirection.Max; i++) {
+      for (var i = HexDirection.First; i <= HexDirection.Sixth; i++) {
         var cell = GetCell(current, i);
         if (cell != null && isReachable(current, cell)) {
           var newCost = currentCost + GetSetting(cell).MoveCost;
@@ -251,7 +312,7 @@ public partial class GameBoard : Node3D {
         break;
       }
 
-      for (var i = (int)HexDirection.Min; i < (int)HexDirection.Max; i++) {
+      for (var i = (int)HexDirection.First; i <= (int)HexDirection.Sixth; i++) {
         var cell = GetCell(current, (HexDirection)i);
         if (cell != null && isReachable(current, cell)) {
           var newCost = currentCost + GetSetting(cell).MoveCost;

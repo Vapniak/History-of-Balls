@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://djmy308ykthsu"]
+[gd_scene load_steps=5 format=3 uid="uid://djmy308ykthsu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rk4wh"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_krwg2"]
+material = SubResource("ShaderMaterial_rk4wh")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tqfe"]
 albedo_color = Color(1, 0, 0, 1)

@@ -63,6 +63,10 @@ public partial class MoveTrait : Trait {
   }
 
   public bool IsReachable(GameCell start, GameCell end) {
-    return Entity.GameBoard.GetEntitiesOnCell(end).Length == 0 && Entity.GameBoard.GetSetting(end).MoveCost > 0;
+    return
+    Entity.GameBoard.GetEntitiesOnCell(end).Length == 0 &&
+    Entity.GameBoard.GetSetting(end).MoveCost > 0 &&
+    Entity.GameBoard.GetEdgeType(start, end) != GameCell.EdgeType.Cliff &&
+    Entity.GameBoard.GetSetting(end).Elevation >= 0;
   }
 }

@@ -1,10 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://bxvvk6td13ake"]
+[gd_scene load_steps=6 format=3 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
+[ext_resource type="Shader" path="res://res/shaders/outline.gdshader" id="2_hothr"]
 
 [sub_resource type="Curve" id="Curve_t3eex"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4mhp"]
+render_priority = 0
+shader = ExtResource("2_hothr")
+shader_parameter/outlineColor = Color(0, 0, 0, 0.78)
+shader_parameter/depth_threshold = 0.025
+shader_parameter/normal_threshold = 0.5
+shader_parameter/normal_smoothing = 0.25
+shader_parameter/max_thickness = 1.3
+shader_parameter/min_thickness = 0.5
+shader_parameter/max_distance = 75.0
+shader_parameter/min_distance = 2.0
+shader_parameter/grazing_fresnel_power = 5.0
+shader_parameter/grazing_angle_mask_power = 1.0
+shader_parameter/grazing_angle_modulation_factor = 50.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_bpb6w"]
+material = SubResource("ShaderMaterial_l4mhp")
+flip_faces = true
+size = Vector2(2, 2)
 
 [node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera")]
 script = ExtResource("1_ggdef")
@@ -18,6 +39,11 @@ _minZoomOffset = Vector3(0, 50, 30)
 _maxZoomOffset = Vector3(0, 10, 10)
 _distanceCurve = SubResource("Curve_t3eex")
 _panSpeedMulti = 0.001
+
+[node name="OutlinePostProcess" type="MeshInstance3D" parent="."]
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_bpb6w")
+skeleton = NodePath("")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true

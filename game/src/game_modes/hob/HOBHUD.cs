@@ -129,6 +129,10 @@ public partial class HOBHUD : HUD {
   }
 
   public void HideCommandPanel() => CommandPanel.Hide();
+
+  public void SetEndTurnButtonDisabled(bool value) {
+    EndTurnButton.Disabled = value;
+  }
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
     var isOwned = entity.IsOwnedBy(GetPlayerController<IMatchController>());
 
@@ -153,4 +157,5 @@ public partial class HOBHUD : HUD {
   private void OnEndTurnPressed() {
     EmitSignal(SignalName.EndTurn);
   }
+
 }

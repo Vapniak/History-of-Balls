@@ -1,10 +1,10 @@
 namespace HOB;
 
+using System.Diagnostics;
 using Godot;
 using HexGridMap;
-using System;
 
-public partial class Chunk : Node3D {
+public partial class Chunk : StaticBody3D {
   public struct EdgeVertices {
     public Vector3 V1, V2, V3, V4, V5;
 
@@ -25,6 +25,7 @@ public partial class Chunk : Node3D {
   private GameBoard Board { get; set; }
 
   private HexMesh TerrainMesh { get; set; }
+  private CollisionShape3D CollisionShape { get; set; }
 
   private bool _refresh;
 
@@ -40,7 +41,10 @@ public partial class Chunk : Node3D {
       MaterialOverride = terrainMaterial,
     };
 
-    AddChild(TerrainMesh);
+    CollisionShape = new();
+
+    AddChild(CollisionShape);
+    CollisionShape.AddChild(TerrainMesh);
 
     Refresh();
   }
@@ -66,6 +70,8 @@ public partial class Chunk : Node3D {
     }
 
     TerrainMesh.Apply();
+
+    CollisionShape.Shape = TerrainMesh.Mesh.CreateTrimeshShape();
   }
 
   private void Triangulate(int cellIndex) {
@@ -74,21 +80,64 @@ public partial class Chunk : Node3D {
       return;
     }
 
-    for (var d = HexDirection.Min; d < HexDirection.Max; d++) {
-      Triangulate(d, cell, cellIndex);
+    for (var d = HexDirection.First; d <= HexDirection.Sixth; d++) {
+      Triangulate(d, cell);
     }
   }
 
-  private void Triangulate(HexDirection direction, GameCell cell, int cellIndex) {
-    var firstCorner = new Vector3(cell.GetCorner(direction).X, 0, cell.GetCorner(direction).Y);
-    var secondCorner = new Vector3(cell.GetCorner(direction + 1).X, 0, cell.GetCorner(direction + 1).Y);
-    var e = new EdgeVertices(firstCorner, secondCorner);
+  private void Triangulate(HexDirection direction, GameCell cell) {
+    var pos = Board.GetCellRealPosition(cell);
+    var (firstCorner, secondCorner) = Board.GetCorners(direction);
+    var e = new EdgeVertices(pos + firstCorner, pos + secondCorner);
 
+    TriangulateEdgeFan(pos, e);
 
-    TriangulateEdgeFan(new(cell.Position.X, 0, cell.Position.Y), e, cellIndex);
+    if (direction <= HexDirection.Third) {
+      TriangulateConnection(direction, cell, e);
+    }
   }
 
-  private void TriangulateEdgeFan(Vector3 pos, EdgeVertices edge, float index) {
+  private void TriangulateEdgeFan(Vector3 pos, EdgeVertices edge) {
     TerrainMesh.AddTriangle(pos, edge.V1, edge.V5);
+  }
+
+  private void TriangulateConnection(HexDirection direction, GameCell cell, EdgeVertices e) {
+    var neighbor = Board.GetCell(cell, direction);
+    if (neighbor == null) {
+      return;
+    }
+
+    var bridge = Vector3.Zero;
+    bridge.Y = Board.GetCellRealPosition(neighbor).Y - Board.GetCellRealPosition(cell).Y;
+    var e2 = new EdgeVertices(e.V1 + bridge, e.V5 + bridge);
+
+    var edgeType = Board.GetEdgeType(cell, neighbor);
+    if (edgeType == GameCell.EdgeType.Slope) {
+      TriangulateEdgeStrip(e, e2);
+    }
+    else if (edgeType == GameCell.EdgeType.Cliff) {
+      TriangulateEdgeStrip(e, e2);
+    }
+  }
+
+  private void TriangulateEdgeStrip(EdgeVertices e1, EdgeVertices e2) {
+    TerrainMesh.AddQuad(e1.V1, e1.V2, e2.V1, e2.V2);
+    TerrainMesh.AddQuad(e1.V2, e1.V3, e2.V2, e2.V3);
+    TerrainMesh.AddQuad(e1.V3, e1.V4, e2.V3, e2.V4);
+    TerrainMesh.AddQuad(e1.V4, e1.V5, e2.V4, e2.V5);
+  }
+
+  private void TriangulateEdgeTerraces(EdgeVertices begin, EdgeVertices end) {
+    var e2 = Board.TerraceLerp(begin, end, 1);
+
+    TriangulateEdgeStrip(begin, e2);
+
+    for (var i = 2; i < GameBoard.TerraceSteps; i++) {
+      var e1 = e2;
+      e2 = Board.TerraceLerp(begin, end, i);
+      TriangulateEdgeStrip(e1, e2);
+    }
+
+    TriangulateEdgeStrip(e2, end);
   }
 }

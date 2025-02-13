@@ -13,10 +13,4 @@ public partial class HexCell : RefCounted {
     Coord = coord;
     Layout = layout;
   }
-
-
-  public Vector2 GetCorner(HexDirection index) {
-    var angle = Mathf.DegToRad((60f * (int)index) - Mathf.RadToDeg(Layout.Orientation.StartAngle));
-    return new Vector2(Position.X + (Layout.HexCellSize * (float)Mathf.Cos(angle)), Position.Y + (Layout.HexCellSize * (float)Mathf.Sin(angle)));
-  }
 }
