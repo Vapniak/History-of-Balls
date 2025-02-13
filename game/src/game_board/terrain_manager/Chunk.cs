@@ -22,12 +22,13 @@ public partial class Chunk : Node3D {
   private int[] CellIndices { get; set; }
 
   private Material TerrainMaterial { get; set; }
-  private MeshInstance3D TerrainMesh { get; set; }
   private GameBoard Board { get; set; }
+
+  private HexMesh TerrainMesh { get; set; }
 
   private bool _refresh;
 
-  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, Vector2 chunkRealSize, GameBoard board) {
+  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, GameBoard board) {
     Index = index;
     ChunkSize = chunkSize;
     TerrainMaterial = terrainMaterial;
@@ -36,10 +37,7 @@ public partial class Chunk : Node3D {
     CellIndices = new int[chunkSize.X * chunkSize.Y];
 
     TerrainMesh = new() {
-      Mesh = new PlaneMesh() {
-        Material = TerrainMaterial,
-        Size = chunkRealSize,
-      },
+      MaterialOverride = terrainMaterial,
     };
 
     AddChild(TerrainMesh);
@@ -61,29 +59,36 @@ public partial class Chunk : Node3D {
   }
 
   private void Triangulate() {
+    TerrainMesh.Clear();
+
     foreach (var index in CellIndices) {
       Triangulate(index);
     }
+
+    TerrainMesh.Apply();
   }
 
   private void Triangulate(int cellIndex) {
     var cell = Board.GetCell(cellIndex);
+    if (cell == null) {
+      return;
+    }
+
     for (var d = HexDirection.Min; d < HexDirection.Max; d++) {
       Triangulate(d, cell, cellIndex);
     }
   }
 
   private void Triangulate(HexDirection direction, GameCell cell, int cellIndex) {
-    var pos = Board.GetCellRealPosition(cell);
     var firstCorner = new Vector3(cell.GetCorner(direction).X, 0, cell.GetCorner(direction).Y);
     var secondCorner = new Vector3(cell.GetCorner(direction + 1).X, 0, cell.GetCorner(direction + 1).Y);
-    var e = new EdgeVertices(pos + firstCorner, pos + secondCorner);
+    var e = new EdgeVertices(firstCorner, secondCorner);
 
 
-    TriangulateEdgeFan(pos, e, cellIndex);
+    TriangulateEdgeFan(new(cell.Position.X, 0, cell.Position.Y), e, cellIndex);
   }
 
   private void TriangulateEdgeFan(Vector3 pos, EdgeVertices edge, float index) {
-
+    TerrainMesh.AddTriangle(pos, edge.V1, edge.V5);
   }
 }

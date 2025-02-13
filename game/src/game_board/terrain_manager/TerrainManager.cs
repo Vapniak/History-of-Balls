@@ -29,11 +29,9 @@ public partial class TerrainManager : Node3D {
     Board = board;
 
     ChunkSize = new(16, 16);
-    // FIXME: i just increase map size to not let the player see borders of map but when I zoom out more it will be visible
     // TODO: add chunk buffering loading and unloading when player moves
-    var cols = board.MapData.Cols * 10;
-    var rows = board.MapData.Rows * 10;
-    var realMapSize = board.GetRealMapSize() * 10;
+    var cols = board.MapData.Cols;
+    var rows = board.MapData.Rows;
 
     while (cols % ChunkSize.X != 0 || rows % ChunkSize.Y != 0) {
       if (cols % ChunkSize.X != 0) {
@@ -48,13 +46,10 @@ public partial class TerrainManager : Node3D {
     ChunkCount = new(cols / ChunkSize.X, rows / ChunkSize.Y);
 
     Chunks = new Chunk[ChunkCount.X * ChunkCount.Y];
-    var chunkRealSize = realMapSize / ChunkCount;
     for (var i = 0; i < Chunks.Length; i++) {
-      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, chunkRealSize, board);
+      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, board);
       Chunks[i] = chunk;
       AddChild(chunk);
-
-      chunk.Position = new(((i % ChunkCount.X) + (1 / 2f)) * chunkRealSize.X - realMapSize.X / 4, 0, ((i / ChunkCount.X) + (1 / 2f)) * chunkRealSize.Y - realMapSize.Y / 4);
     }
 
     TerrainData = Image.CreateEmpty(cols, rows, false, Image.Format.Rgba8);

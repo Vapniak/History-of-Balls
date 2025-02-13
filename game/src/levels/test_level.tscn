@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dq50a8e3adq5a"]
+[gd_scene load_steps=11 format=3 uid="uid://dq50a8e3adq5a"]
 
 [ext_resource type="Script" path="res://src/levels/HOBLevel.cs" id="1_l02ep"]
 [ext_resource type="PackedScene" uid="uid://bpyq5jomq1pgv" path="res://src/levels/transitions/fade_in.tscn" id="2_51t61"]
@@ -6,9 +6,17 @@
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/hob/hob_game_mode.tscn" id="4_eue7f"]
 [ext_resource type="PackedScene" uid="uid://b7p0e45e0ng0f" path="res://src/game_board/game_board.tscn" id="5_t3dxr"]
 
+[sub_resource type="Gradient" id="Gradient_jdcpw"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_wqj8t"]
+gradient = SubResource("Gradient_jdcpw")
+fill_from = Vector2(0.17094, 0.235043)
+fill_to = Vector2(0.923077, 0.042735)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_u3d2l"]
 sky_top_color = Color(0.273589, 0.44456, 0.727337, 1)
 sky_horizon_color = Color(0.571694, 0.65848, 0.812901, 1)
+ground_bottom_color = Color(0.113105, 0.0925167, 0.0685999, 1)
 
 [sub_resource type="Sky" id="Sky_pjgwy"]
 sky_material = SubResource("ProceduralSkyMaterial_u3d2l")
@@ -23,6 +31,12 @@ glow_intensity = 0.1
 glow_mix = 0.1
 glow_bloom = 1.0
 glow_blend_mode = 1
+fog_mode = 1
+fog_height = 143.87
+adjustment_brightness = 1.1
+adjustment_contrast = 0.87
+adjustment_saturation = 1.33
+adjustment_color_correction = SubResource("GradientTexture2D_wqj8t")
 
 [node name="HOBLevel" type="Node"]
 script = ExtResource("1_l02ep")

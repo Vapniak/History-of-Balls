@@ -37,7 +37,7 @@ public partial class HexLayout : Resource {
     0.0f,
     2.0f / 3.0f,
 
-    0.5f
+    Mathf.DegToRad(30)
   );
   public static readonly HexOrientation ORIENTATION_FLAT = new(
     3.0f / 2.0f,
@@ -143,10 +143,5 @@ public partial class HexLayout : Resource {
 
   public Vector2 GetSpacingBetweenHexes() {
     return new Vector2(Orientation.F0, Orientation.F3) * HexCellSize;
-  }
-
-  public Vector2 GetCorner(HexDirection index) {
-    var angle = Mathf.Pi / 180f * 60 * (int)index;
-    return new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * HexCellSize;
   }
 }

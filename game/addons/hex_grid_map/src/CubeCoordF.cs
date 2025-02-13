@@ -21,9 +21,9 @@ public struct CubeCoordF {
 
 
   public readonly CubeCoord Round() {
-    var qi = (int)Mathf.Round(Q);
-    var ri = (int)Mathf.Round(R);
-    var si = (int)Mathf.Round(S);
+    var qi = Mathf.RoundToInt(Q);
+    var ri = Mathf.RoundToInt(R);
+    var si = Mathf.RoundToInt(S);
     double qDiff = Mathf.Abs(qi - Q);
     double rDiff = Mathf.Abs(ri - R);
     double sDiff = Mathf.Abs(si - S);
