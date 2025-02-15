@@ -87,7 +87,7 @@ public partial class Chunk : StaticBody3D {
 
   private void Triangulate(HexDirection direction, GameCell cell) {
     var pos = Board.GetCellRealPosition(cell);
-    var (firstCorner, secondCorner) = Board.GetCorners(direction);
+    var (firstCorner, secondCorner) = Board.GetSolidCorners(direction);
     var e = new EdgeVertices(pos + firstCorner, pos + secondCorner);
 
     TriangulateEdgeFan(pos, e);
@@ -107,24 +107,23 @@ public partial class Chunk : StaticBody3D {
       return;
     }
 
-    var bridge = Vector3.Zero;
+    var bridge = Board.GetBridge(direction);
     bridge.Y = Board.GetCellRealPosition(neighbor).Y - Board.GetCellRealPosition(cell).Y;
     var e2 = new EdgeVertices(e.V1 + bridge, e.V5 + bridge);
 
+
+
     var edgeType = Board.GetEdgeType(cell, neighbor);
     if (edgeType == GameCell.EdgeType.Slope) {
-      TriangulateEdgeStrip(e, e2);
+      TriangulateEdgeTerraces(e, e2);
     }
-    else if (edgeType == GameCell.EdgeType.Cliff) {
+    else {
       TriangulateEdgeStrip(e, e2);
     }
   }
 
   private void TriangulateEdgeStrip(EdgeVertices e1, EdgeVertices e2) {
-    TerrainMesh.AddQuad(e1.V1, e1.V2, e2.V1, e2.V2);
-    TerrainMesh.AddQuad(e1.V2, e1.V3, e2.V2, e2.V3);
-    TerrainMesh.AddQuad(e1.V3, e1.V4, e2.V3, e2.V4);
-    TerrainMesh.AddQuad(e1.V4, e1.V5, e2.V4, e2.V5);
+    TerrainMesh.AddQuad(e1.V1, e1.V5, e2.V1, e2.V5);
   }
 
   private void TriangulateEdgeTerraces(EdgeVertices begin, EdgeVertices end) {
@@ -132,7 +131,7 @@ public partial class Chunk : StaticBody3D {
 
     TriangulateEdgeStrip(begin, e2);
 
-    for (var i = 2; i < GameBoard.TerraceSteps; i++) {
+    for (var i = 2; i < Board.TerraceSteps; i++) {
       var e1 = e2;
       e2 = Board.TerraceLerp(begin, end, i);
       TriangulateEdgeStrip(e1, e2);

@@ -33,7 +33,7 @@ void fragment() {
 	}
 
 	// apply grid
-	ALBEDO = mix(ALBEDO, max(ALBEDO * 0.8, vec3(0.01)), step(.85, data.distanceToEdge)); //* 0.01;
+	ALBEDO = mix(ALBEDO, vec3(0.01), smoothstep_range(data, 0.84, 1));
 
 	HexCellData mouse_hex_data = get_hex_cell_data(mouse_world_pos, CELL_SCALE);
 

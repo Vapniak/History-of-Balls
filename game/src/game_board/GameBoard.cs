@@ -12,21 +12,21 @@ using RaycastSystem;
 /// </summary>
 public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
-  [Export] private HexLayout Layout { get; set; }
+  [Export] public MapData MapData { get; private set; }
+  [Export] private GameGridLayout Layout { get; set; }
   [Export] private TerrainManager TerrainManager { get; set; }
   [Export] private EntityManager EntityManager { get; set; }
-  [Export] public MapData MapData { get; private set; }
+
+  [ExportGroup("Terrain Settings")]
+  [Export(PropertyHint.Range, "0, 1")] public float SolidFactor { get; private set; } = 0.8f;
+  [Export] public int TerracesPerSlope { get; private set; } = 2;
+  public float BlendFactor => 1f - SolidFactor;
+  public int TerraceSteps => (TerracesPerSlope * 2) + 1;
+  public float HorizontalTerraceStepSize => 1f / TerraceSteps;
+  public float VerticalTerraceStepSize => 1f / (TerracesPerSlope + 1);
 
   private GameGrid Grid { get; set; }
 
-
-  // TODO: move that data to custom hexlayout class
-  private static float SolidFactor => 0.8f;
-  private static float BlendFactor => 1f - SolidFactor;
-  private static int TerracesPerSlope => 3;
-  public static int TerraceSteps = (TerracesPerSlope * 2) + 1;
-  private static float HorizontalTerraceStepSize = 1f / TerraceSteps;
-  private static float VerticalTerraceStepSize = 1f / (TerracesPerSlope + 1);
 
   public void Init() {
     Grid = new(Layout);
@@ -211,25 +211,6 @@ public partial class GameBoard : Node3D {
     return GameCell.EdgeType.Cliff;
   }
 
-  public Vector3 TerraceLerp(Vector3 a, Vector3 b, int step) {
-    var h = step * HorizontalTerraceStepSize;
-    a.X += (b.X - a.X) * h;
-    a.Z += (b.Z - a.Z) * h;
-    var v = (step + 1) / 2f * VerticalTerraceStepSize;
-    a.Y += (b.Y - a.Y) * v;
-    return a;
-  }
-
-  public Chunk.EdgeVertices TerraceLerp(Chunk.EdgeVertices a, Chunk.EdgeVertices b, int step) {
-    Chunk.EdgeVertices result;
-    result.V1 = TerraceLerp(a.V1, b.V1, step);
-    result.V2 = TerraceLerp(a.V2, b.V2, step);
-    result.V3 = TerraceLerp(a.V3, b.V3, step);
-    result.V4 = TerraceLerp(a.V4, b.V4, step);
-    result.V5 = TerraceLerp(a.V5, b.V5, step);
-    return result;
-  }
-
   // TODO: proper line of sight, for now it can be like this...
   public GameCell[] GetCellsInSight(GameCell center, uint range) {
     var visibleHexes = new List<GameCell>();
@@ -346,12 +327,33 @@ public partial class GameBoard : Node3D {
     return MapData.Settings.CellSettings[cell.SettingId];
   }
 
+  public Vector3 TerraceLerp(Vector3 a, Vector3 b, int step) {
+    var h = step * HorizontalTerraceStepSize;
+    a.X += (b.X - a.X) * h;
+    a.Z += (b.Z - a.Z) * h;
+    var v = (step + 1) / 2f * VerticalTerraceStepSize;
+    a.Y += (b.Y - a.Y) * v;
+    return a;
+  }
+
+  public Chunk.EdgeVertices TerraceLerp(Chunk.EdgeVertices a, Chunk.EdgeVertices b, int step) {
+    Chunk.EdgeVertices result;
+    result.V1 = TerraceLerp(a.V1, b.V1, step);
+    result.V2 = TerraceLerp(a.V2, b.V2, step);
+    result.V3 = TerraceLerp(a.V3, b.V3, step);
+    result.V4 = TerraceLerp(a.V4, b.V4, step);
+    result.V5 = TerraceLerp(a.V5, b.V5, step);
+    return result;
+  }
+
   private void LoadMap(MapData mapData) {
     var cells = new List<GameCell>();
     foreach (var hex in MapData.GetCells()) {
       var cell = new GameCell(Layout.OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), Layout, hex.Id);
       cells.Add(cell);
     }
+
+    // TODO: add border chunks
 
     Grid.CreateCells(cells.ToArray());
   }

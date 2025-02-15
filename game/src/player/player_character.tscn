@@ -49,13 +49,14 @@ point_count = 3
 curve = SubResource("Curve_r1uxh")
 
 [sub_resource type="Curve" id="Curve_yinba"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_uv73u"]
 curve = SubResource("Curve_yinba")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpff0"]
+lifetime_randomness = 0.48
 particle_flag_align_y = true
 emission_shape_offset = Vector3(0, 10, 0)
 emission_shape_scale = Vector3(20, 5, 20)
@@ -68,8 +69,8 @@ directional_velocity_curve = SubResource("CurveXYZTexture_g3jf5")
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_48mh7")
 turbulence_enabled = true
-turbulence_influence_min = 0.056
-turbulence_influence_max = 0.218
+turbulence_influence_min = 0.04
+turbulence_influence_max = 0.161
 turbulence_influence_over_life = SubResource("CurveTexture_uv73u")
 
 [sub_resource type="Curve" id="Curve_cwdi3"]
@@ -77,11 +78,14 @@ _data = [Vector2(0.0145631, 0.0928835), 0.0, 2.40815, 0, 0, Vector2(0.492718, 0.
 point_count = 4
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05snt"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.658824)
+point_size = 3.0
 use_particle_trails = true
 
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_7nnx4"]
 material = SubResource("StandardMaterial3D_05snt")
-radius = 0.2
+radius = 0.05
 curve = SubResource("Curve_cwdi3")
 
 [node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera")]
@@ -106,9 +110,9 @@ skeleton = NodePath("")
 current = true
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.64778, -0.157656)
-amount = 1
+amount = 2
 lifetime = 4.0
+randomness = 1.0
 trail_enabled = true
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_jpff0")

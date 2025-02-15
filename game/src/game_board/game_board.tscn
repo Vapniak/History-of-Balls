@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
-[ext_resource type="Resource" uid="uid://ca43u8x72ydv5" path="res://src/game_board/grid_layout.tres" id="2_i1283"]
+[ext_resource type="Resource" uid="uid://lp5grltc6rsd" path="res://src/game_board/grid_layout.tres" id="2_i1283"]
 [ext_resource type="Resource" uid="uid://5wuxfmlkqhss" path="res://src/maps/test_map.tres" id="3_ntr3u"]
 [ext_resource type="Script" path="res://src/game_board/terrain_manager/TerrainManager.cs" id="5_ml5l7"]
 [ext_resource type="Shader" path="res://res/shaders/terrain.gdshader" id="5_vuxl6"]
@@ -18,10 +18,11 @@ shader_parameter/show_mouse_highlight = null
 
 [node name="GameBoard" type="Node3D" node_paths=PackedStringArray("TerrainManager", "EntityManager")]
 script = ExtResource("1_fetkt")
+MapData = ExtResource("3_ntr3u")
 Layout = ExtResource("2_i1283")
 TerrainManager = NodePath("TerrainManager")
 EntityManager = NodePath("EntityManager")
-MapData = ExtResource("3_ntr3u")
+SolidFactor = 1.0
 
 [node name="TerrainManager" type="Node3D" parent="."]
 script = ExtResource("5_ml5l7")

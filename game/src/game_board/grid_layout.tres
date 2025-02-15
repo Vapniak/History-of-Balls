@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="HexLayout" load_steps=2 format=3 uid="uid://ca43u8x72ydv5"]
+[gd_resource type="Resource" script_class="GameGridLayout" load_steps=2 format=3 uid="uid://lp5grltc6rsd"]
 
-[ext_resource type="Script" path="res://addons/hex_grid_map/src/HexLayout.cs" id="1_wfofg"]
+[ext_resource type="Script" path="res://src/game_board/GameGridLayout.cs" id="1_n4u1y"]
 
 [resource]
-script = ExtResource("1_wfofg")
+script = ExtResource("1_n4u1y")
 HexCellSize = 2.0
 OrientationType = 1
 Offset = 1

@@ -18,16 +18,12 @@ public partial class HexMesh : MeshInstance3D {
   public void Apply() {
     ST.Index();
     ST.GenerateNormals();
-    ST.GenerateTangents();
     Mesh = ST.Commit();
   }
 
   public void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3) {
-    ST.SetUV(new(0, 0));
     ST.AddVertex(v1);
-    ST.SetUV(new(0, 0));
     ST.AddVertex(v2);
-    ST.SetUV(new(0, 0));
     ST.AddVertex(v3);
   }
 
