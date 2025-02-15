@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=16 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="Resource" uid="uid://lp5grltc6rsd" path="res://src/game_board/grid_layout.tres" id="2_i1283"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/game_board/terrain_manager/TerrainManager.cs" id="5_ml5l7"]
 [ext_resource type="Shader" path="res://res/shaders/terrain.gdshader" id="5_vuxl6"]
 [ext_resource type="Script" path="res://src/game_board/entity_manager/EntityManager.cs" id="6_wv76r"]
+[ext_resource type="Shader" path="res://res/shaders/water.gdshader" id="7_6w3vf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k616f"]
 render_priority = 0
@@ -16,6 +17,41 @@ shader_parameter/show_mouse_highlight = null
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ihitb"]
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_io1do"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_wp4n6"]
+noise = SubResource("FastNoiseLite_io1do")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rvb48"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_l1kh8"]
+noise = SubResource("FastNoiseLite_rvb48")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0las6"]
+render_priority = 0
+shader = ExtResource("7_6w3vf")
+shader_parameter/time_speed = 0.1
+shader_parameter/surface_speed = 1.0
+shader_parameter/spin = 0.0
+shader_parameter/brightness = 0.6
+shader_parameter/color_intensity = 0.0
+shader_parameter/horizontal_frequency = 2.0
+shader_parameter/vertical_frequency = 2.0
+shader_parameter/size = 3.0
+shader_parameter/banding_bias = 1.44
+shader_parameter/wave_height = 0.5
+shader_parameter/texture_height = 0.0
+shader_parameter/color1 = Color(0.59, 0.761, 1, 1)
+shader_parameter/color2 = Color(0.274, 0.474, 0.98, 1)
+shader_parameter/color3 = Color(0.059, 0.389, 0.85, 1)
+shader_parameter/color4 = Color(0, 0.267, 1, 1)
+shader_parameter/wave_texture = SubResource("NoiseTexture2D_l1kh8")
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_wp4n6")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_t557q"]
+material = SubResource("ShaderMaterial_0las6")
+size = Vector2(1000, 1000)
+
 [node name="GameBoard" type="Node3D" node_paths=PackedStringArray("TerrainManager", "EntityManager")]
 script = ExtResource("1_fetkt")
 MapData = ExtResource("3_ntr3u")
@@ -23,15 +59,20 @@ Layout = ExtResource("2_i1283")
 TerrainManager = NodePath("TerrainManager")
 EntityManager = NodePath("EntityManager")
 SolidFactor = 1.0
+ElevationStep = 0.2
 
 [node name="TerrainManager" type="Node3D" parent="."]
 script = ExtResource("5_ml5l7")
 TerrainMaterial = SubResource("ShaderMaterial_k616f")
 
+[node name="StaticBody3D" type="StaticBody3D" parent="TerrainManager"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TerrainManager/StaticBody3D"]
+shape = SubResource("WorldBoundaryShape3D_ihitb")
+
 [node name="EntityManager" type="Node" parent="."]
 script = ExtResource("6_wv76r")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("WorldBoundaryShape3D_ihitb")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
+mesh = SubResource("PlaneMesh_t557q")

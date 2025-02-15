@@ -53,4 +53,8 @@ public partial class EntityManager : Node {
   public Entity[] GetEntitiesOnCell(GameCell cell) {
     return Entities.Where(e => e.Cell == cell).ToArray();
   }
+
+  public Entity[] GetEnemyEntities(IMatchController controller) {
+    return Entities.Except(OwnedEntities[controller]).ToArray();
+  }
 }

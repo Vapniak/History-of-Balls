@@ -20,6 +20,7 @@ public partial class GameBoard : Node3D {
   [ExportGroup("Terrain Settings")]
   [Export(PropertyHint.Range, "0, 1")] public float SolidFactor { get; private set; } = 0.8f;
   [Export] public int TerracesPerSlope { get; private set; } = 2;
+  [Export] public float ElevationStep { get; private set; } = 0.1f;
   public float BlendFactor => 1f - SolidFactor;
   public int TerraceSteps => (TerracesPerSlope * 2) + 1;
   public float HorizontalTerraceStepSize => 1f / TerraceSteps;
@@ -178,6 +179,10 @@ public partial class GameBoard : Node3D {
     return EntityManager.GetOwnedEntites(owner);
   }
 
+  public Entity[] GetEnemyEntities(IMatchController controller) {
+    return EntityManager.GetEnemyEntities(controller);
+  }
+
   public void SetHighlight(GameCell cell, Color color) {
     TerrainManager.SetHighlight(cell, color);
   }
@@ -192,7 +197,7 @@ public partial class GameBoard : Node3D {
 
 
   public Vector3 GetCellRealPosition(GameCell cell) {
-    return new(cell.Position.X, GetSetting(cell).Elevation, cell.Position.Y);
+    return new(cell.Position.X, GetSetting(cell).Elevation * ElevationStep, cell.Position.Y);
   }
 
   public GameCell.EdgeType GetEdgeType(GameCell from, GameCell to) {

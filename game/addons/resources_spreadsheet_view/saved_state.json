@@ -40,6 +40,14 @@
         "visibility": 0
       }
     },
+    "res://src/game_entities/entites/unit/units::Stats::Stats/": {
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://src/game_entities/entites/unit::Stats/": {
       "resource_local_to_scene": {
         "visibility": 0
@@ -64,11 +72,11 @@
     }
   },
   "recent_paths": [
-    "res://src/game_entities/entites/",
     "res://src/game_entities/entites/unit/units::Stats/",
     "res://src/game_entities/entites/unit/",
     "res://src/game_entities/entites/unit::Stats/",
-    "res://src/game_entities/entites/unit::Stats::Stats/"
+    "res://src/game_entities/entites/unit::Stats::Stats/",
+    "res://src/game_entities/entites/unit/units::Stats::Stats/"
   ],
   "table_functions": {
     "filter": [

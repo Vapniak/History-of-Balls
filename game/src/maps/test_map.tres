@@ -17,56 +17,56 @@ script = ExtResource("2_kwf6m")
 Name = "Desert"
 Color = Color(1, 0.843137, 0, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 1
 
 [sub_resource type="Resource" id="Resource_oh7k3"]
 script = ExtResource("2_kwf6m")
 Name = "Cactus Desert"
 Color = Color(0.803922, 0.521569, 0.247059, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 2
 
 [sub_resource type="Resource" id="Resource_vp81g"]
 script = ExtResource("2_kwf6m")
 Name = "Dunes"
 Color = Color(0.941176, 0.901961, 0.54902, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 1
 
 [sub_resource type="Resource" id="Resource_rwbnt"]
 script = ExtResource("2_kwf6m")
 Name = "Mountains"
 Color = Color(0.466667, 0.466667, 0.466667, 1)
 MoveCost = 1
-Elevation = 2
+Elevation = 15
 
 [sub_resource type="Resource" id="Resource_ubkbt"]
 script = ExtResource("2_kwf6m")
 Name = "Forest"
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 3
 
 [sub_resource type="Resource" id="Resource_515fd"]
 script = ExtResource("2_kwf6m")
 Name = "Meadow"
 Color = Color(0, 0.733333, 0, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 2
 
 [sub_resource type="Resource" id="Resource_n7kb0"]
 script = ExtResource("2_kwf6m")
 Name = "Grassland"
 Color = Color(0.498039, 1, 0, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 1
 
 [sub_resource type="Resource" id="Resource_2tjhx"]
 script = ExtResource("2_kwf6m")
 Name = "Jungle"
 Color = Color(0.133333, 0.545098, 0.4, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 4
 
 [sub_resource type="Resource" id="Resource_u3xqj"]
 script = ExtResource("2_kwf6m")
@@ -80,42 +80,42 @@ script = ExtResource("2_kwf6m")
 Name = "Highlands"
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 MoveCost = 1
-Elevation = 1
+Elevation = 8
 
 [sub_resource type="Resource" id="Resource_o830b"]
 script = ExtResource("2_kwf6m")
 Name = "Snowfield"
 Color = Color(1, 1, 1, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 3
 
 [sub_resource type="Resource" id="Resource_hdaxm"]
 script = ExtResource("2_kwf6m")
 Name = "Snowy Forest"
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 3
 
 [sub_resource type="Resource" id="Resource_lv6xc"]
 script = ExtResource("2_kwf6m")
 Name = "Glacier"
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 2
 
 [sub_resource type="Resource" id="Resource_21boa"]
 script = ExtResource("2_kwf6m")
 Name = "Water"
 Color = Color(0.247059, 0.670588, 1, 1)
 MoveCost = 1
-Elevation = -1
+Elevation = -5
 
 [sub_resource type="Resource" id="Resource_uhop0"]
 script = ExtResource("2_kwf6m")
 Name = "Ocean"
 Color = Color(0.196078, 0.364706, 0.858824, 1)
 MoveCost = 1
-Elevation = -2
+Elevation = -10
 
 [sub_resource type="Resource" id="Resource_hb5dl"]
 script = ExtResource("3_ng25x")

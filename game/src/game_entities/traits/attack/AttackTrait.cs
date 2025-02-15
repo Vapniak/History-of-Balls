@@ -41,7 +41,6 @@ public partial class AttackTrait : Trait {
     AttackableEntities = new List<Entity>();
     var cellsInR = new List<GameCell>();
 
-    GD.Print(GetStat<AttackStats>().Range);
     var cells = board.GetCellsInRange(Entity.Cell.Coord, GetStat<AttackStats>().Range);
     foreach (var cell in cells) {
       cellsInR.Add(cell);

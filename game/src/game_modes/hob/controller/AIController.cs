@@ -39,4 +39,8 @@ public partial class AIController : Controller, IMatchController {
   public void OwnTurnEnded() { }
 
   public void OnGameStarted() { }
+
+  private void Decide(Entity entity) {
+
+  }
 }

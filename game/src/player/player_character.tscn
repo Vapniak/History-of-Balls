@@ -10,7 +10,7 @@ point_count = 2
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_l4mhp"]
 render_priority = 0
 shader = ExtResource("2_hothr")
-shader_parameter/outlineColor = Color(0, 0, 0, 0.78)
+shader_parameter/outlineColor = Color(0, 0, 0, 1)
 shader_parameter/depth_threshold = 0.025
 shader_parameter/normal_threshold = 0.5
 shader_parameter/normal_smoothing = 0.25
@@ -56,7 +56,7 @@ point_count = 2
 curve = SubResource("Curve_yinba")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpff0"]
-lifetime_randomness = 0.48
+lifetime_randomness = 0.5
 particle_flag_align_y = true
 emission_shape_offset = Vector3(0, 10, 0)
 emission_shape_scale = Vector3(20, 5, 20)
@@ -82,6 +82,8 @@ transparency = 1
 albedo_color = Color(1, 1, 1, 0.658824)
 point_size = 3.0
 use_particle_trails = true
+proximity_fade_enabled = true
+proximity_fade_distance = 4.0
 
 [sub_resource type="TubeTrailMesh" id="TubeTrailMesh_7nnx4"]
 material = SubResource("StandardMaterial3D_05snt")
