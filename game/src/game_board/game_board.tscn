@@ -22,9 +22,6 @@ MapData = ExtResource("3_ntr3u")
 Layout = ExtResource("2_i1283")
 TerrainManager = NodePath("TerrainManager")
 EntityManager = NodePath("EntityManager")
-SolidFactor = 0.99
-TerracesPerSlope = 0
-ElevationStep = 0.2
 
 [node name="TerrainManager" type="Node3D" parent="."]
 script = ExtResource("5_ml5l7")

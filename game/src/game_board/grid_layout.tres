@@ -4,6 +4,10 @@
 
 [resource]
 script = ExtResource("1_n4u1y")
+SolidFactor = 0.99
+TerracesPerSlope = 0
+ElevationStep = 0.2
+SlopeMaxElevationDelta = 5
 HexCellSize = 2.0
 OrientationType = 1
 Offset = 1

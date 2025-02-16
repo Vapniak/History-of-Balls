@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System;
 using Godot;
 using HexGridMap;
 
@@ -10,8 +11,33 @@ public partial class GameCell : HexCell {
     Cliff // ELEVATION DIFF > 1
   }
 
+  public int Index => Grid.GetCellIndex(this);
   public int SettingId { get; private set; }
-  public GameCell(CubeCoord coord, HexLayout layout, int settingId) : base(coord, layout) {
+  private GameGrid Grid { get; set; }
+  public GameCell(CubeCoord coord, HexLayout layout, int settingId, GameGrid grid) : base(coord, layout) {
     SettingId = settingId;
+    Grid = grid;
+  }
+
+  public Vector3 GetRealPosition() {
+    return Grid.GetCellRealPosition(this);
+  }
+
+  public CellSetting GetSetting() => Grid.GetSetting(this);
+
+  public EdgeType GetEdgeTypeTo(GameCell cell) {
+    return Grid.GetEdgeType(this, cell);
+  }
+
+  public GameCell[] FindPathTo(GameCell cell, uint maxCost, Func<GameCell, GameCell, bool> isReachable) {
+    return Grid.FindPath(this, cell, maxCost, isReachable);
+  }
+
+  public GameCell[] ExpandSearch(uint maxCost, Func<GameCell, GameCell, bool> isReachable) {
+    return Grid.ExpandSearch(this, maxCost, isReachable);
+  }
+
+  public GameCell[] GetCellsInRange(uint range) {
+    return Grid.GetCellsInRange(Coord, range);
   }
 }

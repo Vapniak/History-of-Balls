@@ -3,6 +3,7 @@ namespace HOB.GameEntity;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class AttackTrait : Trait {
@@ -10,38 +11,21 @@ public partial class AttackTrait : Trait {
 
   private List<Entity> AttackableEntities { get; set; }
 
-  private bool _attack;
-  public override void _PhysicsProcess(double delta) {
-    base._PhysicsProcess(delta);
-
-    if (_attack) {
-      // FIXME: FINISH IS BEFORE START
-      EmitSignal(SignalName.AttackFinished);
-      _attack = false;
-    }
-  }
-  public bool TryAttack(Entity entity) {
-    if (!AttackableEntities.Contains(entity)) {
-      return false;
-    }
-
-    // TODO: rotate to attacked entity
-
-    // animations
-    _attack = true;
+  public async Task Attack(Entity entity) {
+    await Entity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
       healthTrait.Damage(GetStat<AttackStats>().Damage);
     }
 
-    return true;
+    EmitSignal(SignalName.AttackFinished);
   }
 
   public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
     AttackableEntities = new List<Entity>();
     var cellsInR = new List<GameCell>();
 
-    var cells = Entity.GameBoard.GetCellsInRange(Entity.Cell.Coord, GetStat<AttackStats>().Range);
+    var cells = Entity.Cell.GetCellsInRange(GetStat<AttackStats>().Range);
     foreach (var cell in cells) {
       cellsInR.Add(cell);
       var entities = Entity.GameBoard.GetEntitiesOnCell(cell);

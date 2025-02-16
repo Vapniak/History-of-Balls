@@ -129,9 +129,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     var point = raycastResult.Position;
-    var coord = GameBoard.PointToCube(point);
+    var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
 
-    var cell = GameBoard.GetCell(coord);
+    var cell = GameBoard.Grid.GetCell(coord);
 
     return cell;
   }
@@ -143,9 +143,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     var point = raycastResult.Position;
-    var coord = GameBoard.PointToCube(point);
+    var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
 
-    var cell = GameBoard.GetCell(coord);
+    var cell = GameBoard.Grid.GetCell(coord);
 
     var entities = GameBoard.GetEntitiesOnCell(cell);
 

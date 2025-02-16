@@ -22,18 +22,18 @@ public partial class Chunk : StaticBody3D {
   private int[] CellIndices { get; set; }
 
   private Material TerrainMaterial { get; set; }
-  private GameBoard Board { get; set; }
+  private GameGrid Grid { get; set; }
 
   private HexMesh TerrainMesh { get; set; }
   private CollisionShape3D CollisionShape { get; set; }
 
   private bool _refresh;
 
-  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, GameBoard board) {
+  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, GameGrid grid) {
     Index = index;
     ChunkSize = chunkSize;
     TerrainMaterial = terrainMaterial;
-    Board = board;
+    Grid = grid;
 
     CellIndices = new int[chunkSize.X * chunkSize.Y];
 
@@ -75,7 +75,7 @@ public partial class Chunk : StaticBody3D {
   }
 
   private void Triangulate(int cellIndex) {
-    var cell = Board.GetCell(cellIndex);
+    var cell = Grid.GetCell(cellIndex);
     if (cell == null) {
       return;
     }
@@ -86,8 +86,8 @@ public partial class Chunk : StaticBody3D {
   }
 
   private void Triangulate(HexDirection direction, GameCell cell) {
-    var pos = Board.GetCellRealPosition(cell);
-    var (firstCorner, secondCorner) = Board.GetSolidCorners(direction);
+    var pos = Grid.GetCellRealPosition(cell);
+    var (firstCorner, secondCorner) = Grid.GetSolidCorners(direction);
     var e = new EdgeVertices(pos + firstCorner, pos + secondCorner);
 
     TriangulateEdgeFan(pos, e);
@@ -102,18 +102,18 @@ public partial class Chunk : StaticBody3D {
   }
 
   private void TriangulateConnection(HexDirection direction, GameCell cell, EdgeVertices e) {
-    var neighbor = Board.GetCell(cell, direction);
+    var neighbor = Grid.GetCell(cell, direction);
     if (neighbor == null) {
       return;
     }
 
-    var bridge = Board.GetBridge(direction);
-    bridge.Y = Board.GetCellRealPosition(neighbor).Y - Board.GetCellRealPosition(cell).Y;
+    var bridge = Grid.GetBridge(direction);
+    bridge.Y = Grid.GetCellRealPosition(neighbor).Y - Grid.GetCellRealPosition(cell).Y;
     var e2 = new EdgeVertices(e.V1 + bridge, e.V5 + bridge);
 
 
 
-    var edgeType = Board.GetEdgeType(cell, neighbor);
+    var edgeType = Grid.GetEdgeType(cell, neighbor);
     if (edgeType == GameCell.EdgeType.Slope) {
       TriangulateEdgeTerraces(e, e2);
     }
@@ -122,17 +122,17 @@ public partial class Chunk : StaticBody3D {
     }
 
     if (direction <= HexDirection.Second) {
-      var nextNeighbor = Board.GetCell(cell, direction.Next());
+      var nextNeighbor = Grid.GetCell(cell, direction.Next());
       if (nextNeighbor == null) {
         return;
       }
 
-      var v5 = e.V5 + Board.GetBridge(direction.Next());
-      v5.Y = Board.GetCellRealPosition(nextNeighbor).Y;
+      var v5 = e.V5 + Grid.GetBridge(direction.Next());
+      v5.Y = Grid.GetCellRealPosition(nextNeighbor).Y;
 
 
-      if (Board.GetSetting(cell).Elevation <= Board.GetSetting(neighbor).Elevation) {
-        if (Board.GetSetting(cell).Elevation <= Board.GetSetting(nextNeighbor).Elevation) {
+      if (Grid.GetSetting(cell).Elevation <= Grid.GetSetting(neighbor).Elevation) {
+        if (Grid.GetSetting(cell).Elevation <= Grid.GetSetting(nextNeighbor).Elevation) {
           TriangulateCorner(
             e.V5, cell,
             e2.V5, neighbor,
@@ -145,7 +145,7 @@ public partial class Chunk : StaticBody3D {
             e2.V5, neighbor);
         }
       }
-      else if (Board.GetSetting(neighbor).Elevation <= Board.GetSetting(nextNeighbor).Elevation) {
+      else if (Grid.GetSetting(neighbor).Elevation <= Grid.GetSetting(nextNeighbor).Elevation) {
         TriangulateCorner(
           e2.V5, neighbor,
           v5, nextNeighbor,
@@ -165,13 +165,13 @@ public partial class Chunk : StaticBody3D {
   }
 
   private void TriangulateEdgeTerraces(EdgeVertices begin, EdgeVertices end) {
-    var e2 = Board.TerraceLerp(begin, end, 1);
+    var e2 = Grid.TerraceLerp(begin, end, 1);
 
     TriangulateEdgeStrip(begin, e2);
 
-    for (var i = 2; i < Board.TerraceSteps; i++) {
+    for (var i = 2; i < Grid.GetLayout().TerraceSteps; i++) {
       var e1 = e2;
-      e2 = Board.TerraceLerp(begin, end, i);
+      e2 = Grid.TerraceLerp(begin, end, i);
       TriangulateEdgeStrip(e1, e2);
     }
 
@@ -182,8 +182,8 @@ public partial class Chunk : StaticBody3D {
     Vector3 bottom, GameCell bottomCell,
     Vector3 left, GameCell leftCell,
     Vector3 right, GameCell rightCell) {
-    var leftEdgeType = Board.GetEdgeType(bottomCell, leftCell);
-    var rightEdgeType = Board.GetEdgeType(bottomCell, rightCell);
+    var leftEdgeType = Grid.GetEdgeType(bottomCell, leftCell);
+    var rightEdgeType = Grid.GetEdgeType(bottomCell, rightCell);
 
     TerrainMesh.AddTriangle(bottom, left, right);
   }

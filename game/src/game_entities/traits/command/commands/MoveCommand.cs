@@ -1,5 +1,6 @@
 namespace HOB.GameEntity;
 
+using System.Linq;
 using Godot;
 
 [GlobalClass]
@@ -15,8 +16,9 @@ public partial class MoveCommand : Command {
     MovementType.MoveTrait = EntityMoveTrait;
   }
   public bool TryMove(GameCell targetCell) {
-    if (IsAvailable() && EntityMoveTrait.TryMove(targetCell, MovementType)) {
+    if (IsAvailable()) {
       Use();
+      EntityMoveTrait.Move(targetCell, MovementType);
       return true;
     }
 

@@ -3,6 +3,7 @@ namespace HOB.GameEntity;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class Entity : Node {
@@ -31,7 +32,7 @@ public partial class Entity : Node {
       }
     }
 
-    CallDeferred(MethodName.SetPosition, GameBoard.GetCellRealPosition(Cell));
+    CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
   }
 
   public string GetEntityName() => Data.EntityName;
@@ -65,6 +66,15 @@ public partial class Entity : Node {
     Body.GlobalPosition = position;
   }
   public Vector3 GetPosition() => Body.GlobalPosition;
+
+  public async Task TurnAt(Vector3 targetPosition, float duration) {
+    var targetRotation = Basis.LookingAt(GetPosition().DirectionTo(targetPosition) * new Vector3(1, 0, 1)).GetRotationQuaternion();
+
+    var tween = CreateTween();
+    tween.TweenProperty(Body, "quaternion", targetRotation, duration).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.InOut);
+
+    await ToSignal(tween, Tween.SignalName.Finished);
+  }
 
   [OnInstantiate]
   private void Init(IMatchController owner, EntityData data, GameCell cell, GameBoard gameBoard) {

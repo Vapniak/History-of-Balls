@@ -1,5 +1,6 @@
 namespace HOB.GameEntity;
 
+using System.Linq;
 using Godot;
 
 [GlobalClass]
@@ -13,10 +14,9 @@ public partial class AttackCommand : Command {
   }
 
   public bool TryAttack(Entity entity) {
-    if (IsAvailable() && EntityAttackTrait.TryAttack(entity)) {
+    if (IsAvailable() && EntityAttackTrait.GetAttackableEntities().entities.Contains(entity)) {
       Use();
-      // for now
-      Finish();
+      EntityAttackTrait.Attack(entity);
       return true;
     }
     return false;

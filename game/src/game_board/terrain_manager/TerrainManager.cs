@@ -16,7 +16,7 @@ public partial class TerrainManager : Node3D {
 
   private Chunk[] Chunks { get; set; }
 
-  private GameBoard Board { get; set; }
+  private GameGrid Grid { get; set; }
 
   public override void _PhysicsProcess(double delta) {
     var position = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World)?.Position;
@@ -25,13 +25,13 @@ public partial class TerrainManager : Node3D {
     }
   }
 
-  public void CreateData(GameBoard board) {
-    Board = board;
+  public void CreateData(GameGrid grid) {
+    Grid = grid;
 
     ChunkSize = new(16, 16);
     // TODO: add chunk buffering loading and unloading when player moves
-    var cols = board.MapData.Cols;
-    var rows = board.MapData.Rows;
+    var cols = grid.MapData.Cols;
+    var rows = grid.MapData.Rows;
 
     while (cols % ChunkSize.X != 0 || rows % ChunkSize.Y != 0) {
       if (cols % ChunkSize.X != 0) {
@@ -47,7 +47,7 @@ public partial class TerrainManager : Node3D {
 
     Chunks = new Chunk[ChunkCount.X * ChunkCount.Y];
     for (var i = 0; i < Chunks.Length; i++) {
-      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, board);
+      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, grid);
       Chunks[i] = chunk;
       AddChild(chunk);
     }
@@ -57,8 +57,8 @@ public partial class TerrainManager : Node3D {
 
     TerrainData.Fill(Colors.Transparent);
 
-    foreach (var hex in board.MapData.GetCells()) {
-      var setting = board.MapData.Settings.CellSettings[hex.Id];
+    foreach (var hex in grid.MapData.GetCells()) {
+      var setting = grid.MapData.Settings.CellSettings[hex.Id];
       SetTerrainPixel(new(hex.Col, hex.Row), setting.Color);
     }
 
@@ -66,7 +66,7 @@ public partial class TerrainManager : Node3D {
 
     UpdateHighlights();
 
-    TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(board.MapData.Cols, board.MapData.Rows));
+    TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
   }
 
   public void SetMouseHighlight(bool value) {
@@ -118,6 +118,6 @@ public partial class TerrainManager : Node3D {
   public void AddCellToChunk(GameCell cell) {
     var (chunk, localCoord) = OffsetToChunk(cell.OffsetCoord);
 
-    chunk.AddCell(localCoord.Col + localCoord.Row * ChunkSize.X, Board.GetCellIndex(cell));
+    chunk.AddCell(localCoord.Col + localCoord.Row * ChunkSize.X, Grid.GetCellIndex(cell));
   }
 }

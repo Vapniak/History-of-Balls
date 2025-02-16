@@ -2,6 +2,7 @@ namespace HOB.GameEntity;
 
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public abstract partial class MovementType : Resource {
@@ -9,5 +10,5 @@ public abstract partial class MovementType : Resource {
 
   public MoveTrait MoveTrait { get; set; }
   public abstract bool IsCellReachable(GameCell from, GameCell to);
-  public abstract void StartMoveOn(GameCell[] path);
+  public virtual async Task StartMoveOn(GameCell[] path) { }
 }
