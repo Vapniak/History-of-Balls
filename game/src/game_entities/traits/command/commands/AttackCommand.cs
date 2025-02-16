@@ -13,12 +13,16 @@ public partial class AttackCommand : Command {
   }
 
   public bool TryAttack(Entity entity) {
-    if (EntityAttackTrait.TryAttack(entity)) {
+    if (IsAvailable() && EntityAttackTrait.TryAttack(entity)) {
       Use();
       // for now
       Finish();
       return true;
     }
     return false;
+  }
+
+  public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
+    return EntityAttackTrait.GetAttackableEntities();
   }
 }

@@ -1,6 +1,7 @@
 namespace HOB;
 
 using System;
+using System.Linq;
 using GameplayFramework;
 using Godot;
 using GodotStateCharts;
@@ -20,6 +21,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private GameCell HoveredCell { get; set; }
 
 
+  private Entity _lastSelectedEntity;
   private PlayerCharacter _character;
 
   private bool _isPanning;
@@ -30,7 +32,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     base._Ready();
 
     // TODO: unconfine mouse when in windowed mode
-    Input.MouseMode = Input.MouseModeEnum.Confined;
+    //Input.MouseMode = Input.MouseModeEnum.Confined;
 
     GameBoard = GetGameState().GameBoard;
 
@@ -100,7 +102,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public void OwnTurnStarted() {
     ReselectEntity();
   }
-  public void OwnTurnEnded() { }
+  public void OwnTurnEnded() {
+    ReselectEntity();
+  }
 
   public void OnGameStarted() {
     CallDeferred(MethodName.SelectEntity, GameBoard.GetOwnedEntities(this)[0]);
@@ -182,13 +186,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void SelectEntity(Entity entity) {
+    if (!IsInstanceValid(entity)) {
+      return;
+    }
+
     SelectedEntity = entity;
 
     StateChart.SendEvent("entity_selected");
-  }
-
-  private void DeselectEntity() {
-    StateChart.SendEvent("entity_deselected");
   }
 
   private void ReselectEntity() {
@@ -201,22 +205,38 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     SelectEntity(entity);
   }
 
+  private void DeselectEntity() {
+    StateChart.SendEvent("entity_deselected");
+  }
+
   private void OnCommandSelected(Command command) {
     GameBoard.ClearHighlights();
 
 
     if (command is MoveCommand moveCommand) {
-      foreach (var cell in moveCommand.EntityMoveTrait.GetReachableCells()) {
-        GameBoard.SetHighlight(cell, Colors.Green);
+      foreach (var cell in moveCommand.GetReachableCells()) {
+        if (moveCommand.IsAvailable()) {
+          GameBoard.SetHighlight(cell, Colors.Green);
+        }
       }
     }
     else if (command is AttackCommand attackCommand) {
-      var (entities, cellsInRange) = attackCommand.EntityAttackTrait.GetAttackableEntities(GameBoard);
-      foreach (var cell in cellsInRange) {
-        GameBoard.SetHighlight(cell, Colors.DarkRed);
+      var (entities, cellsInRange) = attackCommand.GetAttackableEntities();
+
+      if (attackCommand.IsAvailable()) {
+        foreach (var entity in entities) {
+          GameBoard.SetHighlight(entity.Cell, Colors.Red);
+        }
+        if (entities.Length == 0) {
+          foreach (var cell in cellsInRange) {
+            GameBoard.SetHighlight(cell, Colors.DarkRed);
+          }
+        }
       }
-      foreach (var entity in entities) {
-        GameBoard.SetHighlight(entity.Cell, Colors.Red);
+      else {
+        foreach (var cell in cellsInRange) {
+          GameBoard.SetHighlight(cell, Colors.PaleVioletRed);
+        }
       }
     }
 
@@ -348,15 +368,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
           commandTrait.CommandStarted -= OnCommandStarted;
           commandTrait.CommandFinished -= OnCommandFinished;
         }
-
-        SelectedEntity = null;
-        SelectedCommand = null;
       }
+
+      SelectedEntity = null;
+      SelectedCommand = null;
     }
   }
 
   private void OnSelectionIdleUnhandledInput(InputEvent @event) {
-
     if (@event.IsActionPressed(GameInputs.Focus)) {
       FocusOnSelectedEntity();
     }
@@ -379,7 +398,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         if (SelectedCommand != null) {
           if (SelectedCommand is MoveCommand moveCommand) {
             if (entities.Length == 0) {
-              if (moveCommand.TryMove(cell)) {
+              if (moveCommand.GetReachableCells().Contains(cell) && moveCommand.TryMove(cell)) {
                 return;
               }
             }

@@ -5,18 +5,30 @@ using Godot;
 [GlobalClass]
 public partial class MoveCommand : Command {
   [Export] public MoveTrait EntityMoveTrait { get; private set; }
+  [Export] public MovementType MovementType { get; private set; }
   public override void _Ready() {
     base._Ready();
 
     EntityMoveTrait.MoveFinished += Finish;
+
+    MovementType = MovementType.Duplicate() as MovementType;
+    MovementType.MoveTrait = EntityMoveTrait;
   }
   public bool TryMove(GameCell targetCell) {
-    if (EntityMoveTrait.TryMove(targetCell)) {
+    if (IsAvailable() && EntityMoveTrait.TryMove(targetCell, MovementType)) {
       Use();
       return true;
     }
 
     return false;
+  }
+
+  public GameCell[] GetReachableCells() {
+    return EntityMoveTrait.GetReachableCells(MovementType);
+  }
+
+  public GameCell[] FindPathTo(GameCell cell) {
+    return EntityMoveTrait.FindPath(cell, MovementType);
   }
 
   public override bool IsAvailable() {

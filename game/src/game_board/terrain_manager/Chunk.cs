@@ -120,6 +120,44 @@ public partial class Chunk : StaticBody3D {
     else {
       TriangulateEdgeStrip(e, e2);
     }
+
+    if (direction <= HexDirection.Second) {
+      var nextNeighbor = Board.GetCell(cell, direction.Next());
+      if (nextNeighbor == null) {
+        return;
+      }
+
+      var v5 = e.V5 + Board.GetBridge(direction.Next());
+      v5.Y = Board.GetCellRealPosition(nextNeighbor).Y;
+
+
+      if (Board.GetSetting(cell).Elevation <= Board.GetSetting(neighbor).Elevation) {
+        if (Board.GetSetting(cell).Elevation <= Board.GetSetting(nextNeighbor).Elevation) {
+          TriangulateCorner(
+            e.V5, cell,
+            e2.V5, neighbor,
+            v5, nextNeighbor);
+        }
+        else {
+          TriangulateCorner(
+            v5, nextNeighbor,
+            e.V5, cell,
+            e2.V5, neighbor);
+        }
+      }
+      else if (Board.GetSetting(neighbor).Elevation <= Board.GetSetting(nextNeighbor).Elevation) {
+        TriangulateCorner(
+          e2.V5, neighbor,
+          v5, nextNeighbor,
+          e.V5, cell);
+      }
+      else {
+        TriangulateCorner(
+          v5, nextNeighbor,
+          e.V5, cell,
+          e2.V5, neighbor);
+      }
+    }
   }
 
   private void TriangulateEdgeStrip(EdgeVertices e1, EdgeVertices e2) {
@@ -138,5 +176,15 @@ public partial class Chunk : StaticBody3D {
     }
 
     TriangulateEdgeStrip(e2, end);
+  }
+
+  private void TriangulateCorner(
+    Vector3 bottom, GameCell bottomCell,
+    Vector3 left, GameCell leftCell,
+    Vector3 right, GameCell rightCell) {
+    var leftEdgeType = Board.GetEdgeType(bottomCell, leftCell);
+    var rightEdgeType = Board.GetEdgeType(bottomCell, rightCell);
+
+    TerrainMesh.AddTriangle(bottom, left, right);
   }
 }

@@ -21,6 +21,7 @@ public partial class GameBoard : Node3D {
   [Export(PropertyHint.Range, "0, 1")] public float SolidFactor { get; private set; } = 0.8f;
   [Export] public int TerracesPerSlope { get; private set; } = 2;
   [Export] public float ElevationStep { get; private set; } = 0.1f;
+  [Export] public uint SlopeMaxElevationDelta = 5;
   public float BlendFactor => 1f - SolidFactor;
   public int TerraceSteps => (TerracesPerSlope * 2) + 1;
   public float HorizontalTerraceStepSize => 1f / TerraceSteps;
@@ -208,8 +209,7 @@ public partial class GameBoard : Node3D {
       return GameCell.EdgeType.Flat;
     }
 
-    var delta = fromElevation - toEleveation;
-    if (delta is 1 or (-1)) {
+    if (Mathf.Abs(fromElevation - toEleveation) <= SlopeMaxElevationDelta) {
       return GameCell.EdgeType.Slope;
     }
 
@@ -286,9 +286,20 @@ public partial class GameBoard : Node3D {
     }
 
     minCost[Grid.GetCellIndex(start)] = 0;
-
     var pq = new PriorityQueue<GameCell, int>();
     pq.Enqueue(start, 0);
+
+    // TODO: if target is not reachable find closest neigboring cell
+    // FIXME: temp fix
+    if (!isReachable(start, target)) {
+      GD.Print("Test");
+      foreach (var neighbor in Grid.GetNeighbors(target)) {
+        if (isReachable(target, neighbor)) {
+          target = neighbor;
+          break;
+        }
+      }
+    }
 
     while (pq.Count > 0) {
       var current = pq.Dequeue();
@@ -312,20 +323,28 @@ public partial class GameBoard : Node3D {
       }
     }
 
-    if (minCost[Grid.GetCellIndex(target)] == int.MaxValue) {
-      return null;
-    }
-
     var path = new List<GameCell>();
     var currentCell = target;
-
     while (currentCell != null) {
       path.Add(currentCell);
       currentCell = parent[Grid.GetCellIndex(currentCell)];
     }
 
     path.Reverse();
-    return path.ToArray();
+
+    var finalPath = new List<GameCell>();
+    var totalCost = 0;
+    foreach (var cell in path) {
+      if (totalCost <= maxCost) {
+        finalPath.Add(cell);
+      }
+      else {
+        break;
+      }
+
+      totalCost += GetSetting(cell).MoveCost;
+    }
+    return finalPath.ToArray();
   }
 
   public CellSetting GetSetting(GameCell cell) {

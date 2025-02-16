@@ -25,7 +25,7 @@ public partial class AttackTrait : Trait {
       return false;
     }
 
-    Entity.LookAt(entity.GetPosition());
+    // TODO: rotate to attacked entity
 
     // animations
     _attack = true;
@@ -37,14 +37,14 @@ public partial class AttackTrait : Trait {
     return true;
   }
 
-  public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities(GameBoard board) {
+  public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
     AttackableEntities = new List<Entity>();
     var cellsInR = new List<GameCell>();
 
-    var cells = board.GetCellsInRange(Entity.Cell.Coord, GetStat<AttackStats>().Range);
+    var cells = Entity.GameBoard.GetCellsInRange(Entity.Cell.Coord, GetStat<AttackStats>().Range);
     foreach (var cell in cells) {
       cellsInR.Add(cell);
-      var entities = board.GetEntitiesOnCell(cell);
+      var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
       if (entities.Length > 0 && !entities[0].IsOwnedBy(Entity.OwnerController)) {
         AttackableEntities.Add(entities[0]);
       }

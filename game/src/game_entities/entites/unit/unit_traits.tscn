@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://ds4gcav7wbnnb"]
+[gd_scene load_steps=9 format=3 uid="uid://ds4gcav7wbnnb"]
 
 [ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTrait.cs" id="1_54cjm"]
 [ext_resource type="Script" path="res://src/game_entities/traits/health/HealthTrait.cs" id="2_uxa4n"]
@@ -6,6 +6,10 @@
 [ext_resource type="Script" path="res://src/game_entities/traits/command/CommandTrait.cs" id="4_250is"]
 [ext_resource type="Script" path="res://src/game_entities/traits/command/commands/MoveCommand.cs" id="5_6un0v"]
 [ext_resource type="Script" path="res://src/game_entities/traits/command/commands/AttackCommand.cs" id="6_1i0a2"]
+[ext_resource type="Script" path="res://src/game_entities/traits/move/movement_types/WalkMovementType.cs" id="6_o230c"]
+
+[sub_resource type="Resource" id="Resource_yox8a"]
+script = ExtResource("6_o230c")
 
 [node name="UnitTraits" type="Node"]
 
@@ -24,6 +28,7 @@ script = ExtResource("4_250is")
 [node name="MoveCommand" type="Node" parent="CommandTrait" node_paths=PackedStringArray("EntityMoveTrait")]
 script = ExtResource("5_6un0v")
 EntityMoveTrait = NodePath("../../MoveTrait")
+MovementType = SubResource("Resource_yox8a")
 CommandName = "Move"
 
 [node name="AttackCommand" type="Node" parent="CommandTrait" node_paths=PackedStringArray("EntityAttackTrait")]

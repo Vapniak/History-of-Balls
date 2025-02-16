@@ -45,7 +45,7 @@ public partial class CommandPanel : Control {
     if (CommandList.ItemCount <= 4) {
       text = CommandList.ItemCount + 1 + " | " + command.CommandName;
     }
-    CommandList.AddItem(text, null, command.IsAvailable() && command.CommandTrait.CurrentExecutedCommand == null);
+    CommandList.AddItem(text, null, command.IsAvailable());
     Commands.Add(command);
   }
 }

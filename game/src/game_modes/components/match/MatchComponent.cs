@@ -42,12 +42,13 @@ public partial class MatchComponent : GameModeComponent {
     playerState.SecondaryResourceType.Value = 20;
 
     if (controller is PlayerController) {
-      GameBoard.TryAddEntity(TestEntity, new(0, 0), controller);
       GameBoard.TryAddEntity(TestEntity, new(1, 0), controller);
+      //GameBoard.TryAddEntity(TestEntity, new(1, 0), controller);
       GameBoard.TryAddEntity(TestEntity2, new(2, 0), controller);
     }
     else {
       GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
       GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
 
       OnGameStarted();
@@ -59,6 +60,8 @@ public partial class MatchComponent : GameModeComponent {
       var controller = player.GetController<IMatchController>();
       controller.OnGameStarted();
     }
+
+    _lastPlayer = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
   }
 
   private void OnTurnChanged(int playerIndex) {

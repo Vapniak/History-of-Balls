@@ -108,7 +108,7 @@ script = ExtResource("2_kwf6m")
 Name = "Water"
 Color = Color(0.247059, 0.670588, 1, 1)
 MoveCost = 1
-Elevation = -5
+Elevation = 0
 
 [sub_resource type="Resource" id="Resource_uhop0"]
 script = ExtResource("2_kwf6m")

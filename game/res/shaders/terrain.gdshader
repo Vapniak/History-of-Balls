@@ -39,6 +39,8 @@ void fragment() {
 
 	vec4 highlight_color = texelFetch(highlight_data_texture, data.offsetCoord, 0);
 
+	//highlight_color.rgb = highlight_color.rgb + 0.1f;
+
 	if(mouse_hex_data.offsetCoord == data.offsetCoord && show_mouse_highlight){
 		if (highlight_color.a > 0.) {
     		ALBEDO = apply_highlight(ALBEDO, highlight_color.rgb, data);

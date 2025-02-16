@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 [GlobalClass]
 public partial class Entity : Node {
-  [Export] private Node3D Body { get; set; }
+  [Export] public Node3D Body { get; private set; }
 
   public GameCell Cell { get; set; }
   public IMatchController OwnerController { get; private set; }
@@ -65,10 +65,6 @@ public partial class Entity : Node {
     Body.GlobalPosition = position;
   }
   public Vector3 GetPosition() => Body.GlobalPosition;
-
-  public void LookAt(Vector3 pos) {
-    Body.LookAt(pos);
-  }
 
   [OnInstantiate]
   private void Init(IMatchController owner, EntityData data, GameCell cell, GameBoard gameBoard) {

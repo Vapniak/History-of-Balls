@@ -10,8 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_f6nfp"]
 script = ExtResource("2_hle0c")
-MovePoints = 5
-MoveSpeed = 10.0
+MovePoints = 0
 
 [sub_resource type="Resource" id="Resource_krs13"]
 script = ExtResource("3_3dukb")

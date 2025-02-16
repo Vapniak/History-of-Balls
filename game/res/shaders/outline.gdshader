@@ -1,22 +1,6 @@
 shader_type spatial;
 render_mode unshaded, blend_mix, depth_draw_never, depth_test_disabled;
 
-/*
-	AUTHOR: Hannah "EMBYR" Crawford
-	ENGINE_VERSION: 4.3
-
-	HOW TO USE:
-		1. Create a MeshInstance3D node and place it in your scene.
-		2. Set its size to 2x2.
-		3. Enable the "Flip Faces" option.
-		4. Create a new shader material with this shader.
-		5. Assign the material to the MeshInstance3D
-		6. Set the MeshInstance3D as a child of your camera OR set the Geometry property extra_cull_margin as large as possible in the QuadMesh
-
-	LIMITATIONS:
-		Does not work well with TAA enabled.
-*/
-
 group_uniforms outline;
 uniform vec4 outlineColor: source_color = vec4(0.0, 0.0, 0.0, 0.78);
 uniform float depth_threshold = 0.025;
@@ -34,7 +18,7 @@ uniform float grazing_fresnel_power = 5.0;
 uniform float grazing_angle_mask_power = 1.0;
 uniform float grazing_angle_modulation_factor = 50.0;
 
-uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear, repeat_disable;
+uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_nearest, repeat_disable;
 uniform sampler2D NORMR_TEXTURE : hint_normal_roughness_texture, filter_linear, repeat_disable;
 
 struct UVNeighbors {
@@ -169,6 +153,7 @@ void fragment() {
 	float min_d = getMinimumDepth(depth_samples);
 	float thickness = clamp(remap(min_d, min_distance, max_distance, max_thickness, min_thickness), min_thickness, max_thickness);
 	float fade_a = clamp(remap(min_d, min_distance, max_distance, 1.0, 0.0), 0.0, 1.0);
+
 
 	n = getNeighbors(SCREEN_UV, thickness, aspect);
 	depth_samples = getLinearDepthSamples(n, DEPTH_TEXTURE, INV_PROJECTION_MATRIX);
