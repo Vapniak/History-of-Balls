@@ -1,0 +1,18 @@
+[gd_resource type="TubeTrailMesh" load_steps=3 format=3 uid="uid://c72ax0uwen7is"]
+
+[sub_resource type="Curve" id="Curve_cwdi3"]
+_data = [Vector2(0.0145631, 0.0928835), 0.0, 2.40815, 0, 0, Vector2(0.492718, 0.537431), 0.0, 0.0, 0, 0, Vector2(0.754854, 0.399261), 0.0, 0.0, 0, 0, Vector2(0.995146, 0.12292), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_05snt"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.658824)
+point_size = 3.0
+use_particle_trails = true
+proximity_fade_enabled = true
+proximity_fade_distance = 4.0
+
+[resource]
+material = SubResource("StandardMaterial3D_05snt")
+radius = 0.05
+curve = SubResource("Curve_cwdi3")

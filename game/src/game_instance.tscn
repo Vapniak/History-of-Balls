@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://oabxjhe8u25j"]
+
+[ext_resource type="Script" path="res://addons/gameplay_framework/src/globals/GameInstance.cs" id="1_ld3ae"]
+
+[node name="GameInstance" type="Node"]
+script = ExtResource("1_ld3ae")
+LevelsDirectoryPath = "res://src/levels"

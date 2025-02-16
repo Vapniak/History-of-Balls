@@ -1,10 +1,10 @@
 namespace HOB.GameEntity;
 
+using System.Linq;
 using Godot;
 
 [GlobalClass]
 public partial class AttackCommand : Command {
-  // TODO: make it as move trait
   [Export] public AttackTrait EntityAttackTrait { get; private set; }
 
   public override void _Ready() {
@@ -14,10 +14,15 @@ public partial class AttackCommand : Command {
   }
 
   public bool TryAttack(Entity entity) {
-    if (EntityAttackTrait.TryAttack(entity)) {
+    if (IsAvailable() && EntityAttackTrait.GetAttackableEntities().entities.Contains(entity)) {
       Use();
+      EntityAttackTrait.Attack(entity);
       return true;
     }
     return false;
+  }
+
+  public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
+    return EntityAttackTrait.GetAttackableEntities();
   }
 }

@@ -1,70 +1,30 @@
 namespace HOB.GameEntity;
 
+using System.Threading.Tasks;
 using Godot;
-using HexGridMap;
-using System;
-using System.IO;
-using System.Linq;
 
 [GlobalClass]
 public partial class MoveTrait : Trait {
   [Signal] public delegate void MoveFinishedEventHandler();
 
-
-  // TODO: move that data somewhere else
-  // TODO: make some simple entity editor plugin
-  [Export] public uint MovePoints { get; private set; } = 0;
-  [Export] private float _moveSpeed = 10;
-
-  private GameCell[] _reachableCells;
-  private Vector3 _targetPosition;
-  private bool _move;
-  private GameCell[] _path;
-  private int _pathIndex;
-  public override void _PhysicsProcess(double delta) {
-    base._PhysicsProcess(delta);
-
-    if (_move) {
-      _targetPosition = _path[_pathIndex].GetRealPosition();
-      if (Entity.GetPosition().DistanceTo(_targetPosition) < .1) {
-        if (_pathIndex < _path.Length - 1) {
-          _pathIndex++;
-        }
-        else {
-          _move = false;
-          _reachableCells = null;
-          EmitSignal(SignalName.MoveFinished);
-        }
-      }
-
-      if (_targetPosition.DistanceSquaredTo(Entity.GetPosition()) > 1) {
-        Entity.LookAt(_targetPosition);
-      }
-
-      Entity.SetPosition(Entity.GetPosition().Lerp(_targetPosition, (float)delta * _moveSpeed));
-    }
+  public GameCell[] GetReachableCells(MovementType movementType) {
+    return Entity.Cell.ExpandSearch(GetStat<MovementStats>().MovePoints, movementType.IsCellReachable);
   }
 
-  // TODO: function to filter reachble cells
-  public GameCell[] GetReachableCells(GameBoard board) {
-    var cells = board.FindReachableCells(Entity.Cell, MovePoints, (start, end) => IsReachable(start, end, board));
-    _reachableCells = cells;
-    return cells;
+  public GameCell[] FindPath(GameCell cell, MovementType movementType) {
+    return Entity.Cell.FindPathTo(cell, GetStat<MovementStats>().MovePoints, movementType.IsCellReachable);
   }
-  public bool TryMove(GameCell targetCell, GameBoard board) {
-    var path = board.FindPath(Entity.Cell, targetCell, MovePoints, (start, end) => IsReachable(start, end, board));
-    if (path == null || !_reachableCells.Contains(path.Last())) {
-      return false;
+
+  public async Task Move(GameCell targetCell, MovementType movementType) {
+    var path = FindPath(targetCell, movementType);
+
+    void onMoveFinished() {
+      EmitSignal(SignalName.MoveFinished);
+      movementType.MoveFinished -= onMoveFinished;
     }
 
-    _path = path;
-    _pathIndex = 0;
-    Entity.Cell = path.Last();
-    _move = true;
-    return true;
-  }
+    movementType.MoveFinished += onMoveFinished;
 
-  public bool IsReachable(GameCell start, GameCell end, GameBoard board) {
-    return board.GetEntitiesOnCell(end).Length == 0 && end.MoveCost > 0;
+    await movementType.StartMoveOn(path);
   }
 }

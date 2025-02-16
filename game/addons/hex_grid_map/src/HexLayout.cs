@@ -37,7 +37,7 @@ public partial class HexLayout : Resource {
     0.0f,
     2.0f / 3.0f,
 
-    0.5f
+    Mathf.DegToRad(30)
   );
   public static readonly HexOrientation ORIENTATION_FLAT = new(
     3.0f / 2.0f,
@@ -121,7 +121,7 @@ public partial class HexLayout : Resource {
 
     var cell = center.Add(CubeCoord.GetDirection((HexDirection)4).Multiply((int)radius));
 
-    for (var dir = HexDirection.Min; dir < HexDirection.Max; dir++) {
+    for (var dir = HexDirection.First; dir <= HexDirection.Sixth; dir++) {
       for (var i = 0; i < radius; i++) {
         cells.Add(cell);
         cell = cell.GetNeighbor(dir);
@@ -143,5 +143,10 @@ public partial class HexLayout : Resource {
 
   public Vector2 GetSpacingBetweenHexes() {
     return new Vector2(Orientation.F0, Orientation.F3) * HexCellSize;
+  }
+
+  public Vector2 GetCorner(int index) {
+    var angle = Mathf.DegToRad((60f * index) - Mathf.RadToDeg(Orientation.StartAngle));
+    return new Vector2(HexCellSize * (float)Mathf.Cos(angle), HexCellSize * (float)Mathf.Sin(angle));
   }
 }

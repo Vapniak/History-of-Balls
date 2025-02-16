@@ -4,7 +4,8 @@ shader_type spatial;
 
 uniform sampler2D highlight_data_texture : source_color, repeat_disable;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
-uniform ivec2 terrain_size = ivec2(10, 10);
+
+uniform ivec2 grid_size;
 
 uniform vec2 mouse_world_pos;
 uniform bool show_mouse_highlight;
@@ -32,11 +33,13 @@ void fragment() {
 	}
 
 	// apply grid
-	ALBEDO = mix(ALBEDO, max(ALBEDO * 0.8, vec3(0.01)), step(.85, data.distanceToEdge)); //* 0.01;
+	ALBEDO = mix(ALBEDO, vec3(0.01), smoothstep_range(data, 0.84, 1));
 
 	HexCellData mouse_hex_data = get_hex_cell_data(mouse_world_pos, CELL_SCALE);
 
 	vec4 highlight_color = texelFetch(highlight_data_texture, data.offsetCoord, 0);
+
+	//highlight_color.rgb = highlight_color.rgb + 0.1f;
 
 	if(mouse_hex_data.offsetCoord == data.offsetCoord && show_mouse_highlight){
 		if (highlight_color.a > 0.) {

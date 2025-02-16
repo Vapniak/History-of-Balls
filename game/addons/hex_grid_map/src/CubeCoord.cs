@@ -15,11 +15,11 @@ public struct CubeCoord {
 
   private static readonly CubeCoord[] _directions = {
     new(1, 0),
-    new(1, -1),
-    new(0, -1),
-    new(-1, 0),
+    new(0, 1),
     new(-1, 1),
-    new(0, 1)
+    new(-1, 0),
+    new(0, -1),
+    new(1, -1),
   };
 
   public static CubeCoord GetDirection(HexDirection direction) {

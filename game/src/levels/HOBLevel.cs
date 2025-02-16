@@ -20,6 +20,7 @@ public partial class HOBLevel : Level {
       };
       AddChild(loadTransition);
     }
+
   }
 
   public override void UnLoad() {
@@ -27,13 +28,13 @@ public partial class HOBLevel : Level {
 
     if (unloadTransition != null) {
       unloadTransition.Finished += () => {
-        QueueFree();
+        base.UnLoad();
       };
 
       AddChild(unloadTransition);
     }
     else {
-      QueueFree();
+      base.UnLoad();
     }
   }
 }

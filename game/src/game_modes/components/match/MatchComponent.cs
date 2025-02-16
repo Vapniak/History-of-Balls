@@ -10,8 +10,12 @@ using HOB.GameEntity;
 /// </summary>
 [GlobalClass]
 public partial class MatchComponent : GameModeComponent {
-  [Export] private PackedScene TestEntity { get; set; }
-  [Export] private PackedScene TestEntity2 { get; set; }
+  [Export] private EntityData TestEntity { get; set; }
+  [Export] private EntityData TestEntity2 { get; set; }
+
+
+  [Export] private ResourceType Primary { get; set; }
+  [Export] private ResourceType Secondary { get; set; }
 
   private GameBoard GameBoard { get; set; }
 
@@ -25,26 +29,39 @@ public partial class MatchComponent : GameModeComponent {
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
-  public virtual void OnPlayerSpawned(PlayerState playerState) {
+  public virtual void OnPlayerSpawned(IMatchPlayerState playerState) {
     // TODO: spawning from map
 
     var controller = playerState.GetController<IMatchController>();
     controller.EndTurnEvent += () => OnEndTurn(controller);
 
+    playerState.PrimaryResourceType = Primary;
+    playerState.SecondaryResourceType = Secondary;
+
+    playerState.PrimaryResourceType.Value = 10;
+    playerState.SecondaryResourceType.Value = 20;
+
     if (controller is PlayerController) {
-      var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      var entity3 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      GameBoard.TryAddEntity(entity, new(0, 0), controller);
-      GameBoard.TryAddEntity(entity2, new(1, 0), controller);
-      GameBoard.TryAddEntity(entity3, new(2, 0), controller);
+      GameBoard.TryAddEntity(TestEntity, new(1, 0), controller);
+      //GameBoard.TryAddEntity(TestEntity, new(1, 0), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(2, 0), controller);
     }
     else {
-      var entity = TestEntity.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      var entity2 = TestEntity2.InstantiateOrNull<Entity>().Duplicate() as Entity;
-      GameBoard.TryAddEntity(entity, new(5, 0), controller);
-      GameBoard.TryAddEntity(entity2, new(6, 0), controller);
+      GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
+
+      OnGameStarted();
     }
+  }
+
+  public void OnGameStarted() {
+    foreach (var player in GetGameState().PlayerArray) {
+      var controller = player.GetController<IMatchController>();
+      controller.OnGameStarted();
+    }
+
+    _lastPlayer = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
   }
 
   private void OnTurnChanged(int playerIndex) {

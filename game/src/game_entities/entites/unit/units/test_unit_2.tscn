@@ -1,13 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://gsbrhj8onefx"]
+[gd_scene load_steps=5 format=3 uid="uid://gsbrhj8onefx"]
 
-[ext_resource type="PackedScene" uid="uid://dlhc830cg2mt4" path="res://src/game_entities/entites/base_entity.tscn" id="1_vmtx1"]
-[ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/unit/unit_traits.tscn" id="2_41s3k"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2yi5u"]
+albedo_color = Color(0.116003, 0.845999, 0.94095, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_egvh3"]
-albedo_color = Color(1, 0.533333, 0.454902, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_slexv"]
-material = SubResource("StandardMaterial3D_egvh3")
+[sub_resource type="SphereMesh" id="SphereMesh_txoue"]
+material = SubResource("StandardMaterial3D_2yi5u")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tqfe"]
 albedo_color = Color(1, 0, 0, 1)
@@ -16,21 +13,11 @@ albedo_color = Color(1, 0, 0, 1)
 material = SubResource("StandardMaterial3D_5tqfe")
 size = Vector3(0.175, 0.21, 0.49)
 
-[node name="BaseEntity" instance=ExtResource("1_vmtx1")]
-EntityName = "Unit 2"
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_slexv")
+[node name="MeshInstance3D" type="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("SphereMesh_txoue")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body/MeshInstance3D" index="0"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.6, -0.5)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.1, -0.5)
 mesh = SubResource("BoxMesh_j2i6m")
-
-[node name="UnitTraits" parent="Traits" index="0" instance=ExtResource("2_41s3k")]
-
-[node name="MoveCommand" parent="Traits/UnitTraits/CommandTrait" index="0"]
-CooldownRounds = 2
-
-[editable path="Traits/UnitTraits"]

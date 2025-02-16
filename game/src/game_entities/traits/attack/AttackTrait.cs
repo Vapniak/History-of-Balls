@@ -3,39 +3,32 @@ namespace HOB.GameEntity;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class AttackTrait : Trait {
   [Signal] public delegate void AttackFinishedEventHandler();
 
-  [Export] public uint Damage { get; private set; } = 1;
-  [Export] public uint Range { get; private set; } = 1;
-
   private List<Entity> AttackableEntities { get; set; }
-  public bool TryAttack(Entity entity) {
-    if (!AttackableEntities.Contains(entity)) {
-      return false;
-    }
-    Entity.LookAt(entity.GetPosition());
 
-    // animations
-    EmitSignal(SignalName.AttackFinished);
+  public async Task Attack(Entity entity) {
+    await Entity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
-      healthTrait.Damage(Damage);
+      healthTrait.Damage(GetStat<AttackStats>().Damage);
     }
 
-    return true;
+    EmitSignal(SignalName.AttackFinished);
   }
 
-  public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities(GameBoard board) {
+  public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
     AttackableEntities = new List<Entity>();
     var cellsInR = new List<GameCell>();
 
-    var cells = board.GetCellsInSight(Entity.Cell, Range);
+    var cells = Entity.Cell.GetCellsInRange(GetStat<AttackStats>().Range);
     foreach (var cell in cells) {
       cellsInR.Add(cell);
-      var entities = board.GetEntitiesOnCell(cell);
+      var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
       if (entities.Length > 0 && !entities[0].IsOwnedBy(Entity.OwnerController)) {
         AttackableEntities.Add(entities[0]);
       }

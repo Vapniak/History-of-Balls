@@ -5,23 +5,25 @@ using System.Collections.Generic;
 using Godot;
 using HOB;
 
-public abstract partial class HexGrid<T> where T : HexCell {
-  private HexLayout Layout { get; set; }
+public abstract partial class HexGrid<TCell, TLayout>
+where TCell : HexCell
+where TLayout : HexLayout {
+  private TLayout Layout { get; set; }
 
-  private T[] Cells { get; set; }
+  private TCell[] Cells { get; set; }
 
   private Dictionary<CubeCoord, int> CoordToIndexMap { get; set; }
 
-  public HexGrid(HexLayout layout) {
+  public HexGrid(TLayout layout) {
     Layout = layout;
   }
 
-  public void CreateCells(Func<CubeCoord, T> createCell, GridShape gridShape) {
+  public void CreateCells(Func<CubeCoord, TCell> createCell, GridShape gridShape) {
     Cells = gridShape.CreateCells(createCell, Layout);
     Init();
   }
 
-  public void CreateCells(T[] cells) {
+  public void CreateCells(TCell[] cells) {
     Cells = cells;
     Init();
   }
@@ -33,24 +35,24 @@ public abstract partial class HexGrid<T> where T : HexCell {
     }
   }
 
-  public T GetCell(Vector3 point) {
+  public TCell GetCell(Vector3 point) {
     var hex = GetLayout().PointToCube(new(point.X, point.Z));
     return GetCell(hex);
   }
 
-  public T GetCell(int index) {
+  public TCell GetCell(int index) {
     return Cells[index];
   }
-  public T GetCell(CubeCoord coord) {
+  public TCell GetCell(CubeCoord coord) {
     if (CoordToIndexMap.TryGetValue(coord, out var index)) {
       return Cells[index];
     }
     return null;
   }
 
-  public T[] GetNeighbors(T cell) {
-    var cells = new List<T>();
-    for (var dir = HexDirection.Min; dir < HexDirection.Max; dir++) {
+  public TCell[] GetNeighbors(TCell cell) {
+    var cells = new List<TCell>();
+    for (var dir = HexDirection.First; dir <= HexDirection.Sixth; dir++) {
       var current = GetCell(cell, dir);
       if (current != null) {
         cells.Add(GetCell(cell, dir));
@@ -64,12 +66,12 @@ public abstract partial class HexGrid<T> where T : HexCell {
     return Array.IndexOf(Cells, cell);
   }
 
-  public T[] GetCellsInLine(T from, T to) {
+  public TCell[] GetCellsInLine(TCell from, TCell to) {
     return GetCells(GetLayout().CoordsInLine(from.Coord, to.Coord));
   }
 
-  public T[] GetCellsInRing(T center, uint radius) {
-    var cells = new List<T>();
+  public TCell[] GetCellsInRing(TCell center, uint radius) {
+    var cells = new List<TCell>();
     foreach (var coord in GetLayout().CoordsInRing(center.Coord, radius)) {
       var cell = GetCell(coord);
       if (cell == null) {
@@ -85,8 +87,8 @@ public abstract partial class HexGrid<T> where T : HexCell {
 
 
   // FIXME: it gets the cell closest to coord not to edge of map which is wrong sometimes but works for
-  private T FindClosestValidCell(CubeCoord coord) {
-    T closestCell = null;
+  private TCell FindClosestValidCell(CubeCoord coord) {
+    TCell closestCell = null;
     var minDistance = int.MaxValue;
 
     foreach (var cell in GetCells()) {
@@ -100,12 +102,12 @@ public abstract partial class HexGrid<T> where T : HexCell {
     return closestCell;
   }
 
-  public T GetCell(T cell, HexDirection direction) {
+  public TCell GetCell(TCell cell, HexDirection direction) {
     return GetCell(cell.Coord.GetNeighbor(direction));
   }
-  public T[] GetCells() => Cells;
-  public T[] GetCells(CubeCoord[] coords) {
-    List<T> cells = new();
+  public TCell[] GetCells() => Cells;
+  public TCell[] GetCells(CubeCoord[] coords) {
+    List<TCell> cells = new();
     foreach (var coord in coords) {
       var cell = GetCell(coord);
       // TODO: find better solution to get cells and check if they exist
@@ -117,9 +119,9 @@ public abstract partial class HexGrid<T> where T : HexCell {
     return cells.ToArray();
   }
 
-  public T[] GetCellsInRange(CubeCoord center, uint range) {
+  public TCell[] GetCellsInRange(CubeCoord center, uint range) {
     return GetCells(GetLayout().CoordsInRange(center, range));
   }
 
-  public HexLayout GetLayout() => Layout;
+  public TLayout GetLayout() => Layout;
 }

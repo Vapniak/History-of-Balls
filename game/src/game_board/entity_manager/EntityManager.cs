@@ -16,23 +16,16 @@ public partial class EntityManager : Node {
     OwnedEntities = new();
   }
 
-  public void AddEntity(Entity entity, GameCell cell, IMatchController controller) {
-    entity.Ready += () => {
-      entity.SetPosition(cell.GetRealPosition());
-    };
-
-    entity.Cell = cell;
-    entity.OwnerController = controller;
-
+  public void AddEntity(Entity entity) {
     AddChild(entity);
 
     entity.TreeExiting += () => RemoveEntity(entity);
 
-    if (OwnedEntities.TryGetValue(controller, out var entites)) {
+    if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
       entites.Add(entity);
     }
     else {
-      OwnedEntities.Add(controller, new() { entity });
+      OwnedEntities.Add(entity.OwnerController, new() { entity });
     }
 
     Entities.Add(entity);
@@ -59,5 +52,9 @@ public partial class EntityManager : Node {
 
   public Entity[] GetEntitiesOnCell(GameCell cell) {
     return Entities.Where(e => e.Cell == cell).ToArray();
+  }
+
+  public Entity[] GetEnemyEntities(IMatchController controller) {
+    return Entities.Except(OwnedEntities[controller]).ToArray();
   }
 }
