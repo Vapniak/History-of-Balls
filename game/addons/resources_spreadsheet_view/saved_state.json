@@ -72,10 +72,6 @@
     }
   },
   "recent_paths": [
-    "res://src/game_entities/entites/unit/units::Stats/",
-    "res://src/game_entities/entites/unit/",
-    "res://src/game_entities/entites/unit::Stats/",
-    "res://src/game_entities/entites/unit::Stats::Stats/",
     "res://src/game_entities/entites/unit/units::Stats::Stats/"
   ],
   "table_functions": {

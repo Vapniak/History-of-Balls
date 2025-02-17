@@ -22,6 +22,9 @@ public partial class Entity : Node {
     var body = Data.Body.Instantiate<Node3D>();
     Body.AddChild(body);
 
+    Data = Data.Duplicate(true) as EntityData;
+    Data.Stats.Init();
+
     var traits = Data.TraitsScene.Instantiate<Node>();
     AddChild(traits);
 

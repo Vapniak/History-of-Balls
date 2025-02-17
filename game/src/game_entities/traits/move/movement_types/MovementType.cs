@@ -4,6 +4,7 @@ using Godot;
 using System;
 using System.Threading.Tasks;
 
+// TODO: embed movement type into movement stats
 [GlobalClass]
 public abstract partial class MovementType : Resource {
   [Signal] public delegate void MoveFinishedEventHandler();

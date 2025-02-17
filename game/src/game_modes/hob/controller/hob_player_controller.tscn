@@ -74,6 +74,7 @@ grow_horizontal = 0
 enabled = false
 initial_node_to_watch = NodePath("..")
 
+[connection signal="state_physics_processing" from="StateChart/Root/States" to="." method="CheckHover" unbinds=1]
 [connection signal="state_entered" from="StateChart/Root/States/Idle" to="." method="OnIdleEntered"]
 [connection signal="state_unhandled_input" from="StateChart/Root/States/Idle" to="." method="OnIdleUnhandledInput"]
 [connection signal="state_entered" from="StateChart/Root/States/Selection" to="." method="OnSelectionEntered"]

@@ -31,30 +31,6 @@ public partial class HOBHUD : HUD {
     }
   }
 
-  public override void _Input(InputEvent @event) {
-    // if (@event is InputEventKey eventKey) {
-    //   if (@event.IsPressed()) {
-    //     switch (eventKey.Keycode) {
-    //       // TODO: for now its okay but later I want to make shortcuts for commands
-    //       case Key.Key1:
-    //         CommandPanel.SelectCommand(0);
-    //         break;
-    //       case Key.Key2:
-    //         CommandPanel.SelectCommand(1);
-    //         break;
-    //       case Key.Key3:
-    //         CommandPanel.SelectCommand(2);
-    //         break;
-    //       case Key.Key4:
-    //         CommandPanel.SelectCommand(3);
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   }
-    // }
-  }
-
   public void UpdatePrimaryResourceName(string name) {
     PrimaryResourceNameLabel.Text = name + ": ";
   }
@@ -84,7 +60,6 @@ public partial class HOBHUD : HUD {
 
   public void ShowStatPanel(Entity entity) {
     UpdateStatPanel(StatPanel, entity);
-
 
     StatPanel.Show();
   }
@@ -133,6 +108,10 @@ public partial class HOBHUD : HUD {
   public void SetEndTurnButtonDisabled(bool value) {
     EndTurnButton.Disabled = value;
   }
+
+  public void SelectCommand(int index) {
+    CommandPanel.SelectCommand(index);
+  }
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
     var isOwned = entity.IsOwnedBy(GetPlayerController<IMatchController>());
 
@@ -145,12 +124,17 @@ public partial class HOBHUD : HUD {
 
     panel.ClearEntries();
 
-    if (isOwned && entity.TryGetStat<MovementStats>(out var movementStats)) {
+    if (entity.TryGetStat<MovementStats>(out var movementStats)) {
       panel.AddEntry("Move Points:", movementStats.MovePoints.ToString());
     }
 
-    if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
-      panel.AddEntry("Health:", healthTrait.CurrentHealth.ToString());
+    if (entity.TryGetStat<HealthStats>(out var healthStats)) {
+      panel.AddEntry("Health:", healthStats.CurrentHealth.ToString());
+    }
+
+    if (entity.TryGetStat<AttackStats>(out var attackStats)) {
+      panel.AddEntry("Damage: ", attackStats.Damage.ToString());
+      panel.AddEntry("Range: ", attackStats.Range.ToString());
     }
   }
 

@@ -5,5 +5,5 @@ using System;
 
 [GlobalClass, Tool]
 public abstract partial class BaseStat : Resource {
-  public abstract string Name { get; }
+
 }

@@ -91,12 +91,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     _character.ClampPosition(GetGameState().GameBoard.GetAabb());
   }
 
-  public override void _PhysicsProcess(double delta) {
-    base._PhysicsProcess(delta);
-
-    CheckHover();
-  }
-
   // TODO: implement this inside interface and somehow call this inside this class
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
   public void OwnTurnStarted() {
@@ -169,6 +163,16 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
+  private void ShowCommandPanel() {
+    if (!IsInstanceValid(SelectedEntity)) {
+      return;
+    }
+
+    if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      GetHUD().ShowCommandPanel(commandTrait);
+    }
+  }
+
   private void HoverCell(GameCell cell) {
     HoveredCell = cell;
 
@@ -196,16 +200,42 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void ReselectEntity() {
-    DeselectEntity();
-    if (!IsInstanceValid(SelectedEntity)) {
-      return;
+    if (IsInstanceValid(SelectedEntity)) {
+      var entity = SelectedEntity;
+      DeselectEntity();
+      SelectEntity(entity);
     }
-    var entity = SelectedEntity;
-    SelectEntity(entity);
+    else {
+      DeselectEntity();
+    }
   }
 
   private void DeselectEntity() {
     StateChart.SendEvent("entity_deselected");
+  }
+
+  private void CheckCommandInput(InputEvent @event) {
+    if (@event is InputEventKey eventKey) {
+      if (@event.IsPressed()) {
+        switch (eventKey.Keycode) {
+          // TODO: for now its okay but later I want to make shortcuts for commands
+          case Key.Key1:
+            GetHUD().SelectCommand(0);
+            break;
+          case Key.Key2:
+            GetHUD().SelectCommand(1);
+            break;
+          case Key.Key3:
+            GetHUD().SelectCommand(2);
+            break;
+          case Key.Key4:
+            GetHUD().SelectCommand(3);
+            break;
+          default:
+            break;
+        }
+      }
+    }
   }
 
   private void OnCommandSelected(Command command) {
@@ -312,6 +342,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
+  #region  State Callbacks
   private void OnIdleEntered() {
     GameBoard.ClearHighlights();
     GameBoard.UpdateHighlights();
@@ -339,15 +370,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnSelectionEntered() {
     GameBoard.ClearHighlights();
 
-    GetHUD().ShowStatPanel(SelectedEntity);
-
     if (SelectedEntity.IsOwnedBy(this)) {
       if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
         commandTrait.CommandSelected += OnCommandSelected;
         commandTrait.CommandStarted += OnCommandStarted;
         commandTrait.CommandFinished += OnCommandFinished;
-
-        GetHUD().ShowCommandPanel(commandTrait);
       }
     }
 
@@ -360,23 +387,25 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().HideStatPanel();
     GetHUD().HideCommandPanel();
 
-    if (SelectedEntity != null) {
-      if (SelectedEntity.IsOwnedBy(this)) {
-        if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-          commandTrait.CommandSelected -= OnCommandSelected;
-          commandTrait.CommandStarted -= OnCommandStarted;
-          commandTrait.CommandFinished -= OnCommandFinished;
-        }
+    if (SelectedEntity.IsOwnedBy(this)) {
+      if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+        commandTrait.CommandSelected -= OnCommandSelected;
+        commandTrait.CommandStarted -= OnCommandStarted;
+        commandTrait.CommandFinished -= OnCommandFinished;
       }
-
-      SelectedEntity = null;
-      SelectedCommand = null;
     }
+
+    SelectedEntity = null;
+    SelectedCommand = null;
   }
 
   private void OnSelectionIdleUnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.Focus)) {
       FocusOnSelectedEntity();
+    }
+
+    if (IsCurrentTurn()) {
+      CheckCommandInput(@event);
     }
 
     if (@event.IsActionPressed(GameInputs.Select)) {
@@ -386,14 +415,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
 
       var entities = GameBoard.GetEntitiesOnCell(cell);
-      if (IsCurrentTurn()) {
-        if (SelectedEntity != null && entities.Length > 0) {
-          if (SelectedEntity == entities[0]) {
-            DeselectEntity();
-            return;
-          }
+      if (SelectedEntity != null && entities.Length > 0) {
+        if (SelectedEntity == entities[0]) {
+          DeselectEntity();
+          return;
         }
+      }
 
+      if (IsCurrentTurn()) {
         if (SelectedCommand != null) {
           if (SelectedCommand is MoveCommand moveCommand) {
             if (entities.Length == 0) {
@@ -428,7 +457,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     if (SelectedEntity.IsOwnedBy(this)) {
       GameBoard.SetHighlight(SelectedEntity.Cell, Colors.White);
-      GetHUD().ShowCommandPanel(SelectedEntity.GetTrait<CommandTrait>());
+      ShowCommandPanel();
     }
     else {
       GameBoard.SetHighlight(SelectedEntity.Cell, Colors.Red);
@@ -438,17 +467,18 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleExited() {
-    GameBoard.ClearHighlights();
-    GameBoard.UpdateHighlights();
-
     GetHUD().HideCommandPanel();
   }
 
   private void OnCommandEntered() {
+    GameBoard.ClearHighlights();
+    GameBoard.UpdateHighlights();
+
     GetHUD().SetEndTurnButtonDisabled(true);
   }
 
   private void OnCommandExited() {
     GetHUD().SetEndTurnButtonDisabled(false);
   }
+  #endregion
 }

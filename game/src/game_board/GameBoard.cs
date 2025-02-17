@@ -19,7 +19,6 @@ public partial class GameBoard : Node3D {
 
   public GameGrid Grid { get; private set; }
 
-
   public void Init() {
     Grid = new(Layout);
 
@@ -78,7 +77,7 @@ public partial class GameBoard : Node3D {
 
     foreach (var cell in Grid.GetCells()) {
       var distance = coord.Distance(cell.Coord);
-      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && Grid.GetSetting(cell).MoveCost > 0 && Grid.GetSetting(cell).Elevation < 5) {
+      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && Grid.GetSetting(cell).MoveCost > 0) {
         minDistance = distance;
         closestCell = cell;
       }
