@@ -2,6 +2,7 @@ namespace HOB.GameEntity;
 
 using Godot;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -16,13 +17,13 @@ public partial class WalkMovementType : MovementType {
   }
 
   public override async Task StartMoveOn(GameCell[] path) {
+    MoveTrait.Entity.Cell = path.Last();
     for (var i = 1; i < path.Length; i++) {
       var from = path[i - 1];
       var to = path[i];
 
       await Walk(to);
 
-      MoveTrait.Entity.Cell = to;
     }
 
     EmitSignal(SignalName.MoveFinished);

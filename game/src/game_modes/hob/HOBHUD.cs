@@ -32,27 +32,27 @@ public partial class HOBHUD : HUD {
   }
 
   public override void _Input(InputEvent @event) {
-    if (@event is InputEventKey eventKey) {
-      if (@event.IsPressed()) {
-        switch (eventKey.Keycode) {
-          // TODO: for now its okay but later I want to make shortcuts for commands
-          case Key.Key1:
-            CommandPanel.SelectCommand(0);
-            break;
-          case Key.Key2:
-            CommandPanel.SelectCommand(1);
-            break;
-          case Key.Key3:
-            CommandPanel.SelectCommand(2);
-            break;
-          case Key.Key4:
-            CommandPanel.SelectCommand(3);
-            break;
-          default:
-            break;
-        }
-      }
-    }
+    // if (@event is InputEventKey eventKey) {
+    //   if (@event.IsPressed()) {
+    //     switch (eventKey.Keycode) {
+    //       // TODO: for now its okay but later I want to make shortcuts for commands
+    //       case Key.Key1:
+    //         CommandPanel.SelectCommand(0);
+    //         break;
+    //       case Key.Key2:
+    //         CommandPanel.SelectCommand(1);
+    //         break;
+    //       case Key.Key3:
+    //         CommandPanel.SelectCommand(2);
+    //         break;
+    //       case Key.Key4:
+    //         CommandPanel.SelectCommand(3);
+    //         break;
+    //       default:
+    //         break;
+    //     }
+    //   }
+    // }
   }
 
   public void UpdatePrimaryResourceName(string name) {

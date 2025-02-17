@@ -196,12 +196,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void ReselectEntity() {
-    if (SelectedEntity == null) {
+    DeselectEntity();
+    if (!IsInstanceValid(SelectedEntity)) {
       return;
     }
-
     var entity = SelectedEntity;
-    DeselectEntity();
     SelectEntity(entity);
   }
 
@@ -423,8 +422,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleEntered() {
+    GameBoard.ClearHighlights();
+
+    GetHUD().ShowStatPanel(SelectedEntity);
+
     if (SelectedEntity.IsOwnedBy(this)) {
       GameBoard.SetHighlight(SelectedEntity.Cell, Colors.White);
+      GetHUD().ShowCommandPanel(SelectedEntity.GetTrait<CommandTrait>());
     }
     else {
       GameBoard.SetHighlight(SelectedEntity.Cell, Colors.Red);
@@ -434,19 +438,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleExited() {
-
-  }
-
-  private void OnCommandEntered() {
     GameBoard.ClearHighlights();
     GameBoard.UpdateHighlights();
 
+    GetHUD().HideCommandPanel();
+  }
+
+  private void OnCommandEntered() {
     GetHUD().SetEndTurnButtonDisabled(true);
   }
 
   private void OnCommandExited() {
-    GetHUD().ShowCommandPanel(SelectedCommand.CommandTrait);
-
     GetHUD().SetEndTurnButtonDisabled(false);
   }
 }

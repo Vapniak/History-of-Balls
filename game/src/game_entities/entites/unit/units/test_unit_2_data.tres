@@ -11,16 +11,15 @@
 [sub_resource type="Resource" id="Resource_63s12"]
 script = ExtResource("2_eo7fp")
 MovePoints = 5
-MoveSpeed = 10.0
 
 [sub_resource type="Resource" id="Resource_nfm77"]
 script = ExtResource("3_vfhnb")
 Damage = 5
-Range = 2
+Range = 3.0
 
 [sub_resource type="Resource" id="Resource_jwusi"]
 script = ExtResource("4_ql0hx")
-Health = 5
+Health = 15.0
 
 [sub_resource type="Resource" id="Resource_k6xc1"]
 script = ExtResource("5_stfui")

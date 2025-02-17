@@ -78,7 +78,7 @@ public partial class GameBoard : Node3D {
 
     foreach (var cell in Grid.GetCells()) {
       var distance = coord.Distance(cell.Coord);
-      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && Grid.GetSetting(cell).MoveCost > 0) {
+      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && Grid.GetSetting(cell).MoveCost > 0 && Grid.GetSetting(cell).Elevation < 5) {
         minDistance = distance;
         closestCell = cell;
       }

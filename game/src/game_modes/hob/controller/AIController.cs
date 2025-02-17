@@ -60,6 +60,11 @@ public partial class AIController : Controller, IMatchController {
   private bool TryMove(CommandTrait commandTrait) {
     if (commandTrait.TryGetCommand<MoveCommand>(out var moveCommand)) {
       var closestEnemyCell = GameBoard.GetEnemyEntities(this)[0].Cell;
+      foreach (var enemy in GameBoard.GetEnemyEntities(this)) {
+        if (commandTrait.Entity.Cell.Coord.Distance(enemy.Cell.Coord) < commandTrait.Entity.Cell.Coord.Distance(closestEnemyCell.Coord)) {
+          closestEnemyCell = enemy.Cell;
+        }
+      }
       return moveCommand.TryMove(closestEnemyCell);
     }
 

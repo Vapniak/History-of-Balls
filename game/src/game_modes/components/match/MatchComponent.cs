@@ -43,14 +43,15 @@ public partial class MatchComponent : GameModeComponent {
 
     if (controller is PlayerController) {
       GameBoard.TryAddEntity(TestEntity, new(1, 0), controller);
-      //GameBoard.TryAddEntity(TestEntity, new(1, 0), controller);
       GameBoard.TryAddEntity(TestEntity2, new(2, 0), controller);
+      GameBoard.TryAddEntity(TestEntity, new(10, 5), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(2, 10), controller);
     }
     else {
-      GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
-      GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
-      GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y), controller);
-
+      GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X - 5, GameBoard.GetMapSize().Y - 5), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y - 20), controller);
+      GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X - 15, GameBoard.GetMapSize().Y - 6), controller);
+      GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X - 10, GameBoard.GetMapSize().Y), controller);
       OnGameStarted();
     }
   }

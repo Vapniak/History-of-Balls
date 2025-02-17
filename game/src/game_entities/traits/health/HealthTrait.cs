@@ -7,16 +7,16 @@ using System;
 public partial class HealthTrait : Trait {
   [Signal] public delegate void DiedEventHandler();
 
-  public uint CurrentHealth { get; private set; }
+  public int CurrentHealth { get; private set; }
 
   public override void _Ready() {
     base._Ready();
-    CurrentHealth = GetStat<HealthStats>().Health;
+    CurrentHealth = (int)GetStat<HealthStats>().Health;
   }
 
   public void Damage(uint damage) {
     if (damage > 0) {
-      CurrentHealth -= damage;
+      CurrentHealth -= (int)damage;
 
       if (CurrentHealth <= 0) {
         Entity.QueueFree();
