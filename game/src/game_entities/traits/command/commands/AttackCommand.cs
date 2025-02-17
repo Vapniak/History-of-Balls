@@ -14,7 +14,7 @@ public partial class AttackCommand : Command {
   }
 
   public bool TryAttack(Entity entity) {
-    if (IsAvailable() && EntityAttackTrait.GetAttackableEntities().entities.Contains(entity)) {
+    if (IsAvailable() && GetAttackableEntities().entities.Contains(entity)) {
       Use();
       EntityAttackTrait.Attack(entity);
       return true;

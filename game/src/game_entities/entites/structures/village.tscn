@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://58211gsdw151"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xorao"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_e5qy6"]
+size = Vector3(1, 0.5, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_xorao")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+mesh = SubResource("PrismMesh_e5qy6")

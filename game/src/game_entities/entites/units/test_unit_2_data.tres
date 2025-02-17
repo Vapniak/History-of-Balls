@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://c5dmvmose2efr"]
 
-[ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/unit/units/test_unit_2.tscn" id="1_r8btu"]
+[ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/test_unit_2.tscn" id="1_r8btu"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rx8d8"]
 [ext_resource type="Script" path="res://src/game_entities/traits/move/MovementStats.cs" id="2_eo7fp"]
 [ext_resource type="Script" path="res://src/game_entities/traits/attack/AttackStats.cs" id="3_vfhnb"]
 [ext_resource type="Script" path="res://src/game_entities/traits/health/HealthStats.cs" id="4_ql0hx"]
 [ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="5_stfui"]
-[ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/unit/unit_traits.tscn" id="6_v02cd"]
+[ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/unit_traits.tscn" id="6_v02cd"]
 
 [sub_resource type="Resource" id="Resource_63s12"]
 script = ExtResource("2_eo7fp")
@@ -19,7 +19,7 @@ Range = 3.0
 
 [sub_resource type="Resource" id="Resource_jwusi"]
 script = ExtResource("4_ql0hx")
-Health = 15.0
+Health = 15
 
 [sub_resource type="Resource" id="Resource_k6xc1"]
 script = ExtResource("5_stfui")

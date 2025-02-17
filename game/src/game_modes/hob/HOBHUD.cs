@@ -119,7 +119,12 @@ public partial class HOBHUD : HUD {
       panel.SetEntityName(entity.GetEntityName());
     }
     else {
-      panel.SetEntityName("ENEMY " + entity.GetEntityName());
+      if (entity.OwnerController != null) {
+        panel.SetEntityName("ENEMY " + entity.GetEntityName());
+      }
+      else {
+        panel.SetEntityName("NOT OWNED " + entity.GetEntityName());
+      }
     }
 
     panel.ClearEntries();

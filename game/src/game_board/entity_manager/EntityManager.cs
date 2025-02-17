@@ -21,11 +21,14 @@ public partial class EntityManager : Node {
 
     entity.TreeExiting += () => RemoveEntity(entity);
 
-    if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
-      entites.Add(entity);
-    }
-    else {
-      OwnedEntities.Add(entity.OwnerController, new() { entity });
+
+    if (entity.OwnerController != null) {
+      if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
+        entites.Add(entity);
+      }
+      else {
+        OwnedEntities.Add(entity.OwnerController, new() { entity });
+      }
     }
 
     Entities.Add(entity);

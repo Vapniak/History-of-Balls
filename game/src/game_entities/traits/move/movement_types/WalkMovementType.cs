@@ -9,8 +9,17 @@ using System.Threading.Tasks;
 public partial class WalkMovementType : MovementType {
   private float _animSpeed = 0.2f;
   public override bool IsCellReachable(GameCell from, GameCell to) {
+    var haveObstacle = false;
+
+    foreach (var entity in MoveTrait.Entity.GameBoard.GetEntitiesOnCell(to)) {
+      if (entity.TryGetTrait<ObstacleTrait>(out _)) {
+        haveObstacle = true;
+        break;
+      }
+    }
+
     return
-      MoveTrait.Entity.GameBoard.GetEntitiesOnCell(to).Length == 0 &&
+      !haveObstacle &&
       to.GetSetting().MoveCost > 0 &&
       from.GetEdgeTypeTo(to) != GameCell.EdgeType.Cliff &&
       to.GetSetting().Elevation > 0;

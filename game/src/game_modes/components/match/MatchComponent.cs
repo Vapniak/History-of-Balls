@@ -12,6 +12,7 @@ using HOB.GameEntity;
 public partial class MatchComponent : GameModeComponent {
   [Export] private EntityData TestEntity { get; set; }
   [Export] private EntityData TestEntity2 { get; set; }
+  [Export] private EntityData Structure1 { get; set; }
 
 
   [Export] private ResourceType Primary { get; set; }
@@ -35,23 +36,27 @@ public partial class MatchComponent : GameModeComponent {
     var controller = playerState.GetController<IMatchController>();
     controller.EndTurnEvent += () => OnEndTurn(controller);
 
-    playerState.PrimaryResourceType = Primary;
-    playerState.SecondaryResourceType = Secondary;
-
-    playerState.PrimaryResourceType.Value = 10;
-    playerState.SecondaryResourceType.Value = 20;
+    playerState.PrimaryResourceType = Primary.Duplicate() as ResourceType;
+    playerState.SecondaryResourceType = Secondary.Duplicate() as ResourceType;
 
     if (controller is PlayerController) {
       GameBoard.TryAddEntity(TestEntity, new(1, 0), controller);
       GameBoard.TryAddEntity(TestEntity2, new(2, 0), controller);
       GameBoard.TryAddEntity(TestEntity, new(10, 5), controller);
       GameBoard.TryAddEntity(TestEntity2, new(2, 10), controller);
+
+      GameBoard.TryAddEntity(Structure1, new(5, 10), controller);
     }
     else {
       GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X - 5, GameBoard.GetMapSize().Y - 5), controller);
       GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y - 20), controller);
       GameBoard.TryAddEntity(TestEntity2, new(GameBoard.GetMapSize().X - 15, GameBoard.GetMapSize().Y - 6), controller);
       GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X - 10, GameBoard.GetMapSize().Y), controller);
+
+      GameBoard.TryAddEntity(Structure1, new(10, 10), controller);
+
+
+      GameBoard.TryAddEntity(Structure1, new(15, 10), null);
       OnGameStarted();
     }
   }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://ds4gcav7wbnnb"]
+[gd_scene load_steps=10 format=3 uid="uid://ds4gcav7wbnnb"]
 
 [ext_resource type="Script" path="res://src/game_entities/traits/move/MoveTrait.cs" id="1_54cjm"]
 [ext_resource type="Script" path="res://src/game_entities/traits/health/HealthTrait.cs" id="2_uxa4n"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://src/game_entities/traits/command/commands/MoveCommand.cs" id="5_6un0v"]
 [ext_resource type="Script" path="res://src/game_entities/traits/command/commands/AttackCommand.cs" id="6_1i0a2"]
 [ext_resource type="Script" path="res://src/game_entities/traits/move/movement_types/WalkMovementType.cs" id="6_o230c"]
+[ext_resource type="Script" path="res://src/game_entities/traits/obstacle/ObstacleTrait.cs" id="8_ocmno"]
 
 [sub_resource type="Resource" id="Resource_yox8a"]
 script = ExtResource("6_o230c")
@@ -35,3 +36,6 @@ CommandName = "Move"
 script = ExtResource("6_1i0a2")
 EntityAttackTrait = NodePath("../../AttackTrait")
 CommandName = "Attack"
+
+[node name="ObstacleTrait" type="Node" parent="."]
+script = ExtResource("8_ocmno")

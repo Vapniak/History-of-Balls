@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=6 format=3 uid="uid://doidx5bt2arat"]
+
+[ext_resource type="PackedScene" uid="uid://58211gsdw151" path="res://src/game_entities/entites/structures/village.tscn" id="1_pj6iq"]
+[ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="2_5nbt7"]
+[ext_resource type="PackedScene" uid="uid://c0n8kwkbt135m" path="res://src/game_entities/entites/structure_traits.tscn" id="3_3fenk"]
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="4_hsjnf"]
+
+[sub_resource type="Resource" id="Resource_yuv81"]
+script = ExtResource("2_5nbt7")
+Stats = []
+
+[resource]
+script = ExtResource("4_hsjnf")
+EntityName = "Village"
+Stats = SubResource("Resource_yuv81")
+TraitsScene = ExtResource("3_3fenk")
+Body = ExtResource("1_pj6iq")

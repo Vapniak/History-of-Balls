@@ -27,6 +27,6 @@ public partial class StatsContainer : Resource {
     return true;
   }
   public T GetStat<T>() where T : BaseStat {
-    return Stats.OfType<T>().First();
+    return Stats.OfType<T>().FirstOrDefault();
   }
 }

@@ -94,10 +94,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   // TODO: implement this inside interface and somehow call this inside this class
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
   public void OwnTurnStarted() {
-    ReselectEntity();
+    SelectEntity(SelectedEntity);
   }
   public void OwnTurnEnded() {
-    ReselectEntity();
+    SelectEntity(SelectedEntity);
   }
 
   public void OnGameStarted() {
@@ -190,6 +190,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void SelectEntity(Entity entity) {
+    if (IsInstanceValid(SelectedEntity)) {
+      DeselectEntity();
+    }
+
     if (!IsInstanceValid(entity)) {
       return;
     }
@@ -197,17 +201,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     SelectedEntity = entity;
 
     StateChart.SendEvent("entity_selected");
-  }
-
-  private void ReselectEntity() {
-    if (IsInstanceValid(SelectedEntity)) {
-      var entity = SelectedEntity;
-      DeselectEntity();
-      SelectEntity(entity);
-    }
-    else {
-      DeselectEntity();
-    }
   }
 
   private void DeselectEntity() {
@@ -415,9 +408,18 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
 
       var entities = GameBoard.GetEntitiesOnCell(cell);
-      if (SelectedEntity != null && entities.Length > 0) {
-        if (SelectedEntity == entities[0]) {
-          DeselectEntity();
+      if (entities.Length > 0) {
+        var index = Array.IndexOf(entities, SelectedEntity);
+        if (index >= 0) {
+          index++;
+          index = Mathf.Wrap(index, 0, entities.Length);
+          if (entities[index] == SelectedEntity) {
+            DeselectEntity();
+          }
+          else {
+            SelectEntity(entities[index]);
+          }
+
           return;
         }
       }
@@ -425,13 +427,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       if (IsCurrentTurn()) {
         if (SelectedCommand != null) {
           if (SelectedCommand is MoveCommand moveCommand) {
-            if (entities.Length == 0) {
-              if (moveCommand.GetReachableCells().Contains(cell) && moveCommand.TryMove(cell)) {
-                return;
-              }
+            if (moveCommand.GetReachableCells().Contains(cell) && moveCommand.TryMove(cell)) {
+              return;
             }
           }
           else if (SelectedCommand is AttackCommand attackCommand) {
+            // FIXME: attack only entity which is not obstacle and has health trait
             if (entities.Length > 0) {
               if (attackCommand.TryAttack(entities[0])) {
                 return;
@@ -441,7 +442,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         }
       }
 
-      DeselectEntity();
       if (entities.Length > 0) {
         SelectEntity(entities[0]);
       }
