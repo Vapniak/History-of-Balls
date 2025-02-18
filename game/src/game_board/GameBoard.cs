@@ -83,7 +83,8 @@ public partial class GameBoard : Node3D {
       }
     }
 
-    var entity = Entity.Instantiate(controller, data, closestCell, this);
+    var entity = new Entity(controller, data, closestCell, this);
+
     EntityManager.AddEntity(entity);
     return true;
   }

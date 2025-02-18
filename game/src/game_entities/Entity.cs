@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class Entity : Node {
-  [Export] public Node3D Body { get; private set; }
+  public EntityBody Body { get; private set; }
 
   public GameCell Cell { get; set; }
   public IMatchController OwnerController { get; private set; }
@@ -18,9 +18,16 @@ public partial class Entity : Node {
 
   private readonly Dictionary<Type, Trait> _traits = new();
 
+  public Entity(IMatchController owner, EntityData data, GameCell cell, GameBoard gameBoard) {
+    OwnerController = owner;
+    Cell = cell;
+    GameBoard = gameBoard;
+    Data = data;
+  }
+
   public override void _EnterTree() {
-    var body = Data.Body.Instantiate<Node3D>();
-    Body.AddChild(body);
+    Body = Data.Body.Instantiate<EntityBody>();
+    AddChild(Body);
 
     Data = Data.Duplicate(true) as EntityData;
     Data.Stats.Init();
@@ -77,13 +84,5 @@ public partial class Entity : Node {
     tween.TweenProperty(Body, "quaternion", targetRotation, duration).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.InOut);
 
     await ToSignal(tween, Tween.SignalName.Finished);
-  }
-
-  [OnInstantiate]
-  private void Init(IMatchController owner, EntityData data, GameCell cell, GameBoard gameBoard) {
-    OwnerController = owner;
-    Cell = cell;
-    GameBoard = gameBoard;
-    Data = data;
   }
 }

@@ -18,6 +18,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private GameBoard GameBoard { get; set; }
   private Entity SelectedEntity { get; set; }
   private Command SelectedCommand { get; set; }
+  private Entity HoveredEntity { get; set; }
   private GameCell HoveredCell { get; set; }
 
 
@@ -116,51 +117,58 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     playerState.SecondaryResourceType.ValueChanged += () => GetHUD().UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
   }
 
-  private GameCell CheckSelection() {
-    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
-    if (raycastResult == null) {
-      return null;
+  private Entity GetHoveredEntity() {
+    if (HoveredEntity != null) {
+      return HoveredEntity;
     }
 
-    var point = raycastResult.Position;
-    var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
-
-    var cell = GameBoard.Grid.GetCell(coord);
-
-    return cell;
+    return GameBoard.GetEntitiesOnCell(HoveredCell).FirstOrDefault();
   }
-
   private void CheckHover() {
-    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
+    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.Entity | GameLayers.Physics3D.Mask.World);
+
     if (raycastResult == null) {
+      if (HoveredEntity != null) {
+        UnHoverCell();
+      }
+
+      GameBoard.SetMouseHighlight(false);
+
       return;
     }
 
-    var point = raycastResult.Position;
-    var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
 
-    var cell = GameBoard.Grid.GetCell(coord);
+    if (raycastResult.Collider is not EntityBody entityBody) {
+      if (HoveredEntity != null) {
+        UnHoverCell();
+      }
+      return;
+    }
 
-    var entities = GameBoard.GetEntitiesOnCell(cell);
+    // for now, later add field to track entity of entity body
+    var entity = entityBody.GetParent<Entity>();
+
+    if (HoveredEntity != entity) {
+      HoverEntity(entity);
+
+      HoveredCell = entity.Cell;
+    }
+    else {
+      var point = raycastResult.Position;
+      var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
+
+      HoveredCell = GameBoard.Grid.GetCell(coord);
+    }
 
 
-    if (cell == null || _isPanning) {
+    if (HoveredCell == null || _isPanning) {
+      // TODO: pass higlighted position instead of casting ray
       GameBoard.SetMouseHighlight(false);
     }
     else {
       GameBoard.SetMouseHighlight(true);
     }
 
-    if (cell == null || _isPanning || entities.Length == 0) {
-      UnHoverCell();
-      return;
-    }
-
-
-
-    if (HoveredCell != cell) {
-      HoverCell(cell);
-    }
   }
 
   private void ShowCommandPanel() {
@@ -173,20 +181,20 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
-  private void HoverCell(GameCell cell) {
-    HoveredCell = cell;
+  private void HoverEntity(Entity entity) {
+    HoveredEntity = entity;
 
-    var entities = GameBoard.GetEntitiesOnCell(cell);
-
-    if (entities.Length > 0) {
-      GetHUD().ShowHoverStatPanel(entities[0]);
-    }
+    GetHUD().ShowHoverStatPanel(entity);
   }
 
   private void UnHoverCell() {
     GetHUD().HideHoverStatPanel();
 
-    HoveredCell = null;
+    HoveredEntity = null;
+  }
+
+  private void TrySelectHoveredEntity() {
+
   }
 
   private void SelectEntity(Entity entity) {
@@ -343,18 +351,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnIdleUnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.Select)) {
-      var cell = CheckSelection();
-
-      if (cell == null) {
-        return;
-      }
-
-      var entities = GameBoard.GetEntitiesOnCell(cell);
-      if (entities.Length > 0) {
-        if (entities[0] != SelectedEntity) {
-          SelectEntity(entities[0]);
-        }
-      }
+      SelectEntity(GetHoveredEntity());
     }
 
     @event.Dispose();
@@ -402,39 +399,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (@event.IsActionPressed(GameInputs.Select)) {
-      var cell = CheckSelection();
-      if (cell == null) {
-        return;
-      }
-
-      var entities = GameBoard.GetEntitiesOnCell(cell);
-      if (entities.Length > 0) {
-        var index = Array.IndexOf(entities, SelectedEntity);
-        if (index >= 0) {
-          index++;
-          index = Mathf.Wrap(index, 0, entities.Length);
-          if (entities[index] == SelectedEntity) {
-            DeselectEntity();
-          }
-          else {
-            SelectEntity(entities[index]);
-          }
-
-          return;
-        }
-      }
-
       if (IsCurrentTurn()) {
         if (SelectedCommand != null) {
           if (SelectedCommand is MoveCommand moveCommand) {
-            if (moveCommand.GetReachableCells().Contains(cell) && moveCommand.TryMove(cell)) {
+            if (moveCommand.GetReachableCells().Contains(HoveredCell) && moveCommand.TryMove(HoveredCell)) {
               return;
             }
           }
           else if (SelectedCommand is AttackCommand attackCommand) {
             // FIXME: attack only entity which is not obstacle and has health trait
-            if (entities.Length > 0) {
-              if (attackCommand.TryAttack(entities[0])) {
+            if (GetHoveredEntity() != null) {
+              if (attackCommand.TryAttack(GetHoveredEntity())) {
                 return;
               }
             }
@@ -442,8 +417,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         }
       }
 
-      if (entities.Length > 0) {
-        SelectEntity(entities[0]);
+      if (GetHoveredEntity() != null) {
+        SelectEntity(GetHoveredEntity());
       }
     }
 

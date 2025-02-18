@@ -26,14 +26,14 @@ public partial class WalkMovementType : MovementType {
   }
 
   public override async Task StartMoveOn(GameCell[] path) {
-    MoveTrait.Entity.Cell = path.Last();
     for (var i = 1; i < path.Length; i++) {
       var from = path[i - 1];
       var to = path[i];
 
       await Walk(to);
-
     }
+
+    MoveTrait.Entity.Cell = path.Last();
 
     EmitSignal(SignalName.MoveFinished);
   }
@@ -41,6 +41,10 @@ public partial class WalkMovementType : MovementType {
   private async Task Walk(GameCell to) {
     var startPosition = MoveTrait.Entity.GetPosition();
     var targetPosition = to.GetRealPosition();
+
+    if (MoveTrait.Entity.GameBoard.GetEntitiesOnCell(to).Length > 0) {
+      targetPosition.Y += 2;
+    }
 
     var midpoint = (startPosition + targetPosition) / 2;
     midpoint.Y += 1.0f;
