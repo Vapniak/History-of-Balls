@@ -15,7 +15,7 @@ MovePoints = 5
 [sub_resource type="Resource" id="Resource_nfm77"]
 script = ExtResource("3_vfhnb")
 Damage = 5
-Range = 3.0
+Range = 2.0
 
 [sub_resource type="Resource" id="Resource_jwusi"]
 script = ExtResource("4_ql0hx")

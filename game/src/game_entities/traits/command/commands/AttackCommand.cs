@@ -14,11 +14,12 @@ public partial class AttackCommand : Command {
   }
 
   public bool TryAttack(Entity entity) {
-    if (IsAvailable() && GetAttackableEntities().entities.Contains(entity)) {
+    if (IsAvailable()) {
       Use();
       AttackTrait.Attack(entity);
       return true;
     }
+
     return false;
   }
 

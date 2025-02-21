@@ -80,9 +80,8 @@ public partial class AIController : Controller, IMatchController {
   private bool TryAttack(CommandTrait commandTrait) {
     if (commandTrait.TryGetCommand<AttackCommand>(out var attackCommand)) {
       foreach (var enemy in attackCommand.GetAttackableEntities().entities) {
-        if (attackCommand.TryAttack(enemy)) {
-          return true;
-        }
+        // TODO: attack closest enemy
+        return attackCommand.TryAttack(enemy);
       }
     }
 

@@ -3,6 +3,7 @@ namespace HOB.GameEntity;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -29,9 +30,7 @@ public partial class AttackTrait : Trait {
     foreach (var cell in cells) {
       cellsInR.Add(cell);
       var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
-      if (entities.Length > 0 && !entities[0].IsOwnedBy(Entity.OwnerController) && entities[0].TryGetTrait<HealthTrait>(out _)) {
-        AttackableEntities.Add(entities[0]);
-      }
+      AttackableEntities.AddRange(entities.Where(e => !e.IsOwnedBy(Entity.OwnerController) && e.TryGetTrait<HealthTrait>(out _)));
     }
 
 

@@ -21,7 +21,9 @@ public abstract partial class Command : Node {
   private uint _cooldown;
 
   public override void _Ready() {
-    GetEntity().OwnerController.GetGameState().RoundStartedEvent += OnRoundStarted;
+    if (GetEntity().OwnerController != null) {
+      GetEntity().OwnerController.GetGameState().RoundStartedEvent += OnRoundStarted;
+    }
   }
 
   protected virtual void Use() {
@@ -36,9 +38,13 @@ public abstract partial class Command : Node {
   }
 
   public virtual bool IsAvailable() {
-    return CooldownRoundsLeft == 0 && !UsedThisRound;
+    return CooldownRoundsLeft == 0 && !UsedThisRound && GetEntity().OwnerController.IsCurrentTurn();
   }
   public void OnRoundStarted(int roundNumber) {
+    if (!GetEntity().OwnerController.IsCurrentTurn()) {
+      return;
+    }
+
     UsedThisRound = false;
     if (CooldownRoundsLeft > 0) {
       CooldownRoundsLeft--;

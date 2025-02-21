@@ -151,7 +151,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       return;
     }
 
-    if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+    if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
       GetHUD().ShowCommandPanel(commandTrait);
     }
   }
@@ -207,38 +207,38 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnCommandSelected(Command command) {
     GameBoard.ClearHighlights();
 
-
-    if (command is MoveCommand moveCommand) {
-      foreach (var cell in moveCommand.GetReachableCells()) {
-        if (moveCommand.IsAvailable()) {
-          GameBoard.SetHighlight(cell, Colors.Green);
-        }
-      }
-    }
-    else if (command is AttackCommand attackCommand) {
-      var (entities, cellsInRange) = attackCommand.GetAttackableEntities();
-
-      if (attackCommand.IsAvailable()) {
-        foreach (var entity in entities) {
-          GameBoard.SetHighlight(entity.Cell, Colors.Red);
-        }
-        if (entities.Length == 0) {
-          foreach (var cell in cellsInRange) {
-            GameBoard.SetHighlight(cell, Colors.DarkRed);
+    if (command != null) {
+      if (command is MoveCommand moveCommand) {
+        foreach (var cell in moveCommand.GetReachableCells()) {
+          if (moveCommand.IsAvailable()) {
+            GameBoard.SetHighlight(cell, Colors.Green);
           }
         }
       }
-      else {
-        foreach (var cell in cellsInRange) {
-          GameBoard.SetHighlight(cell, Colors.PaleVioletRed);
+      else if (command is AttackCommand attackCommand) {
+        var (entities, cellsInRange) = attackCommand.GetAttackableEntities();
+
+        if (attackCommand.IsAvailable()) {
+          foreach (var entity in entities) {
+            GameBoard.SetHighlight(entity.Cell, Colors.Red);
+          }
+          if (entities.Length == 0) {
+            foreach (var cell in cellsInRange) {
+              GameBoard.SetHighlight(cell, Colors.DarkRed);
+            }
+          }
+        }
+        else {
+          foreach (var cell in cellsInRange) {
+            GameBoard.SetHighlight(cell, Colors.PaleVioletRed);
+          }
         }
       }
+
     }
 
-    GameBoard.SetHighlight(command.GetEntity().Cell, Colors.White);
-
+    GameBoard.SetHighlight(SelectedEntity.Cell, Colors.White);
     GameBoard.UpdateHighlights();
-
     SelectedCommand = command;
   }
 
@@ -372,32 +372,31 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
             }
           }
           else if (SelectedCommand is AttackCommand attackCommand) {
-            // FIXME: attack only entity which is not obstacle and has health trait
-            if (entities.FirstOrDefault() != null) {
-              if (attackCommand.TryAttack(entities.FirstOrDefault())) {
+            foreach (var entity in entities) {
+              if (attackCommand.GetAttackableEntities().entities.Contains(entity) && attackCommand.TryAttack(entity)) {
                 return;
               }
             }
           }
         }
+
+        if (entities.FirstOrDefault() == SelectedEntity) {
+          if (entities.Length > 1) {
+            var index = Array.IndexOf(entities, SelectedEntity);
+            index++;
+            SelectEntity(entities[index]);
+          }
+          else {
+            DeselectEntity();
+          }
+
+          return;
+        }
+
+        SelectEntity(entities.FirstOrDefault());
       }
 
-      if (entities.FirstOrDefault() == SelectedEntity) {
-        if (entities.Length > 1) {
-          var index = Array.IndexOf(entities, SelectedEntity);
-          index++;
-          SelectEntity(entities[index]);
-        }
-        else {
-          DeselectEntity();
-        }
-
-        return;
-      }
-
-      SelectEntity(entities.FirstOrDefault());
     }
-
     @event.Dispose();
   }
 
@@ -430,6 +429,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnCommandExited() {
     GetHUD().SetEndTurnButtonDisabled(false);
+    SelectedCommand = null;
   }
   #endregion
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
