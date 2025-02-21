@@ -28,14 +28,14 @@ public partial class WalkMoveTrait : MoveTrait {
   public override async Task Move(GameCell targetCell) {
     var path = FindPath(targetCell);
 
+    Entity.Cell = path.Last();
+
     for (var i = 1; i < path.Length; i++) {
       var from = path[i - 1];
       var to = path[i];
 
       await Walk(to);
     }
-
-    Entity.Cell = path.Last();
 
     await base.Move(targetCell);
   }

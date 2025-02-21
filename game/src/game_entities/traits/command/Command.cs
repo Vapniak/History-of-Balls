@@ -22,7 +22,7 @@ public abstract partial class Command : Node {
 
   public override void _Ready() {
     if (GetEntity().OwnerController != null) {
-      GetEntity().OwnerController.GetGameState().RoundStartedEvent += OnRoundStarted;
+      GetEntity().OwnerController.GetGameState().TurnChangedEvent += OnTurnChanged;
     }
   }
 
@@ -40,7 +40,7 @@ public abstract partial class Command : Node {
   public virtual bool IsAvailable() {
     return CooldownRoundsLeft == 0 && !UsedThisRound && GetEntity().OwnerController.IsCurrentTurn();
   }
-  public void OnRoundStarted(int roundNumber) {
+  public void OnTurnChanged(int roundNumber) {
     if (!GetEntity().OwnerController.IsCurrentTurn()) {
       return;
     }

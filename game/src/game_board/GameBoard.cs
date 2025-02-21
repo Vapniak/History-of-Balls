@@ -23,7 +23,7 @@ public partial class GameBoard : Node3D {
     Grid = new(Layout);
 
     EntityManager.EntityRemoved += (entity) => {
-      SetHighlight(entity.Cell, Colors.Transparent);
+      SetHighlight(entity.Cell, new());
       UpdateHighlights();
     };
 
@@ -105,8 +105,12 @@ public partial class GameBoard : Node3D {
     return EntityManager.GetEnemyEntities(controller);
   }
 
-  public void SetHighlight(GameCell cell, Color color) {
-    TerrainManager.SetHighlight(cell, color);
+  public void SetHighlight(GameCell cell, HighlightType highlightType) {
+    TerrainManager.SetHighlight(cell, highlightType);
+  }
+
+  public void AddHighlight(GameCell cell, HighlightType highlightType) {
+    TerrainManager.AddHighlight(cell, highlightType);
   }
 
   public void UpdateHighlights() {

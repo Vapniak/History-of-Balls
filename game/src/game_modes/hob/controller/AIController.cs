@@ -71,7 +71,10 @@ public partial class AIController : Controller, IMatchController {
           closestEnemyCell = enemy.Cell;
         }
       }
-      return moveCommand.TryMove(closestEnemyCell);
+
+      if (moveCommand.TryMove(closestEnemyCell)) {
+        return true;
+      }
     }
 
     return false;
@@ -81,7 +84,9 @@ public partial class AIController : Controller, IMatchController {
     if (commandTrait.TryGetCommand<AttackCommand>(out var attackCommand)) {
       foreach (var enemy in attackCommand.GetAttackableEntities().entities) {
         // TODO: attack closest enemy
-        return attackCommand.TryAttack(enemy);
+        if (attackCommand.TryAttack(enemy)) {
+          return true;
+        }
       }
     }
 

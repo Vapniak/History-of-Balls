@@ -9,7 +9,12 @@ using System.Threading.Tasks;
 public partial class Entity : Node {
   public EntityBody Body { get; private set; }
 
-  public GameCell Cell { get; set; }
+  [Notify]
+  public GameCell Cell {
+    get => _cell.Get();
+    set => _cell.Set(value);
+  }
+
   public IMatchController OwnerController { get; private set; }
   public GameBoard GameBoard { get; private set; }
 

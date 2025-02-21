@@ -105,14 +105,14 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
 
     // TODO: if target is not reachable find closest neigboring cell
     // FIXME: temp fix
-    if (!isReachable(start, target)) {
-      foreach (var neighbor in GetNeighbors(target)) {
-        if (isReachable(target, neighbor)) {
-          target = neighbor;
-          break;
-        }
-      }
-    }
+    // if (!isReachable(start, target)) {
+    //   foreach (var neighbor in GetNeighbors(target)) {
+    //     if (isReachable(target, neighbor)) {
+    //       target = neighbor;
+    //       break;
+    //     }
+    //   }
+    // }
 
     while (pq.Count > 0) {
       var current = pq.Dequeue();

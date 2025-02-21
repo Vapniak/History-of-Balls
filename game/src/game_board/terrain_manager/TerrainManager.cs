@@ -4,6 +4,7 @@ using Godot;
 using HexGridMap;
 using RaycastSystem;
 
+
 [GlobalClass]
 public partial class TerrainManager : Node3D {
   [Export] private Material TerrainMaterial { get; set; }
@@ -73,8 +74,15 @@ public partial class TerrainManager : Node3D {
     TerrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
   }
 
-  public void SetHighlight(GameCell cell, Color color) {
-    SetHighlighPixel(cell.OffsetCoord, color);
+  public void SetHighlight(GameCell cell, HighlightType highlightType) {
+    SetHighlighPixel(cell.OffsetCoord, highlightType.Color);
+  }
+
+  public void AddHighlight(GameCell cell, HighlightType highlightType) {
+    var offset = cell.OffsetCoord;
+    var color = HighlightData.GetPixel(offset.Col, offset.Row);
+    color = color.Blend(highlightType.Color);
+    SetHighlighPixel(offset, color);
   }
 
   public void UpdateHighlights() {
@@ -83,6 +91,20 @@ public partial class TerrainManager : Node3D {
 
   public void ClearHighlights() {
     HighlightData.Fill(Colors.Transparent);
+  }
+
+  public (Chunk chunk, OffsetCoord localCoord) OffsetToChunk(OffsetCoord coord) {
+    var chunkX = coord.Col / ChunkSize.X;
+    var chunkY = coord.Row / ChunkSize.Y;
+    var localX = coord.Col - chunkX * ChunkSize.X;
+    var localY = coord.Row - chunkY * ChunkSize.Y;
+    return (Chunks[chunkX + (chunkY * ChunkCount.X)], new(localX, localY));
+  }
+
+  public void AddCellToChunk(GameCell cell) {
+    var (chunk, localCoord) = OffsetToChunk(cell.OffsetCoord);
+
+    chunk.AddCell(localCoord.Col + localCoord.Row * ChunkSize.X, Grid.GetCellIndex(cell));
   }
 
   private void SetHighlighPixel(OffsetCoord offset, Color color) {
@@ -105,19 +127,5 @@ public partial class TerrainManager : Node3D {
   private void UpdateHighlightTextureData() {
     var texture = ImageTexture.CreateFromImage(HighlightData);
     TerrainMaterial.Set("shader_parameter/highlight_data_texture", texture);
-  }
-
-  public (Chunk chunk, OffsetCoord localCoord) OffsetToChunk(OffsetCoord coord) {
-    var chunkX = coord.Col / ChunkSize.X;
-    var chunkY = coord.Row / ChunkSize.Y;
-    var localX = coord.Col - chunkX * ChunkSize.X;
-    var localY = coord.Row - chunkY * ChunkSize.Y;
-    return (Chunks[chunkX + (chunkY * ChunkCount.X)], new(localX, localY));
-  }
-
-  public void AddCellToChunk(GameCell cell) {
-    var (chunk, localCoord) = OffsetToChunk(cell.OffsetCoord);
-
-    chunk.AddCell(localCoord.Col + localCoord.Row * ChunkSize.X, Grid.GetCellIndex(cell));
   }
 }
