@@ -12,7 +12,6 @@ public interface IMatchGameState : IGameState, IPlayerManagmentGameState {
   // TODO: add match state like: before start, in progress, end
 
   public event RoundChangedEventHandler RoundStartedEvent;
-  public event RoundChangedEventHandler RoundEndedEvent;
 
   public GameBoard GameBoard { get; }
   public int CurrentPlayerIndex { get; }

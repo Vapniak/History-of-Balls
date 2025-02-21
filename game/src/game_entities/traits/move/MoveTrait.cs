@@ -4,27 +4,20 @@ using System.Threading.Tasks;
 using Godot;
 
 [GlobalClass]
-public partial class MoveTrait : Trait {
+public abstract partial class MoveTrait : Trait {
   [Signal] public delegate void MoveFinishedEventHandler();
 
-  public GameCell[] GetReachableCells(MovementType movementType) {
-    return Entity.Cell.ExpandSearch(GetStat<MovementStats>().MovePoints, movementType.IsCellReachable);
+  public virtual GameCell[] GetReachableCells() {
+    return Entity.Cell.ExpandSearch(GetStat<MovementStats>().MovePoints, IsCellReachable);
   }
 
-  public GameCell[] FindPath(GameCell cell, MovementType movementType) {
-    return Entity.Cell.FindPathTo(cell, GetStat<MovementStats>().MovePoints, movementType.IsCellReachable);
+  public virtual GameCell[] FindPath(GameCell cell) {
+    return Entity.Cell.FindPathTo(cell, GetStat<MovementStats>().MovePoints, IsCellReachable);
   }
 
-  public async Task Move(GameCell targetCell, MovementType movementType) {
-    var path = FindPath(targetCell, movementType);
-
-    void onMoveFinished() {
-      EmitSignal(SignalName.MoveFinished);
-      movementType.MoveFinished -= onMoveFinished;
-    }
-
-    movementType.MoveFinished += onMoveFinished;
-
-    await movementType.StartMoveOn(path);
+  public virtual async Task Move(GameCell targetCell) {
+    EmitSignal(SignalName.MoveFinished);
   }
+
+  public abstract bool IsCellReachable(GameCell from, GameCell to);
 }

@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://ka4lyslghbk"]
+
+[ext_resource type="Script" path="res://src/gui/entity/EntityUi3D.cs" id="1_q8esg"]
+[ext_resource type="PackedScene" uid="uid://c0wn2cfx3bg73" path="res://src/gui/entity/entity_ui.tscn" id="2_smlom"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_r07d7"]
+viewport_path = NodePath("SubViewport")
+
+[node name="EntityUI3D" type="Sprite3D" node_paths=PackedStringArray("NameLabel")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+pixel_size = 0.02
+billboard = 1
+double_sided = false
+texture = SubResource("ViewportTexture_r07d7")
+script = ExtResource("1_q8esg")
+NameLabel = NodePath("SubViewport/MarginContainer/Label")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(128, 128)
+
+[node name="MarginContainer" parent="SubViewport" instance=ExtResource("2_smlom")]
+
+[editable path="SubViewport/MarginContainer"]

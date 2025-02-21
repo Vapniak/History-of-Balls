@@ -48,4 +48,6 @@ public partial class CommandPanel : Control {
     CommandList.AddItem(text, null, command.IsAvailable());
     Commands.Add(command);
   }
+
+  public int GetCommandCount() => CommandList.ItemCount;
 }

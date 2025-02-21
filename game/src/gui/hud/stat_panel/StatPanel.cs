@@ -4,12 +4,12 @@ using Godot;
 using System;
 
 public partial class StatPanel : Control {
-  [Export] private Label EntityNameLabel { get; set; }
+  [Export] private Label NameLabel { get; set; }
   [Export] private PackedScene EntryScene { get; set; }
   [Export] private Control Entries { get; set; }
 
-  public void SetEntityName(string name) {
-    EntityNameLabel.Text = name;
+  public void SetNameLabel(string name) {
+    NameLabel.Text = name;
   }
   public void ClearEntries() {
     foreach (var child in Entries.GetChildren()) {

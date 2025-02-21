@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bxvvk6td13ake"]
+[gd_scene load_steps=24 format=3 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
 [ext_resource type="Material" uid="uid://di2vqjh12uacy" path="res://res/materials/post_process.tres" id="2_wnmxh"]
@@ -24,9 +24,12 @@ min_value = -1.0
 _data = [Vector2(0, 1.49012e-08), 0.0, 0.0, 0, 1, Vector2(0.1, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(0.5, -1), 0.0367056, 0.0367056, 0, 0, Vector2(0.7, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(1, 1.49012e-08), 0.0, 0.0, 0, 0]
 point_count = 6
 
+[sub_resource type="Curve" id="Curve_eyssr"]
+
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_g3jf5"]
 curve_x = SubResource("Curve_pjk7c")
 curve_y = SubResource("Curve_c44mf")
+curve_z = SubResource("Curve_eyssr")
 
 [sub_resource type="Curve" id="Curve_r1uxh"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -71,9 +74,12 @@ _data = [Vector2(0, 1.49012e-08), 0.0, 2.0, 0, 1, Vector2(0.2, 0.4), 0.0, 0.0, 0
 point_count = 4
 metadata/_snap_enabled = true
 
+[sub_resource type="Curve" id="Curve_3d3fv"]
+
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_1rijh"]
 curve_x = SubResource("Curve_tlv8o")
 curve_y = SubResource("Curve_lo23k")
+curve_z = SubResource("Curve_3d3fv")
 
 [sub_resource type="Curve" id="Curve_ufuhu"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.623684, 0.156187), -1.01557, -1.01557, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]

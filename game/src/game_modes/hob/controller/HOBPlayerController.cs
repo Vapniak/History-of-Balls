@@ -13,14 +13,15 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public event Action EndTurnEvent;
 
   [Export] private Node StateChartNode { get; set; }
+
+  // TODO: highlight material
+
   private StateChart StateChart { get; set; }
 
   private GameBoard GameBoard { get; set; }
   private Entity SelectedEntity { get; set; }
   private Command SelectedCommand { get; set; }
-  private Entity HoveredEntity { get; set; }
   private GameCell HoveredCell { get; set; }
-
 
   private Entity _lastSelectedEntity;
   private PlayerCharacter _character;
@@ -113,62 +114,36 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
     GetHUD().UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
 
-    playerState.PrimaryResourceType.ValueChanged += () => GetHUD().UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
-    playerState.SecondaryResourceType.ValueChanged += () => GetHUD().UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+    playerState.PrimaryResourceType.ValueChanged += () => {
+      GetHUD().UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
+    };
+    playerState.SecondaryResourceType.ValueChanged += () => {
+      GetHUD().UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+    };
   }
 
-  private Entity GetHoveredEntity() {
-    if (HoveredEntity != null) {
-      return HoveredEntity;
-    }
-
-    return GameBoard.GetEntitiesOnCell(HoveredCell).FirstOrDefault();
-  }
   private void CheckHover() {
     var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.Entity | GameLayers.Physics3D.Mask.World);
 
     if (raycastResult == null) {
-      if (HoveredEntity != null) {
-        UnHoverCell();
-      }
+      HoveredCell = null;
 
       GameBoard.SetMouseHighlight(false);
-
       return;
     }
 
+    var point = raycastResult.Position;
+    var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
 
-    if (raycastResult.Collider is not EntityBody entityBody) {
-      if (HoveredEntity != null) {
-        UnHoverCell();
-      }
-      return;
-    }
-
-    // for now, later add field to track entity of entity body
-    var entity = entityBody.GetParent<Entity>();
-
-    if (HoveredEntity != entity) {
-      HoverEntity(entity);
-
-      HoveredCell = entity.Cell;
-    }
-    else {
-      var point = raycastResult.Position;
-      var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
-
-      HoveredCell = GameBoard.Grid.GetCell(coord);
-    }
+    HoveredCell = GameBoard.Grid.GetCell(coord);
 
 
     if (HoveredCell == null || _isPanning) {
-      // TODO: pass higlighted position instead of casting ray
       GameBoard.SetMouseHighlight(false);
     }
     else {
       GameBoard.SetMouseHighlight(true);
     }
-
   }
 
   private void ShowCommandPanel() {
@@ -179,22 +154,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (IsCurrentTurn() && SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
       GetHUD().ShowCommandPanel(commandTrait);
     }
-  }
-
-  private void HoverEntity(Entity entity) {
-    HoveredEntity = entity;
-
-    GetHUD().ShowHoverStatPanel(entity);
-  }
-
-  private void UnHoverCell() {
-    GetHUD().HideHoverStatPanel();
-
-    HoveredEntity = null;
-  }
-
-  private void TrySelectHoveredEntity() {
-
   }
 
   private void SelectEntity(Entity entity) {
@@ -213,6 +172,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void DeselectEntity() {
     StateChart.SendEvent("entity_deselected");
+
+    if (IsInstanceValid(SelectedEntity)) {
+
+      SelectedEntity = null;
+      SelectedCommand = null;
+    }
   }
 
   private void CheckCommandInput(InputEvent @event) {
@@ -351,7 +316,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnIdleUnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.Select)) {
-      SelectEntity(GetHoveredEntity());
+      var entites = GameBoard.GetEntitiesOnCell(HoveredCell);
+      SelectEntity(entites.FirstOrDefault());
     }
 
     @event.Dispose();
@@ -384,9 +350,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         commandTrait.CommandFinished -= OnCommandFinished;
       }
     }
-
-    SelectedEntity = null;
-    SelectedCommand = null;
   }
 
   private void OnSelectionIdleUnhandledInput(InputEvent @event) {
@@ -399,6 +362,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (@event.IsActionPressed(GameInputs.Select)) {
+      var entities = GameBoard.GetEntitiesOnCell(HoveredCell);
+
       if (IsCurrentTurn()) {
         if (SelectedCommand != null) {
           if (SelectedCommand is MoveCommand moveCommand) {
@@ -408,8 +373,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
           }
           else if (SelectedCommand is AttackCommand attackCommand) {
             // FIXME: attack only entity which is not obstacle and has health trait
-            if (GetHoveredEntity() != null) {
-              if (attackCommand.TryAttack(GetHoveredEntity())) {
+            if (entities.FirstOrDefault() != null) {
+              if (attackCommand.TryAttack(entities.FirstOrDefault())) {
                 return;
               }
             }
@@ -417,9 +382,20 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         }
       }
 
-      if (GetHoveredEntity() != null) {
-        SelectEntity(GetHoveredEntity());
+      if (entities.FirstOrDefault() == SelectedEntity) {
+        if (entities.Length > 1) {
+          var index = Array.IndexOf(entities, SelectedEntity);
+          index++;
+          SelectEntity(entities[index]);
+        }
+        else {
+          DeselectEntity();
+        }
+
+        return;
       }
+
+      SelectEntity(entities.FirstOrDefault());
     }
 
     @event.Dispose();
@@ -456,4 +432,5 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().SetEndTurnButtonDisabled(false);
   }
   #endregion
+  IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
 }

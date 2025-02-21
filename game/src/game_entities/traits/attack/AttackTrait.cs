@@ -30,7 +30,6 @@ public partial class AttackTrait : Trait {
       cellsInR.Add(cell);
       var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
       if (entities.Length > 0 && !entities[0].IsOwnedBy(Entity.OwnerController) && entities[0].TryGetTrait<HealthTrait>(out _)) {
-        GD.Print(entities[0].GetEntityName());
         AttackableEntities.Add(entities[0]);
       }
     }

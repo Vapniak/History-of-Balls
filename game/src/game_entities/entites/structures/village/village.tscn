@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://58211gsdw151"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_rk82f"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xorao"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_e5qy6"]
+size = Vector3(1, 0.5, 1)
+
+[node name="EntityBody" type="Node3D"]
+script = ExtResource("1_rk82f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.551216, 0, 0, 0, 0.404544, 0, 0, 0, 0.3783, 0, 0.192647, 0)
+mesh = SubResource("BoxMesh_xorao")
+skeleton = NodePath("")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("PrismMesh_e5qy6")
+skeleton = NodePath("")

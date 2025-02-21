@@ -5,24 +5,24 @@ using Godot;
 
 [GlobalClass]
 public partial class AttackCommand : Command {
-  [Export] public AttackTrait EntityAttackTrait { get; private set; }
+  [Export] public AttackTrait AttackTrait { get; private set; }
 
   public override void _Ready() {
     base._Ready();
 
-    EntityAttackTrait.AttackFinished += Finish;
+    AttackTrait.AttackFinished += Finish;
   }
 
   public bool TryAttack(Entity entity) {
     if (IsAvailable() && GetAttackableEntities().entities.Contains(entity)) {
       Use();
-      EntityAttackTrait.Attack(entity);
+      AttackTrait.Attack(entity);
       return true;
     }
     return false;
   }
 
   public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
-    return EntityAttackTrait.GetAttackableEntities();
+    return AttackTrait.GetAttackableEntities();
   }
 }

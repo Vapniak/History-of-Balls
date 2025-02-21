@@ -85,13 +85,22 @@
       "resource_name": {
         "visibility": 0
       }
+    },
+    "res://src/game_entities/entites::TraitsScene/": {
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
     }
   },
   "recent_paths": [
     "res://src/game_entities/entites/unit/units::Stats::Stats/",
     "res://src/game_entities/entites/",
     "res://src/game_entities/entites::Stats/",
-    "res://src/game_entities/entites::Stats::Stats/"
+    "res://src/game_entities/entites::Stats::Stats/",
+    "res://src/game_entities/entites::TraitsScene/"
   ],
   "table_functions": {
     "filter": [

@@ -12,7 +12,7 @@
 [ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/test_unit_1_data.tres" id="10_8uwl6"]
 [ext_resource type="Resource" uid="uid://c5dmvmose2efr" path="res://src/game_entities/entites/units/test_unit_2_data.tres" id="11_5j62k"]
 [ext_resource type="Resource" uid="uid://bxlwj2isc0xej" path="res://src/resource_type/dumpling.tres" id="12_3iycb"]
-[ext_resource type="Resource" uid="uid://doidx5bt2arat" path="res://src/game_entities/entites/structures/village.tres" id="12_d2ps5"]
+[ext_resource type="Resource" uid="uid://doidx5bt2arat" path="res://src/game_entities/entites/structures/village/village_data.tres" id="12_d2ps5"]
 [ext_resource type="Resource" uid="uid://c0gi1dmpjjefo" path="res://src/resource_type/flour.tres" id="13_al71l"]
 
 [node name="TestGameMode" type="Node"]

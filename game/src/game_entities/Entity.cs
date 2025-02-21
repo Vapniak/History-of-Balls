@@ -18,6 +18,9 @@ public partial class Entity : Node {
 
   private readonly Dictionary<Type, Trait> _traits = new();
 
+  // TODO: make specific ui for each entity type, structure, unit have different UI in 3D
+  private string _entityUISceneUID = "uid://ka4lyslghbk";
+
   public Entity(IMatchController owner, EntityData data, GameCell cell, GameBoard gameBoard) {
     OwnerController = owner;
     Cell = cell;
@@ -33,7 +36,6 @@ public partial class Entity : Node {
     Data.Stats.Init();
 
     var traits = Data.TraitsScene.Instantiate<Node>();
-    AddChild(traits);
 
     foreach (var child in traits.GetAllChildren()) {
       if (child is Trait trait) {
@@ -41,6 +43,13 @@ public partial class Entity : Node {
         _traits.Add(trait.GetType(), trait);
       }
     }
+
+    AddChild(traits);
+
+    var entityUIScene = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
+    entityUIScene.SetNameLabel(GetEntityName());
+    // FIXME: for now bound to body
+    Body.AddChild(entityUIScene);
 
     CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
   }

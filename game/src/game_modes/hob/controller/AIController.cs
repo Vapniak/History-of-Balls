@@ -92,4 +92,6 @@ public partial class AIController : Controller, IMatchController {
   void IMatchController.OwnTurnStarted() {
     OwnTurnStarted();
   }
+
+  IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
 }

@@ -13,7 +13,6 @@ public partial class HOBHUD : HUD {
   [Export] private Button EndTurnButton { get; set; }
   [Export] private CommandPanel CommandPanel { get; set; }
   [Export] private Label RoundLabel { get; set; }
-  [Export] private Label PlayerTurnLabel { get; set; }
 
   [ExportGroup("Resources")]
   [Export] private Label PrimaryResourceNameLabel { get; set; }
@@ -23,6 +22,7 @@ public partial class HOBHUD : HUD {
 
 
   private Entity HoveredEntity { get; set; }
+
 
   public override void _Process(double delta) {
     if (HoverStatPanel.Visible && IsInstanceValid(HoveredEntity)) {
@@ -49,8 +49,6 @@ public partial class HOBHUD : HUD {
 
 
   public void OnTurnChanged(int playerIndex) {
-    PlayerTurnLabel.Text = "PLAYER " + playerIndex + " TURN";
-
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
   }
 
@@ -86,9 +84,14 @@ public partial class HOBHUD : HUD {
 
   public void ShowCommandPanel(CommandTrait commandTrait) {
     CommandPanel.ClearCommands();
-    CommandPanel.GrabFocus();
     foreach (var command in commandTrait.GetCommands()) {
-      CommandPanel.AddCommand(command);
+      if (command.ShowInUI) {
+        CommandPanel.AddCommand(command);
+      }
+    }
+
+    if (CommandPanel.GetCommandCount() == 0) {
+      return;
     }
 
     CommandPanel.CommandSelected += commandTrait.SelectCommand;
@@ -101,6 +104,7 @@ public partial class HOBHUD : HUD {
     }
     CommandPanel.Hidden += onHidden;
     CommandPanel.Show();
+    CommandPanel.GrabFocus();
   }
 
   public void HideCommandPanel() => CommandPanel.Hide();
@@ -116,14 +120,14 @@ public partial class HOBHUD : HUD {
     var isOwned = entity.IsOwnedBy(GetPlayerController<IMatchController>());
 
     if (isOwned) {
-      panel.SetEntityName(entity.GetEntityName());
+      panel.SetNameLabel(entity.GetEntityName());
     }
     else {
       if (entity.OwnerController != null) {
-        panel.SetEntityName("ENEMY " + entity.GetEntityName());
+        panel.SetNameLabel("ENEMY " + entity.GetEntityName());
       }
       else {
-        panel.SetEntityName("NOT OWNED " + entity.GetEntityName());
+        panel.SetNameLabel("NOT OWNED " + entity.GetEntityName());
       }
     }
 
@@ -146,5 +150,4 @@ public partial class HOBHUD : HUD {
   private void OnEndTurnPressed() {
     EmitSignal(SignalName.EndTurn);
   }
-
 }

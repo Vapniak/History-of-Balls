@@ -5,20 +5,16 @@ using Godot;
 
 [GlobalClass]
 public partial class MoveCommand : Command {
-  [Export] public MoveTrait EntityMoveTrait { get; private set; }
-  [Export] public MovementType MovementType { get; private set; }
+  [Export] public MoveTrait MoveTrait { get; private set; }
   public override void _Ready() {
     base._Ready();
 
-    EntityMoveTrait.MoveFinished += Finish;
-
-    MovementType = MovementType.Duplicate() as MovementType;
-    MovementType.MoveTrait = EntityMoveTrait;
+    MoveTrait.MoveFinished += Finish;
   }
   public bool TryMove(GameCell targetCell) {
     if (IsAvailable()) {
       Use();
-      EntityMoveTrait.Move(targetCell, MovementType);
+      MoveTrait.Move(targetCell);
       return true;
     }
 
@@ -26,11 +22,11 @@ public partial class MoveCommand : Command {
   }
 
   public GameCell[] GetReachableCells() {
-    return EntityMoveTrait.GetReachableCells(MovementType);
+    return MoveTrait.GetReachableCells();
   }
 
   public GameCell[] FindPathTo(GameCell cell) {
-    return EntityMoveTrait.FindPath(cell, MovementType);
+    return MoveTrait.FindPath(cell);
   }
 
   public override bool IsAvailable() {

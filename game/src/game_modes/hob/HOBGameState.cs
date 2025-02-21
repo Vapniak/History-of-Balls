@@ -17,14 +17,12 @@ public partial class HOBGameState : GameState, IPlayerManagmentGameState, IPause
 
   public event IMatchGameState.TurnChangedEventHandler TurnChangedEvent;
   public event IMatchGameState.RoundChangedEventHandler RoundStartedEvent;
-  public event IMatchGameState.RoundChangedEventHandler RoundEndedEvent;
 
   // TODO: better turn managment
   public void NextTurn() {
     if (CurrentPlayerIndex >= PlayerArray.Count - 1) {
       CurrentRound++;
       CurrentPlayerIndex = 0;
-      RoundEndedEvent?.Invoke(CurrentRound - 1);
       RoundStartedEvent?.Invoke(CurrentRound);
     }
     else {

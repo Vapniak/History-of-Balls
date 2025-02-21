@@ -84,6 +84,8 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
       }
     }
 
+    reachableCells.RemoveAt(0);
+
     return reachableCells.ToArray();
   }
 

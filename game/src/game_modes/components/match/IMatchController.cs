@@ -13,4 +13,6 @@ public interface IMatchController : IController {
   public void OwnTurnEnded();
 
   public new IMatchGameState GetGameState();
+
+  public new IMatchPlayerState GetPlayerState();
 }

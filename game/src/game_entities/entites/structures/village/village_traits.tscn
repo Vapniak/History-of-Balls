@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmr2fxfpwum6"]
+
+[ext_resource type="PackedScene" uid="uid://c0n8kwkbt135m" path="res://src/game_entities/entites/structure_traits.tscn" id="1_0l746"]
+[ext_resource type="Script" path="res://src/game_entities/traits/income/IncomeTrait.cs" id="2_xjpo3"]
+[ext_resource type="Script" path="res://src/game_entities/traits/command/CommandTrait.cs" id="3_r88pa"]
+[ext_resource type="Script" path="res://src/game_entities/traits/command/commands/GenerateIncomeCommand.cs" id="4_cx0m1"]
+
+[node name="VillageTraits" type="Node"]
+
+[node name="StructureTraits" parent="." instance=ExtResource("1_0l746")]
+
+[node name="IncomeTrait" type="Node" parent="."]
+script = ExtResource("2_xjpo3")
+
+[node name="CommandTrait" type="Node" parent="."]
+script = ExtResource("3_r88pa")
+
+[node name="GenerateIncomeCommand" type="Node" parent="CommandTrait" node_paths=PackedStringArray("EntityIncomeTrait")]
+script = ExtResource("4_cx0m1")
+EntityIncomeTrait = NodePath("../../IncomeTrait")
+CommandName = "Generate Income"
+UseOnRoundStart = true
+ShowInUI = false
+
+[editable path="StructureTraits"]

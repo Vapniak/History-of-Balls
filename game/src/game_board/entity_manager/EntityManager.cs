@@ -17,10 +17,9 @@ public partial class EntityManager : Node {
   }
 
   public void AddEntity(Entity entity) {
-    AddChild(entity);
-
     entity.TreeExiting += () => RemoveEntity(entity);
 
+    AddChild(entity);
 
     if (entity.OwnerController != null) {
       if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
@@ -38,8 +37,10 @@ public partial class EntityManager : Node {
     entity.QueueFree();
     Entities.Remove(entity);
 
-    if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
-      entites.Remove(entity);
+    if (entity.OwnerController != null) {
+      if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
+        entites.Remove(entity);
+      }
     }
 
     EmitSignal(SignalName.EntityRemoved, entity);

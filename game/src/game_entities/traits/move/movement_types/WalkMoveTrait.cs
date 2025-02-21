@@ -6,12 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 
 [GlobalClass]
-public partial class WalkMovementType : MovementType {
+public partial class WalkMoveTrait : MoveTrait {
   private float _animSpeed = 0.2f;
   public override bool IsCellReachable(GameCell from, GameCell to) {
     var haveObstacle = false;
 
-    foreach (var entity in MoveTrait.Entity.GameBoard.GetEntitiesOnCell(to)) {
+    foreach (var entity in Entity.GameBoard.GetEntitiesOnCell(to)) {
       if (entity.TryGetTrait<ObstacleTrait>(out _)) {
         haveObstacle = true;
         break;
@@ -25,7 +25,9 @@ public partial class WalkMovementType : MovementType {
       to.GetSetting().Elevation > 0;
   }
 
-  public override async Task StartMoveOn(GameCell[] path) {
+  public override async Task Move(GameCell targetCell) {
+    var path = FindPath(targetCell);
+
     for (var i = 1; i < path.Length; i++) {
       var from = path[i - 1];
       var to = path[i];
@@ -33,36 +35,32 @@ public partial class WalkMovementType : MovementType {
       await Walk(to);
     }
 
-    MoveTrait.Entity.Cell = path.Last();
+    Entity.Cell = path.Last();
 
-    EmitSignal(SignalName.MoveFinished);
+    await base.Move(targetCell);
   }
 
   private async Task Walk(GameCell to) {
-    var startPosition = MoveTrait.Entity.GetPosition();
+    var startPosition = Entity.GetPosition();
     var targetPosition = to.GetRealPosition();
-
-    if (MoveTrait.Entity.GameBoard.GetEntitiesOnCell(to).Length > 0) {
-      targetPosition.Y += 2;
-    }
 
     var midpoint = (startPosition + targetPosition) / 2;
     midpoint.Y += 1.0f;
 
-    var tween = MoveTrait.CreateTween();
+    var tween = CreateTween();
 
     tween.TweenMethod(
-        Callable.From<Vector3>(MoveTrait.Entity.SetPosition),
+        Callable.From<Vector3>(Entity.SetPosition),
         startPosition,
         midpoint,
         _animSpeed
     ).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.In);
 
-    MoveTrait.Entity.TurnAt(targetPosition, _animSpeed);
+    Entity.TurnAt(targetPosition, _animSpeed);
 
 
     tween.TweenMethod(
-        Callable.From<Vector3>(MoveTrait.Entity.SetPosition),
+        Callable.From<Vector3>(Entity.SetPosition),
         midpoint,
         targetPosition,
         _animSpeed
