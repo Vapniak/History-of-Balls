@@ -103,17 +103,6 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
     var pq = new PriorityQueue<GameCell, int>();
     pq.Enqueue(start, 0);
 
-    // TODO: if target is not reachable find closest neigboring cell
-    // FIXME: temp fix
-    // if (!isReachable(start, target)) {
-    //   foreach (var neighbor in GetNeighbors(target)) {
-    //     if (isReachable(target, neighbor)) {
-    //       target = neighbor;
-    //       break;
-    //     }
-    //   }
-    // }
-
     while (pq.Count > 0) {
       var current = pq.Dequeue();
       var currentCost = minCost[GetCellIndex(current)];
@@ -144,6 +133,7 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
     }
 
     path.Reverse();
+    path.RemoveAt(0);
 
     var finalPath = new List<GameCell>();
     var totalCost = 0;

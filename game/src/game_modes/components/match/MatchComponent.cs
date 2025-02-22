@@ -25,7 +25,7 @@ public partial class MatchComponent : GameModeComponent {
     base._Ready();
 
     GameBoard = GetGameState().GameBoard;
-    GetGameState().TurnChangedEvent += OnTurnChanged;
+    GetGameState().TurnStartedEvent += OnTurnStarted;
   }
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
@@ -70,7 +70,7 @@ public partial class MatchComponent : GameModeComponent {
     _lastPlayer = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
   }
 
-  private void OnTurnChanged(int playerIndex) {
+  private void OnTurnStarted(int playerIndex) {
     _lastPlayer?.OwnTurnEnded();
     var player = GetGameState().PlayerArray[playerIndex].GetController<IMatchController>();
     player.OwnTurnStarted();

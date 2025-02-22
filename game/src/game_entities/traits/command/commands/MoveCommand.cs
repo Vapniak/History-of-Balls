@@ -12,7 +12,7 @@ public partial class MoveCommand : Command {
     MoveTrait.MoveFinished += Finish;
   }
   public bool TryMove(GameCell targetCell) {
-    if (IsAvailable()) {
+    if (IsAvailable() && FindPathTo(targetCell).Length > 0) {
       Use();
       MoveTrait.Move(targetCell);
       return true;

@@ -29,13 +29,18 @@ public partial class AIController : Controller, IMatchController {
     EndTurnEvent?.Invoke();
   }
 
-  public async Task OwnTurnStarted() {
+  public async Task OnOwnTurnStarted() {
     foreach (var entity in GameBoard.GetOwnedEntities(this)) {
       await Decide(entity);
     }
 
     EndTurn();
   }
+
+  public void OwnTurnStarted() {
+    OnOwnTurnStarted();
+  }
+
   public void OwnTurnEnded() { }
 
   public void OnGameStarted() { }
@@ -72,9 +77,18 @@ public partial class AIController : Controller, IMatchController {
         }
       }
 
-      if (moveCommand.TryMove(closestEnemyCell)) {
-        return true;
+      if (closestEnemyCell == null) {
+        return false;
       }
+
+      foreach (var neighbor in GameBoard.Grid.GetNeighbors(closestEnemyCell)) {
+        if (moveCommand.FindPathTo(neighbor).Length > 0) {
+          if (moveCommand.TryMove(neighbor)) {
+            return true;
+          }
+        }
+      }
+
     }
 
     return false;
@@ -91,10 +105,6 @@ public partial class AIController : Controller, IMatchController {
     }
 
     return false;
-  }
-
-  void IMatchController.OwnTurnStarted() {
-    OwnTurnStarted();
   }
 
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;

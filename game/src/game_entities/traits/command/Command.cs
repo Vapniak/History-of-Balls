@@ -16,8 +16,6 @@ public abstract partial class Command : Node {
 
   public CommandTrait CommandTrait { get; set; }
 
-  protected bool IsExecuting { get; private set; }
-
   private uint _cooldown;
 
   public override void _Ready() {
@@ -27,30 +25,30 @@ public abstract partial class Command : Node {
   }
 
   protected virtual void Use() {
-    IsExecuting = true;
     UsedThisRound = true;
     CooldownRoundsLeft = CooldownRounds;
     EmitSignal(SignalName.Started);
   }
   protected virtual void Finish() {
-    IsExecuting = false;
     EmitSignal(SignalName.Finished);
   }
 
   public virtual bool IsAvailable() {
     return CooldownRoundsLeft == 0 && !UsedThisRound && GetEntity().OwnerController.IsCurrentTurn();
   }
+
   public void OnTurnChanged(int roundNumber) {
     if (!GetEntity().OwnerController.IsCurrentTurn()) {
       return;
     }
 
     UsedThisRound = false;
+
     if (CooldownRoundsLeft > 0) {
       CooldownRoundsLeft--;
     }
 
-    if (UseOnRoundStart && IsAvailable()) {
+    if (IsAvailable() && UseOnRoundStart) {
       Use();
       Finish();
     }

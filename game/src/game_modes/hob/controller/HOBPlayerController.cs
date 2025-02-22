@@ -87,7 +87,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
     }
 
-    // I saw a lot of objects created when I moved my mouse
     @event.Dispose();
   }
 
@@ -165,27 +164,25 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void SelectEntity(Entity entity) {
     if (IsInstanceValid(SelectedEntity)) {
-      DeselectEntity();
+      SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
+      SelectedEntity.TreeExited -= onSelectedEntityTreeExited;
+
+      SelectedCommand = null;
     }
 
     if (!IsInstanceValid(entity)) {
+      StateChart.SendEvent("entity_deselected");
+      SelectedEntity = null;
       return;
     }
 
     SelectedEntity = entity;
+    SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
+    SelectedEntity.TreeExited += onSelectedEntityTreeExited;
+
+    void onSelectedEntityTreeExited() => SelectEntity(null);
 
     StateChart.SendEvent("entity_selected");
-  }
-
-  private void DeselectEntity() {
-    StateChart.SendEvent("entity_deselected");
-
-    if (IsInstanceValid(SelectedEntity)) {
-      SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
-
-      SelectedEntity = null;
-      SelectedCommand = null;
-    }
   }
 
   private void CheckCommandInput(InputEvent @event) {
@@ -376,12 +373,15 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
           GameBoard.ClearHighlights();
           GameBoard.SetHighlight(moveCommand.GetEntity().Cell, SelectedHighlightType);
 
-          foreach (var cell in moveCommand.GetReachableCells()) {
+          var reachable = moveCommand.GetReachableCells();
+          foreach (var cell in reachable) {
             GameBoard.SetHighlight(cell, MovableHighlightType);
           }
 
-          foreach (var cell in moveCommand.FindPathTo(HoveredCell)) {
-            GameBoard.SetHighlight(cell, PathHighlightType);
+          if (reachable.Contains(HoveredCell)) {
+            foreach (var cell in moveCommand.FindPathTo(HoveredCell)) {
+              GameBoard.SetHighlight(cell, PathHighlightType);
+            }
           }
 
           GameBoard.UpdateHighlights();
@@ -414,7 +414,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
             SelectEntity(entities[index]);
           }
           else {
-            DeselectEntity();
+            SelectEntity(null);
           }
 
           return;
@@ -430,8 +430,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.ClearHighlights();
 
     GetHUD().ShowStatPanel(SelectedEntity);
-
-    SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
 
     if (SelectedEntity.IsOwnedBy(this)) {
       GameBoard.SetHighlight(SelectedEntity.Cell, SelectedHighlightType);

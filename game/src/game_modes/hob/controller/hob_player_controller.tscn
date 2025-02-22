@@ -68,6 +68,13 @@ to = NodePath("../../Idle")
 event = &"entity_deselected"
 delay_in_seconds = "0.0"
 
+[node name="ToSelection" type="Node" parent="StateChart/Root/States/Selection"]
+script = ExtResource("5_4cy8h")
+to = NodePath("..")
+event = &"entity_selected"
+delay_in_seconds = "0.0
+"
+
 [node name="Idle" type="Node" parent="StateChart/Root/States/Selection"]
 script = ExtResource("4_fs40q")
 

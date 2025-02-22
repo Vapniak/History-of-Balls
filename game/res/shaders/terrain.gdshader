@@ -12,7 +12,7 @@ uniform bool show_mouse_highlight;
 
 const int CELL_SCALE = 2;
 
-// TODO: when colors are simmilar highlight is not visible 
+// TODO: when colors are simmilar highlight is not visible
 vec3 apply_highlight(vec3 base_color, vec3 highlight_color, HexCellData data){
 	return mix(base_color, highlight_color.rgb, smoothstep_range(data, .65, .84));
 }

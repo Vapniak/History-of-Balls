@@ -15,21 +15,22 @@ public partial class HOBGameState : GameState, IPlayerManagmentGameState, IPause
   public int CurrentPlayerIndex { get; private set; }
   public int CurrentRound { get; private set; }
 
+  public event IMatchGameState.TurnChangedEventHandler TurnStartedEvent;
   public event IMatchGameState.TurnChangedEventHandler TurnChangedEvent;
   public event IMatchGameState.RoundChangedEventHandler RoundStartedEvent;
 
   // TODO: better turn managment
   public void NextTurn() {
-    if (CurrentPlayerIndex >= PlayerArray.Count - 1) {
+    CurrentPlayerIndex++;
+
+    if (CurrentPlayerIndex >= PlayerArray.Count) {
       CurrentRound++;
       CurrentPlayerIndex = 0;
       RoundStartedEvent?.Invoke(CurrentRound);
     }
-    else {
-      CurrentPlayerIndex++;
-    }
 
     TurnChangedEvent?.Invoke(CurrentPlayerIndex);
+    TurnStartedEvent?.Invoke(CurrentPlayerIndex);
   }
 
   public bool IsCurrentTurn(IMatchController controller) => controller.GetPlayerState().PlayerIndex == CurrentPlayerIndex;
