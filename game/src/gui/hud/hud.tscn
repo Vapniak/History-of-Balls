@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=8 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_v4qhv"]
@@ -13,75 +13,82 @@ content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0, 0, 0, 0.313726)
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("StatPanel", "HoverStatPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+[sub_resource type="Environment" id="Environment_384c7"]
+
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("StatPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
 script = ExtResource("1_ep1kh")
 StatPanel = NodePath("MarginContainer4/StatPanel")
-HoverStatPanel = NodePath("MarginContainer/HoverStatPanel")
-EndTurnButton = NodePath("PanelContainer2/Button")
+EndTurnButton = NodePath("VBoxContainer/MarginContainer/Button")
 CommandPanel = NodePath("MarginContainer4/CommandPanel")
-RoundLabel = NodePath("PanelContainer2/VBoxContainer/Label")
-PrimaryResourceNameLabel = NodePath("PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label")
-PrimaryResourceValueLabel = NodePath("PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label2")
-SecondaryResourceNameLabel = NodePath("PanelContainer2/Resources/VBoxContainer/HBoxContainer2/Label")
-SecondaryResourceValueLabel = NodePath("PanelContainer2/Resources/VBoxContainer/HBoxContainer2/Label2")
+RoundLabel = NodePath("VBoxContainer/PanelContainer2/VBoxContainer/Label")
+PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label")
+PrimaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label2")
+SecondaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer2/Label")
+SecondaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer2/Label2")
 
-[node name="PanelContainer2" type="PanelContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 36.0
+offset_bottom = 46.0
 grow_horizontal = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
+
+[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7wvw1")
 
-[node name="Resources" type="MarginContainer" parent="PanelContainer2"]
+[node name="Resources" type="MarginContainer" parent="VBoxContainer/PanelContainer2"]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
-[node name="VBoxContainer" type="HBoxContainer" parent="PanelContainer2/Resources"]
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/Resources"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer2/Resources/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="PanelContainer2/Resources/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Primary: "
 
-[node name="Label2" type="Label" parent="PanelContainer2/Resources/VBoxContainer/HBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
 
-[node name="VSeparator" type="VSeparator" parent="PanelContainer2/Resources/VBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer2/Resources/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="PanelContainer2/Resources/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Secondary: "
 
-[node name="Label2" type="Label" parent="PanelContainer2/Resources/VBoxContainer/HBoxContainer2"]
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "0"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="PanelContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
 text = "ROUND 0"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="PanelContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_right = 10
+
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 4
@@ -102,7 +109,7 @@ theme_override_constants/margin_bottom = 50
 [node name="MiniMap" type="MarginContainer" parent="MarginContainer4" node_paths=PackedStringArray("Camera")]
 visible = false
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 0
 size_flags_vertical = 8
 mouse_filter = 0
 script = ExtResource("5_dr8w6")
@@ -112,40 +119,27 @@ Camera = NodePath("SubViewportContainer/SubViewport/Camera3D")
 layout_mode = 2
 
 [node name="SubViewport" type="SubViewport" parent="MarginContainer4/MiniMap/SubViewportContainer"]
+transparent_bg = true
 handle_input_locally = false
 size = Vector2i(200, 200)
 render_target_update_mode = 0
 
 [node name="Camera3D" type="Camera3D" parent="MarginContainer4/MiniMap/SubViewportContainer/SubViewport"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 300, 0)
+environment = SubResource("Environment_384c7")
 projection = 1
-size = 30.0
 
 [node name="CommandPanel" parent="MarginContainer4" instance=ExtResource("3_a41a7")]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 8
 size_flags_vertical = 8
 focus_mode = 2
 mouse_filter = 1
 
 [node name="StatPanel" parent="MarginContainer4" instance=ExtResource("4_yxp0t")]
 layout_mode = 2
-size_flags_vertical = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-
-[node name="HoverStatPanel" parent="MarginContainer" instance=ExtResource("4_yxp0t")]
-layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 10
 size_flags_vertical = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -164,4 +158,4 @@ text = "60
 horizontal_alignment = 1
 script = ExtResource("2_v4qhv")
 
-[connection signal="pressed" from="PanelContainer2/Button" to="." method="OnEndTurnPressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer/Button" to="." method="OnEndTurnPressed"]

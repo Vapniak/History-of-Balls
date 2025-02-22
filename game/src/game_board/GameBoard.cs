@@ -93,6 +93,10 @@ public partial class GameBoard : Node3D {
     return EntityManager.GetOwnedEntitiesOnCell(owner, cell);
   }
 
+  public Entity[] GetEntities() {
+    return EntityManager.GetEntities();
+  }
+
   public Entity[] GetEntitiesOnCell(GameCell cell) {
     return EntityManager.GetEntitiesOnCell(cell);
   }

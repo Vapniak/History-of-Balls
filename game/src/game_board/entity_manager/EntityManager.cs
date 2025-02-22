@@ -21,12 +21,12 @@ public partial class EntityManager : Node {
 
     AddChild(entity);
 
-    if (entity.OwnerController != null) {
-      if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
+    if (entity.TryGetOwner(out var owner)) {
+      if (OwnedEntities.TryGetValue(owner, out var entites)) {
         entites.Add(entity);
       }
       else {
-        OwnedEntities.Add(entity.OwnerController, new() { entity });
+        OwnedEntities.Add(owner, new() { entity });
       }
     }
 
@@ -37,8 +37,8 @@ public partial class EntityManager : Node {
     entity.QueueFree();
     Entities.Remove(entity);
 
-    if (entity.OwnerController != null) {
-      if (OwnedEntities.TryGetValue(entity.OwnerController, out var entites)) {
+    if (entity.TryGetOwner(out var owner)) {
+      if (OwnedEntities.TryGetValue(owner, out var entites)) {
         entites.Remove(entity);
       }
     }
@@ -61,4 +61,6 @@ public partial class EntityManager : Node {
   public Entity[] GetEnemyEntities(IMatchController controller) {
     return Entities.Except(OwnedEntities[controller]).ToArray();
   }
+
+  public Entity[] GetEntities() => Entities.ToArray();
 }

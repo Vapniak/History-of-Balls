@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://dfgh62iuf4b5x"]
+[gd_scene load_steps=17 format=3 uid="uid://dfgh62iuf4b5x"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/controller/HOBPlayerController.cs" id="1_cr46l"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_60ve5"]
@@ -29,6 +29,18 @@ Color = Color(0.859943, 0.410827, 0.0671714, 1)
 script = ExtResource("2_b6v7k")
 Color = Color(0.274669, 0.687379, 0.987578, 1)
 
+[sub_resource type="Resource" id="Resource_nauxd"]
+script = ExtResource("2_b6v7k")
+Color = Color(0.540593, 0.974831, 1.54018e-06, 1)
+
+[sub_resource type="Resource" id="Resource_ihm7w"]
+script = ExtResource("2_b6v7k")
+Color = Color(0.778383, 0.292386, 0.495808, 1)
+
+[sub_resource type="Resource" id="Resource_r71ws"]
+script = ExtResource("2_b6v7k")
+Color = Color(0.976052, 0.745512, 1.15514e-06, 1)
+
 [node name="HOBPlayerController" type="Node3D" node_paths=PackedStringArray("StateChartNode")]
 script = ExtResource("1_cr46l")
 StateChartNode = NodePath("StateChart")
@@ -37,6 +49,9 @@ MovableHighlightType = SubResource("Resource_0mxyt")
 AttackableHighlightType = SubResource("Resource_8ldto")
 AttackHighlightType = SubResource("Resource_et4so")
 PathHighlightType = SubResource("Resource_xgoc2")
+OwnedHighlightType = SubResource("Resource_nauxd")
+EnemyHighlightType = SubResource("Resource_ihm7w")
+NotOwnedHighlightType = SubResource("Resource_r71ws")
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_60ve5")
@@ -62,19 +77,6 @@ delay_in_seconds = "0.0
 script = ExtResource("3_luned")
 initial_state = NodePath("Idle")
 
-[node name="ToIdle" type="Node" parent="StateChart/Root/States/Selection"]
-script = ExtResource("5_4cy8h")
-to = NodePath("../../Idle")
-event = &"entity_deselected"
-delay_in_seconds = "0.0"
-
-[node name="ToSelection" type="Node" parent="StateChart/Root/States/Selection"]
-script = ExtResource("5_4cy8h")
-to = NodePath("..")
-event = &"entity_selected"
-delay_in_seconds = "0.0
-"
-
 [node name="Idle" type="Node" parent="StateChart/Root/States/Selection"]
 script = ExtResource("4_fs40q")
 
@@ -83,6 +85,19 @@ script = ExtResource("5_4cy8h")
 to = NodePath("../../Command")
 event = &"command_started"
 delay_in_seconds = "0.0"
+
+[node name="ToIdle" type="Node" parent="StateChart/Root/States/Selection/Idle"]
+script = ExtResource("5_4cy8h")
+to = NodePath("../../../Idle")
+event = &"entity_deselected"
+delay_in_seconds = "0.0"
+
+[node name="ToSelection" type="Node" parent="StateChart/Root/States/Selection/Idle"]
+script = ExtResource("5_4cy8h")
+to = NodePath("../..")
+event = &"entity_selected"
+delay_in_seconds = "0.0
+"
 
 [node name="Command" type="Node" parent="StateChart/Root/States/Selection"]
 script = ExtResource("4_fs40q")
@@ -104,7 +119,6 @@ offset_left = -370.0
 offset_top = 285.0
 offset_bottom = -209.0
 grow_horizontal = 0
-enabled = false
 initial_node_to_watch = NodePath("..")
 
 [connection signal="state_physics_processing" from="StateChart/Root/States" to="." method="CheckHover" unbinds=1]

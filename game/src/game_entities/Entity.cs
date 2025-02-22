@@ -15,7 +15,7 @@ public partial class Entity : Node {
     set => _cell.Set(value);
   }
 
-  public IMatchController OwnerController { get; private set; }
+  private IMatchController OwnerController { get; set; }
   public GameBoard GameBoard { get; private set; }
 
 
@@ -82,13 +82,15 @@ public partial class Entity : Node {
     return Data.Stats.GetStat<T>();
   }
 
-  public bool IsOwnedBy(IMatchController controller) {
-    return controller == OwnerController;
-  }
-
   public void SetPosition(Vector3 position) {
     Body.GlobalPosition = position;
   }
+
+  public bool TryGetOwner(out IMatchController owner) {
+    owner = OwnerController;
+    return owner != null;
+  }
+
   public Vector3 GetPosition() => Body.GlobalPosition;
 
   public async Task TurnAt(Vector3 targetPosition, float duration) {

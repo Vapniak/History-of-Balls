@@ -9,7 +9,6 @@ public partial class HOBHUD : HUD {
   [Signal] public delegate void EndTurnEventHandler();
 
   [Export] private StatPanel StatPanel { get; set; }
-  [Export] private StatPanel HoverStatPanel { get; set; }
   [Export] private Button EndTurnButton { get; set; }
   [Export] private CommandPanel CommandPanel { get; set; }
   [Export] private Label RoundLabel { get; set; }
@@ -23,13 +22,6 @@ public partial class HOBHUD : HUD {
 
   private Entity HoveredEntity { get; set; }
 
-
-  public override void _Process(double delta) {
-    if (HoverStatPanel.Visible && IsInstanceValid(HoveredEntity)) {
-      // TODO: check if not obsuring other ui and is in view
-      HoverStatPanel.Position = GetViewport().GetCamera3D().UnprojectPosition(HoveredEntity.GetPosition());
-    }
-  }
 
   public void UpdatePrimaryResourceName(string name) {
     PrimaryResourceNameLabel.Text = name + ": ";
@@ -59,26 +51,13 @@ public partial class HOBHUD : HUD {
   public void ShowStatPanel(Entity entity) {
     UpdateStatPanel(StatPanel, entity);
 
-    StatPanel.Show();
+    if (!StatPanel.Visible) {
+      StatPanel.Visible = true;
+    }
   }
 
   public void HideStatPanel() {
-    StatPanel.Hide();
-  }
-
-  public void ShowHoverStatPanel(Entity entity) {
-
-    HoveredEntity = entity;
-
-    UpdateStatPanel(HoverStatPanel, entity);
-
-    HoverStatPanel.Position = GetViewport().GetCamera3D().UnprojectPosition(entity.GetPosition());
-    HoverStatPanel.Show();
-  }
-
-  public void HideHoverStatPanel() {
-    HoveredEntity = null;
-    HoverStatPanel.Hide();
+    StatPanel.Visible = false;
   }
 
 
@@ -103,11 +82,14 @@ public partial class HOBHUD : HUD {
       CommandPanel.Hidden -= onHidden;
     }
     CommandPanel.Hidden += onHidden;
-    CommandPanel.Show();
+    if (!CommandPanel.Visible) {
+      CommandPanel.Visible = true;
+    }
+
     CommandPanel.GrabFocus();
   }
 
-  public void HideCommandPanel() => CommandPanel.Hide();
+  public void HideCommandPanel() => CommandPanel.Visible = false;
 
   public void SetEndTurnButtonDisabled(bool value) {
     EndTurnButton.Disabled = value;
@@ -117,18 +99,16 @@ public partial class HOBHUD : HUD {
     CommandPanel.SelectCommand(index);
   }
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
-    var isOwned = entity.IsOwnedBy(GetPlayerController<IMatchController>());
-
-    if (isOwned) {
-      panel.SetNameLabel(entity.GetEntityName());
-    }
-    else {
-      if (entity.OwnerController != null) {
-        panel.SetNameLabel("ENEMY " + entity.GetEntityName());
+    if (entity.TryGetOwner(out var owner)) {
+      if (owner == GetPlayerController<IMatchController>()) {
+        panel.SetNameLabel(entity.GetEntityName());
       }
       else {
-        panel.SetNameLabel("NOT OWNED " + entity.GetEntityName());
+        panel.SetNameLabel("ENEMY " + entity.GetEntityName());
       }
+    }
+    else {
+      panel.SetNameLabel("NOT OWNED " + entity.GetEntityName());
     }
 
     panel.ClearEntries();

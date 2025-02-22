@@ -19,6 +19,7 @@ public partial class AttackTrait : Trait {
       healthTrait.Damage(GetStat<AttackStats>().Damage);
     }
 
+    await Task.Delay(100);
     EmitSignal(SignalName.AttackFinished);
   }
 
@@ -30,7 +31,9 @@ public partial class AttackTrait : Trait {
     foreach (var cell in cells) {
       cellsInR.Add(cell);
       var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
-      AttackableEntities.AddRange(entities.Where(e => !e.IsOwnedBy(Entity.OwnerController) && e.TryGetTrait<HealthTrait>(out _)));
+      if (Entity.TryGetOwner(out var owner)) {
+        AttackableEntities.AddRange(entities.Where(e => e.TryGetOwner(out var enemyOwner) && enemyOwner != owner && e.TryGetTrait<HealthTrait>(out _)));
+      }
     }
 
 
