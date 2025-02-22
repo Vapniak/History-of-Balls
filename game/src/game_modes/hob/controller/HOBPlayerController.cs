@@ -170,7 +170,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       SelectedCommand = null;
     }
 
-    if (!IsInstanceValid(entity)) {
+    if (!IsInstanceValid(entity) || entity == null) {
       StateChart.SendEvent("entity_deselected");
       SelectedEntity = null;
       return;
@@ -314,12 +314,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   #region  State Callbacks
-  private void OnIdleEntered() {
+  private void OnIdleStateEntered() {
     GameBoard.ClearHighlights();
     GameBoard.UpdateHighlights();
   }
 
-  private void OnIdleUnhandledInput(InputEvent @event) {
+  private void OnIdleStateUnhandledInput(InputEvent @event) {
     if (@event.IsActionReleased(GameInputs.Select)) {
       var entites = GameBoard.GetEntitiesOnCell(HoveredCell);
       SelectEntity(entites.FirstOrDefault());
@@ -328,7 +328,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     @event.Dispose();
   }
 
-  private void OnSelectionEntered() {
+  private void OnSelectionStateEntered() {
     GameBoard.ClearHighlights();
 
     if (SelectedEntity.IsOwnedBy(this)) {
@@ -342,7 +342,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.UpdateHighlights();
   }
 
-  private void OnSelectionExited() {
+  private void OnSelectionStateExited() {
     _character.CancelMoveToPosition();
 
     GetHUD().HideStatPanel();
@@ -357,7 +357,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
-  private void OnSelectionIdleUnhandledInput(InputEvent @event) {
+  private void OnSelectionIdleStateUnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.Focus)) {
       FocusOnSelectedEntity();
     }
@@ -426,7 +426,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     @event.Dispose();
   }
 
-  private void OnSelectionIdleEntered() {
+  private void OnSelectionIdleStateEntered() {
     GameBoard.ClearHighlights();
 
     GetHUD().ShowStatPanel(SelectedEntity);
@@ -442,18 +442,18 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.UpdateHighlights();
   }
 
-  private void OnSelectionIdleExited() {
+  private void OnSelectionIdleStateExited() {
     GetHUD().HideCommandPanel();
   }
 
-  private void OnCommandEntered() {
+  private void OnCommandStateEntered() {
     GameBoard.ClearHighlights();
     GameBoard.UpdateHighlights();
 
     GetHUD().SetEndTurnButtonDisabled(true);
   }
 
-  private void OnCommandExited() {
+  private void OnCommandStateExited() {
     GetHUD().SetEndTurnButtonDisabled(false);
     SelectedCommand = null;
   }
