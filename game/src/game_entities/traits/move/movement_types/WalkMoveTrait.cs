@@ -32,9 +32,9 @@ public partial class WalkMoveTrait : MoveTrait {
     for (var i = 0; i < path.Length; i++) {
       var to = path[i];
 
-      await Walk(to);
-
       Entity.Cell = to;
+
+      await Walk(to);
     }
 
     await base.Move(targetCell);

@@ -64,16 +64,21 @@ public partial class AIController : Controller, IMatchController {
 
   private bool TryMove(CommandTrait commandTrait) {
     if (commandTrait.TryGetCommand<MoveCommand>(out var moveCommand)) {
-      Entity closestEnemyCell = null;
-      foreach (var enemy in GameBoard.GetEnemyEntities(this).Union(GameBoard.GetNotOwnedEntities())) {
-        // if (!enemy.TryGetTrait<HealthTrait>(out _)) {
-        //   continue;
-        // }
+      GameCell closestEnemyCell = null;
 
-        closestEnemyCell ??= enemy;
+      foreach (var notOwned in GameBoard.GetNotOwnedEntities()) {
+        closestEnemyCell ??= notOwned.Cell;
 
-        if (commandTrait.Entity.Cell.Coord.Distance(enemy.Cell.Coord) < commandTrait.Entity.Cell.Coord.Distance(closestEnemyCell.Cell.Coord)) {
-          closestEnemyCell = enemy;
+        if (commandTrait.Entity.Cell.Coord.Distance(notOwned.Cell.Coord) < commandTrait.Entity.Cell.Coord.Distance(closestEnemyCell.Coord)) {
+          closestEnemyCell = notOwned.Cell;
+        }
+      }
+
+      foreach (var enemy in GameBoard.GetEnemyEntities(this)) {
+        closestEnemyCell ??= enemy.Cell;
+
+        if (commandTrait.Entity.Cell.Coord.Distance(enemy.Cell.Coord) < commandTrait.Entity.Cell.Coord.Distance(closestEnemyCell.Coord)) {
+          closestEnemyCell = enemy.Cell;
         }
       }
 
@@ -81,14 +86,23 @@ public partial class AIController : Controller, IMatchController {
         return false;
       }
 
-      foreach (var neighbor in GameBoard.Grid.GetNeighbors(closestEnemyCell.Cell)) {
-        if (moveCommand.FindPathTo(neighbor).Length > 0) {
-          if (moveCommand.TryMove(neighbor)) {
-            return true;
+      foreach (var entity in GameBoard.GetEntitiesOnCell(closestEnemyCell)) {
+        if (entity.TryGetTrait<ObstacleTrait>(out _)) {
+          foreach (var neighbor in GameBoard.Grid.GetNeighbors(closestEnemyCell)) {
+            if (moveCommand.FindPathTo(neighbor).Length > 0) {
+              if (moveCommand.TryMove(neighbor)) {
+                return true;
+              }
+            }
           }
         }
       }
 
+      if (moveCommand.FindPathTo(closestEnemyCell).Length > 0) {
+        if (moveCommand.TryMove(closestEnemyCell)) {
+          return true;
+        }
+      }
     }
 
     return false;

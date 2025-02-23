@@ -1,23 +1,19 @@
 namespace GameplayFramework;
 
+using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
 
-/// <summary>
-/// Base class for all worlds.
-/// </summary>
 [GlobalClass]
 public sealed partial class World : Node {
-  [Signal] public delegate void LevelLoadedEventHandler(Level level);
+  [Signal]
+  public delegate void LevelLoadedEventHandler(Level level);
 
   public Level CurrentLevel { get; private set; }
-
   public bool LoadingLevel { get; private set; }
 
   private string _loadedLevelPath;
   private LoadingScreen _loadingScreen;
-
-  public GameMode GetGameMode() => CurrentLevel.GameMode;
 
   public override void _Ready() {
     LevelLoaded += (level) => {
@@ -28,58 +24,57 @@ public sealed partial class World : Node {
     };
   }
 
-  /// <summary>
-  /// Loads level by its name.
-  /// </summary>
-  /// <param name="levelName">Name of saved level scene.</param>
-  public void OpenLevelThreaded(string levelName, PackedScene loadingScreenScene = null) {
+  public GameMode GetGameMode() => CurrentLevel.GameMode;
+
+  public async Task OpenLevelThreaded(string levelName, PackedScene loadingScreenScene = null) {
+    if (LoadingLevel) {
+      GD.PrintErr("Already loading a level!");
+      return;
+    }
+
     _loadedLevelPath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
     var error = ResourceLoader.LoadThreadedRequest(_loadedLevelPath, useSubThreads: true);
 
-    if (error == Error.Ok) {
-      if (loadingScreenScene != null) {
-        CurrentLevel.TreeExited += () => {
-          _loadingScreen = loadingScreenScene.Instantiate<LoadingScreen>();
-          AddChild(_loadingScreen);
-        };
-      }
-
-      CurrentLevel?.UnLoad();
-
-      LoadingLevel = true;
+    if (error != Error.Ok) {
+      GD.PrintErr("Failed to start threaded load for level: ", levelName);
+      return;
     }
-    else {
-      GD.PrintErr("Level not valid!", levelName);
+
+    await CurrentLevel?.UnLoad();
+
+    if (loadingScreenScene != null) {
+      _loadingScreen = loadingScreenScene.Instantiate<LoadingScreen>();
+      AddChild(_loadingScreen);
     }
+
+    LoadingLevel = true;
   }
 
-  public void OpenLevel(string levelName) {
-    var levelpath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
-    var level = ResourceLoader.Load<PackedScene>(levelpath).Instantiate<Level>();
-    OpenLevel(level);
-  }
+  public async Task ProcessThrededLevelLoad() {
+    GetLevelLoadStatus(out var status, out var progress);
 
-  public void ProcessThrededLevelLoad() {
-    if (LoadingLevel) {
-      GetLevelLoadStatus(out var status, out var progress);
+    switch (status) {
+      case ResourceLoader.ThreadLoadStatus.Loaded:
+        var level = ((PackedScene)ResourceLoader.LoadThreadedGet(_loadedLevelPath)).Instantiate<Level>();
 
-      switch (status) {
-        case ResourceLoader.ThreadLoadStatus.Loaded:
-          var level = ((PackedScene)ResourceLoader.LoadThreadedGet(_loadedLevelPath)).Instantiate<Level>();
-          _loadingScreen?.SetProgressBarValue(100);
-          OpenLevel(level);
-          LoadingLevel = false;
-          break;
-        case ResourceLoader.ThreadLoadStatus.InvalidResource:
-          break;
-        case ResourceLoader.ThreadLoadStatus.InProgress:
-          _loadingScreen?.SetProgressBarValue(progress * 100);
-          break;
-        case ResourceLoader.ThreadLoadStatus.Failed:
-          break;
-        default:
-          break;
-      }
+        LoadingLevel = false;
+
+        var tween = CreateTween();
+        var rng = new RandomNumberGenerator();
+        tween.TweenMethod(Callable.From<float>(_loadingScreen.SetProgressBarValue), _loadingScreen.GetProgressBarValue(), 100, rng.RandfRange(0.2f, 1f)).SetEase(Tween.EaseType.Out);
+        await ToSignal(tween, Tween.SignalName.Finished);
+
+        await OpenLevel(level);
+        break;
+
+      case ResourceLoader.ThreadLoadStatus.InProgress:
+        _loadingScreen?.SetProgressBarValue(progress * 100);
+        break;
+
+      case ResourceLoader.ThreadLoadStatus.Failed:
+        break;
+      case ResourceLoader.ThreadLoadStatus.InvalidResource:
+        break;
     }
   }
 
@@ -89,16 +84,21 @@ public sealed partial class World : Node {
     progress = progressArr[0].As<float>();
   }
 
+  public async Task OpenLevel(string levelName) {
+    var levelPath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
+    var level = ResourceLoader.Load<PackedScene>(levelPath).Instantiate<Level>();
+    await OpenLevel(level);
+  }
 
-  private void OpenLevel(Level level) {
+  private async Task OpenLevel(Level level) {
     if (level == null) {
       GD.PrintErr("Loaded level is null.");
       return;
     }
 
-    if (CurrentLevel != null) {
-      CurrentLevel.UnLoad();
+    if (IsInstanceValid(CurrentLevel)) {
       CurrentLevel.TreeExited += () => SwitchLevel(level);
+      await CurrentLevel.UnLoad();
     }
     else {
       SwitchLevel(level);
@@ -108,11 +108,10 @@ public sealed partial class World : Node {
   private void SwitchLevel(Level level) {
     CurrentLevel = level;
 
-    CurrentLevel.TreeEntered += () => {
-      CurrentLevel.Load();
+    CurrentLevel.TreeEntered += async () => {
       EmitSignal(SignalName.LevelLoaded, level);
+      await CurrentLevel.Load();
     };
-
     AddChild(CurrentLevel);
   }
 }

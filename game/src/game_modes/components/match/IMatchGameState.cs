@@ -18,5 +18,6 @@ public interface IMatchGameState : IGameState, IPlayerManagmentGameState {
   public int CurrentRound { get; }
 
   public void NextTurn();
+  public void Pause();
   public bool IsCurrentTurn(IMatchController controller);
 }

@@ -19,6 +19,8 @@ public partial class HOBGameState : GameState, IPlayerManagmentGameState, IPause
   public event Action TurnChangedEvent;
   public event Action RoundStartedEvent;
   public event Action TurnEndedEvent;
+  public event Action PausedEvent;
+  public event Action ResumedEvent;
 
   public void NextTurn() {
     TurnEndedEvent?.Invoke();
@@ -36,4 +38,15 @@ public partial class HOBGameState : GameState, IPlayerManagmentGameState, IPause
   }
 
   public bool IsCurrentTurn(IMatchController controller) => controller.GetPlayerState().PlayerIndex == CurrentPlayerIndex;
+  public void Pause() {
+    PausedEvent?.Invoke();
+    GameInstance.SetPause(true);
+    GameInstance.GetGameMode<HOBGameMode>().Pause();
+  }
+
+  public void Resume() {
+    GameInstance.GetGameMode<HOBGameMode>().Resume();
+    GameInstance.SetPause(false);
+    ResumedEvent?.Invoke();
+  }
 }

@@ -3,6 +3,7 @@ namespace HOB;
 using GameplayFramework;
 using Godot;
 using System;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class HOBLevel : Level {
@@ -10,31 +11,46 @@ public partial class HOBLevel : Level {
   [Export] private PackedScene LoadLevelTransitionScene { get; set; }
   [Export] private PackedScene UnLoadLevelTransitionScene { get; set; }
 
-  public override void Load() {
-    base.Load();
-
+  public override async Task Load() {
     var loadTransition = LoadLevelTransitionScene?.InstantiateOrNull<LevelTransition>();
     if (loadTransition != null) {
+      await base.Load();
+
+      var tcs = new TaskCompletionSource<bool>();
+
       loadTransition.Finished += () => {
-        loadTransition.QueueFree();
+        tcs.TrySetResult(true);
       };
+
       AddChild(loadTransition);
+
+      await tcs.Task;
+
+      loadTransition.QueueFree();
     }
-
+    else {
+      await base.Load();
+    }
   }
-
-  public override void UnLoad() {
+  public override async Task UnLoad() {
     var unloadTransition = UnLoadLevelTransitionScene?.InstantiateOrNull<LevelTransition>();
-
     if (unloadTransition != null) {
+      var tcs = new TaskCompletionSource<bool>();
+
       unloadTransition.Finished += () => {
-        base.UnLoad();
+        tcs.TrySetResult(true);
       };
 
       AddChild(unloadTransition);
+
+      await tcs.Task;
+
+      await base.UnLoad();
+
+      unloadTransition.QueueFree();
     }
     else {
-      base.UnLoad();
+      await base.UnLoad();
     }
   }
 }

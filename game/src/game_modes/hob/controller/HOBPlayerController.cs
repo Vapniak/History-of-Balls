@@ -10,7 +10,6 @@ using RaycastSystem;
 
 [GlobalClass]
 public partial class HOBPlayerController : PlayerController, IMatchController {
-  public event Action EndTurnEvent;
 
   [Export] private Node StateChartNode { get; set; }
 
@@ -23,6 +22,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   [Export] private HighlightType OwnedHighlightType { get; set; }
   [Export] private HighlightType EnemyHighlightType { get; set; }
   [Export] private HighlightType NotOwnedHighlightType { get; set; }
+
+  public event Action EndTurnEvent;
 
   private StateChart StateChart { get; set; }
 
@@ -46,6 +47,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GameBoard = GetGameState().GameBoard;
 
+    GetGameState().
+
     GameBoard.EntityAdded += OnEntityAdded;
 
     GetGameState().TurnChangedEvent += () => {
@@ -67,10 +70,19 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GameBoard.SetMouseHighlight(true);
 
+    GameInstance.GetGameState<IPauseGameState>().PausedEvent += () => GetHUD().Hide();
+    GameInstance.GetGameState<IPauseGameState>().ResumedEvent += () => GetHUD().Show();
+
     StateChart = StateChart.Of(StateChartNode);
   }
 
   public override void _UnhandledInput(InputEvent @event) {
+    if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
+      if (!GetTree().Paused) {
+        GetGameState().Pause();
+      }
+    }
+
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
       _lastMousePosition = GetViewport().GetMousePosition();
@@ -167,7 +179,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
-  private void SelectEntity(GameEntity.Entity entity) {
+  private void SelectEntity(Entity entity) {
     if (IsInstanceValid(SelectedEntity)) {
       SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
       SelectedEntity.TreeExiting -= onSelectedEntityTreeExited;
@@ -480,7 +492,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     return false;
   }
 
-  public void OnEntityAdded(GameEntity.Entity entity) {
+  public void OnEntityAdded(Entity entity) {
     GameBoard.SetMaterialsForEntity(entity, this);
   }
 

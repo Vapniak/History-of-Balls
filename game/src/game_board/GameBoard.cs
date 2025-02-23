@@ -8,8 +8,8 @@ using HOB.GameEntity;
 /// Responsible for visualization and working with hex grid.
 /// </summary>
 public partial class GameBoard : Node3D {
-  [Signal] public delegate void EntityAddedEventHandler(GameEntity.Entity entity);
-  [Signal] public delegate void EntityRemovedEventHandler(GameEntity.Entity entity);
+  [Signal] public delegate void EntityAddedEventHandler(Entity entity);
+  [Signal] public delegate void EntityRemovedEventHandler(Entity entity);
 
   [Signal] public delegate void GridCreatedEventHandler();
   [Export] public MapData MapData { get; private set; }
@@ -36,16 +36,9 @@ public partial class GameBoard : Node3D {
       TerrainManager.AddCellToChunk(cell);
     }
 
-
     EmitSignal(SignalName.GridCreated);
   }
 
-  public override void _PhysicsProcess(double delta) {
-    if (Engine.IsEditorHint()) {
-      return;
-    }
-
-  }
 
   public Aabb GetAabb() {
     var aabb = new Aabb {

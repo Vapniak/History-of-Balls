@@ -8,32 +8,17 @@ using Godot;
 public partial class PauseComponent : GameModeComponent {
   [Export] public PauseMenu PauseMenu { get; private set; }
 
-  private bool _pauseMenuShown;
-
   public override void _Ready() {
     base._Ready();
 
     PauseMenu.Visible = false;
   }
 
-  public void Resume() {
+  public void HidePauseMenu() {
     PauseMenu.Visible = false;
-    if (GetGameState().PauseGame) {
-      GameInstance.SetPause(false);
-    }
-
-    _pauseMenuShown = false;
   }
-  public void Pause() {
-    if (_pauseMenuShown) {
-      return;
-    }
+  public void ShowPauseMenu() {
     PauseMenu.Visible = true;
-    _pauseMenuShown = true;
-
-    if (GetGameState().PauseGame) {
-      GameInstance.SetPause(true);
-    }
   }
 
   public override IPauseGameState GetGameState() => base.GetGameState() as IPauseGameState;
