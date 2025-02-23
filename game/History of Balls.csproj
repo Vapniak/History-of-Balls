@@ -8,5 +8,6 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="GodotSharp.SourceGenerators" Version="2.5.0" PrivateAssets="all" OutputItemType="analyzer" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 </Project>
