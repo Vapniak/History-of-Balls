@@ -1,16 +1,16 @@
 namespace HOB;
 
-using System;
-using System.Collections.Generic;
 using Godot;
 using HexGridMap;
 using HOB.GameEntity;
-using RaycastSystem;
 
 /// <summary>
 /// Responsible for visualization and working with hex grid.
 /// </summary>
 public partial class GameBoard : Node3D {
+  [Signal] public delegate void EntityAddedEventHandler(GameEntity.Entity entity);
+  [Signal] public delegate void EntityRemovedEventHandler(GameEntity.Entity entity);
+
   [Signal] public delegate void GridCreatedEventHandler();
   [Export] public MapData MapData { get; private set; }
   [Export] private GameGridLayout Layout { get; set; }
@@ -23,6 +23,7 @@ public partial class GameBoard : Node3D {
     Grid = new(Layout);
 
     EntityManager.EntityRemoved += (entity) => {
+      EmitSignal(SignalName.EntityRemoved, entity);
       SetHighlight(entity.Cell, new());
       UpdateHighlights();
     };
@@ -37,17 +38,6 @@ public partial class GameBoard : Node3D {
 
 
     EmitSignal(SignalName.GridCreated);
-  }
-
-  public override void _Ready() {
-    // TODO: add console and command for showing debug
-    // #if DEBUG
-    //     DebugDraw3D.DrawAabb(GetAabb(), Colors.Red, float.MaxValue);
-
-    //     foreach (var cell in GetCells()) {
-    //       DebugDraw3D.DrawSphere(new(cell.Position.X, 0, cell.Position.Y), 0.5f, Colors.Blue, float.MaxValue);
-    //     }
-    // #endif
   }
 
   public override void _PhysicsProcess(double delta) {
@@ -83,16 +73,19 @@ public partial class GameBoard : Node3D {
       }
     }
 
-    var entity = new Entity(controller, data, closestCell, this);
+    var entity = new Entity(data, closestCell, this);
 
     EntityManager.AddEntity(entity);
+
+    entity.ChangeOwner(controller);
+
+    EmitSignal(SignalName.EntityAdded, entity);
     return true;
   }
 
-  public void SetMaterialsForEntities(IMatchController controller) {
-    foreach (var entity in GetEntities()) {
-      EntityManager.SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(controller), entity);
-    }
+  public void SetMaterialsForEntity(Entity entity, IMatchController controller) {
+    EntityManager.SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(controller), entity);
+
   }
 
   public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {
@@ -113,6 +106,10 @@ public partial class GameBoard : Node3D {
 
   public Entity[] GetEnemyEntities(IMatchController controller) {
     return EntityManager.GetEnemyEntities(controller);
+  }
+
+  public Entity[] GetNotOwnedEntities() {
+    return EntityManager.GetNotOwnedEntities();
   }
 
   public void SetHighlight(GameCell cell, HighlightType highlightType) {

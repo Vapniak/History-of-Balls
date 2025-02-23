@@ -13,7 +13,6 @@ public partial class EntityManager : Node {
   [Export] private Material EntityNotOwnedMaterial { get; set; }
 
   private List<Entity> Entities { get; set; }
-  private Dictionary<IMatchController, List<Entity>> OwnedEntities { get; set; }
 
 
   // TODO: make specific ui for each entity type, structure, unit have different UI in 3D
@@ -21,26 +20,21 @@ public partial class EntityManager : Node {
 
   public override void _Ready() {
     Entities = new();
-    OwnedEntities = new();
   }
 
   public void AddEntity(Entity entity) {
     entity.TreeExiting += () => RemoveEntity(entity);
 
+    entity.OwnerControllerChanged += () => {
+      if (entity.TryGetOwner(out var owner)) {
+        SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(owner), entity);
+      }
+    };
     AddChild(entity);
 
     var entityUIScene = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
     entityUIScene.SetNameLabel(entity.GetEntityName());
     entity.Body.AddChild(entityUIScene);
-
-    if (entity.TryGetOwner(out var owner)) {
-      if (OwnedEntities.TryGetValue(owner, out var entites)) {
-        entites.Add(entity);
-      }
-      else {
-        OwnedEntities.Add(owner, new() { entity });
-      }
-    }
 
     Entities.Add(entity);
   }
@@ -48,12 +42,6 @@ public partial class EntityManager : Node {
   public void RemoveEntity(Entity entity) {
     entity.QueueFree();
     Entities.Remove(entity);
-
-    if (entity.TryGetOwner(out var owner)) {
-      if (OwnedEntities.TryGetValue(owner, out var entites)) {
-        entites.Remove(entity);
-      }
-    }
 
     EmitSignal(SignalName.EntityRemoved, entity);
   }
@@ -78,7 +66,12 @@ public partial class EntityManager : Node {
   }
 
   public Entity[] GetOwnedEntites(IMatchController owner) {
-    return OwnedEntities.GetValueOrDefault(owner).ToArray();
+    return Entities.Where(e => e.GetOwnershipType(owner) == Entity.OwnershipType.Owned).ToArray();
+  }
+
+
+  public Entity[] GetNotOwnedEntities() {
+    return Entities.Where(e => !e.TryGetOwner(out _)).ToArray();
   }
 
   public Entity[] GetEntitiesOnCell(GameCell cell) {
@@ -86,7 +79,7 @@ public partial class EntityManager : Node {
   }
 
   public Entity[] GetEnemyEntities(IMatchController controller) {
-    return Entities.Except(OwnedEntities[controller]).ToArray();
+    return Entities.Where(e => e.GetOwnershipType(controller) == Entity.OwnershipType.Enemy).ToArray();
   }
 
   public Entity[] GetEntities() => Entities.ToArray();

@@ -19,7 +19,6 @@ script = ExtResource("3_r88pa")
 script = ExtResource("4_cx0m1")
 EntityIncomeTrait = NodePath("../../IncomeTrait")
 CommandName = "Generate Income"
-UseOnRoundStart = true
 ShowInUI = false
 
 [editable path="StructureTraits"]

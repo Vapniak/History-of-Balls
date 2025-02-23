@@ -13,6 +13,7 @@ public partial class MatchComponent : GameModeComponent {
   [Export] private EntityData TestEntity { get; set; }
   [Export] private EntityData TestEntity2 { get; set; }
   [Export] private EntityData Structure1 { get; set; }
+  [Export] private EntityData Factory { get; set; }
 
 
   [Export] private ResourceType Primary { get; set; }
@@ -46,6 +47,7 @@ public partial class MatchComponent : GameModeComponent {
       GameBoard.TryAddEntity(TestEntity2, new(2, 10), controller);
 
       GameBoard.TryAddEntity(Structure1, new(5, 10), controller);
+      GameBoard.TryAddEntity(Factory, new(3, 3), controller);
     }
     else {
       GameBoard.TryAddEntity(TestEntity, new(GameBoard.GetMapSize().X - 5, GameBoard.GetMapSize().Y - 5), controller);
@@ -70,9 +72,9 @@ public partial class MatchComponent : GameModeComponent {
     _lastPlayer = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
   }
 
-  private void OnTurnStarted(int playerIndex) {
+  private void OnTurnStarted() {
     _lastPlayer?.OwnTurnEnded();
-    var player = GetGameState().PlayerArray[playerIndex].GetController<IMatchController>();
+    var player = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
     player.OwnTurnStarted();
     _lastPlayer = player;
   }

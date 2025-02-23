@@ -1,5 +1,6 @@
 namespace HOB.GameEntity;
 
+using GameplayFramework;
 using Godot;
 
 [GlobalClass]
@@ -8,7 +9,6 @@ public abstract partial class Command : Node {
   [Signal] public delegate void FinishedEventHandler();
 
   [Export] public string CommandName { get; private set; } = "Command";
-  [Export] public bool UseOnRoundStart { get; private set; } = false;
   [Export] public bool ShowInUI { get; private set; } = true;
   [Export] private uint CooldownRounds { get; set; } = 1;
   public uint CooldownRoundsLeft { get; private set; }
@@ -17,12 +17,6 @@ public abstract partial class Command : Node {
   public CommandTrait CommandTrait { get; set; }
 
   private uint _cooldown;
-
-  public override void _Ready() {
-    if (GetEntity().TryGetOwner(out var owner)) {
-      owner.GetGameState().TurnChangedEvent += OnTurnChanged;
-    }
-  }
 
   protected virtual void Use() {
     UsedThisRound = true;
@@ -37,7 +31,10 @@ public abstract partial class Command : Node {
     return CooldownRoundsLeft == 0 && !UsedThisRound && GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn();
   }
 
-  public void OnTurnChanged(int roundNumber) {
+  public virtual void OnTurnStarted() {
+
+  }
+  public void OnTurnChanged() {
     if (GetEntity().TryGetOwner(out var owner)) {
       if (!owner.IsCurrentTurn()) {
         return;
@@ -52,11 +49,10 @@ public abstract partial class Command : Node {
     if (CooldownRoundsLeft > 0) {
       CooldownRoundsLeft--;
     }
+  }
 
-    if (IsAvailable() && UseOnRoundStart) {
-      Use();
-      Finish();
-    }
+  public virtual void OnTurnEnded() {
+
   }
 
   public Entity GetEntity() => CommandTrait.Entity;

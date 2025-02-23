@@ -99,7 +99,6 @@ public partial class HOBHUD : HUD {
     CommandPanel.SelectCommand(index);
   }
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
-
     switch (entity.GetOwnershipType(GetPlayerController<IMatchController>())) {
       case Entity.OwnershipType.Owned:
         panel.SetNameLabel(entity.GetEntityName());
@@ -125,8 +124,33 @@ public partial class HOBHUD : HUD {
     }
 
     if (entity.TryGetStat<AttackStats>(out var attackStats)) {
-      panel.AddEntry("Damage: ", attackStats.Damage.ToString());
-      panel.AddEntry("Range: ", attackStats.Range.ToString());
+      panel.AddEntry("Damage:", attackStats.Damage.ToString());
+      panel.AddEntry("Range:", attackStats.Range.ToString());
+    }
+
+    var playerState = GetPlayerController<IMatchController>().GetPlayerState();
+    if (entity.TryGetOwner(out var owner)) {
+      playerState = owner.GetPlayerState();
+    }
+
+    if (entity.TryGetStat<FactoryStats>(out var factoryStats)) {
+      var primary = playerState.GetResourceType(factoryStats.InputType);
+      var secondary = playerState.GetResourceType(factoryStats.OutputType);
+      panel.AddEntry("Input Resource:", primary.Name);
+      panel.AddEntry("Input Value:", factoryStats.InputValue.ToString());
+      panel.AddEntry("Output Resource:", secondary.Name);
+      panel.AddEntry("Output Value:", factoryStats.OutputValue.ToString());
+    }
+
+    if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
+      if (factoryTrait.IsProcessingResource()) {
+        panel.AddEntry("Processing Turns Left:", factoryTrait.ProcessingTurnsLeft.ToString());
+      }
+    }
+
+    if (entity.TryGetStat<IncomeStats>(out var incomeStats)) {
+      panel.AddEntry("Income Type:", playerState.GetResourceType(incomeStats.IncomeType).Name);
+      panel.AddEntry("Income amount:", incomeStats.Value.ToString());
     }
   }
 

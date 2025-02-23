@@ -27,6 +27,13 @@ public partial class HOBGameMode : GameMode {
     MatchComponent = GetGameModeComponent<MatchComponent>();
 
     PlayerManagmentComponent.PlayerSpawned += (playerState) => MatchComponent.OnPlayerSpawned(playerState as IMatchPlayerState);
+    GetGameState().GameBoard.EntityRemoved += (entity) => {
+      if (entity.TryGetOwner(out var owner)) {
+        if (GetGameState().GameBoard.GetOwnedEntities(owner).Length == 0) {
+          GD.Print("LOST");
+        }
+      }
+    };
     GetGameState().GameBoard.GridCreated += OnStartGame;
   }
 

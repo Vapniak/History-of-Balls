@@ -45,7 +45,7 @@ public partial class AIController : Controller, IMatchController {
 
   public void OnGameStarted() { }
 
-  private async Task Decide(Entity entity) {
+  private async Task Decide(GameEntity.Entity entity) {
     if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
       if (TryAttack(commandTrait)) {
         await ToSignal(commandTrait, CommandTrait.SignalName.CommandFinished);
@@ -64,16 +64,16 @@ public partial class AIController : Controller, IMatchController {
 
   private bool TryMove(CommandTrait commandTrait) {
     if (commandTrait.TryGetCommand<MoveCommand>(out var moveCommand)) {
-      GameCell closestEnemyCell = null;
-      foreach (var enemy in GameBoard.GetEnemyEntities(this)) {
-        if (!enemy.TryGetTrait<HealthTrait>(out _)) {
-          continue;
-        }
+      Entity closestEnemyCell = null;
+      foreach (var enemy in GameBoard.GetEnemyEntities(this).Union(GameBoard.GetNotOwnedEntities())) {
+        // if (!enemy.TryGetTrait<HealthTrait>(out _)) {
+        //   continue;
+        // }
 
-        closestEnemyCell ??= enemy.Cell;
+        closestEnemyCell ??= enemy;
 
-        if (commandTrait.Entity.Cell.Coord.Distance(enemy.Cell.Coord) < commandTrait.Entity.Cell.Coord.Distance(closestEnemyCell.Coord)) {
-          closestEnemyCell = enemy.Cell;
+        if (commandTrait.Entity.Cell.Coord.Distance(enemy.Cell.Coord) < commandTrait.Entity.Cell.Coord.Distance(closestEnemyCell.Cell.Coord)) {
+          closestEnemyCell = enemy;
         }
       }
 
@@ -81,7 +81,7 @@ public partial class AIController : Controller, IMatchController {
         return false;
       }
 
-      foreach (var neighbor in GameBoard.Grid.GetNeighbors(closestEnemyCell)) {
+      foreach (var neighbor in GameBoard.Grid.GetNeighbors(closestEnemyCell.Cell)) {
         if (moveCommand.FindPathTo(neighbor).Length > 0) {
           if (moveCommand.TryMove(neighbor)) {
             return true;

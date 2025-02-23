@@ -29,7 +29,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private GameBoard GameBoard { get; set; }
   private Entity SelectedEntity { get; set; }
   private Command SelectedCommand { get; set; }
-  private GameCell HoveredCell { get; set; }
+  [Notify]
+  private GameCell HoveredCell { get => _hoveredCell.Get(); set => _hoveredCell.Set(value); }
 
   private Entity _lastSelectedEntity;
   private PlayerCharacter _character;
@@ -45,16 +46,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GameBoard = GetGameState().GameBoard;
 
-    GetGameState().TurnChangedEvent += (playerIndex) => {
-      GetHUD().OnTurnChanged(playerIndex);
+    GameBoard.EntityAdded += OnEntityAdded;
+
+    GetGameState().TurnChangedEvent += () => {
+      GetHUD().OnTurnChanged(GetGameState().CurrentPlayerIndex);
     };
 
-    GetGameState().RoundStartedEvent += (roundNumber) => {
-      GetHUD().OnRoundChanged(roundNumber);
+    GetGameState().RoundStartedEvent += () => {
+      GetHUD().OnRoundChanged(GetGameState().CurrentRound);
     };
 
     GetHUD().EndTurn += () => EndTurnEvent?.Invoke();
-
 
     _character = GetCharacter<PlayerCharacter>();
 
@@ -125,9 +127,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     playerState.SecondaryResourceType.ValueChanged += () => {
       GetHUD().UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
     };
-
-
-    GameBoard.SetMaterialsForEntities(this);
   }
 
   private void CheckHover() {
@@ -168,7 +167,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
-  private void SelectEntity(Entity entity) {
+  private void SelectEntity(GameEntity.Entity entity) {
     if (IsInstanceValid(SelectedEntity)) {
       SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
       SelectedEntity.TreeExiting -= onSelectedEntityTreeExited;
@@ -377,29 +376,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       CheckCommandInput(@event);
     }
 
-
-    if (SelectedCommand != null) {
-      if (SelectedCommand is MoveCommand moveCommand) {
-        if (HoveredCell != null) {
-          GameBoard.ClearHighlights();
-          GameBoard.SetHighlight(moveCommand.GetEntity().Cell, OwnedHighlightType);
-
-          var reachable = moveCommand.GetReachableCells();
-          foreach (var cell in reachable) {
-            GameBoard.SetHighlight(cell, MovableHighlightType);
-          }
-
-          if (reachable.Contains(HoveredCell)) {
-            foreach (var cell in moveCommand.FindPathTo(HoveredCell)) {
-              GameBoard.SetHighlight(cell, PathHighlightType);
-            }
-          }
-
-          GameBoard.UpdateHighlights();
-        }
-      }
-    }
-
     if (@event.IsActionReleased(GameInputs.Select)) {
       var entities = GameBoard.GetEntitiesOnCell(HoveredCell);
 
@@ -418,7 +394,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         else {
           SelectEntity(entities.FirstOrDefault());
         }
-        SelectEntity(entities.FirstOrDefault());
       }
     }
     @event.Dispose();
@@ -439,10 +414,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().ShowStatPanel(SelectedEntity);
 
     GameBoard.UpdateHighlights();
+
+    HoveredCellChanged += OnHoveredCellChanged;
   }
 
   private void OnSelectionIdleStateExited() {
-
+    HoveredCellChanged -= OnHoveredCellChanged;
   }
 
   private void OnCommandStateEntered() {
@@ -466,7 +443,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.UpdateHighlights();
   }
 
-  private void HighlightEntityBasedOnOwnership(Entity entity) {
+  private void HighlightEntityBasedOnOwnership(GameEntity.Entity entity) {
     if (entity.TryGetOwner(out var owner)) {
       if (owner == this) {
         GameBoard.SetHighlight(entity.Cell, OwnedHighlightType);
@@ -502,5 +479,35 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     return false;
   }
+
+  public void OnEntityAdded(GameEntity.Entity entity) {
+    GameBoard.SetMaterialsForEntity(entity, this);
+  }
+
+  // TODO: draw path waypoints you want to move throught
+  private void OnHoveredCellChanged() {
+    if (SelectedCommand != null) {
+      if (SelectedCommand is MoveCommand moveCommand) {
+        if (HoveredCell != null) {
+          GameBoard.ClearHighlights();
+          GameBoard.SetHighlight(moveCommand.GetEntity().Cell, OwnedHighlightType);
+
+          var reachable = moveCommand.GetReachableCells();
+          foreach (var cell in reachable) {
+            GameBoard.SetHighlight(cell, MovableHighlightType);
+          }
+
+          if (reachable.Contains(HoveredCell)) {
+            foreach (var cell in moveCommand.FindPathTo(HoveredCell)) {
+              GameBoard.SetHighlight(cell, PathHighlightType);
+            }
+          }
+
+          GameBoard.UpdateHighlights();
+        }
+      }
+    }
+  }
+
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
 }

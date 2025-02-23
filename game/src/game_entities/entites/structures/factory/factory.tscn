@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cj3qtxcdbw00m"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_q74t3"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x851d"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_564n6"]
+top_radius = 0.146
+bottom_radius = 0.273
+height = 0.588
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2e2hi"]
+top_radius = 0.161
+bottom_radius = 0.192
+height = 0.201
+
+[node name="EntityBody" type="Node3D"]
+script = ExtResource("1_q74t3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.487373, 0)
+mesh = SubResource("BoxMesh_x851d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773952, -0.223123)
+mesh = SubResource("CylinderMesh_564n6")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.602691, 0.279628)
+mesh = SubResource("CylinderMesh_2e2hi")

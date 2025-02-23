@@ -10,7 +10,7 @@
 
 [sub_resource type="Resource" id="Resource_63s12"]
 script = ExtResource("2_eo7fp")
-MovePoints = 2.0
+MovePoints = 2
 
 [sub_resource type="Resource" id="Resource_nfm77"]
 script = ExtResource("3_vfhnb")

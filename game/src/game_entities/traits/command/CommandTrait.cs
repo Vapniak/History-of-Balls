@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
+// TODO: fix command trait, because you cant have 2 command traits and when you will have unit traits and for example structure traits and both will have command trait it will bug out
 [GlobalClass]
 public partial class CommandTrait : Trait {
   [Signal] public delegate void CommandStartedEventHandler(Command command);
@@ -36,6 +37,7 @@ public partial class CommandTrait : Trait {
       }
     }
   }
+
   public void SelectCommand(Command command) => EmitSignal(SignalName.CommandSelected, command);
   public Command[] GetCommands() => Commands.ToArray();
   public bool TryGetCommand<T>(out T command) where T : Command {
@@ -45,5 +47,29 @@ public partial class CommandTrait : Trait {
     }
 
     return false;
+  }
+
+  protected override void OnOwnerChanging() {
+    base.OnOwnerChanging();
+
+    foreach (var command in GetCommands()) {
+      if (Entity.TryGetOwner(out var owner)) {
+        owner.GetGameState().TurnStartedEvent -= command.OnTurnStarted;
+        owner.GetGameState().TurnChangedEvent -= command.OnTurnChanged;
+        owner.GetGameState().TurnEndedEvent -= command.OnTurnEnded;
+      }
+    }
+  }
+
+  protected override void OnOwnerChanged() {
+    base.OnOwnerChanged();
+
+    foreach (var command in GetCommands()) {
+      if (Entity.TryGetOwner(out var owner)) {
+        owner.GetGameState().TurnStartedEvent += command.OnTurnStarted;
+        owner.GetGameState().TurnChangedEvent += command.OnTurnChanged;
+        owner.GetGameState().TurnEndedEvent += command.OnTurnEnded;
+      }
+    }
   }
 }

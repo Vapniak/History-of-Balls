@@ -1,8 +1,6 @@
 shader_type spatial;
 render_mode unshaded, depth_draw_opaque, depth_prepass_alpha;
 
-// TODO: add thinner outline the farther object is
-
 uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;
 uniform sampler2D NORMAL_TEXTURE : hint_normal_roughness_texture, filter_nearest;

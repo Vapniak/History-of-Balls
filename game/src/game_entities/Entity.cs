@@ -20,15 +20,15 @@ public partial class Entity : Node {
     get => _cell.Get();
     set => _cell.Set(value);
   }
-
   public GameBoard GameBoard { get; private set; }
 
   private EntityData Data { get; set; }
-  private IMatchController OwnerController { get; set; }
+
+  [Notify]
+  private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
   private readonly Dictionary<Type, Trait> _traits = new();
 
-  public Entity(IMatchController owner, EntityData data, GameCell cell, GameBoard gameBoard) {
-    OwnerController = owner;
+  public Entity(EntityData data, GameCell cell, GameBoard gameBoard) {
     Cell = cell;
     GameBoard = gameBoard;
     Data = data;
@@ -115,6 +115,12 @@ public partial class Entity : Node {
       if (child is MeshInstance3D meshInstance) {
         meshInstance.MaterialOverlay = material;
       }
+    }
+  }
+
+  public void ChangeOwner(IMatchController newOwner) {
+    if (newOwner != OwnerController) {
+      OwnerController = newOwner;
     }
   }
 }
