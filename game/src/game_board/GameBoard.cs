@@ -89,6 +89,12 @@ public partial class GameBoard : Node3D {
     return true;
   }
 
+  public void SetMaterialsForEntities(IMatchController controller) {
+    foreach (var entity in GetEntities()) {
+      EntityManager.SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(controller), entity);
+    }
+  }
+
   public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {
     return EntityManager.GetOwnedEntitiesOnCell(owner, cell);
   }

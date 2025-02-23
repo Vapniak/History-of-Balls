@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class Entity : Node {
+  public enum OwnershipType {
+    Owned,
+    Enemy,
+    NotOwned,
+  }
+
   public EntityBody Body { get; private set; }
 
   [Notify]
@@ -15,16 +21,11 @@ public partial class Entity : Node {
     set => _cell.Set(value);
   }
 
-  private IMatchController OwnerController { get; set; }
   public GameBoard GameBoard { get; private set; }
 
-
   private EntityData Data { get; set; }
-
+  private IMatchController OwnerController { get; set; }
   private readonly Dictionary<Type, Trait> _traits = new();
-
-  // TODO: make specific ui for each entity type, structure, unit have different UI in 3D
-  private string _entityUISceneUID = "uid://ka4lyslghbk";
 
   public Entity(IMatchController owner, EntityData data, GameCell cell, GameBoard gameBoard) {
     OwnerController = owner;
@@ -50,11 +51,6 @@ public partial class Entity : Node {
     }
 
     AddChild(traits);
-
-    var entityUIScene = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
-    entityUIScene.SetNameLabel(GetEntityName());
-    // FIXME: for now bound to body
-    Body.AddChild(entityUIScene);
 
     CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
   }
@@ -91,6 +87,18 @@ public partial class Entity : Node {
     return owner != null;
   }
 
+  public OwnershipType GetOwnershipType(IMatchController controller) {
+    if (OwnerController == null) {
+      return OwnershipType.NotOwned;
+    }
+
+    if (controller == OwnerController) {
+      return OwnershipType.Owned;
+    }
+
+    return OwnershipType.Enemy;
+  }
+
   public Vector3 GetPosition() => Body.GlobalPosition;
 
   public async Task TurnAt(Vector3 targetPosition, float duration) {
@@ -100,5 +108,13 @@ public partial class Entity : Node {
     tween.TweenProperty(Body, "quaternion", targetRotation, duration).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.InOut);
 
     await ToSignal(tween, Tween.SignalName.Finished);
+  }
+
+  public void SetMaterial(Material material) {
+    foreach (var child in Body.GetAllChildren()) {
+      if (child is MeshInstance3D meshInstance) {
+        meshInstance.MaterialOverlay = material;
+      }
+    }
   }
 }

@@ -8,8 +8,16 @@ using System.Linq;
 public partial class EntityManager : Node {
   [Signal] public delegate void EntityRemovedEventHandler(Entity entity);
 
+  [Export] private Material EntityOwnedMaterial { get; set; }
+  [Export] private Material EntityEnemyMaterial { get; set; }
+  [Export] private Material EntityNotOwnedMaterial { get; set; }
+
   private List<Entity> Entities { get; set; }
   private Dictionary<IMatchController, List<Entity>> OwnedEntities { get; set; }
+
+
+  // TODO: make specific ui for each entity type, structure, unit have different UI in 3D
+  private string _entityUISceneUID = "uid://ka4lyslghbk";
 
   public override void _Ready() {
     Entities = new();
@@ -20,6 +28,10 @@ public partial class EntityManager : Node {
     entity.TreeExiting += () => RemoveEntity(entity);
 
     AddChild(entity);
+
+    var entityUIScene = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
+    entityUIScene.SetNameLabel(entity.GetEntityName());
+    entity.Body.AddChild(entityUIScene);
 
     if (entity.TryGetOwner(out var owner)) {
       if (OwnedEntities.TryGetValue(owner, out var entites)) {
@@ -46,6 +58,21 @@ public partial class EntityManager : Node {
     EmitSignal(SignalName.EntityRemoved, entity);
   }
 
+  public void SetEntityMaterialBasedOnOwnership(Entity.OwnershipType ownership, Entity entity) {
+    switch (ownership) {
+      case Entity.OwnershipType.Owned:
+        entity.SetMaterial(EntityOwnedMaterial);
+        break;
+      case Entity.OwnershipType.Enemy:
+        entity.SetMaterial(EntityEnemyMaterial);
+        break;
+      case Entity.OwnershipType.NotOwned:
+        entity.SetMaterial(EntityNotOwnedMaterial);
+        break;
+      default:
+        break;
+    }
+  }
   public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {
     return GetOwnedEntites(owner).Where(e => e.Cell == cell).ToArray();
   }

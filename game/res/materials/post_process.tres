@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://res/shaders/outline.gdshader" id="1_1t4ii"]
 
 [resource]
-render_priority = 0
+render_priority = -1
 shader = ExtResource("1_1t4ii")
 shader_parameter/outlineColor = Color(0, 0, 0, 1)
 shader_parameter/depth_threshold = 0.025

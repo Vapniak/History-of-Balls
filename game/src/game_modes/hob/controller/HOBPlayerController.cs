@@ -24,8 +24,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   [Export] private HighlightType EnemyHighlightType { get; set; }
   [Export] private HighlightType NotOwnedHighlightType { get; set; }
 
-  // TODO: highlight material
-
   private StateChart StateChart { get; set; }
 
   private GameBoard GameBoard { get; set; }
@@ -127,6 +125,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     playerState.SecondaryResourceType.ValueChanged += () => {
       GetHUD().UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
     };
+
+
+    GameBoard.SetMaterialsForEntities(this);
   }
 
   private void CheckHover() {

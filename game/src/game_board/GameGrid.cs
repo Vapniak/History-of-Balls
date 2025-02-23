@@ -138,14 +138,13 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
     var finalPath = new List<GameCell>();
     var totalCost = 0;
     foreach (var cell in path) {
+      totalCost += GetSetting(cell).MoveCost;
       if (totalCost <= maxCost) {
         finalPath.Add(cell);
       }
       else {
         break;
       }
-
-      totalCost += GetSetting(cell).MoveCost;
     }
     return finalPath.ToArray();
   }
