@@ -3,6 +3,7 @@ using Godot;
 using System;
 using System.IO;
 using Godot.Collections;
+using System.Linq;
 using HOB;
 
 [Tool]
@@ -14,30 +15,42 @@ public partial class maploaderfromjson : EditorPlugin
     private Button _generateButton;
     private Button _updateButton;
     private LineEdit _jsonPathField;
-    private LineEdit _resourcePathField;
+    private LineEdit _mapDataPathField;
+
     private MapData _mapData;
-    private string _currentResourcePath;
+    private string _currentMapDataPath;
+    private const string DEFAULT_SETTINGS_PATH = "res://SharedMapSettings.tres";
+    private MapSettings _sharedSettings;
 
     public override void _EnterTree()
     {
         GD.Print("Plugin loaded.");
         _panel = CreatePanel();
         AddControlToContainer(CustomControlContainer.SpatialEditorSideRight, _panel);
+
+        _sharedSettings = ImportSharedSettings(DEFAULT_SETTINGS_PATH);
+        if (_sharedSettings == null) {
+          return;
+        }
+
+        _cellTypeSelector?.Clear();
+        foreach (var cs in _sharedSettings.CellSettings) {
+          _cellTypeSelector?.AddItem(cs.Name);
+        }
     }
 
     public override void _ExitTree()
     {
-      if (_generateButton != null && _generateButton.IsConnected("pressed", Callable.From(GenerateMap)))
-      {
-        _generateButton.Disconnect("pressed", Callable.From(GenerateMap));
-      }
-      if (_updateButton != null && _updateButton.IsConnected("pressed", Callable.From(UpdateMoveCost)))
-      {
-        _updateButton.Disconnect("pressed", Callable.From(UpdateMoveCost));
-      }
+        if (_generateButton != null && _generateButton.IsConnected("pressed", Callable.From(GenerateMap))) {
+          _generateButton.Disconnect("pressed", Callable.From(GenerateMap));
+        }
 
-      RemoveControlFromContainer(CustomControlContainer.SpatialEditorSideRight, _panel);
-      _panel?.QueueFree();
+        if (_updateButton != null && _updateButton.IsConnected("pressed", Callable.From(UpdateMoveCost))) {
+          _updateButton.Disconnect("pressed", Callable.From(UpdateMoveCost));
+        }
+
+        RemoveControlFromContainer(CustomControlContainer.SpatialEditorSideRight, _panel);
+        _panel?.QueueFree();
     }
 
     private VBoxContainer CreatePanel()
@@ -46,12 +59,12 @@ public partial class maploaderfromjson : EditorPlugin
         panel.AddChild(new Label { Text = "Map Generator from JSON" });
 
         _jsonPathField = CreateTextField("Path to JSON file:");
-        _resourcePathField = CreateTextField("Path to save resource:");
+        _mapDataPathField = CreateTextField("Path to save MapData resource:");
+        panel.AddChild(_jsonPathField);
+        panel.AddChild(_mapDataPathField);
 
         _generateButton = new Button { Text = "Generate Map" };
         _generateButton.Pressed += GenerateMap;
-        panel.AddChild(_jsonPathField);
-        panel.AddChild(_resourcePathField);
         panel.AddChild(_generateButton);
 
         panel.AddChild(new Label { Text = "Move Cost Editor" });
@@ -59,7 +72,6 @@ public partial class maploaderfromjson : EditorPlugin
         _moveCostEditor = new SpinBox { MinValue = 1, MaxValue = 10, Step = 1 };
         _updateButton = new Button { Text = "Save Move Cost" };
         _updateButton.Pressed += UpdateMoveCost;
-
         panel.AddChild(_cellTypeSelector);
         panel.AddChild(_moveCostEditor);
         panel.AddChild(_updateButton);
@@ -67,13 +79,28 @@ public partial class maploaderfromjson : EditorPlugin
         return panel;
     }
 
-    private static LineEdit CreateTextField(string labelText) => new() { PlaceholderText = labelText, FocusMode = Control.FocusModeEnum.All };
+    private static LineEdit CreateTextField(string labelText)
+        => new() { PlaceholderText = labelText, FocusMode = Control.FocusModeEnum.All };
+
+    private static MapSettings ImportSharedSettings(string settingsPath)
+    {
+        var sharedSettings = ResourceLoader.Load(settingsPath) as MapSettings;
+        if (sharedSettings != null) {
+          return sharedSettings;
+        }
+
+        GD.Print("Creating new MapSettings at: " + settingsPath);
+        sharedSettings = new MapSettings { CellSettings = new Array<CellSetting>() };
+        if (ResourceSaver.Save(sharedSettings, settingsPath) != Error.Ok) {
+          GD.PrintErr("Failed to save new MapSettings to: " + settingsPath);
+        }
+        return sharedSettings;
+    }
 
     private void GenerateMap()
     {
         var jsonPath = _jsonPathField.Text;
-        var resourcePath = _resourcePathField.Text;
-        _currentResourcePath = resourcePath;
+        _currentMapDataPath = _mapDataPathField.Text;
 
         if (!File.Exists(jsonPath))
         {
@@ -85,13 +112,17 @@ public partial class maploaderfromjson : EditorPlugin
         {
             var jsonContent = File.ReadAllText(jsonPath);
             var json = new Json();
-            if (json.Parse(jsonContent) != Error.Ok) {
-              return;
+            if (json.Parse(jsonContent) != Error.Ok)
+            {
+                GD.PrintErr("Error parsing JSON");
+                return;
             }
 
             var data = json.Data.AsGodotDictionary();
-            if (!data.ContainsKey("title") || !data.ContainsKey("cols") || !data.ContainsKey("rows")) {
-              return;
+            if (!data.ContainsKey("title") || !data.ContainsKey("cols") || !data.ContainsKey("rows"))
+            {
+                GD.PrintErr("JSON file missing required map properties.");
+                return;
             }
 
             _mapData = new MapData
@@ -100,21 +131,30 @@ public partial class maploaderfromjson : EditorPlugin
                 Description = data["description"].AsString(),
                 Cols = data["cols"].AsInt32(),
                 Rows = data["rows"].AsInt32(),
-                Settings = new MapSettings { CellSettings = new Godot.Collections.Array<CellSetting>() }
+                Settings = _sharedSettings
             };
 
-            var cellSettingsDict = new Dictionary<int, CellSetting>();
+            _cellTypeSelector.Clear();
+            foreach (CellSetting cs in _sharedSettings.CellSettings) {
+              _cellTypeSelector.AddItem(cs.Name);
+            }
+
             foreach (var item in data["cellDefinitions"].AsGodotArray())
             {
                 var cellDef = item.AsGodotDictionary();
+                var defName = cellDef["name"].AsString();
+                var existing = _sharedSettings.CellSettings.FirstOrDefault(cs => cs.Name == defName);
+                if (existing != null) {
+                  continue;
+                }
+
                 var cellSetting = new CellSetting
                 {
-                    Name = cellDef["name"].AsString(),
-                    Color = Color.FromHtml(cellDef["color"].AsString()),
-                    MoveCost = 1
+                  Name = defName,
+                  Color = Color.FromHtml(cellDef["color"].AsString()),
+                  MoveCost = 1
                 };
-                _mapData.Settings.CellSettings.Add(cellSetting);
-                cellSettingsDict[cellDef["id"].AsInt32()] = cellSetting;
+                _sharedSettings.CellSettings.Add(cellSetting);
                 _cellTypeSelector.AddItem(cellSetting.Name);
             }
 
@@ -128,7 +168,7 @@ public partial class maploaderfromjson : EditorPlugin
 
     private void UpdateMoveCost()
     {
-        if (_mapData == null) {
+        if (_mapData == null || _mapData.Settings == null) {
           return;
         }
 
@@ -146,26 +186,30 @@ public partial class maploaderfromjson : EditorPlugin
 
     private void SaveMap()
     {
-        if (string.IsNullOrEmpty(_currentResourcePath)) {
+        if (string.IsNullOrEmpty(_currentMapDataPath)) {
           return;
         }
 
-        if (ResourceSaver.Save(_mapData, _currentResourcePath) == Error.Ok)
-        {
-            GD.Print($"Map updated at: {_currentResourcePath}");
+        if (ResourceSaver.Save(_mapData, _currentMapDataPath) == Error.Ok) {
+          GD.Print($"MapData updated at: {_currentMapDataPath}");
         }
-        else
-        {
-            GD.PrintErr($"Failed to update map at: {_currentResourcePath}");
+        else {
+          GD.PrintErr($"Failed to update MapData at: {_currentMapDataPath}");
+        }
+
+        if (ResourceSaver.Save(_sharedSettings, DEFAULT_SETTINGS_PATH) == Error.Ok) {
+          GD.Print($"MapSettings updated at: {DEFAULT_SETTINGS_PATH}");
+        }
+        else {
+          GD.PrintErr($"Failed to update MapSettings at: {DEFAULT_SETTINGS_PATH}");
         }
     }
 
     private void PrintAllCells()
     {
         GD.Print("Current cell move costs:");
-        foreach (var cellSetting in _mapData.Settings.CellSettings)
-        {
-            GD.Print($"{cellSetting.Name}: {cellSetting.MoveCost}");
+        foreach (var cellSetting in _sharedSettings.CellSettings) {
+          GD.Print($"{cellSetting.Name}: {cellSetting.MoveCost}");
         }
     }
 }
