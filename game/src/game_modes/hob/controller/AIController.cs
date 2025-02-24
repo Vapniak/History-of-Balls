@@ -45,7 +45,7 @@ public partial class AIController : Controller, IMatchController {
 
   public void OnGameStarted() { }
 
-  private async Task Decide(GameEntity.Entity entity) {
+  private async Task Decide(Entity entity) {
     if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
       if (TryAttack(commandTrait)) {
         await ToSignal(commandTrait, CommandTrait.SignalName.CommandFinished);

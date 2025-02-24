@@ -46,8 +46,6 @@ public partial class HOBLevel : Level {
       await tcs.Task;
 
       await base.UnLoad();
-
-      unloadTransition.QueueFree();
     }
     else {
       await base.UnLoad();

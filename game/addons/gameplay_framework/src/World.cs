@@ -59,10 +59,12 @@ public sealed partial class World : Node {
 
         LoadingLevel = false;
 
-        var tween = CreateTween();
-        var rng = new RandomNumberGenerator();
-        tween.TweenMethod(Callable.From<float>(_loadingScreen.SetProgressBarValue), _loadingScreen.GetProgressBarValue(), 100, rng.RandfRange(0.2f, 1f)).SetEase(Tween.EaseType.Out);
-        await ToSignal(tween, Tween.SignalName.Finished);
+        if (_loadingScreen.GetProgressBarValue() != 100) {
+          var tween = CreateTween();
+          var rng = new RandomNumberGenerator();
+          tween.TweenMethod(Callable.From<float>(_loadingScreen.SetProgressBarValue), _loadingScreen.GetProgressBarValue(), 100, rng.RandfRange(0.2f, 1f)).SetEase(Tween.EaseType.Out);
+          await ToSignal(tween, Tween.SignalName.Finished);
+        }
 
         await OpenLevel(level);
         break;
