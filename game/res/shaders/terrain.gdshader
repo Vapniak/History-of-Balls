@@ -1,6 +1,6 @@
 shader_type spatial;
 
-#include "hex_utils.gdshaderinc"
+#include "include/hex_utils.gdshaderinc"
 
 uniform sampler2D highlight_data_texture : source_color, repeat_disable;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
