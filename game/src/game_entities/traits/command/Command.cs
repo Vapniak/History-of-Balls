@@ -28,7 +28,7 @@ public abstract partial class Command : Node {
   }
 
   public virtual bool IsAvailable() {
-    return CooldownRoundsLeft == 0 && !UsedThisRound && GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn();
+    return CooldownRoundsLeft == 0 && !UsedThisRound;
   }
 
   public virtual void OnTurnStarted() {

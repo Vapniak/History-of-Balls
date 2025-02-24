@@ -14,12 +14,12 @@ MovePoints = 3
 
 [sub_resource type="Resource" id="Resource_krs13"]
 script = ExtResource("3_8bl4x")
-Damage = 10
+Damage = 2
 Range = 3
 
 [sub_resource type="Resource" id="Resource_dyy4k"]
 script = ExtResource("4_sqnty")
-Health = 5
+Health = 1
 
 [sub_resource type="Resource" id="Resource_v03m8"]
 script = ExtResource("5_4s45a")

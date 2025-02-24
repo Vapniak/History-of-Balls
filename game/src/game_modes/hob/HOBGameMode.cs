@@ -1,8 +1,10 @@
 namespace HOB;
 
+using System.Text.RegularExpressions;
 using GameplayFramework;
 using Godot;
 using GodotStateCharts;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
@@ -32,16 +34,7 @@ public partial class HOBGameMode : GameMode {
     MatchComponent = GetGameModeComponent<MatchComponent>();
     StateChart = StateChart.Of(StateChartNode);
 
-
     PlayerManagmentComponent.PlayerSpawned += (playerState) => MatchComponent.OnPlayerSpawned(playerState as IMatchPlayerState);
-    GetGameState().GameBoard.EntityRemoved += (entity) => {
-      if (entity.TryGetOwner(out var owner)) {
-        if (GetGameState().GameBoard.GetOwnedEntities(owner).Length == 0) {
-          // FIXME: match end is called when exiting tree so the game is stopped
-          //StateChart.SendEvent("match_end");
-        }
-      }
-    };
 
     GetGameState().GameBoard.GridCreated += OnGridCreated;
   }
@@ -81,9 +74,27 @@ public partial class HOBGameMode : GameMode {
     PauseComponent.HidePauseMenu();
   }
 
+  private void OnInMatchStateEntered() {
+    MatchComponent.OnGameStarted();
+
+    GetGameState().GameBoard.EntityRemoved += OnEntityRemoved;
+  }
+
+  private void OnInMatchStateExited() {
+    GetGameState().GameBoard.EntityRemoved -= OnEntityRemoved;
+  }
+
+  private void OnEntityRemoved(Entity entity) {
+    if (entity.TryGetOwner(out var owner)) {
+      if (GetGameState().GameBoard.GetOwnedEntities(owner).Length == 0) {
+        StateChart.SendEvent("match_end");
+      }
+    }
+  }
+
   private void OnMatchEndedStateEntered() {
-    MatchEndMenu.Show();
     GetGameState().Pause();
+    MatchEndMenu.Show();
   }
 
   private void OnMainMenu() {

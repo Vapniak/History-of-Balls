@@ -100,6 +100,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
     }
 
+    if (@event.IsActionPressed(GameInputs.EndTurn)) {
+      EndTurnEvent?.Invoke();
+    }
+
     @event.Dispose();
   }
 
@@ -115,9 +119,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   // TODO: implement this inside interface and somehow call this inside this class
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
   public void OwnTurnStarted() {
+    HighlightEveryEntity();
+
     SelectEntity(SelectedEntity);
   }
   public void OwnTurnEnded() {
+    HighlightEveryEntity();
+
     SelectEntity(SelectedEntity);
   }
 
@@ -230,37 +238,28 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.ClearHighlights();
 
     if (command != null) {
+      var colorMulti = IsCurrentTurn() ? 1 : 0.5;
       if (command is MoveCommand moveCommand) {
         foreach (var cell in moveCommand.GetReachableCells()) {
-          if (moveCommand.IsAvailable()) {
-            GameBoard.SetHighlight(cell, MovableHighlightType);
-          }
+          GameBoard.SetHighlight(cell, MovableHighlightType);
         }
       }
       else if (command is AttackCommand attackCommand) {
         var (entities, cellsInRange) = attackCommand.GetAttackableEntities();
-
-        if (attackCommand.IsAvailable()) {
-          foreach (var entity in entities) {
-            GameBoard.SetHighlight(entity.Cell, AttackableHighlightType);
-          }
-          if (entities.Length == 0) {
-            foreach (var cell in cellsInRange) {
-              GameBoard.SetHighlight(cell, AttackHighlightType);
-            }
-          }
+        foreach (var cell in cellsInRange) {
+          GameBoard.SetHighlight(cell, AttackHighlightType);
         }
-        else {
-          foreach (var cell in cellsInRange) {
-            GameBoard.SetHighlight(cell, AttackHighlightType);
-          }
+
+        foreach (var entity in entities) {
+          GameBoard.SetHighlight(entity.Cell, AttackableHighlightType);
         }
       }
     }
 
     HighlightEntityBasedOnOwnership(SelectedEntity);
 
-    SelectedCommand = command;
+    SelectedCommand = command.GetEntity().TryGetOwner(out var owner) && owner == this && IsCurrentTurn() ? command : null;
+
     GameBoard.UpdateHighlights();
   }
 
@@ -332,13 +331,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   #region  State Callbacks
   private void OnIdleStateEntered() {
-    GameBoard.ClearHighlights();
-
-    // foreach (var entity in GameBoard.GetEntities()) {
-    //   HighlightEntityBasedOnOwnership(entity);
-    // }
-
-    GameBoard.UpdateHighlights();
+    HighlightEveryEntity();
   }
 
   private void OnIdleStateUnhandledInput(InputEvent @event) {
@@ -353,7 +346,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnSelectionStateEntered() {
     GameBoard.ClearHighlights();
 
-    if (SelectedEntity.TryGetOwner(out var owner) && owner == this) {
+    if (SelectedEntity.TryGetOwner(out var owner)) {
       if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
         commandTrait.CommandSelected += OnCommandSelected;
         commandTrait.CommandStarted += OnCommandStarted;
@@ -370,7 +363,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().HideStatPanel();
     GetHUD().HideCommandPanel();
 
-    if (SelectedEntity.TryGetOwner(out var owner) && owner == this) {
+    if (SelectedEntity.TryGetOwner(out var owner)) {
       if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
         commandTrait.CommandSelected -= OnCommandSelected;
         commandTrait.CommandStarted -= OnCommandStarted;
@@ -416,11 +409,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     HighlightEntityBasedOnOwnership(SelectedEntity);
 
-    if (SelectedEntity.TryGetOwner(out var owner) && owner == this) {
-      ShowCommandPanel();
-    }
-    else {
-      GetHUD().HideCommandPanel();
+    if (SelectedEntity.TryGetOwner(out var owner)) {
+      if ((owner == this && IsCurrentTurn()) || owner != this) {
+        ShowCommandPanel();
+      }
     }
 
     GetHUD().ShowStatPanel(SelectedEntity);
@@ -455,7 +447,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.UpdateHighlights();
   }
 
-  private void HighlightEntityBasedOnOwnership(GameEntity.Entity entity) {
+  private void HighlightEntityBasedOnOwnership(Entity entity) {
     if (entity.TryGetOwner(out var owner)) {
       if (owner == this) {
         GameBoard.SetHighlight(entity.Cell, OwnedHighlightType);
@@ -496,29 +488,51 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.SetMaterialsForEntity(entity, this);
   }
 
-  // TODO: draw path waypoints you want to move throught
   private void OnHoveredCellChanged() {
-    if (SelectedCommand != null) {
+    if (IsCurrentTurn() && SelectedCommand != null) {
       if (SelectedCommand is MoveCommand moveCommand) {
+        GameBoard.ClearHighlights();
+        GameBoard.SetHighlight(moveCommand.GetEntity().Cell, OwnedHighlightType);
+
+        var reachable = moveCommand.GetReachableCells();
+        foreach (var cell in reachable) {
+          GameBoard.SetHighlight(cell, MovableHighlightType);
+        }
+
         if (HoveredCell != null) {
-          GameBoard.ClearHighlights();
-          GameBoard.SetHighlight(moveCommand.GetEntity().Cell, OwnedHighlightType);
-
-          var reachable = moveCommand.GetReachableCells();
-          foreach (var cell in reachable) {
-            GameBoard.SetHighlight(cell, MovableHighlightType);
-          }
-
           if (reachable.Contains(HoveredCell)) {
             foreach (var cell in moveCommand.FindPathTo(HoveredCell)) {
               GameBoard.SetHighlight(cell, PathHighlightType);
             }
           }
+        }
 
-          GameBoard.UpdateHighlights();
+        GameBoard.UpdateHighlights();
+      }
+    }
+  }
+
+  private void HighlightEveryEntity() {
+    GameBoard.ClearHighlights();
+
+    if (IsCurrentTurn()) {
+      foreach (var entity in GameBoard.GetEntities()) {
+        HighlightEntityBasedOnOwnership(entity);
+
+        if (entity.TryGetOwner(out var owner) && owner == this) {
+          if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+            if (commandTrait.TryGetCommand<MoveCommand>(out var moveCommand) && moveCommand.IsAvailable()) {
+              GameBoard.SetHighlight(entity.Cell, MovableHighlightType);
+            }
+            else if (commandTrait.TryGetCommand<AttackCommand>(out var attackCommand) && attackCommand.IsAvailable()) {
+              GameBoard.SetHighlight(entity.Cell, AttackHighlightType);
+            }
+          }
         }
       }
     }
+
+    GameBoard.UpdateHighlights();
   }
 
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;

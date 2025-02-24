@@ -59,7 +59,6 @@ public partial class MatchComponent : GameModeComponent {
 
 
       GameBoard.TryAddEntity(Structure1, new(15, 10), null);
-      OnGameStarted();
     }
   }
 

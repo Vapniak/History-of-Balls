@@ -31,7 +31,7 @@ Color = Color(0.274669, 0.687379, 0.987578, 1)
 
 [sub_resource type="Resource" id="Resource_nauxd"]
 script = ExtResource("2_b6v7k")
-Color = Color(0.540593, 0.974831, 1.54018e-06, 1)
+Color = Color(0.804051, 1, 0.686585, 1)
 
 [sub_resource type="Resource" id="Resource_ihm7w"]
 script = ExtResource("2_b6v7k")

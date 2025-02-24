@@ -74,7 +74,8 @@ public partial class HOBHUD : HUD {
     }
 
     CommandPanel.CommandSelected += commandTrait.SelectCommand;
-    CommandPanel.SelectCommand(commandTrait.GetCommands().FirstOrDefault(c => c.IsAvailable() && c is MoveCommand or AttackCommand));
+
+    CommandPanel.SelectCommand(commandTrait.GetCommands().FirstOrDefault(c => CommandPanel.CommandCanBeSelected(c) && c is MoveCommand or AttackCommand));
 
 
     void onHidden() {

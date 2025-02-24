@@ -24,7 +24,7 @@
 
 [node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "StateChartNode")]
 script = ExtResource("1_ne2qg")
-MatchEndMenu = NodePath("MatchEndMenu")
+MatchEndMenu = NodePath("MatchComponent/MatchEndMenu")
 PlayerControllerScene = ExtResource("2_st7p2")
 PlayerCharacterScene = ExtResource("3_wvtpx")
 AIControllerScene = ExtResource("4_lhw57")
@@ -50,7 +50,8 @@ Factory = ExtResource("13_tdvlv")
 Primary = ExtResource("12_3iycb")
 Secondary = ExtResource("13_al71l")
 
-[node name="MatchEndMenu" parent="." instance=ExtResource("16_6f2qf")]
+[node name="MatchEndMenu" parent="MatchComponent" instance=ExtResource("16_6f2qf")]
+process_mode = 2
 visible = false
 
 [node name="StateChart" type="Node" parent="."]
@@ -67,7 +68,7 @@ script = ExtResource("19_mt2ta")
 script = ExtResource("20_smv4s")
 to = NodePath("../../InMatch")
 event = &"match_start"
-delay_in_seconds = "0.0"
+delay_in_seconds = "1.0"
 
 [node name="InMatch" type="Node" parent="StateChart/Root"]
 script = ExtResource("18_57nfy")
@@ -111,9 +112,11 @@ grow_horizontal = 0
 enabled = false
 initial_node_to_watch = NodePath("..")
 
-[connection signal="pressed" from="MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
+[connection signal="pressed" from="MatchComponent/MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
+[connection signal="state_entered" from="StateChart/Root/InMatch" to="." method="OnInMatchStateEntered"]
+[connection signal="state_exited" from="StateChart/Root/InMatch" to="." method="OnInMatchStateExited"]
 [connection signal="state_entered" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateEntered"]
 [connection signal="state_exited" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateExited"]
 [connection signal="state_entered" from="StateChart/Root/MatchEnd" to="." method="OnMatchEndedStateEntered"]
 
-[editable path="MatchEndMenu"]
+[editable path="MatchComponent/MatchEndMenu"]

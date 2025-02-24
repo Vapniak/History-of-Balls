@@ -14,9 +14,7 @@ public partial class CommandPanel : Control {
   public override void _Ready() {
     //CommandList.Clear();
 
-    _buttonGroup = new() {
-      AllowUnpress = true,
-    };
+    _buttonGroup = new();
 
     Commands = new();
   }
@@ -31,14 +29,15 @@ public partial class CommandPanel : Control {
 
   public void SelectCommand(Command command) {
     if (command == null) {
-      foreach (var b in _buttonGroup.GetButtons()) {
-        b.ButtonPressed = false;
-      }
+      return;
+    }
+
+    if (!CommandCanBeSelected(command)) {
       return;
     }
 
     var button = Commands[command];
-    button.ButtonPressed = !button.ButtonPressed;
+    button.ButtonPressed = true;
     button.GrabFocus();
   }
 
@@ -55,18 +54,22 @@ public partial class CommandPanel : Control {
       text = Commands.Count + 1 + " | " + command.CommandName;
     }
     var button = new Button() {
-      Disabled = !command.IsAvailable(),
+      Disabled = !CommandCanBeSelected(command),
       Alignment = HorizontalAlignment.Left,
       ToggleMode = true,
       Text = text,
       ButtonGroup = _buttonGroup,
     };
 
-    button.Toggled += (toggledOn) => EmitSignal(SignalName.CommandSelected, toggledOn && command.IsAvailable() ? command : null);
+    button.Toggled += (toggledOn) => EmitSignal(SignalName.CommandSelected, command);
 
     CommandList.AddChild(button);
     Commands.Add(command, button);
   }
 
   public int GetCommandCount() => Commands.Count;
+
+  public static bool CommandCanBeSelected(Command command) {
+    return command.IsAvailable() || (command.GetEntity().TryGetOwner(out var owner) && !owner.IsCurrentTurn());
+  }
 }

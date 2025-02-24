@@ -18,7 +18,7 @@ height = 0.201
 script = ExtResource("1_q74t3")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.487373, 0)
+transform = Transform3D(0.653135, 0, 0, 0, 0.509899, 0, 0, 0, 0.701222, 0, 0.241224, 0)
 mesh = SubResource("BoxMesh_x851d")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
