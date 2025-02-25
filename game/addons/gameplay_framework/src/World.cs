@@ -1,5 +1,6 @@
 namespace GameplayFramework;
 
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
@@ -40,7 +41,9 @@ public sealed partial class World : Node {
       return;
     }
 
-    await CurrentLevel?.UnLoad();
+    if (IsInstanceValid(CurrentLevel)) {
+      await CurrentLevel.UnLoad();
+    }
 
     if (loadingScreenScene != null) {
       _loadingScreen = loadingScreenScene.Instantiate<LoadingScreen>();
@@ -59,14 +62,16 @@ public sealed partial class World : Node {
 
         LoadingLevel = false;
 
-        if (_loadingScreen.GetProgressBarValue() != 100) {
-          var tween = CreateTween();
-          var rng = new RandomNumberGenerator();
-          tween.TweenMethod(Callable.From<float>(_loadingScreen.SetProgressBarValue), _loadingScreen.GetProgressBarValue(), 100, rng.RandfRange(0.2f, 1f)).SetEase(Tween.EaseType.Out);
-          await ToSignal(tween, Tween.SignalName.Finished);
+        if (_loadingScreen != null) {
+          if (_loadingScreen.GetProgressBarValue() != 100) {
+            var tween = CreateTween();
+            var rng = new RandomNumberGenerator();
+            tween.TweenMethod(Callable.From<float>(_loadingScreen.SetProgressBarValue), _loadingScreen.GetProgressBarValue(), 100, rng.RandfRange(0.2f, 1f)).SetEase(Tween.EaseType.Out);
+            await ToSignal(tween, Tween.SignalName.Finished);
+          }
         }
 
-        await OpenLevel(level);
+        SwitchLevel(level);
         break;
 
       case ResourceLoader.ThreadLoadStatus.InProgress:
@@ -89,23 +94,14 @@ public sealed partial class World : Node {
   public async Task OpenLevel(string levelName) {
     var levelPath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
     var level = ResourceLoader.Load<PackedScene>(levelPath).Instantiate<Level>();
-    await OpenLevel(level);
-  }
-
-  private async Task OpenLevel(Level level) {
-    if (level == null) {
-      GD.PrintErr("Loaded level is null.");
-      return;
-    }
 
     if (IsInstanceValid(CurrentLevel)) {
-      CurrentLevel.TreeExited += () => SwitchLevel(level);
       await CurrentLevel.UnLoad();
     }
-    else {
-      SwitchLevel(level);
-    }
+
+    SwitchLevel(level);
   }
+
 
   private void SwitchLevel(Level level) {
     CurrentLevel = level;

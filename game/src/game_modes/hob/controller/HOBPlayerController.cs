@@ -238,7 +238,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GameBoard.ClearHighlights();
 
     if (command != null) {
-      var colorMulti = IsCurrentTurn() ? 1 : 0.5;
       if (command is MoveCommand moveCommand) {
         foreach (var cell in moveCommand.GetReachableCells()) {
           GameBoard.SetHighlight(cell, MovableHighlightType);
@@ -363,11 +362,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().HideStatPanel();
     GetHUD().HideCommandPanel();
 
-    if (SelectedEntity.TryGetOwner(out var owner)) {
-      if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-        commandTrait.CommandSelected -= OnCommandSelected;
-        commandTrait.CommandStarted -= OnCommandStarted;
-        commandTrait.CommandFinished -= OnCommandFinished;
+    if (IsInstanceValid(SelectedEntity)) {
+      if (SelectedEntity.TryGetOwner(out var owner)) {
+        if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+          commandTrait.CommandSelected -= OnCommandSelected;
+          commandTrait.CommandStarted -= OnCommandStarted;
+          commandTrait.CommandFinished -= OnCommandFinished;
+        }
       }
     }
   }
@@ -381,24 +382,26 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       CheckCommandInput(@event);
     }
 
+    if (@event.IsActionReleased(GameInputs.UseCommand)) {
+      TryUseCommand(HoveredCell);
+    }
+
     if (@event.IsActionReleased(GameInputs.Select)) {
       var entities = GameBoard.GetEntitiesOnCell(HoveredCell);
 
-      if (!TryUseCommand(HoveredCell)) {
-        if (entities.Contains(SelectedEntity)) {
-          if (entities.Length > 1) {
-            var index = Array.IndexOf(entities, SelectedEntity);
-            index++;
-            index %= entities.Length;
-            SelectEntity(entities[index]);
-          }
-          else {
-            SelectEntity(null);
-          }
+      if (entities.Contains(SelectedEntity)) {
+        if (entities.Length > 1) {
+          var index = Array.IndexOf(entities, SelectedEntity);
+          index++;
+          index %= entities.Length;
+          SelectEntity(entities[index]);
         }
         else {
-          SelectEntity(entities.FirstOrDefault());
+          SelectEntity(null);
         }
+      }
+      else {
+        SelectEntity(entities.FirstOrDefault());
       }
     }
     @event.Dispose();

@@ -5,6 +5,9 @@ using Godot;
 
 [GlobalClass]
 public partial class Level : Node {
+  [Signal] public delegate void LoadedEventHandler();
+  [Signal] public delegate void UnloadedEventHandler();
+
   [Signal] public delegate void GameModeChangedEventHandler(GameMode old, GameMode @new);
 
   [Export] private PackedScene GameModeScene { get; set; }
@@ -47,5 +50,7 @@ public partial class Level : Node {
 
   public virtual async Task UnLoad() {
     QueueFree();
+
+    await ToSignal(this, SignalName.TreeExited);
   }
 }

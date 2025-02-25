@@ -1,10 +1,8 @@
 namespace HOB;
 
-using System.Text.RegularExpressions;
 using GameplayFramework;
 using Godot;
 using GodotStateCharts;
-using HOB.GameEntity;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
@@ -77,19 +75,11 @@ public partial class HOBGameMode : GameMode {
   private void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
 
-    GetGameState().GameBoard.EntityRemoved += OnEntityRemoved;
+    GetGameState().TurnEndedEvent += CheckWinCondition;
   }
 
   private void OnInMatchStateExited() {
-    GetGameState().GameBoard.EntityRemoved -= OnEntityRemoved;
-  }
-
-  private void OnEntityRemoved(Entity entity) {
-    if (entity.TryGetOwner(out var owner)) {
-      if (GetGameState().GameBoard.GetOwnedEntities(owner).Length == 0) {
-        StateChart.SendEvent("match_end");
-      }
-    }
+    GetGameState().TurnEndedEvent -= CheckWinCondition;
   }
 
   private void OnMatchEndedStateEntered() {
@@ -98,7 +88,9 @@ public partial class HOBGameMode : GameMode {
   }
 
   private void OnMainMenu() {
-    GameInstance.GetWorld().OpenLevel("main_menu_level");
+
+    // FIXME: normal open level waits some time before unloading
+    GameInstance.GetWorld().OpenLevelThreaded("main_menu_level");
   }
 
   private void OnQuit() => GameInstance.QuitGame();
@@ -110,5 +102,15 @@ public partial class HOBGameMode : GameMode {
     PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new HOBPlayerState(), "AI", null, null));
 
     StateChart.CallDeferred(StateChart.MethodName.SendEvent, "match_start");
+  }
+
+  private void CheckWinCondition() {
+    var player = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex];
+    var controller = player.GetController<IMatchController>();
+
+    var board = GetGameState().GameBoard;
+    if (board.GetOwnedEntities(controller).Length == 0) {
+      StateChart.SendEvent("match_end");
+    }
   }
 }

@@ -1,7 +1,7 @@
 class_name PankuConsole extends CanvasLayer
 # `console.gd` is a global singleton that provides all modules with a common interface
 # you can also use some of its members to interact with the console
- 
+
 signal interactive_shell_visibility_changed(visible:bool)
 signal new_expression_entered(expression:String, result)
 signal new_notification_created(bbcode:String, id:int)
@@ -62,7 +62,7 @@ func _ready():
 		PankuModuleCheckLatestRelease.new(),
 		PankuModuleInteractiveShell.new(),
 		PankuModuleGeneralSettings.new(),
-		PankuModuleDataController.new(),
+		# PankuModuleDataController.new(),
 		PankuModuleScreenCrtEffect.new(),
 		PankuModuleExpressionMonitor.new(),
 		PankuModuleTextureViewer.new(),
