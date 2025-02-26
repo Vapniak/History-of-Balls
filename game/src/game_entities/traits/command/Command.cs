@@ -3,6 +3,8 @@ namespace HOB.GameEntity;
 using GameplayFramework;
 using Godot;
 
+
+// TODO: transform it into resource
 [GlobalClass]
 public abstract partial class Command : Node {
   [Signal] public delegate void StartedEventHandler();
@@ -35,12 +37,7 @@ public abstract partial class Command : Node {
 
   }
   public void OnTurnChanged() {
-    if (GetEntity().TryGetOwner(out var owner)) {
-      if (!owner.IsCurrentTurn()) {
-        return;
-      }
-    }
-    else {
+    if (!IsOwnerCurrentTurn()) {
       return;
     }
 
@@ -56,5 +53,13 @@ public abstract partial class Command : Node {
   }
 
   public Entity GetEntity() => CommandTrait.Entity;
+
+  public bool IsOwnerCurrentTurn() {
+    if (!GetEntity().TryGetOwner(out var owner) || !owner.IsCurrentTurn()) {
+      return false;
+    }
+
+    return true;
+  }
 }
 

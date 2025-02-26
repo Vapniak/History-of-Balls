@@ -6,9 +6,10 @@ using Godot;
 using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
-  [Signal] public delegate void EndTurnEventHandler();
+  [Signal] public delegate void EndTurnPressedEventHandler();
 
   [Export] private StatPanel StatPanel { get; set; }
+  [Export] private EntityProductionPanel ProductionPanel { get; set; }
   [Export] private Button EndTurnButton { get; set; }
   [Export] private CommandPanel CommandPanel { get; set; }
   [Export] private Label RoundLabel { get; set; }
@@ -58,6 +59,36 @@ public partial class HOBHUD : HUD {
 
   public void HideStatPanel() {
     StatPanel.Visible = false;
+  }
+
+  public void ShowProductionPanel(ProduceEntityCommand produceEntityCommand) {
+    ProductionPanel.ClearEntities();
+
+    ProductionPanel.EntitySelected += onEntitySelected;
+
+
+    if (produceEntityCommand.GetEntity().TryGetStat<EntityProducerStats>(out var producerStats)) {
+      foreach (var entity in producerStats.ProducedEntities) {
+        ProductionPanel.AddProducedEntity(entity, produceEntityCommand.CanEntityBeProduced(entity));
+      }
+    }
+
+    void onEntitySelected(int index) {
+      produceEntityCommand.TryProduceEntity(index);
+      ProductionPanel.Hide();
+    }
+
+    void onHidden() {
+      ProductionPanel.EntitySelected -= onEntitySelected;
+      ProductionPanel.Hidden -= onHidden;
+    }
+    ProductionPanel.Hidden += onHidden;
+
+    ProductionPanel.Show();
+  }
+
+  public void HideProductionPanel() {
+    ProductionPanel.Hide();
   }
 
 
@@ -144,8 +175,8 @@ public partial class HOBHUD : HUD {
     }
 
     if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
-      if (factoryTrait.IsProcessingResource()) {
-        panel.AddEntry("Processing Turns Left:", factoryTrait.ProcessingTurnsLeft.ToString());
+      if (factoryTrait.ProcessingRoundsLeft > 0) {
+        panel.AddEntry("Processing Turns Left:", factoryTrait.ProcessingRoundsLeft.ToString());
       }
     }
 
@@ -156,6 +187,10 @@ public partial class HOBHUD : HUD {
   }
 
   private void OnEndTurnPressed() {
-    EmitSignal(SignalName.EndTurn);
+    EmitSignal(SignalName.EndTurnPressed);
+  }
+
+  private void OnProduceEntitySelected(int index) {
+
   }
 }

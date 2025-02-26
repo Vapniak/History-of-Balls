@@ -9,4 +9,5 @@ public partial class CellSetting : Resource {
   [Export] public Color Color { get; set; }
   [Export] public int MoveCost { get; set; }
   [Export] public int Elevation { get; set; }
+  [Export] public bool IsWater { get; set; }
 }

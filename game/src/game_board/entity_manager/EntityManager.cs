@@ -6,11 +6,12 @@ using System.Linq;
 
 [GlobalClass]
 public partial class EntityManager : Node {
-  [Signal] public delegate void EntityRemovedEventHandler(Entity entity);
-
   [Export] private Material EntityOwnedMaterial { get; set; }
   [Export] private Material EntityEnemyMaterial { get; set; }
   [Export] private Material EntityNotOwnedMaterial { get; set; }
+
+
+  public GameGrid Grid { get; set; }
 
   private List<Entity> Entities { get; set; }
 
@@ -22,6 +23,7 @@ public partial class EntityManager : Node {
     Entities = new();
   }
 
+
   public void AddEntity(Entity entity) {
     entity.TreeExiting += () => RemoveEntity(entity);
 
@@ -30,6 +32,11 @@ public partial class EntityManager : Node {
         SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(owner), entity);
       }
     };
+
+    if (entity.TryGetOwner(out var owner)) {
+      SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(owner), entity);
+    }
+
     AddChild(entity);
 
     var entityUIScene = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
@@ -42,8 +49,6 @@ public partial class EntityManager : Node {
   public void RemoveEntity(Entity entity) {
     entity.QueueFree();
     Entities.Remove(entity);
-
-    EmitSignal(SignalName.EntityRemoved, entity);
   }
 
   public void SetEntityMaterialBasedOnOwnership(Entity.OwnershipType ownership, Entity entity) {

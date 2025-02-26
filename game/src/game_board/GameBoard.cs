@@ -22,7 +22,7 @@ public partial class GameBoard : Node3D {
   public void Init() {
     Grid = new(Layout);
 
-    EntityManager.EntityRemoved += (entity) => {
+    EntityRemoved += (entity) => {
       EmitSignal(SignalName.EntityRemoved, entity);
       SetHighlight(entity.Cell, new());
       UpdateHighlights();
@@ -54,13 +54,13 @@ public partial class GameBoard : Node3D {
   }
 
 
-  public bool TryAddEntity(EntityData data, CubeCoord coord, IMatchController controller) {
+  public void AddEntityOnClosestAvailableCell(EntityData data, CubeCoord coord, IMatchController owner) {
     GameCell closestCell = null;
     var minDistance = int.MaxValue;
 
     foreach (var cell in Grid.GetCells()) {
       var distance = coord.Distance(cell.Coord);
-      if (distance < minDistance && GetEntitiesOnCell(cell).Length == 0 && Grid.GetSetting(cell).MoveCost > 0) {
+      if (distance < minDistance && CanEntityBePlacedOnCell(cell)) {
         minDistance = distance;
         closestCell = cell;
       }
@@ -68,14 +68,33 @@ public partial class GameBoard : Node3D {
 
     var entity = new Entity(data, closestCell, this);
 
-    EntityManager.AddEntity(entity);
+    AddEntity(entity, owner);
+  }
 
-    entity.ChangeOwner(controller);
+  private bool CanEntityBePlacedOnCell(GameCell cell) {
+    if (Grid.GetSetting(cell).IsWater) {
+      return false;
+    }
 
-    EmitSignal(SignalName.EntityAdded, entity);
+    foreach (var entity in GetEntitiesOnCell(cell)) {
+      if (entity.TryGetTrait<ObstacleTrait>(out _)) {
+        return false;
+      }
+    }
+
     return true;
   }
 
+  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController owner) {
+    if (CanEntityBePlacedOnCell(cell)) {
+
+      var entity = new Entity(data, cell, this);
+      AddEntity(entity, owner);
+      return true;
+    }
+
+    return false;
+  }
   public void SetMaterialsForEntity(Entity entity, IMatchController controller) {
     EntityManager.SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(controller), entity);
 
@@ -122,4 +141,10 @@ public partial class GameBoard : Node3D {
   }
 
   public Vector2I GetMapSize() => Grid.GetMapSize();
+
+  private void AddEntity(Entity entity, IMatchController owner) {
+    EntityManager.AddEntity(entity);
+    entity.ChangeOwner(owner);
+    EmitSignal(SignalName.EntityAdded, entity);
+  }
 }

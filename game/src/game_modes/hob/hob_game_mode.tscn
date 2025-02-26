@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=23 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game_modes/hob/controller/hob_player_controller.tscn" id="2_st7p2"]
@@ -15,6 +15,7 @@
 [ext_resource type="Resource" uid="uid://doidx5bt2arat" path="res://src/game_entities/entites/structures/village/village_data.tres" id="12_d2ps5"]
 [ext_resource type="Resource" uid="uid://c0gi1dmpjjefo" path="res://src/resource_type/flour.tres" id="13_al71l"]
 [ext_resource type="Resource" uid="uid://d3a8gfe2tbsyu" path="res://src/game_entities/entites/structures/factory/factory_data.tres" id="13_tdvlv"]
+[ext_resource type="Resource" uid="uid://cyurh50c61ayo" path="res://src/game_entities/entites/structures/city/city_data.tres" id="14_gsryl"]
 [ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
@@ -47,6 +48,7 @@ TestEntity = ExtResource("10_8uwl6")
 TestEntity2 = ExtResource("11_5j62k")
 Structure1 = ExtResource("12_d2ps5")
 Factory = ExtResource("13_tdvlv")
+City = ExtResource("14_gsryl")
 Primary = ExtResource("12_3iycb")
 Secondary = ExtResource("13_al71l")
 

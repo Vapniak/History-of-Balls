@@ -5,17 +5,13 @@ using System;
 
 [GlobalClass]
 public partial class FactoryTrait : Trait {
-  public uint ProcessingTurnsLeft { get; private set; }
+  public uint ProcessingRoundsLeft { get; private set; }
 
-  public bool IsProcessingResource() => ProcessingTurnsLeft > 0;
   public void StartProcessing() {
-    if (ProcessingTurnsLeft > 0) {
-      return;
-    }
 
     if (Entity.TryGetOwner(out var owner)) {
       if (Entity.TryGetStat<FactoryStats>(out var stats)) {
-        ProcessingTurnsLeft = stats.ProcessingTurns;
+        ProcessingRoundsLeft = stats.ProcessingTurns;
         owner.GetPlayerState().GetResourceType(stats.InputType).Value -= stats.InputValue;
       }
     }
@@ -38,10 +34,10 @@ public partial class FactoryTrait : Trait {
   }
 
   private void OnTurnStarted() {
-    if (IsProcessingResource()) {
-      ProcessingTurnsLeft--;
+    if (ProcessingRoundsLeft > 0) {
+      ProcessingRoundsLeft--;
 
-      if (ProcessingTurnsLeft == 0) {
+      if (ProcessingRoundsLeft == 0) {
         if (Entity.TryGetOwner(out var owner)) {
           if (Entity.TryGetStat<FactoryStats>(out var stats)) {
             owner.GetPlayerState().GetResourceType(stats.OutputType).Value += stats.OutputValue;

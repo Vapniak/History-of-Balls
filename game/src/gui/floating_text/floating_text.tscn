@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dswl3q7q6in2p"]
+
+[ext_resource type="Script" path="res://src/gui/floating_text/FloatingText.cs" id="1_s5rk4"]
+
+[node name="FloatingText" type="Node3D" node_paths=PackedStringArray("Label")]
+script = ExtResource("1_s5rk4")
+Label = NodePath("Label3D")
+
+[node name="Label3D" type="Label3D" parent="."]
+pixel_size = 0.0149
+billboard = 1
+double_sided = false
+text = "100"

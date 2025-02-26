@@ -12,8 +12,6 @@ public partial class CommandPanel : Control {
   private Dictionary<Command, Button> Commands { get; set; }
   private ButtonGroup _buttonGroup;
   public override void _Ready() {
-    //CommandList.Clear();
-
     _buttonGroup = new();
 
     Commands = new();
@@ -49,15 +47,11 @@ public partial class CommandPanel : Control {
     Commands.Clear();
   }
   public void AddCommand(Command command) {
-    var text = command.CommandName;
-    if (Commands.Count <= 4) {
-      text = Commands.Count + 1 + " | " + command.CommandName;
-    }
     var button = new Button() {
       Disabled = !CommandCanBeSelected(command),
       Alignment = HorizontalAlignment.Left,
       ToggleMode = true,
-      Text = text,
+      Text = command.CommandName,
       ButtonGroup = _buttonGroup,
     };
 

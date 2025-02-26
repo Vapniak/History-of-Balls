@@ -15,6 +15,11 @@ public partial class HealthTrait : Trait {
     if (damage > 0) {
       GetStat<HealthStats>().CurrentHealth -= (int)damage;
 
+      var text = FloatingText.Create(damage.ToString(), Colors.Red);
+      GetTree().Root.AddChild(text);
+      text.GlobalPosition = Entity.GetPosition() + Vector3.Up * 2;
+      text.Animate();
+
       if (GetStat<HealthStats>().CurrentHealth <= 0) {
         Entity.QueueFree();
         EmitSignal(SignalName.Died);

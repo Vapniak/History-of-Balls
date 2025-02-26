@@ -20,9 +20,8 @@ public partial class WalkMoveTrait : MoveTrait {
 
     return
       !haveObstacle &&
-      to.GetSetting().MoveCost > 0 &&
       from.GetEdgeTypeTo(to) != GameCell.EdgeType.Cliff &&
-      to.GetSetting().Elevation > 0;
+      !to.GetSetting().IsWater;
   }
 
   public override async Task Move(GameCell targetCell) {

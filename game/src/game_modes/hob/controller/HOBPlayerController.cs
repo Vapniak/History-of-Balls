@@ -39,6 +39,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private bool _isPanning;
   private Vector2 _lastMousePosition;
 
+  private bool IsUsingCommand { get; set; }
+
   public override void _Ready() {
     base._Ready();
 
@@ -46,8 +48,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     //Input.MouseMode = Input.MouseModeEnum.Confined;
 
     GameBoard = GetGameState().GameBoard;
-
-    GetGameState().
 
     GameBoard.EntityAdded += OnEntityAdded;
 
@@ -59,7 +59,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       GetHUD().OnRoundChanged(GetGameState().CurrentRound);
     };
 
-    GetHUD().EndTurn += () => EndTurnEvent?.Invoke();
+    GetHUD().EndTurnPressed += TryEndTurn;
 
     _character = GetCharacter<PlayerCharacter>();
 
@@ -67,6 +67,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GetHUD().HideCommandPanel();
     GetHUD().HideStatPanel();
+    GetHUD().HideProductionPanel();
 
     GameBoard.SetMouseHighlight(true);
 
@@ -101,7 +102,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (@event.IsActionPressed(GameInputs.EndTurn)) {
-      EndTurnEvent?.Invoke();
+      TryEndTurn();
     }
 
     @event.Dispose();
@@ -118,6 +119,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   // TODO: implement this inside interface and somehow call this inside this class
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
+
+  public void TryEndTurn() {
+    if (IsCurrentTurn() && !IsUsingCommand) {
+      EndTurnEvent?.Invoke();
+    }
+  }
   public void OwnTurnStarted() {
     HighlightEveryEntity();
 
@@ -237,6 +244,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnCommandSelected(Command command) {
     GameBoard.ClearHighlights();
 
+    GetHUD().HideProductionPanel();
+
     if (command != null) {
       if (command is MoveCommand moveCommand) {
         foreach (var cell in moveCommand.GetReachableCells()) {
@@ -252,6 +261,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         foreach (var entity in entities) {
           GameBoard.SetHighlight(entity.Cell, AttackableHighlightType);
         }
+      }
+      else if (command is ProduceEntityCommand produceEntity) {
+        GetHUD().ShowProductionPanel(produceEntity);
       }
     }
 
@@ -361,6 +373,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GetHUD().HideStatPanel();
     GetHUD().HideCommandPanel();
+    GetHUD().HideProductionPanel();
 
     if (IsInstanceValid(SelectedEntity)) {
       if (SelectedEntity.TryGetOwner(out var owner)) {
@@ -430,6 +443,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnCommandStateEntered() {
+    IsUsingCommand = true;
     GameBoard.ClearHighlights();
     GameBoard.UpdateHighlights();
 
@@ -439,6 +453,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnCommandStateExited() {
     GetHUD().SetEndTurnButtonDisabled(false);
     SelectedCommand = null;
+
+    IsUsingCommand = false;
   }
   #endregion
 

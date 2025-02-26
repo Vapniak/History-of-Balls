@@ -8,7 +8,7 @@ public partial class ProcessResourcesCommand : Command {
   [Export] public FactoryTrait FactoryTrait { get; private set; }
 
   public override bool IsAvailable() {
-    if (FactoryTrait.IsProcessingResource()) {
+    if (FactoryTrait.ProcessingRoundsLeft > 0) {
       return false;
     }
 
@@ -25,6 +25,10 @@ public partial class ProcessResourcesCommand : Command {
 
   public override void OnTurnStarted() {
     base.OnTurnStarted();
+
+    if (!IsOwnerCurrentTurn()) {
+      return;
+    }
 
     if (IsAvailable()) {
       Use();
