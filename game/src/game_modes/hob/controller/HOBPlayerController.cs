@@ -357,9 +357,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnSelectionStateEntered() {
     GameBoard.ClearHighlights();
 
-    if (SelectedEntity.TryGetOwner(out var owner)) {
-      if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-        commandTrait.CommandSelected += OnCommandSelected;
+
+    if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      commandTrait.CommandSelected += OnCommandSelected;
+
+      if (SelectedEntity.TryGetOwner(out var owner) && owner == this) {
         commandTrait.CommandStarted += OnCommandStarted;
         commandTrait.CommandFinished += OnCommandFinished;
       }
@@ -376,9 +378,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().HideProductionPanel();
 
     if (IsInstanceValid(SelectedEntity)) {
-      if (SelectedEntity.TryGetOwner(out var owner)) {
-        if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-          commandTrait.CommandSelected -= OnCommandSelected;
+      if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+        commandTrait.CommandSelected -= OnCommandSelected;
+
+        if (SelectedEntity.TryGetOwner(out var owner) && owner == this) {
           commandTrait.CommandStarted -= OnCommandStarted;
           commandTrait.CommandFinished -= OnCommandFinished;
         }

@@ -7,21 +7,27 @@ using System;
 public partial class ProduceEntityCommand : Command {
   [Export] public EntityProducerTrait ProducerTrait { get; private set; }
 
-  public bool TryProduceEntity(int entityIndex) {
-    if (GetEntity().TryGetStat<EntityProducerStats>(out var stats)) {
-      var data = stats.ProducedEntities[entityIndex];
-      if (IsAvailable() && CanEntityBeProduced(data)) {
-        Use();
-        ProducerTrait.StartProduce(data);
-        Finish();
-        return true;
+  public bool TryProduceEntity(ProducedEntityData data) {
+    if (GetEntity().TryGetOwner(out var owner)) {
+      if (GetEntity().TryGetStat<EntityProducerStats>(out var stats)) {
+        if (!stats.ProducedEntities.Contains(data)) {
+          return false;
+        }
+
+        if (IsAvailable() && CanEntityBeProduced(data)) {
+          Use();
+          owner.GetPlayerState().GetResourceType(data.CostType).Value -= data.Cost;
+          ProducerTrait.StartProduce(data);
+          Finish();
+          return true;
+        }
       }
     }
 
     return false;
   }
 
-  public override bool IsAvailable() => base.IsAvailable() && ProducerTrait.ProductionRoundsLeft == 0;
+  public override bool IsAvailable() => true;
 
   public override void OnTurnStarted() {
     base.OnTurnStarted();

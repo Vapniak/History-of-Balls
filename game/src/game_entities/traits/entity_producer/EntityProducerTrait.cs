@@ -12,10 +12,14 @@ public partial class EntityProducerTrait : Trait {
     if (Entity.TryGetStat<EntityProducerStats>(out var producerStats)) {
       _currentProducedEntity = data;
       ProductionRoundsLeft = _currentProducedEntity.RoundsProductionTime;
-      if (Entity.TryGetOwner(out var owner)) {
-        owner.GetPlayerState().GetResourceType(data.CostType).Value -= data.Cost;
-      }
     }
+  }
+
+  protected override void OnOwnerChanged() {
+    base.OnOwnerChanged();
+
+    ProductionRoundsLeft = 0;
+    _currentProducedEntity = null;
   }
 
   public void OnTurnStarted() {

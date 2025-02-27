@@ -20,10 +20,6 @@ public partial class HOBHUD : HUD {
   [Export] private Label SecondaryResourceNameLabel { get; set; }
   [Export] private Label SecondaryResourceValueLabel { get; set; }
 
-
-  private Entity HoveredEntity { get; set; }
-
-
   public void UpdatePrimaryResourceName(string name) {
     PrimaryResourceNameLabel.Text = name + ": ";
   }
@@ -69,13 +65,14 @@ public partial class HOBHUD : HUD {
 
     if (produceEntityCommand.GetEntity().TryGetStat<EntityProducerStats>(out var producerStats)) {
       foreach (var entity in producerStats.ProducedEntities) {
-        ProductionPanel.AddProducedEntity(entity, produceEntityCommand.CanEntityBeProduced(entity));
+        ProductionPanel.AddProducedEntity(entity, GetPlayerController<IMatchController>().GetPlayerState(), produceEntityCommand.CanEntityBeProduced(entity));
       }
     }
 
-    void onEntitySelected(int index) {
-      produceEntityCommand.TryProduceEntity(index);
-      ProductionPanel.Hide();
+    void onEntitySelected(ProducedEntityData data) {
+      if (produceEntityCommand.TryProduceEntity(data)) {
+        ProductionPanel.Hide();
+      }
     }
 
     void onHidden() {
@@ -106,7 +103,7 @@ public partial class HOBHUD : HUD {
 
     CommandPanel.CommandSelected += commandTrait.SelectCommand;
 
-    CommandPanel.SelectCommand(commandTrait.GetCommands().FirstOrDefault(c => CommandPanel.CommandCanBeSelected(c) && c is MoveCommand or AttackCommand));
+    CommandPanel.SelectCommand(commandTrait.GetCommands().FirstOrDefault(c => c.IsAvailable()));
 
 
     void onHidden() {

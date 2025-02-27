@@ -5,7 +5,7 @@ using Godot.Collections;
 using HOB.GameEntity;
 
 public partial class EntityProductionPanel : Control {
-  [Signal] public delegate void EntitySelectedEventHandler(int index);
+  [Signal] public delegate void EntitySelectedEventHandler(ProducedEntityData entityData);
   [Export] private Control EntitiesList { get; set; }
 
   private Array<ProducedEntityData> Entities { get; set; }
@@ -23,8 +23,8 @@ public partial class EntityProductionPanel : Control {
 
     Entities.Clear();
   }
-  public void AddProducedEntity(ProducedEntityData data, bool canBeProduced) {
-    var tooltip = string.Format("Cost: {0}\nProduction Time Rounds: {1}", data.Cost, data.RoundsProductionTime);
+  public void AddProducedEntity(ProducedEntityData data, IMatchPlayerState playerState, bool canBeProduced) {
+    var tooltip = string.Format("Cost: {0} {1}\nProduction Time Rounds: {2}", data.Cost, playerState.GetResourceType(data.CostType).Name, data.RoundsProductionTime);
     var button = new Button() {
       Disabled = !canBeProduced,
       Alignment = HorizontalAlignment.Left,
@@ -33,7 +33,7 @@ public partial class EntityProductionPanel : Control {
       TooltipText = tooltip,
     };
 
-    button.Pressed += () => EmitSignal(SignalName.EntitySelected, button.GetIndex());
+    button.Pressed += () => EmitSignal(SignalName.EntitySelected, data);
 
     Entities.Add(data);
     EntitiesList.AddChild(button);
