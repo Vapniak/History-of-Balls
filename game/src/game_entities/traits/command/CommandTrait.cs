@@ -57,6 +57,7 @@ public partial class CommandTrait : Trait {
         owner.GetGameState().TurnStartedEvent -= command.OnTurnStarted;
         owner.GetGameState().TurnChangedEvent -= command.OnTurnChanged;
         owner.GetGameState().TurnEndedEvent -= command.OnTurnEnded;
+        owner.GetGameState().RoundStartedEvent -= command.OnRoundStarted;
       }
     }
   }
@@ -69,6 +70,7 @@ public partial class CommandTrait : Trait {
         owner.GetGameState().TurnStartedEvent += command.OnTurnStarted;
         owner.GetGameState().TurnChangedEvent += command.OnTurnChanged;
         owner.GetGameState().TurnEndedEvent += command.OnTurnEnded;
+        owner.GetGameState().RoundStartedEvent -= command.OnRoundStarted;
       }
     }
   }

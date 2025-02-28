@@ -87,7 +87,7 @@ public partial class Entity : Node {
     return owner != null;
   }
 
-  public OwnershipType GetOwnershipType(IMatchController controller) {
+  public OwnershipType GetOwnershipTypeFor(IMatchController controller) {
     if (OwnerController == null) {
       return OwnershipType.NotOwned;
     }

@@ -16,8 +16,9 @@ bg_color = Color(0, 0, 0, 0.313726)
 
 [sub_resource type="Environment" id="Environment_384c7"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
 script = ExtResource("1_ep1kh")
+TurnChangedNotificationLabel = NodePath("Label")
 StatPanel = NodePath("MarginContainer4/StatPanel")
 ProductionPanel = NodePath("MarginContainer4/EntityProductionPanel")
 EndTurnButton = NodePath("VBoxContainer/MarginContainer/Button")
@@ -164,5 +165,21 @@ text = "60
 "
 horizontal_alignment = 1
 script = ExtResource("2_v4qhv")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -88.5
+offset_top = 200.0
+offset_right = 88.5
+offset_bottom = 223.0
+grow_horizontal = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "YOUR TURN"
+horizontal_alignment = 1
+uppercase = true
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/Button" to="." method="OnEndTurnPressed"]

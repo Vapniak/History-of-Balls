@@ -29,8 +29,8 @@ public abstract partial class Command : Node {
     EmitSignal(SignalName.Finished);
   }
 
-  public virtual bool IsAvailable() {
-    return CooldownRoundsLeft == 0 && !UsedThisRound;
+  public virtual bool CanBeUsed(IMatchController caller) {
+    return CooldownRoundsLeft == 0 && !UsedThisRound && GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn() && owner == caller;
   }
 
   public virtual void OnTurnStarted() {
@@ -41,10 +41,11 @@ public abstract partial class Command : Node {
       return;
     }
 
-    UsedThisRound = false;
-
     if (CooldownRoundsLeft > 0) {
       CooldownRoundsLeft--;
+      if (CooldownRoundsLeft == 0) {
+        UsedThisRound = false;
+      }
     }
   }
 
@@ -52,14 +53,25 @@ public abstract partial class Command : Node {
 
   }
 
+  public virtual void OnRoundStarted() {
+    if (!GetEntity().TryGetOwner(out var _)) {
+      if (CooldownRoundsLeft > 0) {
+        CooldownRoundsLeft--;
+        if (CooldownRoundsLeft == 0) {
+          UsedThisRound = false;
+        }
+      }
+    }
+  }
+
   public Entity GetEntity() => CommandTrait.Entity;
 
   public bool IsOwnerCurrentTurn() {
-    if (!GetEntity().TryGetOwner(out var owner) || !owner.IsCurrentTurn()) {
-      return false;
+    if (GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn()) {
+      return true;
     }
 
-    return true;
+    return false;
   }
 }
 

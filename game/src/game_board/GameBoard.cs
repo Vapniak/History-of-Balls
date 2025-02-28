@@ -95,8 +95,8 @@ public partial class GameBoard : Node3D {
 
     return false;
   }
-  public void SetMaterialsForEntity(Entity entity, IMatchController controller) {
-    EntityManager.SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(controller), entity);
+  public void SetMaterialForEntity(Entity entity, IMatchController controller) {
+    EntityManager.SetEntityMaterialBasedOnOwnership(entity.GetOwnershipTypeFor(controller), entity);
 
   }
 
@@ -124,12 +124,8 @@ public partial class GameBoard : Node3D {
     return EntityManager.GetNotOwnedEntities();
   }
 
-  public void SetHighlight(GameCell cell, HighlightType highlightType) {
-    TerrainManager.SetHighlight(cell, highlightType);
-  }
-
-  public void AddHighlight(GameCell cell, HighlightType highlightType) {
-    TerrainManager.AddHighlight(cell, highlightType);
+  public void SetHighlight(GameCell cell, Color color) {
+    TerrainManager.SetHighlight(cell, color);
   }
 
   public void UpdateHighlights() {

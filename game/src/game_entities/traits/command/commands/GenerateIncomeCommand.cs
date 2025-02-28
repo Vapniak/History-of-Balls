@@ -10,10 +10,12 @@ public partial class GenerateIncomeCommand : Command {
   public override void OnTurnEnded() {
     base.OnTurnEnded();
 
-    if (IsAvailable()) {
-      Use();
-      EntityIncomeTrait.GenerateIncome();
-      Finish();
+    if (GetEntity().TryGetOwner(out var owner)) {
+      if (CanBeUsed(owner)) {
+        Use();
+        EntityIncomeTrait.GenerateIncome();
+        Finish();
+      }
     }
   }
 }

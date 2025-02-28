@@ -30,13 +30,10 @@ public partial class CommandPanel : Control {
       return;
     }
 
-    if (!CommandCanBeSelected(command)) {
-      return;
+    if (Commands.TryGetValue(command, out var button)) {
+      button.ButtonPressed = true;
+      button.GrabFocus();
     }
-
-    var button = Commands[command];
-    button.ButtonPressed = true;
-    button.GrabFocus();
   }
 
   public void ClearCommands() {
@@ -48,7 +45,6 @@ public partial class CommandPanel : Control {
   }
   public void AddCommand(Command command) {
     var button = new Button() {
-      Disabled = !CommandCanBeSelected(command),
       Alignment = HorizontalAlignment.Left,
       ToggleMode = true,
       Text = command.CommandName,
@@ -62,8 +58,4 @@ public partial class CommandPanel : Control {
   }
 
   public int GetCommandCount() => Commands.Count;
-
-  public static bool CommandCanBeSelected(Command command) {
-    return command.IsAvailable() || (command.GetEntity().TryGetOwner(out var owner) && !owner.IsCurrentTurn());
-  }
 }

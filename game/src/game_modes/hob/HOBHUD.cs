@@ -1,6 +1,7 @@
 namespace HOB;
 
 using System.Linq;
+using System.Threading.Tasks;
 using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
@@ -8,6 +9,7 @@ using HOB.GameEntity;
 public partial class HOBHUD : HUD {
   [Signal] public delegate void EndTurnPressedEventHandler();
 
+  [Export] private Label TurnChangedNotificationLabel { get; set; }
   [Export] private StatPanel StatPanel { get; set; }
   [Export] private EntityProductionPanel ProductionPanel { get; set; }
   [Export] private Button EndTurnButton { get; set; }
@@ -20,44 +22,96 @@ public partial class HOBHUD : HUD {
   [Export] private Label SecondaryResourceNameLabel { get; set; }
   [Export] private Label SecondaryResourceValueLabel { get; set; }
 
-  public void UpdatePrimaryResourceName(string name) {
+  public override void _Ready() {
+    base._Ready();
+
+    HideCommandPanel();
+    HideStatPanel();
+    HideProductionPanel();
+
+    TurnChangedNotificationLabel.Modulate = Colors.Transparent;
+
+    GetPlayerController().GetGameState().TurnChangedEvent += () => {
+      OnTurnChanged(GetPlayerController().GetGameState().CurrentPlayerIndex);
+    };
+
+    GetPlayerController().GetGameState().RoundStartedEvent += () => {
+      OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
+    };
+
+    GetPlayerController().SelectedEntityChanged += () => {
+      var selectedEntity = GetPlayerController().SelectedEntity;
+      HideProductionPanel();
+      if (selectedEntity == null) {
+        HideCommandPanel();
+        HideStatPanel();
+      }
+      else {
+        if (selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+          ShowCommandPanel(commandTrait);
+        }
+
+        ShowStatPanel(selectedEntity);
+      }
+    };
+  }
+
+  public void OnGameStarted() {
+    var playerState = GetPlayerController().GetPlayerState<HOBPlayerState>();
+
+    UpdatePrimaryResourceName(playerState.PrimaryResourceType.Name);
+    UpdateSecondaryResourceName(playerState.SecondaryResourceType.Name);
+
+    UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
+    UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+
+    playerState.PrimaryResourceType.ValueChanged += () => UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
+    playerState.SecondaryResourceType.ValueChanged += () => UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+  }
+
+  private void UpdatePrimaryResourceName(string name) {
     PrimaryResourceNameLabel.Text = name + ": ";
   }
 
-  public void UpdatePrimaryResourceValue(string value) {
+  private void UpdatePrimaryResourceValue(string value) {
     PrimaryResourceValueLabel.Text = value;
   }
 
-  public void UpdateSecondaryResourceName(string name) {
+  private void UpdateSecondaryResourceName(string name) {
     SecondaryResourceNameLabel.Text = name + ": ";
   }
 
-  public void UpdateSecondaryResourceValue(string value) {
+  private void UpdateSecondaryResourceValue(string value) {
     SecondaryResourceValueLabel.Text = value;
   }
 
 
-  public void OnTurnChanged(int playerIndex) {
+  private void OnTurnChanged(int playerIndex) {
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
+
+    TurnChangedNotificationLabel.Text = GetPlayerController<IMatchController>().GetGameState().PlayerArray[playerIndex].PlayerName + " TURN";
+
+    var tween = CreateTween();
+    tween.TweenProperty(TurnChangedNotificationLabel, "modulate", Colors.White, 0.5);
+    tween.TweenInterval(1);
+    tween.TweenProperty(TurnChangedNotificationLabel, "modulate", Colors.Transparent, 1);
   }
 
-  public void OnRoundChanged(int roundNumber) {
+  private void OnRoundChanged(int roundNumber) {
     RoundLabel.Text = "ROUND " + roundNumber;
   }
 
-  public void ShowStatPanel(Entity entity) {
+  private void ShowStatPanel(Entity entity) {
     UpdateStatPanel(StatPanel, entity);
 
-    if (!StatPanel.Visible) {
-      StatPanel.Visible = true;
-    }
+    StatPanel.Visible = true;
   }
 
-  public void HideStatPanel() {
+  private void HideStatPanel() {
     StatPanel.Visible = false;
   }
 
-  public void ShowProductionPanel(ProduceEntityCommand produceEntityCommand) {
+  private void ShowProductionPanel(ProduceEntityCommand produceEntityCommand) {
     ProductionPanel.ClearEntities();
 
     ProductionPanel.EntitySelected += onEntitySelected;
@@ -70,7 +124,7 @@ public partial class HOBHUD : HUD {
     }
 
     void onEntitySelected(ProducedEntityData data) {
-      if (produceEntityCommand.TryProduceEntity(data)) {
+      if (produceEntityCommand.TryProduceEntity(GetPlayerController(), data)) {
         ProductionPanel.Hide();
       }
     }
@@ -84,12 +138,12 @@ public partial class HOBHUD : HUD {
     ProductionPanel.Show();
   }
 
-  public void HideProductionPanel() {
+  private void HideProductionPanel() {
     ProductionPanel.Hide();
   }
 
 
-  public void ShowCommandPanel(CommandTrait commandTrait) {
+  private void ShowCommandPanel(CommandTrait commandTrait) {
     CommandPanel.ClearCommands();
     foreach (var command in commandTrait.GetCommands()) {
       if (command.ShowInUI) {
@@ -98,16 +152,25 @@ public partial class HOBHUD : HUD {
     }
 
     if (CommandPanel.GetCommandCount() == 0) {
+      HideCommandPanel();
       return;
     }
 
-    CommandPanel.CommandSelected += commandTrait.SelectCommand;
+    CommandPanel.CommandSelected += onCommandSelected;
 
-    CommandPanel.SelectCommand(commandTrait.GetCommands().FirstOrDefault(c => c.IsAvailable()));
+    void onCommandSelected(Command command) {
+      commandTrait.SelectCommand(command);
 
+      if (command is ProduceEntityCommand produceEntity) {
+        ShowProductionPanel(produceEntity);
+      }
+      else {
+        HideProductionPanel();
+      }
+    }
 
     void onHidden() {
-      CommandPanel.CommandSelected -= commandTrait.SelectCommand;
+      CommandPanel.CommandSelected -= onCommandSelected;
       CommandPanel.Hidden -= onHidden;
     }
     CommandPanel.Hidden += onHidden;
@@ -118,17 +181,22 @@ public partial class HOBHUD : HUD {
     CommandPanel.GrabFocus();
   }
 
-  public void HideCommandPanel() => CommandPanel.Visible = false;
+  private void HideCommandPanel() => CommandPanel.Visible = false;
 
   public void SetEndTurnButtonDisabled(bool value) {
     EndTurnButton.Disabled = value;
   }
 
+  public void SelectCommand(Command command) {
+    CommandPanel.SelectCommand(command);
+  }
+
   public void SelectCommand(int index) {
     CommandPanel.SelectCommand(index);
   }
+
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
-    switch (entity.GetOwnershipType(GetPlayerController<IMatchController>())) {
+    switch (entity.GetOwnershipTypeFor(GetPlayerController<IMatchController>())) {
       case Entity.OwnershipType.Owned:
         panel.SetNameLabel(entity.GetEntityName());
         break;
@@ -150,6 +218,7 @@ public partial class HOBHUD : HUD {
 
     if (entity.TryGetStat<HealthStats>(out var healthStats)) {
       panel.AddEntry("Health:", healthStats.CurrentHealth.ToString());
+      healthStats.CurrentHealthChanged += () => panel.UpdateEntry("Health", healthStats.CurrentHealth.ToString());
     }
 
     if (entity.TryGetStat<AttackStats>(out var attackStats)) {
@@ -187,7 +256,7 @@ public partial class HOBHUD : HUD {
     EmitSignal(SignalName.EndTurnPressed);
   }
 
-  private void OnProduceEntitySelected(int index) {
-
+  public new HOBPlayerController GetPlayerController() {
+    return GetPlayerController<HOBPlayerController>();
   }
 }

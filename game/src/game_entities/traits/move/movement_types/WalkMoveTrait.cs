@@ -31,8 +31,6 @@ public partial class WalkMoveTrait : MoveTrait {
     for (var i = 0; i < path.Length; i++) {
       var to = path[i];
 
-      Entity.Cell = to;
-
       await Walk(to);
     }
 
@@ -54,6 +52,8 @@ public partial class WalkMoveTrait : MoveTrait {
         midpoint,
         _animSpeed
     ).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.In);
+
+    Entity.Cell = to;
 
     Entity.TurnAt(targetPosition, _animSpeed);
 

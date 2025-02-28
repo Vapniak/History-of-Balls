@@ -11,8 +11,9 @@ public partial class MoveCommand : Command {
 
     MoveTrait.MoveFinished += Finish;
   }
-  public bool TryMove(GameCell targetCell) {
-    if (IsAvailable() && FindPathTo(targetCell).Length > 0) {
+
+  public bool TryMove(IMatchController caller, GameCell targetCell) {
+    if (CanBeUsed(caller) && FindPathTo(targetCell).Length > 0) {
       Use();
       MoveTrait.Move(targetCell);
       return true;
@@ -29,12 +30,12 @@ public partial class MoveCommand : Command {
     return MoveTrait.FindPath(cell);
   }
 
-  public override bool IsAvailable() {
+  public override bool CanBeUsed(IMatchController caller) {
     var attacked = false;
     if (CommandTrait.TryGetCommand<AttackCommand>(out var attack)) {
       attacked = attack.UsedThisRound;
     }
 
-    return base.IsAvailable() && !attacked;
+    return base.CanBeUsed(caller) && !attacked;
   }
 }

@@ -6,7 +6,7 @@ render_mode blend_mix,depth_draw_always,cull_back,diffuse_burley,specular_schlic
 uniform vec4 albedo : source_color;
 uniform vec4 emission_color : source_color;
 uniform sampler2D texture_albedo;
-uniform float emission_amount: hint_range(0.0, 16.0) = 5.0f; 
+uniform float emission_amount: hint_range(0.0, 16.0) = 5.0f;
 uniform float rim_steepness : hint_range(0.0f, 16.0f) = 3.0f; //higher values mean a smaller rim.
 uniform vec3 uv_scale;
 uniform vec3 uv_offset;

@@ -74,15 +74,8 @@ public partial class TerrainManager : Node3D {
     TerrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
   }
 
-  public void SetHighlight(GameCell cell, HighlightType highlightType) {
-    SetHighlighPixel(cell.OffsetCoord, highlightType.Color);
-  }
-
-  public void AddHighlight(GameCell cell, HighlightType highlightType) {
-    var offset = cell.OffsetCoord;
-    var color = HighlightData.GetPixel(offset.Col, offset.Row);
-    color = color.Blend(highlightType.Color);
-    SetHighlighPixel(offset, color);
+  public void SetHighlight(GameCell cell, Color color) {
+    SetHighlighPixel(cell.OffsetCoord, color);
   }
 
   public void UpdateHighlights() {

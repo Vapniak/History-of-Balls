@@ -7,7 +7,7 @@ using System;
 public partial class ProcessResourcesCommand : Command {
   [Export] public FactoryTrait FactoryTrait { get; private set; }
 
-  public override bool IsAvailable() {
+  public override bool CanBeUsed(IMatchController caller) {
     if (FactoryTrait.ProcessingRoundsLeft > 0) {
       return false;
     }
@@ -15,7 +15,7 @@ public partial class ProcessResourcesCommand : Command {
     if (GetEntity().TryGetOwner(out var owner)) {
       if (GetEntity().TryGetStat<FactoryStats>(out var stats)) {
         if (owner.GetPlayerState().GetResourceType(stats.InputType).Value >= stats.InputValue) {
-          return base.IsAvailable();
+          return base.CanBeUsed(caller);
         }
       }
     }
@@ -26,14 +26,12 @@ public partial class ProcessResourcesCommand : Command {
   public override void OnTurnStarted() {
     base.OnTurnStarted();
 
-    if (!IsOwnerCurrentTurn()) {
-      return;
-    }
-
-    if (IsAvailable()) {
-      Use();
-      FactoryTrait.StartProcessing();
-      Finish();
+    if (GetEntity().TryGetOwner(out var owner)) {
+      if (CanBeUsed(owner)) {
+        Use();
+        FactoryTrait.StartProcessing();
+        Finish();
+      }
     }
   }
 }

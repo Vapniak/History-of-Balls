@@ -90,7 +90,7 @@ public partial class AIController : Controller, IMatchController {
         if (entity.TryGetTrait<ObstacleTrait>(out _)) {
           foreach (var neighbor in GameBoard.Grid.GetNeighbors(closestEnemyCell)) {
             if (moveCommand.FindPathTo(neighbor).Length > 0) {
-              if (moveCommand.TryMove(neighbor)) {
+              if (moveCommand.TryMove(this, neighbor)) {
                 return true;
               }
             }
@@ -99,7 +99,7 @@ public partial class AIController : Controller, IMatchController {
       }
 
       if (moveCommand.FindPathTo(closestEnemyCell).Length > 0) {
-        if (moveCommand.TryMove(closestEnemyCell)) {
+        if (moveCommand.TryMove(this, closestEnemyCell)) {
           return true;
         }
       }
@@ -112,7 +112,7 @@ public partial class AIController : Controller, IMatchController {
     if (commandTrait.TryGetCommand<AttackCommand>(out var attackCommand)) {
       foreach (var enemy in attackCommand.GetAttackableEntities().entities) {
         // TODO: attack closest enemy
-        if (attackCommand.TryAttack(enemy)) {
+        if (attackCommand.TryAttack(this, enemy)) {
           return true;
         }
       }

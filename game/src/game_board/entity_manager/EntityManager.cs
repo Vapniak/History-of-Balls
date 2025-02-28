@@ -27,15 +27,6 @@ public partial class EntityManager : Node {
   public void AddEntity(Entity entity) {
     entity.TreeExiting += () => RemoveEntity(entity);
 
-    entity.OwnerControllerChanged += () => {
-      if (entity.TryGetOwner(out var owner)) {
-        SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(owner), entity);
-      }
-    };
-
-    if (entity.TryGetOwner(out var owner)) {
-      SetEntityMaterialBasedOnOwnership(entity.GetOwnershipType(owner), entity);
-    }
 
     AddChild(entity);
 
@@ -71,7 +62,7 @@ public partial class EntityManager : Node {
   }
 
   public Entity[] GetOwnedEntites(IMatchController owner) {
-    return Entities.Where(e => e.GetOwnershipType(owner) == Entity.OwnershipType.Owned).ToArray();
+    return Entities.Where(e => e.GetOwnershipTypeFor(owner) == Entity.OwnershipType.Owned).ToArray();
   }
 
 
@@ -84,7 +75,7 @@ public partial class EntityManager : Node {
   }
 
   public Entity[] GetEnemyEntities(IMatchController controller) {
-    return Entities.Where(e => e.GetOwnershipType(controller) == Entity.OwnershipType.Enemy).ToArray();
+    return Entities.Where(e => e.GetOwnershipTypeFor(controller) == Entity.OwnershipType.Enemy).ToArray();
   }
 
   public Entity[] GetEntities() => Entities.ToArray();
