@@ -39,7 +39,7 @@ point_count = 3
 curve = SubResource("Curve_ufuhu")
 
 [sub_resource type="Curve" id="Curve_yinba"]
-_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.782165, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_uv73u"]
@@ -82,7 +82,7 @@ curve_y = SubResource("Curve_lo23k")
 curve_z = SubResource("Curve_3d3fv")
 
 [sub_resource type="Curve" id="Curve_pf2q6"]
-_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.404294, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_tnoyy"]

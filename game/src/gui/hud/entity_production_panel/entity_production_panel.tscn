@@ -5,14 +5,13 @@
 [node name="EntityProductionPanel" type="PanelContainer" node_paths=PackedStringArray("EntitiesList")]
 offset_right = 60.0
 offset_bottom = 66.0
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_58636")
 EntitiesList = NodePath("VBoxContainer2/VBoxContainer")
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="Label" type="Label" parent="VBoxContainer2"]

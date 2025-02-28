@@ -399,33 +399,42 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
 
   private void UpdateCommandHighlights() {
+    if (SelectedEntity == null) {
+      return;
+    }
+
+    HighlightSystem.ClearAllHighlights();
+
+    HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
+
     if (SelectedCommand != null && !IsUsingCommand) {
-      HighlightSystem.ClearAllHighlights();
-      HighlightSystem.SetHighlight(HighlightType.Selection, SelectedCommand.GetEntity().Cell);
+
+      var darkened = !SelectedCommand.CanBeUsed(this);
+
       if (SelectedCommand is MoveCommand moveCommand) {
 
         foreach (var cell in moveCommand.GetReachableCells()) {
-          HighlightSystem.SetHighlight(HighlightType.Movement, cell);
+          HighlightSystem.SetHighlight(HighlightType.Movement, cell, darkened);
         }
 
         if (HoveredCell != null && moveCommand.GetReachableCells().Contains(HoveredCell)) {
           foreach (var cell in moveCommand.FindPathTo(HoveredCell)) {
-            HighlightSystem.SetHighlight(HighlightType.Path, cell);
+            HighlightSystem.SetHighlight(HighlightType.Path, cell, darkened);
           }
         }
       }
       else if (SelectedCommand is AttackCommand attackCommand) {
         var (entities, cellsInRange) = attackCommand.GetAttackableEntities();
         foreach (var cell in cellsInRange) {
-          HighlightSystem.SetHighlight(HighlightType.Attack, cell);
+          HighlightSystem.SetHighlight(HighlightType.Attack, cell, darkened);
         }
 
         foreach (var entity in entities) {
-          HighlightSystem.SetHighlight(HighlightType.Attack, entity.Cell);
+          HighlightSystem.SetHighlight(HighlightType.Attack, entity.Cell, darkened);
         }
       }
-      HighlightSystem.UpdateHighlights();
     }
+    HighlightSystem.UpdateHighlights();
   }
 
   private void OnSelectedEntityCellChanged() {

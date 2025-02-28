@@ -45,10 +45,12 @@ public partial class CommandPanel : Control {
   }
   public void AddCommand(Command command) {
     var button = new Button() {
-      Alignment = HorizontalAlignment.Left,
+      Alignment = HorizontalAlignment.Center,
       ToggleMode = true,
       Text = command.CommandName,
       ButtonGroup = _buttonGroup,
+      SizeFlagsHorizontal = SizeFlags.ExpandFill,
+      GrowHorizontal = GrowDirection.Both,
     };
 
     button.Toggled += (toggledOn) => EmitSignal(SignalName.CommandSelected, command);

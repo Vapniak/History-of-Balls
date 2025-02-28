@@ -15,11 +15,20 @@ public partial class AttackTrait : Trait {
   public async Task Attack(Entity entity) {
     await Entity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 
+    var firstTween = CreateTween();
+    firstTween.TweenMethod(Callable.From<Vector3>(Entity.SetPosition), Entity.GetPosition(), Entity.GetPosition() + entity.GetPosition().Normalized(), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+
+    await ToSignal(firstTween, Tween.SignalName.Finished);
+
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
       healthTrait.Damage(GetStat<AttackStats>().Damage);
     }
 
-    await Task.Delay(100);
+    var secondTween = CreateTween();
+    secondTween.TweenMethod(Callable.From<Vector3>(Entity.SetPosition), Entity.GetPosition(), Entity.Cell.GetRealPosition(), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+
+    await ToSignal(secondTween, Tween.SignalName.Finished);
+
     EmitSignal(SignalName.AttackFinished);
   }
 
