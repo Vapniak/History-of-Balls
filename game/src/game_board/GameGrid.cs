@@ -211,7 +211,6 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
   public Vector2 GetRealMapSize() {
     return GetMapSize() * GetLayout().GetSpacingBetweenHexes();
   }
-
   public void LoadMap(MapData mapData) {
     MapData = mapData;
     var c = MapData.GetCells();

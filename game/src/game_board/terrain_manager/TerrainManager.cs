@@ -75,6 +75,7 @@ public partial class TerrainManager : Node3D {
     TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
   }
 
+
   public void SetMouseHighlight(bool value) {
     TerrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
   }

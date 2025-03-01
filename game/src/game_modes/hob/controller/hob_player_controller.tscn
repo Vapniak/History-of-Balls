@@ -115,7 +115,6 @@ offset_left = -370.0
 offset_top = 285.0
 offset_bottom = -209.0
 grow_horizontal = 0
-enabled = false
 initial_node_to_watch = NodePath("..")
 
 [connection signal="state_physics_processing" from="StateChart/Root/States" to="." method="CheckHover" unbinds=1]
