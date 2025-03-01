@@ -6,32 +6,42 @@ using System.Linq;
 
 [GlobalClass]
 public partial class EntityManager : Node {
-  [Export] private Material EntityOwnedMaterial { get; set; }
-  [Export] private Material EntityEnemyMaterial { get; set; }
-  [Export] private Material EntityNotOwnedMaterial { get; set; }
-
+  [Export] private Material EntityMaterial { get; set; }
 
   public GameGrid Grid { get; set; }
 
   private List<Entity> Entities { get; set; }
 
+  private Dictionary<Team, Material> TeamMaterials { get; set; }
 
-  // TODO: make specific ui for each entity type, structure, unit have different UI in 3D
+
   private string _entityUISceneUID = "uid://ka4lyslghbk";
 
   public override void _Ready() {
     Entities = new();
+    TeamMaterials = new();
   }
 
 
   public void AddEntity(Entity entity) {
     entity.TreeExiting += () => RemoveEntity(entity);
 
+    var entityUIScene = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
+
+    entity.OwnerControllerChanged += () => {
+      if (entity.TryGetOwner(out var owner)) {
+        if (!TeamMaterials.TryGetValue(owner.Team, out var value)) {
+          value = EntityMaterial.Duplicate() as Material;
+          value.Set("shader_parameter/emission_color", owner.Team.Color);
+        }
+
+        entityUIScene.SetColor(owner.Team.Color);
+        entity.SetMaterial(value);
+      }
+    };
 
     AddChild(entity);
 
-    var entityUIScene = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
-    entityUIScene.SetNameLabel(entity.GetEntityName());
     entity.Body.AddChild(entityUIScene);
 
     Entities.Add(entity);
@@ -40,29 +50,16 @@ public partial class EntityManager : Node {
   public void RemoveEntity(Entity entity) {
     entity.QueueFree();
     Entities.Remove(entity);
+
+    // TODO: remove team materials
   }
 
-  public void SetEntityMaterialBasedOnOwnership(Entity.OwnershipType ownership, Entity entity) {
-    switch (ownership) {
-      case Entity.OwnershipType.Owned:
-        entity.SetMaterial(EntityOwnedMaterial);
-        break;
-      case Entity.OwnershipType.Enemy:
-        entity.SetMaterial(EntityEnemyMaterial);
-        break;
-      case Entity.OwnershipType.NotOwned:
-        entity.SetMaterial(EntityNotOwnedMaterial);
-        break;
-      default:
-        break;
-    }
-  }
   public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell) {
     return GetOwnedEntites(owner).Where(e => e.Cell == cell).ToArray();
   }
 
   public Entity[] GetOwnedEntites(IMatchController owner) {
-    return Entities.Where(e => e.GetOwnershipTypeFor(owner) == Entity.OwnershipType.Owned).ToArray();
+    return Entities.Where(e => e.TryGetOwner(out var o) && o == owner).ToArray();
   }
 
 
@@ -75,7 +72,7 @@ public partial class EntityManager : Node {
   }
 
   public Entity[] GetEnemyEntities(IMatchController controller) {
-    return Entities.Where(e => e.GetOwnershipTypeFor(controller) == Entity.OwnershipType.Enemy).ToArray();
+    return Entities.Where(e => e.TryGetOwner(out var owner) && owner != controller).ToArray();
   }
 
   public Entity[] GetEntities() => Entities.ToArray();

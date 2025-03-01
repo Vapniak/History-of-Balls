@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=11 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="Resource" uid="uid://lp5grltc6rsd" path="res://src/game_board/grid_layout.tres" id="2_i1283"]
@@ -17,31 +17,11 @@ shader_parameter/show_mouse_highlight = null
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ihitb"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_euntf"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0lcs0"]
 render_priority = 0
 shader = ExtResource("7_a1a0b")
-shader_parameter/albedo = Color(0, 0.701961, 0.74902, 0)
+shader_parameter/albedo = Color(0, 1, 0, 1)
 shader_parameter/emission_color = Color(0, 1, 0, 1)
-shader_parameter/emission_amount = 7.0
-shader_parameter/rim_steepness = 2.0
-shader_parameter/uv_scale = null
-shader_parameter/uv_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_igtqh"]
-render_priority = 0
-shader = ExtResource("7_a1a0b")
-shader_parameter/albedo = Color(0, 0.701961, 0.737255, 0)
-shader_parameter/emission_color = Color(1, 0.378532, 0.448421, 1)
-shader_parameter/emission_amount = 7.0
-shader_parameter/rim_steepness = 2.0
-shader_parameter/uv_scale = null
-shader_parameter/uv_offset = null
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ctn8o"]
-render_priority = 0
-shader = ExtResource("7_a1a0b")
-shader_parameter/albedo = Color(0, 0.701961, 0.737255, 0)
-shader_parameter/emission_color = Color(0.885281, 0.854894, 7.70092e-07, 1)
 shader_parameter/emission_amount = 7.0
 shader_parameter/rim_steepness = 2.0
 shader_parameter/uv_scale = null
@@ -65,6 +45,4 @@ shape = SubResource("WorldBoundaryShape3D_ihitb")
 
 [node name="EntityManager" type="Node" parent="."]
 script = ExtResource("6_wv76r")
-EntityOwnedMaterial = SubResource("ShaderMaterial_euntf")
-EntityEnemyMaterial = SubResource("ShaderMaterial_igtqh")
-EntityNotOwnedMaterial = SubResource("ShaderMaterial_ctn8o")
+EntityMaterial = SubResource("ShaderMaterial_0lcs0")

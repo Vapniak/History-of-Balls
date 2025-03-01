@@ -70,6 +70,7 @@ public partial class TerrainManager : Node3D {
     TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
   }
 
+
   public void SetMouseHighlight(bool value) {
     TerrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
   }
@@ -93,13 +94,11 @@ public partial class TerrainManager : Node3D {
     var localY = coord.Row - chunkY * ChunkSize.Y;
     return (Chunks[chunkX + (chunkY * ChunkCount.X)], new(localX, localY));
   }
-
   public void AddCellToChunk(GameCell cell) {
     var (chunk, localCoord) = OffsetToChunk(cell.OffsetCoord);
 
     chunk.AddCell(localCoord.Col + localCoord.Row * ChunkSize.X, Grid.GetCellIndex(cell));
   }
-
   private void SetHighlighPixel(OffsetCoord offset, Color color) {
     if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
       HighlightData.SetPixel(offset.Col, offset.Row, color);

@@ -179,7 +179,6 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
   public Vector2 GetRealMapSize() {
     return GetMapSize() * GetLayout().GetSpacingBetweenHexes();
   }
-
   public void LoadMap(MapData mapData) {
     MapData = mapData;
 
@@ -188,8 +187,6 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
       var cell = new GameCell(GetLayout().OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), GetLayout(), hex.Id, this);
       cells.Add(cell);
     }
-
-    // TODO: add border chunks
 
     CreateCells(cells.ToArray());
   }

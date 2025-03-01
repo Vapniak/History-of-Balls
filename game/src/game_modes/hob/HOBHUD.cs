@@ -196,19 +196,8 @@ public partial class HOBHUD : HUD {
   }
 
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
-    switch (entity.GetOwnershipTypeFor(GetPlayerController<IMatchController>())) {
-      case Entity.OwnershipType.Owned:
-        panel.SetNameLabel(entity.GetEntityName());
-        break;
-      case Entity.OwnershipType.Enemy:
-        panel.SetNameLabel("ENEMY " + entity.GetEntityName());
-        break;
-      case Entity.OwnershipType.NotOwned:
-        panel.SetNameLabel("NOT OWNED " + entity.GetEntityName());
-        break;
-      default:
-        break;
-    }
+    panel.SetNameLabel(entity.GetEntityName());
+
 
     panel.ClearEntries();
 

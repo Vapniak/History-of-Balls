@@ -24,13 +24,12 @@ public partial class EntityProductionPanel : Control {
     Entities.Clear();
   }
   public void AddProducedEntity(ProducedEntityData data, IMatchPlayerState playerState, bool canBeProduced) {
-    var tooltip = string.Format("Cost: {0} {1}\nProduction Time Rounds: {2}", data.Cost, playerState.GetResourceType(data.CostType).Name, data.RoundsProductionTime);
+    var text = string.Format($"{data.Entity.EntityName}\n\nCost: {data.Cost} {playerState.GetResourceType(data.CostType).Name}\nRounds to Produce: {data.RoundsProductionTime}");
     var button = new Button() {
       Disabled = !canBeProduced,
       Alignment = HorizontalAlignment.Left,
-      Text = data.Entity.EntityName,
+      Text = text,
       ButtonGroup = _buttonGroup,
-      TooltipText = tooltip,
     };
 
     button.Pressed += () => EmitSignal(SignalName.EntitySelected, data);

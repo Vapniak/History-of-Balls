@@ -14,6 +14,8 @@ public partial class AIController : Controller, IMatchController {
 
   private GameBoard GameBoard { get; set; }
 
+  public Team Team { get; set; }
+
   // TODO: add behavior tree
 
   public override void _Ready() {

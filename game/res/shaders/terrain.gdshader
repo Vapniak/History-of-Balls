@@ -1,4 +1,5 @@
 shader_type spatial;
+render_mode diffuse_toon;
 
 #include "include/hex_utils.gdshaderinc"
 

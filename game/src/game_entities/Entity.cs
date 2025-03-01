@@ -7,12 +7,6 @@ using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class Entity : Node {
-  public enum OwnershipType {
-    Owned,
-    Enemy,
-    NotOwned,
-  }
-
   public EntityBody Body { get; private set; }
 
   [Notify]
@@ -85,18 +79,6 @@ public partial class Entity : Node {
   public bool TryGetOwner(out IMatchController owner) {
     owner = OwnerController;
     return owner != null;
-  }
-
-  public OwnershipType GetOwnershipTypeFor(IMatchController controller) {
-    if (OwnerController == null) {
-      return OwnershipType.NotOwned;
-    }
-
-    if (controller == OwnerController) {
-      return OwnershipType.Owned;
-    }
-
-    return OwnershipType.Enemy;
   }
 
   public Vector3 GetPosition() => Body.GlobalPosition;

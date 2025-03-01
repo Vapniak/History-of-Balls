@@ -10,6 +10,9 @@ using HOB.GameEntity;
 /// </summary>
 [GlobalClass]
 public partial class MatchComponent : GameModeComponent {
+  [Export] private Team PlayerTeam { get; set; }
+  [Export] private Team AITeam { get; set; }
+
   [Export] private EntityData TestEntity { get; set; }
   [Export] private EntityData TestEntity2 { get; set; }
   [Export] private EntityData Structure1 { get; set; }
@@ -42,6 +45,7 @@ public partial class MatchComponent : GameModeComponent {
     playerState.SecondaryResourceType = Secondary.Duplicate() as ResourceType;
 
     if (controller is PlayerController) {
+      controller.Team = PlayerTeam;
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(1, 0), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(2, 0), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(10, 5), controller);
@@ -53,6 +57,7 @@ public partial class MatchComponent : GameModeComponent {
       GameBoard.AddEntityOnClosestAvailableCell(City, new(5, 3), controller);
     }
     else {
+      controller.Team = AITeam;
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(GameBoard.GetMapSize().X - 5, GameBoard.GetMapSize().Y - 5), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y - 20), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(GameBoard.GetMapSize().X - 15, GameBoard.GetMapSize().Y - 6), controller);

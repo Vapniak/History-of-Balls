@@ -58,7 +58,7 @@ project/assembly_name="History of Balls"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gameplay_framework/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/raycast_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/2d_shapes/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/raycast_system/plugin.cfg")
 
 [file_customization]
 
@@ -72,6 +72,8 @@ folder_colors={
 [gui]
 
 theme/custom="res://res/default_theme.tres"
+theme/default_font_hinting=2
+theme/default_font_generate_mipmaps=true
 
 [input]
 

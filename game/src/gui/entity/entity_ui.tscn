@@ -1,8 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0wn2cfx3bg73"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_nw635"]
-outline_size = 5
-outline_color = Color(0, 0, 0, 1)
+[gd_scene format=3 uid="uid://c0wn2cfx3bg73"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -11,8 +7,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer"]
+custom_minimum_size = Vector2(25, 25)
 layout_mode = 2
 size_flags_horizontal = 4
-text = "NAME"
-label_settings = SubResource("LabelSettings_nw635")
+size_flags_vertical = 4
