@@ -146,7 +146,7 @@ public partial class HOBHUD : HUD {
 
     void onEntitySelected(ProducedEntityData data) {
       if (produceEntityCommand.TryProduceEntity(GetPlayerController(), data)) {
-        ProductionPanel.Hide();
+        ShowProductionPanel(produceEntityCommand);
       }
     }
 

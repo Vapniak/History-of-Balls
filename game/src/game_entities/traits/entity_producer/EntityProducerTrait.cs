@@ -25,12 +25,14 @@ public partial class EntityProducerTrait : Trait {
   public void OnTurnStarted() {
     if (ProductionRoundsLeft > 0) {
       ProductionRoundsLeft--;
-    }
 
-    if (_currentProducedEntity != null) {
-      if (Entity.TryGetOwner(out var owner)) {
-        if (Entity.GameBoard.TryAddEntityOnCell(_currentProducedEntity.Entity, Entity.Cell, owner)) {
-          _currentProducedEntity = null;
+      if (ProductionRoundsLeft == 0) {
+        if (_currentProducedEntity != null) {
+          if (Entity.TryGetOwner(out var owner)) {
+            if (Entity.GameBoard.TryAddEntityOnCell(_currentProducedEntity.Entity, Entity.Cell, owner)) {
+              _currentProducedEntity = null;
+            }
+          }
         }
       }
     }
