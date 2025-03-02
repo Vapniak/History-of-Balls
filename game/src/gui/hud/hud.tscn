@@ -16,14 +16,16 @@ bg_color = Color(0, 0, 0, 0.313726)
 
 [sub_resource type="Environment" id="Environment_384c7"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "TeamColorRect", "TeamNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
 script = ExtResource("1_ep1kh")
-TurnChangedNotificationLabel = NodePath("Label")
+TurnChangedNotificationLabel = NodePath("TurnLabel")
 StatPanel = NodePath("MarginContainer4/StatPanel")
 ProductionPanel = NodePath("MarginContainer4/EntityProductionPanel")
 EndTurnButton = NodePath("VBoxContainer/MarginContainer/Button")
 CommandPanel = NodePath("MarginContainer4/StatPanel/VBoxContainer/CommandPanel")
 RoundLabel = NodePath("VBoxContainer/PanelContainer2/VBoxContainer/Label")
+TeamColorRect = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/ColorRect")
+TeamNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/Label")
 PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label")
 PrimaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label2")
 SecondaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer2/Label")
@@ -47,6 +49,17 @@ size_flags_vertical = 4
 [node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/Resources"]
 layout_mode = 2
 size_flags_horizontal = 4
+
+[node name="ColorRect" type="ColorRect" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
+custom_minimum_size = Vector2(25, 25)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
+layout_mode = 2
+text = "Team Name"
+
+[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
 layout_mode = 2
@@ -169,7 +182,7 @@ text = "60
 horizontal_alignment = 1
 script = ExtResource("2_v4qhv")
 
-[node name="Label" type="Label" parent="."]
+[node name="TurnLabel" type="Label" parent="."]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5

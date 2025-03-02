@@ -9,7 +9,6 @@ using Godot;
 public partial class CommandTrait : Trait {
   [Signal] public delegate void CommandStartedEventHandler(Command command);
   [Signal] public delegate void CommandFinishedEventHandler(Command command);
-  [Signal] public delegate void CommandSelectedEventHandler(Command command);
 
   public Command CurrentExecutedCommand { get; private set; }
 
@@ -38,7 +37,6 @@ public partial class CommandTrait : Trait {
     }
   }
 
-  public void SelectCommand(Command command) => EmitSignal(SignalName.CommandSelected, command);
   public Command[] GetCommands() => Commands.ToArray();
   public bool TryGetCommand<T>(out T command) where T : Command {
     command = Commands.OfType<T>().FirstOrDefault();

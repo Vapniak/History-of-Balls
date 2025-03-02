@@ -15,6 +15,8 @@ public partial class HOBHUD : HUD {
   [Export] private Button EndTurnButton { get; set; }
   [Export] private CommandPanel CommandPanel { get; set; }
   [Export] private Label RoundLabel { get; set; }
+  [Export] private ColorRect TeamColorRect { get; set; }
+  [Export] private Label TeamNameLabel { get; set; }
 
   [ExportGroup("Resources")]
   [Export] private Label PrimaryResourceNameLabel { get; set; }
@@ -54,6 +56,22 @@ public partial class HOBHUD : HUD {
         ShowStatPanel(selectedEntity);
       }
     };
+
+    GetPlayerController().SelectedCommandChanged += () => {
+      var command = GetPlayerController().SelectedCommand;
+
+      if (command is ProduceEntityCommand produceEntity) {
+        ShowProductionPanel(produceEntity);
+      }
+      else {
+        HideProductionPanel();
+      }
+    };
+
+
+    CommandPanel.CommandSelected += (command) => {
+      GetPlayerController().OnHUDCommandSelected(command);
+    };
   }
 
   public void OnGameStarted() {
@@ -67,6 +85,9 @@ public partial class HOBHUD : HUD {
 
     playerState.PrimaryResourceType.ValueChanged += () => UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
     playerState.SecondaryResourceType.ValueChanged += () => UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+
+    TeamColorRect.Color = GetPlayerController().Team.Color;
+    TeamNameLabel.Text = GetPlayerController().Team.Name;
   }
 
   private void UpdatePrimaryResourceName(string name) {
@@ -156,24 +177,6 @@ public partial class HOBHUD : HUD {
       return;
     }
 
-    CommandPanel.CommandSelected += onCommandSelected;
-
-    void onCommandSelected(Command command) {
-      commandTrait.SelectCommand(command);
-
-      if (command is ProduceEntityCommand produceEntity) {
-        ShowProductionPanel(produceEntity);
-      }
-      else {
-        HideProductionPanel();
-      }
-    }
-
-    void onHidden() {
-      CommandPanel.CommandSelected -= onCommandSelected;
-      CommandPanel.Hidden -= onHidden;
-    }
-    CommandPanel.Hidden += onHidden;
     if (!CommandPanel.Visible) {
       CommandPanel.Visible = true;
     }
@@ -187,12 +190,8 @@ public partial class HOBHUD : HUD {
     EndTurnButton.Disabled = value;
   }
 
-  public void SelectCommand(Command command) {
+  private void SelectCommand(Command command) {
     CommandPanel.SelectCommand(command);
-  }
-
-  public void SelectCommand(int index) {
-    CommandPanel.SelectCommand(index);
   }
 
   private void UpdateStatPanel(StatPanel panel, Entity entity) {

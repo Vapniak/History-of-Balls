@@ -38,6 +38,10 @@ public partial class AttackTrait : Trait {
 
     var cells = Entity.Cell.GetCellsInRange(GetStat<AttackStats>().Range);
     foreach (var cell in cells) {
+      if (cell == Entity.Cell) {
+        continue;
+      }
+
       cellsInR.Add(cell);
       var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
       if (Entity.TryGetOwner(out var owner)) {

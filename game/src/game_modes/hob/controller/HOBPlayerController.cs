@@ -31,8 +31,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private bool _isPanning;
   private Vector2 _lastMousePosition;
 
-  private bool IsUsingCommand { get; set; }
-
   private HighlightSystem HighlightSystem { get; set; }
 
   public Team Team { get; set; }
@@ -51,15 +49,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     };
 
     SelectedEntityChanged += OnSelectedEntityChanged;
-    SelectedCommandChanged += UpdateCommandHighlights;
-
-    HoveredCellChanged += UpdateCommandHighlights;
+    SelectedCommandChanged += () => {
+      UpdateCommandHighlights(SelectedCommand);
+    };
 
     _character = GetCharacter<PlayerCharacter>();
 
     _character.CenterPositionOn(GameBoard.GetAabb());
-
-    GameBoard.SetMouseHighlight(true);
 
     GameInstance.GetGameState<IPauseGameState>().PausedEvent += () => GetHUD().Hide();
     GameInstance.GetGameState<IPauseGameState>().ResumedEvent += () => GetHUD().Show();
@@ -91,10 +87,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
     }
 
-    if (@event.IsActionPressed(GameInputs.EndTurn)) {
-      TryEndTurn();
-    }
-
     @event.Dispose();
   }
 
@@ -111,12 +103,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
 
   public void TryEndTurn() {
-    if (IsCurrentTurn() && !IsUsingCommand) {
+    if (IsCurrentTurn()) {
       EndTurnEvent?.Invoke();
     }
   }
   public void OwnTurnStarted() {
-
+    if (SelectedEntity != null) {
+      SelectFirstCommand();
+    }
   }
   public void OwnTurnEnded() {
 
@@ -127,6 +121,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     CallDeferred(MethodName.FocusOnSelectedEntity);
 
     GetHUD().OnGameStarted();
+  }
+
+  public void OnHUDCommandSelected(Command command) {
+    SelectedCommand = command;
   }
 
   private void CheckHover() {
@@ -148,7 +146,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       HoveredCell = cell;
     }
 
-    if (HoveredCell == null || _isPanning) {
+    var viewport = GetViewport();
+
+    if (HoveredCell == null || _isPanning || viewport.GuiGetHoveredControl() != null) {
       GameBoard.SetMouseHighlight(false);
     }
     else {
@@ -157,65 +157,37 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void SelectEntity(Entity entity) {
-    if (IsInstanceValid(SelectedEntity)) {
-      SelectedEntity.TreeExiting -= onSelectedEntityTreeExited;
-      SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
+    StateChart.SendEvent("entity_deselected");
 
-      // FIXME: temp fix, when exiting selection the selected entity is new
-
-      if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-        commandTrait.CommandSelected -= OnCommandSelected;
-        commandTrait.CommandStarted -= OnCommandStarted;
-        commandTrait.CommandFinished -= OnCommandFinished;
-      }
-    }
-
-    if (!IsInstanceValid(entity) || entity == null) {
-      StateChart.SendEvent("entity_deselected");
-      SelectedEntity = null;
-      SelectedCommand = null;
-      return;
-    }
-
-    SelectedCommand = null;
     SelectedEntity = entity;
-    SelectedEntity.TreeExiting += onSelectedEntityTreeExited;
-    SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
 
-    void onSelectedEntityTreeExited() {
-      OnSelectedEntityDied();
-      SelectEntity(null);
+    if (IsInstanceValid(SelectedEntity)) {
+      StateChart.SendEvent("entity_selected");
     }
-
-    StateChart.SendEvent("entity_selected");
   }
 
   private void CheckCommandInput(InputEvent @event) {
-    if (@event is InputEventKey eventKey) {
-      if (@event.IsPressed()) {
-        switch (eventKey.Keycode) {
-          // TODO: for now its okay but later I want to make shortcuts for commands
-          case Key.Key1:
-            GetHUD().SelectCommand(0);
-            break;
-          case Key.Key2:
-            GetHUD().SelectCommand(1);
-            break;
-          case Key.Key3:
-            GetHUD().SelectCommand(2);
-            break;
-          case Key.Key4:
-            GetHUD().SelectCommand(3);
-            break;
-          default:
-            break;
-        }
-      }
-    }
-  }
-
-  private void OnCommandSelected(Command command) {
-    SelectedCommand = command;
+    // if (@event is InputEventKey eventKey) {
+    //   if (@event.IsPressed()) {
+    //     switch (eventKey.Keycode) {
+    //       // TODO: for now its okay but later I want to make shortcuts for commands
+    //       case Key.Key1:
+    //         GetHUD().SelectCommand(0);
+    //         break;
+    //       case Key.Key2:
+    //         GetHUD().SelectCommand(1);
+    //         break;
+    //       case Key.Key3:
+    //         GetHUD().SelectCommand(2);
+    //         break;
+    //       case Key.Key4:
+    //         GetHUD().SelectCommand(3);
+    //         break;
+    //       default:
+    //         break;
+    //     }
+    //   }
+    // }
   }
 
   private void OnCommandStarted(Command command) {
@@ -300,14 +272,26 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnSelectionStateEntered() {
     if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      commandTrait.CommandSelected += OnCommandSelected;
       commandTrait.CommandStarted += OnCommandStarted;
       commandTrait.CommandFinished += OnCommandFinished;
     }
+
+    SelectedEntity.TreeExiting += OnSelectedEntityDied;
+    SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
   }
 
   private void OnSelectionStateExited() {
     _character.CancelMoveToPosition();
+
+    if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      commandTrait.CommandStarted -= OnCommandStarted;
+      commandTrait.CommandFinished -= OnCommandFinished;
+    }
+
+    SelectedEntity.TreeExiting -= OnSelectedEntityDied;
+    SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
+
+    SelectedCommand = null;
   }
 
   private void OnSelectionIdleStateUnhandledInput(InputEvent @event) {
@@ -315,9 +299,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       FocusOnSelectedEntity();
     }
 
-    if (IsCurrentTurn()) {
-      CheckCommandInput(@event);
-    }
+    CheckCommandInput(@event);
+
 
     if (@event.IsActionReleased(GameInputs.UseCommand)) {
       TryUseCommand(HoveredCell);
@@ -341,38 +324,34 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         SelectEntity(entities.FirstOrDefault());
       }
     }
+
+    if (@event.IsActionPressed(GameInputs.EndTurn)) {
+      TryEndTurn();
+    }
+
     @event.Dispose();
   }
 
   private void OnSelectionIdleStateEntered() {
-    if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      if (commandTrait.Entity.TryGetOwner(out var owner)) {
-        if (owner == this) {
-          GetHUD().SelectCommand(commandTrait.GetCommands().FirstOrDefault(c => !c.UsedThisRound, defaultValue: null));
-        }
-      }
-    }
+    SelectFirstCommand();
   }
 
   private void OnSelectionIdleStateExited() {
-
   }
 
   private void OnCommandStateEntered() {
-    IsUsingCommand = true;
-
     GetHUD().SetEndTurnButtonDisabled(true);
   }
 
   private void OnCommandStateExited() {
     GetHUD().SetEndTurnButtonDisabled(false);
+
     SelectedCommand = null;
-    IsUsingCommand = false;
   }
   #endregion
 
   private bool TryUseCommand(GameCell clickedCell) {
-    if (!IsCurrentTurn() || SelectedCommand == null) {
+    if (!IsCurrentTurn() && SelectedCommand != null) {
       return false;
     }
 
@@ -395,7 +374,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
 
-  private void UpdateCommandHighlights() {
+  private void UpdateCommandHighlights(Command command) {
     if (SelectedEntity == null) {
       return;
     }
@@ -404,10 +383,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
 
-    if (SelectedCommand != null && !IsUsingCommand) {
-      var darkened = !SelectedCommand.GetEntity().TryGetOwner(out var owner) || owner != this;
+    if (command != null) {
+      var darkened = !command.GetEntity().TryGetOwner(out var owner) || owner != this;
 
-      if (SelectedCommand is MoveCommand moveCommand) {
+      if (command is MoveCommand moveCommand) {
 
         foreach (var cell in moveCommand.GetReachableCells()) {
           HighlightSystem.SetHighlight(HighlightType.Movement, cell, darkened);
@@ -419,7 +398,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
           }
         }
       }
-      else if (SelectedCommand is AttackCommand attackCommand) {
+      else if (command is AttackCommand attackCommand) {
         var (entities, cellsInRange) = attackCommand.GetAttackableEntities();
         foreach (var cell in cellsInRange) {
           HighlightSystem.SetHighlight(HighlightType.Attack, cell, darkened);
@@ -442,6 +421,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectedEntityDied() {
+    SelectEntity(null);
     HighlightSystem.ClearAllHighlights();
     HighlightSystem.UpdateHighlights();
   }
@@ -455,5 +435,16 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     HighlightSystem.UpdateHighlights();
+  }
+
+  private void SelectFirstCommand() {
+    if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      if (commandTrait.Entity.TryGetOwner(out var owner) && owner == this) {
+        SelectedCommand = commandTrait.GetCommands().FirstOrDefault(c => !c.UsedThisRound, defaultValue: null);
+      }
+      else {
+        SelectedCommand = commandTrait.GetCommands().FirstOrDefault(defaultValue: null);
+      }
+    }
   }
 }
