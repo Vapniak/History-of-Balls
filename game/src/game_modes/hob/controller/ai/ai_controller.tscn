@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ckan83j5lv8sv"]
 
-[ext_resource type="Script" path="res://src/game_modes/hob/controller/AIController.cs" id="1_ss3oa"]
+[ext_resource type="Script" path="res://src/game_modes/hob/controller/ai/AIController.cs" id="1_ss3oa"]
 
 [node name="AIController" type="Node3D"]
 script = ExtResource("1_ss3oa")

@@ -75,11 +75,11 @@ public partial class HOBGameMode : GameMode {
   private void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
 
-    GetGameState().TurnEndedEvent += CheckWinCondition;
+    GetGameState().TurnStartedEvent += CheckWinCondition;
   }
 
   private void OnInMatchStateExited() {
-    GetGameState().TurnEndedEvent -= CheckWinCondition;
+    GetGameState().TurnStartedEvent -= CheckWinCondition;
   }
 
   private void OnMatchEndedStateEntered() {

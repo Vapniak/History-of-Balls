@@ -91,29 +91,46 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
 
 
   public GameCell[] FindPath(GameCell start, GameCell target, uint maxCost, Func<GameCell, GameCell, bool> isReachable) {
+    if (target == null || start == null) {
+      return null;
+    }
+
     var minCost = new int[GetCells().Length];
     var parent = new GameCell[GetCells().Length];
+    var visited = new bool[GetCells().Length];
 
     for (var i = 0; i < minCost.Length; i++) {
       minCost[i] = int.MaxValue;
       parent[i] = null;
+      visited[i] = false;
     }
 
     minCost[GetCellIndex(start)] = 0;
     var pq = new PriorityQueue<GameCell, int>();
     pq.Enqueue(start, 0);
 
+    var closestCell = start;
+    var closestDistance = start.Coord.Distance(target.Coord);
+
     while (pq.Count > 0) {
       var current = pq.Dequeue();
       var currentCost = minCost[GetCellIndex(current)];
 
       if (current == target) {
-        break;
+        return ReconstructPath(parent, current, maxCost);
       }
+
+      var currentDistance = current.Coord.Distance(target.Coord);
+      if (currentDistance < closestDistance) {
+        closestCell = current;
+        closestDistance = currentDistance;
+      }
+
+      visited[GetCellIndex(current)] = true;
 
       for (var i = (int)HexDirection.First; i <= (int)HexDirection.Sixth; i++) {
         var cell = GetCell(current, (HexDirection)i);
-        if (cell != null && isReachable(current, cell)) {
+        if (cell != null && isReachable(current, cell) && !visited[GetCellIndex(cell)]) {
           var newCost = currentCost + GetSetting(cell).MoveCost;
           var cellIndex = GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
@@ -125,8 +142,12 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
       }
     }
 
+    return ReconstructPath(parent, closestCell, maxCost);
+  }
+
+  private GameCell[] ReconstructPath(GameCell[] parent, GameCell endCell, uint maxCost) {
     var path = new List<GameCell>();
-    var currentCell = target;
+    var currentCell = endCell;
     while (currentCell != null) {
       path.Add(currentCell);
       currentCell = parent[GetCellIndex(currentCell)];
@@ -146,6 +167,7 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
         break;
       }
     }
+
     return finalPath.ToArray();
   }
 

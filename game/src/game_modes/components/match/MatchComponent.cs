@@ -62,6 +62,8 @@ public partial class MatchComponent : GameModeComponent {
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y - 20), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(GameBoard.GetMapSize().X - 15, GameBoard.GetMapSize().Y - 6), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(GameBoard.GetMapSize().X - 10, GameBoard.GetMapSize().Y), controller);
+      GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(GameBoard.GetMapSize().X - 10, GameBoard.GetMapSize().Y), controller);
+      GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(GameBoard.GetMapSize().X - 10, GameBoard.GetMapSize().Y), controller);
 
       GameBoard.AddEntityOnClosestAvailableCell(Structure1, new(10, 10), controller);
 

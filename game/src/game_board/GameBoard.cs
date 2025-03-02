@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System;
 using Godot;
 using HexGridMap;
 using HOB.GameEntity;
@@ -18,6 +19,7 @@ public partial class GameBoard : Node3D {
   [Export] private EntityManager EntityManager { get; set; }
 
   public GameGrid Grid { get; private set; }
+
 
   public void Init() {
     Grid = new(Layout);

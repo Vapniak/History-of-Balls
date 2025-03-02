@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game_modes/hob/controller/hob_player_controller.tscn" id="2_st7p2"]
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="3_wvtpx"]
-[ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game_modes/hob/controller/ai_controller.tscn" id="4_lhw57"]
+[ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game_modes/hob/controller/ai/ai_controller.tscn" id="4_lhw57"]
 [ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/gui/hud/hud.tscn" id="5_yn6q8"]
 [ext_resource type="Script" path="res://src/game_modes/components/pause/PauseComponent.cs" id="6_yg7jk"]
 [ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="7_orjcr"]

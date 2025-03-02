@@ -44,12 +44,13 @@ public partial class AttackTrait : Trait {
 
       cellsInR.Add(cell);
       var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
-      if (Entity.TryGetOwner(out var owner)) {
-        AttackableEntities.AddRange(entities.Where(e => e.TryGetOwner(out var enemyOwner) && enemyOwner != owner && e.TryGetTrait<HealthTrait>(out _)));
-      }
+      AttackableEntities.AddRange(entities.Where(CanBeAttacked));
     }
 
-
     return (AttackableEntities.ToArray(), cellsInR.ToArray());
+  }
+
+  public bool CanBeAttacked(Entity entity) {
+    return entity.TryGetOwner(out var enemyOwner) && Entity.TryGetOwner(out var owner) && enemyOwner != owner && entity.TryGetTrait<HealthTrait>(out _);
   }
 }

@@ -1,5 +1,6 @@
 namespace HOB.GameEntity;
 
+using GameplayFramework;
 using Godot;
 using System;
 
@@ -16,7 +17,7 @@ public partial class HealthTrait : Trait {
       GetStat<HealthStats>().CurrentHealth -= (int)damage;
 
       var text = FloatingText.Create(damage.ToString(), Colors.Red);
-      GetTree().Root.AddChild(text);
+      GameInstance.GetWorld().AddChild(text);
       text.GlobalPosition = Entity.GetPosition() + Vector3.Up * 2;
       text.Animate();
 
