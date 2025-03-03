@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dq50a8e3adq5a"]
+[gd_scene load_steps=9 format=3 uid="uid://dq50a8e3adq5a"]
 
 [ext_resource type="Script" path="res://src/levels/HOBLevel.cs" id="1_l02ep"]
 [ext_resource type="PackedScene" uid="uid://bpyq5jomq1pgv" path="res://src/levels/transitions/fade_in.tscn" id="2_51t61"]
@@ -6,24 +6,31 @@
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/hob/hob_game_mode.tscn" id="4_eue7f"]
 [ext_resource type="PackedScene" uid="uid://b7p0e45e0ng0f" path="res://src/game_board/game_board.tscn" id="5_t3dxr"]
 
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_qclws"]
+rayleigh_color = Color(0.198401, 0.407532, 0.846441, 1)
+mie_eccentricity = 0.97
+mie_color = Color(0.775602, 0.729124, 0.557061, 1)
+
+[sub_resource type="Sky" id="Sky_w6xpn"]
+sky_material = SubResource("PhysicalSkyMaterial_qclws")
+
 [sub_resource type="Environment" id="Environment_mxfj4"]
-ambient_light_source = 2
-ambient_light_color = Color(0.976332, 0.86785, 0.843724, 1)
-ambient_light_energy = 0.23
-glow_enabled = true
+background_mode = 2
+sky = SubResource("Sky_w6xpn")
+ambient_light_source = 3
+ambient_light_color = Color(1, 1, 1, 1)
+ambient_light_sky_contribution = 0.76
 glow_normalized = true
 glow_intensity = 1.38
 glow_strength = 0.71
 glow_mix = 0.1
 glow_bloom = 0.29
 glow_blend_mode = 1
-fog_mode = 1
-fog_density = 0.2695
-fog_height = 143.87
-volumetric_fog_density = 0.0176
-adjustment_brightness = 0.92
-adjustment_contrast = 0.87
-adjustment_saturation = 0.93
+fog_light_color = Color(0.5, 0.5, 0.608, 1)
+fog_density = 0.0
+volumetric_fog_density = 0.0454
+volumetric_fog_albedo = Color(0.21656, 0.432241, 1, 1)
+adjustment_enabled = true
 
 [node name="HOBLevel" type="Node"]
 script = ExtResource("1_l02ep")
@@ -35,6 +42,7 @@ GameModeScene = ExtResource("4_eue7f")
 transform = Transform3D(-0.866025, 0.433013, -0.25, 0, 0.5, 0.866025, 0.5, 0.75, -0.433013, 0, -0.0460427, 0)
 light_color = Color(0.871004, 0.811454, 0.79966, 1)
 shadow_enabled = true
+shadow_opacity = 0.35
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mxfj4")

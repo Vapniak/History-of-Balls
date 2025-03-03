@@ -60,7 +60,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
       return;
     }
 
-    var targetVelocity = new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti / (float)delta * 0.100f;
+    var targetVelocity = new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti / (float)delta;
     Velocity = new Vector3(
         SmoothDamp(Velocity.X, targetVelocity.X, ref _panVelocity.X, 0.1f, float.MaxValue, (float)delta),
         Velocity.Y,

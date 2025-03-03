@@ -6,15 +6,16 @@
 [sub_resource type="ViewportTexture" id="ViewportTexture_r07d7"]
 viewport_path = NodePath("SubViewport")
 
-[node name="EntityUI3D" type="Sprite3D" node_paths=PackedStringArray("ColorRect")]
+[node name="EntityUI3D" type="Sprite3D" node_paths=PackedStringArray("TextureRect", "UIRoot")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-pixel_size = 0.001
+pixel_size = 0.0005
 billboard = 1
 double_sided = false
 fixed_size = true
 texture = SubResource("ViewportTexture_r07d7")
 script = ExtResource("1_q8esg")
-ColorRect = NodePath("SubViewport/MarginContainer/CenterContainer/ColorRect")
+TextureRect = NodePath("SubViewport/MarginContainer/CenterContainer/MarginContainer/Flag/Texture")
+UIRoot = NodePath("SubViewport/MarginContainer")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
@@ -24,3 +25,4 @@ size = Vector2i(128, 128)
 [node name="MarginContainer" parent="SubViewport" instance=ExtResource("2_smlom")]
 
 [editable path="SubViewport/MarginContainer"]
+[editable path="SubViewport/MarginContainer/CenterContainer/MarginContainer/Flag"]

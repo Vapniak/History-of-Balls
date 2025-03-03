@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://c0wn2cfx3bg73"]
+[gd_scene load_steps=2 format=3 uid="uid://c0wn2cfx3bg73"]
+
+[ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/gui/flag/flag.tscn" id="1_rkup2"]
 
 [node name="MarginContainer" type="MarginContainer"]
 anchors_preset = 15
@@ -10,8 +12,11 @@ grow_vertical = 2
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="CenterContainer"]
-custom_minimum_size = Vector2(25, 25)
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(96, 60)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+
+[node name="Flag" parent="CenterContainer/MarginContainer" instance=ExtResource("1_rkup2")]
+layout_mode = 2
+
+[editable path="CenterContainer/MarginContainer/Flag"]

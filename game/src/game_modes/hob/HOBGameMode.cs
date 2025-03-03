@@ -105,12 +105,13 @@ public partial class HOBGameMode : GameMode {
   }
 
   private void CheckWinCondition() {
-    var player = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex];
-    var controller = player.GetController<IMatchController>();
+    foreach (var player in GetGameState().PlayerArray) {
+      var controller = player.GetController<IMatchController>();
 
-    var board = GetGameState().GameBoard;
-    if (board.GetOwnedEntities(controller).Length == 0) {
-      StateChart.SendEvent("match_end");
+      var board = GetGameState().GameBoard;
+      if (board.GetOwnedEntities(controller).Length == 0) {
+        StateChart.SendEvent("match_end");
+      }
     }
   }
 }

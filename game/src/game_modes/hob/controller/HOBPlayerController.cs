@@ -33,7 +33,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private HighlightSystem HighlightSystem { get; set; }
 
-  public Team Team { get; set; }
+  public Country Country { get; set; }
 
   public override void _Ready() {
     base._Ready();
@@ -106,6 +106,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
   public void OwnTurnStarted() {
+    UpdateCommandHighlights();
   }
   public void OwnTurnEnded() {
     SelectedCommand = null;

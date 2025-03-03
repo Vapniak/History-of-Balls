@@ -1,0 +1,19 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://dg5jyji4l2qau"]
+
+[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="1_14ew5"]
+[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="1_rdcnd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hnlje"]
+render_priority = 0
+shader = ExtResource("1_rdcnd")
+
+[resource]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_hnlje")
+shader = ExtResource("1_14ew5")
+shader_parameter/color = Color(0.7, 0.12, 0.86, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)

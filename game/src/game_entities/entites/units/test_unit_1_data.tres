@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://src/game_entities/traits/attack/AttackStats.cs" id="3_8bl4x"]
 [ext_resource type="Script" path="res://src/game_entities/traits/health/HealthStats.cs" id="4_sqnty"]
 [ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="5_4s45a"]
-[ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/unit_traits.tscn" id="6_2xkbp"]
+[ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/units/unit_traits.tscn" id="6_2xkbp"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="7_2e5sc"]
 
 [sub_resource type="Resource" id="Resource_f6nfp"]

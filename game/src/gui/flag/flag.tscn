@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c68alou7ol1t8"]
+
+[ext_resource type="Texture2D" uid="uid://em1vk1g3frpt" path="res://assets/textures/flags/Poland.png" id="1_84y06"]
+
+[node name="Flag" type="MarginContainer"]
+custom_minimum_size = Vector2(96, 60)
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Texture" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_84y06")
+expand_mode = 2

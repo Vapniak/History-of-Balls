@@ -13,7 +13,7 @@ public partial class AIController : Controller, IMatchController {
 
   private GameBoard GameBoard { get; set; }
 
-  public Team Team { get; set; }
+  public Country Country { get; set; }
 
   // TODO: implement Monte Carlo Tree Search algorithm for ai
 
@@ -35,6 +35,8 @@ public partial class AIController : Controller, IMatchController {
       await Decide(entity);
     }
 
+    // FIXME: temp fix for ai ending turn before checking for win condition in game mode
+    await Task.Delay(1000);
     EndTurn();
   }
 

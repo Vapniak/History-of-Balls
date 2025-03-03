@@ -1,5 +1,4 @@
 shader_type spatial;
-render_mode diffuse_toon;
 
 #include "include/hex_utils.gdshaderinc"
 
@@ -15,8 +14,8 @@ const int CELL_SCALE = 2;
 
 // TODO: when colors are simmilar highlight is not visible
 vec3 apply_highlight(vec3 base_color, vec3 highlight_color, HexCellData data){
-	vec3 highlighted_color = mix(base_color, highlight_color.rgb, smoothstep_range(data, .65, .84));
-	return mix(highlighted_color, highlight_color + vec3(0.2), smoothstep_range(data, .6, .65));
+	vec3 highlighted_color = mix(base_color, highlight_color.rgb, smoothstep_range(data, .75, .84));
+	return mix(highlighted_color, highlight_color + vec3(0.2), smoothstep_range(data, .7, .75));
 }
 
 void vertex() {
@@ -34,6 +33,8 @@ void fragment() {
 	else {
 		ALBEDO = vec3(0, 0, 0);
 	}
+
+
 
 	// apply grid
 	ALBEDO = mix(ALBEDO, vec3(0.01), smoothstep_range(data, 0.84, 1));

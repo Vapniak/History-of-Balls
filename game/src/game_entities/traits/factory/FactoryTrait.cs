@@ -12,7 +12,7 @@ public partial class FactoryTrait : Trait {
     if (Entity.TryGetOwner(out var owner)) {
       if (Entity.TryGetStat<FactoryStats>(out var stats)) {
         ProcessingRoundsLeft = stats.ProcessingTurns;
-        owner.GetPlayerState().GetResourceType(stats.InputType).Value -= stats.InputValue;
+        owner.GetPlayerState().GetResourceType(stats.ProcessedResource).Value -= stats.ProcessedValue;
       }
     }
   }
@@ -40,7 +40,7 @@ public partial class FactoryTrait : Trait {
       if (ProcessingRoundsLeft == 0) {
         if (Entity.TryGetOwner(out var owner)) {
           if (Entity.TryGetStat<FactoryStats>(out var stats)) {
-            owner.GetPlayerState().GetResourceType(stats.OutputType).Value += stats.OutputValue;
+            owner.GetPlayerState().GetResourceType(stats.ProducedResource).Value += stats.ProducedValue;
           }
         }
       }

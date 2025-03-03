@@ -15,8 +15,8 @@ public partial class HOBHUD : HUD {
   [Export] private Button EndTurnButton { get; set; }
   [Export] private CommandPanel CommandPanel { get; set; }
   [Export] private Label RoundLabel { get; set; }
-  [Export] private ColorRect TeamColorRect { get; set; }
-  [Export] private Label TeamNameLabel { get; set; }
+  [Export] private TextureRect CountryFlag { get; set; }
+  [Export] private Label CountryNameLabel { get; set; }
 
   [ExportGroup("Resources")]
   [Export] private Label PrimaryResourceNameLabel { get; set; }
@@ -86,8 +86,8 @@ public partial class HOBHUD : HUD {
     playerState.PrimaryResourceType.ValueChanged += () => UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
     playerState.SecondaryResourceType.ValueChanged += () => UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
 
-    TeamColorRect.Color = GetPlayerController().Team.Color;
-    TeamNameLabel.Text = GetPlayerController().Team.Name;
+    CountryFlag.Texture = GetPlayerController().Country.Flag;
+    CountryNameLabel.Text = GetPlayerController().Country.Name;
   }
 
   private void UpdatePrimaryResourceName(string name) {
@@ -220,12 +220,12 @@ public partial class HOBHUD : HUD {
     }
 
     if (entity.TryGetStat<FactoryStats>(out var factoryStats)) {
-      var primary = playerState.GetResourceType(factoryStats.InputType);
-      var secondary = playerState.GetResourceType(factoryStats.OutputType);
-      panel.AddEntry("Input Resource:", primary.Name);
-      panel.AddEntry("Input Value:", factoryStats.InputValue.ToString());
-      panel.AddEntry("Output Resource:", secondary.Name);
-      panel.AddEntry("Output Value:", factoryStats.OutputValue.ToString());
+      var primary = playerState.GetResourceType(factoryStats.ProcessedResource);
+      var secondary = playerState.GetResourceType(factoryStats.ProducedResource);
+      panel.AddEntry("Processed Resource:", primary.Name);
+      panel.AddEntry("Processed Value:", factoryStats.ProcessedValue.ToString());
+      panel.AddEntry("Produced Resource:", secondary.Name);
+      panel.AddEntry("Produced Value:", factoryStats.ProducedValue.ToString());
     }
 
     if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {

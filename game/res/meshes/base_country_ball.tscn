@@ -1,10 +1,9 @@
-[gd_scene load_steps=10 format=4 uid="uid://gsbrhj8onefx"]
+[gd_scene load_steps=12 format=4 uid="uid://c6gjek7mpianb"]
 
-[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_26aeu"]
-[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://res/meshes/base_country_ball.tscn" id="2_7drl5"]
-[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="3_3lp7f"]
-[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="4_6o48f"]
-[ext_resource type="Texture2D" uid="uid://em1vk1g3frpt" path="res://assets/textures/flags/Poland.png" id="5_rwmf6"]
+[ext_resource type="PackedScene" uid="uid://b8mjeotg42xkp" path="res://assets/models/sphere.fbx" id="1_stb4m"]
+[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_aurth"]
+[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="2_wli4j"]
+[ext_resource type="Texture2D" uid="uid://v3yc7rtrx2cs" path="res://assets/textures/flags/England.png" id="3_x0twr"]
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xd6va"]
 _surfaces = [{
@@ -21,7 +20,7 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 
-[sub_resource type="ArrayMesh" id="ArrayMesh_fydlr"]
+[sub_resource type="ArrayMesh" id="ArrayMesh_6dg2p"]
 resource_name = "Sphere_001"
 _surfaces = [{
 "aabb": AABB(-0.00999998, -0.00999998, -0.01, 0.02, 0.02, 0.02),
@@ -41,27 +40,47 @@ shadow_mesh = SubResource("ArrayMesh_xd6va")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8f68d"]
 render_priority = 0
-shader = ExtResource("3_3lp7f")
+shader = ExtResource("2_aurth")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_47u6a"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_moi0d"]
 resource_local_to_scene = true
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_8f68d")
-shader = ExtResource("4_6o48f")
+shader = ExtResource("2_wli4j")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
-shader_parameter/base_texture = ExtResource("5_rwmf6")
+shader_parameter/base_texture = ExtResource("3_x0twr")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(-0.25, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hnlje"]
+render_priority = 0
+shader = ExtResource("2_aurth")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jpmug"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_hnlje")
+shader = ExtResource("2_wli4j")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 
-[node name="EntityBody" type="Node3D"]
-script = ExtResource("1_26aeu")
+[sub_resource type="BoxMesh" id="BoxMesh_cjec7"]
+material = SubResource("ShaderMaterial_jpmug")
+size = Vector3(0.175, 0.21, 0.49)
 
-[node name="BaseCountryBall" parent="." instance=ExtResource("2_7drl5")]
+[node name="BaseCountryBall" instance=ExtResource("1_stb4m")]
 
-[node name="Sphere" parent="BaseCountryBall" index="0"]
-mesh = SubResource("ArrayMesh_fydlr")
-surface_material_override/0 = SubResource("ShaderMaterial_47u6a")
+[node name="Sphere" parent="." index="0"]
+transform = Transform3D(50, 0, 0, 0, -2.18557e-06, 50, 0, -50, -2.18557e-06, 0, 0.5, 0)
+mesh = SubResource("ArrayMesh_6dg2p")
+surface_material_override/0 = SubResource("ShaderMaterial_moi0d")
 
-[editable path="BaseCountryBall"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." index="1"]
+transform = Transform3D(-2.85397e-08, 0, -0.957348, 0, 0.933348, 0, 0.652912, 0, -4.1847e-08, 0, 0.710138, -0.41654)
+mesh = SubResource("BoxMesh_cjec7")
+skeleton = NodePath("")

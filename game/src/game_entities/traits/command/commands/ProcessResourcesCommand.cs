@@ -14,7 +14,7 @@ public partial class ProcessResourcesCommand : Command {
 
     if (GetEntity().TryGetOwner(out var owner)) {
       if (GetEntity().TryGetStat<FactoryStats>(out var stats)) {
-        if (owner.GetPlayerState().GetResourceType(stats.InputType).Value >= stats.InputValue) {
+        if (owner.GetPlayerState().GetResourceType(stats.ProcessedResource).Value >= stats.ProcessedValue) {
           return base.CanBeUsed(caller);
         }
       }

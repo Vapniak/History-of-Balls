@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System.Threading.Tasks;
 using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
@@ -10,8 +11,8 @@ using HOB.GameEntity;
 /// </summary>
 [GlobalClass]
 public partial class MatchComponent : GameModeComponent {
-  [Export] private Team PlayerTeam { get; set; }
-  [Export] private Team AITeam { get; set; }
+  [Export] private Country PlayerTeam { get; set; }
+  [Export] private Country AITeam { get; set; }
 
   [Export] private EntityData TestEntity { get; set; }
   [Export] private EntityData TestEntity2 { get; set; }
@@ -45,7 +46,7 @@ public partial class MatchComponent : GameModeComponent {
     playerState.SecondaryResourceType = Secondary.Duplicate() as ResourceType;
 
     if (controller is PlayerController) {
-      controller.Team = PlayerTeam;
+      controller.Country = PlayerTeam;
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(1, 0), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(2, 0), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(10, 5), controller);
@@ -57,13 +58,13 @@ public partial class MatchComponent : GameModeComponent {
       GameBoard.AddEntityOnClosestAvailableCell(City, new(5, 3), controller);
     }
     else {
-      controller.Team = AITeam;
+      controller.Country = AITeam;
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(GameBoard.GetMapSize().X - 5, GameBoard.GetMapSize().Y - 5), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(GameBoard.GetMapSize().X, GameBoard.GetMapSize().Y - 20), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(GameBoard.GetMapSize().X - 15, GameBoard.GetMapSize().Y - 6), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(GameBoard.GetMapSize().X - 10, GameBoard.GetMapSize().Y), controller);
       GameBoard.AddEntityOnClosestAvailableCell(TestEntity2, new(GameBoard.GetMapSize().X - 10, GameBoard.GetMapSize().Y), controller);
-      GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(GameBoard.GetMapSize().X - 10, GameBoard.GetMapSize().Y), controller);
+      GameBoard.AddEntityOnClosestAvailableCell(TestEntity, new(GameBoard.GetMapSize().X - 15, GameBoard.GetMapSize().Y - 5), controller);
 
       GameBoard.AddEntityOnClosestAvailableCell(Structure1, new(10, 10), controller);
 
@@ -84,6 +85,7 @@ public partial class MatchComponent : GameModeComponent {
   private void OnTurnStarted() {
     _lastPlayer?.OwnTurnEnded();
     var player = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
+
     player.OwnTurnStarted();
     _lastPlayer = player;
   }

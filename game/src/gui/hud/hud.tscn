@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=10 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBHUD.cs" id="1_ep1kh"]
+[ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/gui/flag/flag.tscn" id="2_3sw0n"]
 [ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_v4qhv"]
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/gui/hud/command_panel/command_panel.tscn" id="3_a41a7"]
 [ext_resource type="PackedScene" uid="uid://dm85iu1q2xpt5" path="res://src/gui/hud/entity_production_panel/entity_production_panel.tscn" id="4_77ne6"]
@@ -16,7 +17,7 @@ bg_color = Color(0, 0, 0, 0.313726)
 
 [sub_resource type="Environment" id="Environment_384c7"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "TeamColorRect", "TeamNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "CountryFlag", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
 script = ExtResource("1_ep1kh")
 TurnChangedNotificationLabel = NodePath("TurnLabel")
 StatPanel = NodePath("MarginContainer4/StatPanel")
@@ -24,8 +25,8 @@ ProductionPanel = NodePath("MarginContainer4/EntityProductionPanel")
 EndTurnButton = NodePath("VBoxContainer/MarginContainer/Button")
 CommandPanel = NodePath("MarginContainer4/StatPanel/VBoxContainer/CommandPanel")
 RoundLabel = NodePath("VBoxContainer/PanelContainer2/VBoxContainer/Label")
-TeamColorRect = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/ColorRect")
-TeamNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/Label")
+CountryFlag = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/Flag/Texture")
+CountryNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/Label")
 PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label")
 PrimaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label2")
 SecondaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer2/Label")
@@ -50,8 +51,8 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
-custom_minimum_size = Vector2(25, 25)
+[node name="Flag" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer" instance=ExtResource("2_3sw0n")]
+custom_minimum_size = Vector2(48, 30)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
@@ -101,8 +102,17 @@ horizontal_alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 8
+theme_override_constants/margin_left = 10
 theme_override_constants/margin_right = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 18
+text = "OBJECTIVES: 
+- CAPTURE ALL STRUCTURES
+- KILL ALL ENEMY UNITS"
+uppercase = true
 
 [node name="Button" type="Button" parent="VBoxContainer/MarginContainer"]
 layout_mode = 2
@@ -200,4 +210,5 @@ uppercase = true
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer/Button" to="." method="OnEndTurnPressed"]
 
+[editable path="VBoxContainer/PanelContainer2/Resources/VBoxContainer/Flag"]
 [editable path="MarginContainer4/StatPanel"]

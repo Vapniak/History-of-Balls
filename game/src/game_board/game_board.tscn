@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=9 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="Resource" uid="uid://lp5grltc6rsd" path="res://src/game_board/grid_layout.tres" id="2_i1283"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" path="res://src/game_board/terrain_manager/TerrainManager.cs" id="5_ml5l7"]
 [ext_resource type="Shader" path="res://res/shaders/terrain.gdshader" id="5_vuxl6"]
 [ext_resource type="Script" path="res://src/game_board/entity_manager/EntityManager.cs" id="6_wv76r"]
-[ext_resource type="Shader" path="res://res/shaders/entity_outline.gdshader" id="7_a1a0b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k616f"]
 render_priority = 0
@@ -16,16 +15,6 @@ shader_parameter/mouse_world_pos = null
 shader_parameter/show_mouse_highlight = null
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ihitb"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0lcs0"]
-render_priority = 0
-shader = ExtResource("7_a1a0b")
-shader_parameter/albedo = Color(0, 1, 0, 1)
-shader_parameter/emission_color = Color(0, 1, 0, 1)
-shader_parameter/emission_amount = 7.0
-shader_parameter/rim_steepness = 2.0
-shader_parameter/uv_scale = null
-shader_parameter/uv_offset = null
 
 [node name="GameBoard" type="Node3D" node_paths=PackedStringArray("TerrainManager", "EntityManager")]
 script = ExtResource("1_fetkt")
@@ -45,4 +34,3 @@ shape = SubResource("WorldBoundaryShape3D_ihitb")
 
 [node name="EntityManager" type="Node" parent="."]
 script = ExtResource("6_wv76r")
-EntityMaterial = SubResource("ShaderMaterial_0lcs0")

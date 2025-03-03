@@ -1,27 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://djmy308ykthsu"]
+[gd_scene load_steps=8 format=3 uid="uid://djmy308ykthsu"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_gh5l7"]
+[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://res/meshes/base_country_ball.tscn" id="2_s6u6k"]
+[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="3_sbikd"]
+[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="4_8eiit"]
+[ext_resource type="Texture2D" uid="uid://bi1y53nso1yej" path="res://assets/textures/flags/sphere_0.png" id="5_apyl2"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_rk4wh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8f68d"]
+render_priority = 0
+shader = ExtResource("3_sbikd")
 
-[sub_resource type="SphereMesh" id="SphereMesh_krwg2"]
-material = SubResource("ShaderMaterial_rk4wh")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tqfe"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_lqswr"]
-material = SubResource("StandardMaterial3D_5tqfe")
-size = Vector3(0.175, 0.21, 0.49)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbu48"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_8f68d")
+shader = ExtResource("4_8eiit")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/base_texture = ExtResource("5_apyl2")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(-0.25, 0)
 
 [node name="EntityBody" type="Node3D"]
 script = ExtResource("1_gh5l7")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("SphereMesh_krwg2")
-skeleton = NodePath("../..")
+[node name="BaseCountryBall" parent="." instance=ExtResource("2_s6u6k")]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.2, -0.4)
-mesh = SubResource("BoxMesh_lqswr")
+[node name="Sphere" parent="BaseCountryBall" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_gbu48")
+
+[editable path="BaseCountryBall"]

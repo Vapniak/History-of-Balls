@@ -16,7 +16,7 @@ public partial class AttackTrait : Trait {
     await Entity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 
     var firstTween = CreateTween();
-    firstTween.TweenMethod(Callable.From<Vector3>(Entity.SetPosition), Entity.GetPosition(), Entity.GetPosition() + entity.GetPosition().Normalized(), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+    firstTween.TweenMethod(Callable.From<Vector3>(Entity.SetPosition), Entity.GetPosition(), Entity.GetPosition() + Entity.GetPosition().DirectionTo(entity.GetPosition()), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
 
     await ToSignal(firstTween, Tween.SignalName.Finished);
 

@@ -7,43 +7,38 @@ using System.Linq;
 
 [GlobalClass]
 public partial class EntityManager : Node {
-  [Export] private Material EntityMaterial { get; set; }
-
   public GameGrid Grid { get; set; }
 
   private List<Entity> Entities { get; set; }
-
-  private Dictionary<Team, Material> TeamMaterials { get; set; }
 
 
   private string _entityUISceneUID = "uid://ka4lyslghbk";
 
   public override void _Ready() {
     Entities = new();
-    TeamMaterials = new();
   }
 
 
   public void AddEntity(Entity entity) {
     entity.TreeExiting += () => RemoveEntity(entity);
 
-    var entityUIScene = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
+    var entityUI = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
+
+    entityUI.SetVisible(false);
 
     entity.OwnerControllerChanged += () => {
       if (entity.TryGetOwner(out var owner)) {
-        if (!TeamMaterials.TryGetValue(owner.Team, out var value)) {
-          value = EntityMaterial.Duplicate() as Material;
-          value.Set("shader_parameter/emission_color", owner.Team.Color);
-        }
-
-        entityUIScene.SetColor(owner.Team.Color);
-        entity.SetMaterial(value);
+        entityUI.SetFlag(owner.Country.Flag);
+        entityUI.SetVisible(true);
+      }
+      else {
+        entityUI.SetVisible(false);
       }
     };
 
     AddChild(entity);
 
-    entity.Body.AddChild(entityUIScene);
+    entity.Body.AddChild(entityUI);
 
     Entities.Add(entity);
   }
