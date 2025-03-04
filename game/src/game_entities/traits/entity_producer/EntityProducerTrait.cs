@@ -29,7 +29,7 @@ public partial class EntityProducerTrait : Trait {
       if (ProductionRoundsLeft == 0) {
         if (_currentProducedEntity != null) {
           if (Entity.TryGetOwner(out var owner)) {
-            if (Entity.GameBoard.TryAddEntityOnCell(_currentProducedEntity.Entity, Entity.Cell, owner)) {
+            if (Entity.EntityManagment.TryAddEntityOnCell(_currentProducedEntity.Entity, Entity.Cell, owner)) {
               _currentProducedEntity = null;
             }
           }

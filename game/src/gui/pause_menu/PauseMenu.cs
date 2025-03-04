@@ -3,7 +3,7 @@ namespace HOB;
 using Godot;
 using System;
 
-public partial class PauseMenu : CanvasLayer, IPauseMenu {
+public partial class PauseMenu : CanvasLayer {
   [Export] private SettingsMenu SettingsMenu { get; set; }
   public event Action ResumeEvent;
   public event Action MainMenuEvent;

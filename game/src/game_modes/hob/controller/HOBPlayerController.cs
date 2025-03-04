@@ -23,40 +23,31 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private StateChart StateChart { get; set; }
 
-  private GameBoard GameBoard { get; set; }
-
-
-  private PlayerCharacter _character;
+  private GameBoard GameBoard => GetGameState().GameBoard;
+  private PlayerCharacter Character => GetCharacter<PlayerCharacter>();
 
   private bool _isPanning;
   private Vector2 _lastMousePosition;
 
   private HighlightSystem HighlightSystem { get; set; }
+  private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
 
   public Country Country { get; set; }
 
   public override void _Ready() {
     base._Ready();
 
-    GameBoard = GetGameState().GameBoard;
-
     HighlightSystem = new(HighlightColors, GameBoard);
 
     GetHUD().EndTurnPressed += TryEndTurn;
 
-    GameBoard.EntityAdded += (entity) => {
-
-    };
-
     SelectedEntityChanged += OnSelectedEntityChanged;
     SelectedCommandChanged += UpdateCommandHighlights;
 
-    _character = GetCharacter<PlayerCharacter>();
+    Character.CenterPositionOn(GameBoard.GetAabb());
 
-    _character.CenterPositionOn(GameBoard.GetAabb());
-
-    GameInstance.GetGameState<IPauseGameState>().PausedEvent += () => GetHUD().Hide();
-    GameInstance.GetGameState<IPauseGameState>().ResumedEvent += () => GetHUD().Show();
+    GetGameMode().Paused += () => GetHUD().Hide();
+    GetGameMode().Resumed += () => GetHUD().Show();
 
     StateChart = StateChart.Of(StateChartNode);
   }
@@ -64,7 +55,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public override void _UnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
       if (!GetTree().Paused) {
-        GetGameState().Pause();
+        GetGameMode().Pause();
       }
     }
 
@@ -76,12 +67,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       _isPanning = false;
     }
 
-    if (_character.AllowZoom) {
+    if (Character.AllowZoom) {
       if (@event.IsActionPressed(GameInputs.ZoomIn)) {
-        _character.AdjustZoom(1);
+        Character.AdjustZoom(1);
       }
       else if (@event.IsActionPressed(GameInputs.ZoomOut)) {
-        _character.AdjustZoom(-1);
+        Character.AdjustZoom(-1);
       }
     }
 
@@ -92,16 +83,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public override HOBHUD GetHUD() => base.GetHUD() as HOBHUD;
 
   public override void _Process(double delta) {
-    _character.Move(delta);
+    Character.Move(delta);
 
-    _character.ClampPosition(GetGameState().GameBoard.GetAabb());
+    Character.ClampPosition(GameBoard.GetAabb());
   }
 
-  // TODO: implement this inside interface and somehow call this inside this class
-  public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
-
   public void TryEndTurn() {
-    if (IsCurrentTurn()) {
+    if (((IMatchController)this).IsCurrentTurn()) {
       EndTurnEvent?.Invoke();
     }
   }
@@ -113,7 +101,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   public void OnGameStarted() {
-    CallDeferred(MethodName.SelectEntity, GameBoard.GetOwnedEntities(this)[0]);
+    CallDeferred(MethodName.SelectEntity, EntityManagment.GetOwnedEntites(this)[0]);
     CallDeferred(MethodName.FocusOnSelectedEntity);
 
     GetHUD().OnGameStarted();
@@ -196,23 +184,23 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void FocusOnSelectedEntity() {
     if (SelectedEntity != null) {
-      _character.MoveToPosition(SelectedEntity.GetPosition(), 1, Tween.TransitionType.Cubic);
+      Character.MoveToPosition(SelectedEntity.GetPosition(), 1, Tween.TransitionType.Cubic);
     }
   }
   private void HandleMovement(float delta) {
     if (Input.IsActionPressed(GameInputs.SpeedMulti)) {
-      _character.ApplySpeedMulti();
+      Character.ApplySpeedMulti();
     }
 
     if (!_isPanning) {
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
       var moveVector = Input.GetVector(GameInputs.MoveLeft, GameInputs.MoveRight, GameInputs.MoveForward, GameInputs.MoveBackward);
       if (moveVector != Vector2.Zero) {
-        _character.HandleDirectionalMovement(delta, moveVector);
+        Character.HandleDirectionalMovement(delta, moveVector);
       }
       else {
         var mousePosition = GetViewport().GetMousePosition();
-        var edgeMarginPixels = _character.EdgeMarginPixels;
+        var edgeMarginPixels = Character.EdgeMarginPixels;
         var screenRect = GetViewport().GetVisibleRect().Size;
         var dir = Vector2.Zero;
 
@@ -232,14 +220,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
         if (dir != Vector2.Zero) {
           Input.SetDefaultCursorShape(Input.CursorShape.Drag);
-          _character.HandleDirectionalMovement(delta, dir);
+          Character.HandleDirectionalMovement(delta, dir);
         }
         else {
-          _character.Friction(delta);
+          Character.Friction(delta);
         }
       }
     }
-    else if (_character.AllowPan) {
+    else if (Character.AllowPan) {
       Input.SetDefaultCursorShape(Input.CursorShape.Drag);
       var currentMousePos = GetViewport().GetMousePosition();
       var displacement = currentMousePos - _lastMousePosition;
@@ -247,8 +235,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
       // TODO: mouse wrap around screen when panning
 
-      _character.Friction(delta);
-      _character.HandlePanning(delta, displacement);
+      Character.Friction(delta);
+      Character.HandlePanning(delta, displacement);
     }
   }
 
@@ -259,7 +247,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnIdleStateUnhandledInput(InputEvent @event) {
     if (@event.IsActionReleased(GameInputs.Select)) {
-      var entites = GameBoard.GetEntitiesOnCell(HoveredCell);
+      var entites = EntityManagment.GetEntitiesOnCell(HoveredCell);
       SelectEntity(entites.FirstOrDefault());
     }
 
@@ -281,7 +269,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionStateExited() {
-    _character.CancelMoveToPosition();
+    Character.CancelMoveToPosition();
 
     if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
       commandTrait.CommandStarted -= OnCommandStarted;
@@ -307,7 +295,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (@event.IsActionReleased(GameInputs.Select)) {
-      var entities = GameBoard.GetEntitiesOnCell(HoveredCell);
+      var entities = EntityManagment.GetEntitiesOnCell(HoveredCell);
 
       if (entities.Contains(SelectedEntity)) {
         if (entities.Length > 1) {
@@ -354,11 +342,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   #endregion
 
   private bool TryUseCommand(GameCell clickedCell) {
-    if (!IsCurrentTurn() && SelectedCommand != null) {
+    if (!((IMatchController)this).IsCurrentTurn() && SelectedCommand != null) {
       return false;
     }
 
-    var entities = GameBoard.GetEntitiesOnCell(clickedCell);
+    var entities = EntityManagment.GetEntitiesOnCell(clickedCell);
 
     if (SelectedCommand is MoveCommand moveCommand) {
       if (moveCommand.GetReachableCells().Contains(clickedCell) && moveCommand.TryMove(this, clickedCell)) {
@@ -450,4 +438,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
     }
   }
+
+  public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 }

@@ -11,7 +11,7 @@ public abstract partial class MoveTrait : Trait {
     base._Ready();
 
     Entity.CellChanged += () => {
-      foreach (var entity in Entity.GameBoard.GetEntitiesOnCell(Entity.Cell)) {
+      foreach (var entity in Entity.EntityManagment.GetEntitiesOnCell(Entity.Cell)) {
         if (entity.TryGetTrait<ClaimableTrait>(out var claimableTrait)) {
           if (Entity.TryGetOwner(out var owner)) {
             claimableTrait.ClaimBy(owner);

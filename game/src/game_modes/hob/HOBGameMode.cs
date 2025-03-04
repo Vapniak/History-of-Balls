@@ -6,7 +6,11 @@ using GodotStateCharts;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
+  [Signal] public delegate void PausedEventHandler();
+  [Signal] public delegate void ResumedEventHandler();
+
   [Export] private MatchEndMenu MatchEndMenu { get; set; }
+  [Export] private PauseMenu PauseMenu { get; set; }
 
   [Export] private PackedScene PlayerControllerScene { get; set; }
   [Export] private PackedScene PlayerCharacterScene { get; set; }
@@ -17,40 +21,36 @@ public partial class HOBGameMode : GameMode {
 
   private StateChart StateChart { get; set; }
 
-  private PauseComponent PauseComponent { get; set; }
-  private HOBPlayerManagmentComponent PlayerManagmentComponent { get; set; }
   private MatchComponent MatchComponent { get; set; }
+  private HOBPlayerManagmentComponent PlayerManagmentComponent { get; set; }
 
+  private GameBoard GameBoard => GetGameState().GameBoard;
   public override void _EnterTree() {
     base._EnterTree();
 
     GetGameState().GameBoard = GameInstance.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
 
-
-    PauseComponent = GetGameModeComponent<PauseComponent>();
     PlayerManagmentComponent = GetGameModeComponent<HOBPlayerManagmentComponent>();
     MatchComponent = GetGameModeComponent<MatchComponent>();
     StateChart = StateChart.Of(StateChartNode);
 
     PlayerManagmentComponent.PlayerSpawned += (playerState) => MatchComponent.OnPlayerSpawned(playerState as IMatchPlayerState);
 
-    GetGameState().GameBoard.GridCreated += OnGridCreated;
+    GameBoard.GridCreated += OnGridCreated;
   }
 
   public override void _ExitTree() {
     base._ExitTree();
-
-    GetGameState().Resume();
   }
 
   public override void _Ready() {
     base._Ready();
 
-    PauseComponent.GetPauseMenu().ResumeEvent += GetGameState().Resume;
-    PauseComponent.GetPauseMenu().MainMenuEvent += OnMainMenu;
-    PauseComponent.GetPauseMenu().QuitEvent += OnQuit;
+    PauseMenu.ResumeEvent += Resume;
+    PauseMenu.MainMenuEvent += OnMainMenu;
+    PauseMenu.QuitEvent += OnQuit;
 
-    GetGameState().GameBoard.Init();
+    GameBoard.Init();
   }
 
   public void Pause() {
@@ -61,30 +61,36 @@ public partial class HOBGameMode : GameMode {
     StateChart.SendEvent("resume");
   }
 
+  public bool IsCurrentTurn(IMatchController controller) {
+    return MatchComponent.IsCurrentTurn(controller);
+  }
+
+  public IMatchEvents GetMatchEvents() => MatchComponent;
+  public IEntityManagment GetEntityManagment() => MatchComponent;
+
   public override HOBGameState GetGameState() => base.GetGameState() as HOBGameState;
 
   protected override GameState CreateGameState() => new HOBGameState();
 
   private void OnPausedStateEntered() {
-    PauseComponent.ShowPauseMenu();
+    PauseMenu.Show();
+    EmitSignal(SignalName.Paused);
   }
   private void OnPausedStateExited() {
-    PauseComponent.HidePauseMenu();
+    PauseMenu.Hide();
+    EmitSignal(SignalName.Resumed);
   }
 
   private void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
-
-    GetGameState().TurnStartedEvent += CheckWinCondition;
   }
 
   private void OnInMatchStateExited() {
-    GetGameState().TurnStartedEvent -= CheckWinCondition;
   }
 
   private void OnMatchEndedStateEntered() {
-    GetGameState().Pause();
     MatchEndMenu.Show();
+    GameInstance.SetPause(true);
   }
 
   private void OnMainMenu() {
@@ -108,8 +114,7 @@ public partial class HOBGameMode : GameMode {
     foreach (var player in GetGameState().PlayerArray) {
       var controller = player.GetController<IMatchController>();
 
-      var board = GetGameState().GameBoard;
-      if (board.GetOwnedEntities(controller).Length == 0) {
+      if (GetEntityManagment().GetOwnedEntites(controller).Length == 0) {
         StateChart.SendEvent("match_end");
       }
     }

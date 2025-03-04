@@ -21,7 +21,7 @@ public partial class FactoryTrait : Trait {
     base.OnOwnerChanging();
 
     if (Entity.TryGetOwner(out var owner)) {
-      owner.GetGameState().TurnStartedEvent -= OnTurnStarted;
+      owner.GetGameMode().GetMatchEvents().TurnStarted -= OnTurnStarted;
     }
   }
 
@@ -29,7 +29,7 @@ public partial class FactoryTrait : Trait {
     base.OnOwnerChanged();
 
     if (Entity.TryGetOwner(out var owner)) {
-      owner.GetGameState().TurnStartedEvent += OnTurnStarted;
+      owner.GetGameMode().GetMatchEvents().TurnStarted += OnTurnStarted;
     }
   }
 

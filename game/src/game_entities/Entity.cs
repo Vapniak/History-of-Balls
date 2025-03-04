@@ -14,7 +14,8 @@ public partial class Entity : Node {
     get => _cell.Get();
     set => _cell.Set(value);
   }
-  public GameBoard GameBoard { get; private set; }
+
+  public IEntityManagment EntityManagment { get; private set; }
 
   private EntityData Data { get; set; }
 
@@ -22,9 +23,9 @@ public partial class Entity : Node {
   private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
   private readonly Dictionary<Type, Trait> _traits = new();
 
-  public Entity(EntityData data, GameCell cell, GameBoard gameBoard) {
+  public Entity(EntityData data, GameCell cell, IEntityManagment entityManagment) {
     Cell = cell;
-    GameBoard = gameBoard;
+    EntityManagment = entityManagment;
     Data = data;
   }
 

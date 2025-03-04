@@ -1,5 +1,6 @@
 namespace HOB.GameEntity;
 
+using GameplayFramework;
 using Godot;
 using System;
 using System.Linq;
@@ -11,7 +12,7 @@ public partial class WalkMoveTrait : MoveTrait {
   public override bool IsCellReachable(GameCell from, GameCell to) {
     var haveObstacle = false;
 
-    foreach (var entity in Entity.GameBoard.GetEntitiesOnCell(to)) {
+    foreach (var entity in Entity.EntityManagment.GetEntitiesOnCell(to)) {
       if (entity.TryGetTrait<ObstacleTrait>(out _)) {
         haveObstacle = true;
         break;

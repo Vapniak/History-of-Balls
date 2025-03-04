@@ -52,10 +52,10 @@ public partial class CommandTrait : Trait {
 
     foreach (var command in GetCommands()) {
       if (Entity.TryGetOwner(out var owner)) {
-        owner.GetGameState().TurnStartedEvent -= command.OnTurnStarted;
-        owner.GetGameState().TurnChangedEvent -= command.OnTurnChanged;
-        owner.GetGameState().TurnEndedEvent -= command.OnTurnEnded;
-        owner.GetGameState().RoundStartedEvent -= command.OnRoundStarted;
+        owner.GetGameMode().GetMatchEvents().TurnStarted -= command.OnTurnStarted;
+        owner.GetGameMode().GetMatchEvents().TurnChanged -= command.OnTurnChanged;
+        owner.GetGameMode().GetMatchEvents().TurnEnded -= command.OnTurnEnded;
+        owner.GetGameMode().GetMatchEvents().RoundStarted -= command.OnRoundStarted;
       }
     }
   }
@@ -65,10 +65,10 @@ public partial class CommandTrait : Trait {
 
     foreach (var command in GetCommands()) {
       if (Entity.TryGetOwner(out var owner)) {
-        owner.GetGameState().TurnStartedEvent += command.OnTurnStarted;
-        owner.GetGameState().TurnChangedEvent += command.OnTurnChanged;
-        owner.GetGameState().TurnEndedEvent += command.OnTurnEnded;
-        owner.GetGameState().RoundStartedEvent -= command.OnRoundStarted;
+        owner.GetGameMode().GetMatchEvents().TurnStarted += command.OnTurnStarted;
+        owner.GetGameMode().GetMatchEvents().TurnChanged += command.OnTurnChanged;
+        owner.GetGameMode().GetMatchEvents().TurnEnded += command.OnTurnEnded;
+        owner.GetGameMode().GetMatchEvents().RoundStarted += command.OnRoundStarted;
       }
     }
   }

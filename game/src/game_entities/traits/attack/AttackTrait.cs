@@ -43,7 +43,7 @@ public partial class AttackTrait : Trait {
       }
 
       cellsInR.Add(cell);
-      var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
+      var entities = Entity.EntityManagment.GetEntitiesOnCell(cell);
       AttackableEntities.AddRange(entities.Where(CanBeAttacked));
     }
 

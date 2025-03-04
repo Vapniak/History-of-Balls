@@ -8,13 +8,15 @@ public interface IMatchController : IController {
 
   public Country Country { get; set; }
 
-  public void OnGameStarted();
 
-  public bool IsCurrentTurn();
+  public bool IsCurrentTurn() => GetGameMode().IsCurrentTurn(this);
+
+  public void OnGameStarted();
   public void OwnTurnStarted();
   public void OwnTurnEnded();
 
   public new IMatchGameState GetGameState();
 
+  public new HOBGameMode GetGameMode();
   public new IMatchPlayerState GetPlayerState();
 }

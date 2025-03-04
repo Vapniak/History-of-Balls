@@ -11,19 +11,12 @@ using System.Threading.Tasks;
 public partial class AIController : Controller, IMatchController {
   public event Action EndTurnEvent;
 
-  private GameBoard GameBoard { get; set; }
-
   public Country Country { get; set; }
+
+  private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
 
   // TODO: implement Monte Carlo Tree Search algorithm for ai
 
-  public override void _Ready() {
-    base._Ready();
-
-    GameBoard = GetGameState().GameBoard;
-  }
-
-  public bool IsCurrentTurn() => GetGameState().IsCurrentTurn(this);
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
   private void EndTurn() {
@@ -31,7 +24,7 @@ public partial class AIController : Controller, IMatchController {
   }
 
   public async Task OnOwnTurnStarted() {
-    foreach (var entity in GameBoard.GetOwnedEntities(this)) {
+    foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
       await Decide(entity);
     }
 
@@ -121,7 +114,7 @@ public partial class AIController : Controller, IMatchController {
     Entity closestEnemy = null;
     var closestDistance = float.MaxValue;
 
-    foreach (var enemy in GameBoard.GetEnemyEntities(this).Union(GameBoard.GetNotOwnedEntities())) {
+    foreach (var enemy in EntityManagment.GetEnemyEntities(this).Union(EntityManagment.GetNotOwnedEntities())) {
       float distance = currentEntity.Cell.Coord.Distance(enemy.Cell.Coord);
       if (distance < closestDistance) {
         closestDistance = distance;
@@ -155,4 +148,5 @@ public partial class AIController : Controller, IMatchController {
   }
 
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
+  public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 }

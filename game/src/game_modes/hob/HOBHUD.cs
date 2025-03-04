@@ -33,11 +33,11 @@ public partial class HOBHUD : HUD {
 
     TurnChangedNotificationLabel.Modulate = Colors.Transparent;
 
-    GetPlayerController().GetGameState().TurnChangedEvent += () => {
+    GetPlayerController().GetGameMode().GetMatchEvents().TurnChanged += () => {
       OnTurnChanged(GetPlayerController().GetGameState().CurrentPlayerIndex);
     };
 
-    GetPlayerController().GetGameState().RoundStartedEvent += () => {
+    GetPlayerController().GetGameMode().GetMatchEvents().RoundStarted += () => {
       OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
     };
 
