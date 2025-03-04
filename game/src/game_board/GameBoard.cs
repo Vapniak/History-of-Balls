@@ -53,6 +53,4 @@ public partial class GameBoard : Node3D {
   public void ClearHighlights() {
     TerrainManager.ClearHighlights();
   }
-
-  public Vector2I GetMapSize() => Grid.GetMapSize();
 }

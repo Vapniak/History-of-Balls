@@ -1,6 +1,6 @@
-using GameplayFramework;
+namespace GameplayFramework;
+
 using Godot;
-using System;
 
 public partial class LoadingScreen : CanvasLayer {
   [Signal] public delegate void FullReachedEventHandler();

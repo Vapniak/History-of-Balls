@@ -18,6 +18,7 @@ bg_color = Color(0, 0, 0, 0.313726)
 [sub_resource type="Environment" id="Environment_384c7"]
 
 [node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "CountryFlag", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+layer = 0
 script = ExtResource("1_ep1kh")
 TurnChangedNotificationLabel = NodePath("TurnLabel")
 StatPanel = NodePath("MarginContainer4/StatPanel")

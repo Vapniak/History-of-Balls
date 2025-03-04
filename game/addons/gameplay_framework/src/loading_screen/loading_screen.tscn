@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://4np7vinx0jpp"]
 
-[ext_resource type="Script" path="res://src/gui/loading_screen/LoadingScreen.cs" id="1_rir2i"]
+[ext_resource type="Script" path="res://addons/gameplay_framework/src/loading_screen/LoadingScreen.cs" id="1_rir2i"]
 
 [node name="LoadingScreen" type="CanvasLayer" node_paths=PackedStringArray("ProgressBar")]
 layer = 128

@@ -39,7 +39,7 @@ Flag = ExtResource("12_xxxcm")
 
 [node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "StateChartNode")]
 script = ExtResource("1_ne2qg")
-MatchEndMenu = NodePath("MatchComponent/MatchEndMenu")
+MatchEndMenu = NodePath("MatchEndMenu")
 PauseMenu = NodePath("PauseMenu")
 PlayerControllerScene = ExtResource("2_st7p2")
 PlayerCharacterScene = ExtResource("3_wvtpx")
@@ -48,6 +48,10 @@ HUDScene = ExtResource("5_yn6q8")
 StateChartNode = NodePath("StateChart")
 
 [node name="PauseMenu" parent="." instance=ExtResource("7_orjcr")]
+visible = false
+
+[node name="MatchEndMenu" parent="." instance=ExtResource("16_6f2qf")]
+process_mode = 2
 visible = false
 
 [node name="TestPlayerManagmentComponent" type="Node" parent="."]
@@ -64,10 +68,6 @@ Factory = ExtResource("13_tdvlv")
 City = ExtResource("14_gsryl")
 Primary = ExtResource("12_3iycb")
 Secondary = ExtResource("13_al71l")
-
-[node name="MatchEndMenu" parent="MatchComponent" instance=ExtResource("16_6f2qf")]
-process_mode = 2
-visible = false
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("17_4xfd2")
@@ -127,11 +127,11 @@ grow_horizontal = 0
 enabled = false
 initial_node_to_watch = NodePath("..")
 
-[connection signal="pressed" from="MatchComponent/MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
+[connection signal="pressed" from="MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
 [connection signal="state_entered" from="StateChart/Root/InMatch" to="." method="OnInMatchStateEntered"]
 [connection signal="state_exited" from="StateChart/Root/InMatch" to="." method="OnInMatchStateExited"]
 [connection signal="state_entered" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateEntered"]
 [connection signal="state_exited" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateExited"]
 [connection signal="state_entered" from="StateChart/Root/MatchEnd" to="." method="OnMatchEndedStateEntered"]
 
-[editable path="MatchComponent/MatchEndMenu"]
+[editable path="MatchEndMenu"]

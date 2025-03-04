@@ -54,14 +54,7 @@ public abstract partial class Command : Node {
   }
 
   public virtual void OnRoundStarted() {
-    if (!GetEntity().TryGetOwner(out var _)) {
-      if (CooldownRoundsLeft > 0) {
-        CooldownRoundsLeft--;
-        if (CooldownRoundsLeft == 0) {
-          UsedThisRound = false;
-        }
-      }
-    }
+
   }
 
   public Entity GetEntity() => CommandTrait.Entity;

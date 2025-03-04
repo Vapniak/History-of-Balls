@@ -1,6 +1,5 @@
 namespace GameplayFramework;
 
-using System.Diagnostics;
 using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
@@ -33,14 +32,6 @@ public sealed partial class World : Node {
       return;
     }
 
-    _loadedLevelPath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
-    var error = ResourceLoader.LoadThreadedRequest(_loadedLevelPath, useSubThreads: true);
-
-    if (error != Error.Ok) {
-      GD.PrintErr("Failed to start threaded load for level: ", levelName);
-      return;
-    }
-
     if (IsInstanceValid(CurrentLevel)) {
       await CurrentLevel.UnLoad();
     }
@@ -48,6 +39,14 @@ public sealed partial class World : Node {
     if (loadingScreenScene != null) {
       _loadingScreen = loadingScreenScene.Instantiate<LoadingScreen>();
       AddChild(_loadingScreen);
+    }
+
+    _loadedLevelPath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
+
+    var error = ResourceLoader.LoadThreadedRequest(_loadedLevelPath, useSubThreads: true);
+    if (error != Error.Ok) {
+      GD.PrintErr("Failed to start threaded load for level: ", levelName);
+      return;
     }
 
     LoadingLevel = true;

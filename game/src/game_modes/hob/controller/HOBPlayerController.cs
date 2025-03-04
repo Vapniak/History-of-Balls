@@ -46,9 +46,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     Character.CenterPositionOn(GameBoard.GetAabb());
 
-    GetGameMode().Paused += () => GetHUD().Hide();
-    GetGameMode().Resumed += () => GetHUD().Show();
-
     StateChart = StateChart.Of(StateChartNode);
   }
 

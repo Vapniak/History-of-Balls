@@ -35,7 +35,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   [Export] private ResourceType Primary { get; set; }
   [Export] private ResourceType Secondary { get; set; }
 
-  private List<Entity> Entities { get; set; }
+  private List<Entity> Entities => GetGameState().Entities;
   private string _entityUISceneUID = "uid://ka4lyslghbk";
 
   private GameGrid Grid => GetGameState().GameBoard.Grid;
@@ -45,7 +45,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public override void _Ready() {
     base._Ready();
 
-    Entities = new();
+    GetGameState().Entities = new();
 
     TurnStarted += OnTurnStarted;
   }

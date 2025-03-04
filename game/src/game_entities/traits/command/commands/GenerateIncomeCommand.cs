@@ -7,15 +7,15 @@ using System;
 public partial class GenerateIncomeCommand : Command {
   [Export] public IncomeTrait EntityIncomeTrait { get; private set; }
 
+  protected override void Use() {
+    base.Use();
+    EntityIncomeTrait.GenerateIncome();
+  }
   public override void OnTurnEnded() {
     base.OnTurnEnded();
 
     if (GetEntity().TryGetOwner(out var owner)) {
-      if (CanBeUsed(owner)) {
-        Use();
-        EntityIncomeTrait.GenerateIncome();
-        Finish();
-      }
+      Use();
     }
   }
 }

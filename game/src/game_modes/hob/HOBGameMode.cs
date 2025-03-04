@@ -6,9 +6,6 @@ using GodotStateCharts;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
-  [Signal] public delegate void PausedEventHandler();
-  [Signal] public delegate void ResumedEventHandler();
-
   [Export] private MatchEndMenu MatchEndMenu { get; set; }
   [Export] private PauseMenu PauseMenu { get; set; }
 
@@ -41,6 +38,8 @@ public partial class HOBGameMode : GameMode {
 
   public override void _ExitTree() {
     base._ExitTree();
+
+    GameInstance.SetPause(false);
   }
 
   public override void _Ready() {
@@ -74,18 +73,21 @@ public partial class HOBGameMode : GameMode {
 
   private void OnPausedStateEntered() {
     PauseMenu.Show();
-    EmitSignal(SignalName.Paused);
+    GameInstance.SetPause(true);
   }
   private void OnPausedStateExited() {
     PauseMenu.Hide();
-    EmitSignal(SignalName.Resumed);
+    GameInstance.SetPause(false);
   }
 
   private void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
+
+    MatchComponent.TurnStarted += CheckWinCondition;
   }
 
   private void OnInMatchStateExited() {
+    MatchComponent.TurnStarted -= CheckWinCondition;
   }
 
   private void OnMatchEndedStateEntered() {
@@ -102,8 +104,6 @@ public partial class HOBGameMode : GameMode {
   private void OnQuit() => GameInstance.QuitGame();
 
   private void OnGridCreated() {
-    GetGameState().Init();
-
     PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new HOBPlayerState(), "Player", HUDScene, PlayerCharacterScene));
     PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new HOBPlayerState(), "AI", null, null));
 

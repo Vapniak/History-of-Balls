@@ -9,7 +9,6 @@ public partial class StatsContainer : Resource {
   [Export] public Array<BaseStat> Stats { get; private set; }
 
   public void Init() {
-
     var duplicatedStats = new Array<BaseStat>();
     foreach (var stat in Stats) {
       duplicatedStats.Add(stat.Duplicate() as BaseStat);

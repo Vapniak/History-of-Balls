@@ -82,7 +82,7 @@ script = ExtResource("2_kwf6m")
 Name = "Swamp"
 Color = Color(0.247059, 0.670588, 0.666667, 1)
 MoveCost = 1
-Elevation = 0
+Elevation = 1
 IsWater = false
 
 [sub_resource type="Resource" id="Resource_6g727"]
