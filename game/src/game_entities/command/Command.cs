@@ -5,6 +5,7 @@ using Godot;
 
 
 // TODO: transform it into resource
+// TODO: rewrite the command system
 [GlobalClass]
 public abstract partial class Command : Node {
   [Signal] public delegate void StartedEventHandler();

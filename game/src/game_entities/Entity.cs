@@ -16,7 +16,6 @@ public partial class Entity : Node {
   }
 
   public IEntityManagment EntityManagment { get; private set; }
-
   private EntityData Data { get; set; }
 
   [Notify]
@@ -65,6 +64,8 @@ public partial class Entity : Node {
   public T GetTrait<T>() where T : Trait {
     return _traits.GetValueOrDefault(typeof(T)) as T;
   }
+
+  public bool HasTrait<T>(T t) => _traits.ContainsKey(typeof(T));
 
   public bool TryGetStat<T>(out T stat) where T : BaseStat {
     return Data.Stats.TryGetStat(out stat);

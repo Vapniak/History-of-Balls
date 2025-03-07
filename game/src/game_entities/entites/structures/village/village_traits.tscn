@@ -2,8 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://c0n8kwkbt135m" path="res://src/game_entities/entites/structures/structure_traits.tscn" id="1_0l746"]
 [ext_resource type="Script" path="res://src/game_entities/traits/income/IncomeTrait.cs" id="2_xjpo3"]
-[ext_resource type="Script" path="res://src/game_entities/traits/command/CommandTrait.cs" id="3_r88pa"]
-[ext_resource type="Script" path="res://src/game_entities/traits/command/commands/GenerateIncomeCommand.cs" id="4_cx0m1"]
+[ext_resource type="Script" path="res://src/game_entities/command/CommandTrait.cs" id="3_r88pa"]
+[ext_resource type="Script" path="res://src/game_entities/command/commands/GenerateIncomeCommand.cs" id="4_cx0m1"]
 
 [node name="VillageTraits" type="Node"]
 

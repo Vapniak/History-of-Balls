@@ -66,6 +66,7 @@ public partial class HOBGameMode : GameMode {
 
   public IMatchEvents GetMatchEvents() => MatchComponent;
   public IEntityManagment GetEntityManagment() => MatchComponent;
+  //public CommandManager GetCommandManager() => MatchComponent.CommandManager;
 
   public override HOBGameState GetGameState() => base.GetGameState() as HOBGameState;
 

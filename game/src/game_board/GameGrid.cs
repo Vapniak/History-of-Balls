@@ -22,9 +22,19 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
     return (first * GetLayout().SolidFactor, second * GetLayout().SolidFactor);
   }
 
+  public (Vector3 first, Vector3 second) GetWaterCorners(HexDirection direction) {
+    var (first, second) = GetCorners(direction);
+    return (first * GetLayout().WaterFactor, second * GetLayout().WaterFactor);
+  }
+
   public Vector3 GetBridge(HexDirection direction) {
     var (first, second) = GetCorners(direction);
     return (first + second) * GetLayout().BlendFactor;
+  }
+
+  public Vector3 GetWaterBridge(HexDirection direction) {
+    var (first, second) = GetCorners(direction);
+    return (first + second) * GetLayout().WaterBlendFactor;
   }
 
 

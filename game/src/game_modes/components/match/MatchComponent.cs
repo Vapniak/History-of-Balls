@@ -35,6 +35,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   [Export] private ResourceType Primary { get; set; }
   [Export] private ResourceType Secondary { get; set; }
 
+  //public CommandManager CommandManager { get; private set; }
+
   private List<Entity> Entities => GetGameState().Entities;
   private string _entityUISceneUID = "uid://ka4lyslghbk";
 
@@ -48,6 +50,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     GetGameState().Entities = new();
 
     TurnStarted += OnTurnStarted;
+
+    //CommandManager = new();
   }
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
