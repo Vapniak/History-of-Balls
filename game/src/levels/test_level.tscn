@@ -6,13 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/hob/hob_game_mode.tscn" id="4_eue7f"]
 [ext_resource type="PackedScene" uid="uid://b7p0e45e0ng0f" path="res://src/game_board/game_board.tscn" id="5_t3dxr"]
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_qclws"]
-rayleigh_color = Color(0.198401, 0.407532, 0.846441, 1)
-mie_eccentricity = 0.97
-mie_color = Color(0.775602, 0.729124, 0.557061, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ashqd"]
+sky_top_color = Color(0.493548, 0.358776, 0.737175, 1)
+sky_horizon_color = Color(0.442263, 0.687237, 0.850094, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_horizon_color = Color(0, 0, 0, 1)
 
 [sub_resource type="Sky" id="Sky_w6xpn"]
-sky_material = SubResource("PhysicalSkyMaterial_qclws")
+sky_material = SubResource("ProceduralSkyMaterial_ashqd")
 
 [sub_resource type="Environment" id="Environment_mxfj4"]
 background_mode = 2
@@ -27,9 +28,11 @@ glow_mix = 0.1
 glow_bloom = 0.29
 glow_blend_mode = 1
 fog_light_color = Color(0.5, 0.5, 0.608, 1)
-fog_density = 0.0
-volumetric_fog_density = 0.0454
-volumetric_fog_albedo = Color(0.21656, 0.432241, 1, 1)
+fog_sky_affect = 0.0
+fog_depth_begin = 37.0
+fog_depth_end = 111.1
+volumetric_fog_emission = Color(0.446777, 0.446777, 0.446777, 1)
+volumetric_fog_sky_affect = 0.0
 adjustment_enabled = true
 
 [node name="HOBLevel" type="Node"]

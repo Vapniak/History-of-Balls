@@ -5,8 +5,8 @@
 [ext_resource type="RibbonTrailMesh" uid="uid://w2xv54d0lfdp" path="res://res/meshes/wind_ribbon.tres" id="3_w31k8"]
 
 [sub_resource type="Curve" id="Curve_t3eex"]
-_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 2.01956, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0.183333, 0.424051), 0.0, -0.682045, 0, 1, Vector2(0.364286, 0.300633), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.10013, 0.0, 1, 0]
+point_count = 3
 
 [sub_resource type="QuadMesh" id="QuadMesh_bpb6w"]
 material = ExtResource("2_wnmxh")
@@ -115,7 +115,7 @@ _moveSpeedMaxZoom = 20.0
 _stopSpeed = 1.0
 _zoomLerpSpeed = 3.0
 _minZoomOffset = Vector3(0, 50, 30)
-_maxZoomOffset = Vector3(0, 5, 8.57)
+_maxZoomOffset = Vector3(0, 5, 6)
 _distanceCurve = SubResource("Curve_t3eex")
 _panSpeedMulti = 0.001
 

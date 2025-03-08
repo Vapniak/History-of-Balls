@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System.Collections.Generic;
 using Godot;
 using HexGridMap;
 using RaycastSystem;
@@ -19,6 +20,18 @@ public partial class TerrainManager : Node3D {
   private Chunk[] Chunks { get; set; }
 
   private GameGrid Grid { get; set; }
+
+
+  private HexMesh _borderMesh;
+  private Material _borderMaterial;
+
+  private Dictionary<OffsetCoord, BorderCell> _borderCells = new();
+
+  public class BorderCell {
+    public OffsetCoord Coord { get; set; }
+    public Vector3 Position { get; set; }
+    public float Elevation { get; set; }
+  }
 
   public override void _PhysicsProcess(double delta) {
     var position = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World)?.Position;
@@ -59,9 +72,9 @@ public partial class TerrainManager : Node3D {
 
     TerrainData.Fill(Colors.Transparent);
 
-    foreach (var hex in grid.MapData.GetCells()) {
-      var setting = grid.MapData.Settings.CellSettings[hex.Id];
-      SetTerrainPixel(new(hex.Col, hex.Row), setting.Color);
+    foreach (var hex in grid.GetCells()) {
+      var setting = hex.GetSetting();
+      SetTerrainPixel(new(hex.OffsetCoord.Col, hex.OffsetCoord.Row), setting.Color);
     }
 
     UpdateTerrainTextureData();
@@ -69,6 +82,13 @@ public partial class TerrainManager : Node3D {
     UpdateHighlights();
 
     TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
+  }
+
+  public void CreateBorderMesh() {
+    _borderMesh = new HexMesh { MaterialOverride = TerrainMaterial };
+    AddChild(_borderMesh);
+
+    _borderMesh.End();
   }
 
 

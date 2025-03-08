@@ -68,28 +68,32 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     if (controller is PlayerController) {
       controller.Country = PlayerTeam;
       AddEntityOnClosestAvailableCell(TestEntity, new(1, 0), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(2, 0), controller);
-      AddEntityOnClosestAvailableCell(TestEntity, new(10, 5), controller);
+      AddEntityOnClosestAvailableCell(TestEntity2, new(1, 3), controller);
+      AddEntityOnClosestAvailableCell(TestEntity, new(7, 5), controller);
       AddEntityOnClosestAvailableCell(TestEntity2, new(2, 10), controller);
 
-      AddEntityOnClosestAvailableCell(Structure1, new(5, 10), controller);
-      AddEntityOnClosestAvailableCell(Factory, new(3, 3), controller);
+      AddEntityOnClosestAvailableCell(Structure1, new(5, 2), controller);
+      AddEntityOnClosestAvailableCell(Factory, new(2, 5), controller);
 
-      AddEntityOnClosestAvailableCell(City, new(5, 3), controller);
+      AddEntityOnClosestAvailableCell(City, new(2, 8), controller);
     }
     else {
       controller.Country = AITeam;
-      AddEntityOnClosestAvailableCell(TestEntity, new(20, 5), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(20, 20), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(18, 6), controller);
-      AddEntityOnClosestAvailableCell(TestEntity, new(17, 8), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(15, 7), controller);
-      AddEntityOnClosestAvailableCell(TestEntity, new(15, 10), controller);
+      AddEntityOnClosestAvailableCell(TestEntity, new(25, 5), controller);
+      AddEntityOnClosestAvailableCell(TestEntity2, new(25, 20), controller);
+      AddEntityOnClosestAvailableCell(TestEntity2, new(28, 6), controller);
+      AddEntityOnClosestAvailableCell(TestEntity, new(22, 8), controller);
+      AddEntityOnClosestAvailableCell(TestEntity2, new(21, 7), controller);
+      AddEntityOnClosestAvailableCell(TestEntity, new(25, 10), controller);
 
-      AddEntityOnClosestAvailableCell(Structure1, new(10, 10), controller);
+      AddEntityOnClosestAvailableCell(Structure1, new(20, 10), controller);
 
+      AddEntityOnClosestAvailableCell(Factory, new(17, 16), controller);
 
-      AddEntityOnClosestAvailableCell(Structure1, new(15, 10), null);
+      AddEntityOnClosestAvailableCell(City, new(20, 15), controller);
+      AddEntityOnClosestAvailableCell(Structure1, new(15, 1), null);
+      AddEntityOnClosestAvailableCell(Structure1, new(13, 8), null);
+      AddEntityOnClosestAvailableCell(Structure1, new(10, 14), null);
     }
   }
 
@@ -106,12 +110,13 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     return GetGameState().CurrentPlayerIndex == controller.GetPlayerState().PlayerIndex;
   }
 
-  private void AddEntityOnClosestAvailableCell(EntityData data, CubeCoord coord, IMatchController owner) {
+  private void AddEntityOnClosestAvailableCell(EntityData data, OffsetCoord coord, IMatchController owner) {
     GameCell closestCell = null;
     var minDistance = int.MaxValue;
 
+    var cube = Grid.GetLayout().OffsetToCube(coord);
     foreach (var cell in Grid.GetCells()) {
-      var distance = coord.Distance(cell.Coord);
+      var distance = cube.Distance(cell.Coord);
       if (distance < minDistance && CanEntityBePlacedOnCell(cell)) {
         minDistance = distance;
         closestCell = cell;

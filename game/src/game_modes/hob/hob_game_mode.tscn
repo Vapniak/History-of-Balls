@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=28 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game_modes/hob/controller/hob_player_controller.tscn" id="2_st7p2"]
@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
+[ext_resource type="AudioStream" uid="uid://j4c2av4m6pcl" path="res://assets/audio/music/Średniowiecze.wav" id="25_f3tc6"]
 
 [sub_resource type="Resource" id="Resource_pkkwx"]
 script = ExtResource("11_hurum")
@@ -126,6 +127,11 @@ offset_bottom = -295.0
 grow_horizontal = 0
 enabled = false
 initial_node_to_watch = NodePath("..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_f3tc6")
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
 [connection signal="state_entered" from="StateChart/Root/InMatch" to="." method="OnInMatchStateEntered"]

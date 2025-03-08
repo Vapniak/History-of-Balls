@@ -28,7 +28,7 @@ public abstract partial class MoveTrait : Trait {
     return Entity.Cell.FindPathTo(cell, GetStat<MovementStats>().MovePoints, IsCellReachable);
   }
 
-  public virtual async Task Move(GameCell targetCell) {
+  public virtual async Task Move(GameCell[] path) {
     EmitSignal(SignalName.MoveFinished);
   }
 

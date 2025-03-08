@@ -69,6 +69,19 @@ public partial class AIController : Controller, IMatchController {
                 }
               }
             }
+            else if (command is ProduceEntityCommand produceEntityCommand) {
+              if (produceEntityCommand.GetEntity().TryGetStat<EntityProducerStats>(out var producerStats)) {
+                var producable = producerStats.ProducedEntities;
+                foreach (var p in producable) {
+                  var utility = CalculateProduceUtility(produceEntityCommand, p);
+                  if (utility > bestUtility) {
+                    bestUtility = utility;
+                    bestCommand = produceEntityCommand;
+                    bestParameters = p;
+                  }
+                }
+              }
+            }
           }
         }
 
@@ -81,6 +94,11 @@ public partial class AIController : Controller, IMatchController {
           else if (bestCommand is MoveCommand move && bestParameters is GameCell cell) {
             if (move.TryMove(this, cell)) {
               await ToSignal(move.MoveTrait, MoveTrait.SignalName.MoveFinished);
+            }
+          }
+          else if (bestCommand is ProduceEntityCommand produceEntity && bestParameters is ProducedEntityData data) {
+            if (produceEntity.TryProduceEntity(this, data)) {
+
             }
           }
         }
@@ -143,6 +161,16 @@ public partial class AIController : Controller, IMatchController {
 
     float distance = attackCommand.GetEntity().Cell.Coord.Distance(target.Cell.Coord);
     utility -= distance * 5;
+
+    return utility;
+  }
+
+  private float CalculateProduceUtility(ProduceEntityCommand produceEntityCommand, ProducedEntityData data) {
+    float utility = 0;
+
+    if (produceEntityCommand.CanEntityBeProduced(data)) {
+      utility = 1;
+    }
 
     return utility;
   }

@@ -1,7 +1,6 @@
 namespace HOB;
 
-using System.Diagnostics;
-using System.Security.Cryptography;
+using System.Runtime.CompilerServices;
 using Godot;
 using HexGridMap;
 
@@ -95,7 +94,7 @@ public partial class Chunk : StaticBody3D {
 
   private void Triangulate(HexDirection direction, GameCell cell) {
     var pos = Grid.GetCellRealPosition(cell);
-    var (firstCorner, secondCorner) = Grid.GetSolidCorners(direction);
+    var (firstCorner, secondCorner) = Grid.GetCorners(direction);
     var e = new EdgeVertices(pos + firstCorner, pos + secondCorner);
 
     TriangulateEdgeFan(pos, e);
@@ -106,6 +105,27 @@ public partial class Chunk : StaticBody3D {
 
     if (cell.GetSetting().IsWater) {
       TriangulateWater(direction, cell);
+
+      if (Grid.GetCell(cell, direction) == null) {
+        var wallTop1 = e.V1;
+        var wallTop2 = e.V5;
+        var wallBottom1 = wallTop1 with { Y = Grid.GetLayout().WaterLevel };
+        var wallBottom2 = wallTop2 with { Y = Grid.GetLayout().WaterLevel };
+
+        TerrainMesh.AddQuadAutoUV(
+            wallTop1,
+            wallTop2,
+            wallBottom1,
+            wallBottom2
+        );
+
+        TerrainMesh.AddQuadAutoUV(
+            wallBottom1,
+            wallBottom2,
+            wallTop1,
+            wallTop2
+        );
+      }
     }
   }
 
@@ -115,7 +135,26 @@ public partial class Chunk : StaticBody3D {
 
   private void TriangulateConnection(HexDirection direction, GameCell cell, EdgeVertices e) {
     var neighbor = Grid.GetCell(cell, direction);
+
     if (neighbor == null) {
+      var wallTop1 = e.V1;
+      var wallTop2 = e.V5;
+      var wallBottom1 = wallTop1 with { Y = 0 };
+      var wallBottom2 = wallTop2 with { Y = 0 };
+
+      TerrainMesh.AddQuadAutoUV(
+          wallTop1,
+          wallTop2,
+          wallBottom1,
+          wallBottom2
+      );
+
+      TerrainMesh.AddQuadAutoUV(
+          wallBottom1,
+          wallBottom2,
+          wallTop1,
+          wallTop2
+      );
       return;
     }
 
@@ -202,7 +241,7 @@ public partial class Chunk : StaticBody3D {
 
   private void TriangulateWater(HexDirection direction, GameCell cell) {
     var pos = cell.GetRealPosition();
-    pos.Y = .1f;
+    pos.Y = Grid.GetLayout().WaterLevel;
 
     var neighbor = Grid.GetCell(cell, direction);
 
@@ -210,6 +249,7 @@ public partial class Chunk : StaticBody3D {
       // shore
     }
     else {
+
       // open water
     }
     // for now make the water take whole hex

@@ -10,7 +10,7 @@ public class TestMoveCommand : GameCommand<MoveParameters> {
   }
   public override void Execute(Entity entity, MoveParameters parameters) {
     if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
-      moveTrait.Move(parameters.Path.Last());
+      moveTrait.Move(parameters.Path);
     }
   }
 }

@@ -22,17 +22,14 @@ public partial class WalkMoveTrait : MoveTrait {
       !to.GetSetting().IsWater;
   }
 
-  public override async Task Move(GameCell targetCell) {
-    var path = FindPath(targetCell);
-
-
+  public override async Task Move(GameCell[] path) {
     for (var i = 0; i < path.Length; i++) {
       var to = path[i];
 
       await Walk(to);
     }
 
-    await base.Move(targetCell);
+    await base.Move(path);
   }
 
   private async Task Walk(GameCell to) {

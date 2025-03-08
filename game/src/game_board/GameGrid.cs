@@ -214,13 +214,37 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
 
   public void LoadMap(MapData mapData) {
     MapData = mapData;
+    var c = MapData.GetCells();
 
     var cells = new List<GameCell>();
-    foreach (var hex in MapData.GetCells()) {
-      var cell = new GameCell(GetLayout().OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), GetLayout(), hex.Id, this);
-      cells.Add(cell);
+    for (var x = 0; x < MapData.Cols; x++) {
+      for (var y = 0; y < MapData.Rows; y++) {
+        var hex = MapData.GetCell(x, y);
+        var cell = new GameCell(
+            GetLayout().OffsetToCube(new OffsetCoord(x, y)),
+            GetLayout(),
+            hex.Id,
+            this
+        );
+        cells.Add(cell);
+      }
     }
 
     CreateCells(cells.ToArray());
+  }
+
+  public IEnumerable<GameCell> GetEdgeCells() {
+    foreach (var cell in GetCells()) {
+      if (IsEdgeCell(cell.OffsetCoord)) {
+        yield return cell;
+      }
+    }
+  }
+
+  private bool IsEdgeCell(OffsetCoord coord) {
+    return coord.Col == 0 ||
+           coord.Col == MapData.Cols - 1 ||
+           coord.Row == 0 ||
+           coord.Row == MapData.Rows - 1;
   }
 }

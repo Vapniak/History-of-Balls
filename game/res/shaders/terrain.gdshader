@@ -2,6 +2,11 @@ shader_type spatial;
 
 #include "include/hex_utils.gdshaderinc"
 
+uniform vec2 map_size = vec2(10.0, 10.0);  // Match your map size in world units
+uniform float fade_start_distance = 150.0;      // Distance from edge where fade begins
+uniform float fade_end_distance = 50.0;         // Distance from edge where fade completes
+uniform vec3 fog_color = vec3(0.25, 0.3, 0.4);
+
 uniform sampler2D highlight_data_texture : source_color, repeat_disable;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
 
@@ -19,6 +24,7 @@ vec3 apply_highlight(vec3 base_color, vec3 highlight_color, HexCellData data){
 }
 
 void vertex() {
+
     // Vertex shader logic (if needed)
 }
 

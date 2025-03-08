@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=11 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/gui/flag/flag.tscn" id="2_3sw0n"]
 [ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_v4qhv"]
+[ext_resource type="PackedScene" uid="uid://cccmeolyi0lk2" path="res://src/gui/hud/time_display.tscn" id="3_5bovs"]
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/gui/hud/command_panel/command_panel.tscn" id="3_a41a7"]
 [ext_resource type="PackedScene" uid="uid://dm85iu1q2xpt5" path="res://src/gui/hud/entity_production_panel/entity_production_panel.tscn" id="4_77ne6"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/hud/stat_panel/stat_panel.tscn" id="4_yxp0t"]
@@ -100,6 +101,10 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
 text = "ROUND 0"
 horizontal_alignment = 1
+
+[node name="TimeDisplay" parent="VBoxContainer/PanelContainer2" instance=ExtResource("3_5bovs")]
+layout_mode = 2
+size_flags_horizontal = 8
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2

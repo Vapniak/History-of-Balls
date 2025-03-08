@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/gui/splash/Splash.cs" id="1_pj6um"]
 [ext_resource type="VideoStream" path="res://assets/videos/HoB-ident.ogv" id="2_5oo5l"]
 [ext_resource type="VideoStream" path="res://assets/videos/HoB-second.ogv" id="3_cf6hb"]
-[ext_resource type="AudioStream" uid="uid://bbbe7wyprdlly" path="res://assets/sounds/HoB-ident.wav" id="3_nc0yi"]
+[ext_resource type="AudioStream" uid="uid://bbbe7wyprdlly" path="res://assets/audio/sounds/HoB-ident.wav" id="3_nc0yi"]
 
 [node name="Splash" type="Control" node_paths=PackedStringArray("_videoStreamPlayer", "_audioStreamPlayer")]
 layout_mode = 3
