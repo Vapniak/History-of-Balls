@@ -5,8 +5,10 @@
 [sub_resource type="LabelSettings" id="LabelSettings_kerhc"]
 font_size = 32
 
-[node name="MatchEndMenu" type="CanvasLayer"]
+[node name="MatchEndMenu" type="CanvasLayer" node_paths=PackedStringArray("WinnerTextLabel", "TimePlayedLabel")]
 script = ExtResource("1_1fco0")
+WinnerTextLabel = NodePath("MarginContainer/ColorRect/VBoxContainer/Label2")
+TimePlayedLabel = NodePath("MarginContainer/ColorRect/VBoxContainer/Label3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -39,6 +41,18 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "MATCH ENDED"
 label_settings = SubResource("LabelSettings_kerhc")
+
+[node name="Label2" type="Label" parent="MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 22
+text = "YOU WON"
+
+[node name="Label3" type="Label" parent="MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 22
+text = "TIME PLAYED: 10 minutes"
 
 [node name="Button" type="Button" parent="MarginContainer/ColorRect/VBoxContainer"]
 layout_mode = 2

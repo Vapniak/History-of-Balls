@@ -13,14 +13,14 @@
 script = ExtResource("3_6i2i4")
 Entity = ExtResource("1_6dlwi")
 CostType = 0
-Cost = 4
+Cost = 3
 RoundsProductionTime = 2
 
 [sub_resource type="Resource" id="Resource_r2qn7"]
 script = ExtResource("3_6i2i4")
 Entity = ExtResource("4_fosny")
 CostType = 0
-Cost = 3
+Cost = 2
 RoundsProductionTime = 3
 
 [sub_resource type="Resource" id="Resource_op448"]

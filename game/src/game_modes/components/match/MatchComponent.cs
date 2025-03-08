@@ -21,6 +21,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public event Action RoundStarted;
   public event Action<Entity> EntityAdded;
   public event Action<Entity> EntityRemoved;
+  public event Action<IMatchController> GameEnded;
 
   [Export] private Country PlayerTeam { get; set; }
   [Export] private Country AITeam { get; set; }
@@ -50,8 +51,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     GetGameState().Entities = new();
 
     TurnStarted += OnTurnStarted;
-
-    //CommandManager = new();
   }
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
@@ -71,6 +70,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       AddEntityOnClosestAvailableCell(TestEntity2, new(1, 3), controller);
       AddEntityOnClosestAvailableCell(TestEntity, new(7, 5), controller);
       AddEntityOnClosestAvailableCell(TestEntity2, new(2, 10), controller);
+      AddEntityOnClosestAvailableCell(TestEntity2, new(6, 7), controller);
 
       AddEntityOnClosestAvailableCell(Structure1, new(5, 2), controller);
       AddEntityOnClosestAvailableCell(Factory, new(2, 5), controller);
@@ -98,6 +98,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   public void OnGameStarted() {
+    GetGameState().GameStartTicksMSec = Time.GetTicksMsec();
+
     foreach (var player in GetGameState().PlayerArray) {
       var controller = player.GetController<IMatchController>();
       controller.OnGameStarted();
@@ -240,5 +242,9 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
     TurnChanged?.Invoke();
     TurnStarted?.Invoke();
+  }
+
+  public void TriggerGameEnd(IMatchController controller) {
+    GameEnded?.Invoke(controller);
   }
 }

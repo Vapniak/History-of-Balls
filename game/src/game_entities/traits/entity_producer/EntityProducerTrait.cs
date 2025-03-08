@@ -7,11 +7,11 @@ using System;
 public partial class EntityProducerTrait : Trait {
   public uint ProductionRoundsLeft;
 
-  private ProducedEntityData _currentProducedEntity;
+  public ProducedEntityData CurrentProducedEntity;
   public void StartProduce(ProducedEntityData data) {
     if (Entity.TryGetStat<EntityProducerStats>(out var producerStats)) {
-      _currentProducedEntity = data;
-      ProductionRoundsLeft = _currentProducedEntity.RoundsProductionTime;
+      CurrentProducedEntity = data;
+      ProductionRoundsLeft = CurrentProducedEntity.RoundsProductionTime;
     }
   }
 
@@ -19,7 +19,7 @@ public partial class EntityProducerTrait : Trait {
     base.OnOwnerChanged();
 
     ProductionRoundsLeft = 0;
-    _currentProducedEntity = null;
+    CurrentProducedEntity = null;
   }
 
   public void OnTurnStarted() {
@@ -27,10 +27,10 @@ public partial class EntityProducerTrait : Trait {
       ProductionRoundsLeft--;
 
       if (ProductionRoundsLeft == 0) {
-        if (_currentProducedEntity != null) {
+        if (CurrentProducedEntity != null) {
           if (Entity.TryGetOwner(out var owner)) {
-            if (Entity.EntityManagment.TryAddEntityOnCell(_currentProducedEntity.Entity, Entity.Cell, owner)) {
-              _currentProducedEntity = null;
+            if (Entity.EntityManagment.TryAddEntityOnCell(CurrentProducedEntity.Entity, Entity.Cell, owner)) {
+              CurrentProducedEntity = null;
             }
           }
         }

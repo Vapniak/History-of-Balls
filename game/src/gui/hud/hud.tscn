@@ -177,10 +177,14 @@ size_flags_horizontal = 1
 [node name="CommandPanel" parent="MarginContainer4/StatPanel/VBoxContainer" index="1" instance=ExtResource("3_a41a7")]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 1
 size_flags_vertical = 8
 focus_mode = 2
 mouse_filter = 1
+
+[node name="Label2" parent="MarginContainer4/StatPanel/VBoxContainer/StatEntries/HBoxContainer" index="1"]
+text = "0dasdadasdadadadasdasdasds
+"
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 2
@@ -218,3 +222,4 @@ uppercase = true
 
 [editable path="VBoxContainer/PanelContainer2/Resources/VBoxContainer/Flag"]
 [editable path="MarginContainer4/StatPanel"]
+[editable path="MarginContainer4/StatPanel/VBoxContainer/StatEntries/HBoxContainer"]

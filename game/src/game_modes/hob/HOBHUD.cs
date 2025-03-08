@@ -140,7 +140,7 @@ public partial class HOBHUD : HUD {
 
     if (produceEntityCommand.GetEntity().TryGetStat<EntityProducerStats>(out var producerStats)) {
       foreach (var entity in producerStats.ProducedEntities) {
-        ProductionPanel.AddProducedEntity(entity, GetPlayerController<IMatchController>().GetPlayerState(), produceEntityCommand.CanEntityBeProduced(entity));
+        ProductionPanel.AddProducedEntity(entity, GetPlayerController<IMatchController>().GetPlayerState(), produceEntityCommand.CanEntityBeProduced(entity) && produceEntityCommand.GetEntity().TryGetOwner(out var owner) && owner == GetPlayerController());
       }
     }
 
@@ -228,15 +228,26 @@ public partial class HOBHUD : HUD {
       panel.AddEntry("Produced Value:", factoryStats.ProducedValue.ToString());
     }
 
-    if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
-      if (factoryTrait.ProcessingRoundsLeft > 0) {
-        panel.AddEntry("Processing Turns Left:", factoryTrait.ProcessingRoundsLeft.ToString());
+    if (owner == GetPlayerController()) {
+      if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
+        if (factoryTrait.ProcessingRoundsLeft > 0) {
+          panel.AddEntry("Processing Turns Left:", factoryTrait.ProcessingRoundsLeft.ToString());
+        }
       }
     }
 
     if (entity.TryGetStat<IncomeStats>(out var incomeStats)) {
       panel.AddEntry("Income Type:", playerState.GetResourceType(incomeStats.IncomeType).Name);
-      panel.AddEntry("Income amount:", incomeStats.Value.ToString());
+      panel.AddEntry("Income Amount:", incomeStats.Value.ToString());
+    }
+
+    if (owner == GetPlayerController()) {
+      if (entity.TryGetTrait<EntityProducerTrait>(out var producerTrait)) {
+        if (producerTrait.ProductionRoundsLeft > 0) {
+          panel.AddEntry("Producing Entity:", producerTrait.CurrentProducedEntity.Entity.EntityName);
+          panel.AddEntry("Rounds Left:", producerTrait.ProductionRoundsLeft.ToString());
+        }
+      }
     }
   }
 

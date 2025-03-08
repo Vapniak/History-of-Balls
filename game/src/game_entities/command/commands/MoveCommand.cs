@@ -13,9 +13,10 @@ public partial class MoveCommand : Command {
   }
 
   public bool TryMove(IMatchController caller, GameCell targetCell) {
-    if (CanBeUsed(caller) && FindPathTo(targetCell).Length > 0) {
+    var path = FindPathTo(targetCell);
+    if (CanBeUsed(caller) && path.Length > 0) {
       Use();
-      MoveTrait.Move(targetCell);
+      MoveTrait.Move(path);
       return true;
     }
 

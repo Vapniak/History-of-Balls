@@ -10,6 +10,7 @@ public partial class GenerateIncomeCommand : Command {
   protected override void Use() {
     base.Use();
     EntityIncomeTrait.GenerateIncome();
+    Finish();
   }
   public override void OnTurnEnded() {
     base.OnTurnEnded();

@@ -1,5 +1,8 @@
 namespace HOB;
 
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using GameplayFramework;
 using Godot;
 using GodotStateCharts;
@@ -34,6 +37,11 @@ public partial class HOBGameMode : GameMode {
     PlayerManagmentComponent.PlayerSpawned += (playerState) => MatchComponent.OnPlayerSpawned(playerState as IMatchPlayerState);
 
     GameBoard.GridCreated += OnGridCreated;
+
+    GetMatchEvents().GameEnded += MatchEndMenu.OnGameEnd;
+    GetMatchEvents().GameEnded += (_) => {
+      StateChart.SendEvent("match_end");
+    };
   }
 
   public override void _ExitTree() {
@@ -66,7 +74,6 @@ public partial class HOBGameMode : GameMode {
 
   public IMatchEvents GetMatchEvents() => MatchComponent;
   public IEntityManagment GetEntityManagment() => MatchComponent;
-  //public CommandManager GetCommandManager() => MatchComponent.CommandManager;
 
   public override HOBGameState GetGameState() => base.GetGameState() as HOBGameState;
 
@@ -92,7 +99,6 @@ public partial class HOBGameMode : GameMode {
   }
 
   private void OnMatchEndedStateEntered() {
-    MatchEndMenu.Show();
     GameInstance.SetPause(true);
   }
 
@@ -112,12 +118,23 @@ public partial class HOBGameMode : GameMode {
   }
 
   private void CheckWinCondition() {
+    var alivePlayers = new List<IMatchController>();
+    var eliminatedPlayers = new List<IMatchController>();
+
     foreach (var player in GetGameState().PlayerArray) {
       var controller = player.GetController<IMatchController>();
+      var entities = GetEntityManagment().GetOwnedEntites(controller);
 
-      if (GetEntityManagment().GetOwnedEntites(controller).Length == 0) {
-        StateChart.SendEvent("match_end");
+      if (entities.Length > 0) {
+        alivePlayers.Add(controller);
       }
+      else {
+        eliminatedPlayers.Add(controller);
+      }
+    }
+
+    if (eliminatedPlayers.Count > 0) {
+      MatchComponent.TriggerGameEnd(alivePlayers[0]);
     }
   }
 }
