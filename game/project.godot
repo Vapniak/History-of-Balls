@@ -34,7 +34,6 @@ config/icon="res://assets/HoB-logo.svg"
 
 RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
 GameInstance="*res://src/game_instance.tscn"
-Panku="*res://addons/panku_console/console.tscn"
 
 [debug_draw_3d]
 
