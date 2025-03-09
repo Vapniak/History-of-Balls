@@ -9,6 +9,7 @@ TerracesPerSlope = 0
 ElevationStep = 0.2
 SlopeMaxElevationDelta = 5
 WaterFactor = 1.0
+WaterLevel = 0.1
 HexCellSize = 2.0
 OrientationType = 1
 Offset = 1

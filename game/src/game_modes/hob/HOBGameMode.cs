@@ -105,7 +105,7 @@ public partial class HOBGameMode : GameMode {
   private void OnMainMenu() {
 
     // FIXME: normal open level waits some time before unloading
-    GameInstance.GetWorld().OpenLevelThreaded("main_menu_level");
+    GameInstance.GetWorld().OpenLevel("main_menu_level");
   }
 
   private void OnQuit() => GameInstance.QuitGame();

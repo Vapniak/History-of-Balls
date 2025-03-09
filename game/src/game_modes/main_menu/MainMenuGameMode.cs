@@ -13,7 +13,7 @@ public partial class MainMenuGameMode : GameMode {
   protected override GameState CreateGameState() => new MainMenuGameState();
 
   public void StartGame() {
-    GameInstance.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene);
+    GameInstance.GetWorld().OpenLevel("test_level");
   }
 
   public void OpenSettings() {

@@ -71,10 +71,4 @@ public partial class GameInstance : Node {
   public static void QuitGame() {
     Instance.GetTree().Quit();
   }
-
-  public override void _Process(double delta) {
-    if (GetWorld().LoadingLevel) {
-      GetWorld()?.ProcessThrededLevelLoad();
-    }
-  }
 }

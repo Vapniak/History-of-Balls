@@ -1,5 +1,8 @@
 namespace HOB;
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using Godot;
 using HexGridMap;
@@ -28,6 +31,10 @@ public partial class Chunk : StaticBody3D {
   private HexMesh WaterMesh { get; set; }
   private CollisionShape3D CollisionShape { get; set; }
 
+
+  private HexMesh _borderMesh;
+  private int _borderLayers = 1;
+
   private bool _refresh;
 
   public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, Material waterMaterial, GameGrid grid) {
@@ -50,6 +57,11 @@ public partial class Chunk : StaticBody3D {
     AddChild(CollisionShape);
     CollisionShape.AddChild(TerrainMesh);
     AddChild(WaterMesh);
+
+    _borderMesh = new HexMesh {
+      MaterialOverride = terrainMaterial
+    };
+    AddChild(_borderMesh);
 
     Refresh();
   }
@@ -74,6 +86,8 @@ public partial class Chunk : StaticBody3D {
     foreach (var index in CellIndices) {
       Triangulate(index);
     }
+
+    GenerateHexBorderRectangle(10);
 
     TerrainMesh.End();
     WaterMesh.End();
@@ -277,6 +291,70 @@ public partial class Chunk : StaticBody3D {
 
         WaterMesh.AddTriangleAutoUV(secondCorner, e2, secondCorner + Grid.GetWaterBridge(direction.Next()));
       }
+    }
+  }
+  private void GenerateHexBorderRectangle(int borderLayers) {
+    var originalCells = new HashSet<OffsetCoord>(
+        CellIndices.Select(i => Grid.GetCell(i).OffsetCoord)
+                   .Where(oc => oc.Col >= 0 && oc.Row >= 0)
+    );
+
+    if (originalCells.Count == 0) {
+      return;
+    }
+
+    var minCol = originalCells.Min(oc => oc.Col);
+    var maxCol = originalCells.Max(oc => oc.Col);
+    var minRow = originalCells.Min(oc => oc.Row);
+    var maxRow = originalCells.Max(oc => oc.Row);
+
+    var expandedMinCol = minCol - borderLayers;
+    var expandedMaxCol = maxCol + borderLayers;
+    var expandedMinRow = minRow - borderLayers;
+    var expandedMaxRow = maxRow + borderLayers;
+
+    _borderMesh.Begin();
+
+    for (var col = expandedMinCol; col <= expandedMaxCol; col++) {
+      for (var row = expandedMinRow; row <= expandedMaxRow; row++) {
+        var offsetCoord = new OffsetCoord(col, row);
+        if (!originalCells.Contains(offsetCoord)) {
+          var cubeCoord = Grid.GetLayout().OffsetToCube(offsetCoord);
+          var point = Grid.GetLayout().CubeToPoint(cubeCoord);
+          var position = new Vector3(point.X, 0, point.Y);
+
+          GenerateBorderHexagon(position);
+        }
+      }
+    }
+
+    _borderMesh.End();
+  }
+
+  private void GenerateBorderHexagon(Vector3 center) {
+    var vertices = new List<Vector3>();
+
+    for (var i = 0; i < 6; i++) {
+      var corner = Grid.GetLayout().GetCorner(i);
+      vertices.Add(center + new Vector3(corner.X, 0, corner.Y));
+    }
+
+    for (var i = 0; i < 6; i++) {
+      _borderMesh.AddTriangleAutoUV(
+          center,
+          vertices[i],
+          vertices[(i + 1) % 6]
+      );
+    }
+
+    var wallHeight = -2f;
+    for (var i = 0; i < 6; i++) {
+      var top1 = vertices[i];
+      var top2 = vertices[(i + 1) % 6];
+      var bottom1 = top1 with { Y = wallHeight };
+      var bottom2 = top2 with { Y = wallHeight };
+
+      _borderMesh.AddQuadAutoUV(top1, top2, bottom1, bottom2);
     }
   }
 }

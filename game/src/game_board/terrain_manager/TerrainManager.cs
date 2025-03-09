@@ -1,6 +1,8 @@
 namespace HOB;
 
+using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using Godot;
 using HexGridMap;
 using RaycastSystem;
@@ -83,14 +85,6 @@ public partial class TerrainManager : Node3D {
 
     TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
   }
-
-  public void CreateBorderMesh() {
-    _borderMesh = new HexMesh { MaterialOverride = TerrainMaterial };
-    AddChild(_borderMesh);
-
-    _borderMesh.End();
-  }
-
 
   public void SetMouseHighlight(bool value) {
     TerrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
