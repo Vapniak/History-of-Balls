@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=11 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="Resource" uid="uid://lp5grltc6rsd" path="res://src/game_board/grid_layout.tres" id="2_i1283"]
@@ -6,17 +6,18 @@
 [ext_resource type="Script" path="res://src/game_board/terrain_manager/TerrainManager.cs" id="5_ml5l7"]
 [ext_resource type="Shader" path="res://res/shaders/terrain.gdshader" id="5_vuxl6"]
 [ext_resource type="Material" uid="uid://d24gecd5hxyay" path="res://res/materials/water_mat.tres" id="6_pxya1"]
+[ext_resource type="Shader" path="res://res/shaders/terrain_border.gdshader" id="7_djiab"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k616f"]
 render_priority = 0
 shader = ExtResource("5_vuxl6")
-shader_parameter/map_size = Vector2(50, 50)
-shader_parameter/fade_start_distance = 7.135
-shader_parameter/fade_end_distance = 5.0
-shader_parameter/fog_color = Vector3(0.25, 0.3, 0.4)
 shader_parameter/grid_size = null
 shader_parameter/mouse_world_pos = null
 shader_parameter/show_mouse_highlight = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ou2vb"]
+render_priority = 0
+shader = ExtResource("7_djiab")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ihitb"]
 
@@ -30,6 +31,7 @@ TerrainManager = NodePath("TerrainManager")
 script = ExtResource("5_ml5l7")
 TerrainMaterial = SubResource("ShaderMaterial_k616f")
 WaterMaterial = ExtResource("6_pxya1")
+BorderMaterial = SubResource("ShaderMaterial_ou2vb")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TerrainManager"]
 

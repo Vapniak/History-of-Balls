@@ -12,6 +12,7 @@ using RaycastSystem;
 public partial class TerrainManager : Node3D {
   [Export] private Material TerrainMaterial { get; set; }
   [Export] private Material WaterMaterial { get; set; }
+  [Export] private Material BorderMaterial { get; set; }
 
   private Image TerrainData { get; set; }
   private Image HighlightData { get; set; }
@@ -23,17 +24,6 @@ public partial class TerrainManager : Node3D {
 
   private GameGrid Grid { get; set; }
 
-
-  private HexMesh _borderMesh;
-  private Material _borderMaterial;
-
-  private Dictionary<OffsetCoord, BorderCell> _borderCells = new();
-
-  public class BorderCell {
-    public OffsetCoord Coord { get; set; }
-    public Vector3 Position { get; set; }
-    public float Elevation { get; set; }
-  }
 
   public override void _PhysicsProcess(double delta) {
     var position = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World)?.Position;
@@ -64,7 +54,7 @@ public partial class TerrainManager : Node3D {
 
     Chunks = new Chunk[ChunkCount.X * ChunkCount.Y];
     for (var i = 0; i < Chunks.Length; i++) {
-      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, WaterMaterial, grid);
+      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, WaterMaterial, BorderMaterial, grid);
       Chunks[i] = chunk;
       AddChild(chunk);
     }

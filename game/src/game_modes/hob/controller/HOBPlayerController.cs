@@ -109,7 +109,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void CheckHover() {
-    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.Entity | GameLayers.Physics3D.Mask.World);
+    var raycastResult = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World);
 
     if (raycastResult == null) {
       HoveredCell = null;

@@ -33,11 +33,10 @@ public partial class Chunk : StaticBody3D {
 
 
   private HexMesh _borderMesh;
-  private int _borderLayers = 1;
 
   private bool _refresh;
 
-  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, Material waterMaterial, GameGrid grid) {
+  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, Material waterMaterial, Material borderMaterial, GameGrid grid) {
     Index = index;
     ChunkSize = chunkSize;
     Grid = grid;
@@ -59,7 +58,7 @@ public partial class Chunk : StaticBody3D {
     AddChild(WaterMesh);
 
     _borderMesh = new HexMesh {
-      MaterialOverride = terrainMaterial
+      MaterialOverride = borderMaterial
     };
     AddChild(_borderMesh);
 
