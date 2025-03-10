@@ -4,21 +4,21 @@
 [ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://res/meshes/base_country_ball.tscn" id="2_s6u6k"]
 [ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="3_sbikd"]
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="4_8eiit"]
-[ext_resource type="Texture2D" uid="uid://bi1y53nso1yej" path="res://assets/textures/flags/sphere_0.png" id="5_apyl2"]
+[ext_resource type="Texture2D" uid="uid://em1vk1g3frpt" path="res://assets/textures/flags/Poland.png" id="5_pjcfi"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8f68d"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hnlje"]
 render_priority = 0
 shader = ExtResource("3_sbikd")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_gbu48"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ep4v"]
 resource_local_to_scene = true
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_8f68d")
+next_pass = SubResource("ShaderMaterial_hnlje")
 shader = ExtResource("4_8eiit")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
-shader_parameter/base_texture = ExtResource("5_apyl2")
+shader_parameter/base_texture = ExtResource("5_pjcfi")
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(-0.25, 0)
 
@@ -27,7 +27,8 @@ script = ExtResource("1_gh5l7")
 
 [node name="BaseCountryBall" parent="." instance=ExtResource("2_s6u6k")]
 
-[node name="Sphere" parent="BaseCountryBall" index="0"]
-surface_material_override/0 = SubResource("ShaderMaterial_gbu48")
+[node name="Sphere" parent="BaseCountryBall/sphere" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_1ep4v")
 
 [editable path="BaseCountryBall"]
+[editable path="BaseCountryBall/sphere"]
