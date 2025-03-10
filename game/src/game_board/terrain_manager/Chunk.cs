@@ -32,11 +32,11 @@ public partial class Chunk : StaticBody3D {
   private CollisionShape3D CollisionShape { get; set; }
 
 
-  private HexMesh _borderMesh;
+  private HexMesh BorderMesh { get; set; }
 
   private bool _refresh;
 
-  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, Material waterMaterial, Material borderMaterial, GameGrid grid) {
+  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, Material waterMaterial, GameGrid grid) {
     Index = index;
     ChunkSize = chunkSize;
     Grid = grid;
@@ -57,10 +57,10 @@ public partial class Chunk : StaticBody3D {
     CollisionShape.AddChild(TerrainMesh);
     AddChild(WaterMesh);
 
-    _borderMesh = new HexMesh {
-      MaterialOverride = borderMaterial
+    BorderMesh = new HexMesh {
+      MaterialOverride = terrainMaterial
     };
-    AddChild(_borderMesh);
+    TerrainMesh.AddChild(BorderMesh);
 
     Refresh();
   }
@@ -86,11 +86,10 @@ public partial class Chunk : StaticBody3D {
       Triangulate(index);
     }
 
-    GenerateHexBorderRectangle(10);
+    GenerateHexBorderRectangle(50);
 
     TerrainMesh.End();
     WaterMesh.End();
-
     CollisionShape.Shape = TerrainMesh.Mesh.CreateTrimeshShape();
   }
 
@@ -110,7 +109,7 @@ public partial class Chunk : StaticBody3D {
     var (firstCorner, secondCorner) = Grid.GetCorners(direction);
     var e = new EdgeVertices(pos + firstCorner, pos + secondCorner);
 
-    TriangulateEdgeFan(pos, e);
+    TriangulateEdgeFan(pos, e, TerrainMesh);
 
     if (direction <= HexDirection.Third) {
       TriangulateConnection(direction, cell, e);
@@ -142,8 +141,8 @@ public partial class Chunk : StaticBody3D {
     }
   }
 
-  private void TriangulateEdgeFan(Vector3 pos, EdgeVertices edge) {
-    TerrainMesh.AddTriangleAutoUV(pos, edge.V1, edge.V5);
+  private void TriangulateEdgeFan(Vector3 pos, EdgeVertices edge, HexMesh mesh) {
+    mesh.AddTriangleAutoUV(pos, edge.V1, edge.V5);
   }
 
   private void TriangulateConnection(HexDirection direction, GameCell cell, EdgeVertices e) {
@@ -312,7 +311,7 @@ public partial class Chunk : StaticBody3D {
     var expandedMinRow = minRow - borderLayers;
     var expandedMaxRow = maxRow + borderLayers;
 
-    _borderMesh.Begin();
+    BorderMesh.Begin();
 
     for (var col = expandedMinCol; col <= expandedMaxCol; col++) {
       for (var row = expandedMinRow; row <= expandedMaxRow; row++) {
@@ -327,33 +326,24 @@ public partial class Chunk : StaticBody3D {
       }
     }
 
-    _borderMesh.End();
+    BorderMesh.End();
   }
 
   private void GenerateBorderHexagon(Vector3 center) {
-    var vertices = new List<Vector3>();
-
-    for (var i = 0; i < 6; i++) {
-      var corner = Grid.GetLayout().GetCorner(i);
-      vertices.Add(center + new Vector3(corner.X, 0, corner.Y));
+    for (var d = HexDirection.First; d <= HexDirection.Sixth; d++) {
+      var (firstCorner, secondCorner) = Grid.GetCorners(d);
+      var e = new EdgeVertices(center + firstCorner, center + secondCorner);
+      TriangulateEdgeFan(center, e, BorderMesh);
     }
 
-    for (var i = 0; i < 6; i++) {
-      _borderMesh.AddTriangleAutoUV(
-          center,
-          vertices[i],
-          vertices[(i + 1) % 6]
-      );
-    }
+    // var wallHeight = -2f;
+    // for (var i = 0; i < 6; i++) {
+    //   var top1 = vertices[i];
+    //   var top2 = vertices[(i + 1) % 6];
+    //   var bottom1 = top1 with { Y = wallHeight };
+    //   var bottom2 = top2 with { Y = wallHeight };
 
-    var wallHeight = -2f;
-    for (var i = 0; i < 6; i++) {
-      var top1 = vertices[i];
-      var top2 = vertices[(i + 1) % 6];
-      var bottom1 = top1 with { Y = wallHeight };
-      var bottom2 = top2 with { Y = wallHeight };
-
-      _borderMesh.AddQuadAutoUV(top1, top2, bottom1, bottom2);
-    }
+    //   _borderMesh.AddQuadAutoUV(top1, top2, bottom1, bottom2);
+    // }
   }
 }

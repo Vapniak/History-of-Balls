@@ -1,15 +1,16 @@
 [gd_scene load_steps=22 format=3 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
-[ext_resource type="Material" uid="uid://di2vqjh12uacy" path="res://res/materials/post_process.tres" id="2_wnmxh"]
 [ext_resource type="RibbonTrailMesh" uid="uid://w2xv54d0lfdp" path="res://res/meshes/wind_ribbon.tres" id="3_w31k8"]
 
 [sub_resource type="Curve" id="Curve_t3eex"]
 _data = [Vector2(0.183333, 0.424051), 0.0, -0.682045, 0, 1, Vector2(0.364286, 0.300633), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.10013, 0.0, 1, 0]
 point_count = 3
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddym4"]
+
 [sub_resource type="QuadMesh" id="QuadMesh_bpb6w"]
-material = ExtResource("2_wnmxh")
+material = SubResource("ShaderMaterial_ddym4")
 flip_faces = true
 size = Vector2(2, 2)
 

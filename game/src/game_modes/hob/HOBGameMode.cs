@@ -11,6 +11,7 @@ using GodotStateCharts;
 public partial class HOBGameMode : GameMode {
   [Export] private MatchEndMenu MatchEndMenu { get; set; }
   [Export] private PauseMenu PauseMenu { get; set; }
+  [Export] private AudioStreamPlayer AudioPlayer { get; set; }
 
   [Export] private PackedScene PlayerControllerScene { get; set; }
   [Export] private PackedScene PlayerCharacterScene { get; set; }
@@ -90,6 +91,8 @@ public partial class HOBGameMode : GameMode {
 
   private void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
+
+    AudioPlayer.Play();
 
     MatchComponent.TurnStarted += CheckWinCondition;
   }

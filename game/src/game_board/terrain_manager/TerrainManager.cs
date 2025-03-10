@@ -12,7 +12,6 @@ using RaycastSystem;
 public partial class TerrainManager : Node3D {
   [Export] private Material TerrainMaterial { get; set; }
   [Export] private Material WaterMaterial { get; set; }
-  [Export] private Material BorderMaterial { get; set; }
 
   private Image TerrainData { get; set; }
   private Image HighlightData { get; set; }
@@ -54,7 +53,7 @@ public partial class TerrainManager : Node3D {
 
     Chunks = new Chunk[ChunkCount.X * ChunkCount.Y];
     for (var i = 0; i < Chunks.Length; i++) {
-      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, WaterMaterial, BorderMaterial, grid);
+      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, WaterMaterial, grid);
       Chunks[i] = chunk;
       AddChild(chunk);
     }

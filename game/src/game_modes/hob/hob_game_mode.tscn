@@ -38,10 +38,11 @@ Name = "USA"
 Color = Color(0, 0, 1, 1)
 Flag = ExtResource("12_xxxcm")
 
-[node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "StateChartNode")]
+[node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "AudioPlayer", "StateChartNode")]
 script = ExtResource("1_ne2qg")
 MatchEndMenu = NodePath("MatchEndMenu")
 PauseMenu = NodePath("PauseMenu")
+AudioPlayer = NodePath("AudioStreamPlayer")
 PlayerControllerScene = ExtResource("2_st7p2")
 PlayerCharacterScene = ExtResource("3_wvtpx")
 AIControllerScene = ExtResource("4_lhw57")
@@ -129,8 +130,8 @@ enabled = false
 initial_node_to_watch = NodePath("..")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
 stream = ExtResource("25_f3tc6")
-autoplay = true
 bus = &"Music"
 
 [connection signal="pressed" from="MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
