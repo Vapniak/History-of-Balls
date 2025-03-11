@@ -49,7 +49,7 @@ public partial class AIController : Controller, IMatchController {
         var bestUtility = 0f;
 
         foreach (var command in commandTrait.GetCommands()) {
-          if (command.CanBeUsed(this)) {
+          if (command.CanBeUsed()) {
             if (command is MoveCommand moveCommand) {
               var utility = CalculateMoveUtility(moveCommand, out var closestEnemyCell);
               if (utility > bestUtility) {
@@ -87,17 +87,17 @@ public partial class AIController : Controller, IMatchController {
 
         if (bestCommand != null) {
           if (bestCommand is AttackCommand attack && bestParameters is Entity target) {
-            if (attack.TryAttack(this, target)) {
+            if (attack.TryAttack(target)) {
               await ToSignal(attack.AttackTrait, AttackTrait.SignalName.AttackFinished);
             }
           }
           else if (bestCommand is MoveCommand move && bestParameters is GameCell cell) {
-            if (move.TryMove(this, cell)) {
+            if (move.TryMove(cell)) {
               await ToSignal(move.MoveTrait, MoveTrait.SignalName.MoveFinished);
             }
           }
           else if (bestCommand is ProduceEntityCommand produceEntity && bestParameters is ProducedEntityData data) {
-            if (produceEntity.TryStartProduceEntity(this, data)) {
+            if (produceEntity.TryStartProduceEntity(data)) {
 
             }
           }
@@ -111,7 +111,7 @@ public partial class AIController : Controller, IMatchController {
 
 
   private Command[] GenerateAvailableCommands(CommandTrait commandTrait) {
-    return commandTrait.GetCommands().Where(c => c.CanBeUsed(this)).ToArray();
+    return commandTrait.GetCommands().Where(c => c.CanBeUsed()).ToArray();
   }
 
   private float CalculateMoveUtility(MoveCommand moveCommand, out GameCell closestEnemyCell) {

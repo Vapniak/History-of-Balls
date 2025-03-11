@@ -12,9 +12,9 @@ public partial class MoveCommand : Command {
     MoveTrait.MoveFinished += Finish;
   }
 
-  public bool TryMove(IMatchController caller, GameCell targetCell) {
+  public bool TryMove(GameCell targetCell) {
     var path = FindPathTo(targetCell);
-    if (CanBeUsed(caller) && path.Length > 0) {
+    if (CanBeUsed() && path.Length > 0) {
       Use();
       MoveTrait.Move(path);
       return true;
@@ -31,12 +31,12 @@ public partial class MoveCommand : Command {
     return MoveTrait.FindPath(cell);
   }
 
-  public override bool CanBeUsed(IMatchController caller) {
+  public override bool CanBeUsed() {
     var attacked = false;
     if (CommandTrait.TryGetCommand<AttackCommand>(out var attack)) {
       attacked = attack.UsedThisRound;
     }
 
-    return base.CanBeUsed(caller) && !attacked;
+    return base.CanBeUsed() && !attacked;
   }
 }

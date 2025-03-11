@@ -33,7 +33,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private HighlightSystem HighlightSystem { get; set; }
   private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
 
-  private string _entityUISceneUID = "uid://ka4lyslghbk";
+  private string _entityUISceneUID = "uid://omhtmi8gorif";
 
   public override void _Ready() {
     base._Ready();
@@ -52,9 +52,18 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
 
     void onEntityAdded(Entity entity) {
-      var entityUI = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
+      var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node>();
+      entity.Body.AddChild(ui3d);
 
-      entityUI.SetVisible(false);
+      var entityUI = ui3d.GetChildByType<EntityUI>();
+      entity.EntityUI = entityUI;
+
+      entityUI.SetTeamColor(Colors.White);
+      entityUI.HideCommandIcons();
+
+      if (entity.TryGetStat<EntityTypeStats>(out var entityType)) {
+        entityUI.SetIcon(entityType.Icon);
+      }
 
       entity.OwnerControllerChanging += () => {
         if (entity.TryGetOwner(out var owner)) {
@@ -66,16 +75,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
             }
 
             commandTrait.CommandStarted -= onCommandStarted;
+            commandTrait.CommandFinished -= onCommandFinished;
           }
         }
       };
 
       entity.OwnerControllerChanged += () => {
+        entityUI.HideCommandIcons();
         if (entity.TryGetOwner(out var owner)) {
-          entityUI.SetFlag(owner.Country.Flag);
-          entityUI.SetVisible(true);
-
           if (owner == this) {
+            entityUI.ShowCommandIcons(entity);
+            entityUI.SetTeamColor(Colors.Green);
             if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
               if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
                 factoryTrait.ProcessingFinished += onProcessingFinised;
@@ -83,14 +93,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
             }
 
             commandTrait.CommandStarted += onCommandStarted;
+            commandTrait.CommandFinished += onCommandFinished;
+          }
+          else {
+            entityUI.SetTeamColor(Colors.Red);
           }
         }
         else {
-          entityUI.SetVisible(false);
+          entityUI.SetTeamColor(Colors.White);
         }
       };
 
-      entity.Body.AddChild(entityUI);
 
       void onProcessingFinised() {
         var stats = entity.GetStat<FactoryStats>();
@@ -119,6 +132,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
             }
           }
         }
+      }
+
+      void onCommandFinished(Command command) {
+        entityUI.ShowCommandIcons(entity);
       }
     }
   }
@@ -166,6 +183,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
   public void OwnTurnStarted() {
     UpdateCommandHighlights();
+
+    foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
+      entity.EntityUI.ShowCommandIcons(entity);
+    }
   }
   public void OwnTurnEnded() {
     SelectedCommand = null;
@@ -424,13 +445,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     var entities = EntityManagment.GetEntitiesOnCell(clickedCell);
 
     if (SelectedCommand is MoveCommand moveCommand) {
-      if (moveCommand.GetReachableCells().Contains(clickedCell) && moveCommand.TryMove(this, clickedCell)) {
+      if (moveCommand.GetReachableCells().Contains(clickedCell) && moveCommand.TryMove(clickedCell)) {
         return true;
       }
     }
     else if (SelectedCommand is AttackCommand attackCommand) {
       foreach (var entity in entities) {
-        if (attackCommand.GetAttackableEntities().entities.Contains(entity) && attackCommand.TryAttack(this, entity)) {
+        if (attackCommand.GetAttackableEntities().entities.Contains(entity) && attackCommand.TryAttack(entity)) {
           return true;
         }
       }
@@ -450,7 +471,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
 
     if (SelectedCommand != null) {
-      var darkened = !SelectedCommand.GetEntity().TryGetOwner(out var owner) || owner != this || !SelectedCommand.CanBeUsed(this);
+      var darkened = !SelectedCommand.GetEntity().TryGetOwner(out var owner) || owner != this || !SelectedCommand.CanBeUsed();
 
       if (SelectedCommand is MoveCommand moveCommand) {
 

@@ -34,7 +34,6 @@ config/icon="res://assets/HoB-logo.svg"
 
 RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
 GameInstance="*res://src/game_instance.tscn"
-Panku="*res://addons/panku_console/console.tscn"
 
 [debug_draw_3d]
 
@@ -57,7 +56,7 @@ project/assembly_name="History of Balls"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gameplay_framework/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/raycast_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/2d_shapes/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg")
 
 [file_customization]
 
@@ -157,9 +156,9 @@ common/physics_interpolation=true
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
 anti_aliasing/quality/msaa_2d=2
-anti_aliasing/quality/msaa_3d=2
+anti_aliasing/quality/msaa_3d=3
+viewport/transparent_background=true
 
 [shader_globals]
 

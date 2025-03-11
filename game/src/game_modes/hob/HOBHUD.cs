@@ -41,16 +41,6 @@ public partial class HOBHUD : HUD {
       OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
     };
 
-    GetPlayerController().SelectedEntityChanging += () => {
-      var selectedEntity = GetPlayerController().SelectedEntity;
-
-      if (selectedEntity != null) {
-        if (selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-          commandTrait.CommandStarted -= updatePanel;
-          commandTrait.CommandFinished -= updatePanel;
-        }
-      }
-    };
 
     GetPlayerController().SelectedEntityChanged += () => {
       var selectedEntity = GetPlayerController().SelectedEntity;
@@ -63,29 +53,22 @@ public partial class HOBHUD : HUD {
       else {
         if (selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
           ShowCommandPanel(commandTrait);
-
-          // TODO: better system for updating panel, when stats change
-          commandTrait.CommandStarted += updatePanel;
-          commandTrait.CommandFinished += updatePanel;
         }
 
         ShowStatPanel(selectedEntity);
       }
     };
 
-    void updatePanel(Command command) {
-      UpdateStatPanel(StatPanel, command.GetEntity());
-    }
-
     GetPlayerController().SelectedCommandChanged += () => {
       var command = GetPlayerController().SelectedCommand;
 
-      if (command is ProduceEntityCommand produceEntity) {
+      if (command != null && command.GetEntity().TryGetOwner(out var owner) && owner == GetPlayerController() && command is ProduceEntityCommand produceEntity) {
         ShowProductionPanel(produceEntity);
       }
       else {
         HideProductionPanel();
       }
+
     };
 
 
@@ -165,9 +148,11 @@ public partial class HOBHUD : HUD {
     }
 
     void onEntitySelected(ProducedEntityData data) {
-      if (produceEntityCommand.TryStartProduceEntity(GetPlayerController(), data)) {
-        ShowProductionPanel(produceEntityCommand);
-        UpdateStatPanel(StatPanel, produceEntityCommand.GetEntity());
+      if (GetPlayerController<IMatchController>().IsCurrentTurn()) {
+        if (produceEntityCommand.TryStartProduceEntity(data)) {
+          ShowProductionPanel(produceEntityCommand);
+          UpdateStatPanel(StatPanel, produceEntityCommand.GetEntity());
+        }
       }
     }
 

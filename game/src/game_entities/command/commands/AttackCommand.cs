@@ -13,8 +13,8 @@ public partial class AttackCommand : Command {
     AttackTrait.AttackFinished += Finish;
   }
 
-  public bool TryAttack(IMatchController caller, Entity entity) {
-    if (CanBeUsed(caller)) {
+  public bool TryAttack(Entity entity) {
+    if (CanBeUsed()) {
       Use();
       AttackTrait.Attack(entity);
       return true;

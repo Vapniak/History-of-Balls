@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://ds4gcav7wbnnb"]
+[gd_scene load_steps=13 format=3 uid="uid://ds4gcav7wbnnb"]
 
 [ext_resource type="Script" path="res://src/game_entities/traits/move/movement_types/WalkMoveTrait.cs" id="1_gbiay"]
 [ext_resource type="Script" path="res://src/game_entities/traits/health/HealthTrait.cs" id="2_uxa4n"]
@@ -6,20 +6,24 @@
 [ext_resource type="Script" path="res://src/game_entities/command/CommandTrait.cs" id="4_250is"]
 [ext_resource type="Script" path="res://src/game_entities/command/commands/MoveCommand.cs" id="5_6un0v"]
 [ext_resource type="Script" path="res://src/game_entities/command/commands/AttackCommand.cs" id="6_1i0a2"]
+[ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="6_jiv60"]
 [ext_resource type="Script" path="res://src/game_entities/command/CommandData.cs" id="6_tqysh"]
 [ext_resource type="Script" path="res://src/game_entities/traits/obstacle/ObstacleTrait.cs" id="8_ocmno"]
+[ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="9_bkuhp"]
 
 [sub_resource type="Resource" id="Resource_t3uuf"]
 script = ExtResource("6_tqysh")
 CommandName = "Move"
 ShowInUI = true
 CooldownRounds = 1
+Icon = ExtResource("6_jiv60")
 
 [sub_resource type="Resource" id="Resource_wumis"]
 script = ExtResource("6_tqysh")
 CommandName = "Attack"
 ShowInUI = true
 CooldownRounds = 1
+Icon = ExtResource("9_bkuhp")
 
 [node name="UnitTraits" type="Node"]
 

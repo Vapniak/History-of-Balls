@@ -7,13 +7,13 @@ using System;
 public partial class ProduceEntityCommand : Command {
   [Export] public EntityProducerTrait ProducerTrait { get; private set; }
 
-  public bool TryStartProduceEntity(IMatchController caller, ProducedEntityData data) {
+  public bool TryStartProduceEntity(ProducedEntityData data) {
     if (GetEntity().TryGetStat<EntityProducerStats>(out var stats)) {
       if (!stats.ProducedEntities.Contains(data)) {
         return false;
       }
 
-      if (CanBeUsed(caller) && CanEntityBeProduced(data)) {
+      if (CanBeUsed() && CanEntityBeProduced(data)) {
         ProducerTrait.CurrentProducedEntity = data;
         Use();
         return true;
@@ -23,7 +23,7 @@ public partial class ProduceEntityCommand : Command {
     return false;
   }
 
-  public override bool CanBeUsed(IMatchController caller) => base.CanBeUsed(caller) && ProducerTrait.ProductionRoundsLeft == 0;
+  public override bool CanBeUsed() => base.CanBeUsed() && ProducerTrait.ProductionRoundsLeft == 0;
 
   public override void OnTurnStarted() {
     base.OnTurnStarted();

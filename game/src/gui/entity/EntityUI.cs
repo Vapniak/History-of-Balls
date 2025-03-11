@@ -1,0 +1,76 @@
+namespace HOB;
+
+using Godot;
+using HOB.GameEntity;
+using System;
+
+public partial class EntityUI : Control {
+  [Export] private TextureRect IconTextureRect { get; set; }
+  [Export] private Control TeamColorContainer { get; set; }
+  [Export] private Control Separator { get; set; }
+  [Export] private Control CommandIconsContainer { get; set; }
+  public override void _Ready() {
+    IconTextureRect.Visible = false;
+    HideCommandIcons();
+  }
+
+  public void SetTeamColor(Color color) {
+    TeamColorContainer.SelfModulate = color;
+
+    if (color.Luminance > 0.5) {
+      IconTextureRect.SelfModulate = Colors.Black;
+    }
+    else {
+      IconTextureRect.SelfModulate = Colors.White;
+    }
+  }
+  public void SetIcon(Texture2D texture) {
+    IconTextureRect.Visible = true;
+    IconTextureRect.Texture = texture;
+  }
+
+  public void ShowCommandIcons(Entity entity) {
+    if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      foreach (var child in CommandIconsContainer.GetChildren()) {
+        child.Free();
+      }
+
+      foreach (var command in commandTrait.GetCommands()) {
+        if (command.Data.ShowInUI) {
+          var icon = new TextureRect {
+            Texture = command.Data.Icon,
+            ExpandMode = TextureRect.ExpandModeEnum.FitWidth
+          };
+
+          if (command.CanBeUsed()) {
+            icon.SelfModulate = Colors.Green;
+          }
+          else {
+            icon.SelfModulate = Colors.Red;
+          }
+
+          CommandIconsContainer.AddChild(icon);
+        }
+      }
+
+      if (CommandIconsContainer.GetChildCount() == 0) {
+        HideCommandIcons();
+      }
+      else {
+        Separator.Show();
+        CommandIconsContainer.Show();
+      }
+    }
+    else {
+      HideCommandIcons();
+    }
+  }
+
+  public void HideCommandIcons() {
+    Separator.Hide();
+    CommandIconsContainer.Hide();
+    foreach (var child in CommandIconsContainer.GetChildren()) {
+      child.Free();
+    }
+  }
+}

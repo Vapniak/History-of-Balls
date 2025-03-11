@@ -22,7 +22,7 @@ shader_parameter/base_texture = ExtResource("5_hvkbj")
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(-0.25, 0)
 
-[node name="EntityBody" type="Node3D"]
+[node name="EntityBody2" type="Node3D"]
 script = ExtResource("1_gh5l7")
 
 [node name="BaseCountryBall" parent="." instance=ExtResource("2_s6u6k")]

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=13 format=3 uid="uid://cyurh50c61ayo"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=14 format=3 uid="uid://cyurh50c61ayo"]
 
 [ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/test_unit_1_data.tres" id="1_6dlwi"]
 [ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_ht1wo"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="4_e1oep"]
 [ext_resource type="Resource" uid="uid://c5dmvmose2efr" path="res://src/game_entities/entites/units/test_unit_2_data.tres" id="4_fosny"]
 [ext_resource type="PackedScene" uid="uid://daiki3jfmr3l7" path="res://src/game_entities/entites/structures/city/city_traits.tscn" id="5_arbco"]
+[ext_resource type="Resource" uid="uid://d3ja3oacsun4e" path="res://src/game_entities/entites/city_type.tres" id="6_3rsn3"]
 
 [sub_resource type="Resource" id="Resource_k01qo"]
 script = ExtResource("3_6i2i4")
@@ -29,7 +30,7 @@ ProducedEntities = Array[Object]([SubResource("Resource_k01qo"), SubResource("Re
 
 [sub_resource type="Resource" id="Resource_v351d"]
 script = ExtResource("4_e1oep")
-Stats = Array[Object]([SubResource("Resource_op448")])
+Stats = Array[Object]([SubResource("Resource_op448"), ExtResource("6_3rsn3")])
 
 [resource]
 script = ExtResource("1_y43l5")

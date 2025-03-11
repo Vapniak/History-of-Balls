@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=4 uid="uid://c6gjek7mpianb"]
 
-[ext_resource type="PackedScene" path="res://res/meshes/sphere.tscn" id="1_bpijj"]
+[ext_resource type="PackedScene" uid="uid://i2nsfe0ypup5" path="res://res/meshes/sphere.tscn" id="1_bpijj"]
 [ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_aurth"]
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="2_wli4j"]
 [ext_resource type="Texture2D" uid="uid://v3yc7rtrx2cs" path="res://assets/textures/flags/England.png" id="3_x0twr"]

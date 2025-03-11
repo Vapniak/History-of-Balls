@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://c5dmvmose2efr"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=13 format=3 uid="uid://c5dmvmose2efr"]
 
 [ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/test_unit_2.tscn" id="1_r8btu"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rx8d8"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://src/game_entities/traits/attack/AttackStats.cs" id="3_vfhnb"]
 [ext_resource type="Script" path="res://src/game_entities/traits/health/HealthStats.cs" id="4_ql0hx"]
 [ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="5_stfui"]
+[ext_resource type="Resource" uid="uid://dxtrir4dfqb53" path="res://src/game_entities/entites/infantry_type.tres" id="5_tlyo7"]
 [ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/units/unit_traits.tscn" id="6_v02cd"]
 
 [sub_resource type="Resource" id="Resource_63s12"]
@@ -23,7 +24,7 @@ Health = 3
 
 [sub_resource type="Resource" id="Resource_k6xc1"]
 script = ExtResource("5_stfui")
-Stats = Array[Object]([SubResource("Resource_63s12"), SubResource("Resource_nfm77"), SubResource("Resource_jwusi")])
+Stats = Array[Object]([SubResource("Resource_63s12"), SubResource("Resource_nfm77"), SubResource("Resource_jwusi"), ExtResource("5_tlyo7")])
 
 [resource]
 script = ExtResource("1_rx8d8")

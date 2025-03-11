@@ -157,13 +157,15 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
   private void AddEntity(Entity entity, IMatchController owner) {
     entity.TreeExiting += () => RemoveEntity(entity);
+    entity.Ready += () => {
+      EntityAdded?.Invoke(entity);
+
+      entity.ChangeOwner(owner);
+    };
 
     AddChild(entity);
     Entities.Add(entity);
 
-    EntityAdded?.Invoke(entity);
-
-    entity.ChangeOwner(owner);
   }
 
   public void RemoveEntity(Entity entity) {

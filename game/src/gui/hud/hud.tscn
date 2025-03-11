@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=12 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/gui/flag/flag.tscn" id="2_3sw0n"]
@@ -16,6 +16,14 @@ content_margin_right = 5.0
 content_margin_bottom = 5.0
 bg_color = Color(0, 0, 0, 0.313726)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qeyv"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_color = Color(0, 0, 0, 0)
+
 [sub_resource type="Environment" id="Environment_384c7"]
 
 [node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "CountryFlag", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
@@ -27,7 +35,7 @@ ProductionPanel = NodePath("MarginContainer4/EntityProductionPanel")
 EndTurnButton = NodePath("VBoxContainer/MarginContainer/Button")
 CommandPanel = NodePath("MarginContainer4/StatPanel/VBoxContainer/CommandPanel")
 RoundLabel = NodePath("VBoxContainer/PanelContainer2/VBoxContainer/Label")
-CountryFlag = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/Flag/Texture")
+CountryFlag = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/Flag/PanelContainer/Texture")
 CountryNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/Label")
 PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label")
 PrimaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/Resources/VBoxContainer/HBoxContainer/Label2")
@@ -56,6 +64,9 @@ size_flags_horizontal = 4
 [node name="Flag" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer" instance=ExtResource("2_3sw0n")]
 custom_minimum_size = Vector2(48, 30)
 layout_mode = 2
+
+[node name="PanelContainer" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer/Flag" index="0"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_2qeyv")
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/Resources/VBoxContainer"]
 layout_mode = 2

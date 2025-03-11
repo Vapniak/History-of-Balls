@@ -27,8 +27,8 @@ public abstract partial class Command : Node {
     EmitSignal(SignalName.Finished);
   }
 
-  public virtual bool CanBeUsed(IMatchController caller) {
-    return CooldownRoundsLeft == 0 && !UsedThisRound && GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn() && owner == caller;
+  public virtual bool CanBeUsed() {
+    return CooldownRoundsLeft == 0 && !UsedThisRound;
   }
 
   public virtual void OnTurnStarted() {

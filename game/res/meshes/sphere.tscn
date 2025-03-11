@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://16oiwtsgel0p"]
+[gd_scene load_steps=11 format=4 uid="uid://i2nsfe0ypup5"]
 
 [ext_resource type="PackedScene" uid="uid://b8mjeotg42xkp" path="res://assets/models/sphere.fbx" id="1_juhw5"]
 [ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_n3882"]
