@@ -51,23 +51,18 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
 
     void onEntityAdded(Entity entity) {
-      // entity.OwnerControllerChanged += () => {
-
-      // };
-
       // if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
       //   if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
-      //     entity.OwnerControllerChanged += () => {
-      //       if (entity.TryGetOwner(out var owner) && owner == this) {
-      //         factoryTrait.ProcessingFinished += () => {
-      //           var stats = entity.GetStat<FactoryStats>();
-      //           var floatingLabel = FloatingText.Create($"+{stats.ProducedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(stats.ProducedResource).Name}", Colors.Orange);
-      //           entity.Body.AddChild(floatingLabel);
-      //           floatingLabel.Position += Vector3.Up * 2;
-      //           floatingLabel.Animate();
-      //         };
-      //       }
-      //     };
+      //     if (entity.TryGetOwner(out var owner) && owner == this) {
+      //       factoryTrait.ProcessingFinished += () => {
+      //         var stats = entity.GetStat<FactoryStats>();
+      //         var floatingLabel = FloatingText.Create($"+{stats.ProducedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(stats.ProducedResource).Name}", Colors.Orange);
+      //         entity.Body.AddChild(floatingLabel);
+      //         floatingLabel.Position += Vector3.Up * 2;
+      //         floatingLabel.Animate();
+      //       };
+      //     }
+      //     ;
       //   }
 
       //   commandTrait.CommandStarted += (command) => {

@@ -145,8 +145,9 @@ public partial class HOBHUD : HUD {
     }
 
     void onEntitySelected(ProducedEntityData data) {
-      if (produceEntityCommand.TryProduceEntity(GetPlayerController(), data)) {
+      if (produceEntityCommand.TryStartProduceEntity(GetPlayerController(), data)) {
         ShowProductionPanel(produceEntityCommand);
+        UpdateStatPanel(StatPanel, produceEntityCommand.GetEntity());
       }
     }
 

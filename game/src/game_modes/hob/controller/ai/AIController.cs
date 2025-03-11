@@ -97,7 +97,7 @@ public partial class AIController : Controller, IMatchController {
             }
           }
           else if (bestCommand is ProduceEntityCommand produceEntity && bestParameters is ProducedEntityData data) {
-            if (produceEntity.TryProduceEntity(this, data)) {
+            if (produceEntity.TryStartProduceEntity(this, data)) {
 
             }
           }

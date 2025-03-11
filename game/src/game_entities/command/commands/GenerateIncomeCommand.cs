@@ -12,8 +12,8 @@ public partial class GenerateIncomeCommand : Command {
     EntityIncomeTrait.GenerateIncome();
     Finish();
   }
-  public override void OnTurnEnded() {
-    base.OnTurnEnded();
+  public override void OnTurnStarted() {
+    base.OnTurnStarted();
 
     if (GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn()) {
       Use();

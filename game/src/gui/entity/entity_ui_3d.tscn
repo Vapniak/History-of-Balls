@@ -16,15 +16,14 @@ fixed_size = true
 alpha_cut = 1
 texture = SubResource("ViewportTexture_r07d7")
 script = ExtResource("1_q8esg")
-TextureRect = NodePath("SubViewport/MarginContainer/CenterContainer/MarginContainer/Flag/Texture")
+TextureRect = NodePath("SubViewport/MarginContainer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/Flag/Texture")
 UIRoot = NodePath("SubViewport/MarginContainer")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
 handle_input_locally = false
-size = Vector2i(128, 128)
 
 [node name="MarginContainer" parent="SubViewport" instance=ExtResource("2_smlom")]
 
 [editable path="SubViewport/MarginContainer"]
-[editable path="SubViewport/MarginContainer/CenterContainer/MarginContainer/Flag"]
+[editable path="SubViewport/MarginContainer/CenterContainer/PanelContainer/VBoxContainer/MarginContainer/Flag"]

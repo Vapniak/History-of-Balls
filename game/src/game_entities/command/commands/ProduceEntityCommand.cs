@@ -7,17 +7,15 @@ using System;
 public partial class ProduceEntityCommand : Command {
   [Export] public EntityProducerTrait ProducerTrait { get; private set; }
 
-  public bool TryProduceEntity(IMatchController caller, ProducedEntityData data) {
+  public bool TryStartProduceEntity(IMatchController caller, ProducedEntityData data) {
     if (GetEntity().TryGetStat<EntityProducerStats>(out var stats)) {
       if (!stats.ProducedEntities.Contains(data)) {
         return false;
       }
 
       if (CanBeUsed(caller) && CanEntityBeProduced(data)) {
+        ProducerTrait.CurrentProducedEntity = data;
         Use();
-        caller.GetPlayerState().GetResourceType(data.CostType).Value -= data.Cost;
-        ProducerTrait.StartProduce(data);
-        Finish();
         return true;
       }
     }
@@ -34,7 +32,15 @@ public partial class ProduceEntityCommand : Command {
       return;
     }
 
-    ProducerTrait.OnTurnStarted();
+    if (ProducerTrait.ProductionRoundsLeft > 0) {
+      ProducerTrait.ProductionRoundsLeft--;
+    }
+
+    if (ProducerTrait.ProductionRoundsLeft == 0 && ProducerTrait.CurrentProducedEntity != null) {
+      if (ProducerTrait.TryProduce(ProducerTrait.CurrentProducedEntity)) {
+        ProducerTrait.CurrentProducedEntity = null;
+      }
+    }
   }
 
   public bool CanEntityBeProduced(ProducedEntityData data) {
@@ -45,5 +51,16 @@ public partial class ProduceEntityCommand : Command {
     }
 
     return false;
+  }
+
+  protected override void Use() {
+    base.Use();
+
+    if (GetEntity().TryGetOwner(out var owner)) {
+      owner.GetPlayerState().GetResourceType(ProducerTrait.CurrentProducedEntity.CostType).Value -= ProducerTrait.CurrentProducedEntity.Cost;
+      ProducerTrait.ProductionRoundsLeft = ProducerTrait.CurrentProducedEntity.RoundsProductionTime;
+    }
+
+    Finish();
   }
 }

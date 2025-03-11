@@ -8,10 +8,13 @@ public partial class FactoryTrait : Trait {
   [Signal] public delegate void ProcessingFinishedEventHandler();
   public uint ProcessingRoundsLeft { get; private set; }
 
+  private bool _startedProcessingThisTurn;
+
   public void StartProcessing() {
     if (Entity.TryGetOwner(out var owner)) {
       if (Entity.TryGetStat<FactoryStats>(out var stats)) {
         ProcessingRoundsLeft = stats.ProcessingTurns;
+        _startedProcessingThisTurn = true;
         owner.GetPlayerState().GetResourceType(stats.ProcessedResource).Value -= stats.ProcessedValue;
       }
     }
@@ -21,7 +24,7 @@ public partial class FactoryTrait : Trait {
     base.OnOwnerChanging();
 
     if (Entity.TryGetOwner(out var owner)) {
-      owner.GetGameMode().GetMatchEvents().TurnEnded -= OnTurnEnded;
+      owner.GetGameMode().GetMatchEvents().TurnStarted -= OnTurnStarted;
     }
   }
 
@@ -29,12 +32,17 @@ public partial class FactoryTrait : Trait {
     base.OnOwnerChanged();
 
     if (Entity.TryGetOwner(out var owner)) {
-      owner.GetGameMode().GetMatchEvents().TurnEnded += OnTurnEnded;
+      owner.GetGameMode().GetMatchEvents().TurnStarted += OnTurnStarted;
     }
   }
 
-  private void OnTurnEnded() {
+  private void OnTurnStarted() {
     if (Entity.TryGetOwner(out var owner) && owner.IsCurrentTurn()) {
+      if (_startedProcessingThisTurn) {
+        _startedProcessingThisTurn = false;
+        return;
+      }
+
       if (ProcessingRoundsLeft > 0) {
         ProcessingRoundsLeft--;
         if (ProcessingRoundsLeft == 0) {

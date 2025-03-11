@@ -7,6 +7,23 @@ using System;
 public partial class ProcessResourcesCommand : Command {
   [Export] public FactoryTrait FactoryTrait { get; private set; }
 
+  public override void _Ready() {
+    base._Ready();
+
+    GetEntity().OwnerControllerChanging += () => {
+      if (GetEntity().TryGetOwner(out var owner)) {
+        var stats = GetEntity().GetStat<FactoryStats>();
+        owner.GetPlayerState().GetResourceType(stats.ProcessedResource).ValueChanged -= TryUse;
+      }
+    };
+
+    GetEntity().OwnerControllerChanged += () => {
+      if (GetEntity().TryGetOwner(out var owner)) {
+        var stats = GetEntity().GetStat<FactoryStats>();
+        owner.GetPlayerState().GetResourceType(stats.ProcessedResource).ValueChanged += TryUse;
+      }
+    };
+  }
   public override bool CanBeUsed(IMatchController caller) {
     if (FactoryTrait.ProcessingRoundsLeft > 0) {
       return false;
@@ -23,24 +40,6 @@ public partial class ProcessResourcesCommand : Command {
     return false;
   }
 
-
-  public override void OnTurnStarted() {
-    base.OnTurnStarted();
-
-    if (GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn()) {
-      var stats = GetEntity().GetStat<FactoryStats>();
-      owner.GetPlayerState().GetResourceType(stats.ProcessedResource).ValueChanged += TryUse;
-    }
-  }
-
-  public override void OnTurnEnded() {
-    base.OnTurnEnded();
-
-    if (GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn()) {
-      var stats = GetEntity().GetStat<FactoryStats>();
-      owner.GetPlayerState().GetResourceType(stats.ProcessedResource).ValueChanged -= TryUse;
-    }
-  }
 
   private void TryUse() {
     if (GetEntity().TryGetOwner(out var owner)) {

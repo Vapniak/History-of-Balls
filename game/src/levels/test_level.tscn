@@ -28,7 +28,6 @@ glow_mix = 0.1
 glow_bloom = 0.29
 glow_blend_mode = 1
 fog_light_color = Color(0.5, 0.5, 0.608, 1)
-fog_sky_affect = 0.0
 fog_depth_begin = 37.0
 fog_depth_end = 111.1
 volumetric_fog_emission = Color(0.446777, 0.446777, 0.446777, 1)
