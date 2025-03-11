@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://daiki3jfmr3l7"]
+[gd_scene load_steps=7 format=3 uid="uid://daiki3jfmr3l7"]
 
 [ext_resource type="PackedScene" uid="uid://c0n8kwkbt135m" path="res://src/game_entities/entites/structures/structure_traits.tscn" id="1_to6nc"]
 [ext_resource type="Script" path="res://src/game_entities/traits/entity_producer/EntityProducerTrait.cs" id="2_7uqgp"]
 [ext_resource type="Script" path="res://src/game_entities/command/CommandTrait.cs" id="3_8imxb"]
 [ext_resource type="Script" path="res://src/game_entities/command/commands/ProduceEntityCommand.cs" id="4_13bml"]
+[ext_resource type="Script" path="res://src/game_entities/command/CommandData.cs" id="5_1eg8u"]
+
+[sub_resource type="Resource" id="Resource_gj36x"]
+script = ExtResource("5_1eg8u")
+CommandName = "Produce"
+ShowInUI = true
+CooldownRounds = 1
 
 [node name="CityTraits" type="Node"]
 
@@ -18,6 +25,6 @@ script = ExtResource("3_8imxb")
 [node name="ProduceEntityCommand" type="Node" parent="CommandTrait" node_paths=PackedStringArray("ProducerTrait")]
 script = ExtResource("4_13bml")
 ProducerTrait = NodePath("../../EntityProducerTrait")
-CommandName = "Produce"
+Data = SubResource("Resource_gj36x")
 
 [editable path="StructureTraits"]

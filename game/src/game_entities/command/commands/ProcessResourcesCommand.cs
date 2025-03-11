@@ -23,6 +23,8 @@ public partial class ProcessResourcesCommand : Command {
         owner.GetPlayerState().GetResourceType(stats.ProcessedResource).ValueChanged += TryUse;
       }
     };
+
+    FactoryTrait.ProcessingFinished += Finish;
   }
   public override bool CanBeUsed(IMatchController caller) {
     if (FactoryTrait.ProcessingRoundsLeft > 0) {
@@ -44,9 +46,15 @@ public partial class ProcessResourcesCommand : Command {
   private void TryUse() {
     if (GetEntity().TryGetOwner(out var owner)) {
       if (CanBeUsed(owner)) {
-        Use();
-        FactoryTrait.StartProcessing();
-        Finish();
+        var timer = new Timer();
+        AddChild(timer);
+        timer.Timeout += () => {
+          FactoryTrait.StartProcessing();
+          Use();
+          timer.QueueFree();
+        };
+
+        timer.Start(.5f);
       }
     }
   }

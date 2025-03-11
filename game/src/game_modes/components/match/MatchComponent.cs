@@ -39,7 +39,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   //public CommandManager CommandManager { get; private set; }
 
   private List<Entity> Entities => GetGameState().Entities;
-  private string _entityUISceneUID = "uid://ka4lyslghbk";
 
   private GameGrid Grid => GetGameState().GameBoard.Grid;
 
@@ -157,33 +156,14 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
 
   private void AddEntity(Entity entity, IMatchController owner) {
-    AddEntity(entity);
-    entity.ChangeOwner(owner);
-    EntityAdded?.Invoke(entity);
-  }
-
-  private void AddEntity(Entity entity) {
     entity.TreeExiting += () => RemoveEntity(entity);
 
-    var entityUI = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
-
-    entityUI.SetVisible(false);
-
-    entity.OwnerControllerChanged += () => {
-      if (entity.TryGetOwner(out var owner)) {
-        entityUI.SetFlag(owner.Country.Flag);
-        entityUI.SetVisible(true);
-      }
-      else {
-        entityUI.SetVisible(false);
-      }
-    };
-
     AddChild(entity);
-
-    entity.Body.AddChild(entityUI);
-
     Entities.Add(entity);
+
+    EntityAdded?.Invoke(entity);
+
+    entity.ChangeOwner(owner);
   }
 
   public void RemoveEntity(Entity entity) {

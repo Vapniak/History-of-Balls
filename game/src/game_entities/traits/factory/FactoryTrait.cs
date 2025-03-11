@@ -14,7 +14,6 @@ public partial class FactoryTrait : Trait {
     if (Entity.TryGetOwner(out var owner)) {
       if (Entity.TryGetStat<FactoryStats>(out var stats)) {
         ProcessingRoundsLeft = stats.ProcessingTurns;
-        _startedProcessingThisTurn = true;
         owner.GetPlayerState().GetResourceType(stats.ProcessedResource).Value -= stats.ProcessedValue;
       }
     }
@@ -38,11 +37,6 @@ public partial class FactoryTrait : Trait {
 
   private void OnTurnStarted() {
     if (Entity.TryGetOwner(out var owner) && owner.IsCurrentTurn()) {
-      if (_startedProcessingThisTurn) {
-        _startedProcessingThisTurn = false;
-        return;
-      }
-
       if (ProcessingRoundsLeft > 0) {
         ProcessingRoundsLeft--;
         if (ProcessingRoundsLeft == 0) {

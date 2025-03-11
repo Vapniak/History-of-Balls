@@ -1,19 +1,16 @@
 namespace HOB.GameEntity;
 
-using GameplayFramework;
 using Godot;
 
 
-// TODO: transform it into resource
 // TODO: rewrite the command system
 [GlobalClass]
 public abstract partial class Command : Node {
   [Signal] public delegate void StartedEventHandler();
   [Signal] public delegate void FinishedEventHandler();
 
-  [Export] public string CommandName { get; private set; } = "Command";
-  [Export] public bool ShowInUI { get; private set; } = true;
-  [Export] private uint CooldownRounds { get; set; } = 1;
+  [Export] public CommandData Data { get; private set; }
+
   public uint CooldownRoundsLeft { get; private set; }
   public bool UsedThisRound { get; private set; }
 
@@ -23,7 +20,7 @@ public abstract partial class Command : Node {
 
   protected virtual void Use() {
     UsedThisRound = true;
-    CooldownRoundsLeft = CooldownRounds;
+    CooldownRoundsLeft = Data.CooldownRounds;
     EmitSignal(SignalName.Started);
   }
   protected virtual void Finish() {

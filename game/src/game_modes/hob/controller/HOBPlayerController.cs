@@ -20,6 +20,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   [Notify] public GameCell HoveredCell { get => _hoveredCell.Get(); private set => _hoveredCell.Set(value); }
 
   public event Action EndTurnEvent;
+  public Country Country { get; set; }
 
   private StateChart StateChart { get; set; }
 
@@ -32,7 +33,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private HighlightSystem HighlightSystem { get; set; }
   private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
 
-  public Country Country { get; set; }
+  private string _entityUISceneUID = "uid://ka4lyslghbk";
 
   public override void _Ready() {
     base._Ready();
@@ -51,41 +52,74 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
 
     void onEntityAdded(Entity entity) {
-      // if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      //   if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
-      //     if (entity.TryGetOwner(out var owner) && owner == this) {
-      //       factoryTrait.ProcessingFinished += () => {
-      //         var stats = entity.GetStat<FactoryStats>();
-      //         var floatingLabel = FloatingText.Create($"+{stats.ProducedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(stats.ProducedResource).Name}", Colors.Orange);
-      //         entity.Body.AddChild(floatingLabel);
-      //         floatingLabel.Position += Vector3.Up * 2;
-      //         floatingLabel.Animate();
-      //       };
-      //     }
-      //     ;
-      //   }
+      var entityUI = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<EntityUi3D>();
 
-      //   commandTrait.CommandStarted += (command) => {
-      //     if (entity.TryGetOwner(out var owner) && owner == this) {
-      //       if (command is GenerateIncomeCommand incomeCommand) {
-      //         if (entity.TryGetStat<IncomeStats>(out var incomeStats)) {
-      //           var floatingLabel = FloatingText.Create($"+{incomeStats.Value} {GetPlayerState<IMatchPlayerState>().GetResourceType(incomeStats.IncomeType).Name}", Colors.Yellow);
-      //           entity.Body.AddChild(floatingLabel);
-      //           floatingLabel.Position += Vector3.Up * 2;
-      //           floatingLabel.Animate();
-      //         }
-      //       }
-      //       else if (command is ProcessResourcesCommand processResourcesCommand) {
-      //         if (entity.TryGetStat<FactoryStats>(out var factoryStats)) {
-      //           var floatingLabel = FloatingText.Create($"Start processing {factoryStats.ProcessedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(factoryStats.ProcessedResource).Name}", Colors.YellowGreen);
-      //           entity.Body.AddChild(floatingLabel);
-      //           floatingLabel.Position += Vector3.Up * 2;
-      //           floatingLabel.Animate();
-      //         }
-      //       }
-      //     }
-      //   };
-      // }
+      entityUI.SetVisible(false);
+
+      entity.OwnerControllerChanging += () => {
+        if (entity.TryGetOwner(out var owner)) {
+          if (owner == this) {
+            if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+              if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
+                factoryTrait.ProcessingFinished -= onProcessingFinised;
+              }
+            }
+
+            commandTrait.CommandStarted -= onCommandStarted;
+          }
+        }
+      };
+
+      entity.OwnerControllerChanged += () => {
+        if (entity.TryGetOwner(out var owner)) {
+          entityUI.SetFlag(owner.Country.Flag);
+          entityUI.SetVisible(true);
+
+          if (owner == this) {
+            if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+              if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
+                factoryTrait.ProcessingFinished += onProcessingFinised;
+              }
+            }
+
+            commandTrait.CommandStarted += onCommandStarted;
+          }
+        }
+        else {
+          entityUI.SetVisible(false);
+        }
+      };
+
+      entity.Body.AddChild(entityUI);
+
+      void onProcessingFinised() {
+        var stats = entity.GetStat<FactoryStats>();
+        var floatingLabel = FloatingText.Create($"+{stats.ProducedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(stats.ProducedResource).Name}", Colors.Orange);
+        entity.Body.AddChild(floatingLabel);
+        floatingLabel.Position += Vector3.Up * 2;
+        floatingLabel.Animate();
+      }
+
+      void onCommandStarted(Command command) {
+        if (entity.TryGetOwner(out var owner) && owner == this) {
+          if (command is GenerateIncomeCommand incomeCommand) {
+            if (entity.TryGetStat<IncomeStats>(out var incomeStats)) {
+              var floatingLabel = FloatingText.Create($"+{incomeStats.Value} {GetPlayerState<IMatchPlayerState>().GetResourceType(incomeStats.IncomeType).Name}", Colors.Yellow);
+              entity.Body.AddChild(floatingLabel);
+              floatingLabel.Position += Vector3.Up * 2;
+              floatingLabel.Animate();
+            }
+          }
+          else if (command is ProcessResourcesCommand processResourcesCommand) {
+            if (entity.TryGetStat<FactoryStats>(out var factoryStats)) {
+              var floatingLabel = FloatingText.Create($"Start processing {factoryStats.ProcessedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(factoryStats.ProcessedResource).Name}", Colors.YellowGreen);
+              entity.Body.AddChild(floatingLabel);
+              floatingLabel.Position += Vector3.Up * 2;
+              floatingLabel.Animate();
+            }
+          }
+        }
+      }
     }
   }
 
@@ -212,11 +246,15 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnCommandStarted(Command command) {
-    StateChart.SendEvent("command_started");
+    if (command is MoveCommand or AttackCommand) {
+      StateChart.SendEvent("command_started");
+    }
   }
 
   private void OnCommandFinished(Command command) {
-    StateChart.SendEvent("command_finished");
+    if (command is MoveCommand or AttackCommand) {
+      StateChart.SendEvent("command_finished");
+    }
   }
 
   private void FocusOnSelectedEntity() {

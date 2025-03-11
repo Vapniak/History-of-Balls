@@ -47,7 +47,7 @@ public partial class CommandPanel : Control {
     var button = new Button() {
       Alignment = HorizontalAlignment.Center,
       ToggleMode = true,
-      Text = command.CommandName,
+      Text = command.Data.CommandName,
       ButtonGroup = _buttonGroup,
       SizeFlagsHorizontal = SizeFlags.ExpandFill,
       GrowHorizontal = GrowDirection.Both,

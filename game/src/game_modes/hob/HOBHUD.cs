@@ -41,9 +41,21 @@ public partial class HOBHUD : HUD {
       OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
     };
 
+    GetPlayerController().SelectedEntityChanging += () => {
+      var selectedEntity = GetPlayerController().SelectedEntity;
+
+      if (selectedEntity != null) {
+        if (selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+          commandTrait.CommandStarted -= updatePanel;
+          commandTrait.CommandFinished -= updatePanel;
+        }
+      }
+    };
+
     GetPlayerController().SelectedEntityChanged += () => {
       var selectedEntity = GetPlayerController().SelectedEntity;
       HideProductionPanel();
+
       if (selectedEntity == null) {
         HideCommandPanel();
         HideStatPanel();
@@ -51,11 +63,19 @@ public partial class HOBHUD : HUD {
       else {
         if (selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
           ShowCommandPanel(commandTrait);
+
+          // TODO: better system for updating panel, when stats change
+          commandTrait.CommandStarted += updatePanel;
+          commandTrait.CommandFinished += updatePanel;
         }
 
         ShowStatPanel(selectedEntity);
       }
     };
+
+    void updatePanel(Command command) {
+      UpdateStatPanel(StatPanel, command.GetEntity());
+    }
 
     GetPlayerController().SelectedCommandChanged += () => {
       var command = GetPlayerController().SelectedCommand;
@@ -168,7 +188,7 @@ public partial class HOBHUD : HUD {
   private void ShowCommandPanel(CommandTrait commandTrait) {
     CommandPanel.ClearCommands();
     foreach (var command in commandTrait.GetCommands()) {
-      if (command.ShowInUI) {
+      if (command.Data.ShowInUI) {
         CommandPanel.AddCommand(command);
       }
     }
@@ -197,7 +217,6 @@ public partial class HOBHUD : HUD {
 
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
     panel.SetNameLabel(entity.GetEntityName());
-
 
     panel.ClearEntries();
 
