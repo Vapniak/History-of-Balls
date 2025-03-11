@@ -140,7 +140,7 @@ public partial class HOBHUD : HUD {
 
     if (produceEntityCommand.GetEntity().TryGetStat<EntityProducerStats>(out var producerStats)) {
       foreach (var entity in producerStats.ProducedEntities) {
-        ProductionPanel.AddProducedEntity(entity, GetPlayerController<IMatchController>().GetPlayerState(), produceEntityCommand.CanEntityBeProduced(entity) && produceEntityCommand.GetEntity().TryGetOwner(out var owner) && owner == GetPlayerController());
+        ProductionPanel.AddProducedEntity(entity, GetPlayerController<IMatchController>().GetPlayerState(), produceEntityCommand.CanEntityBeProduced(entity) && produceEntityCommand.GetEntity().TryGetOwner(out var owner) && owner == GetPlayerController() && produceEntityCommand.ProducerTrait.ProductionRoundsLeft == 0);
       }
     }
 

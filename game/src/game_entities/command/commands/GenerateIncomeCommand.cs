@@ -15,7 +15,7 @@ public partial class GenerateIncomeCommand : Command {
   public override void OnTurnEnded() {
     base.OnTurnEnded();
 
-    if (GetEntity().TryGetOwner(out var owner)) {
+    if (GetEntity().TryGetOwner(out var owner) && owner.IsCurrentTurn()) {
       Use();
     }
   }

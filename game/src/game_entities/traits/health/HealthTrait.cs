@@ -16,7 +16,7 @@ public partial class HealthTrait : Trait {
     if (damage > 0) {
       GetStat<HealthStats>().CurrentHealth -= (int)damage;
 
-      var text = FloatingText.Create(damage.ToString(), Colors.Red);
+      var text = FloatingText.Create($"-{damage}", Colors.Red);
       GameInstance.GetWorld().AddChild(text);
       text.GlobalPosition = Entity.GetPosition() + Vector3.Up * 2;
       text.Animate();

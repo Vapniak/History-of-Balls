@@ -47,6 +47,51 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     Character.CenterPositionOn(GameBoard.GetAabb());
 
     StateChart = StateChart.Of(StateChartNode);
+
+    GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
+
+    void onEntityAdded(Entity entity) {
+      // entity.OwnerControllerChanged += () => {
+
+      // };
+
+      // if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+      //   if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
+      //     entity.OwnerControllerChanged += () => {
+      //       if (entity.TryGetOwner(out var owner) && owner == this) {
+      //         factoryTrait.ProcessingFinished += () => {
+      //           var stats = entity.GetStat<FactoryStats>();
+      //           var floatingLabel = FloatingText.Create($"+{stats.ProducedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(stats.ProducedResource).Name}", Colors.Orange);
+      //           entity.Body.AddChild(floatingLabel);
+      //           floatingLabel.Position += Vector3.Up * 2;
+      //           floatingLabel.Animate();
+      //         };
+      //       }
+      //     };
+      //   }
+
+      //   commandTrait.CommandStarted += (command) => {
+      //     if (entity.TryGetOwner(out var owner) && owner == this) {
+      //       if (command is GenerateIncomeCommand incomeCommand) {
+      //         if (entity.TryGetStat<IncomeStats>(out var incomeStats)) {
+      //           var floatingLabel = FloatingText.Create($"+{incomeStats.Value} {GetPlayerState<IMatchPlayerState>().GetResourceType(incomeStats.IncomeType).Name}", Colors.Yellow);
+      //           entity.Body.AddChild(floatingLabel);
+      //           floatingLabel.Position += Vector3.Up * 2;
+      //           floatingLabel.Animate();
+      //         }
+      //       }
+      //       else if (command is ProcessResourcesCommand processResourcesCommand) {
+      //         if (entity.TryGetStat<FactoryStats>(out var factoryStats)) {
+      //           var floatingLabel = FloatingText.Create($"Start processing {factoryStats.ProcessedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(factoryStats.ProcessedResource).Name}", Colors.YellowGreen);
+      //           entity.Body.AddChild(floatingLabel);
+      //           floatingLabel.Position += Vector3.Up * 2;
+      //           floatingLabel.Animate();
+      //         }
+      //       }
+      //     }
+      //   };
+      // }
+    }
   }
 
   public override void _UnhandledInput(InputEvent @event) {

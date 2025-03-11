@@ -7,7 +7,8 @@ script = ExtResource("1_s5rk4")
 Label = NodePath("Label3D")
 
 [node name="Label3D" type="Label3D" parent="."]
-pixel_size = 0.0149
+pixel_size = 0.0009
 billboard = 1
 double_sided = false
+fixed_size = true
 text = "100"

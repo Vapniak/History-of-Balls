@@ -9,7 +9,7 @@
 [sub_resource type="Resource" id="Resource_65c5s"]
 script = ExtResource("2_2byc3")
 ProcessingTurns = 1
-ProcessedValue = 2
+ProcessedValue = 3
 ProcessedResource = 1
 ProducedValue = 1
 ProducedResource = 0

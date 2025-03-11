@@ -3,6 +3,8 @@ namespace HOB;
 using Godot;
 using System;
 using Godot;
+using System.Threading.Tasks;
+using System.Collections;
 
 public partial class FloatingText : Node3D {
   [Export] private Label3D Label { get; set; }
@@ -18,13 +20,21 @@ public partial class FloatingText : Node3D {
     return floatingText;
   }
 
-  public void Animate() {
+  public async Task Animate() {
     var tween = CreateTween();
 
-    tween.SetParallel(true);
-    tween.TweenProperty(this, "global_position", GlobalPosition + (Vector3.Up * 2), 1f);
-    tween.TweenProperty(this, "scale", Vector3.One * 0.5f, 1.0f).SetEase(Tween.EaseType.Out);
-    tween.TweenProperty(Label, "transparency", 1, 1f);
-    tween.Finished += QueueFree;
+    tween.TweenProperty(this, "global_position", GlobalPosition + (Vector3.Up * 2), 1.5f);
+
+    var timer = new Timer();
+    AddChild(timer);
+    timer.Start(.5f);
+    await ToSignal(timer, Timer.SignalName.Timeout);
+    timer.QueueFree();
+
+    var tween2 = CreateTween();
+    tween2.SetParallel(true);
+    tween2.Finished += QueueFree;
+    tween2.TweenProperty(this, "scale", Vector3.One * 0.5f, 1.0f).SetEase(Tween.EaseType.Out);
+    tween2.TweenProperty(Label, "transparency", 1, 1f);
   }
 }
