@@ -10,7 +10,7 @@
 [sub_resource type="Resource" id="Resource_gj36x"]
 script = ExtResource("5_1eg8u")
 CommandName = "Produce"
-ShowInUI = false
+ShowInUI = true
 CooldownRounds = 1
 Icon = ExtResource("5_x1233")
 

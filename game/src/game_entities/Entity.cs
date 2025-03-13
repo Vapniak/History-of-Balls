@@ -54,11 +54,14 @@ public partial class Entity : Node {
   public string GetEntityName() => Data.EntityName;
 
   public bool TryGetTrait<T>(out T trait) where T : Trait {
-    if (_traits.TryGetValue(typeof(T), out var t)) {
-      trait = t as T;
-      return true;
-    }
+    var requestedType = typeof(T);
 
+    foreach (var kvp in _traits) {
+      if (requestedType.IsAssignableFrom(kvp.Key)) {
+        trait = kvp.Value as T;
+        return true;
+      }
+    }
     trait = null;
     return false;
   }

@@ -8,7 +8,6 @@ viewport_path = NodePath("SubViewport")
 [node name="Sprite3D" type="Sprite3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 sorting_offset = 20.0
-sorting_use_aabb_center = false
 cast_shadow = 0
 pixel_size = 0.0003
 billboard = 1

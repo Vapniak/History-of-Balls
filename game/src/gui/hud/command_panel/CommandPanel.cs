@@ -47,10 +47,11 @@ public partial class CommandPanel : Control {
     var button = new Button() {
       Alignment = HorizontalAlignment.Center,
       ToggleMode = true,
-      Text = command.Data.CommandName,
+      Icon = command.Data.Icon,
+      ExpandIcon = true,
       ButtonGroup = _buttonGroup,
-      SizeFlagsHorizontal = SizeFlags.ExpandFill,
-      GrowHorizontal = GrowDirection.Both,
+      CustomMinimumSize = new(32, 32),
+      TooltipText = command.Data.CommandName
     };
 
     button.Toggled += (toggledOn) => EmitSignal(SignalName.CommandSelected, command);

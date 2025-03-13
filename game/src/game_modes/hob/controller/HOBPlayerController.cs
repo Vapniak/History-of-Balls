@@ -52,7 +52,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
 
     void onEntityAdded(Entity entity) {
-      var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node>();
+      var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node3D>();
       entity.Body.AddChild(ui3d);
 
       var entityUI = ui3d.GetChildByType<EntityUI>();
@@ -63,6 +63,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
       if (entity.TryGetStat<EntityTypeStats>(out var entityType)) {
         entityUI.SetIcon(entityType.Icon);
+      }
+
+      if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
+        entity.CellChanged += () => {
+          if (EntityManagment.GetEntitiesOnCell(entity.Cell).Length > 1) {
+            ui3d.Position = new Vector3(0, 4, 0);
+          }
+          else {
+            ui3d.Position = new Vector3(0, 2, 0);
+          }
+        };
       }
 
       entity.OwnerControllerChanging += () => {
