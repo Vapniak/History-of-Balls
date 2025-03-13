@@ -12,6 +12,7 @@ public abstract partial class Command : Node {
   [Export] public CommandData Data { get; private set; }
 
   public uint CooldownRoundsLeft { get; private set; }
+  public bool InUse { get; private set; }
   public bool UsedThisRound { get; private set; }
 
   public CommandTrait CommandTrait { get; set; }
@@ -21,9 +22,11 @@ public abstract partial class Command : Node {
   protected virtual void Use() {
     UsedThisRound = true;
     CooldownRoundsLeft = Data.CooldownRounds;
+    InUse = true;
     EmitSignal(SignalName.Started);
   }
   protected virtual void Finish() {
+    InUse = false;
     EmitSignal(SignalName.Finished);
   }
 

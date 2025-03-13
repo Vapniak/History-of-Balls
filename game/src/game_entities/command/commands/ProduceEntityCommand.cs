@@ -2,6 +2,7 @@ namespace HOB.GameEntity;
 
 using Godot;
 using System;
+using System.Linq;
 
 [GlobalClass]
 public partial class ProduceEntityCommand : Command {
@@ -23,7 +24,7 @@ public partial class ProduceEntityCommand : Command {
     return false;
   }
 
-  public override bool CanBeUsed() => base.CanBeUsed() && ProducerTrait.ProductionRoundsLeft == 0;
+  public override bool CanBeUsed() => base.CanBeUsed() && ProducerTrait.ProductionRoundsLeft == 0 && GetEntity().TryGetStat<EntityProducerStats>(out var stat) && stat.ProducedEntities.Any(CanEntityBeProduced);
 
   public override void OnTurnStarted() {
     base.OnTurnStarted();
@@ -39,6 +40,7 @@ public partial class ProduceEntityCommand : Command {
     if (ProducerTrait.ProductionRoundsLeft == 0 && ProducerTrait.CurrentProducedEntity != null) {
       if (ProducerTrait.TryProduce(ProducerTrait.CurrentProducedEntity)) {
         ProducerTrait.CurrentProducedEntity = null;
+        Finish();
       }
     }
   }
@@ -60,7 +62,5 @@ public partial class ProduceEntityCommand : Command {
       owner.GetPlayerState().GetResourceType(ProducerTrait.CurrentProducedEntity.CostType).Value -= ProducerTrait.CurrentProducedEntity.Cost;
       ProducerTrait.ProductionRoundsLeft = ProducerTrait.CurrentProducedEntity.RoundsProductionTime;
     }
-
-    Finish();
   }
 }

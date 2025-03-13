@@ -26,7 +26,7 @@ var text:
 		return label.text
 
 func _ready():
-	
+
 	button.pressed.connect(
 		func():
 			pressed.emit()

@@ -36,18 +36,12 @@ public partial class EntityUI : Control {
       }
 
       foreach (var command in commandTrait.GetCommands()) {
-        if (command.Data.ShowInUI) {
+        if (command.Data.ShowInUI || command is ProcessResourcesCommand or ProduceEntityCommand) {
           var icon = new TextureRect {
             Texture = command.Data.Icon,
-            ExpandMode = TextureRect.ExpandModeEnum.FitWidth
+            ExpandMode = TextureRect.ExpandModeEnum.FitWidth,
+            SelfModulate = command.CanBeUsed() ? Colors.Green : command.InUse ? Colors.Yellow : Colors.Red
           };
-
-          if (command.CanBeUsed()) {
-            icon.SelfModulate = Colors.Green;
-          }
-          else {
-            icon.SelfModulate = Colors.Red;
-          }
 
           CommandIconsContainer.AddChild(icon);
         }

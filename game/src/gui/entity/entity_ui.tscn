@@ -43,6 +43,7 @@ CommandIconsContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/H
 layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
+self_modulate = Color(1, 1, 1, 0.686275)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_yxfn6")
 
@@ -71,7 +72,7 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 60)
+custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20

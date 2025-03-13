@@ -13,10 +13,10 @@ var enable_side_menu := true
 
 func _ready() -> void:
 	_repl.output.connect(output)
-	
+
 	var config_str := FileAccess.get_file_as_string(side_menu_config_file_path)
 	var cfg:Dictionary = JSON.parse_string(config_str)
-	
+
 	for item in cfg["items.top"]:
 		add_side_button(item["command"], load(item["icon"]), item["text"])
 	for item in cfg["items.bottom"]:
@@ -43,7 +43,7 @@ func add_side_button(exp:String, icon:Texture2D, text:String, top:= true):
 	new_button.icon = icon
 	side_button_separator.get_parent().add_child(new_button)
 	side_button_separator.get_parent().move_child(
-		new_button, 
+		new_button,
 		side_button_separator.get_index() + int(!top)
 	)
 	new_button.pressed.connect(

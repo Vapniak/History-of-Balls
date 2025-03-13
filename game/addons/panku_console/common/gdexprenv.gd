@@ -115,11 +115,11 @@ func parse_exp(exp:String, allow_empty:=false):
 
 	var hints_bbcode = []
 	var hints_value = []
-	
+
 	for r in result:
 		var keyword:String
 		var bbcode_main:String
-		
+
 		if empty_flag:
 			keyword = r
 			bbcode_main = r
@@ -181,7 +181,7 @@ static func extract_info_from_script(script:Script):
 	var properties = []
 	var constants = []
 	var constants_bbcode_postfix = {}
-	
+
 	for m in script.get_script_method_list():
 		if m["name"] != "" and m["name"].is_valid_identifier() and !m["name"].begins_with("_"):
 			var args = []

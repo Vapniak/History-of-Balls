@@ -115,6 +115,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
       void onCommandStarted(Command command) {
         if (entity.TryGetOwner(out var owner) && owner == this) {
+          entityUI.ShowCommandIcons(entity);
+
           if (command is GenerateIncomeCommand incomeCommand) {
             if (entity.TryGetStat<IncomeStats>(out var incomeStats)) {
               var floatingLabel = FloatingText.Create($"+{incomeStats.Value} {GetPlayerState<IMatchPlayerState>().GetResourceType(incomeStats.IncomeType).Name}", Colors.Yellow);
