@@ -168,4 +168,8 @@ public partial class MapData : Resource {
     File.WriteAllText(path, jsonString);
     GD.Print("Mapa zapisana do pliku: " + path);
   }
+
+  public Cell GetCell(int col, int row) {
+    return Cells.FirstOrDefault(cell => cell.Col == col && cell.Row == row);
+  }
 }
