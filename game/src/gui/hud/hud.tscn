@@ -26,7 +26,7 @@ shadow_color = Color(0, 0, 0, 0)
 
 [sub_resource type="Environment" id="Environment_384c7"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "CountryFlag", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "TurnLabel", "CountryFlag", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
 layer = 0
 script = ExtResource("1_ep1kh")
 TurnChangedNotificationLabel = NodePath("TurnLabel")
@@ -35,6 +35,7 @@ ProductionPanel = NodePath("MarginContainer4/EntityProductionPanel")
 EndTurnButton = NodePath("VBoxContainer/MarginContainer/Button")
 CommandPanel = NodePath("MarginContainer4/StatPanel/VBoxContainer/CommandPanel")
 RoundLabel = NodePath("VBoxContainer/PanelContainer2/HBoxContainer/VBoxContainer/Label")
+TurnLabel = NodePath("VBoxContainer/PanelContainer2/HBoxContainer/VBoxContainer/Label2")
 CountryFlag = NodePath("VBoxContainer/PanelContainer2/HBoxContainer/Resources/VBoxContainer/Flag/PanelContainer/Texture")
 CountryNameLabel = NodePath("VBoxContainer/PanelContainer2/HBoxContainer/Resources/VBoxContainer/Label")
 PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/HBoxContainer/Resources/VBoxContainer/HBoxContainer/RichTextLabel")
@@ -122,6 +123,11 @@ size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 26
 text = "ROUND 0"
 horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PLAYER TURN"
 
 [node name="TimeDisplay" parent="VBoxContainer/PanelContainer2/HBoxContainer" instance=ExtResource("3_5bovs")]
 layout_mode = 2

@@ -4,6 +4,7 @@ using Godot;
 using Godot.Collections;
 using HOB.GameEntity;
 using System.Linq;
+using Tooltip;
 
 public partial class CommandPanel : Control {
   [Signal] public delegate void CommandSelectedEventHandler(Command command);
@@ -51,8 +52,9 @@ public partial class CommandPanel : Control {
       ExpandIcon = true,
       ButtonGroup = _buttonGroup,
       CustomMinimumSize = new(32, 32),
-      TooltipText = command.Data.CommandName
     };
+
+    button.AddChild(new TooltipTrigger(command.Data.CommandName));
 
     button.Toggled += (toggledOn) => EmitSignal(SignalName.CommandSelected, command);
 

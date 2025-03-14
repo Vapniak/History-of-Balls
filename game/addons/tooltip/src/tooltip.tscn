@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://454g7sr7m1j5"]
+
+[ext_resource type="Script" path="res://addons/tooltip/src/Tooltip.cs" id="1_iagh0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fq28"]
+content_margin_left = 5.0
+content_margin_top = 5.0
+content_margin_right = 5.0
+content_margin_bottom = 5.0
+bg_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Tooltip" type="CanvasLayer" node_paths=PackedStringArray("TooltipContainer", "Label")]
+layer = 128
+script = ExtResource("1_iagh0")
+TooltipContainer = NodePath("Tooltip")
+Label = NodePath("Tooltip/RichTextLabel")
+
+[node name="Tooltip" type="PanelContainer" parent="."]
+offset_right = 64.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+theme_override_styles/panel = SubResource("StyleBoxFlat_8fq28")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Tooltip"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Tooltip"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
