@@ -4,13 +4,15 @@ using Godot;
 using Godot.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 [GlobalClass, Tool]
 public partial class MapData : Resource {
   [Export] private Json MapFile { get; set; }
   [Export]
   private bool Generate {
-    get => false; set => ParseMap();
+    get => false;
+    set => ParseMap();
   }
   [Export] public string Title { get; set; }
   [Export] public string Description { get; set; }
@@ -21,32 +23,37 @@ public partial class MapData : Resource {
   private Dictionary _mapData;
   private Array<Cell> Cells { get; set; }
 
-  public void ParseMap() {
-    var data = MapFile.Data.AsGodotDictionary();
-
-    Title = data["title"].AsString();
-    Description = data["description"].AsString();
-    Cols = data["cols"].AsInt32();
-    Rows = data["rows"].AsInt32();
-
-
-    Settings ??= new();
-
-    var cells = new Array<CellSetting>();
-    foreach (var item in data["cellDefinitions"].AsGodotArray()) {
-      var cell = item.AsGodotDictionary();
-
-      var cellToAdd = new CellSetting() {
-        Name = cell["name"].AsString(),
-        Color = Color.FromHtml(cell["color"].AsString()),
-        MoveCost = 1,
-      };
-
-      cells.Add(cellToAdd);
+  private void ParseMap() {
+    if (MapFile == null || MapFile.Data.VariantType == Variant.Type.Nil) {
+      return;
     }
 
-    if (Settings.CellSettings == null) {
-      Settings.CellSettings = cells;
+    var data = MapFile.Data.AsGodotDictionary();
+    Title = data.ContainsKey("title") ? data["title"].AsString() : "";
+    Description = data.ContainsKey("description") ? data["description"].AsString() : "";
+    Cols = data.ContainsKey("cols") ? data["cols"].AsInt32() : 0;
+    Rows = data.ContainsKey("rows") ? data["rows"].AsInt32() : 0;
+
+    Settings ??= new MapSettings();
+
+    if (data.ContainsKey("cellDefinitions") && data["cellDefinitions"].VariantType != Variant.Type.Nil) {
+      var cellSettings = new Array<CellSetting>();
+      foreach (var item in data["cellDefinitions"].AsGodotArray()) {
+        var cellDef = item.AsGodotDictionary();
+        if (!cellDef.ContainsKey("id") || !cellDef.ContainsKey("name") || !cellDef.ContainsKey("color")) {
+          continue;
+        }
+
+        var cellSetting = new CellSetting {
+          Name = cellDef["name"].AsString(),
+          Color = Color.FromHtml(cellDef["color"].AsString()),
+          MoveCost = cellDef.ContainsKey("moveCost") ? cellDef["moveCost"].AsInt32() : 1
+        };
+        cellSettings.Add(cellSetting);
+      }
+      if (Settings.CellSettings == null) {
+        Settings.CellSettings = cellSettings;
+      }
     }
   }
 
@@ -54,26 +61,115 @@ public partial class MapData : Resource {
     if (Cells != null) {
       return Cells;
     }
+    Cells = new Array<Cell>();
 
-    Cells = new();
-
-    foreach (var item in MapFile.Data.AsGodotDictionary()["cells"].AsGodotArray()) {
-      var hex = item.AsGodotDictionary();
-
-      var hexToAdd = new Cell() {
-        Col = hex["col"].AsInt32(),
-        Row = hex["row"].AsInt32(),
-        Id = hex["id"].AsInt32(),
-        ObjectId = hex["objectId"].AsInt32()
-      };
-
-      Cells.Add(hexToAdd);
+    if (MapFile == null || MapFile.Data.VariantType == Variant.Type.Nil) {
+      return Cells;
     }
 
+    var data = MapFile.Data.AsGodotDictionary();
+    if (!data.ContainsKey("cells") || data["cells"].VariantType == Variant.Type.Nil) {
+      return Cells;
+    }
+
+    var cellSettingsDict = new Godot.Collections.Dictionary<int, CellSetting>();
+    if (data.ContainsKey("cellDefinitions") && data["cellDefinitions"].VariantType != Variant.Type.Nil) {
+      foreach (var item in data["cellDefinitions"].AsGodotArray()) {
+        var cellDef = item.AsGodotDictionary();
+        if (!cellDef.ContainsKey("id") || !cellDef.ContainsKey("name") || !cellDef.ContainsKey("color")) {
+          continue;
+        }
+
+        var id = cellDef["id"].AsInt32();
+        var name = cellDef["name"].AsString();
+
+        CellSetting setting = null;
+        if (Settings != null && Settings.CellSettings != null) {
+          setting = Settings.CellSettings.FirstOrDefault(cs => cs.Name == name);
+        }
+
+        if (setting == null) {
+          setting = new CellSetting {
+            Name = name,
+            Color = Color.FromHtml(cellDef["color"].AsString()),
+            MoveCost = cellDef.ContainsKey("moveCost") ? cellDef["moveCost"].AsInt32() : 1
+          };
+          if (Settings == null) {
+            Settings = new MapSettings { CellSettings = new Array<CellSetting>() };
+          }
+
+          Settings.CellSettings.Add(setting);
+        }
+        cellSettingsDict[id] = setting;
+      }
+    }
+
+    foreach (var item in data["cells"].AsGodotArray()) {
+      var hex = item.AsGodotDictionary();
+
+      if (!hex.ContainsKey("id") || !hex.ContainsKey("col") || !hex.ContainsKey("row")) {
+        GD.PrintErr("Brak klucza 'id', 'col' lub 'row' w danych komórki");
+        continue;
+      }
+
+      var cellId = hex["id"].AsInt32();
+      var col = hex["col"].AsInt32();
+      var row = hex["row"].AsInt32();
+      var objectId = hex.ContainsKey("objectId") ? hex["objectId"].AsInt32() : 0;
+
+      var cell = new Cell() {
+        Col = col,
+        Row = row,
+        Id = cellId,
+        ObjectId = objectId
+      };
+
+      if (cellSettingsDict.ContainsKey(cellId)) {
+        var cellSetting = cellSettingsDict[cellId];
+        if (Settings == null) {
+          Settings = new MapSettings { CellSettings = new Array<CellSetting>() };
+        }
+
+        if (!Settings.CellSettings.Contains(cellSetting)) {
+          Settings.CellSettings.Add(cellSetting);
+        }
+      }
+
+      Cells.Add(cell);
+    }
     return Cells;
+  }
+
+  private void SaveMapData(string path) {
+    if (Cells == null || Cells.Count == 0) {
+      GD.PrintErr("Brak danych do zapisania!");
+      return;
+    }
+
+    var data = new Dictionary {
+            { "title", Title },
+            { "description", Description },
+            { "cols", Cols },
+            { "rows", Rows },
+            { "cells", new Array() }
+        };
+
+    foreach (var cell in Cells) {
+      var cellData = new Dictionary {
+                { "col", cell.Col },
+                { "row", cell.Row },
+                { "id", cell.Id },
+                { "objectId", cell.ObjectId }
+            };
+      ((Array)data["cells"]).Add(cellData);
+    }
+
+    var jsonString = Json.Stringify(data, "\t");
+    File.WriteAllText(path, jsonString);
+    GD.Print("Mapa zapisana do pliku: " + path);
   }
 
   public Cell GetCell(int col, int row) {
     return Cells.FirstOrDefault(cell => cell.Col == col && cell.Row == row);
   }
-};
+}

@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="3_wvtpx"]
 [ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game_modes/hob/controller/ai/ai_controller.tscn" id="4_lhw57"]
 [ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/gui/hud/hud.tscn" id="5_yn6q8"]
-[ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="7_orjcr"]
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBPlayerManagmentComponent.cs" id="8_crqp2"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="9_pkx38"]
 [ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/test_unit_1_data.tres" id="10_8uwl6"]
@@ -25,6 +24,7 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
 [ext_resource type="AudioStream" uid="uid://j4c2av4m6pcl" path="res://assets/audio/music/Średniowiecze.wav" id="25_f3tc6"]
+[ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="25_jrlyp"]
 
 [sub_resource type="Resource" id="Resource_pkkwx"]
 script = ExtResource("11_hurum")
@@ -48,9 +48,6 @@ PlayerCharacterScene = ExtResource("3_wvtpx")
 AIControllerScene = ExtResource("4_lhw57")
 HUDScene = ExtResource("5_yn6q8")
 StateChartNode = NodePath("StateChart")
-
-[node name="PauseMenu" parent="." instance=ExtResource("7_orjcr")]
-visible = false
 
 [node name="MatchEndMenu" parent="." instance=ExtResource("16_6f2qf")]
 process_mode = 2
@@ -133,6 +130,9 @@ initial_node_to_watch = NodePath("..")
 process_mode = 3
 stream = ExtResource("25_f3tc6")
 bus = &"Music"
+
+[node name="PauseMenu" parent="." instance=ExtResource("25_jrlyp")]
+visible = false
 
 [connection signal="pressed" from="MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
 [connection signal="state_entered" from="StateChart/Root/InMatch" to="." method="OnInMatchStateEntered"]
