@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://bd7ewqgodteka"]
+
+[ext_resource type="Script" path="res://addons/tooltip/src/TooltipManager.cs" id="1_805rp"]
+[ext_resource type="PackedScene" uid="uid://454g7sr7m1j5" path="res://addons/tooltip/src/tooltip.tscn" id="2_upbg4"]
+
+[node name="TooltipManager" type="Node" node_paths=PackedStringArray("HideTimer", "ShowTimer")]
+script = ExtResource("1_805rp")
+TooltipScene = ExtResource("2_upbg4")
+HideTimer = NodePath("Timer")
+ShowTimer = NodePath("Timer2")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true

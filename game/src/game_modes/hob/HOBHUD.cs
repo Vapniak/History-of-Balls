@@ -15,6 +15,7 @@ public partial class HOBHUD : HUD {
   [Export] private Button EndTurnButton { get; set; }
   [Export] private CommandPanel CommandPanel { get; set; }
   [Export] private Label RoundLabel { get; set; }
+  [Export] private Label TurnLabel { get; set; }
   [Export] private TextureRect CountryFlag { get; set; }
   [Export] private Label CountryNameLabel { get; set; }
 
@@ -112,7 +113,10 @@ public partial class HOBHUD : HUD {
   private void OnTurnChanged(int playerIndex) {
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
 
-    TurnChangedNotificationLabel.Text = GetPlayerController<IMatchController>().GetGameState().PlayerArray[playerIndex].PlayerName + " TURN";
+    var player = GetPlayerController<IMatchController>().GetGameState().PlayerArray[playerIndex];
+
+    TurnChangedNotificationLabel.Text = player.PlayerName + " TURN";
+    TurnLabel.Text = $"{player.PlayerName} TURN";
 
     var tween = CreateTween();
     tween.TweenProperty(TurnChangedNotificationLabel, "modulate", Colors.White, 0.5);
@@ -121,7 +125,7 @@ public partial class HOBHUD : HUD {
   }
 
   private void OnRoundChanged(int roundNumber) {
-    RoundLabel.Text = "ROUND " + roundNumber;
+    RoundLabel.Text = $"ROUND {roundNumber}";
   }
 
   private void ShowStatPanel(Entity entity) {
