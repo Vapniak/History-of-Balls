@@ -2,10 +2,12 @@ namespace HOB;
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using GameplayFramework;
 using Godot;
 using GodotStateCharts;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
@@ -95,6 +97,10 @@ public partial class HOBGameMode : GameMode {
     AudioPlayer.Play();
 
     MatchComponent.TurnStarted += CheckWinCondition;
+
+    foreach (var entity in GetEntityManagment().GetEntities()) {
+      entity.OwnerControllerChanged += CheckWinCondition;
+    }
   }
 
   private void OnInMatchStateExited() {
@@ -128,7 +134,7 @@ public partial class HOBGameMode : GameMode {
       var controller = player.GetController<IMatchController>();
       var entities = GetEntityManagment().GetOwnedEntites(controller);
 
-      if (entities.Length > 0) {
+      if (entities.Any(e => e.TryGetTrait<EntityProducerTrait>(out _))) {
         alivePlayers.Add(controller);
       }
       else {

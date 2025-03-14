@@ -1,13 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://c82pepvsx7i4"]
+[gd_scene load_steps=4 format=3 uid="uid://c82pepvsx7i4"]
 
 [ext_resource type="Script" path="res://src/gui/hud/command_panel/CommandPanel.cs" id="1_74ul0"]
 [ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="2_7t7dh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yk8uw"]
 
 [node name="CommandPanel" type="PanelContainer" node_paths=PackedStringArray("CommandList")]
 offset_right = 8.0
 offset_bottom = 8.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_yk8uw")
 script = ExtResource("1_74ul0")
 CommandList = NodePath("VBoxContainer2")
 
@@ -16,6 +19,15 @@ layout_mode = 2
 focus_mode = 2
 
 [node name="Button" type="Button" parent="VBoxContainer2"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 2
+icon = ExtResource("2_7t7dh")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button2" type="Button" parent="VBoxContainer2"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 0

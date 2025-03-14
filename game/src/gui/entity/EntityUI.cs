@@ -7,7 +7,6 @@ using System;
 public partial class EntityUI : Control {
   [Export] private TextureRect IconTextureRect { get; set; }
   [Export] private Control TeamColorContainer { get; set; }
-  [Export] private Control Separator { get; set; }
   [Export] private Control CommandIconsContainer { get; set; }
   public override void _Ready() {
     IconTextureRect.Visible = false;
@@ -51,8 +50,7 @@ public partial class EntityUI : Control {
         HideCommandIcons();
       }
       else {
-        Separator.Show();
-        CommandIconsContainer.Show();
+        CommandIconsContainer.GetParent<Control>().Show();
       }
     }
     else {
@@ -61,8 +59,7 @@ public partial class EntityUI : Control {
   }
 
   public void HideCommandIcons() {
-    Separator.Hide();
-    CommandIconsContainer.Hide();
+    CommandIconsContainer.GetParent<Control>().Hide();
     foreach (var child in CommandIconsContainer.GetChildren()) {
       child.Free();
     }

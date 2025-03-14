@@ -19,9 +19,9 @@ public partial class HOBHUD : HUD {
   [Export] private Label CountryNameLabel { get; set; }
 
   [ExportGroup("Resources")]
-  [Export] private Label PrimaryResourceNameLabel { get; set; }
+  [Export] private RichTextLabel PrimaryResourceNameLabel { get; set; }
   [Export] private Label PrimaryResourceValueLabel { get; set; }
-  [Export] private Label SecondaryResourceNameLabel { get; set; }
+  [Export] private RichTextLabel SecondaryResourceNameLabel { get; set; }
   [Export] private Label SecondaryResourceValueLabel { get; set; }
 
   public override void _Ready() {
@@ -80,11 +80,18 @@ public partial class HOBHUD : HUD {
   public void OnGameStarted() {
     var playerState = GetPlayerController().GetPlayerState<HOBPlayerState>();
 
-    UpdatePrimaryResourceName(playerState.PrimaryResourceType.Name);
-    UpdateSecondaryResourceName(playerState.SecondaryResourceType.Name);
 
     UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
     UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+
+
+    PrimaryResourceNameLabel.Clear();
+    PrimaryResourceNameLabel.AddImage(playerState.PrimaryResourceType.Icon, 16, 16);
+    PrimaryResourceNameLabel.AddText($" {playerState.PrimaryResourceType.Name}: ");
+
+    SecondaryResourceNameLabel.Clear();
+    SecondaryResourceNameLabel.AddImage(playerState.SecondaryResourceType.Icon, 16, 16);
+    SecondaryResourceNameLabel.AddText($" {playerState.SecondaryResourceType.Name}: ");
 
     playerState.PrimaryResourceType.ValueChanged += () => UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
     playerState.SecondaryResourceType.ValueChanged += () => UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
@@ -93,16 +100,8 @@ public partial class HOBHUD : HUD {
     CountryNameLabel.Text = GetPlayerController().Country.Name;
   }
 
-  private void UpdatePrimaryResourceName(string name) {
-    PrimaryResourceNameLabel.Text = name + ": ";
-  }
-
   private void UpdatePrimaryResourceValue(string value) {
     PrimaryResourceValueLabel.Text = value;
-  }
-
-  private void UpdateSecondaryResourceName(string name) {
-    SecondaryResourceNameLabel.Text = name + ": ";
   }
 
   private void UpdateSecondaryResourceValue(string value) {

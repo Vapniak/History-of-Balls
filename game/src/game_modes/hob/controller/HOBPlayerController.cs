@@ -55,6 +55,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node3D>();
       entity.Body.AddChild(ui3d);
 
+      ui3d.Position = new Vector3(0, 3, 0);
+
       var entityUI = ui3d.GetChildByType<EntityUI>();
       entity.EntityUI = entityUI;
 
@@ -68,10 +70,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
         entity.CellChanged += () => {
           if (EntityManagment.GetEntitiesOnCell(entity.Cell).Length > 1) {
-            ui3d.Position = new Vector3(0, 4, 0);
+            ui3d.Position = new Vector3(0, 5, 0);
           }
           else {
-            ui3d.Position = new Vector3(0, 2, 0);
+            ui3d.Position = new Vector3(0, 3, 0);
           }
         };
       }
