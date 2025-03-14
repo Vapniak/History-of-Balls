@@ -13,10 +13,11 @@ public partial class Controller : Node3D, IController {
     PlayerState = playerState;
   }
 
-  public PlayerState GetPlayerState() => PlayerState;
+  public virtual PlayerState GetPlayerState() => PlayerState;
   public T GetPlayerState<T>() where T : class, IPlayerState {
     return GetPlayerState() as T;
   }
 
   public virtual IGameState GetGameState() => GameInstance.GetGameState<IGameState>();
+  public GameMode GetGameMode() => GameInstance.GetGameMode<GameMode>();
 }

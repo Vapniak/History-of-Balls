@@ -8,9 +8,9 @@ using System;
 /// </summary>
 [GlobalClass]
 public partial class PlayerState : Resource, IPlayerState {
-  public string PlayerName { get; private set; }
-  public int PlayerIndex { get; private set; }
-  public Controller OwningController { get; private set; }
+  public string PlayerName { get; set; }
+  public int PlayerIndex { get; set; }
+  public Controller OwningController { get; set; }
   public PlayerState() { }
 
   public void SetPlayerName(string playerName) => PlayerName = playerName;

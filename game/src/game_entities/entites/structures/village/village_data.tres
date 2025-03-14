@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://doidx5bt2arat"]
+
+[ext_resource type="PackedScene" uid="uid://58211gsdw151" path="res://src/game_entities/entites/structures/village/village.tscn" id="1_x7qrd"]
+[ext_resource type="Script" path="res://src/game_entities/traits/income/IncomeStats.cs" id="2_5t56v"]
+[ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="3_plvji"]
+[ext_resource type="Resource" uid="uid://3ql17suatcbp" path="res://src/game_entities/entites/village_type.tres" id="3_wwf7l"]
+[ext_resource type="PackedScene" uid="uid://cmr2fxfpwum6" path="res://src/game_entities/entites/structures/village/village_traits.tscn" id="4_31hlt"]
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="5_aor2c"]
+
+[sub_resource type="Resource" id="Resource_s6t8u"]
+script = ExtResource("2_5t56v")
+IncomeType = 1
+Value = 1
+
+[sub_resource type="Resource" id="Resource_yuv81"]
+script = ExtResource("3_plvji")
+Stats = [SubResource("Resource_s6t8u"), ExtResource("3_wwf7l")]
+
+[resource]
+script = ExtResource("5_aor2c")
+EntityName = "Village"
+Stats = SubResource("Resource_yuv81")
+TraitsScene = ExtResource("4_31hlt")
+Body = ExtResource("1_x7qrd")

@@ -1,12 +1,17 @@
 namespace HOB;
 
+using System;
+using System.Collections.Generic;
+using System.Dynamic;
 using Godot;
 using HexGridMap;
 using RaycastSystem;
 
+
 [GlobalClass]
 public partial class TerrainManager : Node3D {
   [Export] private Material TerrainMaterial { get; set; }
+  [Export] private Material WaterMaterial { get; set; }
 
   private Image TerrainData { get; set; }
   private Image HighlightData { get; set; }
@@ -17,6 +22,7 @@ public partial class TerrainManager : Node3D {
   private Chunk[] Chunks { get; set; }
 
   private GameGrid Grid { get; set; }
+
 
   public override void _PhysicsProcess(double delta) {
     var position = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World)?.Position;
@@ -47,7 +53,7 @@ public partial class TerrainManager : Node3D {
 
     Chunks = new Chunk[ChunkCount.X * ChunkCount.Y];
     for (var i = 0; i < Chunks.Length; i++) {
-      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, grid);
+      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, WaterMaterial, grid);
       Chunks[i] = chunk;
       AddChild(chunk);
     }
@@ -57,9 +63,9 @@ public partial class TerrainManager : Node3D {
 
     TerrainData.Fill(Colors.Transparent);
 
-    foreach (var hex in grid.MapData.GetCells()) {
-      var setting = grid.MapData.Settings.CellSettings[hex.Id];
-      SetTerrainPixel(new(hex.Col, hex.Row), setting.Color);
+    foreach (var hex in grid.GetCells()) {
+      var setting = hex.GetSetting();
+      SetTerrainPixel(new(hex.OffsetCoord.Col, hex.OffsetCoord.Row), setting.Color);
     }
 
     UpdateTerrainTextureData();
@@ -85,6 +91,18 @@ public partial class TerrainManager : Node3D {
     HighlightData.Fill(Colors.Transparent);
   }
 
+  public (Chunk chunk, OffsetCoord localCoord) OffsetToChunk(OffsetCoord coord) {
+    var chunkX = coord.Col / ChunkSize.X;
+    var chunkY = coord.Row / ChunkSize.Y;
+    var localX = coord.Col - chunkX * ChunkSize.X;
+    var localY = coord.Row - chunkY * ChunkSize.Y;
+    return (Chunks[chunkX + (chunkY * ChunkCount.X)], new(localX, localY));
+  }
+  public void AddCellToChunk(GameCell cell) {
+    var (chunk, localCoord) = OffsetToChunk(cell.OffsetCoord);
+
+    chunk.AddCell(localCoord.Col + localCoord.Row * ChunkSize.X, Grid.GetCellIndex(cell));
+  }
   private void SetHighlighPixel(OffsetCoord offset, Color color) {
     if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
       HighlightData.SetPixel(offset.Col, offset.Row, color);
@@ -105,19 +123,5 @@ public partial class TerrainManager : Node3D {
   private void UpdateHighlightTextureData() {
     var texture = ImageTexture.CreateFromImage(HighlightData);
     TerrainMaterial.Set("shader_parameter/highlight_data_texture", texture);
-  }
-
-  public (Chunk chunk, OffsetCoord localCoord) OffsetToChunk(OffsetCoord coord) {
-    var chunkX = coord.Col / ChunkSize.X;
-    var chunkY = coord.Row / ChunkSize.Y;
-    var localX = coord.Col - chunkX * ChunkSize.X;
-    var localY = coord.Row - chunkY * ChunkSize.Y;
-    return (Chunks[chunkX + (chunkY * ChunkCount.X)], new(localX, localY));
-  }
-
-  public void AddCellToChunk(GameCell cell) {
-    var (chunk, localCoord) = OffsetToChunk(cell.OffsetCoord);
-
-    chunk.AddCell(localCoord.Col + localCoord.Row * ChunkSize.X, Grid.GetCellIndex(cell));
   }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=18 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/gui/main_menu/MainMenu.cs" id="1_pi010"]
 [ext_resource type="Texture2D" uid="uid://dr1u23201hpet" path="res://assets/textures/HoB-menu-parallax/14.png" id="2_x4h0o"]
@@ -16,11 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://cnox7nc47jgg7" path="res://assets/textures/HoB-menu-parallax/2.png" id="14_em2or"]
 [ext_resource type="Texture2D" uid="uid://c6mdo6dqfc0s" path="res://assets/textures/HoB-menu-parallax/1.png" id="15_pgedg"]
 [ext_resource type="Texture2D" uid="uid://cxvin15p5jeev" path="res://assets/textures/HoB-menu-parallax/0.png" id="16_7cge3"]
-[ext_resource type="Shader" path="res://res/shaders/noise_wiggle.gdshader" id="18_yynn6"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_4hvcl"]
-shader = ExtResource("18_yynn6")
-shader_parameter/u_amount = 0.039
 
 [sub_resource type="LabelSettings" id="LabelSettings_t67j1"]
 font_size = 128
@@ -205,17 +200,6 @@ texture = ExtResource("16_7cge3")
 expand_mode = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_4hvcl")
-layout_mode = 2
-offset_top = -4.0
-offset_right = 1920.0
-offset_bottom = 1084.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0.881937, 0.881937, 0.881937, 1)
-
 [node name="ColorRect2" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -237,6 +221,7 @@ grow_vertical = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
+theme_override_constants/margin_left = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer2"]
 layout_mode = 2

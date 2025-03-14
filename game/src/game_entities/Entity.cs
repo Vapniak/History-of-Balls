@@ -7,23 +7,37 @@ using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class Entity : Node {
-  [Export] public Node3D Body { get; private set; }
+  public EntityBody Body { get; private set; }
 
-  public GameCell Cell { get; set; }
-  public IMatchController OwnerController { get; private set; }
-  public GameBoard GameBoard { get; private set; }
+  [Notify]
+  public GameCell Cell {
+    get => _cell.Get();
+    set => _cell.Set(value);
+  }
 
+  public IEntityManagment EntityManagment { get; private set; }
 
+  public EntityUI EntityUI { get; set; }
   private EntityData Data { get; set; }
 
+  [Notify]
+  private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
   private readonly Dictionary<Type, Trait> _traits = new();
 
+  public Entity(EntityData data, GameCell cell, IEntityManagment entityManagment) {
+    Cell = cell;
+    EntityManagment = entityManagment;
+    Data = data;
+  }
+
   public override void _EnterTree() {
-    var body = Data.Body.Instantiate<Node3D>();
-    Body.AddChild(body);
+    Body = Data.Body.Instantiate<EntityBody>();
+    AddChild(Body);
+
+    Data = Data.Duplicate(true) as EntityData;
+    Data.Stats.Init();
 
     var traits = Data.TraitsScene.Instantiate<Node>();
-    AddChild(traits);
 
     foreach (var child in traits.GetAllChildren()) {
       if (child is Trait trait) {
@@ -32,17 +46,22 @@ public partial class Entity : Node {
       }
     }
 
+    AddChild(traits);
+
     CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
   }
 
   public string GetEntityName() => Data.EntityName;
 
   public bool TryGetTrait<T>(out T trait) where T : Trait {
-    if (_traits.TryGetValue(typeof(T), out var t)) {
-      trait = t as T;
-      return true;
-    }
+    var requestedType = typeof(T);
 
+    foreach (var kvp in _traits) {
+      if (requestedType.IsAssignableFrom(kvp.Key)) {
+        trait = kvp.Value as T;
+        return true;
+      }
+    }
     trait = null;
     return false;
   }
@@ -51,6 +70,8 @@ public partial class Entity : Node {
     return _traits.GetValueOrDefault(typeof(T)) as T;
   }
 
+  public bool HasTrait<T>(T t) => _traits.ContainsKey(typeof(T));
+
   public bool TryGetStat<T>(out T stat) where T : BaseStat {
     return Data.Stats.TryGetStat(out stat);
   }
@@ -58,13 +79,15 @@ public partial class Entity : Node {
     return Data.Stats.GetStat<T>();
   }
 
-  public bool IsOwnedBy(IMatchController controller) {
-    return controller == OwnerController;
-  }
-
   public void SetPosition(Vector3 position) {
     Body.GlobalPosition = position;
   }
+
+  public bool TryGetOwner(out IMatchController owner) {
+    owner = OwnerController;
+    return owner != null;
+  }
+
   public Vector3 GetPosition() => Body.GlobalPosition;
 
   public async Task TurnAt(Vector3 targetPosition, float duration) {
@@ -76,11 +99,17 @@ public partial class Entity : Node {
     await ToSignal(tween, Tween.SignalName.Finished);
   }
 
-  [OnInstantiate]
-  private void Init(IMatchController owner, EntityData data, GameCell cell, GameBoard gameBoard) {
-    OwnerController = owner;
-    Cell = cell;
-    GameBoard = gameBoard;
-    Data = data;
+  public void SetMaterial(Material material) {
+    foreach (var child in Body.GetAllChildren()) {
+      if (child is MeshInstance3D meshInstance) {
+        meshInstance.MaterialOverlay = material;
+      }
+    }
+  }
+
+  public void ChangeOwner(IMatchController newOwner) {
+    if (newOwner != OwnerController) {
+      OwnerController = newOwner;
+    }
   }
 }

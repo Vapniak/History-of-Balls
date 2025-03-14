@@ -1,0 +1,32 @@
+[gd_scene load_steps=8 format=3 uid="uid://bu13n1nxejmd1"]
+
+[ext_resource type="PackedScene" uid="uid://c0n8kwkbt135m" path="res://src/game_entities/entites/structures/structure_traits.tscn" id="1_mydho"]
+[ext_resource type="Script" path="res://src/game_entities/traits/factory/FactoryTrait.cs" id="2_h0cyp"]
+[ext_resource type="Script" path="res://src/game_entities/command/CommandTrait.cs" id="3_r0eer"]
+[ext_resource type="Script" path="res://src/game_entities/command/commands/ProcessResourcesCommand.cs" id="4_g36fl"]
+[ext_resource type="Script" path="res://src/game_entities/command/CommandData.cs" id="5_7kn1m"]
+[ext_resource type="Texture2D" uid="uid://bjvxvscc746v8" path="res://assets/textures/icons/production.svg" id="5_ppvy7"]
+
+[sub_resource type="Resource" id="Resource_ao6w5"]
+script = ExtResource("5_7kn1m")
+CommandName = "Command"
+ShowInUI = false
+CooldownRounds = 1
+Icon = ExtResource("5_ppvy7")
+
+[node name="FactoryTraits" type="Node"]
+
+[node name="StructureTraits" parent="." instance=ExtResource("1_mydho")]
+
+[node name="FactoryTrait" type="Node" parent="."]
+script = ExtResource("2_h0cyp")
+
+[node name="CommandTrait" type="Node" parent="."]
+script = ExtResource("3_r0eer")
+
+[node name="ProcessResourcesCommand" type="Node" parent="CommandTrait" node_paths=PackedStringArray("FactoryTrait")]
+script = ExtResource("4_g36fl")
+FactoryTrait = NodePath("../../FactoryTrait")
+Data = SubResource("Resource_ao6w5")
+
+[editable path="StructureTraits"]

@@ -1,38 +1,18 @@
 namespace HOB;
 
 using System;
+using System.Collections.Generic;
 using GameplayFramework;
 using Godot;
 using Godot.Collections;
+using HOB.GameEntity;
 
 [GlobalClass]
-public partial class HOBGameState : GameState, IPlayerManagmentGameState, IPauseGameState, IMatchGameState {
-  public GameBoard GameBoard { get; set; }
-
+public partial class HOBGameState : GameState, IMatchGameState {
   public Array<PlayerState> PlayerArray { get; set; }
-  public bool PauseGame { get; private set; } = true;
 
-  public int CurrentPlayerIndex { get; private set; }
-  public int CurrentRound { get; private set; }
-
-  public event IMatchGameState.TurnChangedEventHandler TurnChangedEvent;
-  public event IMatchGameState.RoundChangedEventHandler RoundStartedEvent;
-  public event IMatchGameState.RoundChangedEventHandler RoundEndedEvent;
-
-  // TODO: better turn managment
-  public void NextTurn() {
-    if (CurrentPlayerIndex >= PlayerArray.Count - 1) {
-      CurrentRound++;
-      CurrentPlayerIndex = 0;
-      RoundEndedEvent?.Invoke(CurrentRound - 1);
-      RoundStartedEvent?.Invoke(CurrentRound);
-    }
-    else {
-      CurrentPlayerIndex++;
-    }
-
-    TurnChangedEvent?.Invoke(CurrentPlayerIndex);
-  }
-
-  public bool IsCurrentTurn(IMatchController controller) => controller.GetPlayerState().PlayerIndex == CurrentPlayerIndex;
+  public int CurrentPlayerIndex { get; set; }
+  public int CurrentRound { get; set; }
+  public GameBoard GameBoard { get; set; }
+  public List<Entity> Entities { get; set; }
 }

@@ -5,7 +5,7 @@ using System;
 
 [GlobalClass]
 public partial class HealthStats : BaseStat {
-  public override string Name => "Health";
-
   [Export] public uint Health { get; private set; } = 0;
+  [Notify]
+  public int CurrentHealth { get => _currentHealth.Get(); set => _currentHealth.Set(value); }
 }

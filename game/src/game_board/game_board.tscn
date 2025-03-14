@@ -1,36 +1,47 @@
-[gd_scene load_steps=9 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=12 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="Resource" uid="uid://lp5grltc6rsd" path="res://src/game_board/grid_layout.tres" id="2_i1283"]
 [ext_resource type="Resource" uid="uid://5wuxfmlkqhss" path="res://src/maps/test_map.tres" id="3_ntr3u"]
 [ext_resource type="Script" path="res://src/game_board/terrain_manager/TerrainManager.cs" id="5_ml5l7"]
 [ext_resource type="Shader" path="res://res/shaders/terrain.gdshader" id="5_vuxl6"]
-[ext_resource type="Script" path="res://src/game_board/entity_manager/EntityManager.cs" id="6_wv76r"]
+[ext_resource type="Material" uid="uid://d24gecd5hxyay" path="res://res/materials/water_mat.tres" id="6_pxya1"]
+
+[sub_resource type="Gradient" id="Gradient_lbrb1"]
+offsets = PackedFloat32Array(0.0797872, 0.664894)
+colors = PackedColorArray(0.28485, 0.28485, 0.28485, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_khc4l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_adawn"]
+seamless = true
+color_ramp = SubResource("Gradient_lbrb1")
+noise = SubResource("FastNoiseLite_khc4l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k616f"]
 render_priority = 0
 shader = ExtResource("5_vuxl6")
+shader_parameter/cloud_scale = 0.01
+shader_parameter/cloud_direction = Vector2(0.5, 0)
 shader_parameter/grid_size = null
 shader_parameter/mouse_world_pos = null
 shader_parameter/show_mouse_highlight = null
+shader_parameter/noise = SubResource("NoiseTexture2D_adawn")
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ihitb"]
 
-[node name="GameBoard" type="Node3D" node_paths=PackedStringArray("TerrainManager", "EntityManager")]
+[node name="GameBoard" type="Node3D" node_paths=PackedStringArray("TerrainManager")]
 script = ExtResource("1_fetkt")
 MapData = ExtResource("3_ntr3u")
 Layout = ExtResource("2_i1283")
 TerrainManager = NodePath("TerrainManager")
-EntityManager = NodePath("EntityManager")
 
 [node name="TerrainManager" type="Node3D" parent="."]
 script = ExtResource("5_ml5l7")
 TerrainMaterial = SubResource("ShaderMaterial_k616f")
+WaterMaterial = ExtResource("6_pxya1")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="TerrainManager"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="TerrainManager/StaticBody3D"]
 shape = SubResource("WorldBoundaryShape3D_ihitb")
-
-[node name="EntityManager" type="Node" parent="."]
-script = ExtResource("6_wv76r")

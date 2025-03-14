@@ -1,9 +1,13 @@
 namespace GameplayFramework;
 
+using System.Threading.Tasks;
 using Godot;
 
 [GlobalClass]
 public partial class Level : Node {
+  [Signal] public delegate void LoadedEventHandler();
+  [Signal] public delegate void UnloadedEventHandler();
+
   [Signal] public delegate void GameModeChangedEventHandler(GameMode old, GameMode @new);
 
   [Export] private PackedScene GameModeScene { get; set; }
@@ -27,10 +31,11 @@ public partial class Level : Node {
       EmitSignal(SignalName.GameModeChanged, GameMode, newGameMode);
       GameMode.QueueFree();
     }
+
     GameMode = newGameMode;
     AddChild(GameMode);
   }
-  public virtual void Load() {
+  public virtual async Task Load() {
     var gameMode = GameModeScene?.InstantiateOrNull<GameMode>();
     if (gameMode == null) {
       GD.Print("Game Mode Scene is null on:", Name);
@@ -43,7 +48,9 @@ public partial class Level : Node {
 
   // TODO: level streaming, so you can add multiple levels but keep the same game mode
 
-  public virtual void UnLoad() {
+  public virtual async Task UnLoad() {
     QueueFree();
+
+    await ToSignal(this, SignalName.TreeExited);
   }
 }

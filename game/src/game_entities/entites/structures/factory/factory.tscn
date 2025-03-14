@@ -1,0 +1,50 @@
+[gd_scene load_steps=9 format=3 uid="uid://cj3qtxcdbw00m"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_q74t3"]
+[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_dhloo"]
+[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="3_ftnts"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_x851d"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hnlje"]
+render_priority = 0
+shader = ExtResource("2_dhloo")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ttt56"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_hnlje")
+shader = ExtResource("3_ftnts")
+shader_parameter/color = Color(4.90934e-06, 0.556091, 0.421144, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_564n6"]
+top_radius = 0.146
+bottom_radius = 0.273
+height = 0.588
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2e2hi"]
+top_radius = 0.161
+bottom_radius = 0.192
+height = 0.201
+
+[node name="EntityBody" type="Node3D"]
+script = ExtResource("1_q74t3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.653135, 0, 0, 0, 0.509899, 0, 0, 0, 0.701222, 0, 0.241224, 0)
+mesh = SubResource("BoxMesh_x851d")
+surface_material_override/0 = SubResource("ShaderMaterial_ttt56")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.773952, -0.223123)
+mesh = SubResource("CylinderMesh_564n6")
+surface_material_override/0 = SubResource("ShaderMaterial_ttt56")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.602691, 0.279628)
+mesh = SubResource("CylinderMesh_2e2hi")
+surface_material_override/0 = SubResource("ShaderMaterial_ttt56")

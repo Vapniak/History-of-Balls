@@ -14,6 +14,7 @@ public partial class GameCell : HexCell {
   public int Index => Grid.GetCellIndex(this);
   public int SettingId { get; private set; }
   private GameGrid Grid { get; set; }
+
   public GameCell(CubeCoord coord, HexLayout layout, int settingId, GameGrid grid) : base(coord, layout) {
     SettingId = settingId;
     Grid = grid;

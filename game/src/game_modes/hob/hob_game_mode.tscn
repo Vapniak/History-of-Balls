@@ -1,38 +1,144 @@
-[gd_scene load_steps=14 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=28 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game_modes/hob/controller/hob_player_controller.tscn" id="2_st7p2"]
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="3_wvtpx"]
-[ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game_modes/hob/controller/ai_controller.tscn" id="4_lhw57"]
+[ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game_modes/hob/controller/ai/ai_controller.tscn" id="4_lhw57"]
 [ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/gui/hud/hud.tscn" id="5_yn6q8"]
-[ext_resource type="Script" path="res://src/game_modes/components/pause/PauseComponent.cs" id="6_yg7jk"]
 [ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="7_orjcr"]
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBPlayerManagmentComponent.cs" id="8_crqp2"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="9_pkx38"]
-[ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/unit/units/test_unit_1_data.tres" id="10_8uwl6"]
-[ext_resource type="Resource" uid="uid://c5dmvmose2efr" path="res://src/game_entities/entites/unit/units/test_unit_2_data.tres" id="11_5j62k"]
+[ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/test_unit_1_data.tres" id="10_8uwl6"]
+[ext_resource type="Texture2D" uid="uid://em1vk1g3frpt" path="res://assets/textures/flags/Poland.png" id="10_fega2"]
+[ext_resource type="Resource" uid="uid://c5dmvmose2efr" path="res://src/game_entities/entites/units/test_unit_2_data.tres" id="11_5j62k"]
+[ext_resource type="Script" path="res://src/country/Country.cs" id="11_hurum"]
 [ext_resource type="Resource" uid="uid://bxlwj2isc0xej" path="res://src/resource_type/dumpling.tres" id="12_3iycb"]
+[ext_resource type="Resource" uid="uid://doidx5bt2arat" path="res://src/game_entities/entites/structures/village/village_data.tres" id="12_d2ps5"]
+[ext_resource type="Texture2D" uid="uid://bi1y53nso1yej" path="res://assets/textures/flags/sphere_0.png" id="12_xxxcm"]
 [ext_resource type="Resource" uid="uid://c0gi1dmpjjefo" path="res://src/resource_type/flour.tres" id="13_al71l"]
+[ext_resource type="Resource" uid="uid://d3a8gfe2tbsyu" path="res://src/game_entities/entites/structures/factory/factory_data.tres" id="13_tdvlv"]
+[ext_resource type="Resource" uid="uid://cyurh50c61ayo" path="res://src/game_entities/entites/structures/city/city_data.tres" id="14_gsryl"]
+[ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
+[ext_resource type="AudioStream" uid="uid://j4c2av4m6pcl" path="res://assets/audio/music/Średniowiecze.wav" id="25_f3tc6"]
 
-[node name="TestGameMode" type="Node"]
+[sub_resource type="Resource" id="Resource_pkkwx"]
+script = ExtResource("11_hurum")
+Name = "Poland"
+Color = Color(1, 0, 0, 1)
+Flag = ExtResource("10_fega2")
+
+[sub_resource type="Resource" id="Resource_p4ijc"]
+script = ExtResource("11_hurum")
+Name = "USA"
+Color = Color(0, 0, 1, 1)
+Flag = ExtResource("12_xxxcm")
+
+[node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "AudioPlayer", "StateChartNode")]
 script = ExtResource("1_ne2qg")
+MatchEndMenu = NodePath("MatchEndMenu")
+PauseMenu = NodePath("PauseMenu")
+AudioPlayer = NodePath("AudioStreamPlayer")
 PlayerControllerScene = ExtResource("2_st7p2")
 PlayerCharacterScene = ExtResource("3_wvtpx")
 AIControllerScene = ExtResource("4_lhw57")
 HUDScene = ExtResource("5_yn6q8")
+StateChartNode = NodePath("StateChart")
 
-[node name="PauseComponent" type="Node" parent="." node_paths=PackedStringArray("PauseMenu")]
-script = ExtResource("6_yg7jk")
-PauseMenu = NodePath("PauseMenu")
+[node name="PauseMenu" parent="." instance=ExtResource("7_orjcr")]
+visible = false
 
-[node name="PauseMenu" parent="PauseComponent" instance=ExtResource("7_orjcr")]
+[node name="MatchEndMenu" parent="." instance=ExtResource("16_6f2qf")]
+process_mode = 2
+visible = false
 
 [node name="TestPlayerManagmentComponent" type="Node" parent="."]
 script = ExtResource("8_crqp2")
 
 [node name="MatchComponent" type="Node" parent="."]
 script = ExtResource("9_pkx38")
+PlayerTeam = SubResource("Resource_pkkwx")
+AITeam = SubResource("Resource_p4ijc")
 TestEntity = ExtResource("10_8uwl6")
 TestEntity2 = ExtResource("11_5j62k")
+Structure1 = ExtResource("12_d2ps5")
+Factory = ExtResource("13_tdvlv")
+City = ExtResource("14_gsryl")
 Primary = ExtResource("12_3iycb")
 Secondary = ExtResource("13_al71l")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("17_4xfd2")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("18_57nfy")
+initial_state = NodePath("MatchStart")
+
+[node name="MatchStart" type="Node" parent="StateChart/Root"]
+script = ExtResource("19_mt2ta")
+
+[node name="ToMatch" type="Node" parent="StateChart/Root/MatchStart"]
+script = ExtResource("20_smv4s")
+to = NodePath("../../InMatch")
+event = &"match_start"
+delay_in_seconds = "1.0"
+
+[node name="InMatch" type="Node" parent="StateChart/Root"]
+script = ExtResource("18_57nfy")
+initial_state = NodePath("Playing")
+
+[node name="Playing" type="Node" parent="StateChart/Root/InMatch"]
+script = ExtResource("19_mt2ta")
+
+[node name="ToMatchEnd" type="Node" parent="StateChart/Root/InMatch/Playing"]
+script = ExtResource("20_smv4s")
+to = NodePath("../../../MatchEnd")
+event = &"match_end"
+delay_in_seconds = "0.0"
+
+[node name="ToPaused" type="Node" parent="StateChart/Root/InMatch/Playing"]
+script = ExtResource("20_smv4s")
+to = NodePath("../../Paused")
+event = &"pause"
+delay_in_seconds = "0.0"
+
+[node name="Paused" type="Node" parent="StateChart/Root/InMatch"]
+script = ExtResource("19_mt2ta")
+
+[node name="ToPlaying" type="Node" parent="StateChart/Root/InMatch/Paused"]
+script = ExtResource("20_smv4s")
+to = NodePath("../../Playing")
+event = &"resume"
+delay_in_seconds = "0.0"
+
+[node name="MatchEnd" type="Node" parent="StateChart/Root"]
+script = ExtResource("19_mt2ta")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("21_tlju4")]
+visible = false
+anchors_preset = 11
+anchor_left = 1.0
+offset_left = -461.0
+offset_top = 209.0
+offset_bottom = -295.0
+grow_horizontal = 0
+enabled = false
+initial_node_to_watch = NodePath("..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("25_f3tc6")
+bus = &"Music"
+
+[connection signal="pressed" from="MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
+[connection signal="state_entered" from="StateChart/Root/InMatch" to="." method="OnInMatchStateEntered"]
+[connection signal="state_exited" from="StateChart/Root/InMatch" to="." method="OnInMatchStateExited"]
+[connection signal="state_entered" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateEntered"]
+[connection signal="state_exited" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateExited"]
+[connection signal="state_entered" from="StateChart/Root/MatchEnd" to="." method="OnMatchEndedStateEntered"]
+
+[editable path="MatchEndMenu"]

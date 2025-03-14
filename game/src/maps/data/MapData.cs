@@ -3,6 +3,7 @@ namespace HOB;
 using Godot;
 using Godot.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 [GlobalClass, Tool]
 public partial class MapData : Resource {
@@ -70,5 +71,9 @@ public partial class MapData : Resource {
     }
 
     return Cells;
+  }
+
+  public Cell GetCell(int col, int row) {
+    return Cells.FirstOrDefault(cell => cell.Col == col && cell.Row == row);
   }
 };

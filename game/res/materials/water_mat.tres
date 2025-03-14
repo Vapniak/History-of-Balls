@@ -1,0 +1,54 @@
+[gd_resource type="ShaderMaterial" load_steps=10 format=3 uid="uid://d24gecd5hxyay"]
+
+[ext_resource type="Shader" path="res://res/shaders/water.gdshader" id="1_gbbdr"]
+
+[sub_resource type="Gradient" id="Gradient_esgin"]
+offsets = PackedFloat32Array(0, 0.701087)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1ihae"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7h48i"]
+seamless = true
+color_ramp = SubResource("Gradient_esgin")
+noise = SubResource("FastNoiseLite_1ihae")
+
+[sub_resource type="Gradient" id="Gradient_8s23d"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_e0ijw"]
+frequency = 0.0172
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1rtri"]
+seamless = true
+color_ramp = SubResource("Gradient_8s23d")
+noise = SubResource("FastNoiseLite_e0ijw")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_rf4a6"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ppms1"]
+seamless = true
+noise = SubResource("FastNoiseLite_rf4a6")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_gbbdr")
+shader_parameter/color = Color(0.411765, 0.788235, 0.823529, 0.627451)
+shader_parameter/deep_water = Color(0.223529, 0.682353, 0.866667, 0.47451)
+shader_parameter/roughness = 0.975
+shader_parameter/metallic = 0.066
+shader_parameter/speed = 0.02
+shader_parameter/noise1_speed = Vector2(2, 0)
+shader_parameter/noise2_speed = Vector2(0.1, 0)
+shader_parameter/beer_law_factor = 2.0
+shader_parameter/_distance = 50.0
+shader_parameter/edge_color = Color(1, 1, 1, 0.129412)
+shader_parameter/edge_scale = 0.0
+shader_parameter/near = 0.1
+shader_parameter/far = 100.0
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_direction2 = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/height_scale = 0.0
+shader_parameter/noise_scale = 10.0
+shader_parameter/noise1 = SubResource("NoiseTexture2D_7h48i")
+shader_parameter/noise2 = SubResource("NoiseTexture2D_1rtri")
+shader_parameter/wave = SubResource("NoiseTexture2D_ppms1")

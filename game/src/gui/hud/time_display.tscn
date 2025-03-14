@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cccmeolyi0lk2"]
+
+[ext_resource type="Script" path="res://src/gui/hud/TimeDisplay.cs" id="1_gevrd"]
+
+[node name="Control" type="VBoxContainer" node_paths=PackedStringArray("_timer", "CurrentTimeLabel", "TimePlayedLabel")]
+offset_right = 41.0
+offset_bottom = 40.0
+script = ExtResource("1_gevrd")
+_timer = NodePath("Timer")
+CurrentTimeLabel = NodePath("TimeDisplay")
+TimePlayedLabel = NodePath("Label")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="TimeDisplay" type="Label" parent="."]
+layout_mode = 2
+text = "12:00"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "1:32"

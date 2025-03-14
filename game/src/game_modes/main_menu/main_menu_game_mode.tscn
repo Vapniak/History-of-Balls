@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/game_modes/main_menu/MainMenuGameMode.cs" id="1_30ibs"]
 [ext_resource type="PackedScene" uid="uid://bc1qqk4div8dj" path="res://src/gui/settings_menu/settings_menu.tscn" id="3_my7m2"]
-[ext_resource type="PackedScene" uid="uid://4np7vinx0jpp" path="res://src/gui/loading_screen/loading_screen.tscn" id="3_uf8je"]
+[ext_resource type="PackedScene" uid="uid://4np7vinx0jpp" path="res://addons/gameplay_framework/src/loading_screen/loading_screen.tscn" id="3_uf8je"]
 
 [node name="MainMenuGameMode" type="Node"]
 script = ExtResource("1_30ibs")

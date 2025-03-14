@@ -22,9 +22,19 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
     return (first * GetLayout().SolidFactor, second * GetLayout().SolidFactor);
   }
 
+  public (Vector3 first, Vector3 second) GetWaterCorners(HexDirection direction) {
+    var (first, second) = GetCorners(direction);
+    return (first * GetLayout().WaterFactor, second * GetLayout().WaterFactor);
+  }
+
   public Vector3 GetBridge(HexDirection direction) {
     var (first, second) = GetCorners(direction);
     return (first + second) * GetLayout().BlendFactor;
+  }
+
+  public Vector3 GetWaterBridge(HexDirection direction) {
+    var (first, second) = GetCorners(direction);
+    return (first + second) * GetLayout().WaterBlendFactor;
   }
 
 
@@ -84,45 +94,53 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
       }
     }
 
+    reachableCells.RemoveAt(0);
+
     return reachableCells.ToArray();
   }
 
 
   public GameCell[] FindPath(GameCell start, GameCell target, uint maxCost, Func<GameCell, GameCell, bool> isReachable) {
+    if (target == null || start == null) {
+      return null;
+    }
+
     var minCost = new int[GetCells().Length];
     var parent = new GameCell[GetCells().Length];
+    var visited = new bool[GetCells().Length];
 
     for (var i = 0; i < minCost.Length; i++) {
       minCost[i] = int.MaxValue;
       parent[i] = null;
+      visited[i] = false;
     }
 
     minCost[GetCellIndex(start)] = 0;
     var pq = new PriorityQueue<GameCell, int>();
     pq.Enqueue(start, 0);
 
-    // TODO: if target is not reachable find closest neigboring cell
-    // FIXME: temp fix
-    if (!isReachable(start, target)) {
-      foreach (var neighbor in GetNeighbors(target)) {
-        if (isReachable(target, neighbor)) {
-          target = neighbor;
-          break;
-        }
-      }
-    }
+    var closestCell = start;
+    var closestDistance = start.Coord.Distance(target.Coord);
 
     while (pq.Count > 0) {
       var current = pq.Dequeue();
       var currentCost = minCost[GetCellIndex(current)];
 
       if (current == target) {
-        break;
+        return ReconstructPath(parent, current, maxCost);
       }
+
+      var currentDistance = current.Coord.Distance(target.Coord);
+      if (currentDistance < closestDistance) {
+        closestCell = current;
+        closestDistance = currentDistance;
+      }
+
+      visited[GetCellIndex(current)] = true;
 
       for (var i = (int)HexDirection.First; i <= (int)HexDirection.Sixth; i++) {
         var cell = GetCell(current, (HexDirection)i);
-        if (cell != null && isReachable(current, cell)) {
+        if (cell != null && isReachable(current, cell) && !visited[GetCellIndex(cell)]) {
           var newCost = currentCost + GetSetting(cell).MoveCost;
           var cellIndex = GetCellIndex(cell);
           if (newCost < minCost[cellIndex]) {
@@ -134,27 +152,32 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
       }
     }
 
+    return ReconstructPath(parent, closestCell, maxCost);
+  }
+
+  private GameCell[] ReconstructPath(GameCell[] parent, GameCell endCell, uint maxCost) {
     var path = new List<GameCell>();
-    var currentCell = target;
+    var currentCell = endCell;
     while (currentCell != null) {
       path.Add(currentCell);
       currentCell = parent[GetCellIndex(currentCell)];
     }
 
     path.Reverse();
+    path.RemoveAt(0);
 
     var finalPath = new List<GameCell>();
     var totalCost = 0;
     foreach (var cell in path) {
+      totalCost += GetSetting(cell).MoveCost;
       if (totalCost <= maxCost) {
         finalPath.Add(cell);
       }
       else {
         break;
       }
-
-      totalCost += GetSetting(cell).MoveCost;
     }
+
     return finalPath.ToArray();
   }
 
@@ -191,15 +214,37 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
 
   public void LoadMap(MapData mapData) {
     MapData = mapData;
+    var c = MapData.GetCells();
 
     var cells = new List<GameCell>();
-    foreach (var hex in MapData.GetCells()) {
-      var cell = new GameCell(GetLayout().OffsetToCube(new OffsetCoord(hex.Col, hex.Row)), GetLayout(), hex.Id, this);
-      cells.Add(cell);
+    for (var x = 0; x < MapData.Cols; x++) {
+      for (var y = 0; y < MapData.Rows; y++) {
+        var hex = MapData.GetCell(x, y);
+        var cell = new GameCell(
+            GetLayout().OffsetToCube(new OffsetCoord(x, y)),
+            GetLayout(),
+            hex.Id,
+            this
+        );
+        cells.Add(cell);
+      }
     }
 
-    // TODO: add border chunks
-
     CreateCells(cells.ToArray());
+  }
+
+  public IEnumerable<GameCell> GetEdgeCells() {
+    foreach (var cell in GetCells()) {
+      if (IsEdgeCell(cell.OffsetCoord)) {
+        yield return cell;
+      }
+    }
+  }
+
+  private bool IsEdgeCell(OffsetCoord coord) {
+    return coord.Col == 0 ||
+           coord.Col == MapData.Cols - 1 ||
+           coord.Row == 0 ||
+           coord.Row == MapData.Rows - 1;
   }
 }

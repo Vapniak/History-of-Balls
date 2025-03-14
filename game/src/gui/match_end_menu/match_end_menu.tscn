@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://cnww5rxeofin3"]
+
+[ext_resource type="Script" path="res://src/gui/match_end_menu/MatchEndMenu.cs" id="1_1fco0"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kerhc"]
+font_size = 32
+
+[node name="MatchEndMenu" type="CanvasLayer" node_paths=PackedStringArray("WinnerTextLabel", "TimePlayedLabel")]
+script = ExtResource("1_1fco0")
+WinnerTextLabel = NodePath("MarginContainer/ColorRect/VBoxContainer/Label2")
+TimePlayedLabel = NodePath("MarginContainer/ColorRect/VBoxContainer/Label3")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0, 0, 0, 0.247059)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -39.0
+offset_top = -20.0
+offset_right = 39.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "MATCH ENDED"
+label_settings = SubResource("LabelSettings_kerhc")
+
+[node name="Label2" type="Label" parent="MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 22
+text = "YOU WON"
+
+[node name="Label3" type="Label" parent="MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 22
+text = "TIME PLAYED: 10 minutes"
+
+[node name="Button" type="Button" parent="MarginContainer/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "GO TO MAIN MENU"

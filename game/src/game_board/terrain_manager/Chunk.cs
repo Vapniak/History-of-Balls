@@ -1,6 +1,9 @@
 namespace HOB;
 
-using System.Diagnostics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
 using Godot;
 using HexGridMap;
 
@@ -21,18 +24,21 @@ public partial class Chunk : StaticBody3D {
   private Vector2I ChunkSize { get; set; }
   private int[] CellIndices { get; set; }
 
-  private Material TerrainMaterial { get; set; }
+
   private GameGrid Grid { get; set; }
 
   private HexMesh TerrainMesh { get; set; }
+  private HexMesh WaterMesh { get; set; }
   private CollisionShape3D CollisionShape { get; set; }
+
+
+  private HexMesh BorderMesh { get; set; }
 
   private bool _refresh;
 
-  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, GameGrid grid) {
+  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, Material waterMaterial, GameGrid grid) {
     Index = index;
     ChunkSize = chunkSize;
-    TerrainMaterial = terrainMaterial;
     Grid = grid;
 
     CellIndices = new int[chunkSize.X * chunkSize.Y];
@@ -41,10 +47,20 @@ public partial class Chunk : StaticBody3D {
       MaterialOverride = terrainMaterial,
     };
 
+    WaterMesh = new() {
+      MaterialOverride = waterMaterial
+    };
+
     CollisionShape = new();
 
     AddChild(CollisionShape);
     CollisionShape.AddChild(TerrainMesh);
+    AddChild(WaterMesh);
+
+    BorderMesh = new HexMesh {
+      MaterialOverride = terrainMaterial
+    };
+    TerrainMesh.AddChild(BorderMesh);
 
     Refresh();
   }
@@ -63,14 +79,17 @@ public partial class Chunk : StaticBody3D {
   }
 
   private void Triangulate() {
-    TerrainMesh.Clear();
+    TerrainMesh.Begin();
+    WaterMesh.Begin();
 
     foreach (var index in CellIndices) {
       Triangulate(index);
     }
 
-    TerrainMesh.Apply();
+    GenerateHexBorderRectangle(50);
 
+    TerrainMesh.End();
+    WaterMesh.End();
     CollisionShape.Shape = TerrainMesh.Mesh.CreateTrimeshShape();
   }
 
@@ -87,23 +106,67 @@ public partial class Chunk : StaticBody3D {
 
   private void Triangulate(HexDirection direction, GameCell cell) {
     var pos = Grid.GetCellRealPosition(cell);
-    var (firstCorner, secondCorner) = Grid.GetSolidCorners(direction);
+    var (firstCorner, secondCorner) = Grid.GetCorners(direction);
     var e = new EdgeVertices(pos + firstCorner, pos + secondCorner);
 
-    TriangulateEdgeFan(pos, e);
+    TriangulateEdgeFan(pos, e, TerrainMesh);
 
     if (direction <= HexDirection.Third) {
       TriangulateConnection(direction, cell, e);
     }
+
+    if (cell.GetSetting().IsWater) {
+      TriangulateWater(direction, cell);
+
+      if (Grid.GetCell(cell, direction) == null) {
+        var wallTop1 = e.V1;
+        var wallTop2 = e.V5;
+        var wallBottom1 = wallTop1 with { Y = Grid.GetLayout().WaterLevel };
+        var wallBottom2 = wallTop2 with { Y = Grid.GetLayout().WaterLevel };
+
+        TerrainMesh.AddQuadAutoUV(
+            wallTop1,
+            wallTop2,
+            wallBottom1,
+            wallBottom2
+        );
+
+        TerrainMesh.AddQuadAutoUV(
+            wallBottom1,
+            wallBottom2,
+            wallTop1,
+            wallTop2
+        );
+      }
+    }
   }
 
-  private void TriangulateEdgeFan(Vector3 pos, EdgeVertices edge) {
-    TerrainMesh.AddTriangle(pos, edge.V1, edge.V5);
+  private void TriangulateEdgeFan(Vector3 pos, EdgeVertices edge, HexMesh mesh) {
+    mesh.AddTriangleAutoUV(pos, edge.V1, edge.V5);
   }
 
   private void TriangulateConnection(HexDirection direction, GameCell cell, EdgeVertices e) {
     var neighbor = Grid.GetCell(cell, direction);
+
     if (neighbor == null) {
+      var wallTop1 = e.V1;
+      var wallTop2 = e.V5;
+      var wallBottom1 = wallTop1 with { Y = 0 };
+      var wallBottom2 = wallTop2 with { Y = 0 };
+
+      TerrainMesh.AddQuadAutoUV(
+          wallTop1,
+          wallTop2,
+          wallBottom1,
+          wallBottom2
+      );
+
+      TerrainMesh.AddQuadAutoUV(
+          wallBottom1,
+          wallBottom2,
+          wallTop1,
+          wallTop2
+      );
       return;
     }
 
@@ -161,7 +224,7 @@ public partial class Chunk : StaticBody3D {
   }
 
   private void TriangulateEdgeStrip(EdgeVertices e1, EdgeVertices e2) {
-    TerrainMesh.AddQuad(e1.V1, e1.V5, e2.V1, e2.V5);
+    TerrainMesh.AddQuadAutoUV(e1.V1, e1.V5, e2.V1, e2.V5);
   }
 
   private void TriangulateEdgeTerraces(EdgeVertices begin, EdgeVertices end) {
@@ -185,6 +248,102 @@ public partial class Chunk : StaticBody3D {
     var leftEdgeType = Grid.GetEdgeType(bottomCell, leftCell);
     var rightEdgeType = Grid.GetEdgeType(bottomCell, rightCell);
 
-    TerrainMesh.AddTriangle(bottom, left, right);
+    TerrainMesh.AddTriangleAutoUV(bottom, left, right);
+  }
+
+  private void TriangulateWater(HexDirection direction, GameCell cell) {
+    var pos = cell.GetRealPosition();
+    pos.Y = Grid.GetLayout().WaterLevel;
+
+    var neighbor = Grid.GetCell(cell, direction);
+
+    if (neighbor != null && !neighbor.GetSetting().IsWater) {
+      // shore
+    }
+    else {
+
+      // open water
+    }
+    // for now make the water take whole hex
+    TriangulateOpenWater(direction, pos, cell, neighbor);
+  }
+
+  private void TriangulateOpenWater(HexDirection direction, Vector3 pos, GameCell cell, GameCell neighbor) {
+    var (firstCorner, secondCorner) = Grid.GetWaterCorners(direction);
+    firstCorner += pos;
+    secondCorner += pos;
+
+    WaterMesh.AddTriangleAutoUV(pos, firstCorner, secondCorner);
+
+    if (direction <= HexDirection.Third && neighbor != null) {
+      var bridge = Grid.GetWaterBridge(direction);
+      var e1 = firstCorner + bridge;
+      var e2 = secondCorner + bridge;
+      WaterMesh.AddQuadAutoUV(firstCorner, secondCorner, e1, e2);
+
+      if (direction <= HexDirection.Second) {
+        var nextNeigbor = Grid.GetCell(cell, direction.Next());
+        if (nextNeigbor == null || !nextNeigbor.GetSetting().IsWater) {
+          return;
+        }
+
+        WaterMesh.AddTriangleAutoUV(secondCorner, e2, secondCorner + Grid.GetWaterBridge(direction.Next()));
+      }
+    }
+  }
+  private void GenerateHexBorderRectangle(int borderLayers) {
+    var originalCells = new HashSet<OffsetCoord>(
+        CellIndices.Select(i => Grid.GetCell(i).OffsetCoord)
+                   .Where(oc => oc.Col >= 0 && oc.Row >= 0)
+    );
+
+    if (originalCells.Count == 0) {
+      return;
+    }
+
+    var minCol = originalCells.Min(oc => oc.Col);
+    var maxCol = originalCells.Max(oc => oc.Col);
+    var minRow = originalCells.Min(oc => oc.Row);
+    var maxRow = originalCells.Max(oc => oc.Row);
+
+    var expandedMinCol = minCol - borderLayers;
+    var expandedMaxCol = maxCol + borderLayers;
+    var expandedMinRow = minRow - borderLayers;
+    var expandedMaxRow = maxRow + borderLayers;
+
+    BorderMesh.Begin();
+
+    for (var col = expandedMinCol; col <= expandedMaxCol; col++) {
+      for (var row = expandedMinRow; row <= expandedMaxRow; row++) {
+        var offsetCoord = new OffsetCoord(col, row);
+        if (!originalCells.Contains(offsetCoord)) {
+          var cubeCoord = Grid.GetLayout().OffsetToCube(offsetCoord);
+          var point = Grid.GetLayout().CubeToPoint(cubeCoord);
+          var position = new Vector3(point.X, 0, point.Y);
+
+          GenerateBorderHexagon(position);
+        }
+      }
+    }
+
+    BorderMesh.End();
+  }
+
+  private void GenerateBorderHexagon(Vector3 center) {
+    for (var d = HexDirection.First; d <= HexDirection.Sixth; d++) {
+      var (firstCorner, secondCorner) = Grid.GetCorners(d);
+      var e = new EdgeVertices(center + firstCorner, center + secondCorner);
+      TriangulateEdgeFan(center, e, BorderMesh);
+    }
+
+    // var wallHeight = -2f;
+    // for (var i = 0; i < 6; i++) {
+    //   var top1 = vertices[i];
+    //   var top2 = vertices[(i + 1) % 6];
+    //   var bottom1 = top1 with { Y = wallHeight };
+    //   var bottom2 = top2 with { Y = wallHeight };
+
+    //   _borderMesh.AddQuadAutoUV(top1, top2, bottom1, bottom2);
+    // }
   }
 }

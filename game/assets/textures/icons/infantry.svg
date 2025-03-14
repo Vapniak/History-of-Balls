@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="300mm"
+   height="300mm"
+   viewBox="0 0 300 300"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="infantry.svg"
+   xml:space="preserve"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
+     id="namedview1"
+     pagecolor="#696969"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="0.1767767"
+     inkscape:cx="738.21948"
+     inkscape:cy="427.0925"
+     inkscape:window-width="1920"
+     inkscape:window-height="991"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" /><defs
+     id="defs1" /><g
+     inkscape:label="Warstwa 1"
+     inkscape:groupmode="layer"
+     id="layer1"><path
+       id="path4"
+       style="color:#000000;fill:#ffffff;stroke-width:1.49856;stroke-linecap:square;-inkscape-stroke:none;paint-order:markers stroke fill"
+       d="M 287.87419,8.9631339 209.72392,26.198004 101.4462,148.66282 149.07309,196.4428 273.151,86.655527 Z M 57.407151,125.11151 39.52495,159.29127 l 32.403283,47.4739 -9.597157,11.09873 -18.690956,9.61187 -19.548989,-5.23574 -12.879683,25.04743 40.574423,42.1619 25.048191,-14.46718 -5.236501,-19.54898 9.611872,-18.69094 11.098715,-9.59717 46.944722,32.40328 34.17976,-16.82309 z"
+       sodipodi:nodetypes="ccccccccccccccccccccc" /><path
+       style="color:#000000;display:none;fill:#ffffff;-inkscape-stroke:none"
+       d="M 150,7.4296875 C 71.409057,7.4296893 7.4296893,71.409057 7.4296875,150 7.4296875,228.59094 71.409056,292.57031 150,292.57031 228.59095,292.57031 292.57031,228.59095 292.57031,150 292.57031,71.409056 228.59094,7.4296875 150,7.4296875 Z m 0,24.9999995 c 65.07996,0 117.57031,52.490358 117.57031,117.570313 0,65.07996 -52.49035,117.57031 -117.57031,117.57031 C 84.920045,267.57031 32.429688,215.07996 32.429687,150 32.429689,84.920046 84.920046,32.429689 150,32.429687 Z"
+       id="path1" /></g></svg>

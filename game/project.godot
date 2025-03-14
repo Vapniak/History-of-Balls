@@ -18,7 +18,7 @@ resources_spreadsheet_view/clip_headers=false
 resources_spreadsheet_view/dupe_arrays=true
 resources_spreadsheet_view/context_menu_on_leftclick=false
 resources_spreadsheet_view/fold_docks=true
-resources_spreadsheet_view/resource_cell_label_mode=1
+resources_spreadsheet_view/resource_cell_label_mode=0
 
 [application]
 
@@ -33,8 +33,8 @@ config/icon="res://assets/HoB-logo.svg"
 [autoload]
 
 RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
-SettingsManager="*res://src/gui/settings_menu/SettingsManager.cs"
 GameInstance="*res://src/game_instance.tscn"
+Panku="*res://addons/panku_console/console.tscn"
 
 [debug_draw_3d]
 
@@ -44,8 +44,8 @@ settings/updates/check_for_updates=false
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
-window/size/resizable=false
-window/stretch/mode="canvas_items"
+window/size/mode=3
+window/stretch/mode="viewport"
 window/stretch/aspect="expand"
 window/size/width=1920
 window/size/height=1080
@@ -57,7 +57,7 @@ project/assembly_name="History of Balls"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gameplay_framework/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg")
+enabled=PackedStringArray("res://addons/2d_shapes/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/raycast_system/plugin.cfg")
 
 [file_customization]
 
@@ -71,9 +71,17 @@ folder_colors={
 [gui]
 
 theme/custom="res://res/default_theme.tres"
+theme/default_font_hinting=2
+theme/default_font_generate_mipmaps=true
 
 [input]
 
+ui_accept={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194309,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194310,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+]
+}
 zoom_in={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":4,"canceled":false,"pressed":false,"double_click":false,"script":null)
@@ -111,7 +119,7 @@ select={
 }
 camera_pan={
 "deadzone": 0.5,
-"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":3,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
 focus={
@@ -124,6 +132,16 @@ speed_multi={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194325,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+end_turn={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"key_label":0,"unicode":32,"location":0,"echo":false,"script":null)
+]
+}
+use_command={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(155, 1),"global_position":Vector2(164, 47),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 
 [layer_names]
 
@@ -132,11 +150,40 @@ speed_multi={
 3d_physics/layer_1="World"
 3d_physics/layer_2="Entity"
 
+[panku]
+
+disable_on_release=true
+
 [physics]
 
 common/physics_interpolation=true
 
 [rendering]
 
-environment/defaults/default_clear_color=Color(0, 0, 0, 1)
-anti_aliasing/quality/msaa_3d=2
+textures/canvas_textures/default_texture_filter=0
+anti_aliasing/quality/msaa_2d=2
+anti_aliasing/quality/msaa_3d=3
+viewport/transparent_background=true
+
+[shader_globals]
+
+specular_smoothness={
+"type": "float",
+"value": 0.05
+}
+fresnel_smoothness={
+"type": "float",
+"value": 0.05
+}
+outline_width={
+"type": "float",
+"value": 4.0
+}
+outline_color={
+"type": "color",
+"value": Color(0, 0, 0, 1)
+}
+diffuse_curve={
+"type": "sampler2D",
+"value": ""
+}

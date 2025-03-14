@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="EntityTypeStats" load_steps=3 format=3 uid="uid://d3ja3oacsun4e"]
+
+[ext_resource type="Texture2D" uid="uid://b4l2adrjoxkkh" path="res://assets/textures/icons/city.svg" id="1_pndb2"]
+[ext_resource type="Script" path="res://src/game_entities/entites/EntityTypeStats.cs" id="1_yxdpf"]
+
+[resource]
+script = ExtResource("1_yxdpf")
+Icon = ExtResource("1_pndb2")

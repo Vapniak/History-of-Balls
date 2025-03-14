@@ -1,15 +1,16 @@
 [gd_scene load_steps=22 format=3 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
-[ext_resource type="Material" uid="uid://di2vqjh12uacy" path="res://res/materials/post_process.tres" id="2_wnmxh"]
-[ext_resource type="TubeTrailMesh" uid="uid://c72ax0uwen7is" path="res://res/meshes/wind.tres" id="3_g0y04"]
+[ext_resource type="RibbonTrailMesh" uid="uid://w2xv54d0lfdp" path="res://res/meshes/wind_ribbon.tres" id="3_w31k8"]
 
 [sub_resource type="Curve" id="Curve_t3eex"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.4, 0.0, 0, 0]
-point_count = 2
+_data = [Vector2(0.183333, 0.424051), 0.0, -0.682045, 0, 1, Vector2(0.364286, 0.300633), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.10013, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddym4"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_bpb6w"]
-material = ExtResource("2_wnmxh")
+material = SubResource("ShaderMaterial_ddym4")
 flip_faces = true
 size = Vector2(2, 2)
 
@@ -24,29 +25,31 @@ min_value = -1.0
 _data = [Vector2(0, 1.49012e-08), 0.0, 0.0, 0, 1, Vector2(0.1, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(0.3, 1), 0.0, 0.0, 0, 0, Vector2(0.5, -1), 0.0367056, 0.0367056, 0, 0, Vector2(0.7, 1.49012e-08), 0.0, 0.0, 0, 0, Vector2(1, 1.49012e-08), 0.0, 0.0, 0, 0]
 point_count = 6
 
+[sub_resource type="Curve" id="Curve_eyssr"]
+
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_g3jf5"]
 curve_x = SubResource("Curve_pjk7c")
 curve_y = SubResource("Curve_c44mf")
+curve_z = SubResource("Curve_eyssr")
 
-[sub_resource type="Curve" id="Curve_r1uxh"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 2
+[sub_resource type="Curve" id="Curve_ufuhu"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.4, 1), 0.0, 0.0, 0, 0, Vector2(0.884211, 0), 1.37493, 0.0, 0, 0]
+point_count = 3
 
-[sub_resource type="CurveTexture" id="CurveTexture_48mh7"]
-curve = SubResource("Curve_r1uxh")
+[sub_resource type="CurveTexture" id="CurveTexture_tmf24"]
+curve = SubResource("Curve_ufuhu")
 
 [sub_resource type="Curve" id="Curve_yinba"]
-_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.782165, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_uv73u"]
 curve = SubResource("Curve_yinba")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jpff0"]
-lifetime_randomness = 0.2
 particle_flag_align_y = true
-emission_shape_offset = Vector3(0, 10, 0)
-emission_shape_scale = Vector3(20, 5, 20)
+emission_shape_offset = Vector3(0, 5, 0)
+emission_shape_scale = Vector3(20, 2, 20)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 spread = 0.0
@@ -54,7 +57,7 @@ directional_velocity_min = 4.99998
 directional_velocity_max = 4.99998
 directional_velocity_curve = SubResource("CurveXYZTexture_g3jf5")
 gravity = Vector3(0, 0, 0)
-scale_curve = SubResource("CurveTexture_48mh7")
+scale_curve = SubResource("CurveTexture_tmf24")
 turbulence_enabled = true
 turbulence_influence_min = 0.04
 turbulence_influence_max = 0.161
@@ -72,29 +75,24 @@ _data = [Vector2(0, 1.49012e-08), 0.0, 2.0, 0, 1, Vector2(0.2, 0.4), 0.0, 0.0, 0
 point_count = 4
 metadata/_snap_enabled = true
 
+[sub_resource type="Curve" id="Curve_3d3fv"]
+
 [sub_resource type="CurveXYZTexture" id="CurveXYZTexture_1rijh"]
 curve_x = SubResource("Curve_tlv8o")
 curve_y = SubResource("Curve_lo23k")
-
-[sub_resource type="Curve" id="Curve_ufuhu"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.623684, 0.156187), -1.01557, -1.01557, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_tmf24"]
-curve = SubResource("Curve_ufuhu")
+curve_z = SubResource("Curve_3d3fv")
 
 [sub_resource type="Curve" id="Curve_pf2q6"]
-_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0.00255102, 0.542074), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.404294, 0.0, 0, 0]
 point_count = 2
 
 [sub_resource type="CurveTexture" id="CurveTexture_tnoyy"]
 curve = SubResource("Curve_pf2q6")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_fst37"]
-lifetime_randomness = 0.2
 particle_flag_align_y = true
-emission_shape_offset = Vector3(0, 10, 0)
-emission_shape_scale = Vector3(20, 5, 20)
+emission_shape_offset = Vector3(0, 5, 0)
+emission_shape_scale = Vector3(20, 2, 20)
 emission_shape = 3
 emission_box_extents = Vector3(1, 1, 1)
 spread = 0.0
@@ -116,13 +114,15 @@ _acceleration = 15.0
 _moveSpeedMinZoom = 60.0
 _moveSpeedMaxZoom = 20.0
 _stopSpeed = 1.0
+_zoomLerpSpeed = 3.0
 _minZoomOffset = Vector3(0, 50, 30)
-_maxZoomOffset = Vector3(0, 10, 10)
+_maxZoomOffset = Vector3(0, 5, 6)
 _distanceCurve = SubResource("Curve_t3eex")
 _panSpeedMulti = 0.001
 
 [node name="OutlinePostProcess" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.120215)
+visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_bpb6w")
 skeleton = NodePath("")
@@ -130,20 +130,18 @@ skeleton = NodePath("")
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+[node name="SpiralWindParticles" type="GPUParticles3D" parent="."]
 amount = 1
 lifetime = 4.0
-randomness = 1.0
 trail_enabled = true
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_jpff0")
-draw_pass_1 = ExtResource("3_g0y04")
+draw_pass_1 = ExtResource("3_w31k8")
 
-[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+[node name="StraightWindParticles" type="GPUParticles3D" parent="."]
 amount = 1
 lifetime = 3.0
-randomness = 1.0
 trail_enabled = true
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_fst37")
-draw_pass_1 = ExtResource("3_g0y04")
+draw_pass_1 = ExtResource("3_w31k8")

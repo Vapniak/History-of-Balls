@@ -3,49 +3,62 @@ namespace HOB;
 using Godot;
 using Godot.Collections;
 using HOB.GameEntity;
-using System;
+using System.Linq;
 
 public partial class CommandPanel : Control {
   [Signal] public delegate void CommandSelectedEventHandler(Command command);
-  [Export] private ItemList CommandList { get; set; }
+  [Export] private Control CommandList { get; set; }
 
-  private Array<Command> Commands { get; set; }
+  private Dictionary<Command, Button> Commands { get; set; }
+  private ButtonGroup _buttonGroup;
   public override void _Ready() {
-    //CommandList.Clear();
+    _buttonGroup = new();
 
-    FocusEntered += CommandList.GrabFocus;
     Commands = new();
-
-    CommandList.ItemSelected += (index) => {
-      if (CommandList.IsItemSelectable((int)index)) {
-        EmitSignal(SignalName.CommandSelected, Commands[(int)index]);
-      }
-    };
   }
 
 
   public void SelectCommand(int index) {
-    if (index >= 0 && index < CommandList.ItemCount) {
-      CommandList.Select(index);
-      CommandList.EmitSignal(ItemList.SignalName.ItemSelected, index);
+    if (index >= 0 && index < Commands.Count) {
+      var command = Commands.ElementAt(index);
+      SelectCommand(command.Key);
     }
   }
 
   public void SelectCommand(Command command) {
-    var index = Commands.IndexOf(command);
-    SelectCommand(index);
+    if (command == null) {
+      return;
+    }
+
+    if (Commands.TryGetValue(command, out var button)) {
+      button.ButtonPressed = true;
+      button.GrabFocus();
+    }
   }
 
   public void ClearCommands() {
-    CommandList.Clear();
+    foreach (var child in CommandList.GetChildren()) {
+      child.QueueFree();
+    }
+
     Commands.Clear();
   }
   public void AddCommand(Command command) {
-    var text = command.CommandName;
-    if (CommandList.ItemCount <= 4) {
-      text = CommandList.ItemCount + 1 + " | " + command.CommandName;
-    }
-    CommandList.AddItem(text, null, command.IsAvailable());
-    Commands.Add(command);
+    var button = new Button() {
+      Alignment = HorizontalAlignment.Center,
+      ToggleMode = true,
+      Icon = command.Data.Icon,
+      ExpandIcon = true,
+      ButtonGroup = _buttonGroup,
+      CustomMinimumSize = new(32, 32),
+      TooltipText = command.Data.CommandName
+    };
+
+    button.Toggled += (toggledOn) => EmitSignal(SignalName.CommandSelected, command);
+
+    CommandList.AddChild(button);
+    Commands.Add(command, button);
   }
+
+  public int GetCommandCount() => Commands.Count;
 }

@@ -3,6 +3,7 @@ namespace HOB.GameEntity;
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -14,9 +15,19 @@ public partial class AttackTrait : Trait {
   public async Task Attack(Entity entity) {
     await Entity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 
+    var firstTween = CreateTween();
+    firstTween.TweenMethod(Callable.From<Vector3>(Entity.SetPosition), Entity.GetPosition(), Entity.GetPosition() + Entity.GetPosition().DirectionTo(entity.GetPosition()), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+
+    await ToSignal(firstTween, Tween.SignalName.Finished);
+
     if (entity.TryGetTrait<HealthTrait>(out var healthTrait)) {
       healthTrait.Damage(GetStat<AttackStats>().Damage);
     }
+
+    var secondTween = CreateTween();
+    secondTween.TweenMethod(Callable.From<Vector3>(Entity.SetPosition), Entity.GetPosition(), Entity.Cell.GetRealPosition(), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+
+    await ToSignal(secondTween, Tween.SignalName.Finished);
 
     EmitSignal(SignalName.AttackFinished);
   }
@@ -27,14 +38,19 @@ public partial class AttackTrait : Trait {
 
     var cells = Entity.Cell.GetCellsInRange(GetStat<AttackStats>().Range);
     foreach (var cell in cells) {
-      cellsInR.Add(cell);
-      var entities = Entity.GameBoard.GetEntitiesOnCell(cell);
-      if (entities.Length > 0 && !entities[0].IsOwnedBy(Entity.OwnerController)) {
-        AttackableEntities.Add(entities[0]);
+      if (cell == Entity.Cell) {
+        continue;
       }
+
+      cellsInR.Add(cell);
+      var entities = Entity.EntityManagment.GetEntitiesOnCell(cell);
+      AttackableEntities.AddRange(entities.Where(CanBeAttacked));
     }
 
-
     return (AttackableEntities.ToArray(), cellsInR.ToArray());
+  }
+
+  public bool CanBeAttacked(Entity entity) {
+    return entity.TryGetOwner(out var enemyOwner) && Entity.TryGetOwner(out var owner) && enemyOwner != owner && entity.TryGetTrait<HealthTrait>(out _);
   }
 }

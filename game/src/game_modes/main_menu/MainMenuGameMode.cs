@@ -12,13 +12,9 @@ public partial class MainMenuGameMode : GameMode {
 
   protected override GameState CreateGameState() => new MainMenuGameState();
 
-  public override void _Process(double delta) {
-    base._Process(delta);
-
-
+  public void StartGame() {
+    GameInstance.GetWorld().OpenLevel("test_level");
   }
-
-  public void StartGame() => GameInstance.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene);
 
   public void OpenSettings() {
     _settings = _settingsScene.Instantiate<SettingsMenu>();
