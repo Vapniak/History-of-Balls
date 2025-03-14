@@ -22,11 +22,14 @@ Label = NodePath("Tooltip/RichTextLabel")
 [node name="Tooltip" type="PanelContainer" parent="."]
 offset_right = 64.0
 offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxFlat_8fq28")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Tooltip"]
 layout_mode = 2
+bbcode_enabled = true
 text = "Tooltip"
 fit_content = true
 scroll_active = false

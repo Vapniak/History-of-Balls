@@ -14,6 +14,6 @@ public partial class TooltipTrigger : Node, ITooltipTrigger {
     base._Ready();
 
     GetParent<Control>().MouseEntered += () => TooltipManager.Instance.ShowTooltip(this);
-    GetParent<Control>().MouseExited += TooltipManager.Instance.RequestHide;
+    GetParent<Control>().MouseExited += () => TooltipManager.Instance.RequestHide();
   }
 }

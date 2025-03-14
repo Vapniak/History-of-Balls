@@ -1,7 +1,9 @@
 namespace Tooltip;
 
 using Godot;
+using HOB;
 using System;
+using System.Threading.Tasks;
 
 public partial class TooltipManager : Node {
   public static TooltipManager Instance { get; private set; }
@@ -11,8 +13,8 @@ public partial class TooltipManager : Node {
   [Export] private Timer ShowTimer { get; set; }
 
   private Tooltip Tooltip { get; set; }
-
   private bool _pendingHide;
+  private ITooltipTrigger _pendingTooltipTrigger;
 
   public override void _EnterTree() {
     base._EnterTree();
@@ -28,8 +30,8 @@ public partial class TooltipManager : Node {
     AddChild(Tooltip);
 
     HideTooltip();
-    HideTimer.Timeout += OnHideTimeout;
-    ShowTimer.Timeout += Tooltip.ShowTooltip;
+    HideTimer.Timeout += () => OnHideTimeout();
+    ShowTimer.Timeout += () => OnShowTimeout();
   }
 
   public override void _ExitTree() {
@@ -39,8 +41,13 @@ public partial class TooltipManager : Node {
   }
 
   public void ShowTooltip(ITooltipTrigger trigger) {
-    CancelHide();
+    if (Tooltip.IsVisible()) {
+      _pendingTooltipTrigger = trigger;
+      RequestHide();
+      return;
+    }
 
+    CancelHide();
     ShowTimer.Start();
     Tooltip.SetTooltip(trigger.Text, trigger.Position);
   }
@@ -57,16 +64,28 @@ public partial class TooltipManager : Node {
     }
   }
 
-
-  private void HideTooltip() {
-    Tooltip.HideTooltip();
+  private async Task HideTooltip() {
     ShowTimer.Stop();
+    await Tooltip.HideTooltip();
   }
 
-  private void OnHideTimeout() {
+  private async Task OnHideTimeout() {
     if (_pendingHide) {
-      HideTooltip();
       _pendingHide = false;
+      await HideTooltip();
+
+      if (_pendingTooltipTrigger != null) {
+        ShowTooltip(_pendingTooltipTrigger);
+        _pendingTooltipTrigger = null;
+      }
     }
+  }
+
+  private async Task OnShowTimeout() {
+    // FIXME: when hovering over one control and then fast on another and then on nothing it shows the tooltip but it shouldnt
+    // if (GetViewport().GuiGetHoveredControl().GetChildByType<TooltipTrigger>() != null ) {
+    //   await Tooltip.ShowTooltip();
+    // }
+    await Tooltip.ShowTooltip();
   }
 }
