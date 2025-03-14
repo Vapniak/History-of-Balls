@@ -26,11 +26,15 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   [Export] private Country PlayerTeam { get; set; }
   [Export] private Country AITeam { get; set; }
 
-  [Export] private EntityData TestEntity { get; set; }
-  [Export] private EntityData TestEntity2 { get; set; }
-  [Export] private EntityData Structure1 { get; set; }
+  [Export] private EntityData Team1Infantry { get; set; }
+  [Export] private EntityData Team1Ranged { get; set; }
+
+  [Export] private EntityData Team2Infantry { get; set; }
+  [Export] private EntityData Team2Ranged { get; set; }
+  [Export] private EntityData Village { get; set; }
   [Export] private EntityData Factory { get; set; }
-  [Export] private EntityData City { get; set; }
+  [Export] private EntityData Team1City { get; set; }
+  [Export] private EntityData Team2City { get; set; }
 
 
   [Export] private ResourceType Primary { get; set; }
@@ -65,34 +69,34 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
     if (controller is PlayerController) {
       controller.Country = PlayerTeam;
-      AddEntityOnClosestAvailableCell(TestEntity, new(1, 0), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(1, 3), controller);
-      AddEntityOnClosestAvailableCell(TestEntity, new(7, 5), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(2, 10), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(6, 7), controller);
+      AddEntityOnClosestAvailableCell(Team1Infantry, new(1, 0), controller);
+      AddEntityOnClosestAvailableCell(Team1Ranged, new(1, 3), controller);
+      AddEntityOnClosestAvailableCell(Team1Infantry, new(7, 5), controller);
+      AddEntityOnClosestAvailableCell(Team1Ranged, new(2, 10), controller);
+      AddEntityOnClosestAvailableCell(Team1Infantry, new(6, 7), controller);
 
-      AddEntityOnClosestAvailableCell(Structure1, new(5, 2), controller);
+      AddEntityOnClosestAvailableCell(Village, new(5, 2), controller);
       AddEntityOnClosestAvailableCell(Factory, new(2, 5), controller);
 
-      AddEntityOnClosestAvailableCell(City, new(2, 8), controller);
+      AddEntityOnClosestAvailableCell(Team1City, new(2, 8), controller);
     }
     else {
       controller.Country = AITeam;
-      AddEntityOnClosestAvailableCell(TestEntity, new(25, 5), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(25, 20), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(28, 6), controller);
-      AddEntityOnClosestAvailableCell(TestEntity, new(22, 8), controller);
-      AddEntityOnClosestAvailableCell(TestEntity2, new(21, 7), controller);
-      AddEntityOnClosestAvailableCell(TestEntity, new(25, 10), controller);
+      AddEntityOnClosestAvailableCell(Team2Infantry, new(25, 5), controller);
+      AddEntityOnClosestAvailableCell(Team2Ranged, new(25, 20), controller);
+      AddEntityOnClosestAvailableCell(Team2Ranged, new(28, 6), controller);
+      AddEntityOnClosestAvailableCell(Team2Infantry, new(22, 8), controller);
+      AddEntityOnClosestAvailableCell(Team2Ranged, new(21, 7), controller);
+      AddEntityOnClosestAvailableCell(Team2Infantry, new(25, 10), controller);
 
-      AddEntityOnClosestAvailableCell(Structure1, new(20, 10), controller);
+      AddEntityOnClosestAvailableCell(Village, new(20, 10), controller);
 
       AddEntityOnClosestAvailableCell(Factory, new(17, 16), controller);
 
-      AddEntityOnClosestAvailableCell(City, new(20, 15), controller);
-      AddEntityOnClosestAvailableCell(Structure1, new(15, 1), null);
-      AddEntityOnClosestAvailableCell(Structure1, new(13, 8), null);
-      AddEntityOnClosestAvailableCell(Structure1, new(10, 14), null);
+      AddEntityOnClosestAvailableCell(Team2City, new(20, 15), controller);
+      AddEntityOnClosestAvailableCell(Village, new(15, 1), null);
+      AddEntityOnClosestAvailableCell(Village, new(13, 8), null);
+      AddEntityOnClosestAvailableCell(Village, new(10, 14), null);
     }
   }
 

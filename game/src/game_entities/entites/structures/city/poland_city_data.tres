@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=14 format=3 uid="uid://c6pe8u6ilatqq"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_7h70u"]
+[ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="1_c51ji"]
+[ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_cfxtk"]
+[ext_resource type="Resource" uid="uid://d3ja3oacsun4e" path="res://src/game_entities/entites/city_type.tres" id="1_t75od"]
+[ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/poland_infantry_data.tres" id="2_8s6kn"]
+[ext_resource type="Script" path="res://src/game_entities/traits/entity_producer/ProducedEntityData.cs" id="3_nw2fg"]
+[ext_resource type="Resource" uid="uid://cq5vkdno7vnpj" path="res://src/game_entities/entites/units/poland_ranged_data.tres" id="4_fpldb"]
+[ext_resource type="Script" path="res://src/game_entities/traits/entity_producer/EntityProducerStats.cs" id="5_wip87"]
+[ext_resource type="PackedScene" uid="uid://daiki3jfmr3l7" path="res://src/game_entities/entites/structures/city/city_traits.tscn" id="8_p8miw"]
+
+[sub_resource type="Resource" id="Resource_kfbyo"]
+script = ExtResource("3_nw2fg")
+Entity = ExtResource("2_8s6kn")
+CostType = 0
+Cost = 2
+RoundsProductionTime = 2
+
+[sub_resource type="Resource" id="Resource_xcbqv"]
+script = ExtResource("3_nw2fg")
+Entity = ExtResource("4_fpldb")
+CostType = 0
+Cost = 3
+RoundsProductionTime = 1
+
+[sub_resource type="Resource" id="Resource_rnqwj"]
+script = ExtResource("5_wip87")
+ProducedEntities = Array[Object]([SubResource("Resource_kfbyo"), SubResource("Resource_xcbqv")])
+
+[sub_resource type="Resource" id="Resource_dl0ud"]
+script = ExtResource("1_c51ji")
+Stats = Array[Object]([ExtResource("1_t75od"), SubResource("Resource_rnqwj")])
+
+[resource]
+script = ExtResource("1_7h70u")
+EntityName = "Poland City"
+Stats = SubResource("Resource_dl0ud")
+TraitsScene = ExtResource("8_p8miw")
+Body = ExtResource("1_cfxtk")

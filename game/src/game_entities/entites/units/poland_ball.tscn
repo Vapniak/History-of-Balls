@@ -1,0 +1,34 @@
+[gd_scene load_steps=8 format=3 uid="uid://djmy308ykthsu"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_bybgq"]
+[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://res/meshes/base_country_ball.tscn" id="2_t0gvw"]
+[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="3_xqu4w"]
+[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="4_tjt2n"]
+[ext_resource type="Texture2D" uid="uid://em1vk1g3frpt" path="res://assets/textures/flags/Poland.png" id="5_vrrs6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2mxxe"]
+render_priority = 0
+shader = ExtResource("3_xqu4w")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wgjh8"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_2mxxe")
+shader = ExtResource("4_tjt2n")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/base_texture = ExtResource("5_vrrs6")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(-0.25, 0)
+
+[node name="EntityBody2" type="Node3D"]
+script = ExtResource("1_bybgq")
+
+[node name="BaseCountryBall" parent="." instance=ExtResource("2_t0gvw")]
+
+[node name="Sphere" parent="BaseCountryBall/sphere" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_wgjh8")
+
+[editable path="BaseCountryBall"]
+[editable path="BaseCountryBall/sphere"]

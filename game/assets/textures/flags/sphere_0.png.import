@@ -3,10 +3,9 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bi1y53nso1yej"
-path.bptc="res://.godot/imported/sphere_0.png-f35fb09346f0b553051a6fbefea30eeb.bptc.ctex"
+path="res://.godot/imported/sphere_0.png-f35fb09346f0b553051a6fbefea30eeb.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 generator_parameters={
 "md5": "fca7485c5bbabf1b8d90607f9f6edf53"
@@ -15,11 +14,11 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/textures/flags/sphere_0.png"
-dest_files=["res://.godot/imported/sphere_0.png-f35fb09346f0b553051a6fbefea30eeb.bptc.ctex"]
+dest_files=["res://.godot/imported/sphere_0.png-f35fb09346f0b553051a6fbefea30eeb.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
