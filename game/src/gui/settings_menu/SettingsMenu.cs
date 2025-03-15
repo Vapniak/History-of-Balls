@@ -47,8 +47,10 @@ public partial class SettingsMenu : Control {
     UpdateFpsLimitAvailability(DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled);
   }
 
-  public override void _Process(double delta) {
-    if (Input.IsActionJustPressed(BuiltinInputActions.UICancel)) {
+  public override void _Input(InputEvent @event) {
+    base._Input(@event);
+
+    if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
       OnClosePressed();
     }
   }

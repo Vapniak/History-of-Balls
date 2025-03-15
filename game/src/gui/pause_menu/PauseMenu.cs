@@ -15,6 +15,15 @@ public partial class PauseMenu : CanvasLayer {
     SettingsMenu.Closed += () => SettingsMenu.Visible = false;
   }
 
+  public override void _Input(InputEvent @event) {
+    base._Input(@event);
+
+    if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
+      GetViewport().SetInputAsHandled();
+      OnResumePressed();
+    }
+  }
+
   private void OnResumePressed() {
     ResumeEvent?.Invoke();
   }

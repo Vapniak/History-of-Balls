@@ -16,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_w17c0")
 _resolutionOptionButton = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/ResolutionOption")
 _screenModeOptionButton = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/ScreenModeOption")
@@ -26,6 +27,13 @@ _fpsLimitLabel = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/FPS 
 _VolumeLimitSlider = NodePath("MarginContainer/TabContainer/Sound/VBoxContainer/Sound")
 _VolumeLimitLabel = NodePath("MarginContainer/TabContainer/Sound/VBoxContainer/SoundLabel")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -33,10 +41,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="ColorRect" type="ColorRect" parent="MarginContainer"]
-layout_mode = 2
-color = Color(0, 0, 0, 1)
+theme_override_constants/margin_top = 50
 
 [node name="TabContainer" type="TabContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -136,9 +141,11 @@ layout_mode = 2
 value = 30.0
 
 [node name="CloseButton" type="Button" parent="."]
-layout_mode = 0
-offset_right = 8.0
-offset_bottom = 8.0
+layout_mode = 1
+offset_right = 50.0
+offset_bottom = 31.0
+size_flags_horizontal = 8
+size_flags_vertical = 0
 text = "Close
 "
 

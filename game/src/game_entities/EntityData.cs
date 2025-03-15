@@ -3,7 +3,7 @@ namespace HOB.GameEntity;
 using Godot;
 using System;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class EntityData : Resource {
   [Export] public string EntityName { get; private set; }
   [Export] public StatsContainer Stats { get; private set; }

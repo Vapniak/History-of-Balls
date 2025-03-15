@@ -83,9 +83,9 @@ public partial class TooltipManager : Node {
 
   private async Task OnShowTimeout() {
     // FIXME: when hovering over one control and then fast on another and then on nothing it shows the tooltip but it shouldnt
-    // if (GetViewport().GuiGetHoveredControl().GetChildByType<TooltipTrigger>() != null ) {
-    //   await Tooltip.ShowTooltip();
-    // }
-    await Tooltip.ShowTooltip();
+    if (GetViewport().GuiGetHoveredControl().GetChildByType<TooltipTrigger>() != null) {
+      await Tooltip.ShowTooltip();
+    }
+    //await Tooltip.ShowTooltip();
   }
 }

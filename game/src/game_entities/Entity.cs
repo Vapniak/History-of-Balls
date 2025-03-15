@@ -28,9 +28,7 @@ public partial class Entity : Node {
     Cell = cell;
     EntityManagment = entityManagment;
     Data = data;
-  }
 
-  public override void _EnterTree() {
     Body = Data.Body.Instantiate<EntityBody>();
     AddChild(Body);
 

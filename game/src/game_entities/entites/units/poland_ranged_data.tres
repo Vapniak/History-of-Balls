@@ -1,0 +1,34 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=13 format=3 uid="uid://cq5vkdno7vnpj"]
+
+[ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_3y7qy"]
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rr7kf"]
+[ext_resource type="Script" path="res://src/game_entities/traits/health/HealthStats.cs" id="2_ibbv5"]
+[ext_resource type="Script" path="res://src/game_entities/traits/move/MovementStats.cs" id="3_06tnv"]
+[ext_resource type="Script" path="res://src/game_entities/traits/attack/AttackStats.cs" id="4_5vcwc"]
+[ext_resource type="Resource" uid="uid://ctvp4tfh0q0dr" path="res://src/game_entities/entites/ranged_type.tres" id="5_7liyf"]
+[ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="6_mpf2e"]
+[ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/units/unit_traits.tscn" id="7_cseo6"]
+
+[sub_resource type="Resource" id="Resource_8acxi"]
+script = ExtResource("2_ibbv5")
+Health = 1
+
+[sub_resource type="Resource" id="Resource_fcvyr"]
+script = ExtResource("3_06tnv")
+MovePoints = 3
+
+[sub_resource type="Resource" id="Resource_xrsyx"]
+script = ExtResource("4_5vcwc")
+Damage = 1
+Range = 3
+
+[sub_resource type="Resource" id="Resource_af50r"]
+script = ExtResource("6_mpf2e")
+Stats = Array[Object]([SubResource("Resource_8acxi"), SubResource("Resource_fcvyr"), SubResource("Resource_xrsyx"), ExtResource("5_7liyf")])
+
+[resource]
+script = ExtResource("1_rr7kf")
+EntityName = "Poland Ranged"
+Stats = SubResource("Resource_af50r")
+TraitsScene = ExtResource("7_cseo6")
+Body = ExtResource("1_3y7qy")

@@ -7,7 +7,9 @@ script = ExtResource("1_s5rk4")
 Label = NodePath("Label3D")
 
 [node name="Label3D" type="Label3D" parent="."]
-sorting_offset = 30.0
+visibility_range_end = 30.0
+visibility_range_end_margin = 40.0
+visibility_range_fade_mode = 1
 pixel_size = 0.0009
 billboard = 1
 double_sided = false

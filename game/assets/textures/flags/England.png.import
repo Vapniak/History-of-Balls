@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://v3yc7rtrx2cs"
-path.bptc="res://.godot/imported/England.png-b6604bfa432e31afce669c755c06ad69.bptc.ctex"
+path="res://.godot/imported/England.png-b6604bfa432e31afce669c755c06ad69.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/textures/flags/England.png"
-dest_files=["res://.godot/imported/England.png-b6604bfa432e31afce669c755c06ad69.bptc.ctex"]
+dest_files=["res://.godot/imported/England.png-b6604bfa432e31afce669c755c06ad69.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1

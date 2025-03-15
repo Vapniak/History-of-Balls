@@ -202,6 +202,7 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 8
+mouse_filter = 0
 
 [node name="VBoxContainer" parent="MarginContainer4/StatPanel" index="0"]
 size_flags_horizontal = 1
