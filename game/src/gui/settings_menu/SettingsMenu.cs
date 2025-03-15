@@ -3,7 +3,9 @@ using System;
 using HOB;
 
 public partial class SettingsMenu : Control {
-  [Signal] public delegate void ClosedEventHandler();
+  [Signal]
+  public delegate void ClosedEventHandler();
+
   [Export] private OptionButton _resolutionOptionButton;
   [Export] private OptionButton _screenModeOptionButton;
   [Export] private CheckBox _borderlessCheckbox;
@@ -14,21 +16,23 @@ public partial class SettingsMenu : Control {
   [Export] private Label _VolumeLimitLabel;
 
   public string[] Resolutions { get; private set; } = [
-          "1152x648",
-          "1280x1024",
-          "1360x768",
-          "1366x768",
-          "1440x900",
-          "1600x900",
-          "1680x1050",
-          "1920x1080"
+    "1152x648",
+    "1280x1024",
+    "1360x768",
+    "1366x768",
+    "1440x900",
+    "1600x900",
+    "1680x1050",
+    "1920x1080"
   ];
+
   public string[] ScreenModes { get; private set; } = [
     "Windowed",
     "Fullscreen"
   ];
 
   private SettingsManager SettingsManager;
+  private const int DefaultMonitorRefresh = 60;
 
   public override void _Ready() {
     SettingsManager = GetNode<SettingsManager>("/root/SettingsManager");
@@ -40,8 +44,7 @@ public partial class SettingsMenu : Control {
     InitializeFpsLimit();
     InitializeVolumeControl();
 
-    _vsyncCheckbox.Toggled += UpdateFpsLimitAvailability;
-    UpdateFpsLimitAvailability(_vsyncCheckbox.ButtonPressed);
+    UpdateFpsLimitAvailability(DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled);
   }
 
   public override void _Input(InputEvent @event) {
@@ -105,41 +108,52 @@ public partial class SettingsMenu : Control {
 
   private void InitializeVolumeControl() {
     float volumeDb = AudioServer.GetBusVolumeDb(0);
-    float volumePercent = Mathf.InverseLerp(-80, 0, volumeDb) * 100;
-
+    float volumePercent = Mathf.Pow(10, volumeDb / 20f) * 100;
     _VolumeLimitSlider.Value = volumePercent;
     _VolumeLimitLabel.Text = $"Volume: {(int)volumePercent}%";
   }
 
   private void UpdateScreenModeDependentControls(bool isFullscreen) {
     UpdateBorderlessAvailability(isFullscreen);
+    _resolutionOptionButton.Disabled = isFullscreen;
   }
 
   private void UpdateBorderlessAvailability(bool isFullscreen) {
     _borderlessCheckbox.Disabled = isFullscreen;
-    _borderlessCheckbox.MouseDefaultCursorShape = isFullscreen ?
-        CursorShape.Forbidden : CursorShape.PointingHand;
+    _borderlessCheckbox.MouseDefaultCursorShape = isFullscreen ? CursorShape.Forbidden : CursorShape.PointingHand;
   }
 
   private void UpdateFpsLimitAvailability(bool vsyncEnabled) {
-    _fpsLimitSlider.Editable = !vsyncEnabled;
-    _fpsLimitSlider.MouseDefaultCursorShape = vsyncEnabled ? CursorShape.Forbidden : CursorShape.Hsize;
-
+    int fpsLimit = (int)_fpsLimitSlider.Value;
     if (vsyncEnabled) {
-      _fpsLimitLabel.Text = "FPS Limit: V-Sync Enabled";
+      if (fpsLimit < DefaultMonitorRefresh) {
+        _fpsLimitSlider.Editable = true;
+        _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Hsize;
+        _fpsLimitLabel.Text = $"FPS Limit: {fpsLimit}";
+      }
+      else {
+        _fpsLimitSlider.Editable = false;
+        _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Forbidden;
+        _fpsLimitLabel.Text = $"FPS Limit: V-Sync Enabled";
+      }
     }
     else {
+      _fpsLimitSlider.Editable = true;
+      _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Hsize;
       var maxFps = Engine.MaxFps;
       _fpsLimitLabel.Text = $"FPS Limit: {(maxFps is 0 or 250 ? "Unlimited" : maxFps.ToString())}";
     }
   }
 
-
   public void OnClosePressed() => EmitSignal(SignalName.Closed);
 
   private void OnResolutionOptionButtonPressed(long index) {
-    var selectedResolution = index < Resolutions.Length ?
-        Resolutions[index] : _resolutionOptionButton.GetItemText((int)index);
+    if (_resolutionOptionButton.Disabled)
+      return;
+
+    var selectedResolution = index < Resolutions.Length
+      ? Resolutions[index]
+      : _resolutionOptionButton.GetItemText((int)index);
 
     var resolution = selectedResolution.Split('x');
     var width = int.Parse(resolution[0]);
@@ -166,6 +180,7 @@ public partial class SettingsMenu : Control {
       GetWindow().Position = Vector2I.Zero;
     }
     else {
+      _resolutionOptionButton.Disabled = false;
       if (_resolutionOptionButton.GetItemCount() > 0) {
         var selectedIndex = _resolutionOptionButton.Selected;
         OnResolutionOptionButtonPressed(selectedIndex);
@@ -173,7 +188,6 @@ public partial class SettingsMenu : Control {
     }
 
     UpdateScreenModeDependentControls(mode == Window.ModeEnum.Fullscreen);
-
     SettingsManager.SaveSettings();
   }
 
@@ -185,13 +199,22 @@ public partial class SettingsMenu : Control {
   }
 
   private void OnVsyncCheckboxToggled(bool buttonPressed) {
-    DisplayServer.WindowSetVsyncMode(buttonPressed ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled);
+    DisplayServer.WindowSetVsyncMode(buttonPressed
+      ? DisplayServer.VSyncMode.Enabled
+      : DisplayServer.VSyncMode.Disabled);
     UpdateFpsLimitAvailability(buttonPressed);
     SettingsManager.SaveSettings();
   }
 
   private void OnFpsLimiterSliderValueChanged(float value) {
-    if (DisplayServer.WindowGetVsyncMode() != DisplayServer.VSyncMode.Enabled) {
+    if (DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled) {
+      if ((int)value < DefaultMonitorRefresh) {
+        Engine.MaxFps = (int)value == 250 ? 0 : (int)value;
+        _fpsLimitLabel.Text = $"FPS Limit: {(value is 0 or 250 ? "Unlimited" : value.ToString())}";
+        SettingsManager.SaveSettings();
+      }
+    }
+    else {
       Engine.MaxFps = (int)value == 250 ? 0 : (int)value;
       _fpsLimitLabel.Text = $"FPS Limit: {(value is 0 or 250 ? "Unlimited" : value.ToString())}";
       SettingsManager.SaveSettings();
@@ -199,8 +222,14 @@ public partial class SettingsMenu : Control {
   }
 
   private void OnVolumeLimiterSliderValueChanged(float value) {
-    float volumeDb = Mathf.Lerp(-80, 0, value / 100);
-    AudioServer.SetBusVolumeDb(0, volumeDb);
+    float normalized = Math.Max(value / 100f, 0.0001f);
+    float volumeDb = (float)Math.Log10(normalized) * 20f;
+
+    int busCount = AudioServer.GetBusCount();
+    for (int i = 0; i < busCount; i++) {
+      AudioServer.SetBusVolumeDb(i, volumeDb);
+    }
+
     _VolumeLimitLabel.Text = $"Volume: {(int)value}%";
     SettingsManager.SaveSettings();
   }
