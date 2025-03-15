@@ -167,8 +167,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       entity.ChangeOwner(owner);
     };
 
-    AddChild(entity);
     Entities.Add(entity);
+    AddChild(entity);
 
   }
 

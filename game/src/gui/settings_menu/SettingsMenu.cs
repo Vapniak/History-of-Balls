@@ -128,11 +128,13 @@ public partial class SettingsMenu : Control {
     if (vsyncEnabled) {
       if (fpsLimit < DefaultMonitorRefresh) {
         _fpsLimitSlider.Editable = true;
+        _fpsLimitSlider.Visible = true;
         _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Hsize;
         _fpsLimitLabel.Text = $"FPS Limit: {fpsLimit}";
       }
       else {
         _fpsLimitSlider.Editable = false;
+        _fpsLimitSlider.Visible = false;
         _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Forbidden;
         _fpsLimitLabel.Text = $"FPS Limit: V-Sync Enabled";
       }

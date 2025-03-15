@@ -1,5 +1,0 @@
-[gd_resource type="SystemFont" format=3 uid="uid://dpit8xh8cuob8"]
-
-[resource]
-font_names = PackedStringArray("Monospace", "Sans-Serif")
-font_weight = 675

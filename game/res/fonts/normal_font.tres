@@ -1,0 +1,8 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cxcjaawkkay0t"]
+
+[ext_resource type="FontFile" uid="uid://n7doqnw75e1h" path="res://assets/fonts/GEORGIA.TTF" id="1_kmb2f"]
+
+[resource]
+base_font = ExtResource("1_kmb2f")
+spacing_top = 1
+spacing_bottom = 1

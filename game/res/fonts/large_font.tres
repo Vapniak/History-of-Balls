@@ -1,0 +1,7 @@
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://4q83c031pmgv"]
+
+[ext_resource type="FontFile" uid="uid://b06w00targk7k" path="res://assets/fonts/GARABD.TTF" id="1_87f5l"]
+
+[resource]
+base_font = ExtResource("1_87f5l")
+variation_embolden = 0.5

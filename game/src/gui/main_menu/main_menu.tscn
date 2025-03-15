@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=17 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/gui/main_menu/MainMenu.cs" id="1_pi010"]
 [ext_resource type="Texture2D" uid="uid://dr1u23201hpet" path="res://assets/textures/HoB-menu-parallax/14.png" id="2_x4h0o"]
@@ -16,9 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://cnox7nc47jgg7" path="res://assets/textures/HoB-menu-parallax/2.png" id="14_em2or"]
 [ext_resource type="Texture2D" uid="uid://c6mdo6dqfc0s" path="res://assets/textures/HoB-menu-parallax/1.png" id="15_pgedg"]
 [ext_resource type="Texture2D" uid="uid://cxvin15p5jeev" path="res://assets/textures/HoB-menu-parallax/0.png" id="16_7cge3"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_t67j1"]
-font_size = 128
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("ParallaxBackground")]
 layout_mode = 3
@@ -225,8 +222,9 @@ theme_override_constants/margin_top = 100
 [node name="Label" type="Label" parent="MarginContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
+theme_type_variation = &"HeaderLarge"
+theme_override_font_sizes/font_size = 128
 text = "HISTORY OF BALLS"
-label_settings = SubResource("LabelSettings_t67j1")
 horizontal_alignment = 1
 uppercase = true
 

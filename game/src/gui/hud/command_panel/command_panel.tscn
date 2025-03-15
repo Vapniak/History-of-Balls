@@ -23,8 +23,9 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 2
+theme_type_variation = &"ActionButton"
 icon = ExtResource("2_7t7dh")
-icon_alignment = 1
+vertical_icon_alignment = 0
 expand_icon = true
 
 [node name="Button2" type="Button" parent="VBoxContainer2"]
