@@ -19,7 +19,7 @@ public partial class TimeDisplay : Control {
     var timeString = now.ToString("HH:mm");
 
     CurrentTimeLabel.Text = timeString;
-    var time = TimeSpan.FromMilliseconds(Time.GetTicksMsec() - GameInstance.GetGameState<IMatchGameState>().GameStartTicksMSec);
+    var time = TimeSpan.FromMilliseconds(GameInstance.GetGameState<IMatchGameState>().GameTimeMSec);
     TimePlayedLabel.Text = $"{time.Minutes:00}:{time.Seconds:00}";
   }
 }

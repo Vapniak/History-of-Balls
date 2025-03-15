@@ -102,7 +102,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   public void OnGameStarted() {
-    GetGameState().GameStartTicksMSec = Time.GetTicksMsec();
+    GetGameState().GameTimeMSec = 0;
 
     foreach (var player in GetGameState().PlayerArray) {
       var controller = player.GetController<IMatchController>();

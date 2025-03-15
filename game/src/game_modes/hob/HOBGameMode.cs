@@ -107,6 +107,11 @@ public partial class HOBGameMode : GameMode {
     MatchComponent.TurnStarted -= CheckWinCondition;
   }
 
+  private void OnInMatchPlayingStateProcess(float delta) {
+    GetGameState().GameTimeMSec += (ulong)(delta * 1000f);
+  }
+
+
   private void OnMatchEndedStateEntered() {
     GameInstance.SetPause(true);
   }
