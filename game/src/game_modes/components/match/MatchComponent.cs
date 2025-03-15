@@ -68,6 +68,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     playerState.SecondaryResourceType = Secondary.Duplicate() as ResourceType;
 
     playerState.PrimaryResourceType.Value = 5;
+    playerState.SecondaryResourceType.Value = 3;
 
     if (controller is PlayerController) {
       controller.Country = PlayerTeam;
