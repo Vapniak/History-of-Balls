@@ -126,21 +126,14 @@ public partial class SettingsMenu : Control {
   private void UpdateFpsLimitAvailability(bool vsyncEnabled) {
     int fpsLimit = (int)_fpsLimitSlider.Value;
     if (vsyncEnabled) {
-      if (fpsLimit < DefaultMonitorRefresh) {
-        _fpsLimitSlider.Editable = true;
-        _fpsLimitSlider.Visible = true;
-        _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Hsize;
-        _fpsLimitLabel.Text = $"FPS Limit: {fpsLimit}";
-      }
-      else {
-        _fpsLimitSlider.Editable = false;
-        _fpsLimitSlider.Visible = false;
-        _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Forbidden;
-        _fpsLimitLabel.Text = $"FPS Limit: V-Sync Enabled";
-      }
+      _fpsLimitSlider.Editable = false;
+      _fpsLimitSlider.Visible = false;
+      _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Forbidden;
+      _fpsLimitLabel.Text = $"FPS Limit: V-Sync Enabled";
     }
     else {
       _fpsLimitSlider.Editable = true;
+      _fpsLimitSlider.Visible = true;
       _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Hsize;
       var maxFps = Engine.MaxFps;
       _fpsLimitLabel.Text = $"FPS Limit: {(maxFps is 0 or 250 ? "Unlimited" : maxFps.ToString())}";

@@ -80,9 +80,7 @@ public partial class HOBHUD : HUD {
       else {
         HideProductionPanel();
       }
-
     };
-
 
     CommandPanel.CommandSelected += (command) => {
       GetPlayerController().OnHUDCommandSelected(command);
@@ -223,16 +221,16 @@ public partial class HOBHUD : HUD {
   }
 
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
-    panel.SetNameLabel(entity.GetEntityName());
-
     panel.ClearEntries();
 
+    panel.SetNameLabel(entity.GetEntityName());
     if (entity.TryGetStat<MovementStats>(out var movementStats)) {
       panel.AddEntry("Move Points:", movementStats.MovePoints.ToString());
     }
 
     if (entity.TryGetStat<HealthStats>(out var healthStats)) {
       panel.AddEntry("Health:", healthStats.CurrentHealth.ToString());
+      // FIXME: this is unsubscribed
       healthStats.CurrentHealthChanged += () => panel.UpdateEntry("Health", healthStats.CurrentHealth.ToString());
     }
 
@@ -259,6 +257,7 @@ public partial class HOBHUD : HUD {
       if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
         if (factoryTrait.ProcessingRoundsLeft > 0) {
           panel.AddEntry("Processing Turns Left:", factoryTrait.ProcessingRoundsLeft.ToString());
+          factoryTrait.ProcessingRoundsLeftChanged += () => panel.UpdateEntry("Processing Turns Left:", factoryTrait.ProcessingRoundsLeft.ToString());
         }
       }
     }
@@ -273,6 +272,8 @@ public partial class HOBHUD : HUD {
         if (producerTrait.CurrentProducedEntity != null) {
           panel.AddEntry("Producing Entity:", producerTrait.CurrentProducedEntity.Entity.EntityName);
           panel.AddEntry("Rounds Left:", producerTrait.ProductionRoundsLeft.ToString());
+
+          producerTrait.ProductionRoundsLeftChanged += () => panel.UpdateEntry("Rounds Left:", producerTrait.ProductionRoundsLeft.ToString());
         }
       }
     }

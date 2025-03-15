@@ -6,7 +6,8 @@ using System;
 [GlobalClass]
 public partial class FactoryTrait : Trait {
   [Signal] public delegate void ProcessingFinishedEventHandler();
-  public uint ProcessingRoundsLeft { get; private set; }
+  [Notify]
+  public uint ProcessingRoundsLeft { get => _processingRoundsLeft.Get(); private set => _processingRoundsLeft.Set(value); }
 
   private bool _startedProcessingThisTurn;
 
