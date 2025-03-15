@@ -97,7 +97,7 @@ public partial class Entity : Node {
     await ToSignal(tween, Tween.SignalName.Finished);
   }
 
-  public void SetMaterial(Material material) {
+  public void SetMaterialOverlay(Material material) {
     foreach (var child in Body.GetAllChildren()) {
       if (child is MeshInstance3D meshInstance) {
         meshInstance.MaterialOverlay = material;

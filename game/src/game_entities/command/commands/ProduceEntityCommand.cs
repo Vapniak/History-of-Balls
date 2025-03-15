@@ -24,7 +24,7 @@ public partial class ProduceEntityCommand : Command {
     return false;
   }
 
-  public override bool CanBeUsed() => base.CanBeUsed() && ProducerTrait.ProductionRoundsLeft == 0 && GetEntity().TryGetStat<EntityProducerStats>(out var stat) && stat.ProducedEntities.Any(CanEntityBeProduced);
+  public override bool CanBeUsed() => base.CanBeUsed() && ProducerTrait.CurrentProducedEntity == null && GetEntity().TryGetStat<EntityProducerStats>(out var stat) && stat.ProducedEntities.Any(CanEntityBeProduced);
 
   public override void OnTurnStarted() {
     base.OnTurnStarted();

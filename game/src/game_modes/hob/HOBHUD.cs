@@ -42,6 +42,14 @@ public partial class HOBHUD : HUD {
       OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
     };
 
+    GetPlayerController().SelectedEntityChanging += () => {
+      var selectedEntity = GetPlayerController().SelectedEntity;
+
+      if (selectedEntity != null && selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+        commandTrait.CommandStarted -= onCommandStarted;
+        commandTrait.CommandFinished -= onCommandFinished;
+      }
+    };
 
     GetPlayerController().SelectedEntityChanged += () => {
       var selectedEntity = GetPlayerController().SelectedEntity;
@@ -54,6 +62,9 @@ public partial class HOBHUD : HUD {
       else {
         if (selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
           ShowCommandPanel(commandTrait);
+
+          commandTrait.CommandStarted += onCommandStarted;
+          commandTrait.CommandFinished += onCommandFinished;
         }
 
         ShowStatPanel(selectedEntity);
@@ -76,6 +87,14 @@ public partial class HOBHUD : HUD {
     CommandPanel.CommandSelected += (command) => {
       GetPlayerController().OnHUDCommandSelected(command);
     };
+
+    void onCommandStarted(Command command) {
+      UpdateStatPanel(StatPanel, command.GetEntity());
+    }
+
+    void onCommandFinished(Command command) {
+      UpdateStatPanel(StatPanel, command.GetEntity());
+    }
   }
 
   public void OnGameStarted() {
@@ -251,7 +270,7 @@ public partial class HOBHUD : HUD {
 
     if (owner == GetPlayerController()) {
       if (entity.TryGetTrait<EntityProducerTrait>(out var producerTrait)) {
-        if (producerTrait.ProductionRoundsLeft > 0) {
+        if (producerTrait.CurrentProducedEntity != null) {
           panel.AddEntry("Producing Entity:", producerTrait.CurrentProducedEntity.Entity.EntityName);
           panel.AddEntry("Rounds Left:", producerTrait.ProductionRoundsLeft.ToString());
         }

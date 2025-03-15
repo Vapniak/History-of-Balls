@@ -67,6 +67,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     playerState.PrimaryResourceType = Primary.Duplicate() as ResourceType;
     playerState.SecondaryResourceType = Secondary.Duplicate() as ResourceType;
 
+    playerState.PrimaryResourceType.Value = 5;
+
     if (controller is PlayerController) {
       controller.Country = PlayerTeam;
       AddEntityOnClosestAvailableCell(Team1Infantry, new(1, 0), controller);
@@ -87,7 +89,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       AddEntityOnClosestAvailableCell(Team2Ranged, new(28, 6), controller);
       AddEntityOnClosestAvailableCell(Team2Infantry, new(22, 8), controller);
       AddEntityOnClosestAvailableCell(Team2Ranged, new(21, 7), controller);
-      AddEntityOnClosestAvailableCell(Team2Infantry, new(25, 10), controller);
 
       AddEntityOnClosestAvailableCell(Village, new(20, 10), controller);
 

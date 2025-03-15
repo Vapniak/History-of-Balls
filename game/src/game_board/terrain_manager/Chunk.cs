@@ -111,9 +111,7 @@ public partial class Chunk : StaticBody3D {
 
     TriangulateEdgeFan(pos, e, TerrainMesh);
 
-    if (direction <= HexDirection.Third) {
-      TriangulateConnection(direction, cell, e);
-    }
+    TriangulateConnection(direction, cell, e);
 
     if (cell.GetSetting().IsWater) {
       TriangulateWater(direction, cell);
@@ -159,13 +157,6 @@ public partial class Chunk : StaticBody3D {
           wallTop2,
           wallBottom1,
           wallBottom2
-      );
-
-      TerrainMesh.AddQuadAutoUV(
-          wallBottom1,
-          wallBottom2,
-          wallTop1,
-          wallTop2
       );
       return;
     }

@@ -107,6 +107,7 @@ turbulence_influence_max = 0.161
 turbulence_influence_over_life = SubResource("CurveTexture_tnoyy")
 
 [node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_ggdef")
 Camera = NodePath("Camera3D")
 EdgeMarginPixels = 10

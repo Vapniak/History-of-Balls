@@ -144,25 +144,11 @@ public partial class AIController : Controller, IMatchController {
   }
 
   private float CalculateAttackUtility(AttackCommand attackCommand, Entity target) {
-    float utility = 0;
-
     if (!attackCommand.AttackTrait.CanBeAttacked(target)) {
       return -1;
     }
 
-    attackCommand.GetEntity().TryGetStat<AttackStats>(out var attackStat);
-    if (target.TryGetStat<HealthStats>(out var healthStats)) {
-      utility += 100 - healthStats.CurrentHealth;
-
-      if (healthStats.CurrentHealth < attackStat.Damage) {
-        utility -= 20;
-      }
-    }
-
-    float distance = attackCommand.GetEntity().Cell.Coord.Distance(target.Cell.Coord);
-    utility -= distance * 5;
-
-    return utility;
+    return 2;
   }
 
   private float CalculateProduceUtility(ProduceEntityCommand produceEntityCommand, ProducedEntityData data) {

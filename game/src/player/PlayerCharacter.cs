@@ -60,7 +60,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
       return;
     }
 
-    var targetVelocity = new Vector3(-mouseDisplacement.X, 0f, -mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti / (float)delta;
+    var targetVelocity = new Vector3(mouseDisplacement.X, 0f, mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti / (float)delta;
     Velocity = new Vector3(
         SmoothDamp(Velocity.X, targetVelocity.X, ref _panVelocity.X, 0.1f, float.MaxValue, (float)delta),
         Velocity.Y,
@@ -117,7 +117,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   }
 
   public void Move(double delta) {
-    GlobalTranslate(Velocity * (float)delta);
+    GlobalTranslate(GlobalTransform.Basis * -Velocity * (float)delta);
     SpeedMulti = 1f;
   }
 
