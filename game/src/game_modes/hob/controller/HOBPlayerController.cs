@@ -50,12 +50,63 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     StateChart = StateChart.Of(StateChartNode);
 
     GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
+    GetGameMode().GetEntityManagment().EntityRemoved += onEntityRemoved;
+
+    void onEntityRemoved(Entity entity) {
+      var entitiesOnCell = EntityManagment.GetEntitiesOnCell(entity.Cell);
+      if (entitiesOnCell.Length > 1) {
+        foreach (var e in entitiesOnCell) {
+          if (e == entity) {
+            continue;
+          }
+          else {
+            foreach (var child in e.Body.GetAllChildren()) {
+              if (child is MeshInstance3D mesh) {
+                mesh.Transparency = 0.5f;
+              }
+            }
+          }
+        }
+      }
+      else {
+        foreach (var e in entitiesOnCell) {
+          if (e == entity) {
+            continue;
+          }
+          else {
+            foreach (var child in e.Body.GetAllChildren()) {
+              if (child is MeshInstance3D mesh) {
+                mesh.Transparency = 0f;
+              }
+            }
+          }
+        }
+      }
+    }
 
     void onEntityAdded(Entity entity) {
       var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node3D>();
       entity.Body.AddChild(ui3d);
 
-      ui3d.Position = new Vector3(0, 3, 0);
+      var entitiesOnCell = EntityManagment.GetEntitiesOnCell(entity.Cell);
+      if (entitiesOnCell.Length > 1) {
+        ui3d.Position = new Vector3(0, 5, 0);
+        foreach (var e in entitiesOnCell) {
+          if (e == entity) {
+            continue;
+          }
+          else {
+            foreach (var child in e.Body.GetAllChildren()) {
+              if (child is MeshInstance3D mesh) {
+                mesh.Transparency = 0.5f;
+              }
+            }
+          }
+        }
+      }
+      else {
+        ui3d.Position = new Vector3(0, 3, 0);
+      }
 
       var entityUI = ui3d.GetChildByType<EntityUI>();
       entity.EntityUI = entityUI;
@@ -68,9 +119,37 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
 
       if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
+        entity.CellChanging += () => {
+          entitiesOnCell = EntityManagment.GetEntitiesOnCell(entity.Cell);
+          foreach (var e in entitiesOnCell) {
+            if (e == entity) {
+              continue;
+            }
+            else {
+              foreach (var child in e.Body.GetAllChildren()) {
+                if (child is MeshInstance3D mesh) {
+                  mesh.Transparency = 0f;
+                }
+              }
+            }
+          }
+        };
         entity.CellChanged += () => {
-          if (EntityManagment.GetEntitiesOnCell(entity.Cell).Length > 1) {
+          entitiesOnCell = EntityManagment.GetEntitiesOnCell(entity.Cell);
+          if (entitiesOnCell.Length > 1) {
             ui3d.Position = new Vector3(0, 5, 0);
+            foreach (var e in entitiesOnCell) {
+              if (e == entity) {
+                continue;
+              }
+              else {
+                foreach (var child in e.Body.GetAllChildren()) {
+                  if (child is MeshInstance3D mesh) {
+                    mesh.Transparency = 0.5f;
+                  }
+                }
+              }
+            }
           }
           else {
             ui3d.Position = new Vector3(0, 3, 0);

@@ -44,16 +44,15 @@ public partial class ProcessResourcesCommand : Command {
 
 
   private void TryUse() {
-    if (CanBeUsed()) {
-      var timer = new Timer();
-      AddChild(timer);
-      timer.Timeout += () => {
+    var timer = new Timer();
+    AddChild(timer);
+    timer.Timeout += () => {
+      if (CanBeUsed()) {
         FactoryTrait.StartProcessing();
         Use();
-        timer.QueueFree();
-      };
-
-      timer.Start(.5f);
-    }
+      }
+      timer.QueueFree();
+    };
+    timer.Start(.5f);
   }
 }
