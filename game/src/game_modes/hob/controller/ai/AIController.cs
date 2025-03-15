@@ -154,6 +154,10 @@ public partial class AIController : Controller, IMatchController {
   private float CalculateProduceUtility(ProduceEntityCommand produceEntityCommand, ProducedEntityData data) {
     float utility = 0;
 
+    if (!produceEntityCommand.CanEntityBeProduced(data)) {
+      return 0;
+    }
+
     var entities = EntityManagment.GetOwnedEntites(this);
 
     var rangedCount = entities.Count(e => e.TryGetStat<AttackStats>(out var stats) && stats.Range > 1);
