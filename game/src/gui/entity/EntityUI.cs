@@ -8,6 +8,10 @@ public partial class EntityUI : Control {
   [Export] private TextureRect IconTextureRect { get; set; }
   [Export] private Control TeamColorContainer { get; set; }
   [Export] private Control CommandIconsContainer { get; set; }
+  [Export] private PanelContainer IconTextureContainer { get; set; }
+  [Export] private StyleBox UnitIconPanelStyleBox { get; set; }
+  [Export] private StyleBox StructureIconPanelStyleBox { get; set; }
+
   public override void _Ready() {
     IconTextureRect.Visible = false;
     HideCommandIcons();
@@ -28,7 +32,7 @@ public partial class EntityUI : Control {
     IconTextureRect.Texture = texture;
   }
 
-  public void ShowCommandIcons(Entity entity) {
+  public void Update(Entity entity, IMatchController caller) {
     if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
       foreach (var child in CommandIconsContainer.GetChildren()) {
         child.Free();
@@ -46,7 +50,7 @@ public partial class EntityUI : Control {
         }
       }
 
-      if (CommandIconsContainer.GetChildCount() == 0) {
+      if (CommandIconsContainer.GetChildCount() == 0 || (entity.TryGetOwner(out var owner) && owner != caller)) {
         HideCommandIcons();
       }
       else {
@@ -55,6 +59,14 @@ public partial class EntityUI : Control {
     }
     else {
       HideCommandIcons();
+    }
+
+    // TODO: add tag system
+    if (entity.TryGetTrait<MoveTrait>(out _)) {
+      IconTextureContainer.AddThemeStyleboxOverride("panel", UnitIconPanelStyleBox);
+    }
+    else {
+      IconTextureContainer.AddThemeStyleboxOverride("panel", StructureIconPanelStyleBox);
     }
   }
 

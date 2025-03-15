@@ -214,48 +214,44 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -4.0
-offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="StartButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
-layout_mode = 2
-text = "Start"
-
-[node name="SettigsButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
-layout_mode = 2
-text = "Settings"
-
-[node name="QuitButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
-layout_mode = 2
-text = "Quit
-"
-
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer2"]
-layout_mode = 2
-size_flags_horizontal = 4
 size_flags_vertical = 0
 theme_override_constants/margin_top = 100
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer2/MarginContainer"]
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer2"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 0
 text = "HISTORY OF BALLS"
 label_settings = SubResource("LabelSettings_t67j1")
 horizontal_alignment = 1
 uppercase = true
 
-[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
-[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/SettigsButton" to="." method="OnSettingsButtonPressed"]
-[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"ButtonMenu"
+text = "Start"
+
+[node name="SettigsButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"ButtonMenu"
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"ButtonMenu"
+text = "Quit
+"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SettigsButton" to="." method="OnSettingsButtonPressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]

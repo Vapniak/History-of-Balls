@@ -72,6 +72,7 @@ folder_colors={
 [gui]
 
 theme/custom="res://res/default_theme.tres"
+theme/custom_font="res://assets/fonts/normal_font.tres"
 theme/default_font_hinting=2
 theme/default_font_generate_mipmaps=true
 

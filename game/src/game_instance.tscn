@@ -1,7 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://oabxjhe8u25j"]
+[gd_scene load_steps=4 format=3 uid="uid://oabxjhe8u25j"]
 
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/globals/GameInstance.cs" id="1_ld3ae"]
+[ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_2xn15"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ab3c"]
 
 [node name="GameInstance" type="Node"]
 script = ExtResource("1_ld3ae")
 LevelsDirectoryPath = "res://src/levels"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 20.0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8ab3c")
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+text = "60
+"
+horizontal_alignment = 1
+script = ExtResource("2_2xn15")

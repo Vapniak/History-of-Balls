@@ -29,8 +29,10 @@ _VolumeLimitLabel = NodePath("MarginContainer/TabContainer/Sound/VBoxContainer/S
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 2
-offset_right = 1920.0
-offset_bottom = 1080.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
@@ -41,7 +43,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_top = 50
 
 [node name="TabContainer" type="TabContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -140,11 +141,9 @@ vertical_alignment = 1
 layout_mode = 2
 value = 30.0
 
-[node name="CloseButton" type="Button" parent="."]
-layout_mode = 1
-offset_right = 50.0
-offset_bottom = 31.0
-size_flags_horizontal = 8
+[node name="CloseButton" type="Button" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
 size_flags_vertical = 0
 text = "Close
 "
@@ -155,4 +154,4 @@ text = "Close
 [connection signal="toggled" from="MarginContainer/TabContainer/Video/VBoxContainer/Borderless/CheckBox" to="." method="OnBorderlessCheckboxToggled"]
 [connection signal="toggled" from="MarginContainer/TabContainer/Video/VBoxContainer/v-sync/CheckBox" to="." method="OnVsyncCheckboxToggled"]
 [connection signal="value_changed" from="MarginContainer/TabContainer/Sound/VBoxContainer/Sound" to="." method="OnVolumeLimiterSliderValueChanged"]
-[connection signal="pressed" from="CloseButton" to="." method="OnClosePressed"]
+[connection signal="pressed" from="MarginContainer/CloseButton" to="." method="OnClosePressed"]
