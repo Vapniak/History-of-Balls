@@ -234,6 +234,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
+  public override void _Notification(int what) {
+    base._Notification(what);
+
+    if (what == MainLoop.NotificationApplicationFocusOut) {
+      GetGameMode().Pause();
+    }
+  }
+
   public override void _UnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
       if (!GetTree().Paused) {

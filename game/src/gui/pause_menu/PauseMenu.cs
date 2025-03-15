@@ -17,12 +17,11 @@ public partial class PauseMenu : CanvasLayer {
 
   public override void _Input(InputEvent @event) {
     base._Input(@event);
-    GetViewport().SetInputAsHandled();
 
     if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
+      GetViewport().SetInputAsHandled();
       OnResumePressed();
     }
-
   }
 
   private void OnResumePressed() {

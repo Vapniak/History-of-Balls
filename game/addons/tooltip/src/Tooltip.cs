@@ -19,12 +19,14 @@ public partial class Tooltip : CanvasLayer {
   }
 
   public async Task ShowTooltip() {
+    Show();
     _currentTween?.Kill();
 
     _currentTween = CreateTween();
     _currentTween.TweenProperty(TooltipContainer, "modulate", Colors.White, 0.1f);
 
     await ToSignal(_currentTween, Tween.SignalName.Finished);
+
   }
 
   public async Task HideTooltip() {
@@ -34,6 +36,8 @@ public partial class Tooltip : CanvasLayer {
     _currentTween.TweenProperty(TooltipContainer, "modulate", Colors.Transparent, 0.1f);
 
     await ToSignal(_currentTween, Tween.SignalName.Finished);
+
+    Hide();
   }
 
   public void SetTooltip(string text, Vector2 position) {
