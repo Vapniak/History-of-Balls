@@ -36,7 +36,6 @@ RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
 GameInstance="*res://src/game_instance.tscn"
 SettingsManager="*res://src/gui/settings_menu/SettingsManager.cs"
 TooltipManager="*res://addons/tooltip/src/tooltip_manager.tscn"
-Panku="*res://addons/panku_console/console.tscn"
 
 [debug_draw_3d]
 
@@ -59,7 +58,7 @@ project/assembly_name="History of Balls"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gameplay_framework/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/panku_console/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/tooltip/plugin.cfg")
+enabled=PackedStringArray("res://addons/gameplay_framework/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/tooltip/plugin.cfg")
 
 [file_customization]
 
