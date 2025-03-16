@@ -163,14 +163,15 @@ public partial class AIController : Controller, IMatchController {
 
     var attackStats = attackCommand.GetEntity().GetStat<AttackStats>();
 
-    // will kill
-    if (attackStats.Damage >= target.GetStat<HealthStats>().Health) {
-      utility += 1;
+    if (target.TryGetStat<HealthStats>(out var stats)) {
+      if (stats.CurrentHealth - attackStats.Damage <= 0) {
+        utility = 2;
+      }
+      else {
+        utility = 1f / (stats.CurrentHealth - attackStats.Damage + 1);
+      }
     }
-    else {
-      utility += 0.5f;
-    }
-
+    GD.Print(utility);
     return utility;
   }
 
