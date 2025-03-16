@@ -50,7 +50,8 @@ public partial class SettingsMenu : Control {
   public override void _Input(InputEvent @event) {
     base._Input(@event);
 
-    if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
+    if (Visible && @event.IsActionPressed(BuiltinInputActions.UICancel)) {
+      GetViewport().SetInputAsHandled();
       OnClosePressed();
     }
   }

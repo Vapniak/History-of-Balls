@@ -242,13 +242,18 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
-  public override void _UnhandledInput(InputEvent @event) {
+  public override void _Input(InputEvent @event) {
+    base._Input(@event);
+
     if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
       if (!GetTree().Paused) {
+        GetViewport().SetInputAsHandled();
         GetGameMode().Pause();
       }
     }
+  }
 
+  public override void _UnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
       _lastMousePosition = GetViewport().GetMousePosition();
