@@ -119,13 +119,14 @@ public partial class AIController : Controller, IMatchController {
     float utility = 0;
 
     var closestEnemy = FindClosestEnemy(moveCommand.GetEntity());
+
     bestCell = null;
     if (closestEnemy != null) {
       bestCell ??= closestEnemy.Cell;
       if (closestEnemy.TryGetTrait<HealthTrait>(out _) && moveCommand.GetEntity().TryGetStat<AttackStats>(out var stats)) {
         foreach (var cell in moveCommand.GetReachableCells()) {
           var distance = cell.Coord.Distance(moveCommand.GetEntity().Cell.Coord);
-          if (distance >= bestCell.Coord.Distance(moveCommand.GetEntity().Cell.Coord) && cell.Coord.Distance(closestEnemy.Cell.Coord) <= stats.Range) {
+          if (distance > bestCell.Coord.Distance(moveCommand.GetEntity().Cell.Coord) && cell.Coord.Distance(closestEnemy.Cell.Coord) <= stats.Range) {
             bestCell = cell;
           }
         }
@@ -141,13 +142,17 @@ public partial class AIController : Controller, IMatchController {
 
   private Entity FindClosestEnemy(Entity currentEntity) {
     Entity closestEnemy = null;
-    var closestDistance = float.MaxValue;
 
+    var value = 0f;
     foreach (var enemy in EntityManagment.GetEnemyEntities(this).Union(EntityManagment.GetNotOwnedEntities())) {
       float distance = currentEntity.Cell.Coord.Distance(enemy.Cell.Coord);
-      if (distance < closestDistance) {
-        closestDistance = distance;
+      var currentValue = 1f / distance;
+      if (enemy.TryGetTrait<IncomeTrait>(out _)) {
+        currentValue *= 1.1f;
+      }
+      if (value < currentValue) {
         closestEnemy = enemy;
+        value = currentValue;
       }
     }
 
@@ -171,7 +176,7 @@ public partial class AIController : Controller, IMatchController {
         utility = 1f / (stats.CurrentHealth - attackStats.Damage + 1);
       }
     }
-    GD.Print(utility);
+
     return utility;
   }
 
@@ -187,11 +192,13 @@ public partial class AIController : Controller, IMatchController {
     var rangedCount = entities.Count(e => e.TryGetStat<AttackStats>(out var stats) && stats.Range > 1);
     var meleeCount = entities.Count(e => e.TryGetStat<AttackStats>(out var stats) && stats.Range == 1);
 
-    if (data.Entity.Stats.TryGetStat<AttackStats>(out var stat) && stat.Range > 1 && meleeCount < rangedCount) {
-      return 0;
-    }
-    else {
-      utility = 1;
+    if (data.Entity.Stats.TryGetStat<AttackStats>(out var stat)) {
+      if (stat.Range > 1 && meleeCount < rangedCount) {
+        utility = 0;
+      }
+      else {
+        utility = 1;
+      }
     }
 
     return utility;
