@@ -13,7 +13,7 @@ var base_font_size = 16
 
 var base_corner_radius = 5
 var base_border_width = 7
-var base_margin = 5
+var base_margin = 10
 
 func setup():
 	set_save_path("res://res/default_theme.tres")
@@ -29,14 +29,28 @@ func define_theme():
 	})
 
 	define_style("PanelContainer", {
+		panel = stylebox_empty({}),
+	})
+
+	define_style("Panel", {
 		panel = panel_style,
 	})
 
-	define_variant_style("TopBarPanel", "PanelContainer", {
+	define_variant_style("TopBarPanel", "Panel", {
 		panel = inherit(panel_style, {
 			content_margins_ = content_margins(base_margin),
 			corner_radius_ = corner_radius(0, 0, base_corner_radius* 2, base_corner_radius * 2)
 		}),
+	})
+
+	define_variant_style("BackgroundPanel", "Panel", {
+		panel = inherit(panel_style, {
+			corner_radius_ = corner_radius(0)
+		})
+	})
+
+	define_style("BoxContainer", {
+		separation = base_margin
 	})
 
 	var button_style = stylebox_flat({
@@ -49,7 +63,7 @@ func define_theme():
 
 	var hover_style = inherit(button_style, {
 		bg_color = background_color.lightened(0.15),
-		#border_color = background_color.lightened(0.1)
+		#border_color = background_color.lightened(0.2)
 	})
 
 	var focus_style = inherit(button_style, {
@@ -57,7 +71,8 @@ func define_theme():
 	})
 
 	var pressed_style = inherit(button_style, {
-		bg_color = background_color.darkened(1),
+		bg_color = background_color.darkened(.2),
+		#border_color = background_color.darkened(.5)
 	})
 
 	var disabled_style = inherit(button_style, {
@@ -72,11 +87,21 @@ func define_theme():
 		disabled = disabled_style,
 	})
 
-	define_variant_style("ActionButton", "Button", {
-
+	var action_button_style = stylebox_flat({
+		border_width_ = border_width(2),
+		border_color = background_color.lightened(.7),
+		content_margin_ = content_margins(base_margin / 2)
 	})
 
-	define_variant_style("ButtonMenu", "Button", {
+	define_variant_style("ActionButton", "Button", {
+		normal = inherit(button_style, action_button_style),
+		hover = inherit(hover_style, action_button_style),
+		focus = inherit(focus_style, action_button_style),
+		pressed = inherit(pressed_style, action_button_style),
+		disabled = inherit(disabled_style, action_button_style),
+	})
+
+	define_variant_style("LargeButton", "Button", {
 		font_size = base_font_size + 8
 	})
 
@@ -92,3 +117,28 @@ func define_theme():
 	define_variant_style("HeaderSmall", "Label", {
 		font_size = base_font_size + 8,
 	})
+
+	define_variant_style("MarginLarge", "MarginContainer", {
+		content_margins_ = margin(base_margin * 3),
+	})
+
+	define_variant_style("MarginMedium", "MarginContainer", {
+		content_margins_ = margin(base_margin * 2),
+	})
+
+	define_variant_style("MarginSmall", "MarginContainer", {
+		margin_ = margin(base_margin)
+	})
+
+
+func margin(left: int, top = null, right = null, bottom = null):
+	if top == null: top = left
+	if right == null: right = left
+	if bottom == null: bottom = top
+
+	return {
+		"margin_left": left,
+		"margin_top": top,
+		"margin_right": right,
+		"margin_bottom": bottom
+	}

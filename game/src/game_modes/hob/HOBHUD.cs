@@ -206,8 +206,6 @@ public partial class HOBHUD : HUD {
     if (!CommandPanel.Visible) {
       CommandPanel.Visible = true;
     }
-
-    CommandPanel.GrabFocus();
   }
 
   private void HideCommandPanel() => CommandPanel.Visible = false;

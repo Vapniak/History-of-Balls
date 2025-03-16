@@ -1,0 +1,80 @@
+[gd_scene load_steps=3 format=3 uid="uid://stlrfv5fg27j"]
+
+[ext_resource type="Script" path="res://src/gui/tutorial/TutorialPanel.cs" id="1_2rcc4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8k5p0"]
+
+[node name="TutorialPanel" type="MarginContainer" node_paths=PackedStringArray("_tabContainer", "_tabsLabel")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2rcc4")
+_tabContainer = NodePath("PanelContainer/TabContainer")
+_tabsLabel = NodePath("PanelContainer/HBoxContainer/MarginContainer/Label")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+theme_type_variation = &"BackgroundPanel"
+
+[node name="PanelContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"MarginLarge"
+
+[node name="TabContainer" type="TabContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_8k5p0")
+current_tab = 0
+clip_tabs = false
+tabs_visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Test1"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Label" type="Label" parent="PanelContainer/TabContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Test2"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 2
+text = "EXIT"
+
+[node name="MarginContainer" type="HBoxContainer" parent="PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Button" type="Button" parent="PanelContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "PREVIOUS"
+
+[node name="Label" type="Label" parent="PanelContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "1/10"
+
+[node name="Button2" type="Button" parent="PanelContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "NEXT"
+
+[connection signal="pressed" from="PanelContainer/HBoxContainer/Button" to="." method="OnExitPressed"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainer/Button" to="." method="PreviousTab"]
+[connection signal="pressed" from="PanelContainer/HBoxContainer/MarginContainer/Button2" to="." method="NextTab"]

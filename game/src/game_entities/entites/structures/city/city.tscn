@@ -7,6 +7,6 @@
 script = ExtResource("1_txtq4")
 
 [node name="city" parent="." instance=ExtResource("2_x4nb2")]
-transform = Transform3D(-0.203982, 0, 0.66962, 0, 0.7, 0, -0.66962, 0, -0.203982, 0, 0, 0)
+transform = Transform3D(-0.437104, 0, 1.4349, 0, 1.5, 0, -1.4349, 0, -0.437104, 0, 0, 0)
 
 [editable path="city"]

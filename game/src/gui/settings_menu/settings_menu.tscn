@@ -11,58 +11,62 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_w17c0")
-_resolutionOptionButton = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer/ResolutionOption")
-_screenModeOptionButton = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer3/ScreenModeOption")
-_borderlessCheckbox = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/Borderless/CheckBox")
-_vsyncCheckbox = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/v-sync/CheckBox")
-_fpsLimitSlider = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer2/FPS Limit")
-_fpsLimitLabel = NodePath("MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer2/FPS Limiter")
-_VolumeLimitSlider = NodePath("MarginContainer/TabContainer/Sound/VBoxContainer/HBoxContainer/Sound")
-_VolumeLimitLabel = NodePath("MarginContainer/TabContainer/Sound/VBoxContainer/HBoxContainer/SoundLabel")
+_resolutionOptionButton = NodePath("MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer/ResolutionOption")
+_screenModeOptionButton = NodePath("MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer3/ScreenModeOption")
+_borderlessCheckbox = NodePath("MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/Borderless/CheckBox")
+_vsyncCheckbox = NodePath("MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/v-sync/CheckBox")
+_fpsLimitSlider = NodePath("MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2/FPS Limit")
+_fpsLimitLabel = NodePath("MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2/FPS Limiter")
+_VolumeLimitSlider = NodePath("MarginContainer/VBoxContainer/TabContainer/Sound/VBoxContainer/HBoxContainer/Sound")
+_VolumeLimitLabel = NodePath("MarginContainer/VBoxContainer/TabContainer/Sound/VBoxContainer/HBoxContainer/SoundLabel")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 2
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"BackgroundPanel"
 
-[node name="TabContainer" type="TabContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="CloseButton" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_type_variation = &"LargeButton"
+text = "Exit"
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 tab_alignment = 1
 current_tab = 0
+clip_tabs = false
 
-[node name="Video" type="MarginContainer" parent="MarginContainer/TabContainer"]
+[node name="Video" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 800
 theme_override_constants/margin_right = 800
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Video"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer"]
 layout_mode = 2
 
-[node name="FPS Limiter" type="Label" parent="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer2"]
+[node name="FPS Limiter" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(174.475, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "FPS Limit"
 vertical_alignment = 1
 
-[node name="FPS Limit" type="HSlider" parent="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer2"]
+[node name="FPS Limit" type="HSlider" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 min_value = 30.0
@@ -70,99 +74,92 @@ max_value = 250.0
 step = 10.0
 value = 30.0
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScreenMode" type="Label" parent="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer3"]
+[node name="ScreenMode" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Screen Mode"
 
-[node name="ScreenModeOption" type="OptionButton" parent="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer3"]
+[node name="ScreenModeOption" type="OptionButton" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer"]
 layout_mode = 2
 
-[node name="Resolution" type="Label" parent="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer"]
+[node name="Resolution" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Resolution"
 
-[node name="ResolutionOption" type="OptionButton" parent="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer"]
+[node name="ResolutionOption" type="OptionButton" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
 
-[node name="Borderless" type="HBoxContainer" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+[node name="Borderless" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Video/VBoxContainer/Borderless"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/Borderless"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "Borderless"
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/TabContainer/Video/VBoxContainer/Borderless"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/Borderless"]
 layout_mode = 2
 size_flags_horizontal = 4
 flat = true
 
-[node name="v-sync" type="HBoxContainer" parent="MarginContainer/TabContainer/Video/VBoxContainer"]
+[node name="v-sync" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/TabContainer/Video/VBoxContainer/v-sync"]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/v-sync"]
 layout_mode = 2
 size_flags_horizontal = 2
 text = "V-SYNC"
 
-[node name="CheckBox" type="CheckBox" parent="MarginContainer/TabContainer/Video/VBoxContainer/v-sync"]
+[node name="CheckBox" type="CheckBox" parent="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/v-sync"]
 layout_mode = 2
 size_flags_horizontal = 4
 flat = true
 
-[node name="Sound" type="MarginContainer" parent="MarginContainer/TabContainer"]
+[node name="Sound" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 theme_override_constants/margin_left = 800
 theme_override_constants/margin_right = 800
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/TabContainer/Sound"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Sound"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/TabContainer/Sound/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TabContainer/Sound/VBoxContainer"]
 layout_mode = 2
 
-[node name="SoundLabel" type="Label" parent="MarginContainer/TabContainer/Sound/VBoxContainer/HBoxContainer"]
+[node name="SoundLabel" type="Label" parent="MarginContainer/VBoxContainer/TabContainer/Sound/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 text = "Volume"
 vertical_alignment = 1
 
-[node name="Sound" type="HSlider" parent="MarginContainer/TabContainer/Sound/VBoxContainer/HBoxContainer"]
+[node name="Sound" type="HSlider" parent="MarginContainer/VBoxContainer/TabContainer/Sound/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 value = 30.0
 rounded = true
 
-[node name="CloseButton" type="Button" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
-text = "X"
-flat = true
-
-[connection signal="value_changed" from="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer2/FPS Limit" to="." method="OnFpsLimiterSliderValueChanged"]
-[connection signal="item_selected" from="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer3/ScreenModeOption" to="." method="OnScreenModeOptionButtonPressed"]
-[connection signal="item_selected" from="MarginContainer/TabContainer/Video/VBoxContainer/HBoxContainer/ResolutionOption" to="." method="OnResolutionOptionButtonPressed"]
-[connection signal="toggled" from="MarginContainer/TabContainer/Video/VBoxContainer/Borderless/CheckBox" to="." method="OnBorderlessCheckboxToggled"]
-[connection signal="toggled" from="MarginContainer/TabContainer/Video/VBoxContainer/v-sync/CheckBox" to="." method="OnVsyncCheckboxToggled"]
-[connection signal="value_changed" from="MarginContainer/TabContainer/Sound/VBoxContainer/HBoxContainer/Sound" to="." method="OnVolumeLimiterSliderValueChanged"]
-[connection signal="pressed" from="MarginContainer/CloseButton" to="." method="OnClosePressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="OnClosePressed"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2/FPS Limit" to="." method="OnFpsLimiterSliderValueChanged"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer3/ScreenModeOption" to="." method="OnScreenModeOptionButtonPressed"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer/ResolutionOption" to="." method="OnResolutionOptionButtonPressed"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/Borderless/CheckBox" to="." method="OnBorderlessCheckboxToggled"]
+[connection signal="toggled" from="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/v-sync/CheckBox" to="." method="OnVsyncCheckboxToggled"]
+[connection signal="value_changed" from="MarginContainer/VBoxContainer/TabContainer/Sound/VBoxContainer/HBoxContainer/Sound" to="." method="OnVolumeLimiterSliderValueChanged"]

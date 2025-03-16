@@ -1,12 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://y6icx2blahqk"]
+[gd_scene load_steps=4 format=3 uid="uid://y6icx2blahqk"]
 
 [ext_resource type="Script" path="res://src/gui/pause_menu/PauseMenu.cs" id="1_moos1"]
 [ext_resource type="PackedScene" uid="uid://bc1qqk4div8dj" path="res://src/gui/settings_menu/settings_menu.tscn" id="2_lucjv"]
+[ext_resource type="PackedScene" uid="uid://stlrfv5fg27j" path="res://src/gui/tutorial/tutorial_panel.tscn" id="3_hr6uj"]
 
-[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("SettingsMenu")]
+[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("SettingsMenu", "TutorialPanel")]
 process_mode = 2
 script = ExtResource("1_moos1")
 SettingsMenu = NodePath("SettingsMenu")
+TutorialPanel = NodePath("TutorialPanel")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -23,6 +25,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_type_variation = &"MarginLarge"
 
 [node name="Label" type="Label" parent="MarginContainer"]
 layout_mode = 2
@@ -40,28 +43,37 @@ layout_mode = 2
 
 [node name="ResumeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"ButtonMenu"
-text = "Resume"
+theme_type_variation = &"LargeButton"
+text = "RESUME"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"ButtonMenu"
-text = "Settings"
+theme_type_variation = &"LargeButton"
+text = "SETTINGS"
+
+[node name="TutorialButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LargeButton"
+text = "TUTORIAL"
 
 [node name="MainMenuButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"ButtonMenu"
-text = "Main Menu"
+theme_type_variation = &"LargeButton"
+text = "MAIN MENU"
 
 [node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"ButtonMenu"
-text = "Quit"
+theme_type_variation = &"LargeButton"
+text = "QUIT"
 
 [node name="SettingsMenu" parent="." instance=ExtResource("2_lucjv")]
 visible = false
 
+[node name="TutorialPanel" parent="." instance=ExtResource("3_hr6uj")]
+visible = false
+
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/ResumeButton" to="." method="OnResumePressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/SettingsButton" to="." method="OnSettingsPressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/TutorialButton" to="." method="OnTutorialPressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/MainMenuButton" to="." method="OnMainMenuPressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/QuitButton" to="." method="OnQuitPressed"]

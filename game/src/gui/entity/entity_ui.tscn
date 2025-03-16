@@ -48,7 +48,7 @@ grow_vertical = 2
 script = ExtResource("1_d4aeq")
 IconTextureRect = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Panel/TextureRect")
 TeamColorContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Panel")
-CommandIconsContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer2")
+CommandIconsContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2")
 IconTextureContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Panel")
 UnitIconPanelStyleBox = SubResource("StyleBoxFlat_rsmoj")
 StructureIconPanelStyleBox = SubResource("StyleBoxFlat_ry0gu")
@@ -86,18 +86,25 @@ expand_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="Panel" type="Panel" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("4_6kxh0")
 expand_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/HBoxContainer2"]
+[node name="TextureRect2" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2"]
 layout_mode = 2
 texture = ExtResource("5_3q8f8")
 expand_mode = 2

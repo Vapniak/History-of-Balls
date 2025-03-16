@@ -7,10 +7,10 @@
 script = ExtResource("1_rk82f")
 
 [node name="village_1" parent="." instance=ExtResource("2_kabe6")]
-transform = Transform3D(-0.494975, 0, 0.494975, 0, 0.7, 0, -0.494975, 0, -0.494975, 0, 0, -0.6)
+transform = Transform3D(-0.53033, 0, 0.53033, 0, 0.75, 0, -0.53033, 0, -0.53033, 0, 0, -0.6)
 
 [node name="village_3" parent="." instance=ExtResource("2_kabe6")]
 transform = Transform3D(0.7, 0, -2.98023e-08, 0, 0.7, 0, 2.98023e-08, 0, 0.7, -0.6, 0, -2.98023e-08)
 
 [node name="village_2" parent="." instance=ExtResource("2_kabe6")]
-transform = Transform3D(0.606218, 0, 0.35, 0, 0.7, 0, -0.35, 0, 0.606218, 0.3, 0, 0.4)
+transform = Transform3D(0.519615, 0, 0.3, 0, 0.6, 0, -0.3, 0, 0.519615, 0.3, 0, 0.4)

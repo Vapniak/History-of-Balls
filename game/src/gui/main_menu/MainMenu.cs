@@ -50,6 +50,10 @@ public partial class MainMenu : Control {
     GameInstance.GetGameMode<MainMenuGameMode>().OpenSettings();
   }
 
+  private void OnTutorialButtonPressed() {
+    GameInstance.GetGameMode<MainMenuGameMode>().OpenTutorial();
+  }
+
   private void OnQuitButtonPressed() {
     GameInstance.GetGameMode<MainMenuGameMode>().Quit();
   }

@@ -5,6 +5,7 @@ using System;
 
 public partial class PauseMenu : CanvasLayer {
   [Export] private SettingsMenu SettingsMenu { get; set; }
+  [Export] private TutorialPanel TutorialPanel { get; set; }
   public event Action ResumeEvent;
   public event Action MainMenuEvent;
   public event Action QuitEvent;
@@ -13,6 +14,7 @@ public partial class PauseMenu : CanvasLayer {
     base._Ready();
 
     SettingsMenu.Closed += () => SettingsMenu.Visible = false;
+    TutorialPanel.Closed += () => TutorialPanel.Visible = false;
   }
 
   public override void _Input(InputEvent @event) {
@@ -30,6 +32,10 @@ public partial class PauseMenu : CanvasLayer {
 
   private void OnSettingsPressed() {
     SettingsMenu.Visible = true;
+  }
+
+  private void OnTutorialPressed() {
+    TutorialPanel.Visible = true;
   }
 
   private void OnMainMenuPressed() {

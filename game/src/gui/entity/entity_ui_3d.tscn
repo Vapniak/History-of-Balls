@@ -13,6 +13,7 @@ extra_cull_margin = 2.0
 pixel_size = 0.0003
 billboard = 1
 double_sided = false
+no_depth_test = true
 fixed_size = true
 alpha_cut = 2
 render_priority = -10
