@@ -17,7 +17,7 @@ public partial class StatPanel : Control {
   public void ClearEntries() {
     Entries.Clear();
     foreach (var child in EntriesList.GetChildren()) {
-      child.QueueFree();
+      child.Free();
     }
   }
 

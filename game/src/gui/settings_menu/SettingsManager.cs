@@ -21,11 +21,11 @@ public partial class SettingsManager : Node {
   }
 
   private void SetDefaultSettings() {
-    GetWindow().Mode = Window.ModeEnum.Windowed;
-    GetWindow().Size = new Vector2I(1280, 720);
+    GetWindow().Mode = Window.ModeEnum.Fullscreen;
+    GetWindow().Size = new Vector2I(1920, 1080);
     GetWindow().Borderless = false;
-    DisplayServer.WindowSetVsyncMode(DisplayServer.VSyncMode.Disabled);
-    Engine.MaxFps = 60;
+    DisplayServer.WindowSetVsyncMode(DisplayServer.VSyncMode.Enabled);
+    Engine.MaxFps = 0;
     AudioServer.SetBusVolumeDb(0, 0);
 
     CenterWindowOnCurrentMonitor();
@@ -52,21 +52,21 @@ public partial class SettingsManager : Node {
 
   public void LoadSettings() {
     try {
-      var modeValue = (string)_configFile.GetValue("display", "screen_mode", "Windowed");
+      var modeValue = (string)_configFile.GetValue("display", "screen_mode", "Fullscreen");
       var mode = modeValue == "Fullscreen" ? Window.ModeEnum.Fullscreen : Window.ModeEnum.Windowed;
 
-      var resolutionValue = (string)_configFile.GetValue("display", "resolution", "1280x720");
+      var resolutionValue = (string)_configFile.GetValue("display", "resolution", "1920x1080");
       var resolution = resolutionValue.Split('x');
       var width = int.Parse(resolution[0]);
       var height = int.Parse(resolution[1]);
 
-      var vsyncValue = (string)_configFile.GetValue("display", "vsync", "Disabled");
+      var vsyncValue = (string)_configFile.GetValue("display", "vsync", "Enabled");
       var vsync = vsyncValue == "Enabled" ? DisplayServer.VSyncMode.Enabled : DisplayServer.VSyncMode.Disabled;
       DisplayServer.WindowSetVsyncMode(vsync);
 
       var borderlessValue = (string)_configFile.GetValue("display", "borderless", "false");
       var borderless = bool.Parse(borderlessValue);
-      var fpsLimit = (int)_configFile.GetValue("display", "fps_limit", 60);
+      var fpsLimit = (int)_configFile.GetValue("display", "fps_limit", 250);
       Engine.MaxFps = fpsLimit;
 
       float volumeDb = (float)_configFile.GetValue("audio", "master_volume_db", 0.0f);

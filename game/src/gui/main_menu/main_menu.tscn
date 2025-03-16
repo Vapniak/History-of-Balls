@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=17 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/gui/main_menu/MainMenu.cs" id="1_pi010"]
 [ext_resource type="Texture2D" uid="uid://dr1u23201hpet" path="res://assets/textures/HoB-menu-parallax/14.png" id="2_x4h0o"]
@@ -16,9 +16,6 @@
 [ext_resource type="Texture2D" uid="uid://cnox7nc47jgg7" path="res://assets/textures/HoB-menu-parallax/2.png" id="14_em2or"]
 [ext_resource type="Texture2D" uid="uid://c6mdo6dqfc0s" path="res://assets/textures/HoB-menu-parallax/1.png" id="15_pgedg"]
 [ext_resource type="Texture2D" uid="uid://cxvin15p5jeev" path="res://assets/textures/HoB-menu-parallax/0.png" id="16_7cge3"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_t67j1"]
-font_size = 128
 
 [node name="MainMenu" type="Control" node_paths=PackedStringArray("ParallaxBackground")]
 layout_mode = 3
@@ -214,48 +211,49 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -4.0
-offset_bottom = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
-theme_override_constants/margin_left = 10
+size_flags_vertical = 0
+theme_override_constants/margin_top = 100
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MarginContainer2"]
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderLarge"
+theme_override_font_sizes/font_size = 128
+text = "HISTORY OF BALLS"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="StartButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Start"
+theme_type_variation = &"LargeButton"
+text = "START"
 
-[node name="SettigsButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
+[node name="SettigsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Settings"
+theme_type_variation = &"LargeButton"
+text = "SETTINGS"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/MarginContainer2/VBoxContainer"]
+[node name="TutorialButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-text = "Quit
-"
+theme_type_variation = &"LargeButton"
+text = "TUTORIAL"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MarginContainer2"]
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-theme_override_constants/margin_top = 100
+theme_type_variation = &"LargeButton"
+text = "QUIT"
 
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer2/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 0
-text = "HISTORY OF BALLS"
-label_settings = SubResource("LabelSettings_t67j1")
-horizontal_alignment = 1
-uppercase = true
-
-[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
-[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/SettigsButton" to="." method="OnSettingsButtonPressed"]
-[connection signal="pressed" from="MarginContainer/MarginContainer2/VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/StartButton" to="." method="OnStartButtonPressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/SettigsButton" to="." method="OnSettingsButtonPressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TutorialButton" to="." method="OnTutorialButtonPressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]

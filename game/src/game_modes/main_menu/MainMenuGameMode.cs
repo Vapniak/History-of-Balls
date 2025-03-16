@@ -6,9 +6,12 @@ using GameplayFramework;
 [GlobalClass]
 public partial class MainMenuGameMode : GameMode {
   [Export] private PackedScene _settingsScene;
+  [Export] private PackedScene _tutorialScene;
   [Export] private PackedScene _loadingScreenScene;
 
+
   private SettingsMenu _settings;
+  private TutorialPanel _tutorial;
 
   protected override GameState CreateGameState() => new MainMenuGameState();
 
@@ -22,8 +25,16 @@ public partial class MainMenuGameMode : GameMode {
     _settings.Closed += CloseSettings;
   }
 
+  public void OpenTutorial() {
+    _tutorial = _tutorialScene.Instantiate<TutorialPanel>();
+    AddChild(_tutorial);
+    _tutorial.Closed += CloseTutorial;
+  }
+
+  public void CloseTutorial() {
+    _tutorial.QueueFree();
+  }
   public void CloseSettings() {
-    _settings.Closed -= CloseSettings;
     _settings.QueueFree();
   }
 

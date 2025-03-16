@@ -52,6 +52,7 @@ public partial class CommandPanel : Control {
       ExpandIcon = true,
       ButtonGroup = _buttonGroup,
       CustomMinimumSize = new(32, 32),
+      ThemeTypeVariation = "ActionButton",
     };
 
     button.AddChild(new TooltipTrigger(command.Data.CommandName));

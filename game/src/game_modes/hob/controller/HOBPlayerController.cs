@@ -112,7 +112,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       entity.EntityUI = entityUI;
 
       entityUI.SetTeamColor(Colors.White);
-      entityUI.HideCommandIcons();
+      entityUI.Update(entity, this);
 
       if (entity.TryGetStat<EntityTypeStats>(out var entityType)) {
         entityUI.SetIcon(entityType.Icon);
@@ -173,10 +173,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       };
 
       entity.OwnerControllerChanged += () => {
-        entityUI.HideCommandIcons();
+        entityUI.Update(entity, this);
         if (entity.TryGetOwner(out var owner)) {
           if (owner == this) {
-            entityUI.ShowCommandIcons(entity);
+            entityUI.Update(entity, this);
             entityUI.SetTeamColor(Colors.Green);
             if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
               if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
@@ -207,7 +207,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
       void onCommandStarted(Command command) {
         if (entity.TryGetOwner(out var owner) && owner == this) {
-          entityUI.ShowCommandIcons(entity);
+          entityUI.Update(entity, this);
 
           if (command is GenerateIncomeCommand incomeCommand) {
             if (entity.TryGetStat<IncomeStats>(out var incomeStats)) {
@@ -229,7 +229,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
 
       void onCommandFinished(Command command) {
-        entityUI.ShowCommandIcons(entity);
+        entityUI.Update(entity, this);
       }
     }
   }
@@ -242,13 +242,18 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
-  public override void _UnhandledInput(InputEvent @event) {
+  public override void _Input(InputEvent @event) {
+    base._Input(@event);
+
     if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
       if (!GetTree().Paused) {
+        GetViewport().SetInputAsHandled();
         GetGameMode().Pause();
       }
     }
+  }
 
+  public override void _UnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
       _lastMousePosition = GetViewport().GetMousePosition();
@@ -287,7 +292,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     UpdateCommandHighlights();
 
     foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
-      entity.EntityUI.ShowCommandIcons(entity);
+      entity.EntityUI.Update(entity, this);
     }
   }
   public void OwnTurnEnded() {
@@ -326,7 +331,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     var viewport = GetViewport();
 
-    if (HoveredCell == null || _isPanning || viewport.GuiGetHoveredControl() != null) {
+    if (HoveredCell == null || _isPanning || (viewport.GuiGetHoveredControl() != null && viewport.GuiGetHoveredControl().GetParent() is Control)) {
       GameBoard.SetMouseHighlight(false);
     }
     else {

@@ -10,7 +10,7 @@ public partial class MatchEndMenu : CanvasLayer {
   public void OnGameEnd(IMatchController controller) {
     Show();
     WinnerTextLabel.Text = "WINNER: " + controller.GetPlayerState().PlayerName;
-    var time = TimeSpan.FromMilliseconds(Time.GetTicksMsec() - controller.GetGameState().GameStartTicksMSec);
+    var time = TimeSpan.FromMilliseconds(controller.GetGameState().GameTimeMSec);
     TimePlayedLabel.Text = $"TIME PLAYED: {time.Minutes:00}:{time.Seconds:00}";
   }
 }

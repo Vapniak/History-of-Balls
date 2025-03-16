@@ -42,6 +42,14 @@ public partial class HOBHUD : HUD {
       OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
     };
 
+    GetPlayerController().SelectedEntityChanging += () => {
+      var selectedEntity = GetPlayerController().SelectedEntity;
+
+      if (selectedEntity != null && selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
+        commandTrait.CommandStarted -= onCommandStarted;
+        commandTrait.CommandFinished -= onCommandFinished;
+      }
+    };
 
     GetPlayerController().SelectedEntityChanged += () => {
       var selectedEntity = GetPlayerController().SelectedEntity;
@@ -54,6 +62,9 @@ public partial class HOBHUD : HUD {
       else {
         if (selectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
           ShowCommandPanel(commandTrait);
+
+          commandTrait.CommandStarted += onCommandStarted;
+          commandTrait.CommandFinished += onCommandFinished;
         }
 
         ShowStatPanel(selectedEntity);
@@ -69,13 +80,19 @@ public partial class HOBHUD : HUD {
       else {
         HideProductionPanel();
       }
-
     };
-
 
     CommandPanel.CommandSelected += (command) => {
       GetPlayerController().OnHUDCommandSelected(command);
     };
+
+    void onCommandStarted(Command command) {
+      UpdateStatPanel(StatPanel, command.GetEntity());
+    }
+
+    void onCommandFinished(Command command) {
+      UpdateStatPanel(StatPanel, command.GetEntity());
+    }
   }
 
   public void OnGameStarted() {
@@ -189,8 +206,6 @@ public partial class HOBHUD : HUD {
     if (!CommandPanel.Visible) {
       CommandPanel.Visible = true;
     }
-
-    CommandPanel.GrabFocus();
   }
 
   private void HideCommandPanel() => CommandPanel.Visible = false;
@@ -204,16 +219,16 @@ public partial class HOBHUD : HUD {
   }
 
   private void UpdateStatPanel(StatPanel panel, Entity entity) {
-    panel.SetNameLabel(entity.GetEntityName());
-
     panel.ClearEntries();
 
+    panel.SetNameLabel(entity.GetEntityName());
     if (entity.TryGetStat<MovementStats>(out var movementStats)) {
       panel.AddEntry("Move Points:", movementStats.MovePoints.ToString());
     }
 
     if (entity.TryGetStat<HealthStats>(out var healthStats)) {
       panel.AddEntry("Health:", healthStats.CurrentHealth.ToString());
+      // FIXME: this is unsubscribed
       healthStats.CurrentHealthChanged += () => panel.UpdateEntry("Health", healthStats.CurrentHealth.ToString());
     }
 
@@ -240,6 +255,7 @@ public partial class HOBHUD : HUD {
       if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
         if (factoryTrait.ProcessingRoundsLeft > 0) {
           panel.AddEntry("Processing Turns Left:", factoryTrait.ProcessingRoundsLeft.ToString());
+          factoryTrait.ProcessingRoundsLeftChanged += () => panel.UpdateEntry("Processing Turns Left:", factoryTrait.ProcessingRoundsLeft.ToString());
         }
       }
     }
@@ -251,9 +267,11 @@ public partial class HOBHUD : HUD {
 
     if (owner == GetPlayerController()) {
       if (entity.TryGetTrait<EntityProducerTrait>(out var producerTrait)) {
-        if (producerTrait.ProductionRoundsLeft > 0) {
+        if (producerTrait.CurrentProducedEntity != null) {
           panel.AddEntry("Producing Entity:", producerTrait.CurrentProducedEntity.Entity.EntityName);
           panel.AddEntry("Rounds Left:", producerTrait.ProductionRoundsLeft.ToString());
+
+          producerTrait.ProductionRoundsLeftChanged += () => panel.UpdateEntry("Rounds Left:", producerTrait.ProductionRoundsLeft.ToString());
         }
       }
     }

@@ -67,6 +67,9 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     playerState.PrimaryResourceType = Primary.Duplicate() as ResourceType;
     playerState.SecondaryResourceType = Secondary.Duplicate() as ResourceType;
 
+    playerState.PrimaryResourceType.Value = 5;
+    playerState.SecondaryResourceType.Value = 3;
+
     if (controller is PlayerController) {
       controller.Country = PlayerTeam;
       AddEntityOnClosestAvailableCell(Team1Infantry, new(1, 0), controller);
@@ -87,7 +90,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       AddEntityOnClosestAvailableCell(Team2Ranged, new(28, 6), controller);
       AddEntityOnClosestAvailableCell(Team2Infantry, new(22, 8), controller);
       AddEntityOnClosestAvailableCell(Team2Ranged, new(21, 7), controller);
-      AddEntityOnClosestAvailableCell(Team2Infantry, new(25, 10), controller);
 
       AddEntityOnClosestAvailableCell(Village, new(20, 10), controller);
 
@@ -101,7 +103,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   public void OnGameStarted() {
-    GetGameState().GameStartTicksMSec = Time.GetTicksMsec();
+    GetGameState().GameTimeMSec = 0;
 
     foreach (var player in GetGameState().PlayerArray) {
       var controller = player.GetController<IMatchController>();
@@ -167,8 +169,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       entity.ChangeOwner(owner);
     };
 
-    AddChild(entity);
     Entities.Add(entity);
+    AddChild(entity);
 
   }
 

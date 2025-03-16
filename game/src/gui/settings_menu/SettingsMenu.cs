@@ -31,8 +31,7 @@ public partial class SettingsMenu : Control {
     "Fullscreen"
   ];
 
-  private SettingsManager SettingsManager;
-  private const int DefaultMonitorRefresh = 60;
+  private SettingsManager SettingsManager { get; set; }
 
   public override void _Ready() {
     SettingsManager = GetNode<SettingsManager>("/root/SettingsManager");
@@ -50,7 +49,8 @@ public partial class SettingsMenu : Control {
   public override void _Input(InputEvent @event) {
     base._Input(@event);
 
-    if (@event.IsActionPressed(BuiltinInputActions.UICancel)) {
+    if (Visible && @event.IsActionPressed(BuiltinInputActions.UICancel)) {
+      GetViewport().SetInputAsHandled();
       OnClosePressed();
     }
   }
@@ -126,19 +126,14 @@ public partial class SettingsMenu : Control {
   private void UpdateFpsLimitAvailability(bool vsyncEnabled) {
     int fpsLimit = (int)_fpsLimitSlider.Value;
     if (vsyncEnabled) {
-      if (fpsLimit < DefaultMonitorRefresh) {
-        _fpsLimitSlider.Editable = true;
-        _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Hsize;
-        _fpsLimitLabel.Text = $"FPS Limit: {fpsLimit}";
-      }
-      else {
-        _fpsLimitSlider.Editable = false;
-        _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Forbidden;
-        _fpsLimitLabel.Text = $"FPS Limit: V-Sync Enabled";
-      }
+      _fpsLimitSlider.Editable = false;
+      _fpsLimitSlider.Visible = false;
+      _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Forbidden;
+      _fpsLimitLabel.Text = $"FPS Limit: V-Sync Enabled";
     }
     else {
       _fpsLimitSlider.Editable = true;
+      _fpsLimitSlider.Visible = true;
       _fpsLimitSlider.MouseDefaultCursorShape = CursorShape.Hsize;
       var maxFps = Engine.MaxFps;
       _fpsLimitLabel.Text = $"FPS Limit: {(maxFps is 0 or 250 ? "Unlimited" : maxFps.ToString())}";
@@ -207,18 +202,9 @@ public partial class SettingsMenu : Control {
   }
 
   private void OnFpsLimiterSliderValueChanged(float value) {
-    if (DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled) {
-      if ((int)value < DefaultMonitorRefresh) {
-        Engine.MaxFps = (int)value == 250 ? 0 : (int)value;
-        _fpsLimitLabel.Text = $"FPS Limit: {(value is 0 or 250 ? "Unlimited" : value.ToString())}";
-        SettingsManager.SaveSettings();
-      }
-    }
-    else {
-      Engine.MaxFps = (int)value == 250 ? 0 : (int)value;
-      _fpsLimitLabel.Text = $"FPS Limit: {(value is 0 or 250 ? "Unlimited" : value.ToString())}";
-      SettingsManager.SaveSettings();
-    }
+    Engine.MaxFps = (int)value == 250 ? 0 : (int)value;
+    _fpsLimitLabel.Text = $"FPS Limit: {(value is 0 or 250 ? "Unlimited" : value.ToString())}";
+    SettingsManager.SaveSettings();
   }
 
   private void OnVolumeLimiterSliderValueChanged(float value) {

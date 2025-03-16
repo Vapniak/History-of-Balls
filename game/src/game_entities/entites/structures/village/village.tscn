@@ -1,40 +1,16 @@
-[gd_scene load_steps=8 format=3 uid="uid://58211gsdw151"]
+[gd_scene load_steps=3 format=3 uid="uid://58211gsdw151"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_rk82f"]
-[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_edqf6"]
-[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="3_0yw50"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_xorao"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_hnlje"]
-render_priority = 0
-shader = ExtResource("2_edqf6")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fy2vp"]
-resource_local_to_scene = true
-render_priority = 0
-next_pass = SubResource("ShaderMaterial_hnlje")
-shader = ExtResource("3_0yw50")
-shader_parameter/color = Color(0.620569, 0.331342, 0.374972, 1)
-shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
-shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
-shader_parameter/uv_scale = Vector2(1, 1)
-shader_parameter/uv_offset = Vector2(0, 0)
-
-[sub_resource type="PrismMesh" id="PrismMesh_e5qy6"]
-size = Vector3(1, 0.5, 1)
+[ext_resource type="PackedScene" uid="uid://bbomj1qo5837x" path="res://assets/models/village_1.fbx" id="2_kabe6"]
 
 [node name="EntityBody" type="Node3D"]
 script = ExtResource("1_rk82f")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.551216, 0, 0, 0, 0.404544, 0, 0, 0, 0.3783, 0, 0.192647, 0)
-mesh = SubResource("BoxMesh_xorao")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_fy2vp")
+[node name="village_1" parent="." instance=ExtResource("2_kabe6")]
+transform = Transform3D(-0.53033, 0, 0.53033, 0, 0.75, 0, -0.53033, 0, -0.53033, 0, 0, -0.6)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00468421, 0.695955, 0.00109551)
-mesh = SubResource("PrismMesh_e5qy6")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_fy2vp")
+[node name="village_3" parent="." instance=ExtResource("2_kabe6")]
+transform = Transform3D(0.7, 0, -2.98023e-08, 0, 0.7, 0, 2.98023e-08, 0, 0.7, -0.6, 0, -2.98023e-08)
+
+[node name="village_2" parent="." instance=ExtResource("2_kabe6")]
+transform = Transform3D(0.519615, 0, 0.3, 0, 0.6, 0, -0.3, 0, 0.519615, 0.3, 0, 0.4)

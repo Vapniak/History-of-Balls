@@ -8,7 +8,7 @@ using Godot.Collections;
 /// </summary>
 [GlobalClass]
 public partial class GameState : Resource, IGameState {
-  public ulong GameStartTicksMSec { get; set; }
+  public ulong GameTimeMSec { get; set; }
 
   public GameState() { }
 }

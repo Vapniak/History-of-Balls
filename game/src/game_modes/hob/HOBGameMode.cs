@@ -3,7 +3,6 @@ namespace HOB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
 using GameplayFramework;
 using Godot;
 using GodotStateCharts;
@@ -106,6 +105,11 @@ public partial class HOBGameMode : GameMode {
   private void OnInMatchStateExited() {
     MatchComponent.TurnStarted -= CheckWinCondition;
   }
+
+  private void OnInMatchPlayingStateProcess(float delta) {
+    GetGameState().GameTimeMSec += (ulong)(delta * 1000f);
+  }
+
 
   private void OnMatchEndedStateEntered() {
     GameInstance.SetPause(true);
