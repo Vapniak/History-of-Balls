@@ -63,6 +63,8 @@ public partial class Chunk : StaticBody3D {
     TerrainMesh.AddChild(BorderMesh);
 
     Refresh();
+
+    CollisionMask = GameLayers.Physics3D.World;
   }
 
   public override void _PhysicsProcess(double delta) {

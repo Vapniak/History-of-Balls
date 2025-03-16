@@ -5,6 +5,7 @@ using Godot;
 using HOB.GameEntity;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -114,18 +115,28 @@ public partial class AIController : Controller, IMatchController {
     return commandTrait.GetCommands().Where(c => c.CanBeUsed()).ToArray();
   }
 
-  private float CalculateMoveUtility(MoveCommand moveCommand, out GameCell closestEnemyCell) {
+  private float CalculateMoveUtility(MoveCommand moveCommand, out GameCell bestCell) {
     float utility = 0;
 
-    // TODO: try claim
     var closestEnemy = FindClosestEnemy(moveCommand.GetEntity());
-    closestEnemyCell = null;
+    bestCell = null;
     if (closestEnemy != null) {
-      closestEnemyCell = closestEnemy.Cell;
-      return 1;
+      bestCell ??= closestEnemy.Cell;
+      if (closestEnemy.TryGetTrait<HealthTrait>(out _) && moveCommand.GetEntity().TryGetStat<AttackStats>(out var stats)) {
+        foreach (var cell in moveCommand.GetReachableCells()) {
+          var distance = cell.Coord.Distance(moveCommand.GetEntity().Cell.Coord);
+          if (distance >= bestCell.Coord.Distance(moveCommand.GetEntity().Cell.Coord) && cell.Coord.Distance(closestEnemy.Cell.Coord) <= stats.Range) {
+            bestCell = cell;
+          }
+        }
+      }
     }
 
-    return utility;
+    if (bestCell == null) {
+      return 0;
+    }
+
+    return 1;
   }
 
   private Entity FindClosestEnemy(Entity currentEntity) {
@@ -148,7 +159,19 @@ public partial class AIController : Controller, IMatchController {
       return -1;
     }
 
-    return 2;
+    var utility = 0f;
+
+    var attackStats = attackCommand.GetEntity().GetStat<AttackStats>();
+
+    // will kill
+    if (attackStats.Damage >= target.GetStat<HealthStats>().Health) {
+      utility += 1;
+    }
+    else {
+      utility += 0.5f;
+    }
+
+    return utility;
   }
 
   private float CalculateProduceUtility(ProduceEntityCommand produceEntityCommand, ProducedEntityData data) {
@@ -164,7 +187,7 @@ public partial class AIController : Controller, IMatchController {
     var meleeCount = entities.Count(e => e.TryGetStat<AttackStats>(out var stats) && stats.Range == 1);
 
     if (data.Entity.Stats.TryGetStat<AttackStats>(out var stat) && stat.Range > 1 && meleeCount < rangedCount) {
-      utility = 0;
+      return 0;
     }
     else {
       utility = 1;

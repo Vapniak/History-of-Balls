@@ -10,14 +10,14 @@ script = ExtResource("1_moos1")
 SettingsMenu = NodePath("SettingsMenu")
 TutorialPanel = NodePath("TutorialPanel")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="Panel" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-color = Color(0, 0, 0, 0.788235)
+theme_type_variation = &"BackgroundTransparency"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15

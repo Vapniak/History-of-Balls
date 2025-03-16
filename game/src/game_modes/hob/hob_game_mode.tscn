@@ -56,6 +56,9 @@ StateChartNode = NodePath("StateChart")
 process_mode = 2
 visible = false
 
+[node name="PauseMenu" parent="." instance=ExtResource("25_jrlyp")]
+visible = false
+
 [node name="TestPlayerManagmentComponent" type="Node" parent="."]
 script = ExtResource("8_crqp2")
 
@@ -137,10 +140,7 @@ process_mode = 3
 stream = ExtResource("25_f3tc6")
 bus = &"Music"
 
-[node name="PauseMenu" parent="." instance=ExtResource("25_jrlyp")]
-visible = false
-
-[connection signal="pressed" from="MatchEndMenu/MarginContainer/ColorRect/VBoxContainer/Button" to="." method="OnMainMenu"]
+[connection signal="pressed" from="MatchEndMenu/MarginContainer/VBoxContainer/Button" to="." method="OnMainMenu"]
 [connection signal="state_entered" from="StateChart/Root/InMatch" to="." method="OnInMatchStateEntered"]
 [connection signal="state_exited" from="StateChart/Root/InMatch" to="." method="OnInMatchStateExited"]
 [connection signal="state_physics_processing" from="StateChart/Root/InMatch/Playing" to="." method="OnInMatchPlayingStateProcess"]

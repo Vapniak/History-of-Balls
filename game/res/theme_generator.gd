@@ -49,6 +49,14 @@ func define_theme():
 		})
 	})
 
+	var transparent_bg = Color.BLACK
+	transparent_bg.a = 0.9
+	define_variant_style("BackgroundTransparency", "Panel", {
+		panel = stylebox_flat({
+			bg_color = transparent_bg,
+		})
+	})
+
 	define_style("BoxContainer", {
 		separation = base_margin
 	})
@@ -68,10 +76,12 @@ func define_theme():
 
 	var focus_style = inherit(button_style, {
 		draw_center = false,
+		border_color = Color.WHITE,
+		border_width_ = border_width(1)
 	})
 
 	var pressed_style = inherit(button_style, {
-		bg_color = background_color.darkened(.2),
+		bg_color = background_color.darkened(.3),
 		#border_color = background_color.darkened(.5)
 	})
 

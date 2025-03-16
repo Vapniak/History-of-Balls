@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://stlrfv5fg27j"]
+[gd_scene load_steps=4 format=3 uid="uid://stlrfv5fg27j"]
 
 [ext_resource type="Script" path="res://src/gui/tutorial/TutorialPanel.cs" id="1_2rcc4"]
+[ext_resource type="Texture2D" uid="uid://3osrc57pwyam" path="res://assets/textures/HoB-tutorial-szkic.png" id="2_i7wbd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8k5p0"]
 
@@ -29,14 +30,34 @@ current_tab = 0
 clip_tabs = false
 tabs_visible = false
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/TabContainer"]
+[node name="MarginContainer" type="Control" parent="PanelContainer/TabContainer"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Label" type="Label" parent="PanelContainer/TabContainer/MarginContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/TabContainer/MarginContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-text = "Test1"
+offset_right = 1860.0
+offset_bottom = 1020.0
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/TabContainer/MarginContainer/CenterContainer"]
+layout_mode = 2
+texture = ExtResource("2_i7wbd")
+stretch_mode = 2
+
+[node name="s" type="Label" parent="PanelContainer/TabContainer/MarginContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -461.0
+offset_top = 400.0
+offset_right = 1399.0
+offset_bottom = 423.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "testText"
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/TabContainer"]
 visible = false
