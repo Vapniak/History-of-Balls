@@ -64,7 +64,7 @@ public partial class Chunk : StaticBody3D {
 
     Refresh();
 
-    CollisionMask = GameLayers.Physics3D.World;
+    CollisionLayer = GameLayers.Physics3D.World;
   }
 
   public override void _PhysicsProcess(double delta) {
