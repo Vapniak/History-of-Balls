@@ -1,40 +1,10 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=14 format=3 uid="uid://cyurh50c61ayo"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=3 format=3 uid="uid://cyurh50c61ayo"]
 
-[ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/poland_infantry_data.tres" id="1_6dlwi"]
 [ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_ht1wo"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_y43l5"]
-[ext_resource type="Script" path="res://src/game_entities/traits/entity_producer/ProducedEntityData.cs" id="3_6i2i4"]
-[ext_resource type="Script" path="res://src/game_entities/traits/entity_producer/EntityProducerStats.cs" id="3_uwb6u"]
-[ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="4_e1oep"]
-[ext_resource type="Resource" uid="uid://c5dmvmose2efr" path="res://src/game_entities/entites/units/america_infantry_data.tres" id="4_fosny"]
-[ext_resource type="PackedScene" uid="uid://daiki3jfmr3l7" path="res://src/game_entities/entites/structures/city/city_traits.tscn" id="5_arbco"]
-[ext_resource type="Resource" uid="uid://d3ja3oacsun4e" path="res://src/game_entities/entites/city_type.tres" id="6_3rsn3"]
-
-[sub_resource type="Resource" id="Resource_k01qo"]
-script = ExtResource("3_6i2i4")
-Entity = ExtResource("1_6dlwi")
-CostType = 0
-Cost = 3
-RoundsProductionTime = 2
-
-[sub_resource type="Resource" id="Resource_r2qn7"]
-script = ExtResource("3_6i2i4")
-Entity = ExtResource("4_fosny")
-CostType = 0
-Cost = 2
-RoundsProductionTime = 3
-
-[sub_resource type="Resource" id="Resource_op448"]
-script = ExtResource("3_uwb6u")
-ProducedEntities = Array[Object]([SubResource("Resource_k01qo"), SubResource("Resource_r2qn7")])
-
-[sub_resource type="Resource" id="Resource_v351d"]
-script = ExtResource("4_e1oep")
-Stats = Array[Object]([SubResource("Resource_op448"), ExtResource("6_3rsn3")])
 
 [resource]
 script = ExtResource("1_y43l5")
 EntityName = "City"
-Stats = SubResource("Resource_v351d")
-TraitsScene = ExtResource("5_arbco")
+Attributes = null
 Body = ExtResource("1_ht1wo")

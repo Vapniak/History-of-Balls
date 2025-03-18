@@ -32,44 +32,6 @@ public partial class EntityUI : Control {
     IconTextureRect.Texture = texture;
   }
 
-  public void Update(Entity entity, IMatchController caller) {
-    if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      foreach (var child in CommandIconsContainer.GetChildren()) {
-        child.Free();
-      }
-
-      foreach (var command in commandTrait.GetCommands()) {
-        if (command.Data.ShowInUI || command is ProcessResourcesCommand or ProduceEntityCommand) {
-          var icon = new TextureRect {
-            Texture = command.Data.Icon,
-            ExpandMode = TextureRect.ExpandModeEnum.FitWidth,
-            SelfModulate = command.CanBeUsed() ? Colors.Green : command.InUse ? Colors.Yellow : Colors.Red
-          };
-
-          CommandIconsContainer.AddChild(icon);
-        }
-      }
-
-      if (CommandIconsContainer.GetChildCount() == 0 || (entity.TryGetOwner(out var owner) && owner != caller)) {
-        HideCommandIcons();
-      }
-      else {
-        CommandIconsContainer.GetParent<Control>().Show();
-      }
-    }
-    else {
-      HideCommandIcons();
-    }
-
-    // TODO: add tag system
-    if (entity.TryGetTrait<MoveTrait>(out _)) {
-      IconTextureContainer.AddThemeStyleboxOverride("panel", UnitIconPanelStyleBox);
-    }
-    else {
-      IconTextureContainer.AddThemeStyleboxOverride("panel", StructureIconPanelStyleBox);
-    }
-  }
-
   public void HideCommandIcons() {
     CommandIconsContainer.GetParent<Control>().Hide();
     foreach (var child in CommandIconsContainer.GetChildren()) {

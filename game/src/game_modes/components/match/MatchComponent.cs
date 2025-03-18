@@ -130,20 +130,12 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       }
     }
 
-    var entity = new Entity(data, closestCell, this);
-
-    AddEntity(entity, owner);
+    AddEntity(data.CreateEntity(closestCell, this), owner);
   }
 
   private bool CanEntityBePlacedOnCell(GameCell cell) {
     if (Grid.GetSetting(cell).IsWater) {
       return false;
-    }
-
-    foreach (var entity in GetEntitiesOnCell(cell)) {
-      if (entity.TryGetTrait<ObstacleTrait>(out _)) {
-        return false;
-      }
     }
 
     return true;
@@ -152,8 +144,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController owner) {
     if (CanEntityBePlacedOnCell(cell)) {
 
-      var entity = new Entity(data, cell, this);
-      AddEntity(entity, owner);
+      AddEntity(data.CreateEntity(cell, this), owner);
       return true;
     }
 

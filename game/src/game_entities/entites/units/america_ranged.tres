@@ -1,34 +1,10 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=13 format=3 uid="uid://d3bpx6obdtifm"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=3 format=3 uid="uid://d3bpx6obdtifm"]
 
 [ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/america_ball.tscn" id="1_gswf3"]
-[ext_resource type="Script" path="res://src/game_entities/traits/health/HealthStats.cs" id="1_kpckx"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_qdlvi"]
-[ext_resource type="Script" path="res://src/game_entities/traits/move/MovementStats.cs" id="2_jpdaa"]
-[ext_resource type="Script" path="res://src/game_entities/traits/attack/AttackStats.cs" id="3_t80ep"]
-[ext_resource type="Resource" uid="uid://ctvp4tfh0q0dr" path="res://src/game_entities/entites/ranged_type.tres" id="4_r3tg4"]
-[ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="5_o34gr"]
-[ext_resource type="PackedScene" uid="uid://ds4gcav7wbnnb" path="res://src/game_entities/entites/units/unit_traits.tscn" id="7_yjy84"]
-
-[sub_resource type="Resource" id="Resource_khlbv"]
-script = ExtResource("1_kpckx")
-Health = 1
-
-[sub_resource type="Resource" id="Resource_6y1pc"]
-script = ExtResource("2_jpdaa")
-MovePoints = 2
-
-[sub_resource type="Resource" id="Resource_s06fc"]
-script = ExtResource("3_t80ep")
-Damage = 2
-Range = 3
-
-[sub_resource type="Resource" id="Resource_dvsvq"]
-script = ExtResource("5_o34gr")
-Stats = Array[Object]([SubResource("Resource_khlbv"), SubResource("Resource_6y1pc"), SubResource("Resource_s06fc"), ExtResource("4_r3tg4")])
 
 [resource]
 script = ExtResource("1_qdlvi")
 EntityName = "America Ranged"
-Stats = SubResource("Resource_dvsvq")
-TraitsScene = ExtResource("7_yjy84")
+Attributes = Array[Object]([])
 Body = ExtResource("1_gswf3")

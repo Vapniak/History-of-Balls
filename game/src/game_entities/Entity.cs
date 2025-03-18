@@ -1,5 +1,6 @@
 namespace HOB.GameEntity;
 
+using GameplayAbilitySystem;
 using Godot;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class Entity : Node {
   public EntityBody Body { get; private set; }
+  public string EntityName { get; private set; }
 
   [Notify]
   public GameCell Cell {
@@ -16,65 +18,24 @@ public partial class Entity : Node {
   }
 
   public IEntityManagment EntityManagment { get; private set; }
-
-  public EntityUI EntityUI { get; set; }
-  private EntityData Data { get; set; }
+  // public EntityUI EntityUI { get; set; }
+  public GameplayAbilitySystem AbilitySystem { get; private set; }
 
   [Notify]
   private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
-  private readonly Dictionary<Type, Trait> _traits = new();
 
-  public Entity(EntityData data, GameCell cell, IEntityManagment entityManagment) {
+  public Entity(string name, GameCell cell, IEntityManagment entityManagment, IEnumerable<GameplayAttributeSet> initialAttributes, EntityBody body) {
     Cell = cell;
     EntityManagment = entityManagment;
-    Data = data;
+    EntityName = name;
 
-    Body = Data.Body.Instantiate<EntityBody>();
+    Body = body;
     AddChild(Body);
 
-    Data = Data.Duplicate(true) as EntityData;
-    Data.Stats.Init();
-
-    var traits = Data.TraitsScene.Instantiate<Node>();
-
-    foreach (var child in traits.GetAllChildren()) {
-      if (child is Trait trait) {
-        trait.Entity = this;
-        _traits.Add(trait.GetType(), trait);
-      }
-    }
-
-    AddChild(traits);
+    AbilitySystem = new();
+    AbilitySystem.AddAttributeSet(initialAttributes);
 
     CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
-  }
-
-  public string GetEntityName() => Data.EntityName;
-
-  public bool TryGetTrait<T>(out T trait) where T : Trait {
-    var requestedType = typeof(T);
-
-    foreach (var kvp in _traits) {
-      if (requestedType.IsAssignableFrom(kvp.Key)) {
-        trait = kvp.Value as T;
-        return true;
-      }
-    }
-    trait = null;
-    return false;
-  }
-
-  public T GetTrait<T>() where T : Trait {
-    return _traits.GetValueOrDefault(typeof(T)) as T;
-  }
-
-  public bool HasTrait<T>(T t) => _traits.ContainsKey(typeof(T));
-
-  public bool TryGetStat<T>(out T stat) where T : BaseStat {
-    return Data.Stats.TryGetStat(out stat);
-  }
-  public T GetStat<T>() where T : BaseStat {
-    return Data.Stats.GetStat<T>();
   }
 
   public void SetPosition(Vector3 position) {

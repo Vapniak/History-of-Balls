@@ -1,40 +1,10 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=14 format=3 uid="uid://dr60qu2pjbioe"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=3 format=3 uid="uid://nkx1l8uf2y8k"]
 
-[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_42lgf"]
-[ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_muf5i"]
-[ext_resource type="Resource" uid="uid://d3bpx6obdtifm" path="res://src/game_entities/entites/units/america_ranged.tres" id="2_rvyp3"]
-[ext_resource type="Script" path="res://src/game_entities/traits/entity_producer/ProducedEntityData.cs" id="3_y8x7i"]
-[ext_resource type="Resource" uid="uid://c5dmvmose2efr" path="res://src/game_entities/entites/units/america_infantry_data.tres" id="4_lxuyw"]
-[ext_resource type="Script" path="res://src/game_entities/traits/entity_producer/EntityProducerStats.cs" id="4_ubwrq"]
-[ext_resource type="Script" path="res://src/game_entities/stats/StatsContainer.cs" id="5_ad6ta"]
-[ext_resource type="Resource" uid="uid://d3ja3oacsun4e" path="res://src/game_entities/entites/city_type.tres" id="6_68qhi"]
-[ext_resource type="PackedScene" uid="uid://daiki3jfmr3l7" path="res://src/game_entities/entites/structures/city/city_traits.tscn" id="6_v411t"]
-
-[sub_resource type="Resource" id="Resource_ontmh"]
-script = ExtResource("3_y8x7i")
-Entity = ExtResource("2_rvyp3")
-CostType = 0
-Cost = 3
-RoundsProductionTime = 1
-
-[sub_resource type="Resource" id="Resource_gms4a"]
-script = ExtResource("3_y8x7i")
-Entity = ExtResource("4_lxuyw")
-CostType = 0
-Cost = 2
-RoundsProductionTime = 2
-
-[sub_resource type="Resource" id="Resource_5munl"]
-script = ExtResource("4_ubwrq")
-ProducedEntities = Array[Object]([SubResource("Resource_ontmh"), SubResource("Resource_gms4a")])
-
-[sub_resource type="Resource" id="Resource_n88qx"]
-script = ExtResource("5_ad6ta")
-Stats = Array[Object]([SubResource("Resource_5munl"), ExtResource("6_68qhi")])
+[ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_h3bin"]
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="2_xis7g"]
 
 [resource]
-script = ExtResource("1_42lgf")
+script = ExtResource("2_xis7g")
 EntityName = "America City"
-Stats = SubResource("Resource_n88qx")
-TraitsScene = ExtResource("6_v411t")
-Body = ExtResource("1_muf5i")
+Attributes = null
+Body = ExtResource("1_h3bin")

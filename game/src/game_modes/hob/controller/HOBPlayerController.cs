@@ -16,7 +16,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   [Export] private Array<HighlightColorMap> HighlightColors { get; set; }
 
   [Notify] public Entity SelectedEntity { get => _selectedEntity.Get(); private set => _selectedEntity.Set(value); }
-  [Notify] public Command SelectedCommand { get => _selectedCommand.Get(); private set => _selectedCommand.Set(value); }
   [Notify] public GameCell HoveredCell { get => _hoveredCell.Get(); private set => _hoveredCell.Set(value); }
 
   public event Action EndTurnEvent;
@@ -43,195 +42,16 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().EndTurnPressed += TryEndTurn;
 
     SelectedEntityChanged += OnSelectedEntityChanged;
-    SelectedCommandChanged += UpdateCommandHighlights;
 
     Character.CenterPositionOn(GameBoard.GetAabb());
 
     StateChart = StateChart.Of(StateChartNode);
 
     GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
-    GetGameMode().GetEntityManagment().EntityRemoved += onEntityRemoved;
+  }
 
-    void onEntityRemoved(Entity entity) {
-      var entitiesOnCell = EntityManagment.GetEntitiesOnCell(entity.Cell);
-      if (entitiesOnCell.Length > 1) {
-        foreach (var e in entitiesOnCell) {
-          if (e == entity) {
-            continue;
-          }
-          else {
-            foreach (var child in e.Body.GetAllChildren()) {
-              if (child is MeshInstance3D mesh) {
-                mesh.Transparency = 0.5f;
-              }
-            }
-          }
-        }
-      }
-      else {
-        foreach (var e in entitiesOnCell) {
-          if (e == entity) {
-            continue;
-          }
-          else {
-            foreach (var child in e.Body.GetAllChildren()) {
-              if (child is MeshInstance3D mesh) {
-                mesh.Transparency = 0f;
-              }
-            }
-          }
-        }
-      }
-    }
+  void onEntityAdded(Entity entity) {
 
-    void onEntityAdded(Entity entity) {
-      var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node3D>();
-      entity.Body.AddChild(ui3d);
-
-      var entitiesOnCell = EntityManagment.GetEntitiesOnCell(entity.Cell);
-      if (entitiesOnCell.Length > 1) {
-        ui3d.Position = new Vector3(0, 5, 0);
-        foreach (var e in entitiesOnCell) {
-          if (e == entity) {
-            continue;
-          }
-          else {
-            foreach (var child in e.Body.GetAllChildren()) {
-              if (child is MeshInstance3D mesh) {
-                mesh.Transparency = 0.5f;
-              }
-            }
-          }
-        }
-      }
-      else {
-        ui3d.Position = new Vector3(0, 3, 0);
-      }
-
-      var entityUI = ui3d.GetChildByType<EntityUI>();
-      entity.EntityUI = entityUI;
-
-      entityUI.SetTeamColor(Colors.White);
-      entityUI.Update(entity, this);
-
-      if (entity.TryGetStat<EntityTypeStats>(out var entityType)) {
-        entityUI.SetIcon(entityType.Icon);
-      }
-
-      if (entity.TryGetTrait<MoveTrait>(out var moveTrait)) {
-        entity.CellChanging += () => {
-          entitiesOnCell = EntityManagment.GetEntitiesOnCell(entity.Cell);
-          foreach (var e in entitiesOnCell) {
-            if (e == entity) {
-              continue;
-            }
-            else {
-              foreach (var child in e.Body.GetAllChildren()) {
-                if (child is MeshInstance3D mesh) {
-                  mesh.Transparency = 0f;
-                }
-              }
-            }
-          }
-        };
-        entity.CellChanged += () => {
-          entitiesOnCell = EntityManagment.GetEntitiesOnCell(entity.Cell);
-          if (entitiesOnCell.Length > 1) {
-            ui3d.Position = new Vector3(0, 5, 0);
-            foreach (var e in entitiesOnCell) {
-              if (e == entity) {
-                continue;
-              }
-              else {
-                foreach (var child in e.Body.GetAllChildren()) {
-                  if (child is MeshInstance3D mesh) {
-                    mesh.Transparency = 0.5f;
-                  }
-                }
-              }
-            }
-          }
-          else {
-            ui3d.Position = new Vector3(0, 3, 0);
-          }
-        };
-      }
-
-      entity.OwnerControllerChanging += () => {
-        if (entity.TryGetOwner(out var owner)) {
-          if (owner == this) {
-            if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-              if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
-                factoryTrait.ProcessingFinished -= onProcessingFinised;
-              }
-            }
-
-            commandTrait.CommandStarted -= onCommandStarted;
-            commandTrait.CommandFinished -= onCommandFinished;
-          }
-        }
-      };
-
-      entity.OwnerControllerChanged += () => {
-        entityUI.Update(entity, this);
-        if (entity.TryGetOwner(out var owner)) {
-          if (owner == this) {
-            entityUI.Update(entity, this);
-            entityUI.SetTeamColor(Colors.Green);
-            if (entity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-              if (entity.TryGetTrait<FactoryTrait>(out var factoryTrait)) {
-                factoryTrait.ProcessingFinished += onProcessingFinised;
-              }
-            }
-
-            commandTrait.CommandStarted += onCommandStarted;
-            commandTrait.CommandFinished += onCommandFinished;
-          }
-          else {
-            entityUI.SetTeamColor(Colors.Red);
-          }
-        }
-        else {
-          entityUI.SetTeamColor(Colors.White);
-        }
-      };
-
-
-      void onProcessingFinised() {
-        var stats = entity.GetStat<FactoryStats>();
-        var floatingLabel = FloatingText.Create($"+{stats.ProducedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(stats.ProducedResource).Name}", Colors.Orange);
-        entity.Body.AddChild(floatingLabel);
-        floatingLabel.Position += Vector3.Up * 2;
-        floatingLabel.Animate();
-      }
-
-      void onCommandStarted(Command command) {
-        if (entity.TryGetOwner(out var owner) && owner == this) {
-          entityUI.Update(entity, this);
-
-          if (command is GenerateIncomeCommand incomeCommand) {
-            if (entity.TryGetStat<IncomeStats>(out var incomeStats)) {
-              var floatingLabel = FloatingText.Create($"+{incomeStats.Value} {GetPlayerState<IMatchPlayerState>().GetResourceType(incomeStats.IncomeType).Name}", Colors.Yellow);
-              entity.Body.AddChild(floatingLabel);
-              floatingLabel.Position += Vector3.Up * 2;
-              floatingLabel.Animate();
-            }
-          }
-          else if (command is ProcessResourcesCommand processResourcesCommand) {
-            if (entity.TryGetStat<FactoryStats>(out var factoryStats)) {
-              var floatingLabel = FloatingText.Create($"Start processing {factoryStats.ProcessedValue} {GetPlayerState<IMatchPlayerState>().GetResourceType(factoryStats.ProcessedResource).Name}", Colors.YellowGreen);
-              entity.Body.AddChild(floatingLabel);
-              floatingLabel.Position += Vector3.Up * 2;
-              floatingLabel.Animate();
-            }
-          }
-        }
-      }
-
-      void onCommandFinished(Command command) {
-        entityUI.Update(entity, this);
-      }
-    }
   }
 
   public override void _Notification(int what) {
@@ -289,14 +109,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
   public void OwnTurnStarted() {
-    UpdateCommandHighlights();
 
-    foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
-      entity.EntityUI.Update(entity, this);
-    }
   }
   public void OwnTurnEnded() {
-    SelectedCommand = null;
+
   }
 
   public void OnGameStarted() {
@@ -304,10 +120,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     CallDeferred(MethodName.FocusOnSelectedEntity);
 
     GetHUD().OnGameStarted();
-  }
-
-  public void OnHUDCommandSelected(Command command) {
-    SelectedCommand = command;
   }
 
   private void CheckHover() {
@@ -322,6 +134,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     var point = raycastResult.Position;
     var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
+
+
+    // DebugDraw3D.DrawSphere(point);
 
     var cell = GameBoard.Grid.GetCell(coord);
 
@@ -371,18 +186,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     //     }
     //   }
     // }
-  }
-
-  private void OnCommandStarted(Command command) {
-    if (command is MoveCommand or AttackCommand) {
-      StateChart.SendEvent("command_started");
-    }
-  }
-
-  private void OnCommandFinished(Command command) {
-    if (command is MoveCommand or AttackCommand) {
-      StateChart.SendEvent("command_finished");
-    }
   }
 
   private void FocusOnSelectedEntity() {
@@ -462,11 +265,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionStateEntered() {
-    if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      commandTrait.CommandStarted += OnCommandStarted;
-      commandTrait.CommandFinished += OnCommandFinished;
-    }
-
     SelectedEntity.TreeExiting += OnSelectedEntityDied;
     SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
   }
@@ -474,15 +272,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnSelectionStateExited() {
     Character.CancelMoveToPosition();
 
-    if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      commandTrait.CommandStarted -= OnCommandStarted;
-      commandTrait.CommandFinished -= OnCommandFinished;
-    }
-
     SelectedEntity.TreeExiting -= OnSelectedEntityDied;
     SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
-
-    SelectedCommand = null;
   }
 
   private void OnSelectionIdleStateUnhandledInput(InputEvent @event) {
@@ -492,10 +283,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     CheckCommandInput(@event);
 
-
-    if (@event.IsActionReleased(GameInputs.UseCommand)) {
-      TryUseCommand(HoveredCell);
-    }
 
     if (@event.IsActionReleased(GameInputs.Select)) {
       var entities = EntityManagment.GetEntitiesOnCell(HoveredCell);
@@ -524,13 +311,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleStateEntered() {
-    SelectFirstCommand();
 
-    HoveredCellChanged += UpdateCommandHighlights;
   }
 
   private void OnSelectionIdleStateExited() {
-    HoveredCellChanged -= UpdateCommandHighlights;
+
   }
 
   private void OnCommandStateEntered() {
@@ -539,72 +324,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnCommandStateExited() {
     GetHUD().SetEndTurnButtonDisabled(false);
-
-    SelectedCommand = null;
   }
   #endregion
 
-  private bool TryUseCommand(GameCell clickedCell) {
-    if (!((IMatchController)this).IsCurrentTurn() && SelectedCommand != null) {
-      return false;
-    }
 
-    var entities = EntityManagment.GetEntitiesOnCell(clickedCell);
-
-    if (SelectedCommand is MoveCommand moveCommand) {
-      if (moveCommand.GetReachableCells().Contains(clickedCell) && moveCommand.TryMove(clickedCell)) {
-        return true;
-      }
-    }
-    else if (SelectedCommand is AttackCommand attackCommand) {
-      foreach (var entity in entities) {
-        if (attackCommand.GetAttackableEntities().entities.Contains(entity) && attackCommand.TryAttack(entity)) {
-          return true;
-        }
-      }
-    }
-
-    return false;
-  }
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
-
-  private void UpdateCommandHighlights() {
-    if (SelectedEntity == null) {
-      return;
-    }
-
-    HighlightSystem.ClearAllHighlights();
-
-    HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
-
-    if (SelectedCommand != null) {
-      var darkened = !SelectedCommand.GetEntity().TryGetOwner(out var owner) || owner != this || !SelectedCommand.CanBeUsed();
-
-      if (SelectedCommand is MoveCommand moveCommand) {
-
-        foreach (var cell in moveCommand.GetReachableCells()) {
-          HighlightSystem.SetHighlight(HighlightType.Movement, cell, darkened);
-        }
-
-        if (HoveredCell != null && moveCommand.GetReachableCells().Contains(HoveredCell)) {
-          foreach (var cell in moveCommand.FindPathTo(HoveredCell)) {
-            HighlightSystem.SetHighlight(HighlightType.Path, cell, darkened);
-          }
-        }
-      }
-      else if (SelectedCommand is AttackCommand attackCommand) {
-        var (entities, cellsInRange) = attackCommand.GetAttackableEntities();
-        foreach (var cell in cellsInRange) {
-          HighlightSystem.SetHighlight(HighlightType.Attack, cell, darkened);
-        }
-
-        foreach (var entity in entities) {
-          HighlightSystem.SetHighlight(HighlightType.Attack, entity.Cell, darkened);
-        }
-      }
-    }
-    HighlightSystem.UpdateHighlights();
-  }
 
   private void OnSelectedEntityCellChanged() {
     HighlightSystem.ClearAllHighlights();
@@ -620,7 +344,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     HighlightSystem.UpdateHighlights();
   }
 
-
   private void OnSelectedEntityChanged() {
     HighlightSystem.ClearAllHighlights();
 
@@ -629,17 +352,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     HighlightSystem.UpdateHighlights();
-  }
-
-  private void SelectFirstCommand() {
-    if (SelectedEntity.TryGetTrait<CommandTrait>(out var commandTrait)) {
-      if (commandTrait.Entity.TryGetOwner(out var owner) && owner == this) {
-        SelectedCommand = commandTrait.GetCommands().FirstOrDefault(c => !c.UsedThisRound, defaultValue: null);
-      }
-      else {
-        SelectedCommand = commandTrait.GetCommands().FirstOrDefault(defaultValue: null);
-      }
-    }
   }
 
   public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;

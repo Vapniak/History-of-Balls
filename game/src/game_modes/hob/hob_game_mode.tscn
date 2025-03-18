@@ -21,8 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
-[ext_resource type="Resource" uid="uid://c6pe8u6ilatqq" path="res://src/game_entities/entites/structures/city/poland_city_data.tres" id="18_bsrjl"]
-[ext_resource type="Resource" uid="uid://dr60qu2pjbioe" path="res://src/game_entities/entites/structures/city/america_city_data.tres" id="19_6kg03"]
+[ext_resource type="Resource" uid="uid://nkx1l8uf2y8k" path="res://src/game_entities/entites/structures/city/america_city_data.tres" id="19_0ov3y"]
+[ext_resource type="Resource" uid="uid://f0u12f68y3vi" path="res://src/game_entities/entites/structures/city/poland_city_data.tres" id="19_d7njg"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
@@ -72,8 +72,8 @@ Team2Infantry = ExtResource("11_5j62k")
 Team2Ranged = ExtResource("15_muaor")
 Village = ExtResource("12_d2ps5")
 Factory = ExtResource("13_tdvlv")
-Team1City = ExtResource("18_bsrjl")
-Team2City = ExtResource("19_6kg03")
+Team1City = ExtResource("19_d7njg")
+Team2City = ExtResource("19_0ov3y")
 Primary = ExtResource("12_3iycb")
 Secondary = ExtResource("13_al71l")
 

@@ -138,7 +138,7 @@ public partial class HOBGameMode : GameMode {
       var controller = player.GetController<IMatchController>();
       var entities = GetEntityManagment().GetOwnedEntites(controller);
 
-      if (entities.Any(e => e.TryGetTrait<EntityProducerTrait>(out _))) {
+      if (entities.Length != 0) {
         alivePlayers.Add(controller);
       }
       else {

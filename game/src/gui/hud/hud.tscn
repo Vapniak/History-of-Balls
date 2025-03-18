@@ -213,6 +213,7 @@ environment = SubResource("Environment_384c7")
 projection = 1
 
 [node name="EntityProductionPanel" parent="VBoxContainer/MarginContainer4" instance=ExtResource("4_77ne6")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4

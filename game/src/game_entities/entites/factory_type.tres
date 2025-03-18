@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="EntityTypeStats" load_steps=3 format=3 uid="uid://cbswkgj3v4n4j"]
-
-[ext_resource type="Texture2D" uid="uid://id67rufsraj2" path="res://assets/textures/icons/industry.svg" id="1_u8kh6"]
-[ext_resource type="Script" path="res://src/game_entities/entites/EntityTypeStats.cs" id="1_vo2cr"]
-
-[resource]
-script = ExtResource("1_vo2cr")
-Icon = ExtResource("1_u8kh6")
