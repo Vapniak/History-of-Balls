@@ -9,10 +9,22 @@ using Godot.Collections;
 [GlobalClass]
 public partial class GameplayAbilitySystem : Node {
   [Export] private Array<GameplayAttributeSet> InitialAttributes { get; set; }
+  [Export] private Array<GameplayAbility> InitialAbilities { get; set; }
+
   private List<GameplayAttributeSet> SpawnedAttributes { get; set; } = new();
+  private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
+
 
   public override void _Ready() {
     AddAttributeSet(InitialAttributes);
+  }
+
+  public void GiveAbility(GameplayAbility ability, int level) {
+    GrantedAbilities.Add(new(ability, level));
+  }
+
+  public void RemoveAbility(GameplayAbility ability) {
+    GrantedAbilities.Remove(GrantedAbilities.First(e => e.Ability == ability));
   }
 
   public void AddAttributeSet(IEnumerable<GameplayAttributeSet> attributeSets) {
