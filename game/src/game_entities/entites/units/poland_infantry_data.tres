@@ -1,14 +1,11 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://ddmnswe1q0sv8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=11 format=3 uid="uid://ddmnswe1q0sv8"]
 
 [ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_es5ke"]
-[ext_resource type="Script" path="res://src/game_entities/entites/abilities/MoveAbility.cs" id="1_fl0l7"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/gameplay_attributes/GameplayAttribute.cs" id="1_in3eu"]
+[ext_resource type="Resource" uid="uid://61525umuvo62" path="res://src/game_entities/entites/abilities/move_ability.tres" id="1_xervk"]
 [ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/HealthAttributeSet.cs" id="3_wwb34"]
 [ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/MoveAttributeSet.cs" id="4_q023g"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="7_2e5sc"]
-
-[sub_resource type="Resource" id="Resource_5ax00"]
-script = ExtResource("1_fl0l7")
 
 [sub_resource type="Resource" id="Resource_or7nw"]
 script = ExtResource("1_in3eu")
@@ -34,5 +31,5 @@ MovePoints = SubResource("Resource_eya4i")
 script = ExtResource("7_2e5sc")
 EntityName = "Poland Infantry"
 Attributes = Array[Object]([SubResource("Resource_c3pgs"), SubResource("Resource_uiurl")])
-Abilities = Array[Object]([SubResource("Resource_5ax00")])
+Abilities = Array[Object]([ExtResource("1_xervk")])
 Body = ExtResource("1_es5ke")

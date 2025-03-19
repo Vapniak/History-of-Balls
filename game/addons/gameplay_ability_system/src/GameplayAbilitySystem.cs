@@ -32,7 +32,9 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   public void GiveAbility(GameplayAbility ability, int level) {
-    GrantedAbilities.Add(new(ability, level));
+    var abilityInstance = new GameplayAbilityInstance(ability, level);
+    GrantedAbilities.Add(abilityInstance);
+    ability.OnGranted(abilityInstance, OwnerInfo);
   }
 
   public void RemoveAbility(GameplayAbility ability) {

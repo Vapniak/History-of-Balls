@@ -11,7 +11,6 @@ using RaycastSystem;
 
 [GlobalClass]
 public partial class HOBPlayerController : PlayerController, IMatchController {
-
   [Export] private Node StateChartNode { get; set; }
   [Export] private Array<HighlightColorMap> HighlightColors { get; set; }
 
@@ -267,8 +266,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnSelectionStateEntered() {
     SelectedEntity.TreeExiting += OnSelectedEntityDied;
     SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
-
-    SelectedEntity.AbilitySystem.TryActivateAbility<MoveAbility>(null);
   }
 
   private void OnSelectionStateExited() {
@@ -284,14 +281,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     CheckCommandInput(@event);
-
-
-    if (@event.IsActionPressed(GameInputs.UseCommand)) {
-      if (SelectedEntity.AbilitySystem.TryGetAbility<MoveAbility>(out var moveAbility)) {
-        moveAbility.SelectCellToMove(HoveredCell);
-        return;
-      }
-    }
 
     if (@event.IsActionReleased(GameInputs.Select)) {
       var entities = EntityManagment.GetEntitiesOnCell(HoveredCell);

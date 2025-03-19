@@ -8,6 +8,10 @@ public abstract partial class GameplayAbility : Resource {
   [Export] public GameplayEffect CostGameplayEffect { get; private set; }
 
 
+  public virtual void OnGranted(GameplayAbilityInstance abilityInstance, GameplayAbilityOwnerInfo ownerInfo) {
+
+  }
+
   public virtual void ApplyCooldown(GameplayAbilityInstance abilityInstance, GameplayAbilityOwnerInfo ownerInfo) {
 
   }
@@ -56,9 +60,9 @@ public abstract partial class GameplayAbility : Resource {
     ApplyCost(abilityInstance, ownerInfo);
     return true;
   }
-
   public bool TryActivateAbility(GameplayAbilityInstance abilityInstance, GameplayAbilityOwnerInfo ownerInfo, GameplayEventData payload) {
     if (CanActivateAbility(abilityInstance, ownerInfo, payload)) {
+      PreActivate(abilityInstance, ownerInfo, payload);
       ActivateAbility(abilityInstance, ownerInfo, payload);
       return true;
     }
@@ -67,11 +71,19 @@ public abstract partial class GameplayAbility : Resource {
   }
 
 
+  protected virtual void PreActivate(GameplayAbilityInstance abilityInstance, GameplayAbilityOwnerInfo ownerInfo, GameplayEventData payload) {
+    abilityInstance.CurrentOwnerInfo = ownerInfo;
+    abilityInstance.CurrentEventData = payload;
+    abilityInstance.IsActive = true;
+  }
+
   protected virtual void ActivateAbility(GameplayAbilityInstance abilityInstance, GameplayAbilityOwnerInfo ownerInfo, GameplayEventData triggerEventData) {
     // commit ability
   }
 
   protected virtual void EndAbility(GameplayAbilityInstance abilityInstance, GameplayAbilityOwnerInfo ownerInfo) {
-
+    abilityInstance.CurrentOwnerInfo = null;
+    abilityInstance.CurrentEventData = null;
+    abilityInstance.IsActive = false;
   }
 }

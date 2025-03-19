@@ -16,11 +16,14 @@ public partial class MoveAbility : HOBAbility {
 
   protected override void ActivateAbility(GameplayAbilityInstance abilityInstance, GameplayAbilityOwnerInfo ownerInfo, GameplayEventData triggerEventData) {
     if (ownerInfo.OwnerNode is Entity entity) {
-      _ = WaitForCellSelection(ownerInfo);
+      _ = WaitForCellSelection(abilityInstance, ownerInfo);
+    }
+    else {
+      EndAbility(abilityInstance, ownerInfo);
     }
   }
 
-  protected virtual GameCell[] GetReachableCells(GameplayAbilityOwnerInfo ownerInfo) {
+  public virtual GameCell[] GetReachableCells(GameplayAbilityOwnerInfo ownerInfo) {
     if (ownerInfo.OwnerNode is Entity entity) {
       if (ownerInfo.AbilitySystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
         return entity.Cell.ExpandSearch((uint)moveAttributeSet.MovePoints.CurrentValue, IsReachable);
@@ -29,7 +32,8 @@ public partial class MoveAbility : HOBAbility {
 
     return null;
   }
-  protected virtual GameCell[] FindPathTo(GameplayAbilityOwnerInfo ownerInfo, GameCell cell) {
+
+  public virtual GameCell[] FindPathTo(GameplayAbilityOwnerInfo ownerInfo, GameCell cell) {
     if (ownerInfo.OwnerNode is Entity entity) {
       if (ownerInfo.AbilitySystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
         return entity.Cell.FindPathTo(cell, (uint)moveAttributeSet.MovePoints.CurrentValue, IsReachable);
@@ -42,7 +46,7 @@ public partial class MoveAbility : HOBAbility {
     return !to.GetSetting().IsWater;
   }
 
-  private async Task WaitForCellSelection(GameplayAbilityOwnerInfo ownerInfo) {
+  private async Task WaitForCellSelection(GameplayAbilityInstance abilityInstance, GameplayAbilityOwnerInfo ownerInfo) {
     var awaiter = ToSignal(this, SignalName.CellSelected);
     await awaiter;
 
@@ -53,6 +57,8 @@ public partial class MoveAbility : HOBAbility {
         await Walk(entity, cell);
       }
     }
+
+    EndAbility(abilityInstance, ownerInfo);
   }
 
   private async Task Walk(Entity entity, GameCell to) {
@@ -74,7 +80,6 @@ public partial class MoveAbility : HOBAbility {
     entity.Cell = to;
 
     entity.TurnAt(targetPosition, MOVE_ANIMATION_SPEED);
-
 
     tween.TweenMethod(
         Callable.From<Vector3>(entity.SetPosition),
