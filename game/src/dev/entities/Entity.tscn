@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/GameplayAbilitySystem.cs" id="1_703b7"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/gameplay_attributes/FloatGameplayAttribute.cs" id="2_ddm74"]
-[ext_resource type="Script" path="res://src/dev/entities/HealthAttributeSet.cs" id="2_nlu7x"]
+[ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/HealthAttributeSet.cs" id="2_nlu7x"]
 
 [sub_resource type="Resource" id="Resource_q77uj"]
 script = ExtResource("2_ddm74")

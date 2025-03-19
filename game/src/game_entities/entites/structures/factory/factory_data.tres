@@ -7,4 +7,5 @@
 script = ExtResource("1_ujoy0")
 EntityName = "Factory"
 Attributes = null
+Abilities = null
 Body = ExtResource("1_knki7")

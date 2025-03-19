@@ -11,15 +11,24 @@ public partial class GameplayAbilitySystem : Node {
   [Export] private Array<GameplayAttributeSet> InitialAttributes { get; set; }
   [Export] private Array<GameplayAbility> InitialAbilities { get; set; }
 
+  public GameplayAbilityOwnerInfo OwnerInfo { get; private set; }
+
   private List<GameplayAttributeSet> SpawnedAttributes { get; set; } = new();
   private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
+
 
   public override void _Ready() {
     AddAttributeSet(InitialAttributes);
 
-    foreach (var ability in InitialAbilities) {
-      GiveAbility(ability, 0);
+    if (InitialAbilities != null) {
+      foreach (var ability in InitialAbilities) {
+        GiveAbility(ability, 0);
+      }
     }
+  }
+
+  public void InitAbilityOwnerInfo(Node ownerNode) {
+    OwnerInfo = new(ownerNode, this);
   }
 
   public void GiveAbility(GameplayAbility ability, int level) {
@@ -31,6 +40,10 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   public void AddAttributeSet(IEnumerable<GameplayAttributeSet> attributeSets) {
+    if (attributeSets == null) {
+      return;
+    }
+
     foreach (var attributeSet in attributeSets) {
       AddAttributeSet(attributeSet);
     }
@@ -63,16 +76,21 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   public bool TryActivateAbility(GameplayAbilityInstance instance, GameplayEventData payload) {
-    if (instance != null && instance.Ability.TryActivateAbility(instance, payload)) {
+    if (instance != null && instance.Ability.TryActivateAbility(instance, OwnerInfo, payload)) {
       return true;
     }
 
     return false;
   }
 
+  public bool TryGetAbility<T>(out T ability) where T : GameplayAbility {
+    ability = GrantedAbilities.FirstOrDefault(a => a.Ability.GetType() == typeof(T)).Ability as T;
+    return ability != null;
+  }
+
   public void SendEventData(GameplayEventData data) {
     foreach (var ability in GrantedAbilities) {
-      if (ability.Ability.ShouldAbilityRespondToEvent(data)) {
+      if (ability.Ability.ShouldAbilityRespondToEvent(OwnerInfo, data)) {
         TryActivateAbility(ability, data);
       }
     }

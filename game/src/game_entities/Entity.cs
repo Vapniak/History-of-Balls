@@ -24,7 +24,7 @@ public partial class Entity : Node {
   [Notify]
   private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
 
-  public Entity(string name, GameCell cell, IEntityManagment entityManagment, IEnumerable<GameplayAttributeSet> initialAttributes, EntityBody body) {
+  public Entity(string name, GameCell cell, IEntityManagment entityManagment, IEnumerable<GameplayAttributeSet> initialAttributes, IEnumerable<GameplayAbility> abilities, EntityBody body) {
     Cell = cell;
     EntityManagment = entityManagment;
     EntityName = name;
@@ -33,7 +33,13 @@ public partial class Entity : Node {
     AddChild(Body);
 
     AbilitySystem = new();
+    AbilitySystem.InitAbilityOwnerInfo(this);
     AbilitySystem.AddAttributeSet(initialAttributes);
+    if (abilities != null) {
+      foreach (var ability in abilities) {
+        AbilitySystem.GiveAbility(ability, 0);
+      }
+    }
 
     CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
   }
