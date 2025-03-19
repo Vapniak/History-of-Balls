@@ -20,7 +20,7 @@ public abstract partial class GameplayAbility : Resource {
     return false;
   }
 
-  public virtual bool CanActivateAbility(GameplayAbilityInstance abilityInstance) {
+  public virtual bool CanActivateAbility(GameplayAbilityInstance abilityInstance, GameplayEventData payload) {
     return CheckCooldown(abilityInstance) && CheckCost(abilityInstance);
   }
 
@@ -57,7 +57,7 @@ public abstract partial class GameplayAbility : Resource {
   }
 
   public bool TryActivateAbility(GameplayAbilityInstance abilityInstance, GameplayEventData payload) {
-    if (CanActivateAbility(abilityInstance)) {
+    if (CanActivateAbility(abilityInstance, payload)) {
       ActivateAbility(abilityInstance, payload);
       return true;
     }
