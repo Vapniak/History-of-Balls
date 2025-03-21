@@ -5,9 +5,7 @@ using Godot;
 
 public abstract partial class GameplayAbilityInstance : Node {
   public GameplayAbilityResource AbilityResource { get; private set; }
-
   protected GameplayAbilitySystem OwnerAbilitySystem { get; private set; }
-
   protected GameplayEventData? CurrentEventData { get; private set; }
 
   public float Level { get; set; }
@@ -27,7 +25,6 @@ public abstract partial class GameplayAbilityInstance : Node {
 
     await PreActivate(eventData);
     await ActivateAbility(eventData);
-    await EndAbility(eventData);
 
     CurrentEventData = null;
 
@@ -35,7 +32,7 @@ public abstract partial class GameplayAbilityInstance : Node {
   }
 
   public virtual bool CanActivateAbility(GameplayEventData eventData) {
-    return !IsActive && CheckCost();
+    return !IsActive && CheckCost() && CheckCooldown();
   }
 
   public virtual void CancelAbility() { }
@@ -57,12 +54,20 @@ public abstract partial class GameplayAbilityInstance : Node {
   }
 
   protected virtual bool CommitCooldown() {
-    var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CooldownGameplayEffect, 0);
-    return OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+    if (AbilityResource.CooldownGameplayEffect != null) {
+      var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CooldownGameplayEffect, 0);
+      return OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+    }
+
+    return false;
   }
 
   protected virtual bool CommitCost() {
-    var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CostGameplayEffect, 0);
-    return OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+    if (AbilityResource.CostGameplayEffect != null) {
+      var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CostGameplayEffect, 0);
+      return OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+    }
+
+    return false;
   }
 }

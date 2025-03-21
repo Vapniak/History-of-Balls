@@ -118,14 +118,14 @@ public partial class HOBGameMode : GameMode {
   private void OnMainMenu() {
 
     // FIXME: normal open level waits some time before unloading
-    GameInstance.GetWorld().OpenLevel("main_menu_level");
+    _ = GameInstance.GetWorld().OpenLevel("main_menu_level");
   }
 
   private void OnQuit() => GameInstance.QuitGame();
 
   private void OnGridCreated() {
     PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new HOBPlayerState(), "Player", HUDScene, PlayerCharacterScene));
-    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new HOBPlayerState(), "AI", null, null));
+    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new HOBPlayerState(), "AI"));
 
     StateChart.CallDeferred(StateChart.MethodName.SendEvent, "match_start");
   }

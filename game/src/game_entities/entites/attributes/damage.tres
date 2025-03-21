@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://ft10lu5nlm3x"]
+
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/attributes/GameplayAttribute.cs" id="1_x108p"]
+
+[resource]
+script = ExtResource("1_x108p")
+AttributeName = "Damage"

@@ -85,8 +85,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     }
     else {
       controller.Country = AITeam;
-      AddEntityOnClosestAvailableCell(Team2Infantry, new(25, 5), controller);
-      AddEntityOnClosestAvailableCell(Team2Ranged, new(25, 20), controller);
+      AddEntityOnClosestAvailableCell(Team2Infantry, new(5, 5), controller);
+      AddEntityOnClosestAvailableCell(Team2Ranged, new(5, 5), controller);
       AddEntityOnClosestAvailableCell(Team2Ranged, new(28, 6), controller);
       AddEntityOnClosestAvailableCell(Team2Infantry, new(22, 8), controller);
       AddEntityOnClosestAvailableCell(Team2Ranged, new(21, 7), controller);

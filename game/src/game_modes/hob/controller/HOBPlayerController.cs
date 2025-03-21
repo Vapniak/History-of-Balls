@@ -11,16 +11,18 @@ using RaycastSystem;
 
 [GlobalClass]
 public partial class HOBPlayerController : PlayerController, IMatchController {
-  [Export] private Node StateChartNode { get; set; }
-  [Export] private Array<HighlightColorMap> HighlightColors { get; set; }
+  [Export] private Node? StateChartNode { get; set; }
+  [Export] private Array<HighlightColorMap>? HighlightColors { get; set; }
 
-  [Notify] public Entity SelectedEntity { get => _selectedEntity.Get(); private set => _selectedEntity.Set(value); }
-  [Notify] public GameCell HoveredCell { get => _hoveredCell.Get(); private set => _hoveredCell.Set(value); }
+  [Notify] public Entity? SelectedEntity { get => _selectedEntity.Get(); private set => _selectedEntity.Set(value); }
+  [Notify] public GameCell? HoveredCell { get => _hoveredCell.Get(); private set => _hoveredCell.Set(value); }
 
-  public event Action EndTurnEvent;
-  public Country Country { get; set; }
+  [Notify]
+  public HOBAbilityInstance? SelectedCommand { get => _selectedCommand.Get(); private set => _selectedCommand.Set(value); }
+  public event Action? EndTurnEvent;
+  public Country? Country { get; set; }
 
-  private StateChart StateChart { get; set; }
+  private StateChart? StateChart { get; set; }
 
   private GameBoard GameBoard => GetGameState().GameBoard;
   private PlayerCharacter Character => GetCharacter<PlayerCharacter>();
@@ -28,7 +30,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private bool _isPanning;
   private Vector2 _lastMousePosition;
 
-  private HighlightSystem HighlightSystem { get; set; }
+  private HighlightSystem? HighlightSystem { get; set; }
   private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
 
   private string _entityUISceneUID = "uid://omhtmi8gorif";
@@ -36,20 +38,25 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public override void _Ready() {
     base._Ready();
 
-    HighlightSystem = new(HighlightColors, GameBoard);
+    HighlightSystem = new(HighlightColors ?? new(), GameBoard);
 
     GetHUD().EndTurnPressed += TryEndTurn;
 
     SelectedEntityChanged += OnSelectedEntityChanged;
+    SelectedCommandChanged += OnSelectedCommandChanged;
 
     Character.CenterPositionOn(GameBoard.GetAabb());
 
-    StateChart = StateChart.Of(StateChartNode);
+    if (StateChartNode != null) {
+      StateChart = StateChart.Of(StateChartNode);
+    }
 
     GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
+
+    GetHUD().CommandSelected += (command) => SelectedCommand = command;
   }
 
-  void onEntityAdded(Entity entity) {
+  private void onEntityAdded(Entity entity) {
 
   }
 
@@ -153,13 +160,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
-  private void SelectEntity(Entity entity) {
-    StateChart.SendEvent("entity_deselected");
+  private void SelectEntity(Entity? entity) {
+    StateChart?.SendEvent("entity_deselected");
 
     SelectedEntity = entity;
 
     if (IsInstanceValid(SelectedEntity)) {
-      StateChart.SendEvent("entity_selected");
+      StateChart?.SendEvent("entity_selected");
     }
   }
 
@@ -185,6 +192,18 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     //     }
     //   }
     // }
+
+    if (@event.IsActionPressed(GameInputs.UseCommand)) {
+      if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
+        _ = moveAbility.TryActivateAbility(new() { TargetData = new MoveTargetData() { Cell = HoveredCell } });
+      }
+      else if (SelectedCommand is AttackAbilityResource.AttackAbilityInstance attackAbility) {
+        var @as = EntityManagment.GetEntitiesOnCell(HoveredCell)?.FirstOrDefault()?.AbilitySystem;
+        if (@as != null) {
+          _ = attackAbility.TryActivateAbility(new() { TargetData = new AttackTargetData() { TargetAbilitySystem = @as } });
+        }
+      }
+    }
   }
 
   private void FocusOnSelectedEntity() {
@@ -264,15 +283,19 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionStateEntered() {
-    SelectedEntity.TreeExiting += OnSelectedEntityDied;
-    SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
+    if (SelectedEntity != null) {
+      SelectedEntity.TreeExiting += OnSelectedEntityDied;
+      SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
+    }
   }
 
   private void OnSelectionStateExited() {
     Character.CancelMoveToPosition();
 
-    SelectedEntity.TreeExiting -= OnSelectedEntityDied;
-    SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
+    if (SelectedEntity != null) {
+      SelectedEntity.TreeExiting -= OnSelectedEntityDied;
+      SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
+    }
   }
 
   private void OnSelectionIdleStateUnhandledInput(InputEvent @event) {
@@ -348,6 +371,27 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (SelectedEntity != null) {
       HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
     }
+    else {
+      SelectedCommand = null;
+    }
+
+    HighlightSystem.UpdateHighlights();
+  }
+
+  private void OnSelectedCommandChanged() {
+    HighlightSystem.ClearAllHighlights();
+
+    if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
+      foreach (var cell in moveAbility.GetReachableCells()) {
+        HighlightSystem.SetHighlight(HighlightType.Movement, cell);
+      }
+    }
+    else if (SelectedCommand is AttackAbilityResource.AttackAbilityInstance attackAbility) {
+      foreach (var cell in attackAbility.GetAttackableEntities().cellsInRange) {
+        HighlightSystem.SetHighlight(HighlightType.Attack, cell);
+      }
+    }
+
 
     HighlightSystem.UpdateHighlights();
   }

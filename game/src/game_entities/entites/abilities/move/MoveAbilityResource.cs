@@ -2,7 +2,9 @@ namespace HOB;
 
 using GameplayAbilitySystem;
 using Godot;
+using HOB.GameEntity;
 using System;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class MoveAbilityResource : HOBAbilityResource {
@@ -11,8 +13,86 @@ public partial class MoveAbilityResource : HOBAbilityResource {
   }
 
   public partial class MoveAbilityInstance : HOBAbilityInstance {
+    public const float MOVE_ANIMATION_SPEED = 0.2f;
+
     public MoveAbilityInstance(MoveAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
+    }
+
+    public override async Task ActivateAbility(GameplayEventData eventData) {
+      // if (!CommitCooldown()) {
+      //   await EndAbility(eventData);
+      //   return;
+      // }
+
+      if (eventData.TargetData is MoveTargetData data) {
+        foreach (var cell in FindPathTo(data.Cell)) {
+          await Walk(OwnerAbilitySystem.GetOwner<Entity>(), cell);
+        }
+      }
+
+      await EndAbility(eventData);
+    }
+
+    public virtual GameCell[] GetReachableCells() {
+      if (OwnerAbilitySystem.GetOwner() is Entity entity) {
+        if (OwnerAbilitySystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
+          if (OwnerAbilitySystem.TryGetAttributeCurrentValue(moveAttributeSet.MovePoints, out var currentValue)) {
+            return entity.Cell.ExpandSearch((uint)currentValue, IsReachable);
+          }
+        }
+      }
+
+      return null;
+    }
+    public virtual GameCell[] FindPathTo(GameCell cell) {
+      if (OwnerAbilitySystem.GetOwner() is Entity entity) {
+        if (OwnerAbilitySystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
+          if (OwnerAbilitySystem.TryGetAttributeCurrentValue(moveAttributeSet.MovePoints, out var currentValue)) {
+            return entity.Cell.FindPathTo(cell, (uint)currentValue, IsReachable);
+          }
+        }
+      }
+
+      return null;
+    }
+
+    protected virtual bool IsReachable(GameCell from, GameCell to) {
+      return
+        !to.GetSetting().IsWater &&
+        OwnerAbilitySystem.GetOwner<Entity>().EntityManagment.GetEntitiesOnCell(to).Length == 0 &&
+        from.GetEdgeTypeTo(to) != GameCell.EdgeType.Cliff;
+    }
+
+    private async Task Walk(Entity entity, GameCell to) {
+      var startPosition = entity.GetPosition();
+      var targetPosition = to.GetRealPosition();
+
+      var midpoint = (startPosition + targetPosition) / 2;
+      midpoint.Y += 1.0f;
+
+      var tween = entity.CreateTween();
+
+      tween.TweenMethod(
+          Callable.From<Vector3>(entity.SetPosition),
+          startPosition,
+          midpoint,
+          MOVE_ANIMATION_SPEED
+      ).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.In);
+
+      entity.Cell = to;
+
+      entity.TurnAt(targetPosition, MOVE_ANIMATION_SPEED);
+
+
+      tween.TweenMethod(
+          Callable.From<Vector3>(entity.SetPosition),
+          midpoint,
+          targetPosition,
+          MOVE_ANIMATION_SPEED
+      ).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
+
+      await ToSignal(tween, Tween.SignalName.Finished);
     }
   }
 }

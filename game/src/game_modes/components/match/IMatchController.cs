@@ -6,7 +6,7 @@ using GameplayFramework;
 public interface IMatchController : IController {
   public event Action EndTurnEvent;
 
-  public Country Country { get; set; }
+  public Country? Country { get; set; }
 
 
   public bool IsCurrentTurn() => GetGameMode().IsCurrentTurn(this);

@@ -7,6 +7,7 @@ using Godot;
 using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
+  [Signal] public delegate void CommandSelectedEventHandler(HOBAbilityInstance abilityInstance);
   [Signal] public delegate void EndTurnPressedEventHandler();
 
   [Export] private Label TurnChangedNotificationLabel { get; set; }
@@ -58,6 +59,8 @@ public partial class HOBHUD : HUD {
         ShowUIFor(selectedEntity);
       }
     };
+
+    CommandPanel.CommandSelected += (command) => EmitSignal(SignalName.CommandSelected, command);
   }
 
   public void OnGameStarted() {

@@ -3,8 +3,6 @@ namespace HOB.GameEntity;
 using GameplayAbilitySystem;
 using Godot;
 using Godot.Collections;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -20,7 +18,7 @@ public partial class Entity : Node {
 
   public IEntityManagment EntityManagment { get; private set; }
   // public EntityUI EntityUI { get; set; }
-  public GameplayAbilitySystem AbilitySystem { get; private set; }
+  public HOBGameplayAbilitySystem AbilitySystem { get; private set; }
 
   [Notify]
   private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
@@ -46,6 +44,10 @@ public partial class Entity : Node {
         AbilitySystem.GrantAbility(ability.CreateInstance(AbilitySystem));
       }
     }
+
+
+    AddChild(AbilitySystem);
+    AbilitySystem.Owner = this;
 
     CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
   }
