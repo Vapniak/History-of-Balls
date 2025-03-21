@@ -28,7 +28,7 @@ public partial class HOBHUD : HUD {
   public override void _Ready() {
     base._Ready();
 
-    HideStatPanel(null);
+    HideUIFor(null);
 
     TurnChangedNotificationLabel.Modulate = Colors.Transparent;
 
@@ -47,7 +47,7 @@ public partial class HOBHUD : HUD {
 
       }
       else {
-        HideStatPanel(selectedEntity);
+        HideUIFor(selectedEntity);
       }
     };
 
@@ -55,7 +55,7 @@ public partial class HOBHUD : HUD {
       var selectedEntity = GetPlayerController().SelectedEntity;
 
       if (selectedEntity != null) {
-        ShowStatPanel(selectedEntity);
+        ShowUIFor(selectedEntity);
       }
     };
   }
@@ -117,20 +117,27 @@ public partial class HOBHUD : HUD {
     EmitSignal(SignalName.EndTurnPressed);
   }
 
-  private void ShowStatPanel(Entity entity) {
+  private void ShowUIFor(Entity entity) {
     StatPanel.ClearEntries();
 
     StatPanel.SetNameLabel(entity.EntityName);
-    if (entity.AbilitySystem.TryGetAttributeSet<HealthAttributeSet>(out var healthAttributeSet)) {
-      StatPanel.AddEntry("Health", healthAttributeSet.Health.CurrentValue.ToString());
-
-      // TODO: bind attributes changes to ui changes
+    foreach (var value in entity.AbilitySystem.GetAllAttributes()) {
+      StatPanel.AddEntry(value.Key.AttributeName, value.Value.CurrentValue.ToString());
     }
 
     StatPanel.Show();
+
+    CommandPanel.ClearCommands();
+
+    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
+      CommandPanel.AddCommand(ability as HOBAbilityInstance);
+    }
+
+    CommandPanel.Show();
   }
-  private void HideStatPanel(Entity entity) {
+  private void HideUIFor(Entity entity) {
     StatPanel.Hide();
+    CommandPanel.Hide();
   }
 
   public new HOBPlayerController GetPlayerController() {

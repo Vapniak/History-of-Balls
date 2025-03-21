@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="MoveAbilityResource" load_steps=3 format=3 uid="uid://jr0xec5ix0cv"]
+
+[ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="1_vnhkr"]
+[ext_resource type="Script" path="res://src/game_entities/entites/abilities/move/MoveAbilityResource.cs" id="2_sfmcx"]
+
+[resource]
+script = ExtResource("2_sfmcx")
+Icon = ExtResource("1_vnhkr")
+AbilityName = "Move"

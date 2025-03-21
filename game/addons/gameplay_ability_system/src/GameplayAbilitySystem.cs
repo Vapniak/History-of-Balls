@@ -1,6 +1,5 @@
 namespace GameplayAbilitySystem;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -8,93 +7,175 @@ using Godot.Collections;
 
 [GlobalClass]
 public partial class GameplayAbilitySystem : Node {
-  [Export] private Array<GameplayAttributeSet> InitialAttributes { get; set; }
-  [Export] private Array<GameplayAbility> InitialAbilities { get; set; }
+  [Export] private Array<GameplayAttributeSet> AttributeSets { get; set; } = new();
 
-  public GameplayAbilityOwnerInfo OwnerInfo { get; private set; }
-
-  private List<GameplayAttributeSet> SpawnedAttributes { get; set; } = new();
+  private Godot.Collections.Dictionary<GameplayAttribute, GameplayAttributeValue> AttributeValues { get; set; } = new();
+  private List<GameplayEffectContainer> AppliedEffects { get; set; } = new();
   private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
 
-
-  public override void _Ready() {
-    AddAttributeSet(InitialAttributes);
-
-    if (InitialAbilities != null) {
-      foreach (var ability in InitialAbilities) {
-        GiveAbility(ability, 0);
-      }
-    }
-  }
-
-  public void InitAbilityOwnerInfo(Node ownerNode) {
-    OwnerInfo = new(ownerNode, this);
-  }
-
-  public void GiveAbility(GameplayAbility ability, int level) {
-    var abilityInstance = new GameplayAbilityInstance(ability, level);
+  public void GrantAbility(GameplayAbilityInstance abilityInstance) {
     GrantedAbilities.Add(abilityInstance);
-    ability.OnGranted(abilityInstance, OwnerInfo);
   }
 
-  public void RemoveAbility(GameplayAbility ability) {
-    GrantedAbilities.Remove(GrantedAbilities.First(e => e.Ability == ability));
+  public IEnumerable<GameplayAbilityInstance> GetGrantedAbilities() => GrantedAbilities;
+
+  public bool TryApplyGameplayEffectToSelf(GameplayEffectInstance geInstance) {
+    if (geInstance == null) {
+      return false;
+    }
+
+    switch (geInstance.GameplayEffect.EffectDefinition.DurationPolicy) {
+      case DurationPolicy.Duration:
+        break;
+      case DurationPolicy.Infinite:
+        break;
+      case DurationPolicy.Instant:
+        ApplyInstantGameplayEffect(geInstance);
+        break;
+      default:
+        break;
+    }
+
+    return true;
   }
 
-  public void AddAttributeSet(IEnumerable<GameplayAttributeSet> attributeSets) {
-    if (attributeSets == null) {
+  public void AddAttributeSet(GameplayAttributeSet attributeSet) {
+    if (attributeSet == null) {
       return;
     }
 
-    foreach (var attributeSet in attributeSets) {
-      AddAttributeSet(attributeSet);
-    }
-  }
-  public void AddAttributeSet(GameplayAttributeSet attributeSet) {
-    if (attributeSet != null) {
-      SpawnedAttributes.Add(attributeSet.Duplicate() as GameplayAttributeSet);
+    AttributeSets.Add(attributeSet);
+
+    foreach (var attribute in attributeSet.GetAttributes()) {
+      AttributeValues.TryAdd(attribute, new());
     }
   }
 
   public void RemoveAttributeSet(GameplayAttributeSet attributeSet) {
-    SpawnedAttributes.Remove(attributeSet);
+    AttributeSets.Remove(attributeSet);
+    foreach (var attribute in attributeSet.GetAttributes()) {
+      AttributeValues.Remove(attribute);
+    }
   }
 
-  public void RemoveAttributeSet<T>() where T : GameplayAttributeSet {
-    TryGetAttributeSet(out T attributeSet);
-    SpawnedAttributes.Remove(attributeSet);
-
-    TryActivateAbility<GameplayAbility>(payload: new());
+  public Godot.Collections.Dictionary<GameplayAttribute, GameplayAttributeValue> GetAllAttributes() {
+    return AttributeValues;
   }
 
   public bool TryGetAttributeSet<T>(out T attributeSet) where T : GameplayAttributeSet {
-    attributeSet = SpawnedAttributes.OfType<T>().FirstOrDefault();
+    attributeSet = AttributeSets.OfType<T>().FirstOrDefault();
+
     return attributeSet != null;
   }
 
-  public bool TryActivateAbility<T>(GameplayEventData payload) where T : GameplayAbility {
-    var ability = GrantedAbilities.FirstOrDefault(a => a.Ability.GetType() == typeof(T));
-    return TryActivateAbility(ability, payload);
-  }
-
-  public bool TryActivateAbility(GameplayAbilityInstance instance, GameplayEventData payload) {
-    if (instance != null && instance.Ability.TryActivateAbility(instance, OwnerInfo, payload)) {
+  public bool TryGetAttributeCurrentValue(GameplayAttribute attribute, out float? currentValue) {
+    if (TryGetAttributeValue(attribute, out var value)) {
+      currentValue = value.CurrentValue;
       return true;
     }
 
+    currentValue = null;
     return false;
   }
 
-  public bool TryGetAbility<T>(out T ability) where T : GameplayAbility {
-    ability = GrantedAbilities.FirstOrDefault(a => a.Ability.GetType() == typeof(T)).Ability as T;
-    return ability != null;
+  public bool TryGetAttributeBuffedValue(GameplayAttribute attribute, ref float? buffedValue) {
+    if (TryGetAttributeValue(attribute, out var value)) {
+      buffedValue = value.BuffedValue;
+      return true;
+    }
+
+    buffedValue = null;
+    return false;
   }
 
-  public void SendEventData(GameplayEventData data) {
-    foreach (var ability in GrantedAbilities) {
-      if (ability.Ability.ShouldAbilityRespondToEvent(OwnerInfo, data)) {
-        TryActivateAbility(ability, data);
+  public void TickGameplayEffectsBy(float delta) {
+    foreach (var effect in AppliedEffects) {
+      var ge = effect.EffectInstance;
+
+      if (ge.GameplayEffect.EffectDefinition.DurationPolicy == DurationPolicy.Instant) {
+        continue;
+      }
+
+      ge.UpdateRemainingDurationBy(delta);
+
+      ge.TickPeriodic(delta, out var executePeriodic);
+
+      if (executePeriodic) {
+        ApplyInstantGameplayEffect(ge);
       }
     }
+  }
+
+  private bool TryGetAttributeValue(GameplayAttribute attribute, out GameplayAttributeValue value) {
+    return AttributeValues.TryGetValue(attribute, out value);
+  }
+
+  public GameplayEffectInstance MakeOutgoingInstance(GameplayEffectResource gameplayEffect, float level) {
+    return GameplayEffectInstance.CreateNew(gameplayEffect, this, level);
+  }
+
+  private void ApplyInstantGameplayEffect(GameplayEffectInstance geInstance) {
+    foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
+      var magnitue = modifier.ModifierMagnitude.CalculateMagnitude(geInstance);
+      var attribute = modifier.Attribute;
+
+      float? buffedValue = 0;
+      if (TryGetAttributeBuffedValue(attribute, ref buffedValue)) {
+        switch (modifier.ModifierType) {
+          case AttributeModifierType.Add:
+            buffedValue += magnitue;
+            break;
+          case AttributeModifierType.Multiply:
+            buffedValue *= magnitue;
+            break;
+          case AttributeModifierType.Override:
+            buffedValue = magnitue;
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+
+  private void ApplyInfiniteGameplayEffect(GameplayEffectInstance geInstance) {
+    var modifiersToApply = new List<GameplayEffectContainer.ModifierContainer>();
+
+    foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
+      var magnitude = modifier.ModifierMagnitude.CalculateMagnitude(geInstance).GetValueOrDefault();
+      var attributeModifier = new AttributeModifier();
+
+      switch (modifier.ModifierType) {
+        case AttributeModifierType.Add:
+          attributeModifier.Add = magnitude;
+          break;
+        case AttributeModifierType.Multiply:
+          attributeModifier.Multiply = magnitude;
+          break;
+        case AttributeModifierType.Override:
+          attributeModifier.Override = magnitude;
+          break;
+        default:
+          break;
+      }
+
+      modifiersToApply.Add(new() { Attribute = modifier.Attribute, Modifier = attributeModifier });
+    }
+
+    AppliedEffects.Add(new GameplayEffectContainer() { EffectInstance = geInstance, Modifiers = modifiersToApply.ToArray() });
+  }
+
+  public void CleanGameplayEffects() {
+    AppliedEffects.RemoveAll(e => e.EffectInstance.GameplayEffect.EffectDefinition.DurationPolicy == DurationPolicy.Duration && e.EffectInstance.DurationRemaining <= 0);
+  }
+}
+
+public class GameplayEffectContainer {
+  public GameplayEffectInstance EffectInstance;
+  public ModifierContainer[] Modifiers;
+
+  public class ModifierContainer {
+    public GameplayAttribute Attribute;
+    public AttributeModifier Modifier;
   }
 }

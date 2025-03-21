@@ -7,4 +7,5 @@ using System;
 [GlobalClass]
 public partial class MoveAttributeSet : GameplayAttributeSet {
   [Export] public GameplayAttribute MovePoints { get; private set; }
+  public override GameplayAttribute[] GetAttributes() => new[] { MovePoints };
 }

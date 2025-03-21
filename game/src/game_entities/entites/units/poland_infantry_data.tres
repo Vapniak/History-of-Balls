@@ -1,35 +1,30 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=11 format=3 uid="uid://ddmnswe1q0sv8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://ddmnswe1q0sv8"]
 
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/entites/attributes/health.tres" id="1_6tnkr"]
 [ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_es5ke"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/gameplay_attributes/GameplayAttribute.cs" id="1_in3eu"]
-[ext_resource type="Resource" uid="uid://61525umuvo62" path="res://src/game_entities/entites/abilities/move_ability.tres" id="1_xervk"]
+[ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="1_u5fur"]
+[ext_resource type="Script" path="res://src/game_entities/entites/abilities/move/MoveAbilityResource.cs" id="2_txhsp"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/entites/attributes/move_points.tres" id="3_qs4uj"]
 [ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/HealthAttributeSet.cs" id="3_wwb34"]
 [ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/MoveAttributeSet.cs" id="4_q023g"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="7_2e5sc"]
 
-[sub_resource type="Resource" id="Resource_or7nw"]
-script = ExtResource("1_in3eu")
-MinValue = 0.0
-MaxValue = 0.0
-BaseValue = 5.0
+[sub_resource type="Resource" id="Resource_q2v01"]
+script = ExtResource("2_txhsp")
+Icon = ExtResource("1_u5fur")
+AbilityName = "Move"
 
-[sub_resource type="Resource" id="Resource_c3pgs"]
+[sub_resource type="Resource" id="Resource_6exyj"]
 script = ExtResource("3_wwb34")
-Health = SubResource("Resource_or7nw")
+HealthAttribute = ExtResource("1_6tnkr")
 
-[sub_resource type="Resource" id="Resource_eya4i"]
-script = ExtResource("1_in3eu")
-MinValue = 0.0
-MaxValue = 0.0
-BaseValue = 5.0
-
-[sub_resource type="Resource" id="Resource_uiurl"]
+[sub_resource type="Resource" id="Resource_s6rnt"]
 script = ExtResource("4_q023g")
-MovePoints = SubResource("Resource_eya4i")
+MovePoints = ExtResource("3_qs4uj")
 
 [resource]
 script = ExtResource("7_2e5sc")
 EntityName = "Poland Infantry"
-Attributes = Array[Object]([SubResource("Resource_c3pgs"), SubResource("Resource_uiurl")])
-Abilities = Array[Object]([ExtResource("1_xervk")])
+AttributeSets = Array[Object]([SubResource("Resource_6exyj"), SubResource("Resource_s6rnt")])
+Abilities = Array[Object]([SubResource("Resource_q2v01")])
 Body = ExtResource("1_es5ke")

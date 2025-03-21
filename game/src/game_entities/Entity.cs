@@ -2,6 +2,7 @@ namespace HOB.GameEntity;
 
 using GameplayAbilitySystem;
 using Godot;
+using Godot.Collections;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ public partial class Entity : Node {
   [Notify]
   private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
 
-  public Entity(string name, GameCell cell, IEntityManagment entityManagment, IEnumerable<GameplayAttributeSet> initialAttributes, IEnumerable<GameplayAbility> abilities, EntityBody body) {
+  public Entity(string name, GameCell cell, IEntityManagment entityManagment, Array<GameplayAttributeSet> attributeSets, Array<GameplayAbilityResource> abilities, EntityBody body) {
     Cell = cell;
     EntityManagment = entityManagment;
     EntityName = name;
@@ -33,11 +34,16 @@ public partial class Entity : Node {
     AddChild(Body);
 
     AbilitySystem = new();
-    AbilitySystem.InitAbilityOwnerInfo(this);
-    AbilitySystem.AddAttributeSet(initialAttributes);
+    // AbilitySystem.InitAbilityOwnerInfo(this);
+    if (attributeSets != null) {
+      foreach (var @as in attributeSets) {
+        AbilitySystem.AddAttributeSet(@as);
+      }
+    }
+
     if (abilities != null) {
       foreach (var ability in abilities) {
-        AbilitySystem.GiveAbility(ability, 0);
+        AbilitySystem.GrantAbility(ability.CreateInstance(AbilitySystem));
       }
     }
 

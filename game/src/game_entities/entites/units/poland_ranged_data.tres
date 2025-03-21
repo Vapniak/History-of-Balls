@@ -5,6 +5,7 @@
 
 [resource]
 script = ExtResource("1_rr7kf")
-EntityName = ""
-Attributes = null
+EntityName = "Poland Ranged"
+AttributeSets = Array[Object]([])
+Abilities = Array[Object]([])
 Body = ExtResource("1_3y7qy")
