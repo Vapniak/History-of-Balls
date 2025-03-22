@@ -98,7 +98,7 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   public float? GetAttributeCurrentValue(GameplayAttribute attribute) {
-    return CaluclateAttributeCurrentValue(attribute);
+    return CalculateAttributeCurrentValue(attribute);
   }
 
   public GameplayEffectInstance MakeOutgoingInstance(GameplayEffectResource gameplayEffect, float level) {
@@ -173,8 +173,10 @@ public partial class GameplayAbilitySystem : Node {
     AppliedEffects.Add(new GameplayEffectContainer() { EffectInstance = geInstance, Modifiers = modifiersToApply.ToArray() });
   }
 
-  private float CaluclateAttributeCurrentValue(GameplayAttribute attribute) {
+  private float CalculateAttributeCurrentValue(GameplayAttribute attribute) {
     var value = AttributeValues[attribute];
+
+    // TODO: apply modifiers
 
     return value.BaseValue;
   }

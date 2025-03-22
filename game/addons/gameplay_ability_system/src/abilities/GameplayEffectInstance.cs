@@ -56,7 +56,7 @@ public partial class GameplayEffectInstance : Node {
         }
       }
 
-      if (GameplayEffect?.EffectDefinition.DurationStrategy != null) {
+      if (GameplayEffect?.EffectDefinition.DurationPolicy == DurationPolicy.Duration && GameplayEffect?.EffectDefinition.DurationStrategy != null) {
         GameplayEffect.EffectDefinition.DurationStrategy.Tick(tickContext);
         if (GameplayEffect.EffectDefinition.DurationStrategy.IsExpired) {
           QueueFree();
