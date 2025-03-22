@@ -13,6 +13,13 @@ using HOB.GameEntity;
 /// <summary>
 /// Manages entities and turns of each player.
 /// </summary>
+///
+[Flags]
+public enum TurnPhase : int {
+  Start = 1,
+  End = 2,
+}
+
 [GlobalClass]
 public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityManagment {
   public event Action TurnStarted;
@@ -195,10 +202,18 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public Entity[] GetEntities() => Entities.ToArray();
 
   private void OnTurnStarted() {
+    foreach (var entity in GetEntities()) {
+      entity.AbilitySystem.Tick(new TurnTickContext(TurnPhase.End, entity.TryGetOwner(out var owner) && owner.IsCurrentTurn()));
+    }
+
     _lastPlayer?.OwnTurnEnded();
     var player = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
 
     player.OwnTurnStarted();
+
+    foreach (var entity in GetEntities()) {
+      entity.AbilitySystem.Tick(new TurnTickContext(TurnPhase.Start, entity.TryGetOwner(out var owner) && owner.IsCurrentTurn()));
+    }
     _lastPlayer = player;
   }
 

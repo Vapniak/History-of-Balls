@@ -124,8 +124,9 @@ public partial class HOBHUD : HUD {
     StatPanel.ClearEntries();
 
     StatPanel.SetNameLabel(entity.EntityName);
-    foreach (var value in entity.AbilitySystem.GetAllAttributes()) {
-      StatPanel.AddEntry(value.Key.AttributeName, value.Value.CurrentValue.ToString());
+    foreach (var attribute in entity.AbilitySystem.GetAllAttributes()) {
+      StatPanel.AddEntry(attribute.AttributeName, entity.AbilitySystem.GetAttributeCurrentValue(attribute).GetValueOrDefault().ToString());
+
     }
 
     StatPanel.Show();

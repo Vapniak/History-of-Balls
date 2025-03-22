@@ -37,9 +37,8 @@ public partial class MoveAbilityResource : HOBAbilityResource {
     public virtual GameCell[] GetReachableCells() {
       if (OwnerAbilitySystem.GetOwner() is Entity entity) {
         if (OwnerAbilitySystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
-          if (OwnerAbilitySystem.TryGetAttributeCurrentValue(moveAttributeSet.MovePoints, out var currentValue)) {
-            return entity.Cell.ExpandSearch((uint)currentValue, IsReachable);
-          }
+          var mp = OwnerAbilitySystem.GetAttributeCurrentValue(moveAttributeSet.MovePoints);
+          return entity.Cell.ExpandSearch((uint)mp.GetValueOrDefault(), IsReachable);
         }
       }
 
@@ -48,9 +47,8 @@ public partial class MoveAbilityResource : HOBAbilityResource {
     public virtual GameCell[] FindPathTo(GameCell cell) {
       if (OwnerAbilitySystem.GetOwner() is Entity entity) {
         if (OwnerAbilitySystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
-          if (OwnerAbilitySystem.TryGetAttributeCurrentValue(moveAttributeSet.MovePoints, out var currentValue)) {
-            return entity.Cell.FindPathTo(cell, (uint)currentValue, IsReachable);
-          }
+          var mp = OwnerAbilitySystem.GetAttributeCurrentValue(moveAttributeSet.MovePoints);
+          return entity.Cell.FindPathTo(cell, (uint)mp.GetValueOrDefault(), IsReachable);
         }
       }
 

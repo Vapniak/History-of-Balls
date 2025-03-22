@@ -30,13 +30,9 @@ public partial class AttackAbilityResource : HOBAbilityResource {
     }
 
     public override async Task ActivateAbility(GameplayEventData eventData) {
-      GD.Print("attacked");
-      if (CurrentEventData?.TargetData is AttackTargetData d) {
-        var effect = (AbilityResource as AttackAbilityResource)?.DamageEffect;
-        if (effect != null) {
-          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
-          d.TargetAbilitySystem.TryApplyGameplayEffectToSelf(ge);
-        }
+      if (!CommitCost()) {
+        await EndAbility(eventData);
+        return;
       }
 
       if (eventData.TargetData is AttackTargetData data) {
@@ -54,6 +50,15 @@ public partial class AttackAbilityResource : HOBAbilityResource {
 
       await ToSignal(firstTween, Tween.SignalName.Finished);
 
+      if (CurrentEventData?.TargetData is AttackTargetData d) {
+        var effect = (AbilityResource as AttackAbilityResource)?.DamageEffect;
+        if (effect != null) {
+          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
+          ge.Target = d.TargetAbilitySystem;
+          d.TargetAbilitySystem.TryApplyGameplayEffectToSelf(ge);
+        }
+      }
+
       var secondTween = CreateTween();
       secondTween.TweenMethod(Callable.From<Vector3>(OwnerEntity.SetPosition), OwnerEntity.GetPosition(), OwnerEntity.Cell.GetRealPosition(), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
 
@@ -66,17 +71,16 @@ public partial class AttackAbilityResource : HOBAbilityResource {
 
       if (OwnerEntity.AbilitySystem.TryGetAttributeSet<AttackAttributeSet>(out var attributeSet)) {
         if (attributeSet != null) {
-          if (OwnerEntity.AbilitySystem.TryGetAttributeCurrentValue(attributeSet.Range, out var currentValue)) {
-            var cells = OwnerAbilitySystem.GetOwner<Entity>().Cell.GetCellsInRange((uint)currentValue.GetValueOrDefault());
-            foreach (var cell in cells) {
-              if (cell == OwnerEntity.Cell) {
-                continue;
-              }
-
-              cellsInR.Add(cell);
-              var entities = OwnerEntity.EntityManagment.GetEntitiesOnCell(cell);
-              attackableEntities.AddRange(entities.Where(CanBeAttacked));
+          var range = OwnerEntity.AbilitySystem.GetAttributeCurrentValue(attributeSet.Range);
+          var cells = OwnerAbilitySystem.GetOwner<Entity>().Cell.GetCellsInRange((uint)range.GetValueOrDefault());
+          foreach (var cell in cells) {
+            if (cell == OwnerEntity.Cell) {
+              continue;
             }
+
+            cellsInR.Add(cell);
+            var entities = OwnerEntity.EntityManagment.GetEntitiesOnCell(cell);
+            attackableEntities.AddRange(entities.Where(CanBeAttacked));
           }
         }
       }

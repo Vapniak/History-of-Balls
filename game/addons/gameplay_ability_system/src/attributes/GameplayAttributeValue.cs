@@ -1,7 +1,8 @@
 namespace GameplayAbilitySystem;
 
 using Godot;
-public partial class GameplayAttributeValue : Resource {
-  [Export] public float BaseValue { get; set; }
-  public float CurrentValue => BaseValue;
+
+public sealed partial class GameplayAttributeValue : Resource {
+  public float BaseValue { get; set; }
+  public float CurrentValue { get; set; }
 }

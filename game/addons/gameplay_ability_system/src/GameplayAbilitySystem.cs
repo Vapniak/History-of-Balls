@@ -1,5 +1,6 @@
 namespace GameplayAbilitySystem;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
@@ -7,13 +8,26 @@ using Godot.Collections;
 
 [GlobalClass]
 public partial class GameplayAbilitySystem : Node {
+  [Signal] public delegate void GameplayEffectAppliedEventHandler(GameplayEffectInstance gameplayEffectInstance);
+  [Signal] public delegate void GameplayEffectExecutedEventHandler(GameplayEffectInstance gameplayEffectInstance);
+  [Signal] public delegate void GameplayEffectRemovedEventHandler(GameplayEffectInstance gameplayEffectInstance);
+
+  [Signal] public delegate void GameplayAbilityGrantedEventHandler(GameplayAbilityInstance gameplayAbility);
+  [Signal] public delegate void GameplayAbilityActivatedEventHandler(GameplayAbilityInstance gameplayAbility);
+  [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbilityInstance gameplayAbility);
+
   [Export] private Array<GameplayAttributeSet> AttributeSets { get; set; } = new();
 
   private Godot.Collections.Dictionary<GameplayAttribute, GameplayAttributeValue> AttributeValues { get; set; } = new();
   private List<GameplayEffectContainer> AppliedEffects { get; set; } = new();
   private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
 
+  public override void _Process(double delta) {
+    Tick(new TimeTickContext((float)delta));
+  }
+
   public void GrantAbility(GameplayAbilityInstance abilityInstance) {
+    abilityInstance.Activated += () => EmitSignal(SignalName.GameplayAbilityActivated, abilityInstance);
     GrantedAbilities.Add(abilityInstance);
     AddChild(abilityInstance);
   }
@@ -25,13 +39,13 @@ public partial class GameplayAbilitySystem : Node {
       return false;
     }
 
+    geInstance.TreeExiting += () => AppliedEffects.RemoveAll(e => e.EffectInstance == geInstance);
     AddChild(geInstance);
 
     switch (geInstance.GameplayEffect?.EffectDefinition?.DurationPolicy) {
-      case DurationPolicy.Duration:
-        break;
-      case DurationPolicy.Infinite:
-        ApplyInfiniteGameplayEffect(geInstance);
+      case DurationPolicy.Duration or DurationPolicy.Infinite:
+        geInstance.ExecutePeriodic += ApplyInstantGameplayEffect;
+        ApplyDurationGameplayEffect(geInstance);
         break;
       case DurationPolicy.Instant:
         ApplyInstantGameplayEffect(geInstance);
@@ -39,6 +53,8 @@ public partial class GameplayAbilitySystem : Node {
       default:
         break;
     }
+
+    EmitSignal(SignalName.GameplayEffectApplied, geInstance);
 
     return true;
   }
@@ -62,8 +78,8 @@ public partial class GameplayAbilitySystem : Node {
     }
   }
 
-  public Godot.Collections.Dictionary<GameplayAttribute, GameplayAttributeValue> GetAllAttributes() {
-    return AttributeValues;
+  public IEnumerable<GameplayAttribute> GetAllAttributes() {
+    return AttributeValues.Keys;
   }
 
   public bool TryGetAttributeSet<T>(out T? attributeSet) where T : GameplayAttributeSet {
@@ -72,17 +88,7 @@ public partial class GameplayAbilitySystem : Node {
     return attributeSet != null;
   }
 
-  public bool TryGetAttributeCurrentValue(GameplayAttribute attribute, out float? currentValue) {
-    if (TryGetAttributeValue(attribute, out var value)) {
-      currentValue = value?.CurrentValue;
-      return true;
-    }
-
-    currentValue = null;
-    return false;
-  }
-
-  public void TickGameplayEffectsBy(float delta) {
+  public void Tick(TickContext tickContext) {
     foreach (var effect in AppliedEffects) {
       var ge = effect.EffectInstance;
 
@@ -90,18 +96,12 @@ public partial class GameplayAbilitySystem : Node {
         continue;
       }
 
-      ge.UpdateRemainingDurationBy(delta);
-
-      ge.TickPeriodic(delta, out var executePeriodic);
-
-      if (executePeriodic) {
-        ApplyInstantGameplayEffect(ge);
-      }
+      ge.Tick(tickContext);
     }
   }
 
-  private bool TryGetAttributeValue(GameplayAttribute attribute, out GameplayAttributeValue? value) {
-    return AttributeValues.TryGetValue(attribute, out value);
+  public float? GetAttributeCurrentValue(GameplayAttribute attribute) {
+    return CaluclateAttributeCurrentValue(attribute);
   }
 
   public GameplayEffectInstance MakeOutgoingInstance(GameplayEffectResource gameplayEffect, float level) {
@@ -134,10 +134,12 @@ public partial class GameplayAbilitySystem : Node {
           }
         }
       }
+
+      EmitSignal(SignalName.GameplayEffectExecuted, geInstance);
     }
   }
 
-  private void ApplyInfiniteGameplayEffect(GameplayEffectInstance geInstance) {
+  private void ApplyDurationGameplayEffect(GameplayEffectInstance geInstance) {
     var modifiersToApply = new List<GameplayEffectContainer.ModifierContainer>();
     if (geInstance.GameplayEffect?.EffectDefinition?.Modifiers != null) {
       foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
@@ -167,13 +169,14 @@ public partial class GameplayAbilitySystem : Node {
     AppliedEffects.Add(new GameplayEffectContainer() { EffectInstance = geInstance, Modifiers = modifiersToApply.ToArray() });
   }
 
-  public void CleanGameplayEffects() {
-    var toClean = AppliedEffects.Where(e => e.EffectInstance?.GameplayEffect?.EffectDefinition?.DurationPolicy == DurationPolicy.Duration && e.EffectInstance.DurationRemaining <= 0);
+  private float CaluclateAttributeCurrentValue(GameplayAttribute attribute) {
+    var value = AttributeValues[attribute];
 
-    foreach (var e in toClean) {
-      AppliedEffects.Remove(e);
-      e.EffectInstance.QueueFree();
-    }
+    return value.BaseValue;
+  }
+
+  private bool TryGetAttributeValue(GameplayAttribute attribute, out GameplayAttributeValue? value) {
+    return AttributeValues.TryGetValue(attribute, out value);
   }
 }
 

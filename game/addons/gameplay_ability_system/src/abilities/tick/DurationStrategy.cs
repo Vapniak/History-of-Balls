@@ -1,0 +1,12 @@
+namespace GameplayAbilitySystem;
+
+using Godot;
+
+[GlobalClass]
+public abstract partial class DurationStrategy : Resource {
+  public abstract bool IsExpired { get; }
+  public abstract void Initialize(float magnitude);
+  public abstract void Left(float value);
+  public abstract void Tick(TickContext tickContext);
+  public abstract void Reset();
+}

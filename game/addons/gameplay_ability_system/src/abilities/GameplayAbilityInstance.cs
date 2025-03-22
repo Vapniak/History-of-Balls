@@ -4,6 +4,9 @@ using System.Threading.Tasks;
 using Godot;
 
 public abstract partial class GameplayAbilityInstance : Node {
+  [Signal] public delegate void ActivatedEventHandler();
+  [Signal] public delegate void EndedEventHandler();
+
   public GameplayAbilityResource AbilityResource { get; private set; }
   protected GameplayAbilitySystem OwnerAbilitySystem { get; private set; }
   protected GameplayEventData? CurrentEventData { get; private set; }
@@ -21,12 +24,8 @@ public abstract partial class GameplayAbilityInstance : Node {
       return false;
     }
 
-    CurrentEventData = eventData;
-
     await PreActivate(eventData);
     await ActivateAbility(eventData);
-
-    CurrentEventData = null;
 
     return true;
   }
@@ -36,9 +35,17 @@ public abstract partial class GameplayAbilityInstance : Node {
   }
 
   public virtual void CancelAbility() { }
-  public virtual async Task PreActivate(GameplayEventData eventData) { IsActive = true; }
+  public virtual async Task PreActivate(GameplayEventData eventData) {
+    IsActive = true;
+    CurrentEventData = eventData;
+    EmitSignal(SignalName.Activated);
+  }
   public virtual async Task ActivateAbility(GameplayEventData eventData) { }
-  public virtual async Task EndAbility(GameplayEventData eventData) { IsActive = false; }
+  public virtual async Task EndAbility(GameplayEventData eventData) {
+    IsActive = false;
+    CurrentEventData = null;
+    EmitSignal(SignalName.Ended);
+  }
 
 
   public virtual bool CheckCost() {
