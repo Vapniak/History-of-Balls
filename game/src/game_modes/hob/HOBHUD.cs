@@ -2,6 +2,7 @@ namespace HOB;
 
 using System.Linq;
 using System.Threading.Tasks;
+using GameplayAbilitySystem;
 using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
@@ -124,6 +125,8 @@ public partial class HOBHUD : HUD {
     StatPanel.ClearEntries();
 
     StatPanel.SetNameLabel(entity.EntityName);
+
+    entity.AbilitySystem.AttributeValueChanged += OnAttributeValueChanged;
     foreach (var attribute in entity.AbilitySystem.GetAllAttributes()) {
       StatPanel.AddEntry(attribute.AttributeName, entity.AbilitySystem.GetAttributeCurrentValue(attribute).GetValueOrDefault().ToString());
 
@@ -139,9 +142,16 @@ public partial class HOBHUD : HUD {
 
     CommandPanel.Show();
   }
-  private void HideUIFor(Entity entity) {
+  private void HideUIFor(Entity? entity) {
+    if (entity != null) {
+      entity.AbilitySystem.AttributeValueChanged -= OnAttributeValueChanged;
+    }
     StatPanel.Hide();
     CommandPanel.Hide();
+  }
+
+  private void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
+    StatPanel.UpdateEntry(attribute.AttributeName, newValue.ToString());
   }
 
   public new HOBPlayerController GetPlayerController() {

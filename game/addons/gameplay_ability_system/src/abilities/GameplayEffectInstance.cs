@@ -11,6 +11,9 @@ public partial class GameplayEffectInstance : Node {
   public GameplayAbilitySystem Source { get; private set; }
   public GameplayAbilitySystem? Target { get; set; }
 
+  private DurationStrategy? DurationStrategy { get; set; }
+  private DurationStrategy? PeriodStrategy { get; set; }
+
   public static GameplayEffectInstance CreateNew(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, float level) {
     return new GameplayEffectInstance(gameplayEffect, source, level);
   }
@@ -29,12 +32,14 @@ public partial class GameplayEffectInstance : Node {
       }
 
       if (GameplayEffect.EffectDefinition.DurationStrategy != null) {
-        GameplayEffect.EffectDefinition.DurationStrategy.Initialize((GameplayEffect.EffectDefinition.DurationModifier?.CalculateMagnitude(this) * GameplayEffect.EffectDefinition.DurationMultiplier).GetValueOrDefault());
+        DurationStrategy = GameplayEffect.EffectDefinition.DurationStrategy.Duplicate() as DurationStrategy;
+        DurationStrategy?.Initialize((GameplayEffect.EffectDefinition.DurationModifier?.CalculateMagnitude(this) * GameplayEffect.EffectDefinition.DurationMultiplier).GetValueOrDefault());
       }
     }
 
     if (GameplayEffect.Period != null) {
-      GameplayEffect.Period.PeriodStrategy?.Initialize(GameplayEffect.Period.Period);
+      PeriodStrategy = GameplayEffect.Period.PeriodStrategy?.Duplicate() as DurationStrategy;
+      PeriodStrategy?.Initialize(GameplayEffect.Period.Period);
       if (GameplayEffect.Period.ExecuteOnApplication) {
         GameplayEffect.Period?.PeriodStrategy?.Left(0);
       }

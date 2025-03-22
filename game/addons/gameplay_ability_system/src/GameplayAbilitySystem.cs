@@ -8,6 +8,7 @@ using Godot.Collections;
 
 [GlobalClass]
 public partial class GameplayAbilitySystem : Node {
+  [Signal] public delegate void AttributeValueChangedEventHandler(GameplayAttribute attribute, float oldValue, float newValue);
   [Signal] public delegate void GameplayEffectAppliedEventHandler(GameplayEffectInstance gameplayEffectInstance);
   [Signal] public delegate void GameplayEffectExecutedEventHandler(GameplayEffectInstance gameplayEffectInstance);
   [Signal] public delegate void GameplayEffectRemovedEventHandler(GameplayEffectInstance gameplayEffectInstance);
@@ -92,10 +93,6 @@ public partial class GameplayAbilitySystem : Node {
     foreach (var effect in AppliedEffects) {
       var ge = effect.EffectInstance;
 
-      if (ge.GameplayEffect?.EffectDefinition?.DurationPolicy == DurationPolicy.Instant) {
-        continue;
-      }
-
       ge.Tick(tickContext);
     }
   }
@@ -113,22 +110,29 @@ public partial class GameplayAbilitySystem : Node {
       foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
         if (modifier != null) {
           var attribute = modifier.Attribute;
-          var magnitue = modifier.ModifierMagnitude?.CalculateMagnitude(geInstance).GetValueOrDefault(1) * modifier?.Coefficient;
+          var magnitue = (modifier.ModifierMagnitude == null ? 1 : modifier.ModifierMagnitude.CalculateMagnitude(geInstance)) * modifier.Coefficient;
 
           if (attribute != null) {
             if (TryGetAttributeValue(attribute, out var value)) {
+              var oldValue = value.BaseValue;
               switch (modifier?.ModifierType) {
                 case AttributeModifierType.Add:
-                  value.BaseValue += magnitue.GetValueOrDefault();
+                  value.BaseValue += magnitue;
                   break;
                 case AttributeModifierType.Multiply:
-                  value.BaseValue *= magnitue.GetValueOrDefault();
+                  value.BaseValue *= magnitue;
                   break;
                 case AttributeModifierType.Override:
-                  value.BaseValue = magnitue.GetValueOrDefault();
+                  value.BaseValue = magnitue;
                   break;
                 default:
                   break;
+              }
+
+              var newValue = value.BaseValue;
+
+              if (oldValue != newValue) {
+                EmitSignal(SignalName.AttributeValueChanged, attribute, oldValue, newValue);
               }
             }
           }
@@ -144,7 +148,7 @@ public partial class GameplayAbilitySystem : Node {
     if (geInstance.GameplayEffect?.EffectDefinition?.Modifiers != null) {
       foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
         var attributeModifier = new AttributeModifier();
-        var magnitude = (modifier?.ModifierMagnitude?.CalculateMagnitude(geInstance).GetValueOrDefault(1) * modifier?.Coefficient).GetValueOrDefault();
+        var magnitude = (modifier?.ModifierMagnitude?.CalculateMagnitude(geInstance) * modifier?.Coefficient).GetValueOrDefault();
 
         switch (modifier?.ModifierType) {
           case AttributeModifierType.Add:

@@ -16,14 +16,14 @@ public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResourc
   public override void Initialize(GameplayEffectInstance effectInstance) {
     CreationAttributeValue = GetAttribueValue(effectInstance);
   }
-  public override float? CalculateMagnitude(GameplayEffectInstance effectInstance) {
+  public override float CalculateMagnitude(GameplayEffectInstance effectInstance) {
     var value = GetCaptureAttribute(effectInstance);
     if (value != null) {
       if (ScalingFunction != null) {
         return ScalingFunction.Sample(value.GetValueOrDefault());
       }
-
     }
+
 
     return value.GetValueOrDefault();
   }

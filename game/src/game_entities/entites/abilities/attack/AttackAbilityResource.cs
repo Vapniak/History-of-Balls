@@ -1,6 +1,7 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
 using System;
@@ -30,11 +31,6 @@ public partial class AttackAbilityResource : HOBAbilityResource {
     }
 
     public override async Task ActivateAbility(GameplayEventData eventData) {
-      if (!CommitCost()) {
-        await EndAbility(eventData);
-        return;
-      }
-
       if (eventData.TargetData is AttackTargetData data) {
         await Attack(data.TargetAbilitySystem.GetOwner<Entity>());
       }

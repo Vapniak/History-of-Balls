@@ -20,10 +20,10 @@ public partial class MoveAbilityResource : HOBAbilityResource {
     }
 
     public override async Task ActivateAbility(GameplayEventData eventData) {
-      // if (!CommitCooldown()) {
-      //   await EndAbility(eventData);
-      //   return;
-      // }
+      if (!CommitCooldown()) {
+        await EndAbility(eventData);
+        return;
+      }
 
       if (eventData.TargetData is MoveTargetData data) {
         foreach (var cell in FindPathTo(data.Cell)) {
@@ -42,7 +42,7 @@ public partial class MoveAbilityResource : HOBAbilityResource {
         }
       }
 
-      return null;
+      return [];
     }
     public virtual GameCell[] FindPathTo(GameCell cell) {
       if (OwnerAbilitySystem.GetOwner() is Entity entity) {
@@ -52,7 +52,7 @@ public partial class MoveAbilityResource : HOBAbilityResource {
         }
       }
 
-      return null;
+      return [];
     }
 
     protected virtual bool IsReachable(GameCell from, GameCell to) {
