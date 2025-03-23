@@ -3,8 +3,20 @@ namespace HOB;
 using GameplayTags;
 
 public enum HOBTags {
-  [GameplayTag("Cooldown")] Cooldown,
   [GameplayTag("Ability")] Ability,
+  [GameplayTag("Ability.Move")] Move,
+  [GameplayTag("Ability.Attack")] Attack,
+
+  [GameplayTag("Cooldown")] Cooldown,
+  [GameplayTag("Cooldown.Move")] CooldownMove,
+  [GameplayTag("Cooldown.Attack")] CooldownAttack,
+
   [GameplayTag("State")] State,
   [GameplayTag("State.Dead")] StateDead,
+
+  [GameplayTag("Entity.Type")] EntityType,
+  [GameplayTag("Entity.Type.Unit")] EntityTypeUnit,
+  [GameplayTag("Entity.Type.Structure")] EntityTypeStructure,
+  [GameplayTag("Entity.Type.Unit.Ranged")] EntityTypeUnitRanged,
+  [GameplayTag("Entity.Type.Unit.Melee")] EntityTypeUnitMelee
 }

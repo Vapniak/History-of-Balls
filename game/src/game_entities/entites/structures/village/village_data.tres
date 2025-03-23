@@ -6,6 +6,6 @@
 [resource]
 script = ExtResource("5_aor2c")
 EntityName = "Village"
-Attributes = null
+AttributeSets = null
 Abilities = null
 Body = ExtResource("1_x7qrd")

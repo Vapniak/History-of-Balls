@@ -52,7 +52,11 @@ public partial class GameplayAbilitySystem : Node {
       return false;
     }
 
-    geInstance.TreeExiting += () => AppliedEffects.RemoveAll(e => e.EffectInstance == geInstance);
+    geInstance.TreeExiting += () => {
+      AppliedEffects.RemoveAll(e => e.EffectInstance == geInstance);
+      EmitSignal(SignalName.GameplayEffectRemoved, geInstance);
+    };
+
     AddChild(geInstance);
 
     switch (geInstance.GameplayEffect?.EffectDefinition?.DurationPolicy) {
@@ -107,10 +111,6 @@ public partial class GameplayAbilitySystem : Node {
 
       ge.Tick(tickContext);
     }
-
-    if (tickContext is TurnTickContext) {
-      GD.Print(GetOwner<Entity>().EntityName, OwnedTags.GetTags().Select(e => e.FullName).FirstOrDefault());
-    }
   }
 
   public float? GetAttributeCurrentValue(GameplayAttribute attribute) {
@@ -130,24 +130,24 @@ public partial class GameplayAbilitySystem : Node {
 
           if (attribute != null) {
             if (TryGetAttributeValue(attribute, out var value)) {
-              var oldValue = value.BaseValue;
-              switch (modifier?.ModifierType) {
-                case AttributeModifierType.Add:
-                  value.BaseValue += magnitue;
-                  break;
-                case AttributeModifierType.Multiply:
-                  value.BaseValue *= magnitue;
-                  break;
-                case AttributeModifierType.Override:
-                  value.BaseValue = magnitue;
-                  break;
-                default:
-                  break;
-              }
+              if (value != null) {
+                var oldValue = value.BaseValue;
+                switch (modifier?.ModifierType) {
+                  case AttributeModifierType.Add:
+                    value.BaseValue += magnitue;
+                    break;
+                  case AttributeModifierType.Multiply:
+                    value.BaseValue *= magnitue;
+                    break;
+                  case AttributeModifierType.Override:
+                    value.BaseValue = magnitue;
+                    break;
+                  default:
+                    break;
+                }
 
-              var newValue = value.BaseValue;
+                var newValue = value.BaseValue;
 
-              if (oldValue != newValue) {
                 EmitSignal(SignalName.AttributeValueChanged, attribute, oldValue, newValue);
               }
             }
@@ -156,6 +156,8 @@ public partial class GameplayAbilitySystem : Node {
       }
 
       EmitSignal(SignalName.GameplayEffectExecuted, geInstance);
+
+      geInstance.QueueFree();
     }
   }
 
@@ -200,6 +202,7 @@ public partial class GameplayAbilitySystem : Node {
       OwnedTags.RemoveTags(gameplayEffect.GameplayEffect.GrantedTags);
     }
   }
+
   private float CalculateAttributeCurrentValue(GameplayAttribute attribute) {
     var value = AttributeValues[attribute];
 

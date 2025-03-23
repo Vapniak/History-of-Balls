@@ -31,7 +31,7 @@ public abstract partial class GameplayAbilityInstance : Node {
   }
 
   public virtual bool CanActivateAbility(GameplayEventData eventData) {
-    return !IsActive && CheckCost() && CheckCooldown();
+    return !IsActive && CheckCost() && CheckCooldown() && CheckTags();
   }
 
   public virtual void CancelAbility() { }
@@ -76,5 +76,13 @@ public abstract partial class GameplayAbilityInstance : Node {
     }
 
     return false;
+  }
+
+  private bool CheckTags() {
+    if (AbilityResource.ActivationBlockedTags == null) {
+      return true;
+    }
+
+    return !OwnerAbilitySystem.OwnedTags.HasAllTags(AbilityResource.ActivationBlockedTags);
   }
 }

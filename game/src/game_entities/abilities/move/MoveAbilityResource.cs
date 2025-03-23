@@ -1,9 +1,11 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayTags;
 using Godot;
 using HOB.GameEntity;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -58,7 +60,7 @@ public partial class MoveAbilityResource : HOBAbilityResource {
     protected virtual bool IsReachable(GameCell from, GameCell to) {
       return
         !to.GetSetting().IsWater &&
-        OwnerAbilitySystem.GetOwner<Entity>().EntityManagment.GetEntitiesOnCell(to).Length == 0 &&
+        !OwnerAbilitySystem.GetOwner<Entity>().EntityManagment.GetEntitiesOnCell(to).Any(e => e.AbilitySystem.OwnedTags.HasExactTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) &&
         from.GetEdgeTypeTo(to) != GameCell.EdgeType.Cliff;
     }
 

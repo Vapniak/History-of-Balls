@@ -127,17 +127,20 @@ public partial class HOBHUD : HUD {
     StatPanel.SetNameLabel(entity.EntityName);
 
     entity.AbilitySystem.AttributeValueChanged += OnAttributeValueChanged;
-    foreach (var attribute in entity.AbilitySystem.GetAllAttributes()) {
-      StatPanel.AddEntry(attribute.AttributeName, entity.AbilitySystem.GetAttributeCurrentValue(attribute).GetValueOrDefault().ToString());
-
+    foreach (var attribute in entity.AbilitySystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
+      if (attribute != null) {
+        StatPanel.AddEntry(attribute.AttributeName, entity.AbilitySystem.GetAttributeCurrentValue(attribute).GetValueOrDefault().ToString());
+      }
     }
 
     StatPanel.Show();
 
     CommandPanel.ClearCommands();
 
-    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
-      CommandPanel.AddCommand(ability as HOBAbilityInstance);
+    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities().OrderBy(a => (a.AbilityResource as HOBAbilityResource)?.UIOrder)) {
+      if (ability is HOBAbilityInstance hOBAbility) {
+        CommandPanel.AddCommand(hOBAbility);
+      }
     }
 
     CommandPanel.Show();

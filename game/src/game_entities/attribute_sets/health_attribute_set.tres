@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="HealthAttributeSet" load_steps=3 format=3 uid="uid://d4eit2hgljauy"]
+
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="1_dfqqa"]
+[ext_resource type="Script" path="res://src/game_entities/attribute_sets/HealthAttributeSet.cs" id="2_1gxbu"]
+
+[resource]
+script = ExtResource("2_1gxbu")
+HealthAttribute = ExtResource("1_dfqqa")

@@ -8,6 +8,9 @@ using Godot.Collections;
 
 [GlobalClass]
 public partial class TagContainer : Resource {
+  [Signal] public delegate void TagAddedEventHandler(Tag tag);
+  [Signal] public delegate void TagRemovedEventHandler(Tag tag);
+
   [Export] private Array<Tag> Tags { get; set; } = new();
 
   public TagContainer() { }
@@ -24,11 +27,14 @@ public partial class TagContainer : Resource {
   public void AddTag(Tag tag) {
     if (!Tags.Contains(tag)) {
       Tags.Add(tag);
+      EmitSignal(SignalName.TagAdded);
     }
   }
 
   public void RemoveTag(Tag tag) {
-    Tags.Remove(tag);
+    if (Tags.Remove(tag)) {
+      EmitSignal(SignalName.TagAdded);
+    }
   }
 
   public void RemoveTags(TagContainer tags) {
@@ -38,15 +44,18 @@ public partial class TagContainer : Resource {
   }
 
   public bool HasTag(Tag tag) {
-    return Tags.Any(t => t.Matches(tag));
+    return Tags.Any(t => t == tag);
   }
 
-  public bool HasAllTags(TagContainer tags) {
+  public bool HasAnyOfTags(TagContainer tags) {
     return tags.GetTags().Intersect(GetTags()).Any();
+  }
+  public bool HasAllTags(TagContainer tags) {
+    return tags.GetTags().Intersect(GetTags()).Count() == tags.GetTags().Count();
   }
 
   public bool HasExactTag(Tag tag) {
-    return Tags.Contains(tag);
+    return Tags.Any(t => t == tag);
   }
 
   public IEnumerable<Tag> GetTags() {

@@ -7,8 +7,22 @@ using Godot.Collections;
 [GlobalClass]
 public partial class GameplayEffectDefinition : Resource {
   [Export] public DurationPolicy DurationPolicy { get; private set; }
-  [Export] public ModifierMagnitudeResource? DurationModifier { get; private set; }
-  [Export] public float DurationMultiplier { get; private set; }
-  [Export] public DurationStrategy? DurationStrategy { get; private set; }
   [Export] public Array<GameplayEffectModifier>? Modifiers { get; private set; }
+
+  [Export] private ModifierMagnitudeResource? DurationModifier { get; set; }
+  [Export] private float DurationMultiplier { get; set; }
+  [Export] private DurationStrategy? DurationStrategy { get; set; }
+
+
+  public DurationStrategy? CreateDurationStrategy() {
+    return DurationStrategy?.Duplicate() as DurationStrategy;
+  }
+  public float GetDuration(GameplayEffectInstance gameplayEffectInstance) {
+    if (DurationModifier == null) {
+      return DurationMultiplier;
+    }
+    else {
+      return DurationModifier.CalculateMagnitude(gameplayEffectInstance) * DurationMultiplier;
+    }
+  }
 }

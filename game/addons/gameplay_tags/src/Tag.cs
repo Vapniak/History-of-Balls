@@ -6,7 +6,7 @@ using System.Linq;
 using Godot;
 
 [GlobalClass, Tool]
-public partial class Tag : Resource {
+public partial class Tag : Resource, IEquatable<Tag> {
   public static readonly Tag Empty = new(string.Empty);
 
   [Export] public string FullName { get; set; } = string.Empty;
@@ -28,22 +28,6 @@ public partial class Tag : Resource {
     _children = new HashSet<Tag>();
   }
 
-  public bool Matches(Tag other) {
-    return this == other || IsDescendantOf(other);
-  }
-
-  public bool IsDescendantOf(Tag parent) {
-    var current = this;
-    while (current != Empty) {
-      if (current?.Parent == parent) {
-        return true;
-      }
-
-      current = current?.Parent;
-    }
-    return false;
-  }
-
   public void AddChild(Tag child) {
     _children.Add(child);
   }
@@ -51,4 +35,29 @@ public partial class Tag : Resource {
   public IEnumerable<Tag> GetChildren() {
     return _children;
   }
+
+  public bool Equals(Tag? other) {
+    if (other?.FullName != null) {
+      return FullName.StartsWith(other.FullName);
+    }
+    return false;
+  }
+
+  public override bool Equals(object? obj) {
+    return Equals(obj as Tag);
+  }
+
+  public override int GetHashCode() {
+    return FullName?.GetHashCode() ?? 0;
+  }
+
+  public static bool operator ==(Tag left, Tag right) {
+    if (left is null) {
+      return right is null;
+    }
+
+    return left.Equals(right);
+  }
+
+  public static bool operator !=(Tag left, Tag right) => !(left == right);
 }

@@ -1,6 +1,7 @@
 namespace HOB.GameEntity;
 
 using GameplayAbilitySystem;
+using GameplayTags;
 using Godot;
 using Godot.Collections;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ public partial class Entity : Node {
   [Notify]
   private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
 
-  public Entity(string name, GameCell cell, IEntityManagment entityManagment, Array<GameplayAttributeSet> attributeSets, Array<GameplayAbilityResource> abilities, EntityBody body) {
+  public Entity(string name, GameCell cell, IEntityManagment entityManagment, Array<GameplayAttributeSet>? attributeSets, Array<GameplayAbilityResource>? abilities, TagContainer? tags, EntityBody body) {
     Cell = cell;
     EntityManagment = entityManagment;
     EntityName = name;
@@ -32,7 +33,12 @@ public partial class Entity : Node {
     AddChild(Body);
 
     AbilitySystem = new();
-    // AbilitySystem.InitAbilityOwnerInfo(this);
+    AbilitySystem.AttributeValueChanged += OnAttributeValueChanged;
+
+    if (tags != null) {
+      AbilitySystem.OwnedTags.AddTags(tags);
+    }
+
     if (attributeSets != null) {
       foreach (var @as in attributeSets) {
         AbilitySystem.AddAttributeSet(@as);
@@ -83,6 +89,16 @@ public partial class Entity : Node {
   public void ChangeOwner(IMatchController newOwner) {
     if (newOwner != OwnerController) {
       OwnerController = newOwner;
+    }
+  }
+
+  public void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
+    if (AbilitySystem.TryGetAttributeSet<HealthAttributeSet>(out var healthAttributeSet)) {
+      if (attribute == healthAttributeSet?.HealthAttribute) {
+        if (newValue <= 0f) {
+          QueueFree();
+        }
+      }
     }
   }
 }

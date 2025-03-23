@@ -1,17 +1,27 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=6 format=3 uid="uid://c5dmvmose2efr"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://c5dmvmose2efr"]
 
 [ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/america_ball.tscn" id="1_jnyy4"]
-[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="1_on1fr"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rx8d8"]
-[ext_resource type="Script" path="res://src/game_entities/attribute_sets/HealthAttributeSet.cs" id="2_g1viv"]
+[ext_resource type="Resource" uid="uid://bpawyqb8lcpyx" path="res://src/game_entities/abilities/attack/attack_ability.tres" id="1_tkbdw"]
+[ext_resource type="Resource" uid="uid://jr0xec5ix0cv" path="res://src/game_entities/abilities/move/move_ability.tres" id="2_18brq"]
+[ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/game_entities/attribute_sets/health_attribute_set.tres" id="3_fv0r5"]
+[ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="4_ok3xb"]
+[ext_resource type="Resource" uid="uid://3qq327rqo575" path="res://src/game_entities/attribute_sets/move_attribute_set.tres" id="5_ob2ja"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_218sx"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="8_uar7j"]
 
-[sub_resource type="Resource" id="Resource_cj8on"]
-script = ExtResource("2_g1viv")
-HealthAttribute = ExtResource("1_on1fr")
+[sub_resource type="Resource" id="Resource_ouur6"]
+script = ExtResource("7_218sx")
+FullName = "Entity.Type.Unit"
+
+[sub_resource type="Resource" id="Resource_4iepl"]
+script = ExtResource("8_uar7j")
+Tags = [SubResource("Resource_ouur6")]
 
 [resource]
 script = ExtResource("1_rx8d8")
 EntityName = "America Infantry"
-AttributeSets = Array[Object]([SubResource("Resource_cj8on")])
-Abilities = null
+AttributeSets = Array[Object]([ExtResource("3_fv0r5"), ExtResource("4_ok3xb"), ExtResource("5_ob2ja")])
+Abilities = Array[Object]([ExtResource("1_tkbdw"), ExtResource("2_18brq")])
+Tags = SubResource("Resource_4iepl")
 Body = ExtResource("1_jnyy4")

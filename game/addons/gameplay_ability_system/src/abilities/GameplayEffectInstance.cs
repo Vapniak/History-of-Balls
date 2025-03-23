@@ -31,38 +31,32 @@ public partial class GameplayEffectInstance : Node {
         }
       }
 
-      if (GameplayEffect.EffectDefinition.DurationStrategy != null) {
-        DurationStrategy = GameplayEffect.EffectDefinition.DurationStrategy.Duplicate() as DurationStrategy;
-        DurationStrategy?.Initialize((GameplayEffect.EffectDefinition.DurationModifier?.CalculateMagnitude(this) * GameplayEffect.EffectDefinition.DurationMultiplier).GetValueOrDefault());
-      }
+      DurationStrategy = GameplayEffect.EffectDefinition.CreateDurationStrategy();
+      DurationStrategy?.Initialize(GameplayEffect.EffectDefinition.GetDuration(this));
     }
 
     if (GameplayEffect.Period != null) {
-      PeriodStrategy = GameplayEffect.Period.PeriodStrategy?.Duplicate() as DurationStrategy;
+      PeriodStrategy = GameplayEffect.Period.CreatePeriodStrategy();
       PeriodStrategy?.Initialize(GameplayEffect.Period.Period);
       if (GameplayEffect.Period.ExecuteOnApplication) {
-        GameplayEffect.Period?.PeriodStrategy?.Left(0);
+        PeriodStrategy?.Left(0);
       }
     }
-  }
-
-  public virtual void Execute() {
-
   }
 
   public virtual void Tick(TickContext tickContext) {
     if (GameplayEffect.EffectDefinition != null) {
-      if (GameplayEffect?.Period?.PeriodStrategy != null) {
-        GameplayEffect.Period.PeriodStrategy.Tick(tickContext);
-        if (GameplayEffect.Period.PeriodStrategy.IsExpired) {
+      if (PeriodStrategy != null) {
+        PeriodStrategy.Tick(tickContext);
+        if (PeriodStrategy.IsExpired) {
           EmitSignal(SignalName.ExecutePeriodic, this);
-          GameplayEffect.Period.PeriodStrategy.Reset();
+          PeriodStrategy.Reset();
         }
       }
 
-      if (GameplayEffect?.EffectDefinition.DurationPolicy == DurationPolicy.Duration && GameplayEffect?.EffectDefinition.DurationStrategy != null) {
-        GameplayEffect.EffectDefinition.DurationStrategy.Tick(tickContext);
-        if (GameplayEffect.EffectDefinition.DurationStrategy.IsExpired) {
+      if (GameplayEffect?.EffectDefinition.DurationPolicy == DurationPolicy.Duration && DurationStrategy != null) {
+        DurationStrategy.Tick(tickContext);
+        if (DurationStrategy.IsExpired) {
           QueueFree();
         }
       }

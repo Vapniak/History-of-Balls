@@ -31,6 +31,11 @@ public partial class AttackAbilityResource : HOBAbilityResource {
     }
 
     public override async Task ActivateAbility(GameplayEventData eventData) {
+      if (!CommitCooldown()) {
+        await EndAbility(eventData);
+        return;
+      }
+
       if (eventData.TargetData is AttackTargetData data) {
         await Attack(data.TargetAbilitySystem.GetOwner<Entity>());
       }

@@ -7,4 +7,5 @@ using System;
 [GlobalClass]
 public abstract partial class HOBAbilityResource : GameplayAbilityResource {
   [Export] public Texture2D Icon { get; private set; }
+  [Export] public int UIOrder { get; private set; }
 }

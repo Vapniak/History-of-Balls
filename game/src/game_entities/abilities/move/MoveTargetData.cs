@@ -3,5 +3,5 @@ namespace HOB;
 using GameplayAbilitySystem;
 
 public class MoveTargetData : GameplayAbilityTargetData {
-  public GameCell Cell { get; set; }
+  public required GameCell Cell { get; set; }
 }

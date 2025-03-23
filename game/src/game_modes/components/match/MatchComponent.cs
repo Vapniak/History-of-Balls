@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using GameplayFramework;
+using GameplayTags;
 using Godot;
 using HexGridMap;
 using HOB.GameEntity;
@@ -93,7 +94,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     else {
       controller.Country = AITeam;
       AddEntityOnClosestAvailableCell(Team2Infantry, new(5, 5), controller);
-      AddEntityOnClosestAvailableCell(Team2Ranged, new(5, 5), controller);
+      AddEntityOnClosestAvailableCell(Team2Ranged, new(6, 5), controller);
       AddEntityOnClosestAvailableCell(Team2Ranged, new(28, 6), controller);
       AddEntityOnClosestAvailableCell(Team2Infantry, new(22, 8), controller);
       AddEntityOnClosestAvailableCell(Team2Ranged, new(21, 7), controller);
@@ -125,7 +126,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   private void AddEntityOnClosestAvailableCell(EntityData data, OffsetCoord coord, IMatchController owner) {
-    GameCell closestCell = null;
+    GameCell? closestCell = null;
     var minDistance = int.MaxValue;
 
     var cube = Grid.GetLayout().OffsetToCube(coord);
@@ -137,11 +138,16 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       }
     }
 
-    AddEntity(data.CreateEntity(closestCell, this), owner);
+    if (closestCell != null) {
+      var entity = data.CreateEntity(closestCell, this);
+      if (entity != null) {
+        AddEntity(entity, owner);
+      }
+    }
   }
 
   private bool CanEntityBePlacedOnCell(GameCell cell) {
-    if (Grid.GetSetting(cell).IsWater) {
+    if (Grid.GetSetting(cell).IsWater && GetEntitiesOnCell(cell).Any(e => e.AbilitySystem.OwnedTags.HasExactTag(TagManager.GetTag(HOBTags.EntityTypeUnit)))) {
       return false;
     }
 
@@ -151,8 +157,11 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController owner) {
     if (CanEntityBePlacedOnCell(cell)) {
 
-      AddEntity(data.CreateEntity(cell, this), owner);
-      return true;
+      var entity = data.CreateEntity(cell, this);
+      if (entity != null) {
+        AddEntity(entity, owner);
+        return true;
+      }
     }
 
     return false;

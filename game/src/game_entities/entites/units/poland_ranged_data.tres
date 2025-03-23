@@ -1,11 +1,27 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=3 format=3 uid="uid://cq5vkdno7vnpj"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://cq5vkdno7vnpj"]
 
 [ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_3y7qy"]
+[ext_resource type="Resource" uid="uid://bpawyqb8lcpyx" path="res://src/game_entities/abilities/attack/attack_ability.tres" id="1_5nd14"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rr7kf"]
+[ext_resource type="Resource" uid="uid://jr0xec5ix0cv" path="res://src/game_entities/abilities/move/move_ability.tres" id="2_fm1r7"]
+[ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="3_8m858"]
+[ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/game_entities/attribute_sets/health_attribute_set.tres" id="4_1b7o7"]
+[ext_resource type="Resource" uid="uid://3qq327rqo575" path="res://src/game_entities/attribute_sets/move_attribute_set.tres" id="5_5wkpm"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_8qce0"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="8_3x7aw"]
+
+[sub_resource type="Resource" id="Resource_obvus"]
+script = ExtResource("7_8qce0")
+FullName = "Entity.Type.Unit"
+
+[sub_resource type="Resource" id="Resource_5wrnv"]
+script = ExtResource("8_3x7aw")
+Tags = [SubResource("Resource_obvus")]
 
 [resource]
 script = ExtResource("1_rr7kf")
 EntityName = "Poland Ranged"
-AttributeSets = Array[Object]([])
-Abilities = Array[Object]([])
+AttributeSets = Array[Object]([ExtResource("3_8m858"), ExtResource("4_1b7o7"), ExtResource("5_5wkpm")])
+Abilities = Array[Object]([ExtResource("1_5nd14"), ExtResource("2_fm1r7")])
+Tags = SubResource("Resource_5wrnv")
 Body = ExtResource("1_3y7qy")

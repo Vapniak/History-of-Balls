@@ -9,7 +9,7 @@ using Godot.Collections;
 public partial class GameplayEffectResource : Resource {
   [Export] public GameplayEffectPeriod? Period { get; private set; }
   [Export] public GameplayEffectDefinition? EffectDefinition { get; private set; }
-  [ExportCategory("Tags")]
-  [Export] public TagContainer? EffectTags { get; private set; }
+  [ExportGroup("Tags")]
+  [Export] public TagContainer? AssetTags { get; private set; }
   [Export] public TagContainer? GrantedTags { get; private set; }
 }
