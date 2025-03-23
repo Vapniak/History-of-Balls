@@ -46,6 +46,10 @@ public partial class GameplayEffectInstance : Node {
     }
   }
 
+  public virtual void Execute() {
+
+  }
+
   public virtual void Tick(TickContext tickContext) {
     if (GameplayEffect.EffectDefinition != null) {
       if (GameplayEffect?.Period?.PeriodStrategy != null) {

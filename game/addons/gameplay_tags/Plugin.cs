@@ -11,7 +11,7 @@ public partial class Plugin : EditorPlugin {
     // Initialize the custom property inspector
     _tagPropertyInspector = new TagEditorPlugin();
 
-    AddToolMenuItem("Reinitialize TagRegistry", Callable.From(TagsManager.Initialize));
+    AddToolMenuItem("Reinitialize TagRegistry", Callable.From(TagManager.Initialize));
 
     // Register the inspector for Tag properties
     AddInspectorPlugin(_tagPropertyInspector);

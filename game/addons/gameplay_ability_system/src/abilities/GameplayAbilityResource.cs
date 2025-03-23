@@ -1,5 +1,6 @@
 namespace GameplayAbilitySystem;
 
+using GameplayTags;
 using Godot;
 using System;
 

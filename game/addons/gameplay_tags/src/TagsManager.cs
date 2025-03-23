@@ -6,11 +6,11 @@ using System.Linq;
 using System.Reflection;
 using Godot;
 
-public static class TagsManager {
+public static class TagManager {
   public static readonly Dictionary<string, Tag> Tags = new();
   private static readonly Dictionary<Enum, Tag> _enumToTagMap = new();
 
-  static TagsManager() {
+  static TagManager() {
     Initialize();
   }
   public static void Initialize() {

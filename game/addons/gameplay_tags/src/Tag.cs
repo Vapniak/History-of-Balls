@@ -1,16 +1,19 @@
 namespace GameplayTags;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class Tag : Resource {
   public static readonly Tag Empty = new(string.Empty);
 
+  [Export] public string FullName { get; set; } = string.Empty;
+
   public string Name { get; } = string.Empty;
-  public string FullName { get; } = string.Empty;
   public Tag? Parent { get; set; }
+
   private readonly HashSet<Tag> _children = new();
 
   public Tag() { }

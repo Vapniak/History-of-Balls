@@ -3,8 +3,11 @@ namespace GameplayAbilitySystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using GameplayTags;
 using Godot;
 using Godot.Collections;
+using HOB;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class GameplayAbilitySystem : Node {
@@ -17,11 +20,20 @@ public partial class GameplayAbilitySystem : Node {
   [Signal] public delegate void GameplayAbilityActivatedEventHandler(GameplayAbilityInstance gameplayAbility);
   [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbilityInstance gameplayAbility);
 
+
   [Export] private Array<GameplayAttributeSet> AttributeSets { get; set; } = new();
+
+  public TagContainer OwnedTags { get; private set; } = new();
+
 
   private Godot.Collections.Dictionary<GameplayAttribute, GameplayAttributeValue> AttributeValues { get; set; } = new();
   private List<GameplayEffectContainer> AppliedEffects { get; set; } = new();
   private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
+
+  public override void _Ready() {
+    GameplayEffectApplied += OnGameplayEffectApplied;
+    GameplayEffectRemoved += OnGameplayEffectRemoved;
+  }
 
   public override void _Process(double delta) {
     Tick(new TimeTickContext((float)delta));
@@ -94,6 +106,10 @@ public partial class GameplayAbilitySystem : Node {
       var ge = effect.EffectInstance;
 
       ge.Tick(tickContext);
+    }
+
+    if (tickContext is TurnTickContext) {
+      GD.Print(GetOwner<Entity>().EntityName, OwnedTags.GetTags().Select(e => e.FullName).FirstOrDefault());
     }
   }
 
@@ -173,6 +189,17 @@ public partial class GameplayAbilitySystem : Node {
     AppliedEffects.Add(new GameplayEffectContainer() { EffectInstance = geInstance, Modifiers = modifiersToApply.ToArray() });
   }
 
+  private void OnGameplayEffectApplied(GameplayEffectInstance gameplayEffect) {
+    if (gameplayEffect.GameplayEffect?.EffectDefinition?.DurationPolicy is DurationPolicy.Duration or DurationPolicy.Infinite && gameplayEffect.GameplayEffect.GrantedTags != null) {
+      OwnedTags.AddTags(gameplayEffect.GameplayEffect.GrantedTags);
+    }
+  }
+
+  private void OnGameplayEffectRemoved(GameplayEffectInstance gameplayEffect) {
+    if (gameplayEffect.GameplayEffect?.EffectDefinition?.DurationPolicy is DurationPolicy.Duration or DurationPolicy.Infinite && gameplayEffect.GameplayEffect.GrantedTags != null) {
+      OwnedTags.RemoveTags(gameplayEffect.GameplayEffect.GrantedTags);
+    }
+  }
   private float CalculateAttributeCurrentValue(GameplayAttribute attribute) {
     var value = AttributeValues[attribute];
 

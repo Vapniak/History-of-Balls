@@ -13,10 +13,11 @@ public partial class TagPropertyEditor : EditorProperty {
   public override void _Ready() {
     base._Ready();
 
-    _button = new Button { Text = "Select Tag" };
-    _button.Connect(Button.SignalName.Pressed, Callable.From(ShowTree));
+    _button = new Button();
     AddChild(_button);
 
+    _button.Pressed += ShowTree;
+    //UpdateProperty();
     CreatePopupTree();
   }
 
@@ -24,15 +25,17 @@ public partial class TagPropertyEditor : EditorProperty {
     _tree = new Tree() {
       SizeFlagsHorizontal = SizeFlags.ExpandFill,
       SizeFlagsVertical = SizeFlags.ExpandFill,
-      CustomMinimumSize = new Vector2I(300, 400),
+      CustomMinimumSize = new Vector2I(0, 100),
       Columns = 1,
       HideRoot = true
     };
-    _tree.ItemSelected += OnItemSelected;
+
     _tree.ItemActivated += OnItemActivated;
 
     _tree.Hide();
     AddChild(_tree);
+
+    BuildTagTree();
   }
 
   private void BuildTagTree() {
@@ -42,7 +45,7 @@ public partial class TagPropertyEditor : EditorProperty {
 
 
     if (_tree != null) {
-      foreach (var tag in TagsManager.Tags) {
+      foreach (var tag in TagManager.Tags) {
         var parts = tag.Key.Split('.');
         var parent = root;
 
@@ -61,22 +64,11 @@ public partial class TagPropertyEditor : EditorProperty {
   }
 
   private void ShowTree() {
-    BuildTagTree();
     _tree?.Show();
-  }
-
-  private void OnItemSelected() {
-    UpdateSelection(_tree?.GetSelected());
   }
 
   private void OnItemActivated() {
     ConfirmSelection();
-  }
-
-  private void UpdateSelection(TreeItem? item) {
-    if (item != null) {
-      _currentValue = item.GetMetadata(0).AsString();
-    }
   }
 
   private void ConfirmSelection() {
@@ -90,30 +82,28 @@ public partial class TagPropertyEditor : EditorProperty {
       }
       var fullName = string.Join(".", parts);
 
-      var tag = TagsManager.GetTag(fullName);
-      if (tag != Tag.Empty) {
-
-        EmitChanged(GetEditedProperty(), tag);
-        if (_button != null) {
-          _button.Text = fullName.Split('.').Last();
-        }
-      }
+      var tag = TagManager.GetTag(fullName);
+      _currentValue = tag.FullName;
+      UpdateButtonText();
+      EmitChanged(GetEditedProperty(), tag);
       _tree?.Hide();
     }
   }
 
   public override void _UpdateProperty() {
-    var value = GetEditedObject().Get(GetEditedProperty());
+    if (GetEditedObject() != null && GetEditedProperty() != null) {
+      var value = GetEditedObject().Get(GetEditedProperty());
 
+      if (value.As<GodotObject>() is Tag tag) {
+        _currentValue = tag.FullName;
+      }
+      UpdateButtonText();
+    }
+  }
+
+  private void UpdateButtonText() {
     if (_button != null) {
-      if (value.As<Resource>() is Tag tag) {
-        GD.Print($"Tag.FullName: {tag.FullName}");
-        _button.Text = tag.FullName ?? "Select Tag";
-      }
-      else {
-        GD.Print("Value is not a valid Tag resource!");
-        _button.Text = "Select Tag";
-      }
+      _button.Text = _currentValue;
     }
   }
 }

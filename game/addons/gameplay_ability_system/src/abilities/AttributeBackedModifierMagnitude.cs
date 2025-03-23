@@ -5,7 +5,7 @@ using Godot;
 
 [GlobalClass]
 public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResource {
-  [Export] public Curve? ScalingFunction { get; private set; }
+  //[Export] public Curve? ScalingFunction { get; private set; }
 
   [Export] public GameplayAttribute? CaptureAttribute { get; private set; }
   [Export] public CaptureAttributeFrom CaptureAttributeFrom { get; private set; }
@@ -18,11 +18,11 @@ public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResourc
   }
   public override float CalculateMagnitude(GameplayEffectInstance effectInstance) {
     var value = GetCaptureAttribute(effectInstance);
-    if (value != null) {
-      if (ScalingFunction != null) {
-        return ScalingFunction.Sample(value.GetValueOrDefault());
-      }
-    }
+    // if (value != null) {
+    //   if (ScalingFunction != null) {
+    //     return ScalingFunction.Sample(value.GetValueOrDefault());
+    //   }
+    // }
 
 
     return value.GetValueOrDefault();

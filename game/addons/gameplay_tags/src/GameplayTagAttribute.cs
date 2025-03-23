@@ -1,4 +1,3 @@
-// GameplayTagAttribute.cs
 namespace GameplayTags;
 
 using System;
@@ -10,12 +9,4 @@ public class GameplayTagAttribute : Attribute {
   public GameplayTagAttribute(string tagName) {
     TagName = tagName;
   }
-}
-
-public enum TestGameplayTags {
-  [GameplayTag("Ability.Fire.Damage")] FireDameage,
-  [GameplayTag("Ability.Ice")] Ice,
-  [GameplayTag("Ability.Heal")] Heal,
-  [GameplayTag("Character.Player")] Player,
-  [GameplayTag("Character.Enemy")] Enemy
 }

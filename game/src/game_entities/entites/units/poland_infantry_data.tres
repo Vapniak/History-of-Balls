@@ -1,38 +1,61 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=30 format=3 uid="uid://ddmnswe1q0sv8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=32 format=3 uid="uid://ddmnswe1q0sv8"]
 
-[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/entites/attributes/health.tres" id="1_6tnkr"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="1_6tnkr"]
 [ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_es5ke"]
 [ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="1_u5fur"]
-[ext_resource type="Script" path="res://src/game_entities/entites/abilities/move/MoveAbilityResource.cs" id="2_txhsp"]
-[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/entites/attributes/move_points.tres" id="3_qs4uj"]
-[ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/HealthAttributeSet.cs" id="3_wwb34"]
-[ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/MoveAttributeSet.cs" id="4_q023g"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/AttributeBackedModifierMagnitude.cs" id="5_hbelg"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="5_ugcq3"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/TurnDurationStrategy.cs" id="1_xmjpw"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/move/MoveAbilityResource.cs" id="2_txhsp"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="3_qs4uj"]
+[ext_resource type="Script" path="res://src/game_entities/attribute_sets/HealthAttributeSet.cs" id="3_wwb34"]
+[ext_resource type="Script" path="res://src/game_entities/attribute_sets/MoveAttributeSet.cs" id="4_q023g"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="5_5i68w"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="6_kndm0"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="7_2e5sc"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="7_enwdo"]
 [ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="7_omi4i"]
-[ext_resource type="Script" path="res://src/game_entities/entites/abilities/attack/AttackAbilityResource.cs" id="8_pni6k"]
-[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/entites/attributes/damage.tres" id="12_i2igv"]
-[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/entites/attributes/range.tres" id="13_gnuiy"]
-[ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/AttackAttributeSet.cs" id="14_iiw3d"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_rbvjr"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/attack/AttackAbilityResource.cs" id="8_pni6k"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="12_i2igv"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="13_gnuiy"]
+[ext_resource type="Script" path="res://src/game_entities/attribute_sets/AttackAttributeSet.cs" id="14_iiw3d"]
 
-[sub_resource type="Resource" id="Resource_kh2cb"]
-script = ExtResource("5_ugcq3")
-Attribute = ExtResource("1_6tnkr")
-ModifierType = 0
-Coefficient = -1.0
+[sub_resource type="Resource" id="Resource_444ro"]
+script = ExtResource("1_xmjpw")
+TickAt = 1
+TickAtOwnTurn = true
 
 [sub_resource type="Resource" id="Resource_5gs8r"]
 script = ExtResource("6_kndm0")
-DurationPolicy = 0
-DurationMultiplier = 0.0
-Modifiers = Array[Object]([SubResource("Resource_kh2cb")])
+DurationPolicy = 2
+DurationMultiplier = 2.0
+DurationStrategy = SubResource("Resource_444ro")
+Modifiers = null
+
+[sub_resource type="Resource" id="Resource_cljrd"]
+script = ExtResource("7_rbvjr")
+FullName = "Cooldown"
+
+[sub_resource type="Resource" id="Resource_4u7sn"]
+script = ExtResource("7_rbvjr")
+FullName = "Ability"
+
+[sub_resource type="Resource" id="Resource_q3rk6"]
+script = ExtResource("5_5i68w")
+Tags = [SubResource("Resource_cljrd"), SubResource("Resource_4u7sn")]
+
+[sub_resource type="Resource" id="Resource_skblr"]
+script = ExtResource("7_rbvjr")
+FullName = "State.Dead"
+
+[sub_resource type="Resource" id="Resource_tnm76"]
+script = ExtResource("5_5i68w")
+Tags = [SubResource("Resource_skblr")]
 
 [sub_resource type="Resource" id="Resource_xreec"]
 script = ExtResource("7_enwdo")
 EffectDefinition = SubResource("Resource_5gs8r")
+EffectTags = SubResource("Resource_q3rk6")
+GrantedTags = SubResource("Resource_tnm76")
 
 [sub_resource type="Resource" id="Resource_q2v01"]
 script = ExtResource("2_txhsp")
@@ -40,32 +63,8 @@ Icon = ExtResource("1_u5fur")
 AbilityName = "Move"
 CooldownGameplayEffect = SubResource("Resource_xreec")
 
-[sub_resource type="Resource" id="Resource_bhe1w"]
-script = ExtResource("5_hbelg")
-CaptureAttribute = ExtResource("12_i2igv")
-CaptureAttributeFrom = 0
-CaptureAttributeWhen = 1
-
-[sub_resource type="Resource" id="Resource_0hywh"]
-script = ExtResource("5_ugcq3")
-Attribute = ExtResource("1_6tnkr")
-ModifierType = 0
-ModifierMagnitude = SubResource("Resource_bhe1w")
-Coefficient = -1.0
-
-[sub_resource type="Resource" id="Resource_ie2y8"]
-script = ExtResource("6_kndm0")
-DurationPolicy = 0
-DurationMultiplier = 0.0
-Modifiers = Array[Object]([SubResource("Resource_0hywh")])
-
-[sub_resource type="Resource" id="Resource_87ply"]
-script = ExtResource("7_enwdo")
-EffectDefinition = SubResource("Resource_ie2y8")
-
-[sub_resource type="Resource" id="Resource_dqdl8"]
+[sub_resource type="Resource" id="Resource_2d282"]
 script = ExtResource("8_pni6k")
-DamageEffect = SubResource("Resource_87ply")
 Icon = ExtResource("7_omi4i")
 AbilityName = "Attack"
 
@@ -86,5 +85,5 @@ Range = ExtResource("13_gnuiy")
 script = ExtResource("7_2e5sc")
 EntityName = "Poland Infantry"
 AttributeSets = Array[Object]([SubResource("Resource_6exyj"), SubResource("Resource_s6rnt"), SubResource("Resource_k24qf")])
-Abilities = Array[Object]([SubResource("Resource_q2v01"), SubResource("Resource_dqdl8")])
+Abilities = Array[Object]([SubResource("Resource_q2v01"), SubResource("Resource_2d282")])
 Body = ExtResource("1_es5ke")
