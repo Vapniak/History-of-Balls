@@ -19,7 +19,7 @@ public abstract partial class GameplayAbilityInstance : Node {
     OwnerAbilitySystem = abilitySystem;
   }
 
-  public virtual async Task<bool> TryActivateAbility(GameplayEventData eventData) {
+  public virtual async Task<bool> TryActivateAbility(GameplayEventData? eventData) {
     if (!CanActivateAbility(eventData)) {
       return false;
     }
@@ -30,18 +30,18 @@ public abstract partial class GameplayAbilityInstance : Node {
     return true;
   }
 
-  public virtual bool CanActivateAbility(GameplayEventData eventData) {
+  public virtual bool CanActivateAbility(GameplayEventData? eventData) {
     return !IsActive && CheckCost() && CheckCooldown() && CheckTags();
   }
 
   public virtual void CancelAbility() { }
-  public virtual async Task PreActivate(GameplayEventData eventData) {
+  public virtual async Task PreActivate(GameplayEventData? eventData) {
     IsActive = true;
     CurrentEventData = eventData;
     EmitSignal(SignalName.Activated);
   }
-  public virtual async Task ActivateAbility(GameplayEventData eventData) { }
-  public virtual async Task EndAbility(GameplayEventData eventData) {
+  public virtual async Task ActivateAbility(GameplayEventData? eventData) { }
+  public virtual async Task EndAbility(GameplayEventData? eventData) {
     IsActive = false;
     CurrentEventData = null;
     EmitSignal(SignalName.Ended);
@@ -53,6 +53,9 @@ public abstract partial class GameplayAbilityInstance : Node {
   }
 
   public virtual bool CheckCooldown() {
+    if (AbilityResource.CooldownGameplayEffect?.GrantedTags != null) {
+      return !OwnerAbilitySystem.OwnedTags.HasAllTags(AbilityResource.CooldownGameplayEffect.GrantedTags);
+    }
     return true;
   }
 

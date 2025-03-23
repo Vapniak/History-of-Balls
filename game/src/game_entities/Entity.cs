@@ -18,7 +18,6 @@ public partial class Entity : Node {
   }
 
   public IEntityManagment EntityManagment { get; private set; }
-  // public EntityUI EntityUI { get; set; }
   public HOBGameplayAbilitySystem AbilitySystem { get; private set; }
 
   [Notify]

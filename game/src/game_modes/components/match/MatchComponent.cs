@@ -147,7 +147,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   private bool CanEntityBePlacedOnCell(GameCell cell) {
-    if (Grid.GetSetting(cell).IsWater && GetEntitiesOnCell(cell).Any(e => e.AbilitySystem.OwnedTags.HasExactTag(TagManager.GetTag(HOBTags.EntityTypeUnit)))) {
+    if (Grid.GetSetting(cell).IsWater || GetEntitiesOnCell(cell).Any(e => e.AbilitySystem.OwnedTags.HasExactTag(TagManager.GetTag(HOBTags.EntityTypeUnit)))) {
       return false;
     }
 

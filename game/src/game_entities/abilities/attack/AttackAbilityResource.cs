@@ -22,21 +22,21 @@ public partial class AttackAbilityResource : HOBAbilityResource {
 
     }
 
-    public override bool CanActivateAbility(GameplayEventData eventData) {
-      if (eventData.TargetData is AttackTargetData data) {
+    public override bool CanActivateAbility(GameplayEventData? eventData) {
+      if (eventData?.TargetData is AttackTargetData data) {
         return GetAttackableEntities().entities.Contains(data.TargetAbilitySystem.GetOwner<Entity>()) && base.CanActivateAbility(eventData);
       }
 
       return false;
     }
 
-    public override async Task ActivateAbility(GameplayEventData eventData) {
+    public override async Task ActivateAbility(GameplayEventData? eventData) {
       if (!CommitCooldown()) {
         await EndAbility(eventData);
         return;
       }
 
-      if (eventData.TargetData is AttackTargetData data) {
+      if (eventData?.TargetData is AttackTargetData data) {
         await Attack(data.TargetAbilitySystem.GetOwner<Entity>());
       }
 

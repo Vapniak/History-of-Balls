@@ -1,8 +1,7 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
-using HOB.GameEntity;
 
 public class AttackTargetData : GameplayAbilityTargetData {
-  public HOBGameplayAbilitySystem TargetAbilitySystem { get; set; }
+  public required HOBGameplayAbilitySystem TargetAbilitySystem { get; set; }
 }

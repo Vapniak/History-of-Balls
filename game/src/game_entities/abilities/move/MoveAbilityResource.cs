@@ -21,13 +21,13 @@ public partial class MoveAbilityResource : HOBAbilityResource {
 
     }
 
-    public override async Task ActivateAbility(GameplayEventData eventData) {
+    public override async Task ActivateAbility(GameplayEventData? eventData) {
       if (!CommitCooldown()) {
         await EndAbility(eventData);
         return;
       }
 
-      if (eventData.TargetData is MoveTargetData data) {
+      if (eventData?.TargetData is MoveTargetData data) {
         foreach (var cell in FindPathTo(data.Cell)) {
           await Walk(OwnerAbilitySystem.GetOwner<Entity>(), cell);
         }

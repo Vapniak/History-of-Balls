@@ -143,6 +143,17 @@ public partial class HOBHUD : HUD {
       }
     }
 
+    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
+      if (ability.CanActivateAbility(null)) {
+        if (ability is HOBAbilityInstance hOBAbility) {
+          if (ability is MoveAbilityResource.MoveAbilityInstance or AttackAbilityResource.AttackAbilityInstance) {
+            CommandPanel.SelectCommand(hOBAbility);
+            break;
+          }
+        }
+      }
+    }
+
     CommandPanel.Show();
   }
   private void HideUIFor(Entity? entity) {

@@ -11,4 +11,12 @@ public abstract partial class HOBAbilityInstance : GameplayAbilityInstance {
   protected HOBAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
     AbilityResource = abilityResource;
   }
+
+  public override bool CanActivateAbility(GameplayEventData? eventData) {
+    if (eventData != null) {
+      return base.CanActivateAbility(eventData) && OwnerEntity.TryGetOwner(out var owner) && owner == eventData.Value.TargetData.Caller;
+    }
+
+    return false;
+  }
 }

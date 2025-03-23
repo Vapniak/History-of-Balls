@@ -2,6 +2,7 @@ namespace HOB;
 
 using System;
 using System.Linq;
+using GameplayAbilitySystem;
 using GameplayFramework;
 using Godot;
 using Godot.Collections;
@@ -194,13 +195,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     // }
 
     if (@event.IsActionPressed(GameInputs.UseCommand)) {
+      if (SelectedEntity == null) {
+        return;
+      }
+
       if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
-        _ = moveAbility.TryActivateAbility(new() { TargetData = new MoveTargetData() { Cell = HoveredCell } });
+        _ = moveAbility.TryActivateAbility(new() { TargetData = new MoveTargetData() { Cell = HoveredCell, Caller = this } });
       }
       else if (SelectedCommand is AttackAbilityResource.AttackAbilityInstance attackAbility) {
         var @as = EntityManagment.GetEntitiesOnCell(HoveredCell)?.FirstOrDefault()?.AbilitySystem;
         if (@as != null) {
-          _ = attackAbility.TryActivateAbility(new() { TargetData = new AttackTargetData() { TargetAbilitySystem = @as } });
+          _ = attackAbility.TryActivateAbility(new() { TargetData = new AttackTargetData() { TargetAbilitySystem = @as, Caller = this } });
         }
       }
     }
@@ -286,6 +291,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (SelectedEntity != null) {
       SelectedEntity.TreeExiting += OnSelectedEntityDied;
       SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
+      SelectedEntity.AbilitySystem.GameplayAbilityActivated += OnAbilityActivated;
+      SelectedEntity.AbilitySystem.GameplayAbilityEnded += OnAbilityEnded;
     }
   }
 
@@ -295,7 +302,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (SelectedEntity != null) {
       SelectedEntity.TreeExiting -= OnSelectedEntityDied;
       SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
+      SelectedEntity.AbilitySystem.GameplayAbilityActivated -= OnAbilityActivated;
+      SelectedEntity.AbilitySystem.GameplayAbilityEnded -= OnAbilityEnded;
     }
+
+    SelectedCommand = null;
   }
 
   private void OnSelectionIdleStateUnhandledInput(InputEvent @event) {
@@ -332,7 +343,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleStateEntered() {
-
+    UpdateSelectedCommandHighlights();
   }
 
   private void OnSelectionIdleStateExited() {
@@ -379,7 +390,27 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectedCommandChanged() {
+    UpdateSelectedCommandHighlights();
+  }
+
+  public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
+
+  private void OnAbilityActivated(GameplayAbilityInstance abilityInstance) {
+    if (abilityInstance is MoveAbilityResource.MoveAbilityInstance or AttackAbilityResource.AttackAbilityInstance) {
+      StateChart?.SendEvent("command_started");
+    }
+  }
+
+  private void OnAbilityEnded(GameplayAbilityInstance abilityInstance) {
+    StateChart?.SendEvent("command_finished");
+  }
+
+  private void UpdateSelectedCommandHighlights() {
     HighlightSystem.ClearAllHighlights();
+
+    if (SelectedEntity != null) {
+      HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
+    }
 
     if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
       foreach (var cell in moveAbility.GetReachableCells()) {
@@ -392,9 +423,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
     }
 
-
     HighlightSystem.UpdateHighlights();
   }
-
-  public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 }

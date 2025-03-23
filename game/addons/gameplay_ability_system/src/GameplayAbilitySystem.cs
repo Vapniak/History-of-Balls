@@ -41,6 +41,7 @@ public partial class GameplayAbilitySystem : Node {
 
   public void GrantAbility(GameplayAbilityInstance abilityInstance) {
     abilityInstance.Activated += () => EmitSignal(SignalName.GameplayAbilityActivated, abilityInstance);
+    abilityInstance.Ended += () => EmitSignal(SignalName.GameplayAbilityEnded, abilityInstance);
     GrantedAbilities.Add(abilityInstance);
     AddChild(abilityInstance);
   }
