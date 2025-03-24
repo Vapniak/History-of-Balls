@@ -1,6 +1,5 @@
 namespace HOB;
 
-using GameplayFramework;
 using Godot;
 
 /// <summary>
@@ -8,21 +7,25 @@ using Godot;
 /// </summary>
 public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
-  [Export] public MapData MapData { get; private set; }
-  [Export] private GameGridLayout Layout { get; set; }
-  [Export] private TerrainManager TerrainManager { get; set; }
+  [Export] private GameGridLayout? Layout { get; set; }
+  [Export] private TerrainManager? TerrainManager { get; set; }
 
-  public GameGrid Grid { get; private set; }
+  public GameGrid? Grid { get; private set; }
 
-  public void Init() {
+  public void Init(MapData mapData) {
+    if (Layout == null) {
+      return;
+    }
+
+
     Grid = new(Layout);
 
-    Grid.LoadMap(MapData);
+    Grid.LoadMap(mapData);
 
-    TerrainManager.CreateData(Grid);
+    TerrainManager?.CreateData(Grid);
 
     foreach (var cell in Grid.GetCells()) {
-      TerrainManager.AddCellToChunk(cell);
+      TerrainManager?.AddCellToChunk(cell);
     }
 
     EmitSignal(SignalName.GridCreated);
@@ -30,6 +33,10 @@ public partial class GameBoard : Node3D {
 
 
   public Aabb GetAabb() {
+    if (Grid == null) {
+      return new();
+    }
+
     var aabb = new Aabb {
       Size = new(Grid.GetRealMapSize().X, 1, Grid.GetRealMapSize().Y),
       // TODO: that offset probably will be wrong with different hex oreintations
@@ -39,18 +46,18 @@ public partial class GameBoard : Node3D {
   }
 
   public void SetMouseHighlight(bool value) {
-    TerrainManager.SetMouseHighlight(value);
+    TerrainManager?.SetMouseHighlight(value);
   }
 
   public void SetHighlight(GameCell cell, Color color) {
-    TerrainManager.SetHighlight(cell, color);
+    TerrainManager?.SetHighlight(cell, color);
   }
 
   public void UpdateHighlights() {
-    TerrainManager.UpdateHighlights();
+    TerrainManager?.UpdateHighlights();
   }
 
   public void ClearHighlights() {
-    TerrainManager.ClearHighlights();
+    TerrainManager?.ClearHighlights();
   }
 }

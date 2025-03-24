@@ -8,7 +8,7 @@ public partial class Main : Node {
     CallDeferred(MethodName.CreateWorld);
   }
 
-  private void CreateWorld() {
+  private static void CreateWorld() {
     GameInstance.CreateWorld("splash_level");
   }
 }

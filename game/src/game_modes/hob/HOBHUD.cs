@@ -68,23 +68,24 @@ public partial class HOBHUD : HUD {
     var playerState = GetPlayerController().GetPlayerState<HOBPlayerState>();
 
 
-    UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
-    UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+    // TODO: add resource values
+    UpdatePrimaryResourceValue(playerState.PrimaryResourceValue.ToString());
+    UpdateSecondaryResourceValue(playerState.SecondaryResourceValue.ToString());
 
 
     PrimaryResourceNameLabel.Clear();
-    PrimaryResourceNameLabel.AddImage(playerState.PrimaryResourceType.Icon, 16, 16);
-    PrimaryResourceNameLabel.AddText($" {playerState.PrimaryResourceType.Name}: ");
+    PrimaryResourceNameLabel.AddImage(playerState.Country.PrimaryResource.Icon, 16, 16);
+    PrimaryResourceNameLabel.AddText($" {playerState.Country.PrimaryResource.Name}: ");
 
     SecondaryResourceNameLabel.Clear();
-    SecondaryResourceNameLabel.AddImage(playerState.SecondaryResourceType.Icon, 16, 16);
-    SecondaryResourceNameLabel.AddText($" {playerState.SecondaryResourceType.Name}: ");
+    SecondaryResourceNameLabel.AddImage(playerState.Country.SecondaryResource.Icon, 16, 16);
+    SecondaryResourceNameLabel.AddText($" {playerState.Country.SecondaryResource.Name}: ");
 
-    playerState.PrimaryResourceType.ValueChanged += () => UpdatePrimaryResourceValue(playerState.PrimaryResourceType.Value.ToString());
-    playerState.SecondaryResourceType.ValueChanged += () => UpdateSecondaryResourceValue(playerState.SecondaryResourceType.Value.ToString());
+    playerState.SecondaryResourceValueChanged += () => UpdatePrimaryResourceValue(playerState.PrimaryResourceValue.ToString());
+    playerState.SecondaryResourceValueChanged += () => UpdateSecondaryResourceValue(playerState.SecondaryResourceValue.ToString());
 
-    CountryFlag.Texture = GetPlayerController().Country.Flag;
-    CountryNameLabel.Text = GetPlayerController().Country.Name;
+    CountryFlag.Texture = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Flag;
+    CountryNameLabel.Text = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Name;
   }
 
   private void UpdatePrimaryResourceValue(string value) {

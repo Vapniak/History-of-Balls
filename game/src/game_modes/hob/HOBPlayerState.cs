@@ -5,6 +5,7 @@ using Godot;
 
 [GlobalClass]
 public partial class HOBPlayerState : PlayerState, IMatchPlayerState {
-  public ResourceType PrimaryResourceType { get; set; }
-  public ResourceType SecondaryResourceType { get; set; }
+  public Country? Country { get; set; }
+  [Notify] public int PrimaryResourceValue { get; set; }
+  [Notify] public int SecondaryResourceValue { get; set; }
 }

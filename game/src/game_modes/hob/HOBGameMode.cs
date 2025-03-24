@@ -1,18 +1,17 @@
 namespace HOB;
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using GameplayFramework;
 using Godot;
 using GodotStateCharts;
-using HOB.GameEntity;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
   [Export] private MatchEndMenu MatchEndMenu { get; set; }
   [Export] private PauseMenu PauseMenu { get; set; }
   [Export] private AudioStreamPlayer AudioPlayer { get; set; }
+
+  [Export] private MatchData? MatchData { get; set; }
 
   [Export] private PackedScene PlayerControllerScene { get; set; }
   [Export] private PackedScene PlayerCharacterScene { get; set; }
@@ -27,6 +26,7 @@ public partial class HOBGameMode : GameMode {
   private HOBPlayerManagmentComponent PlayerManagmentComponent { get; set; }
 
   private GameBoard GameBoard => GetGameState().GameBoard;
+
   public override void _EnterTree() {
     base._EnterTree();
 
@@ -59,7 +59,9 @@ public partial class HOBGameMode : GameMode {
     PauseMenu.MainMenuEvent += OnMainMenu;
     PauseMenu.QuitEvent += OnQuit;
 
-    GameBoard.Init();
+    if (MatchData?.Map != null) {
+      GameBoard.Init(MatchData.Map);
+    }
   }
 
   public void Pause() {
@@ -124,8 +126,37 @@ public partial class HOBGameMode : GameMode {
   private void OnQuit() => GameInstance.QuitGame();
 
   private void OnGridCreated() {
-    PlayerManagmentComponent.SpawnPlayerDeferred(new(PlayerControllerScene, new HOBPlayerState(), "Player", HUDScene, PlayerCharacterScene));
-    PlayerManagmentComponent.SpawnPlayerDeferred(new(AIControllerScene, new HOBPlayerState(), "AI"));
+    if (MatchData == null) {
+      return;
+    }
+
+    foreach (var playerData in MatchData.PlayerSpawnDatas) {
+      var state = new HOBPlayerState();
+      state.PrimaryResourceValue = playerData.PrimaryResourceInitialValue;
+      state.SecondaryResourceValue = playerData.SecondaryResourceInitialValue;
+
+      Controller? controller = null;
+      if (playerData.PlayerType == PlayerType.Player) {
+        controller = PlayerControllerScene.Instantiate<Controller>();
+        var hud = HUDScene.Instantiate<HUD>();
+        var characterNode = PlayerCharacterScene.Instantiate<Node>();
+        PlayerManagmentComponent.SpawnPlayerDeferred(new(controller, state, "Player", hud, characterNode));
+      }
+      else if (playerData.PlayerType == PlayerType.AI) {
+        controller = AIControllerScene.Instantiate<Controller>();
+        PlayerManagmentComponent.SpawnPlayerDeferred(new(controller, state, "AI"));
+      }
+
+      state.Country = playerData.Country;
+
+      if (playerData.Entities != null) {
+        foreach (var entitySpawn in playerData.Entities) {
+          if (entitySpawn?.EntityData != null) {
+            MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(entitySpawn.Col, entitySpawn.Row), controller as IMatchController);
+          }
+        }
+      }
+    }
 
     StateChart.CallDeferred(StateChart.MethodName.SendEvent, "match_start");
   }

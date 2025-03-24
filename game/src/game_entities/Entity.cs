@@ -21,7 +21,7 @@ public partial class Entity : Node {
   public HOBGameplayAbilitySystem AbilitySystem { get; private set; }
 
   [Notify]
-  private IMatchController OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
+  private IMatchController? OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
 
   public Entity(string name, GameCell cell, IEntityManagment entityManagment, Array<GameplayAttributeSet>? attributeSets, Array<GameplayAbilityResource>? abilities, TagContainer? tags, EntityBody body) {
     Cell = cell;
@@ -85,7 +85,7 @@ public partial class Entity : Node {
     }
   }
 
-  public void ChangeOwner(IMatchController newOwner) {
+  public void ChangeOwner(IMatchController? newOwner) {
     if (newOwner != OwnerController) {
       OwnerController = newOwner;
     }

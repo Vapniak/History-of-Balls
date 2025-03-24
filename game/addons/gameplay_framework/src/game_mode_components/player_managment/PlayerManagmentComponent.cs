@@ -5,17 +5,17 @@ using Godot.Collections;
 using System;
 
 public partial class PlayerSpawnSettings : Resource {
-  public PackedScene ControllerScene { get; private set; }
+  public Controller Controller { get; private set; }
   public PlayerState PlayerState { get; private set; }
   public string PlayerName { get; private set; }
-  public PackedScene HUDScene { get; private set; }
-  public PackedScene CharacterScene { get; private set; }
-  public PlayerSpawnSettings(PackedScene controller, PlayerState playerState, string playerName = "Player", PackedScene hud = null, PackedScene character = null) {
-    ControllerScene = controller;
+  public HUD? HUD { get; private set; }
+  public Node? CharacterNode { get; private set; }
+  public PlayerSpawnSettings(Controller controller, PlayerState playerState, string playerName = "Player", HUD? hud = null, Node? character = null) {
+    Controller = controller;
     PlayerState = playerState;
     PlayerName = playerName;
-    HUDScene = hud;
-    CharacterScene = character;
+    HUD = hud;
+    CharacterNode = character;
   }
 }
 
@@ -36,18 +36,17 @@ public partial class PlayerManagmentComponent : GameModeComponent {
   }
 
   protected virtual void SpawnPlayer(PlayerSpawnSettings settings) {
-    var con = settings.ControllerScene.InstantiateOrNull<Controller>();
-    var character = settings.CharacterScene?.InstantiateOrNull<Node>();
-    var hud = settings.HUDScene?.InstantiateOrNull<HUD>();
     var parent = GameInstance.GetWorld().CurrentLevel;
 
-    if (character != null) {
-      parent.AddChild(character);
-      if (con is PlayerController playerController) {
-        playerController.SetHUD(hud);
-        playerController.SpawnHUD();
+    if (settings.CharacterNode != null) {
+      parent.AddChild(settings.CharacterNode);
+      if (settings.Controller is PlayerController playerController) {
+        if (settings.HUD != null) {
+          playerController.SetHUD(settings.HUD);
+          playerController.SpawnHUD();
+        }
 
-        if (character is IPlayerControllable controllable) {
+        if (settings.CharacterNode is IPlayerControllable controllable) {
           playerController.SetControllable(controllable);
         }
       }
@@ -56,13 +55,13 @@ public partial class PlayerManagmentComponent : GameModeComponent {
     var playerState = settings.PlayerState;
     playerState.SetPlayerName(settings.PlayerName);
     playerState.SetPlayerIndex(GetGameState().PlayerArray.Count);
-    playerState.SetController(con);
+    playerState.SetController(settings.Controller);
 
-    con.SetPlayerState(playerState);
+    settings.Controller.SetPlayerState(playerState);
 
     GetGameState().PlayerArray.Add(playerState);
 
-    parent.AddChild(con);
+    parent.AddChild(settings.Controller);
 
     EmitSignal(SignalName.PlayerSpawned, playerState);
   }

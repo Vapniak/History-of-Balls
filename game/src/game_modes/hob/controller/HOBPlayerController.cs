@@ -21,7 +21,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   [Notify] public HOBAbilityInstance? SelectedCommand { get => _selectedCommand.Get(); private set => _selectedCommand.Set(value); }
 
   public event Action? EndTurnEvent;
-  public Country? Country { get; set; }
 
   private StateChart? StateChart { get; set; }
 
