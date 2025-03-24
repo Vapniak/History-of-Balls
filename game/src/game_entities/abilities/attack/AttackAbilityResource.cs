@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class AttackAbilityResource : HOBAbilityResource {
   [Export] public GameplayEffectResource? DamageEffect { get; private set; }
+  [Export] public GameplayEffectResource? BlockMovementEffect { get; private set; }
 
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
     return new AttackAbilityInstance(this, abilitySystem);
@@ -27,13 +28,19 @@ public partial class AttackAbilityResource : HOBAbilityResource {
         return GetAttackableEntities().entities.Contains(data.TargetAbilitySystem.GetOwner<Entity>()) && base.CanActivateAbility(eventData);
       }
 
-      return false;
+      return base.CanActivateAbility(eventData);
     }
 
     public override async Task ActivateAbility(GameplayEventData? eventData) {
       if (!CommitCooldown()) {
         await EndAbility(eventData);
         return;
+      }
+
+      var effect = (AbilityResource as AttackAbilityResource)?.BlockMovementEffect;
+      if (effect != null) {
+        var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
+        OwnerAbilitySystem.TryApplyGameplayEffectToSelf(ge);
       }
 
       if (eventData?.TargetData is AttackTargetData data) {

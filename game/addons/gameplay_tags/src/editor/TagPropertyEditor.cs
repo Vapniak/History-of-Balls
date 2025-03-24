@@ -27,7 +27,8 @@ public partial class TagPropertyEditor : EditorProperty {
       SizeFlagsVertical = SizeFlags.ExpandFill,
       CustomMinimumSize = new Vector2I(0, 100),
       Columns = 1,
-      HideRoot = true
+      HideRoot = true,
+      AllowSearch = true,
     };
 
     _tree.ItemActivated += OnItemActivated;

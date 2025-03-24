@@ -1,12 +1,34 @@
-[gd_scene load_steps=10 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=18 format=3 uid="uid://knv3bilnx05e"]
 
-[ext_resource type="Script" path="res://src/game_modes/hob/HOBHUD.cs" id="1_ep1kh"]
+[ext_resource type="Script" path="res://src/game_modes/hob/hud/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/gui/flag/flag.tscn" id="2_3sw0n"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_iatrr"]
+[ext_resource type="Texture2D" uid="uid://bhrnb4qh1p6dx" path="res://assets/textures/icons/ranged.svg" id="3_2ejl3"]
 [ext_resource type="PackedScene" uid="uid://cccmeolyi0lk2" path="res://src/gui/hud/time_display.tscn" id="3_5bovs"]
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/gui/hud/command_panel/command_panel.tscn" id="3_a41a7"]
 [ext_resource type="PackedScene" uid="uid://dm85iu1q2xpt5" path="res://src/gui/hud/entity_production_panel/entity_production_panel.tscn" id="4_77ne6"]
+[ext_resource type="Script" path="res://src/game_modes/hob/hud/EntityIcon.cs" id="4_awy27"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/hud/stat_panel/stat_panel.tscn" id="4_yxp0t"]
+[ext_resource type="Texture2D" uid="uid://cu8ifpeobhj4p" path="res://assets/textures/icons/infantry.svg" id="5_4cyne"]
 [ext_resource type="Script" path="res://src/gui/hud/MiniMap.cs" id="5_dr8w6"]
+
+[sub_resource type="Resource" id="Resource_f6qae"]
+script = ExtResource("2_iatrr")
+FullName = "Entity.Type.Unit.Ranged"
+
+[sub_resource type="Resource" id="Resource_sdjv2"]
+script = ExtResource("4_awy27")
+EntityType = SubResource("Resource_f6qae")
+Icon = ExtResource("3_2ejl3")
+
+[sub_resource type="Resource" id="Resource_olcgp"]
+script = ExtResource("2_iatrr")
+FullName = "Entity.Type.Unit.Melee"
+
+[sub_resource type="Resource" id="Resource_l11vm"]
+script = ExtResource("4_awy27")
+EntityType = SubResource("Resource_olcgp")
+Icon = ExtResource("5_4cyne")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qeyv"]
 corner_radius_top_left = 5
@@ -29,6 +51,7 @@ RoundLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContain
 TurnLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label2")
 CountryFlag = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Flag/PanelContainer/Texture")
 CountryNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Label")
+EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm")])
 PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer/RichTextLabel")
 PrimaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer/Label2")
 SecondaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer2/RichTextLabel2")
@@ -224,7 +247,25 @@ size_flags_horizontal = 6
 size_flags_vertical = 8
 mouse_filter = 0
 
-[node name="CommandPanel" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer" index="1" instance=ExtResource("3_a41a7")]
+[node name="HSeparator" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer" index="1"]
+visible = false
+
+[node name="CommandPanel" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer" index="2" instance=ExtResource("3_a41a7")]
+layout_mode = 2
+
+[node name="Button" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel/VBoxContainer2" index="0"]
+size_flags_horizontal = 3
+
+[node name="Button4" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel/VBoxContainer2" index="1"]
+size_flags_horizontal = 3
+
+[node name="Button5" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel/VBoxContainer2" index="2"]
+size_flags_horizontal = 3
+
+[node name="Button6" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel/VBoxContainer2" index="3"]
+size_flags_horizontal = 3
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer" index="3"]
 layout_mode = 2
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer4/Button" to="." method="OnEndTurnPressed"]
@@ -232,3 +273,4 @@ layout_mode = 2
 [editable path="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Flag"]
 [editable path="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/TimeDisplay"]
 [editable path="VBoxContainer/MarginContainer4/StatPanel"]
+[editable path="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel"]

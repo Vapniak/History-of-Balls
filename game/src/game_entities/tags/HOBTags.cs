@@ -13,6 +13,7 @@ public enum HOBTags {
 
   [GameplayTag("State")] State,
   [GameplayTag("State.Dead")] StateDead,
+  [GameplayTag("State.Block.Movement")] StateBlockMovement,
 
   [GameplayTag("Entity.Type")] EntityType,
   [GameplayTag("Entity.Type.Unit")] EntityTypeUnit,

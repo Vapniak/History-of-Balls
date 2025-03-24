@@ -10,13 +10,13 @@
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_218sx"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="8_uar7j"]
 
-[sub_resource type="Resource" id="Resource_ouur6"]
+[sub_resource type="Resource" id="Resource_8xi6g"]
 script = ExtResource("7_218sx")
-FullName = "Entity.Type.Unit"
+FullName = "Entity.Type.Unit.Melee"
 
 [sub_resource type="Resource" id="Resource_4iepl"]
 script = ExtResource("8_uar7j")
-Tags = [SubResource("Resource_ouur6")]
+Tags = [SubResource("Resource_8xi6g")]
 
 [resource]
 script = ExtResource("1_rx8d8")

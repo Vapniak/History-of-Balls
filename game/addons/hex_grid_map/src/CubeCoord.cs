@@ -1,5 +1,7 @@
 namespace HexGridMap;
 
+using System.ComponentModel;
+using System.Security.AccessControl;
 using Godot;
 
 public struct CubeCoord {
@@ -67,5 +69,17 @@ public struct CubeCoord {
 
 
     return new OffsetCoord(col, row);
+  }
+
+  public override readonly bool Equals(object? obj) {
+    if (obj is CubeCoord coord) {
+      return coord == this;
+    }
+
+    return false;
+  }
+
+  public override readonly int GetHashCode() {
+    return Q * R * S;
   }
 }

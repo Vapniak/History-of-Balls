@@ -1,6 +1,7 @@
 namespace HOB;
 
 using System;
+using System.Diagnostics;
 using System.Linq;
 using GameplayAbilitySystem;
 using GameplayFramework;
@@ -35,6 +36,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private string _entityUISceneUID = "uid://omhtmi8gorif";
 
+  private Dictionary<Entity, EntityUI> EntityUIs { get; set; } = new();
+
   public override void _Ready() {
     base._Ready();
 
@@ -51,13 +54,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       StateChart = StateChart.Of(StateChartNode);
     }
 
-    GetGameMode().GetEntityManagment().EntityAdded += onEntityAdded;
+    GetGameMode().GetEntityManagment().EntityAdded += OnEntityAdded;
 
     GetHUD().CommandSelected += (command) => SelectedCommand = command;
-  }
-
-  private void onEntityAdded(Entity entity) {
-
   }
 
   public override void _Notification(int what) {
@@ -126,6 +125,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     CallDeferred(MethodName.FocusOnSelectedEntity);
 
     GetHUD().OnGameStarted();
+
+    foreach (var entity in EntityManagment.GetEntities()) {
+      SpawnUIForEntity(entity);
+    }
   }
 
   private void CheckHover() {
@@ -140,9 +143,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     var point = raycastResult.Position;
     var coord = GameBoard.Grid.GetLayout().PointToCube(new(point.X, point.Z));
-
-
-    // DebugDraw3D.DrawSphere(point);
 
     var cell = GameBoard.Grid.GetCell(coord);
 
@@ -171,28 +171,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void CheckCommandInput(InputEvent @event) {
-    // if (@event is InputEventKey eventKey) {
-    //   if (@event.IsPressed()) {
-    //     switch (eventKey.Keycode) {
-    //       // TODO: for now its okay but later I want to make shortcuts for commands
-    //       case Key.Key1:
-    //         GetHUD().SelectCommand(0);
-    //         break;
-    //       case Key.Key2:
-    //         GetHUD().SelectCommand(1);
-    //         break;
-    //       case Key.Key3:
-    //         GetHUD().SelectCommand(2);
-    //         break;
-    //       case Key.Key4:
-    //         GetHUD().SelectCommand(3);
-    //         break;
-    //       default:
-    //         break;
-    //     }
-    //   }
-    // }
-
     if (@event.IsActionPressed(GameInputs.UseCommand)) {
       if (SelectedEntity == null) {
         return;
@@ -342,54 +320,68 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleStateEntered() {
+    SelectedCommandChanged += UpdateSelectedCommandHighlights;
+    if (SelectedEntity != null && SelectedCommand == null) {
+      var grantedAbilities = SelectedEntity.AbilitySystem.GetGrantedAbilities();
+
+      var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { TargetData = new() { Caller = this } }) && s is MoveAbilityResource.MoveAbilityInstance);
+      ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { TargetData = new() { Caller = this } }) && s is AttackAbilityResource.AttackAbilityInstance);
+
+      if (ability is HOBAbilityInstance hOBAbility) {
+        GetHUD().SelectCommand(hOBAbility);
+      }
+    }
+
     UpdateSelectedCommandHighlights();
   }
 
   private void OnSelectionIdleStateExited() {
-
+    SelectedCommandChanged -= UpdateSelectedCommandHighlights;
   }
 
   private void OnCommandStateEntered() {
     GetHUD().SetEndTurnButtonDisabled(true);
+    SelectedCommand = null;
   }
 
   private void OnCommandStateExited() {
     GetHUD().SetEndTurnButtonDisabled(false);
+
   }
   #endregion
 
 
-  IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
+  public new IMatchPlayerState GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
 
   private void OnSelectedEntityCellChanged() {
-    HighlightSystem.ClearAllHighlights();
+    HighlightSystem?.ClearAllHighlights();
 
-    HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
+    HighlightSystem?.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
 
-    HighlightSystem.UpdateHighlights();
+    HighlightSystem?.UpdateHighlights();
   }
 
   private void OnSelectedEntityDied() {
     SelectEntity(null);
-    HighlightSystem.ClearAllHighlights();
-    HighlightSystem.UpdateHighlights();
+    HighlightSystem?.ClearAllHighlights();
+    HighlightSystem?.UpdateHighlights();
   }
 
   private void OnSelectedEntityChanged() {
-    HighlightSystem.ClearAllHighlights();
+    HighlightSystem?.ClearAllHighlights();
 
     if (SelectedEntity != null) {
-      HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
+      HighlightSystem?.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
     }
     else {
       SelectedCommand = null;
     }
 
-    HighlightSystem.UpdateHighlights();
+    HighlightSystem?.UpdateHighlights();
   }
 
   private void OnSelectedCommandChanged() {
-    UpdateSelectedCommandHighlights();
+
   }
 
   public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
@@ -405,23 +397,48 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void UpdateSelectedCommandHighlights() {
-    HighlightSystem.ClearAllHighlights();
+    HighlightSystem?.ClearAllHighlights();
 
     if (SelectedEntity != null) {
-      HighlightSystem.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
+      HighlightSystem?.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
     }
 
     if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
       foreach (var cell in moveAbility.GetReachableCells()) {
-        HighlightSystem.SetHighlight(HighlightType.Movement, cell);
+        HighlightSystem?.SetHighlight(HighlightType.Movement, cell);
       }
     }
     else if (SelectedCommand is AttackAbilityResource.AttackAbilityInstance attackAbility) {
       foreach (var cell in attackAbility.GetAttackableEntities().cellsInRange) {
-        HighlightSystem.SetHighlight(HighlightType.Attack, cell);
+        HighlightSystem?.SetHighlight(HighlightType.Attack, cell);
       }
     }
 
-    HighlightSystem.UpdateHighlights();
+    HighlightSystem?.UpdateHighlights();
+  }
+
+  private void OnEntityAdded(Entity entity) {
+    SpawnUIForEntity(entity);
+  }
+
+  private void SpawnUIForEntity(Entity entity) {
+    var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node3D>();
+
+    var entityUI = ui3d.GetChild(0).GetChild<EntityUI>(0);
+    entityUI.SetTeamColor(Colors.Green);
+    var icon = GetHUD().GetIconFor(entity);
+    if (icon != null) {
+      entityUI.SetIcon(icon);
+    }
+
+    var aabb = new Aabb();
+    foreach (var child in entity.Body.GetAllChildren()) {
+      if (child is MeshInstance3D mesh) {
+        aabb = aabb.Merge(mesh.GetAabb());
+      }
+    }
+
+    ui3d.Position = aabb.GetCenter() + Vector3.Up * (aabb.Size.Y + 2);
+    entity.Body.AddChild(ui3d);
   }
 }

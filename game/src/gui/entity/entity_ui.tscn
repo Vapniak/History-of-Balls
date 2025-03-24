@@ -83,6 +83,7 @@ texture = ExtResource("1_58pqq")
 expand_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 4
 

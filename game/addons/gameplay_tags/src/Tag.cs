@@ -51,7 +51,7 @@ public partial class Tag : Resource, IEquatable<Tag> {
     return FullName?.GetHashCode() ?? 0;
   }
 
-  public static bool operator ==(Tag left, Tag right) {
+  public static bool operator ==(Tag? left, Tag? right) {
     if (left is null) {
       return right is null;
     }
@@ -59,5 +59,5 @@ public partial class Tag : Resource, IEquatable<Tag> {
     return left.Equals(right);
   }
 
-  public static bool operator !=(Tag left, Tag right) => !(left == right);
+  public static bool operator !=(Tag? left, Tag? right) => !(left == right);
 }

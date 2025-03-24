@@ -1,31 +1,34 @@
 namespace HOB;
 
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using GameplayAbilitySystem;
 using GameplayFramework;
 using Godot;
+using Godot.Collections;
 using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
   [Signal] public delegate void CommandSelectedEventHandler(HOBAbilityInstance abilityInstance);
   [Signal] public delegate void EndTurnPressedEventHandler();
 
-  [Export] private Label TurnChangedNotificationLabel { get; set; }
-  [Export] private StatPanel StatPanel { get; set; }
-  [Export] private EntityProductionPanel ProductionPanel { get; set; }
-  [Export] private Button EndTurnButton { get; set; }
-  [Export] private CommandPanel CommandPanel { get; set; }
-  [Export] private Label RoundLabel { get; set; }
-  [Export] private Label TurnLabel { get; set; }
-  [Export] private TextureRect CountryFlag { get; set; }
-  [Export] private Label CountryNameLabel { get; set; }
+  [Export] private Label? TurnChangedNotificationLabel { get; set; }
+  [Export] private StatPanel? StatPanel { get; set; }
+  [Export] private EntityProductionPanel? ProductionPanel { get; set; }
+  [Export] private Button? EndTurnButton { get; set; }
+  [Export] private CommandPanel? CommandPanel { get; set; }
+  [Export] private Label? RoundLabel { get; set; }
+  [Export] private Label? TurnLabel { get; set; }
+  [Export] private TextureRect? CountryFlag { get; set; }
+  [Export] private Label? CountryNameLabel { get; set; }
+  [Export] private Array<EntityIcon>? EntityIcons { get; set; }
 
   [ExportGroup("Resources")]
-  [Export] private RichTextLabel PrimaryResourceNameLabel { get; set; }
-  [Export] private Label PrimaryResourceValueLabel { get; set; }
-  [Export] private RichTextLabel SecondaryResourceNameLabel { get; set; }
-  [Export] private Label SecondaryResourceValueLabel { get; set; }
+  [Export] private RichTextLabel? PrimaryResourceNameLabel { get; set; }
+  [Export] private Label? PrimaryResourceValueLabel { get; set; }
+  [Export] private RichTextLabel? SecondaryResourceNameLabel { get; set; }
+  [Export] private Label? SecondaryResourceValueLabel { get; set; }
 
   public override void _Ready() {
     base._Ready();
@@ -88,6 +91,10 @@ public partial class HOBHUD : HUD {
     CountryNameLabel.Text = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Name;
   }
 
+  public Texture2D? GetIconFor(Entity entity) {
+    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasTag(i.EntityType))?.Icon;
+  }
+
   private void UpdatePrimaryResourceValue(string value) {
     PrimaryResourceValueLabel.Text = value;
   }
@@ -126,6 +133,7 @@ public partial class HOBHUD : HUD {
     StatPanel.ClearEntries();
 
     StatPanel.SetNameLabel(entity.EntityName);
+    StatPanel.SetIcon(GetIconFor(entity));
 
     entity.AbilitySystem.AttributeValueChanged += OnAttributeValueChanged;
     foreach (var attribute in entity.AbilitySystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
@@ -144,17 +152,6 @@ public partial class HOBHUD : HUD {
       }
     }
 
-    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
-      if (ability.CanActivateAbility(null)) {
-        if (ability is HOBAbilityInstance hOBAbility) {
-          if (ability is MoveAbilityResource.MoveAbilityInstance or AttackAbilityResource.AttackAbilityInstance) {
-            CommandPanel.SelectCommand(hOBAbility);
-            break;
-          }
-        }
-      }
-    }
-
     CommandPanel.Show();
   }
   private void HideUIFor(Entity? entity) {
@@ -163,6 +160,10 @@ public partial class HOBHUD : HUD {
     }
     StatPanel.Hide();
     CommandPanel.Hide();
+  }
+
+  public void SelectCommand(HOBAbilityInstance abilityInstance) {
+    CommandPanel.SelectCommand(abilityInstance);
   }
 
   private void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {

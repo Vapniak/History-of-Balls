@@ -13,8 +13,8 @@ public partial class EntityUI : Control {
   [Export] private StyleBox StructureIconPanelStyleBox { get; set; }
 
   public override void _Ready() {
-    IconTextureRect.Visible = false;
-    HideCommandIcons();
+    //IconTextureRect.Visible = false;
+    //HideCommandIcons();
   }
 
   public void SetTeamColor(Color color) {

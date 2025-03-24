@@ -50,6 +50,8 @@ public partial class CommandPanel : Control {
       Alignment = HorizontalAlignment.Center,
       ToggleMode = true,
       Icon = ability.AbilityResource.Icon,
+      IconAlignment = HorizontalAlignment.Center,
+      SizeFlagsHorizontal = SizeFlags.ExpandFill,
       ExpandIcon = true,
       ButtonGroup = _buttonGroup,
       CustomMinimumSize = new(32, 32),

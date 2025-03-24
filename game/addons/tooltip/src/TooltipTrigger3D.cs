@@ -1,12 +1,11 @@
 namespace Tooltip;
 
-
 using Godot;
 using System;
 
 [GlobalClass]
 public partial class TooltipTrigger3D : Area3D, ITooltipTrigger {
-  [Export] public string Text { get; private set; }
+  [Export] public string? Text { get; private set; }
 
   Vector2 ITooltipTrigger.Position => GetViewport().GetCamera3D().UnprojectPosition(GlobalPosition);
 

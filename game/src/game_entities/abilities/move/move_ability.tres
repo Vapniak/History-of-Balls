@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MoveAbilityResource" load_steps=17 format=3 uid="uid://jr0xec5ix0cv"]
+[gd_resource type="Resource" script_class="MoveAbilityResource" load_steps=19 format=3 uid="uid://jr0xec5ix0cv"]
 
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_kgiii"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_0y1sj"]
@@ -15,6 +15,14 @@ FullName = "Ability.Move"
 [sub_resource type="Resource" id="Resource_x2r8e"]
 script = ExtResource("2_0y1sj")
 Tags = [SubResource("Resource_baee4")]
+
+[sub_resource type="Resource" id="Resource_3t6cv"]
+script = ExtResource("1_kgiii")
+FullName = "State.Block.Movement"
+
+[sub_resource type="Resource" id="Resource_cuyoc"]
+script = ExtResource("2_0y1sj")
+Tags = [SubResource("Resource_3t6cv")]
 
 [sub_resource type="Resource" id="Resource_cja6e"]
 script = ExtResource("1_kgiii")
@@ -57,3 +65,4 @@ UIOrder = 0
 AbilityName = "Move"
 CooldownGameplayEffect = SubResource("Resource_xreec")
 AbilityTags = SubResource("Resource_x2r8e")
+ActivationBlockedTags = SubResource("Resource_cuyoc")
