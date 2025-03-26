@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="5_ehvav"]
 [ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="6_qosp5"]
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="7_sx8ec"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/AttributeBackedModifierMagnitude.cs" id="8_lcg3m"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/modifiers/AttributeBackedModifierMagnitude.cs" id="8_lcg3m"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="9_s32ua"]
 [ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="10_hboe8"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/attack/AttackAbilityResource.cs" id="11_r3ffo"]
@@ -118,5 +118,6 @@ Icon = ExtResource("10_hboe8")
 UIOrder = 1
 AbilityName = "Attack"
 CooldownGameplayEffect = SubResource("Resource_px1dh")
+ActivateOnGranted = false
 AbilityTags = SubResource("Resource_q4i8j")
 ActivationBlockedTags = SubResource("Resource_fk42j")

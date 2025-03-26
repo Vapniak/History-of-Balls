@@ -19,15 +19,12 @@ public abstract partial class GameplayAbilityInstance : Node {
     OwnerAbilitySystem = abilitySystem;
   }
 
-  public virtual async Task<bool> TryActivateAbility(GameplayEventData? eventData) {
-    if (!CanActivateAbility(eventData)) {
-      return false;
+  public override void _Ready() {
+    base._Ready();
+
+    if (AbilityResource.ActivateOnGranted) {
+      _ = OwnerAbilitySystem.TryActivateAbility(this, null);
     }
-
-    await PreActivate(eventData);
-    await ActivateAbility(eventData);
-
-    return true;
   }
 
   public virtual bool CanActivateAbility(GameplayEventData? eventData) {

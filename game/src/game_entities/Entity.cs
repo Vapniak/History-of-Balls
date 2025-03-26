@@ -95,6 +95,7 @@ public partial class Entity : Node {
     if (AbilitySystem.TryGetAttributeSet<HealthAttributeSet>(out var healthAttributeSet)) {
       if (attribute == healthAttributeSet?.HealthAttribute) {
         if (newValue <= 0f) {
+          AbilitySystem.OwnedTags.AddTag(TagManager.GetTag(HOBTags.StateDead));
           QueueFree();
         }
       }

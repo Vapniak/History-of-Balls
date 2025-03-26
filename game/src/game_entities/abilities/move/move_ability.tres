@@ -64,5 +64,6 @@ Icon = ExtResource("6_dffrw")
 UIOrder = 0
 AbilityName = "Move"
 CooldownGameplayEffect = SubResource("Resource_xreec")
+ActivateOnGranted = false
 AbilityTags = SubResource("Resource_x2r8e")
 ActivationBlockedTags = SubResource("Resource_cuyoc")

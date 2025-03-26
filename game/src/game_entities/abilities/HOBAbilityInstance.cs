@@ -1,6 +1,7 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayTags;
 using Godot;
 using HOB.GameEntity;
 
@@ -10,6 +11,8 @@ public abstract partial class HOBAbilityInstance : GameplayAbilityInstance {
   public Entity OwnerEntity => OwnerAbilitySystem.GetOwner<Entity>();
   protected HOBAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
     AbilityResource = abilityResource;
+
+    AbilityResource.ActivationBlockedTags?.AddTag(TagManager.GetTag(HOBTags.StateDead));
   }
 
   public override bool CanActivateAbility(GameplayEventData? eventData) {

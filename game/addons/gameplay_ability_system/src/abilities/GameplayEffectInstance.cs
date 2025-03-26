@@ -1,5 +1,7 @@
 namespace GameplayAbilitySystem;
 
+using System.Collections.Generic;
+using GameplayTags;
 using Godot;
 
 [GlobalClass]
@@ -13,6 +15,8 @@ public partial class GameplayEffectInstance : Node {
 
   private DurationStrategy? DurationStrategy { get; set; }
   private DurationStrategy? PeriodStrategy { get; set; }
+
+  private Dictionary<Tag, float> SetByCallers { get; set; } = new();
 
   public static GameplayEffectInstance CreateNew(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, float level) {
     return new GameplayEffectInstance(gameplayEffect, source, level);
@@ -61,5 +65,13 @@ public partial class GameplayEffectInstance : Node {
         }
       }
     }
+  }
+
+  public void SetByCallerMagnitude(Tag tag, float magnitude) {
+    SetByCallers[tag] = magnitude;
+  }
+
+  public float GetSetByCallerMagnitude(Tag tag, float defaultIfNotFound = 0) {
+    return SetByCallers.GetValueOrDefault(tag, defaultIfNotFound);
   }
 }

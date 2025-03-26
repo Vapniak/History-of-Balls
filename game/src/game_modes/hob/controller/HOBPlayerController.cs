@@ -172,19 +172,22 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void CheckCommandInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.UseCommand)) {
-      if (SelectedEntity == null) {
+      if (SelectedEntity == null || SelectedCommand == null) {
         return;
       }
 
+      GameplayEventData? eventData = null;
       if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
-        _ = moveAbility.TryActivateAbility(new() { TargetData = new MoveTargetData() { Cell = HoveredCell, Caller = this } });
+        eventData = new() { TargetData = new MoveTargetData() { Cell = HoveredCell, Caller = this } };
       }
       else if (SelectedCommand is AttackAbilityResource.AttackAbilityInstance attackAbility) {
         var @as = EntityManagment.GetEntitiesOnCell(HoveredCell)?.FirstOrDefault()?.AbilitySystem;
         if (@as != null) {
-          _ = attackAbility.TryActivateAbility(new() { TargetData = new AttackTargetData() { TargetAbilitySystem = @as, Caller = this } });
+          eventData = new() { TargetData = new AttackTargetData() { TargetAbilitySystem = @as, Caller = this } };
         }
       }
+
+      _ = SelectedEntity.AbilitySystem.TryActivateAbility(SelectedCommand, eventData);
     }
   }
 

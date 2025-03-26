@@ -3,6 +3,7 @@ namespace GameplayAbilitySystem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using GameplayTags;
 using Godot;
 using Godot.Collections;
@@ -47,6 +48,17 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   public IEnumerable<GameplayAbilityInstance> GetGrantedAbilities() => GrantedAbilities;
+
+  public async Task<bool> TryActivateAbility(GameplayAbilityInstance abilityInstance, GameplayEventData? eventData = null) {
+    if (!abilityInstance.CanActivateAbility(eventData)) {
+      return false;
+    }
+
+    await abilityInstance.PreActivate(eventData);
+    await abilityInstance.ActivateAbility(eventData);
+
+    return true;
+  }
 
   public bool TryApplyGameplayEffectToSelf(GameplayEffectInstance geInstance) {
     if (geInstance == null) {
