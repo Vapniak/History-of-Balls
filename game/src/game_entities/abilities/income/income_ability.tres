@@ -1,0 +1,52 @@
+[gd_resource type="Resource" script_class="IncomeAbilityResource" load_steps=16 format=3 uid="uid://dqymud443mvvm"]
+
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_14d7r"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayAbilityTriggerData.cs" id="2_xqlnj"]
+[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://src/game_entities/attributes/primary_resource.tres" id="3_kr0wx"]
+[ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://src/game_entities/attributes/income.tres" id="4_gynqb"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/modifiers/AttributeBackedModifierMagnitude.cs" id="5_3sj1s"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="6_jndpx"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="7_s5nya"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="8_shave"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/income/IncomeAbilityResource.cs" id="9_o3c7h"]
+
+[sub_resource type="Resource" id="Resource_vbmrr"]
+script = ExtResource("1_14d7r")
+FullName = "Event.Turn.Started"
+
+[sub_resource type="Resource" id="Resource_3l6vw"]
+script = ExtResource("2_xqlnj")
+TriggerSource = 1
+TriggerTag = SubResource("Resource_vbmrr")
+
+[sub_resource type="Resource" id="Resource_rahjx"]
+script = ExtResource("5_3sj1s")
+CaptureAttribute = ExtResource("4_gynqb")
+CaptureAttributeFrom = 0
+CaptureAttributeWhen = 1
+
+[sub_resource type="Resource" id="Resource_wtrna"]
+script = ExtResource("6_jndpx")
+Attribute = ExtResource("3_kr0wx")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_rahjx")
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_fgu21"]
+script = ExtResource("7_s5nya")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_wtrna")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_xmgnd"]
+script = ExtResource("8_shave")
+EffectDefinition = SubResource("Resource_fgu21")
+
+[resource]
+script = ExtResource("9_o3c7h")
+IncomeEffect = SubResource("Resource_xmgnd")
+ShowInUI = false
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+AbilityTriggers = Array[Object]([SubResource("Resource_3l6vw")])

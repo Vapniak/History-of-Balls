@@ -62,7 +62,7 @@ Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_b
 [sub_resource type="Resource" id="Resource_g0g07"]
 script = ExtResource("5_chwnt")
 EntityData = ExtResource("11_5j62k")
-Col = 5
+Col = 10
 Row = 5
 
 [sub_resource type="Resource" id="Resource_1crgr"]

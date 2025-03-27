@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://mfnc077jsp32"]
+
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/attributes/GameplayAttribute.cs" id="1_o7a2t"]
+
+[resource]
+script = ExtResource("1_o7a2t")
+AttributeName = "Income"

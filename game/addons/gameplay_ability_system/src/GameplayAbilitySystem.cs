@@ -21,6 +21,7 @@ public partial class GameplayAbilitySystem : Node {
   [Signal] public delegate void GameplayAbilityActivatedEventHandler(GameplayAbilityInstance gameplayAbility);
   [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbilityInstance gameplayAbility);
 
+  public event Action<Tag, GameplayEventData?>? GameplayEventRecevied;
 
   [Export] private Array<GameplayAttributeSet> AttributeSets { get; set; } = new();
 
@@ -34,6 +35,8 @@ public partial class GameplayAbilitySystem : Node {
   public override void _Ready() {
     GameplayEffectApplied += OnGameplayEffectApplied;
     GameplayEffectRemoved += OnGameplayEffectRemoved;
+
+    OwnedTags.TagAdded += OnTagAdded;
   }
 
   public override void _Process(double delta) {
@@ -61,6 +64,8 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   public void SendGameplayEvent(Tag tag, GameplayEventData? eventData = null) {
+    GameplayEventRecevied?.Invoke(tag, eventData);
+
     foreach (var ability in GrantedAbilities) {
       if (ability.AbilityResource.AbilityTriggers != null) {
         if (ability.AbilityResource.AbilityTriggers.Any(t => t.TriggerSource == AbilityTriggerSourceType.GameplayEvent && t.TriggerTag == tag)) {
@@ -101,6 +106,7 @@ public partial class GameplayAbilitySystem : Node {
 
     AttributeSets.Add(attributeSet);
 
+    // TODO: add initialization effect or something else
     foreach (var attribute in attributeSet.GetAttributes()) {
       AttributeValues.TryAdd(attribute, new() { BaseValue = 5 });
     }
@@ -148,20 +154,25 @@ public partial class GameplayAbilitySystem : Node {
             if (TryGetAttributeValue(attribute, out var value)) {
               if (value != null) {
                 var oldValue = value.BaseValue;
+                var newValue = oldValue;
                 switch (modifier?.ModifierType) {
                   case AttributeModifierType.Add:
-                    value.BaseValue += magnitue;
+                    newValue += magnitue;
                     break;
                   case AttributeModifierType.Multiply:
-                    value.BaseValue *= magnitue;
+                    newValue *= magnitue;
                     break;
                   case AttributeModifierType.Override:
-                    value.BaseValue = magnitue;
+                    newValue = magnitue;
                     break;
                   default:
                     break;
                 }
-                var newValue = value.BaseValue;
+                // foreach (var attributeSet in AttributeSets) {
+                //   attributeSet.PostGameplayEffectExecute(attribute, ref newValue);
+                // }
+
+                value.BaseValue = newValue;
                 EmitSignal(SignalName.AttributeValueChanged, attribute, oldValue, newValue);
               }
             }
@@ -224,5 +235,15 @@ public partial class GameplayAbilitySystem : Node {
 
   private bool TryGetAttributeValue(GameplayAttribute attribute, out GameplayAttributeValue? value) {
     return AttributeValues.TryGetValue(attribute, out value);
+  }
+
+  private void OnTagAdded(Tag tag) {
+    foreach (var ability in GrantedAbilities) {
+      if (ability.AbilityResource.AbilityTriggers != null) {
+        if (ability.AbilityResource.AbilityTriggers.Any(t => t.TriggerSource == AbilityTriggerSourceType.OwnedTagAdded && t.TriggerTag == tag)) {
+          TryActivateAbility(ability);
+        }
+      }
+    }
   }
 }

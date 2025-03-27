@@ -21,11 +21,6 @@ public enum HOBTags {
   [GameplayTag("Entity.Type.Unit.Ranged")] EntityTypeUnitRanged,
   [GameplayTag("Entity.Type.Unit.Melee")] EntityTypeUnitMelee,
 
-  [GameplayTag("Resource")] Resource,
-  [GameplayTag("Resource.Type")] ResourceType,
-  [GameplayTag("Resource.Type.Primary")] ResourceTypePrimary,
-  [GameplayTag("Resource.Type.Secondary")] ResourceTypeSecondary,
-
 
   [GameplayTag("Event")] Event,
   [GameplayTag("Event.Turn")] EventTurn,

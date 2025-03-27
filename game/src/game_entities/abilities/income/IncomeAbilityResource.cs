@@ -19,7 +19,6 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
     }
     public override void ActivateAbility(GameplayEventData? eventData) {
       if (OwnerEntity.TryGetOwner(out var owner)) {
-        GD.Print("Income activated");
         var ei = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as IncomeAbilityResource).IncomeEffect, 0);
         ei.Target = owner.GetPlayerState().AbilitySystem;
         owner.GetPlayerState().AbilitySystem.TryApplyGameplayEffectToSelf(ei);

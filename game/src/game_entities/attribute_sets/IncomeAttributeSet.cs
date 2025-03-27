@@ -5,5 +5,6 @@ using Godot;
 
 [GlobalClass]
 public partial class IncomeAttributeSet : GameplayAttributeSet {
-  public override GameplayAttribute[] GetAttributes() => throw new System.NotImplementedException();
+  [Export] public GameplayAttribute IncomeAmount { get; private set; }
+  public override GameplayAttribute[] GetAttributes() => new[] { IncomeAmount };
 }

@@ -155,8 +155,9 @@ public partial class HOBHUD : HUD {
 
     CommandPanel.ClearCommands();
 
+
     foreach (var ability in entity.AbilitySystem.GetGrantedAbilities().OrderBy(a => (a.AbilityResource as HOBAbilityResource)?.UIOrder)) {
-      if (ability is HOBAbilityInstance hOBAbility) {
+      if (ability is HOBAbilityInstance hOBAbility && hOBAbility.AbilityResource.ShowInUI) {
         CommandPanel.AddCommand(hOBAbility);
       }
     }

@@ -11,4 +11,8 @@ public partial class HealthAttributeSet : GameplayAttributeSet {
   public override GameplayAttribute[] GetAttributes() {
     return new[] { HealthAttribute };
   }
+
+  public override void PostGameplayEffectExecute(GameplayAttribute attribute, ref float value) {
+    // TODO: pre attribute change handlers to make generic funcionality like clamp value
+  }
 }
