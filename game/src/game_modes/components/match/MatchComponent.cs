@@ -22,14 +22,9 @@ public enum TurnPhase : int {
 
 [GlobalClass]
 public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityManagment {
-  public event Action? TurnStarted;
-  public event Action? TurnChanged;
-  public event Action? TurnEnded;
-  public event Action? RoundStarted;
   public event Action<Entity>? EntityAdded;
   public event Action<Entity>? EntityRemoved;
-  public event Action<IMatchController>? GameEnded;
-
+  public event Action<Tag>? MatchEvent;
 
   private List<Entity> Entities => GetGameState().Entities;
 
@@ -41,8 +36,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     base._Ready();
 
     GetGameState().Entities = new();
-
-    TurnStarted += OnTurnStarted;
   }
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
@@ -61,6 +54,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     }
 
     _lastPlayer = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
+
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventGameStarted));
   }
 
   public bool IsCurrentTurn(IMatchController controller) {
@@ -166,21 +161,20 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   private void NextTurn() {
-    TurnEnded?.Invoke();
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnEnded));
 
     GetGameState().CurrentPlayerIndex++;
 
     if (GetGameState().CurrentPlayerIndex >= GetGameState().PlayerArray.Count) {
       GetGameState().CurrentRound++;
       GetGameState().CurrentPlayerIndex = 0;
-      RoundStarted?.Invoke();
+      // new round
     }
-
-    TurnChanged?.Invoke();
-    TurnStarted?.Invoke();
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnStarted));
+    OnTurnStarted();
   }
 
   public void TriggerGameEnd(IMatchController controller) {
-    GameEnded?.Invoke(controller);
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventGameEnded));
   }
 }

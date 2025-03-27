@@ -60,6 +60,16 @@ public partial class GameplayAbilitySystem : Node {
     return true;
   }
 
+  public void SendGameplayEvent(Tag tag, GameplayEventData? eventData = null) {
+    foreach (var ability in GrantedAbilities) {
+      if (ability.AbilityResource.AbilityTriggers != null) {
+        if (ability.AbilityResource.AbilityTriggers.Any(t => t.TriggerSource == AbilityTriggerSourceType.GameplayEvent && t.TriggerTag == tag)) {
+          TryActivateAbility(ability, eventData);
+        }
+      }
+    }
+  }
+
   public void TryApplyGameplayEffectToSelf(GameplayEffectInstance geInstance) {
     geInstance.TreeExiting += () => {
       AppliedEffects.RemoveAll(e => e == geInstance);
@@ -77,6 +87,7 @@ public partial class GameplayAbilitySystem : Node {
         break;
       case DurationPolicy.Instant:
         ApplyInstantGameplayEffect(geInstance);
+        geInstance.QueueFree();
         break;
       default:
         break;
@@ -159,10 +170,6 @@ public partial class GameplayAbilitySystem : Node {
       }
 
       EmitSignal(SignalName.GameplayEffectExecuted, geInstance);
-
-      if (geInstance.GameplayEffect.EffectDefinition.DurationPolicy == DurationPolicy.Instant) {
-        QueueFree();
-      }
     }
   }
 

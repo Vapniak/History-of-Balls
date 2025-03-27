@@ -1,11 +1,14 @@
 namespace HOB;
 
+using System.Linq;
 using GameplayAbilitySystem;
+using GameplayTags;
 using Godot;
+using Godot.Collections;
 
 [GlobalClass]
 public partial class TurnDurationStrategy : DurationStrategy {
-  [Export] public TurnPhase TickAt { get; private set; }
+  [Export] public Array<Tag> TickAt { get; private set; } = new();
   [Export] public bool TickAtOwnTurn { get; private set; }
 
   public int TotalTicks { get; private set; }
@@ -20,7 +23,7 @@ public partial class TurnDurationStrategy : DurationStrategy {
   public override void Tick(ITickContext tickContext) {
     if (tickContext is TurnTickContext turnTick) {
       if (turnTick.OwnTurn == TickAtOwnTurn) {
-        if (TickAt.HasFlag(turnTick.TurnPhase)) {
+        if (TickAt.Any(turnTick.Event.IsExact)) {
           _ticksLeft--;
         }
       }

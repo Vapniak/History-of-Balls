@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using GameplayAbilitySystem;
 using GameplayFramework;
+using GameplayTags;
 using Godot;
 using Godot.Collections;
 using HOB.GameEntity;
@@ -37,13 +38,7 @@ public partial class HOBHUD : HUD {
 
     TurnChangedNotificationLabel.Modulate = Colors.Transparent;
 
-    GetPlayerController().GetGameMode().GetMatchEvents().TurnChanged += () => {
-      OnTurnChanged(GetPlayerController().GetGameState().CurrentPlayerIndex);
-    };
-
-    GetPlayerController().GetGameMode().GetMatchEvents().RoundStarted += () => {
-      OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
-    };
+    GetPlayerController().GetGameMode().GetMatchEvents().MatchEvent += OnMatchEvent;
 
     GetPlayerController().SelectedEntityChanging += () => {
       var selectedEntity = GetPlayerController().SelectedEntity;
@@ -111,6 +106,12 @@ public partial class HOBHUD : HUD {
     SecondaryResourceValueLabel.Text = value;
   }
 
+  private void OnMatchEvent(Tag tag) {
+    if (tag == TagManager.GetTag(HOBTags.EventTurnStarted)) {
+      OnTurnChanged(GetPlayerController().GetGameState().CurrentPlayerIndex);
+      OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
+    }
+  }
 
   private void OnTurnChanged(int playerIndex) {
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();

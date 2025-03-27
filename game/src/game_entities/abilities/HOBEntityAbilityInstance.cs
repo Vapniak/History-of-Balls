@@ -1,6 +1,7 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayTags;
 using Godot;
 using HOB.GameEntity;
 
@@ -8,13 +9,16 @@ using HOB.GameEntity;
 public abstract partial class HOBEntityAbilityInstance : HOBAbilityInstance {
   protected Entity OwnerEntity => OwnerAbilitySystem.GetOwner<Entity>();
   protected HOBEntityAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+    AbilityResource.ActivationBlockedTags?.AddTag(TagManager.GetTag(HOBTags.StateDead));
   }
 
   public override bool CanActivateAbility(GameplayEventData? eventData) {
     if (eventData != null) {
-      return base.CanActivateAbility(eventData) && OwnerEntity.TryGetOwner(out var owner) && owner == eventData.Value.TargetData.Caller;
+      return base.CanActivateAbility(eventData) && OwnerEntity.TryGetOwner(out var owner) && owner == eventData.Value.TargetData.Caller && owner.IsCurrentTurn();
     }
 
-    return base.CanActivateAbility(eventData);
+    {
+      return base.CanActivateAbility(eventData) && OwnerEntity.TryGetOwner(out var owner) && owner.IsCurrentTurn();
+    }
   }
 }

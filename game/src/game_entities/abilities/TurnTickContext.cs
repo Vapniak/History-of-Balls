@@ -1,12 +1,13 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayTags;
 
 public class TurnTickContext : ITickContext {
-  public TurnPhase TurnPhase { get; private set; }
+  public Tag Event { get; private set; }
   public bool OwnTurn { get; private set; }
-  public TurnTickContext(TurnPhase phase, bool ownTurn) {
-    TurnPhase = phase;
+  public TurnTickContext(Tag @event, bool ownTurn) {
+    Event = @event;
     OwnTurn = ownTurn;
   }
 }

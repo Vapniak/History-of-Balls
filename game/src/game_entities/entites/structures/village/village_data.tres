@@ -1,14 +1,24 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=16 format=3 uid="uid://doidx5bt2arat"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=19 format=3 uid="uid://doidx5bt2arat"]
 
 [ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://src/game_entities/attributes/primary_resource.tres" id="1_01ugd"]
 [ext_resource type="PackedScene" uid="uid://58211gsdw151" path="res://src/game_entities/entites/structures/village/village.tscn" id="1_x7qrd"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="2_0adtx"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayAbilityTriggerData.cs" id="2_nnbbp"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_y4utq"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_d1n20"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="3_ylwna"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="5_aor2c"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="6_v7e11"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/income/IncomeAbilityResource.cs" id="7_5d4ut"]
+
+[sub_resource type="Resource" id="Resource_vbmrr"]
+script = ExtResource("2_y4utq")
+FullName = "Event.Turn.Started"
+
+[sub_resource type="Resource" id="Resource_3l6vw"]
+script = ExtResource("2_nnbbp")
+TriggerSource = 1
+TriggerTag = SubResource("Resource_vbmrr")
 
 [sub_resource type="Resource" id="Resource_wtrna"]
 script = ExtResource("2_0adtx")
@@ -31,7 +41,8 @@ script = ExtResource("7_5d4ut")
 IncomeEffect = SubResource("Resource_xmgnd")
 UIOrder = 0
 AbilityName = "Ability"
-ActivateOnGranted = true
+ActivateOnGranted = false
+AbilityTriggers = Array[Object]([SubResource("Resource_3l6vw")])
 
 [sub_resource type="Resource" id="Resource_2xmu4"]
 script = ExtResource("2_y4utq")
@@ -44,7 +55,7 @@ Tags = [SubResource("Resource_2xmu4")]
 [resource]
 script = ExtResource("5_aor2c")
 EntityName = "Village"
-AttributeSets = null
+AttributeSets = Array[Object]([])
 Abilities = Array[Object]([SubResource("Resource_dybb6")])
 Tags = SubResource("Resource_5px3g")
 Body = ExtResource("1_x7qrd")

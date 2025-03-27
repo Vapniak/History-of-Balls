@@ -34,7 +34,7 @@ Tags = [SubResource("Resource_cja6e")]
 
 [sub_resource type="Resource" id="Resource_444ro"]
 script = ExtResource("3_wtg88")
-TickAt = 1
+TickAt = []
 TickAtOwnTurn = true
 
 [sub_resource type="Resource" id="Resource_5gs8r"]
@@ -65,5 +65,6 @@ UIOrder = 0
 AbilityName = "Move"
 CooldownGameplayEffect = SubResource("Resource_xreec")
 ActivateOnGranted = false
+AbilityTriggers = null
 AbilityTags = SubResource("Resource_x2r8e")
 ActivationBlockedTags = SubResource("Resource_cuyoc")

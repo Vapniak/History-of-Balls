@@ -36,11 +36,11 @@ public partial class Tag : Resource, IEquatable<Tag> {
     return _children;
   }
 
+  public bool IsExact(Tag? other) {
+    return other != null && other.FullName == FullName;
+  }
   public bool Equals(Tag? other) {
-    if (other?.FullName != null) {
-      return FullName.StartsWith(other.FullName);
-    }
-    return false;
+    return other != null && FullName.StartsWith(other.FullName);
   }
 
   public override bool Equals(object? obj) {
@@ -58,6 +58,8 @@ public partial class Tag : Resource, IEquatable<Tag> {
 
     return left.Equals(right);
   }
+
+  public override string ToString() => FullName;
 
   public static bool operator !=(Tag? left, Tag? right) => !(left == right);
 }

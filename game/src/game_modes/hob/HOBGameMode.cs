@@ -2,6 +2,7 @@ namespace HOB;
 
 using System.Collections.Generic;
 using GameplayFramework;
+using GameplayTags;
 using Godot;
 using GodotStateCharts;
 
@@ -41,9 +42,11 @@ public partial class HOBGameMode : GameMode {
 
     GameBoard.GridCreated += () => CallDeferred(MethodName.OnGridCreated);
 
-    GetMatchEvents().GameEnded += MatchEndMenu.OnGameEnd;
-    GetMatchEvents().GameEnded += (_) => {
-      StateChart.SendEvent("match_end");
+    GetMatchEvents().MatchEvent += (tag) => {
+      if (tag == TagManager.GetTag(HOBTags.EventGameEnded)) {
+        StateChart.SendEvent("match_end");
+        MatchEndMenu.OnGameEnd(GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>());
+      }
     };
   }
 
@@ -98,15 +101,15 @@ public partial class HOBGameMode : GameMode {
 
     AudioPlayer.Play();
 
-    MatchComponent.TurnStarted += CheckWinCondition;
+    MatchComponent.MatchEvent += CheckWinCondition;
 
     foreach (var entity in GetEntityManagment().GetEntities()) {
-      entity.OwnerControllerChanged += CheckWinCondition;
+      entity.OwnerControllerChanged += () => CheckWinCondition(null);
     }
   }
 
   private void OnInMatchStateExited() {
-    MatchComponent.TurnStarted -= CheckWinCondition;
+    MatchComponent.MatchEvent -= CheckWinCondition;
   }
 
   private void OnInMatchPlayingStateProcess(float delta) {
@@ -160,24 +163,26 @@ public partial class HOBGameMode : GameMode {
     StateChart.CallDeferred(StateChart.MethodName.SendEvent, "match_start");
   }
 
-  private void CheckWinCondition() {
-    var alivePlayers = new List<IMatchController>();
-    var eliminatedPlayers = new List<IMatchController>();
+  private void CheckWinCondition(Tag? tag) {
+    if (tag == TagManager.GetTag(HOBTags.EventTurnStarted) || tag == null) {
+      var alivePlayers = new List<IMatchController>();
+      var eliminatedPlayers = new List<IMatchController>();
 
-    foreach (var player in GetGameState().PlayerArray) {
-      var controller = player.GetController<IMatchController>();
-      var entities = GetEntityManagment().GetOwnedEntites(controller);
+      foreach (var player in GetGameState().PlayerArray) {
+        var controller = player.GetController<IMatchController>();
+        var entities = GetEntityManagment().GetOwnedEntites(controller);
 
-      if (entities.Length != 0) {
-        alivePlayers.Add(controller);
+        if (entities.Length != 0) {
+          alivePlayers.Add(controller);
+        }
+        else {
+          eliminatedPlayers.Add(controller);
+        }
       }
-      else {
-        eliminatedPlayers.Add(controller);
-      }
-    }
 
-    if (eliminatedPlayers.Count > 0) {
-      MatchComponent.TriggerGameEnd(alivePlayers[0]);
+      if (eliminatedPlayers.Count > 0) {
+        MatchComponent.TriggerGameEnd(alivePlayers[0]);
+      }
     }
   }
 }
