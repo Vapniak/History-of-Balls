@@ -1,8 +1,6 @@
 namespace GameplayFramework;
 
 using Godot;
-using Godot.Collections;
-using System;
 
 public partial class PlayerSpawnSettings : Resource {
   public Controller Controller { get; private set; }
@@ -35,7 +33,7 @@ public partial class PlayerManagmentComponent : GameModeComponent {
     CallDeferred(MethodName.SpawnPlayer, spawnSettings);
   }
 
-  protected virtual void SpawnPlayer(PlayerSpawnSettings settings) {
+  public virtual void SpawnPlayer(PlayerSpawnSettings settings) {
     var parent = GameInstance.GetWorld().CurrentLevel;
 
     if (settings.CharacterNode != null) {
@@ -62,6 +60,7 @@ public partial class PlayerManagmentComponent : GameModeComponent {
     GetGameState().PlayerArray.Add(playerState);
 
     parent.AddChild(settings.Controller);
+    parent.AddChild(playerState);
 
     EmitSignal(SignalName.PlayerSpawned, playerState);
   }

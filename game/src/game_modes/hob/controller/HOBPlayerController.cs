@@ -428,7 +428,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node3D>();
 
     var entityUI = ui3d.GetChild(0).GetChild<EntityUI>(0);
-    entityUI.SetTeamColor(Colors.Green);
+    entityUI.Initialize(entity);
+
     var icon = GetHUD().GetIconFor(entity);
     if (icon != null) {
       entityUI.SetIcon(icon);
@@ -441,7 +442,27 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
     }
 
+    UpdateEntityUIColor(entityUI, entity);
+
+    entity.OwnerControllerChanged += () => {
+      UpdateEntityUIColor(entityUI, entity);
+    };
+
     ui3d.Position = aabb.GetCenter() + Vector3.Up * (aabb.Size.Y + 2);
     entity.Body.AddChild(ui3d);
+  }
+
+  private void UpdateEntityUIColor(EntityUI ui, Entity entity) {
+    if (entity.TryGetOwner(out var owner)) {
+      if (owner == this) {
+        ui.SetTeamColor(Colors.Green);
+      }
+      else {
+        ui.SetTeamColor(Colors.Red);
+      }
+    }
+    else {
+      ui.SetTeamColor(Colors.White);
+    }
   }
 }

@@ -72,8 +72,19 @@ public partial class HOBHUD : HUD {
 
 
     // TODO: add resource values
-    UpdatePrimaryResourceValue(playerState.PrimaryResourceValue.ToString());
-    UpdateSecondaryResourceValue(playerState.SecondaryResourceValue.ToString());
+    if (playerState.AbilitySystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
+      UpdatePrimaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.PrimaryResource).GetValueOrDefault().ToString());
+      UpdateSecondaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.SecondaryResource).GetValueOrDefault().ToString());
+
+      playerState.AbilitySystem.AttributeValueChanged += (attribute, oldValue, newValue) => {
+        if (attribute == attributeSet.PrimaryResource) {
+          UpdatePrimaryResourceValue(newValue.ToString());
+        }
+        else if (attribute == attributeSet.SecondaryResource) {
+          UpdateSecondaryResourceValue(newValue.ToString());
+        }
+      };
+    }
 
 
     PrimaryResourceNameLabel.Clear();
@@ -84,15 +95,12 @@ public partial class HOBHUD : HUD {
     SecondaryResourceNameLabel.AddImage(playerState.Country.SecondaryResource.Icon, 16, 16);
     SecondaryResourceNameLabel.AddText($" {playerState.Country.SecondaryResource.Name}: ");
 
-    playerState.SecondaryResourceValueChanged += () => UpdatePrimaryResourceValue(playerState.PrimaryResourceValue.ToString());
-    playerState.SecondaryResourceValueChanged += () => UpdateSecondaryResourceValue(playerState.SecondaryResourceValue.ToString());
-
     CountryFlag.Texture = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Flag;
     CountryNameLabel.Text = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Name;
   }
 
   public Texture2D? GetIconFor(Entity entity) {
-    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasTag(i.EntityType))?.Icon;
+    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasTag(i.EntityType), null)?.Icon;
   }
 
   private void UpdatePrimaryResourceValue(string value) {

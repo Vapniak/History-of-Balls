@@ -10,6 +10,7 @@ public partial class HOBGameMode : GameMode {
   [Export] private MatchEndMenu MatchEndMenu { get; set; }
   [Export] private PauseMenu PauseMenu { get; set; }
   [Export] private AudioStreamPlayer AudioPlayer { get; set; }
+  [Export] private PlayerAttributeSet? PlayerAttributeSet { get; set; }
 
   [Export] private MatchData? MatchData { get; set; }
 
@@ -38,7 +39,7 @@ public partial class HOBGameMode : GameMode {
 
     PlayerManagmentComponent.PlayerSpawned += (playerState) => MatchComponent.OnPlayerSpawned(playerState as IMatchPlayerState);
 
-    GameBoard.GridCreated += OnGridCreated;
+    GameBoard.GridCreated += () => CallDeferred(MethodName.OnGridCreated);
 
     GetMatchEvents().GameEnded += MatchEndMenu.OnGameEnd;
     GetMatchEvents().GameEnded += (_) => {
@@ -131,20 +132,18 @@ public partial class HOBGameMode : GameMode {
     }
 
     foreach (var playerData in MatchData.PlayerSpawnDatas) {
-      var state = new HOBPlayerState();
-      state.PrimaryResourceValue = playerData.PrimaryResourceInitialValue;
-      state.SecondaryResourceValue = playerData.SecondaryResourceInitialValue;
+      var state = new HOBPlayerState(PlayerAttributeSet);
 
       Controller? controller = null;
       if (playerData.PlayerType == PlayerType.Player) {
         controller = PlayerControllerScene.Instantiate<Controller>();
         var hud = HUDScene.Instantiate<HUD>();
         var characterNode = PlayerCharacterScene.Instantiate<Node>();
-        PlayerManagmentComponent.SpawnPlayerDeferred(new(controller, state, "Player", hud, characterNode));
+        PlayerManagmentComponent.SpawnPlayer(new(controller, state, "Player", hud, characterNode));
       }
       else if (playerData.PlayerType == PlayerType.AI) {
         controller = AIControllerScene.Instantiate<Controller>();
-        PlayerManagmentComponent.SpawnPlayerDeferred(new(controller, state, "AI"));
+        PlayerManagmentComponent.SpawnPlayer(new(controller, state, "AI"));
       }
 
       state.Country = playerData.Country;

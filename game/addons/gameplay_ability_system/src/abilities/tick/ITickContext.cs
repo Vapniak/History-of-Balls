@@ -1,6 +1,6 @@
 namespace GameplayAbilitySystem;
 
 
-public abstract class TickContext {
+public interface ITickContext {
 
 }

@@ -1,5 +1,6 @@
 namespace HOB;
 
+using GameplayTags;
 using Godot;
 using HOB.GameEntity;
 using System;
@@ -12,6 +13,11 @@ public partial class EntityUI : Control {
   [Export] private StyleBox? UnitIconPanelStyleBox { get; set; }
   [Export] private StyleBox? StructureIconPanelStyleBox { get; set; }
 
+  private Entity? Entity { get; set; }
+
+  public void Initialize(Entity entity) {
+    Entity = entity;
+  }
   public override void _Ready() {
     //IconTextureRect.Visible = false;
     //HideCommandIcons();
@@ -31,6 +37,15 @@ public partial class EntityUI : Control {
     if (IconTextureRect != null) {
       IconTextureRect.Visible = true;
       IconTextureRect.Texture = texture;
+    }
+
+    if (IconTextureContainer != null && Entity != null) {
+      if (Entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))) {
+        IconTextureContainer?.AddThemeStyleboxOverride("panel", StructureIconPanelStyleBox);
+      }
+      else if (Entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) {
+        IconTextureContainer?.AddThemeStyleboxOverride("panel", UnitIconPanelStyleBox);
+      }
     }
   }
 

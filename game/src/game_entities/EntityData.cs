@@ -13,11 +13,11 @@ public partial class EntityData : Resource {
   [Export] public TagContainer? Tags { get; private set; }
   [Export] public PackedScene? Body { get; private set; }
 
-  public Entity? CreateEntity(GameCell cell, IEntityManagment entityManagment) {
+  public Entity? CreateEntity(GameCell cell, IEntityManagment entityManagment, IMatchController? owner) {
     var body = Body?.Instantiate<EntityBody>();
 
     if (body != null) {
-      return new(EntityName, cell, entityManagment, AttributeSets, Abilities, Tags, body);
+      return new(EntityName, cell, entityManagment, AttributeSets, Abilities, Tags, body, owner);
     }
 
     return null;

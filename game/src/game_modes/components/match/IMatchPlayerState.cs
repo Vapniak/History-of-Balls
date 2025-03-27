@@ -1,11 +1,8 @@
 namespace HOB;
 
-using System.Diagnostics.Contracts;
 using GameplayFramework;
-using HOB.GameEntity;
 
-public interface IMatchPlayerState : IPlayerState {
+public interface IMatchPlayerState : IPlayerState, ITurnAware {
   public Country? Country { get; set; }
-  public int PrimaryResourceValue { get; set; }
-  public int SecondaryResourceValue { get; set; }
+  public HOBGameplayAbilitySystem AbilitySystem { get; set; }
 }

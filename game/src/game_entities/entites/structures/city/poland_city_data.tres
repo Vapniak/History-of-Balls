@@ -1,10 +1,22 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=3 format=3 uid="uid://f0u12f68y3vi"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://f0u12f68y3vi"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_iokii"]
 [ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_pqsli"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_urxuy"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_bwfv2"]
+
+[sub_resource type="Resource" id="Resource_el1u1"]
+script = ExtResource("2_urxuy")
+FullName = "Entity.Type.Structure"
+
+[sub_resource type="Resource" id="Resource_w03jx"]
+script = ExtResource("3_bwfv2")
+Tags = [SubResource("Resource_el1u1")]
 
 [resource]
 script = ExtResource("1_iokii")
 EntityName = "Poland City"
-Attributes = Array[Object]([null])
+AttributeSets = null
+Abilities = null
+Tags = SubResource("Resource_w03jx")
 Body = ExtResource("1_pqsli")

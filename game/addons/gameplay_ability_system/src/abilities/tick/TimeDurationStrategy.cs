@@ -15,7 +15,7 @@ public partial class TimeDurationStrategy : DurationStrategy {
     _remaining = value;
   }
   public override void Reset() => _remaining = Total;
-  public override void Tick(TickContext tickContext) {
+  public override void Tick(ITickContext tickContext) {
     if (tickContext is TimeTickContext timeTick) {
       _remaining -= timeTick.DeltaTime;
     }

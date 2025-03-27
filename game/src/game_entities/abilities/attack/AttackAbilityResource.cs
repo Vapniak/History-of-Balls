@@ -18,7 +18,7 @@ public partial class AttackAbilityResource : HOBAbilityResource {
     return new AttackAbilityInstance(this, abilitySystem);
   }
 
-  public partial class AttackAbilityInstance : HOBAbilityInstance {
+  public partial class AttackAbilityInstance : HOBEntityAbilityInstance {
     public AttackAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
     }
@@ -31,9 +31,9 @@ public partial class AttackAbilityResource : HOBAbilityResource {
       return base.CanActivateAbility(eventData);
     }
 
-    public override async Task ActivateAbility(GameplayEventData? eventData) {
+    public override void ActivateAbility(GameplayEventData? eventData) {
       if (!CommitCooldown()) {
-        await EndAbility(eventData);
+        EndAbility(eventData);
         return;
       }
 
@@ -44,10 +44,8 @@ public partial class AttackAbilityResource : HOBAbilityResource {
       }
 
       if (eventData?.TargetData is AttackTargetData data) {
-        await Attack(data.TargetAbilitySystem.GetOwner<Entity>());
+        _ = Attack(data.TargetAbilitySystem.GetOwner<Entity>());
       }
-
-      await EndAbility(eventData);
     }
 
     public async Task Attack(Entity entity) {
@@ -71,6 +69,8 @@ public partial class AttackAbilityResource : HOBAbilityResource {
       secondTween.TweenMethod(Callable.From<Vector3>(OwnerEntity.SetPosition), OwnerEntity.GetPosition(), OwnerEntity.Cell.GetRealPosition(), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
 
       await ToSignal(secondTween, Tween.SignalName.Finished);
+
+      EndAbility(CurrentEventData);
     }
 
     public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
@@ -80,7 +80,7 @@ public partial class AttackAbilityResource : HOBAbilityResource {
       if (OwnerEntity.AbilitySystem.TryGetAttributeSet<AttackAttributeSet>(out var attributeSet)) {
         if (attributeSet != null) {
           var range = OwnerEntity.AbilitySystem.GetAttributeCurrentValue(attributeSet.Range);
-          var cells = OwnerAbilitySystem.GetOwner<Entity>().Cell.GetCellsInRange((uint)range.GetValueOrDefault());
+          var cells = OwnerEntity.Cell.GetCellsInRange((uint)range.GetValueOrDefault());
           foreach (var cell in cells) {
             if (cell == OwnerEntity.Cell) {
               continue;

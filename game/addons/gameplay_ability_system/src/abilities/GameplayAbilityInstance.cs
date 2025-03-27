@@ -32,13 +32,13 @@ public abstract partial class GameplayAbilityInstance : Node {
   }
 
   public virtual void CancelAbility() { }
-  public virtual async Task PreActivate(GameplayEventData? eventData) {
+  public virtual void PreActivate(GameplayEventData? eventData) {
     IsActive = true;
     CurrentEventData = eventData;
     EmitSignal(SignalName.Activated);
   }
-  public virtual async Task ActivateAbility(GameplayEventData? eventData) { }
-  public virtual async Task EndAbility(GameplayEventData? eventData) {
+  public virtual void ActivateAbility(GameplayEventData? eventData) { }
+  public virtual void EndAbility(GameplayEventData? eventData) {
     IsActive = false;
     CurrentEventData = null;
     EmitSignal(SignalName.Ended);
@@ -63,7 +63,8 @@ public abstract partial class GameplayAbilityInstance : Node {
   protected virtual bool CommitCooldown() {
     if (AbilityResource.CooldownGameplayEffect != null) {
       var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CooldownGameplayEffect, 0);
-      return OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+      OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+      return true;
     }
 
     return false;
@@ -72,7 +73,8 @@ public abstract partial class GameplayAbilityInstance : Node {
   protected virtual bool CommitCost() {
     if (AbilityResource.CostGameplayEffect != null) {
       var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CostGameplayEffect, 0);
-      return OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+      OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+      return true;
     }
 
     return false;

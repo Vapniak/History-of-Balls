@@ -12,10 +12,12 @@ public partial class TurnDurationStrategy : DurationStrategy {
   private int _ticksLeft;
   public override bool IsExpired => _ticksLeft <= 0;
 
-  public override void Initialize(float magnitude) => TotalTicks = _ticksLeft = (int)magnitude;
+  public override void Initialize(float magnitude) {
+    TotalTicks = _ticksLeft = (int)magnitude;
+  }
   public override void Left(float value) => _ticksLeft = (int)value;
   public override void Reset() => _ticksLeft = TotalTicks;
-  public override void Tick(TickContext tickContext) {
+  public override void Tick(ITickContext tickContext) {
     if (tickContext is TurnTickContext turnTick) {
       if (turnTick.OwnTurn == TickAtOwnTurn) {
         if (TickAt.HasFlag(turnTick.TurnPhase)) {

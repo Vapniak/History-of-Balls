@@ -3,6 +3,7 @@ namespace GameplayAbilitySystem;
 using System.Collections.Generic;
 using GameplayTags;
 using Godot;
+using HOB;
 
 [GlobalClass]
 public partial class GameplayEffectInstance : Node {
@@ -39,6 +40,7 @@ public partial class GameplayEffectInstance : Node {
       DurationStrategy?.Initialize(GameplayEffect.EffectDefinition.GetDuration(this));
     }
 
+
     if (GameplayEffect.Period != null) {
       PeriodStrategy = GameplayEffect.Period.CreatePeriodStrategy();
       PeriodStrategy?.Initialize(GameplayEffect.Period.Period);
@@ -46,18 +48,19 @@ public partial class GameplayEffectInstance : Node {
         PeriodStrategy?.Left(0);
       }
     }
+
   }
 
-  public virtual void Tick(TickContext tickContext) {
-    if (GameplayEffect.EffectDefinition != null) {
-      if (PeriodStrategy != null) {
-        PeriodStrategy.Tick(tickContext);
-        if (PeriodStrategy.IsExpired) {
-          EmitSignal(SignalName.ExecutePeriodic, this);
-          PeriodStrategy.Reset();
-        }
+  public virtual void Tick(ITickContext tickContext) {
+    if (PeriodStrategy != null) {
+      PeriodStrategy.Tick(tickContext);
+      if (PeriodStrategy.IsExpired) {
+        EmitSignal(SignalName.ExecutePeriodic, this);
+        PeriodStrategy.Reset();
       }
+    }
 
+    if (GameplayEffect.EffectDefinition != null) {
       if (GameplayEffect?.EffectDefinition.DurationPolicy == DurationPolicy.Duration && DurationStrategy != null) {
         DurationStrategy.Tick(tickContext);
         if (DurationStrategy.IsExpired) {

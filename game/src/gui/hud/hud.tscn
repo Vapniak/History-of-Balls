@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=21 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/hud/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/gui/flag/flag.tscn" id="2_3sw0n"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/hud/stat_panel/stat_panel.tscn" id="4_yxp0t"]
 [ext_resource type="Texture2D" uid="uid://cu8ifpeobhj4p" path="res://assets/textures/icons/infantry.svg" id="5_4cyne"]
 [ext_resource type="Script" path="res://src/gui/hud/MiniMap.cs" id="5_dr8w6"]
+[ext_resource type="Texture2D" uid="uid://c7lexjg7kj31h" path="res://assets/textures/icons/village.svg" id="6_rlox2"]
 
 [sub_resource type="Resource" id="Resource_f6qae"]
 script = ExtResource("2_iatrr")
@@ -29,6 +30,15 @@ FullName = "Entity.Type.Unit.Melee"
 script = ExtResource("4_awy27")
 EntityType = SubResource("Resource_olcgp")
 Icon = ExtResource("5_4cyne")
+
+[sub_resource type="Resource" id="Resource_a5wkv"]
+script = ExtResource("2_iatrr")
+FullName = "Entity.Type.Structure"
+
+[sub_resource type="Resource" id="Resource_dxcf4"]
+script = ExtResource("4_awy27")
+EntityType = SubResource("Resource_a5wkv")
+Icon = ExtResource("6_rlox2")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qeyv"]
 corner_radius_top_left = 5
@@ -51,7 +61,7 @@ RoundLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContain
 TurnLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label2")
 CountryFlag = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Flag/PanelContainer/Texture")
 CountryNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Label")
-EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm")])
+EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm"), SubResource("Resource_dxcf4")])
 PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer/RichTextLabel")
 PrimaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer/Label2")
 SecondaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer2/RichTextLabel2")

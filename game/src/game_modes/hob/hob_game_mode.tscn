@@ -1,6 +1,7 @@
-[gd_scene load_steps=35 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=37 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
+[ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
 [ext_resource type="Resource" uid="uid://5wuxfmlkqhss" path="res://src/maps/test_map.tres" id="2_ir688"]
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game_modes/hob/controller/hob_player_controller.tscn" id="2_st7p2"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchData.cs" id="3_3m27j"]
@@ -44,13 +45,19 @@ EntityData = ExtResource("19_d7njg")
 Col = 2
 Row = 8
 
+[sub_resource type="Resource" id="Resource_pn0ss"]
+script = ExtResource("5_chwnt")
+EntityData = ExtResource("12_d2ps5")
+Col = 5
+Row = 5
+
 [sub_resource type="Resource" id="Resource_tn5oi"]
 script = ExtResource("5_ngu2m")
 PlayerType = 0
 Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 5
 SecondaryResourceInitialValue = 3
-Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_btg4x"), SubResource("Resource_o0g1g")])
+Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_btg4x"), SubResource("Resource_o0g1g"), SubResource("Resource_pn0ss")])
 
 [sub_resource type="Resource" id="Resource_g0g07"]
 script = ExtResource("5_chwnt")
@@ -89,6 +96,7 @@ script = ExtResource("1_ne2qg")
 MatchEndMenu = NodePath("MatchEndMenu")
 PauseMenu = NodePath("PauseMenu")
 AudioPlayer = NodePath("AudioStreamPlayer")
+PlayerAttributeSet = ExtResource("2_418xq")
 MatchData = SubResource("Resource_ojho2")
 PlayerControllerScene = ExtResource("2_st7p2")
 PlayerCharacterScene = ExtResource("3_wvtpx")

@@ -1,13 +1,14 @@
 namespace HOB.GameEntity;
 
 using GameplayAbilitySystem;
+using GameplayFramework;
 using GameplayTags;
 using Godot;
 using Godot.Collections;
 using System.Threading.Tasks;
 
 [GlobalClass]
-public partial class Entity : Node {
+public partial class Entity : Node, ITurnAware {
   public EntityBody Body { get; private set; }
   public string EntityName { get; private set; }
 
@@ -23,15 +24,19 @@ public partial class Entity : Node {
   [Notify]
   private IMatchController? OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
 
-  public Entity(string name, GameCell cell, IEntityManagment entityManagment, Array<GameplayAttributeSet>? attributeSets, Array<GameplayAbilityResource>? abilities, TagContainer? tags, EntityBody body) {
+  public Entity(string name, GameCell cell, IEntityManagment entityManagment, Array<GameplayAttributeSet>? attributeSets, Array<GameplayAbilityResource>? abilities, TagContainer? tags, EntityBody body, IMatchController? owner) {
     Cell = cell;
     EntityManagment = entityManagment;
     EntityName = name;
+    OwnerController = owner;
 
     Body = body;
     AddChild(Body);
 
     AbilitySystem = new();
+    AddChild(AbilitySystem);
+    AbilitySystem.Owner = this;
+
     AbilitySystem.AttributeValueChanged += OnAttributeValueChanged;
 
     if (tags != null) {
@@ -51,8 +56,7 @@ public partial class Entity : Node {
     }
 
 
-    AddChild(AbilitySystem);
-    AbilitySystem.Owner = this;
+    var events = GameInstance.GetGameMode<HOBGameMode>().GetMatchEvents();
 
     CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
   }
@@ -61,7 +65,7 @@ public partial class Entity : Node {
     Body.GlobalPosition = position;
   }
 
-  public bool TryGetOwner(out IMatchController owner) {
+  public bool TryGetOwner(out IMatchController? owner) {
     owner = OwnerController;
     return owner != null;
   }
@@ -101,4 +105,6 @@ public partial class Entity : Node {
       }
     }
   }
+
+  public bool IsCurrentTurn() => TryGetOwner(out var owner) && owner != null && owner.IsCurrentTurn();
 }

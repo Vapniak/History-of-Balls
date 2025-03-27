@@ -25,4 +25,10 @@ public enum HOBTags {
   [GameplayTag("Resource.Type")] ResourceType,
   [GameplayTag("Resource.Type.Primary")] ResourceTypePrimary,
   [GameplayTag("Resource.Type.Secondary")] ResourceTypeSecondary,
+
+
+  [GameplayTag("Event")] Event,
+  [GameplayTag("Event.Turn")] EventTurn,
+  [GameplayTag("Event.Turn.Started")] EventTurnStarted,
+  [GameplayTag("Event.Turn.Ended")] EventTurnEnded,
 }

@@ -7,10 +7,10 @@ using System;
 /// Holds every variable non related to current player character etc. score, player name, health, mana.
 /// </summary>
 [GlobalClass]
-public partial class PlayerState : Resource, IPlayerState {
-  public string PlayerName { get; set; }
+public partial class PlayerState : Node, IPlayerState {
+  public string PlayerName { get; set; } = "Player";
   public int PlayerIndex { get; set; }
-  public Controller OwningController { get; set; }
+  public Controller? OwningController { get; set; }
   public PlayerState() { }
 
   public void SetPlayerName(string playerName) => PlayerName = playerName;

@@ -81,9 +81,9 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     }
 
     if (closestCell != null) {
-      var entity = data.CreateEntity(closestCell, this);
+      var entity = data.CreateEntity(closestCell, this, owner);
       if (entity != null) {
-        AddEntity(entity, owner);
+        AddEntity(entity);
       }
     }
   }
@@ -99,9 +99,9 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController owner) {
     if (CanEntityBePlacedOnCell(cell)) {
 
-      var entity = data.CreateEntity(cell, this);
+      var entity = data.CreateEntity(cell, this, owner);
       if (entity != null) {
-        AddEntity(entity, owner);
+        AddEntity(entity);
         return true;
       }
     }
@@ -110,12 +110,10 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
 
-  private void AddEntity(Entity entity, IMatchController? owner) {
+  private void AddEntity(Entity entity) {
     entity.TreeExiting += () => RemoveEntity(entity);
     entity.Ready += () => {
       EntityAdded?.Invoke(entity);
-
-      entity.ChangeOwner(owner);
     };
 
     Entities.Add(entity);
@@ -153,18 +151,11 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public Entity[] GetEntities() => Entities.ToArray();
 
   private void OnTurnStarted() {
-    foreach (var entity in GetEntities()) {
-      entity.AbilitySystem.Tick(new TurnTickContext(TurnPhase.End, entity.TryGetOwner(out var owner) && owner.IsCurrentTurn()));
-    }
-
     _lastPlayer?.OwnTurnEnded();
     var player = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
 
     player.OwnTurnStarted();
 
-    foreach (var entity in GetEntities()) {
-      entity.AbilitySystem.Tick(new TurnTickContext(TurnPhase.Start, entity.TryGetOwner(out var owner) && owner.IsCurrentTurn()));
-    }
     _lastPlayer = player;
   }
 
