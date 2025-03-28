@@ -40,7 +40,7 @@ public partial class GameInstance : Node {
     return GetWorld().GetGameMode();
   }
 
-  public static T GetGameMode<T>() where T : GameMode {
+  public static T? GetGameMode<T>() where T : GameMode {
     return GetGameMode() as T;
   }
 

@@ -24,7 +24,17 @@ public partial class Entity : Node, ITurnAware {
   [Notify]
   private IMatchController? OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
 
-  public Entity(string name, GameCell cell, IEntityManagment entityManagment, Array<GameplayAttributeSet>? attributeSets, Array<GameplayAbilityResource>? abilities, TagContainer? tags, EntityBody body, IMatchController? owner) {
+  public Entity(
+    string name,
+    GameCell cell,
+    IEntityManagment entityManagment,
+    AttributeSetData? attributeSetData,
+    Array<GameplayAttributeSet>? attributeSets,
+    Array<GameplayAbilityResource>? abilities,
+    TagContainer? tags,
+    EntityBody body,
+    IMatchController? owner
+    ) {
     Cell = cell;
     EntityManagment = entityManagment;
     EntityName = name;
@@ -46,6 +56,14 @@ public partial class Entity : Node, ITurnAware {
     if (attributeSets != null) {
       foreach (var @as in attributeSets) {
         AbilitySystem.AddAttributeSet(@as);
+      }
+    }
+
+    if (attributeSetData != null) {
+      foreach (var data in attributeSetData.AttributeDefaults) {
+        if (data.Attribute != null) {
+          AbilitySystem.SetAttributeBaseValue(data.Attribute, data.DefaultValue);
+        }
       }
     }
 

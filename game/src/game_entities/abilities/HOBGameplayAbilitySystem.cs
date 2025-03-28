@@ -9,18 +9,20 @@ public partial class HOBGameplayAbilitySystem : GameplayAbilitySystem {
   public override void _Ready() {
     base._Ready();
 
-    var events = GameInstance.GetGameMode<HOBGameMode>().GetMatchEvents();
+    var events = GameInstance.GetGameMode<HOBGameMode>()?.GetMatchEvents();
 
-
-    events.MatchEvent += OnMatchEvent;
+    if (events != null) {
+      events.MatchEvent += OnMatchEvent;
+    }
   }
 
   protected override void Dispose(bool disposing) {
     base.Dispose(disposing);
 
-
-    var events = GameInstance.GetGameMode<HOBGameMode>().GetMatchEvents();
-    events.MatchEvent -= OnMatchEvent;
+    var events = GameInstance.GetGameMode<HOBGameMode>()?.GetMatchEvents();
+    if (events != null) {
+      events.MatchEvent -= OnMatchEvent;
+    }
   }
 
   private void OnMatchEvent(Tag tag) {

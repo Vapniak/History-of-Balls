@@ -106,9 +106,8 @@ public partial class GameplayAbilitySystem : Node {
 
     AttributeSets.Add(attributeSet);
 
-    // TODO: add initialization effect or something else
     foreach (var attribute in attributeSet.GetAttributes()) {
-      AttributeValues.TryAdd(attribute, new() { BaseValue = 5 });
+      AttributeValues.TryAdd(attribute, new() { });
     }
   }
 
@@ -122,6 +121,17 @@ public partial class GameplayAbilitySystem : Node {
   public IEnumerable<GameplayAttribute> GetAllAttributes() {
     return AttributeValues.Keys;
   }
+
+  public void SetAttributeBaseValue(GameplayAttribute attribute, float baseValue) {
+    if (TryGetAttributeValue(attribute, out var value)) {
+      if (value != null) {
+        var oldValue = value.BaseValue;
+        value.BaseValue = baseValue;
+        EmitSignal(SignalName.AttributeValueChanged, attribute, oldValue, baseValue);
+      }
+    }
+  }
+
 
   public bool TryGetAttributeSet<T>(out T? attributeSet) where T : GameplayAttributeSet {
     attributeSet = AttributeSets.OfType<T>().FirstOrDefault();
@@ -171,9 +181,7 @@ public partial class GameplayAbilitySystem : Node {
                 // foreach (var attributeSet in AttributeSets) {
                 //   attributeSet.PostGameplayEffectExecute(attribute, ref newValue);
                 // }
-
-                value.BaseValue = newValue;
-                EmitSignal(SignalName.AttributeValueChanged, attribute, oldValue, newValue);
+                SetAttributeBaseValue(attribute, newValue);
               }
             }
           }

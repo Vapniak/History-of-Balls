@@ -1,22 +1,9 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://nkx1l8uf2y8k"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=2 format=3 uid="uid://nkx1l8uf2y8k"]
 
-[ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_h3bin"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_ealc8"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="2_xis7g"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_5yqvg"]
-
-[sub_resource type="Resource" id="Resource_el1u1"]
-script = ExtResource("2_ealc8")
-FullName = "Entity.Type.Structure"
-
-[sub_resource type="Resource" id="Resource_xm20u"]
-script = ExtResource("3_5yqvg")
-Tags = [SubResource("Resource_el1u1")]
 
 [resource]
 script = ExtResource("2_xis7g")
 EntityName = "America City"
-AttributeSets = null
-Abilities = null
-Tags = SubResource("Resource_xm20u")
-Body = ExtResource("1_h3bin")
+AttributeSets = []
+Abilities = []

@@ -41,13 +41,6 @@ public partial class HOBGameMode : GameMode {
     PlayerManagmentComponent.PlayerSpawned += (playerState) => MatchComponent.OnPlayerSpawned(playerState as IMatchPlayerState);
 
     GameBoard.GridCreated += () => CallDeferred(MethodName.OnGridCreated);
-
-    GetMatchEvents().MatchEvent += (tag) => {
-      if (tag == TagManager.GetTag(HOBTags.EventGameEnded)) {
-        StateChart.SendEvent("match_end");
-        MatchEndMenu.OnGameEnd(GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>());
-      }
-    };
   }
 
   public override void _ExitTree() {
@@ -182,6 +175,9 @@ public partial class HOBGameMode : GameMode {
 
       if (eliminatedPlayers.Count > 0) {
         MatchComponent.TriggerGameEnd(alivePlayers[0]);
+
+        StateChart.SendEvent("match_end");
+        MatchEndMenu.OnGameEnd(alivePlayers[0]);
       }
     }
   }

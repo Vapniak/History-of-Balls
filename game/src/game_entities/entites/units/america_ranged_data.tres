@@ -1,27 +1,9 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://d3bpx6obdtifm"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=2 format=3 uid="uid://d3bpx6obdtifm"]
 
-[ext_resource type="Resource" uid="uid://bpawyqb8lcpyx" path="res://src/game_entities/abilities/attack/attack_ability.tres" id="1_vksbe"]
-[ext_resource type="Resource" uid="uid://jr0xec5ix0cv" path="res://src/game_entities/abilities/move/move_ability.tres" id="2_gmjys"]
-[ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="3_4m3ep"]
-[ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/game_entities/attribute_sets/health_attribute_set.tres" id="4_47l3g"]
-[ext_resource type="Resource" uid="uid://3qq327rqo575" path="res://src/game_entities/attribute_sets/move_attribute_set.tres" id="5_p3svj"]
-[ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/america_ball.tscn" id="6_0svgl"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_116w7"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="8_3fx0u"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="9_kxhf8"]
-
-[sub_resource type="Resource" id="Resource_6ouxy"]
-script = ExtResource("7_116w7")
-FullName = "Entity.Type.Unit.Ranged"
-
-[sub_resource type="Resource" id="Resource_ll2ji"]
-script = ExtResource("8_3fx0u")
-Tags = [SubResource("Resource_6ouxy")]
 
 [resource]
 script = ExtResource("9_kxhf8")
-EntityName = "America Ranged"
-AttributeSets = Array[Object]([ExtResource("3_4m3ep"), ExtResource("4_47l3g"), ExtResource("5_p3svj")])
-Abilities = Array[Object]([ExtResource("1_vksbe"), ExtResource("2_gmjys")])
-Tags = SubResource("Resource_ll2ji")
-Body = ExtResource("6_0svgl")
+EntityName = "Entity"
+AttributeSets = null
+Abilities = Array[Object]([])

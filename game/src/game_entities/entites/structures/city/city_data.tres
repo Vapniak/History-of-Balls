@@ -1,17 +1,12 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://cyurh50c61ayo"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=5 format=3 uid="uid://cyurh50c61ayo"]
 
 [ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_ht1wo"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_y43l5"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_cik6l"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_nr68g"]
-
-[sub_resource type="Resource" id="Resource_2xmu4"]
-script = ExtResource("2_cik6l")
-FullName = "Entity.Type.Structure"
 
 [sub_resource type="Resource" id="Resource_asydq"]
 script = ExtResource("3_nr68g")
-Tags = [SubResource("Resource_2xmu4")]
+Tags = []
 
 [resource]
 script = ExtResource("1_y43l5")

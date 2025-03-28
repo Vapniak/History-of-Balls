@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="AttackAbilityResource" load_steps=32 format=3 uid="uid://bpawyqb8lcpyx"]
+[gd_resource type="Resource" script_class="AttackAbilityResource" load_steps=28 format=3 uid="uid://bpawyqb8lcpyx"]
 
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_jw8qg"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_bg7tr"]
@@ -12,25 +12,21 @@
 [ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="10_hboe8"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/attack/AttackAbilityResource.cs" id="11_r3ffo"]
 
-[sub_resource type="Resource" id="Resource_nsvd3"]
-script = ExtResource("1_jw8qg")
-FullName = "Ability.Attack"
-
 [sub_resource type="Resource" id="Resource_q4i8j"]
 script = ExtResource("2_bg7tr")
-Tags = [SubResource("Resource_nsvd3")]
-
-[sub_resource type="Resource" id="Resource_2p8l8"]
-script = ExtResource("1_jw8qg")
-FullName = "Cooldown.Attack"
+Tags = []
 
 [sub_resource type="Resource" id="Resource_fk42j"]
 script = ExtResource("2_bg7tr")
-Tags = [SubResource("Resource_2p8l8")]
+Tags = []
+
+[sub_resource type="Resource" id="Resource_hbodx"]
+script = ExtResource("1_jw8qg")
+FullName = "Event.Turn.Started"
 
 [sub_resource type="Resource" id="Resource_6tyyh"]
 script = ExtResource("3_7ax0o")
-TickAt = []
+TickAt = [SubResource("Resource_hbodx")]
 TickAtOwnTurn = true
 
 [sub_resource type="Resource" id="Resource_ygv6f"]
@@ -40,26 +36,18 @@ Modifiers = Array[Object]([])
 DurationMultiplier = 1.0
 DurationStrategy = SubResource("Resource_6tyyh")
 
-[sub_resource type="Resource" id="Resource_3t6cv"]
-script = ExtResource("1_jw8qg")
-FullName = "State.Block.Movement"
-
 [sub_resource type="Resource" id="Resource_gggta"]
 script = ExtResource("2_bg7tr")
-Tags = [SubResource("Resource_3t6cv")]
+Tags = []
 
 [sub_resource type="Resource" id="Resource_yg7q1"]
 script = ExtResource("5_ehvav")
 EffectDefinition = SubResource("Resource_ygv6f")
 GrantedTags = SubResource("Resource_gggta")
 
-[sub_resource type="Resource" id="Resource_6xcro"]
-script = ExtResource("1_jw8qg")
-FullName = "Cooldown"
-
 [sub_resource type="Resource" id="Resource_s5hak"]
 script = ExtResource("2_bg7tr")
-Tags = [SubResource("Resource_6xcro")]
+Tags = []
 
 [sub_resource type="Resource" id="Resource_wrow3"]
 script = ExtResource("3_7ax0o")
@@ -73,13 +61,9 @@ Modifiers = null
 DurationMultiplier = 1.0
 DurationStrategy = SubResource("Resource_wrow3")
 
-[sub_resource type="Resource" id="Resource_fc6s2"]
-script = ExtResource("1_jw8qg")
-FullName = "Cooldown.Attack"
-
 [sub_resource type="Resource" id="Resource_kxgwj"]
 script = ExtResource("2_bg7tr")
-Tags = [SubResource("Resource_fc6s2")]
+Tags = []
 
 [sub_resource type="Resource" id="Resource_px1dh"]
 script = ExtResource("5_ehvav")
@@ -115,6 +99,7 @@ script = ExtResource("11_r3ffo")
 DamageEffect = SubResource("Resource_r381f")
 BlockMovementEffect = SubResource("Resource_yg7q1")
 Icon = ExtResource("10_hboe8")
+ShowInUI = true
 UIOrder = 1
 AbilityName = "Attack"
 CooldownGameplayEffect = SubResource("Resource_px1dh")
