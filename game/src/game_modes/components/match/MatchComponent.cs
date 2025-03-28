@@ -14,11 +14,6 @@ using HOB.GameEntity;
 /// Manages entities and turns of each player.
 /// </summary>
 ///
-[Flags]
-public enum TurnPhase : int {
-  Start = 1,
-  End = 2,
-}
 
 [GlobalClass]
 public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityManagment {
@@ -113,7 +108,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
     Entities.Add(entity);
     AddChild(entity);
-
   }
 
   public void RemoveEntity(Entity entity) {

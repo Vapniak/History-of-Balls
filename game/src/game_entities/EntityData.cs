@@ -8,7 +8,6 @@ using Godot.Collections;
 [GlobalClass]
 public partial class EntityData : Resource {
   [Export] public string EntityName { get; private set; } = "Entity";
-  [Export] public AttributeSetData? AttributeSetData { get; private set; }
   [Export] public Array<GameplayAttributeSet>? AttributeSets { get; private set; }
   [Export] public Array<GameplayAbilityResource>? Abilities { get; private set; }
   [Export] public TagContainer? Tags { get; private set; }
@@ -18,7 +17,7 @@ public partial class EntityData : Resource {
     var body = Body?.Instantiate<EntityBody>();
 
     if (body != null) {
-      return new(EntityName, cell, entityManagment, AttributeSetData, AttributeSets, Abilities, Tags, body, owner);
+      return new(EntityName, cell, entityManagment, AttributeSets, Abilities, Tags, body, owner);
     }
 
     return null;

@@ -18,6 +18,7 @@ public partial class GameplayAbilitySystem : Node {
   [Signal] public delegate void GameplayEffectRemovedEventHandler(GameplayEffectInstance gameplayEffectInstance);
 
   [Signal] public delegate void GameplayAbilityGrantedEventHandler(GameplayAbilityInstance gameplayAbility);
+  [Signal] public delegate void GameplayAbilityRevokedEventHandler(GameplayAbilityInstance gameplayAbility);
   [Signal] public delegate void GameplayAbilityActivatedEventHandler(GameplayAbilityInstance gameplayAbility);
   [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbilityInstance gameplayAbility);
 
@@ -45,9 +46,25 @@ public partial class GameplayAbilitySystem : Node {
 
   public void GrantAbility(GameplayAbilityInstance abilityInstance) {
     abilityInstance.Activated += () => EmitSignal(SignalName.GameplayAbilityActivated, abilityInstance);
-    abilityInstance.Ended += () => EmitSignal(SignalName.GameplayAbilityEnded, abilityInstance);
+    abilityInstance.Ended += () => {
+      EmitSignal(SignalName.GameplayAbilityEnded, abilityInstance);
+      if (abilityInstance.AbilityResource.RemoveOnEnd) {
+        RevokeAbility(abilityInstance);
+      }
+    };
+
+
+    abilityInstance.TreeExiting += () => {
+      GrantedAbilities.Remove(abilityInstance);
+      EmitSignal(SignalName.GameplayAbilityRevoked, abilityInstance);
+    };
+
     GrantedAbilities.Add(abilityInstance);
     AddChild(abilityInstance);
+  }
+
+  public void RevokeAbility(GameplayAbilityInstance abilityInstance) {
+    abilityInstance.QueueFree();
   }
 
   public IEnumerable<GameplayAbilityInstance> GetGrantedAbilities() => GrantedAbilities;

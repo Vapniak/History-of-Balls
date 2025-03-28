@@ -28,7 +28,6 @@ public partial class Entity : Node, ITurnAware {
     string name,
     GameCell cell,
     IEntityManagment entityManagment,
-    AttributeSetData? attributeSetData,
     Array<GameplayAttributeSet>? attributeSets,
     Array<GameplayAbilityResource>? abilities,
     TagContainer? tags,
@@ -59,17 +58,9 @@ public partial class Entity : Node, ITurnAware {
       }
     }
 
-    if (attributeSetData != null) {
-      foreach (var data in attributeSetData.AttributeDefaults) {
-        if (data.Attribute != null) {
-          AbilitySystem.SetAttributeBaseValue(data.Attribute, data.DefaultValue);
-        }
-      }
-    }
-
     if (abilities != null) {
       foreach (var ability in abilities) {
-        AbilitySystem.GrantAbility(ability.CreateInstance(AbilitySystem));
+        AbilitySystem.CallDeferred(nameof(AbilitySystem.GrantAbility), ability.CreateInstance(AbilitySystem));
       }
     }
 

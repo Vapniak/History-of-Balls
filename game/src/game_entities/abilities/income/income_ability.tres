@@ -49,4 +49,5 @@ ShowInUI = false
 UIOrder = 0
 AbilityName = "Ability"
 ActivateOnGranted = false
+RemoveOnEnd = false
 AbilityTriggers = Array[Object]([SubResource("Resource_3l6vw")])

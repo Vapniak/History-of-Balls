@@ -1,14 +1,45 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://ddmnswe1q0sv8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=21 format=3 uid="uid://ddmnswe1q0sv8"]
 
 [ext_resource type="Resource" uid="uid://jr0xec5ix0cv" path="res://src/game_entities/abilities/move/move_ability.tres" id="1_dj1bn"]
 [ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_es5ke"]
 [ext_resource type="Resource" uid="uid://bpawyqb8lcpyx" path="res://src/game_entities/abilities/attack/attack_ability.tres" id="2_k5yy7"]
 [ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/game_entities/attribute_sets/health_attribute_set.tres" id="3_any5h"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="3_t7kwq"]
 [ext_resource type="Resource" uid="uid://3qq327rqo575" path="res://src/game_entities/attribute_sets/move_attribute_set.tres" id="4_owt3u"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="4_w50x3"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="5_0lmx8"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="5_5i68w"]
 [ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="5_7q1be"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="6_l2edk"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="7_2e5sc"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="7_60r66"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_rbvjr"]
+
+[sub_resource type="Resource" id="Resource_lsoxx"]
+script = ExtResource("4_w50x3")
+Attribute = ExtResource("3_t7kwq")
+ModifierType = 2
+Coefficient = 3.0
+
+[sub_resource type="Resource" id="Resource_a4ddy"]
+script = ExtResource("5_0lmx8")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_lsoxx")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_qvmy4"]
+script = ExtResource("6_l2edk")
+EffectDefinition = SubResource("Resource_a4ddy")
+
+[sub_resource type="Resource" id="Resource_x0w8f"]
+script = ExtResource("7_60r66")
+InitializeStatsEffects = SubResource("Resource_qvmy4")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
 
 [sub_resource type="Resource" id="Resource_5fuob"]
 script = ExtResource("7_rbvjr")
@@ -22,6 +53,6 @@ Tags = [SubResource("Resource_5fuob")]
 script = ExtResource("7_2e5sc")
 EntityName = "Poland Infantry"
 AttributeSets = Array[Object]([ExtResource("3_any5h"), ExtResource("4_owt3u"), ExtResource("5_7q1be")])
-Abilities = Array[Object]([ExtResource("1_dj1bn"), ExtResource("2_k5yy7")])
+Abilities = Array[Object]([ExtResource("1_dj1bn"), ExtResource("2_k5yy7"), SubResource("Resource_x0w8f")])
 Tags = SubResource("Resource_61bha")
 Body = ExtResource("1_es5ke")
