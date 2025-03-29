@@ -57,17 +57,21 @@ public partial class MoveAbilityResource : HOBAbilityResource {
     }
 
     private async Task WalkByPath(Entity entity, GameCell to) {
-      foreach (var cell in FindPathTo(to)) {
-        await Walk(OwnerEntity, cell);
+      var path = FindPathTo(to);
+
+      if (path.Length > 0) {
+        foreach (var cell in path) {
+          await Walk(OwnerEntity, cell);
+        }
+
+        var strucure = OwnerEntity.EntityManagment.GetEntitiesOnCell(path.Last()).FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure)));
+
+        if (strucure != null && OwnerEntity.TryGetOwner(out var owner) && owner != null) {
+          OwnerAbilitySystem.SendGameplayEvent(TagManager.GetTag(HOBTags.EventEntityCapture), new() { Activator = owner, TargetData = new() { Target = strucure } });
+        }
       }
 
       EndAbility(CurrentEventData);
-
-      var strucure = OwnerEntity.EntityManagment.GetEntitiesOnCell(to).FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure)));
-
-      if (strucure != null && OwnerEntity.TryGetOwner(out var owner) && owner != null) {
-        OwnerAbilitySystem.SendGameplayEvent(TagManager.GetTag(HOBTags.EventEntityCapture), new() { Activator = owner, TargetData = new() { Target = strucure } });
-      }
     }
 
     private async Task Walk(Entity entity, GameCell to) {

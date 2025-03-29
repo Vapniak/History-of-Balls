@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="CaptureAbilityResource" load_steps=9 format=3 uid="uid://ti1rg3w2yxc0"]
+[gd_resource type="Resource" script_class="CaptureAbilityResource" load_steps=11 format=3 uid="uid://ti1rg3w2yxc0"]
 
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_xktqu"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayAbilityTriggerData.cs" id="2_4xvf1"]
@@ -22,6 +22,14 @@ script = ExtResource("2_4xvf1")
 TriggerSource = 1
 TriggerTag = SubResource("Resource_t3hj0")
 
+[sub_resource type="Resource" id="Resource_jfogc"]
+script = ExtResource("1_xktqu")
+FullName = "State.CurrentTurn"
+
+[sub_resource type="Resource" id="Resource_gt2wm"]
+script = ExtResource("2_lf1v8")
+Tags = [SubResource("Resource_jfogc")]
+
 [resource]
 script = ExtResource("3_byemn")
 ShowInUI = false
@@ -31,3 +39,4 @@ ActivateOnGranted = false
 RemoveOnEnd = false
 AbilityTriggers = Array[Object]([SubResource("Resource_yk7am")])
 AbilityTags = SubResource("Resource_w4xxh")
+ActivationRequiredTags = SubResource("Resource_gt2wm")

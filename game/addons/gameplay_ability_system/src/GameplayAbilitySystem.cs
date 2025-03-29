@@ -96,6 +96,23 @@ public partial class GameplayAbilitySystem : Node {
     return true;
   }
 
+  public async Task<bool> TryActivateAbilityAsync(GameplayAbilityInstance abilityInsance, GameplayEventData? eventData = null) {
+    var tcs = new TaskCompletionSource<bool>();
+
+    void handleCompleted() {
+      abilityInsance.Ended -= handleCompleted;
+      tcs.TrySetResult(true);
+    }
+
+    abilityInsance.Ended += handleCompleted;
+
+    if (!TryActivateAbility(abilityInsance, eventData)) {
+      return false;
+    }
+
+    return await tcs.Task;
+  }
+
   public void SendGameplayEvent(Tag tag, GameplayEventData? eventData = null) {
     EmitSignal(nameof(GameplayEventRecieved), tag, eventData);
 

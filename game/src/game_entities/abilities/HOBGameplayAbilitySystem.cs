@@ -26,10 +26,23 @@ public partial class HOBGameplayAbilitySystem : GameplayAbilitySystem {
   }
 
   private void OnMatchEvent(Tag tag) {
-    SendGameplayEvent(tag, null);
-
     var turnAware = GetOwnerOrNull<ITurnAware>();
     Debug.Assert(turnAware != null, "Owner has to be turn aware");
+
+    if (turnAware != null) {
+      if (tag == TagManager.GetTag(HOBTags.EventTurnStarted)) {
+        if (turnAware.IsCurrentTurn()) {
+          OwnedTags.AddTag(TagManager.GetTag(HOBTags.StateCurrentTurn));
+        }
+      }
+      else if (tag == TagManager.GetTag(HOBTags.EventTurnEnded)) {
+        if (turnAware.IsCurrentTurn()) {
+          OwnedTags.RemoveTag(TagManager.GetTag(HOBTags.StateCurrentTurn));
+        }
+      }
+    }
+
+    SendGameplayEvent(tag, null);
 
     if (turnAware != null) {
       Tick(new TurnTickContext(tag, turnAware.IsCurrentTurn()));

@@ -19,6 +19,7 @@ public abstract partial class GameplayAbilityResource : Resource {
   [Export] public TagContainer? AbilityTags { get; protected set; }
   [Export] public TagContainer? CancelAbilitiesWithTags { get; private set; }
   [Export] public TagContainer? ActivationBlockedTags { get; protected set; }
+  [Export] public TagContainer? ActivationRequiredTags { get; protected set; }
   // [Export] public TagContainer? SourceRequiredTags { get; private set; }
 
   public abstract GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem);

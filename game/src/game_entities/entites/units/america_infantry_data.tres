@@ -1,14 +1,46 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://c5dmvmose2efr"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://c5dmvmose2efr"]
 
 [ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/america_ball.tscn" id="1_jnyy4"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rx8d8"]
 [ext_resource type="Resource" uid="uid://bpawyqb8lcpyx" path="res://src/game_entities/abilities/attack/attack_ability.tres" id="1_tkbdw"]
 [ext_resource type="Resource" uid="uid://jr0xec5ix0cv" path="res://src/game_entities/abilities/move/move_ability.tres" id="2_18brq"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="3_6skqm"]
 [ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/game_entities/attribute_sets/health_attribute_set.tres" id="3_fv0r5"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="4_2jl7j"]
 [ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="4_ok3xb"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="5_e54gi"]
 [ext_resource type="Resource" uid="uid://3qq327rqo575" path="res://src/game_entities/attribute_sets/move_attribute_set.tres" id="5_ob2ja"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="6_1lb46"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_218sx"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="7_omemc"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="8_21w2o"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="8_uar7j"]
+
+[sub_resource type="Resource" id="Resource_mnlyv"]
+script = ExtResource("4_2jl7j")
+Attribute = ExtResource("3_6skqm")
+ModifierType = 2
+Coefficient = 5.0
+
+[sub_resource type="Resource" id="Resource_j7aek"]
+script = ExtResource("5_e54gi")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_mnlyv")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_lvnti"]
+script = ExtResource("6_1lb46")
+EffectDefinition = SubResource("Resource_j7aek")
+
+[sub_resource type="Resource" id="Resource_y8eqp"]
+script = ExtResource("7_omemc")
+InitializeStatsEffects = SubResource("Resource_lvnti")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
 
 [sub_resource type="Resource" id="Resource_5fuob"]
 script = ExtResource("7_218sx")
@@ -22,6 +54,6 @@ Tags = [SubResource("Resource_5fuob")]
 script = ExtResource("1_rx8d8")
 EntityName = "America Infantry"
 AttributeSets = Array[Object]([ExtResource("3_fv0r5"), ExtResource("4_ok3xb"), ExtResource("5_ob2ja")])
-Abilities = Array[Object]([ExtResource("1_tkbdw"), ExtResource("2_18brq")])
+Abilities = Array[Object]([ExtResource("1_tkbdw"), ExtResource("2_18brq"), SubResource("Resource_y8eqp"), ExtResource("8_21w2o")])
 Tags = SubResource("Resource_4iepl")
 Body = ExtResource("1_jnyy4")

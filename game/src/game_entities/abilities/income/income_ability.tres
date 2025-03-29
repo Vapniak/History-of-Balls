@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="IncomeAbilityResource" load_steps=16 format=3 uid="uid://dqymud443mvvm"]
+[gd_resource type="Resource" script_class="IncomeAbilityResource" load_steps=19 format=3 uid="uid://dqymud443mvvm"]
 
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_14d7r"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayAbilityTriggerData.cs" id="2_xqlnj"]
 [ext_resource type="Resource" uid="uid://c0onf2wgsrrww" path="res://src/game_entities/attributes/secondary_resource.tres" id="3_qurhw"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_vk8w0"]
 [ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://src/game_entities/attributes/income.tres" id="4_gynqb"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/modifiers/AttributeBackedModifierMagnitude.cs" id="5_3sj1s"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="6_jndpx"]
@@ -18,6 +19,14 @@ FullName = "Event.Turn.Started"
 script = ExtResource("2_xqlnj")
 TriggerSource = 1
 TriggerTag = SubResource("Resource_vbmrr")
+
+[sub_resource type="Resource" id="Resource_jfogc"]
+script = ExtResource("1_14d7r")
+FullName = "State.CurrentTurn"
+
+[sub_resource type="Resource" id="Resource_lqc15"]
+script = ExtResource("3_vk8w0")
+Tags = [SubResource("Resource_jfogc")]
 
 [sub_resource type="Resource" id="Resource_rahjx"]
 script = ExtResource("5_3sj1s")
@@ -51,3 +60,4 @@ AbilityName = "Ability"
 ActivateOnGranted = false
 RemoveOnEnd = false
 AbilityTriggers = Array[Object]([SubResource("Resource_3l6vw")])
+ActivationRequiredTags = SubResource("Resource_lqc15")

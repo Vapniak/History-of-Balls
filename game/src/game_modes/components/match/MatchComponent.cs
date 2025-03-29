@@ -51,6 +51,9 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     _lastPlayer = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
 
     MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventGameStarted));
+
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnStarted));
+    OnTurnStarted();
   }
 
   public bool IsCurrentTurn(IMatchController controller) {

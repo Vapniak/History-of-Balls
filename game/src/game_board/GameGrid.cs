@@ -101,10 +101,6 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
 
 
   public GameCell[] FindPath(GameCell start, GameCell target, uint maxCost, Func<GameCell, GameCell, bool> isReachable) {
-    if (target == null || start == null) {
-      return null;
-    }
-
     var minCost = new int[GetCells().Length];
     var parent = new GameCell[GetCells().Length];
     var visited = new bool[GetCells().Length];

@@ -81,10 +81,14 @@ public abstract partial class GameplayAbilityInstance : Node {
   }
 
   private bool CheckTags() {
-    if (AbilityResource.ActivationBlockedTags == null) {
-      return true;
-    }
-
-    return !OwnerAbilitySystem.OwnedTags.HasAllTags(AbilityResource.ActivationBlockedTags);
+    return
+    (
+      AbilityResource.ActivationBlockedTags == null ||
+      !OwnerAbilitySystem.OwnedTags.HasAllTags(AbilityResource.ActivationBlockedTags)
+      ) &&
+    (
+      AbilityResource.ActivationRequiredTags == null ||
+      OwnerAbilitySystem.OwnedTags.HasAllTags(AbilityResource.ActivationRequiredTags)
+    );
   }
 }
