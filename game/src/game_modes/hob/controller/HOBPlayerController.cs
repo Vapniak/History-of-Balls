@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using GameplayAbilitySystem;
 using GameplayFramework;
+using GameplayTags;
 using Godot;
 using Godot.Collections;
 using GodotStateCharts;
@@ -178,12 +179,15 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
       GameplayEventData? eventData = null;
       if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
-        eventData = new() { TargetData = new MoveTargetData() { Cell = HoveredCell, Caller = this } };
+        eventData = new() {
+          Activator = this,
+          TargetData = new MoveTargetData() { Cell = HoveredCell }
+        };
       }
       else if (SelectedCommand is AttackAbilityResource.AttackAbilityInstance attackAbility) {
-        var @as = EntityManagment.GetEntitiesOnCell(HoveredCell)?.FirstOrDefault()?.AbilitySystem;
-        if (@as != null) {
-          eventData = new() { TargetData = new AttackTargetData() { TargetAbilitySystem = @as, Caller = this } };
+        var unit = EntityManagment.GetEntitiesOnCell(HoveredCell)?.FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit)), null);
+        if (unit != null) {
+          eventData = new() { Activator = this, TargetData = new AttackTargetData() { TargetAbilitySystem = unit.AbilitySystem } };
         }
       }
 
@@ -311,7 +315,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         }
       }
       else {
-        SelectEntity(entities.FirstOrDefault());
+        SelectEntity(entities.FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit)), entities.FirstOrDefault()));
       }
     }
 
@@ -327,8 +331,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (SelectedEntity != null && SelectedCommand == null) {
       var grantedAbilities = SelectedEntity.AbilitySystem.GetGrantedAbilities();
 
-      var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { TargetData = new() { Caller = this } }) && s is MoveAbilityResource.MoveAbilityInstance);
-      ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { TargetData = new() { Caller = this } }) && s is AttackAbilityResource.AttackAbilityInstance);
+      var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is MoveAbilityResource.MoveAbilityInstance);
+      ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is AttackAbilityResource.AttackAbilityInstance);
 
       if (ability is HOBAbilityInstance hOBAbility) {
         GetHUD().SelectCommand(hOBAbility);

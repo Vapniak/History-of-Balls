@@ -2,8 +2,6 @@ namespace HOB;
 
 using GameplayAbilitySystem;
 using Godot;
-using System;
-using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class IncomeAbilityResource : HOBAbilityResource {
@@ -19,9 +17,12 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
     }
     public override void ActivateAbility(GameplayEventData? eventData) {
       if (OwnerEntity.TryGetOwner(out var owner)) {
-        var ei = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as IncomeAbilityResource).IncomeEffect, 0);
-        ei.Target = owner.GetPlayerState().AbilitySystem;
-        owner.GetPlayerState().AbilitySystem.TryApplyGameplayEffectToSelf(ei);
+        var income = (AbilityResource as IncomeAbilityResource)?.IncomeEffect;
+        if (income != null) {
+          var ei = OwnerAbilitySystem.MakeOutgoingInstance(income, 0);
+          ei.Target = owner.GetPlayerState().AbilitySystem;
+          owner.GetPlayerState().AbilitySystem.TryApplyGameplayEffectToSelf(ei);
+        }
       }
 
       EndAbility(eventData);

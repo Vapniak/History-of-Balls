@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=21 format=3 uid="uid://ddmnswe1q0sv8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://ddmnswe1q0sv8"]
 
 [ext_resource type="Resource" uid="uid://jr0xec5ix0cv" path="res://src/game_entities/abilities/move/move_ability.tres" id="1_dj1bn"]
 [ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_es5ke"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="7_2e5sc"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="7_60r66"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_rbvjr"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="8_i83vh"]
 
 [sub_resource type="Resource" id="Resource_lsoxx"]
 script = ExtResource("4_w50x3")
@@ -53,6 +54,6 @@ Tags = [SubResource("Resource_5fuob")]
 script = ExtResource("7_2e5sc")
 EntityName = "Poland Infantry"
 AttributeSets = Array[Object]([ExtResource("3_any5h"), ExtResource("4_owt3u"), ExtResource("5_7q1be")])
-Abilities = Array[Object]([ExtResource("1_dj1bn"), ExtResource("2_k5yy7"), SubResource("Resource_x0w8f")])
+Abilities = Array[Object]([ExtResource("1_dj1bn"), ExtResource("2_k5yy7"), SubResource("Resource_x0w8f"), ExtResource("8_i83vh")])
 Tags = SubResource("Resource_61bha")
 Body = ExtResource("1_es5ke")

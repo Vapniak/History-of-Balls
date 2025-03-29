@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("9_kxhf8")
-EntityName = "Entity"
-AttributeSets = null
+EntityName = "America Ranged"
+AttributeSets = Array[Object]([])
 Abilities = Array[Object]([])

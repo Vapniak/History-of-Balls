@@ -22,7 +22,7 @@ public partial class GameplayAbilitySystem : Node {
   [Signal] public delegate void GameplayAbilityActivatedEventHandler(GameplayAbilityInstance gameplayAbility);
   [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbilityInstance gameplayAbility);
 
-  public event Action<Tag, GameplayEventData?>? GameplayEventRecevied;
+  [Signal] public delegate void GameplayEventRecievedEventHandler(Tag tag, GameplayEventData? eventData);
 
   [Export] private Array<GameplayAttributeSet> AttributeSets { get; set; } = new();
 
@@ -67,6 +67,22 @@ public partial class GameplayAbilitySystem : Node {
     abilityInstance.QueueFree();
   }
 
+  public void CancelAllAbilities() {
+    foreach (var ability in GrantedAbilities.Where(a => a.IsActive)) {
+      ability.CancelAbility();
+    }
+  }
+
+  public void CancelAbilities(TagContainer withTags) {
+    foreach (var ability in GrantedAbilities.Where(a => a.IsActive && a.AbilityResource.AbilityTags != null && a.AbilityResource.AbilityTags.HasAnyOfTags(withTags))) {
+      ability.CancelAbility();
+    }
+  }
+
+  public void CancelAbility(GameplayAbilityInstance abilityInstance) {
+    abilityInstance.CancelAbility();
+  }
+
   public IEnumerable<GameplayAbilityInstance> GetGrantedAbilities() => GrantedAbilities;
 
   public bool TryActivateAbility(GameplayAbilityInstance abilityInstance, GameplayEventData? eventData = null) {
@@ -81,7 +97,7 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   public void SendGameplayEvent(Tag tag, GameplayEventData? eventData = null) {
-    GameplayEventRecevied?.Invoke(tag, eventData);
+    EmitSignal(nameof(GameplayEventRecieved), tag, eventData);
 
     foreach (var ability in GrantedAbilities) {
       if (ability.AbilityResource.AbilityTriggers != null) {

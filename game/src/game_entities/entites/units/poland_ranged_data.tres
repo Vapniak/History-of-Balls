@@ -1,14 +1,67 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://cq5vkdno7vnpj"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=28 format=3 uid="uid://cq5vkdno7vnpj"]
 
 [ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_3y7qy"]
 [ext_resource type="Resource" uid="uid://bpawyqb8lcpyx" path="res://src/game_entities/abilities/attack/attack_ability.tres" id="1_5nd14"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rr7kf"]
 [ext_resource type="Resource" uid="uid://jr0xec5ix0cv" path="res://src/game_entities/abilities/move/move_ability.tres" id="2_fm1r7"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="3_6dgj4"]
 [ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="3_8m858"]
 [ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/game_entities/attribute_sets/health_attribute_set.tres" id="4_1b7o7"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="4_no5kj"]
 [ext_resource type="Resource" uid="uid://3qq327rqo575" path="res://src/game_entities/attribute_sets/move_attribute_set.tres" id="5_5wkpm"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="5_vp8r5"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="6_tes0b"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_8qce0"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="7_ruhd2"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="8_3x7aw"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="8_56drx"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="9_0u7bs"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="10_3dibq"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="11_aqywo"]
+
+[sub_resource type="Resource" id="Resource_8l8aj"]
+script = ExtResource("5_vp8r5")
+Attribute = ExtResource("4_no5kj")
+ModifierType = 0
+Coefficient = 2.0
+
+[sub_resource type="Resource" id="Resource_0kq1e"]
+script = ExtResource("5_vp8r5")
+Attribute = ExtResource("6_tes0b")
+ModifierType = 2
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_1n2ve"]
+script = ExtResource("5_vp8r5")
+Attribute = ExtResource("7_ruhd2")
+ModifierType = 2
+Coefficient = 2.0
+
+[sub_resource type="Resource" id="Resource_7n54b"]
+script = ExtResource("5_vp8r5")
+Attribute = ExtResource("8_56drx")
+ModifierType = 0
+Coefficient = 3.0
+
+[sub_resource type="Resource" id="Resource_qw1oh"]
+script = ExtResource("9_0u7bs")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_8l8aj"), SubResource("Resource_0kq1e"), SubResource("Resource_1n2ve"), SubResource("Resource_7n54b")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_gshmt"]
+script = ExtResource("10_3dibq")
+EffectDefinition = SubResource("Resource_qw1oh")
+
+[sub_resource type="Resource" id="Resource_3o5dd"]
+script = ExtResource("11_aqywo")
+InitializeStatsEffects = SubResource("Resource_gshmt")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
 
 [sub_resource type="Resource" id="Resource_cw55p"]
 script = ExtResource("7_8qce0")
@@ -22,6 +75,6 @@ Tags = [SubResource("Resource_cw55p")]
 script = ExtResource("1_rr7kf")
 EntityName = "Poland Ranged"
 AttributeSets = Array[Object]([ExtResource("3_8m858"), ExtResource("4_1b7o7"), ExtResource("5_5wkpm")])
-Abilities = Array[Object]([ExtResource("1_5nd14"), ExtResource("2_fm1r7")])
+Abilities = Array[Object]([ExtResource("1_5nd14"), ExtResource("2_fm1r7"), ExtResource("3_6dgj4"), SubResource("Resource_3o5dd")])
 Tags = SubResource("Resource_5wrnv")
 Body = ExtResource("1_3y7qy")

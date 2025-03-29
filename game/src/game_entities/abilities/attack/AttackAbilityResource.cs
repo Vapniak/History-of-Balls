@@ -37,15 +37,18 @@ public partial class AttackAbilityResource : HOBAbilityResource {
         return;
       }
 
-      var effect = (AbilityResource as AttackAbilityResource)?.BlockMovementEffect;
-      if (effect != null) {
-        var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
-        OwnerAbilitySystem.TryApplyGameplayEffectToSelf(ge);
+      if (eventData?.TargetData is AttackTargetData attackTargetData) {
+        var effect = (AbilityResource as AttackAbilityResource)?.BlockMovementEffect;
+        if (effect != null) {
+          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
+          OwnerAbilitySystem.TryApplyGameplayEffectToSelf(ge);
+        }
+
+        _ = Attack(attackTargetData.TargetAbilitySystem.GetOwner<Entity>());
+        return;
       }
 
-      if (eventData?.TargetData is AttackTargetData data) {
-        _ = Attack(data.TargetAbilitySystem.GetOwner<Entity>());
-      }
+      EndAbility(eventData);
     }
 
     public async Task Attack(Entity entity) {

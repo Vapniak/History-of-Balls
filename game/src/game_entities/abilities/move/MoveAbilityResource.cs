@@ -62,6 +62,12 @@ public partial class MoveAbilityResource : HOBAbilityResource {
       }
 
       EndAbility(CurrentEventData);
+
+      var strucure = OwnerEntity.EntityManagment.GetEntitiesOnCell(to).FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure)));
+
+      if (strucure != null && OwnerEntity.TryGetOwner(out var owner) && owner != null) {
+        OwnerAbilitySystem.SendGameplayEvent(TagManager.GetTag(HOBTags.EventEntityCapture), new() { Activator = owner, TargetData = new() { Target = strucure } });
+      }
     }
 
     private async Task Walk(Entity entity, GameCell to) {

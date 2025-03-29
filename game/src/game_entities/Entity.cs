@@ -64,10 +64,15 @@ public partial class Entity : Node, ITurnAware {
       }
     }
 
-
     var events = GameInstance.GetGameMode<HOBGameMode>().GetMatchEvents();
 
     CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
+  }
+
+  public override void _ExitTree() {
+    base._ExitTree();
+
+    AbilitySystem.CancelAllAbilities();
   }
 
   public void SetPosition(Vector3 position) {

@@ -1,7 +1,8 @@
 namespace GameplayAbilitySystem;
 
-using GameplayTags;
+using Godot;
 
-public struct GameplayEventData {
-  public GameplayAbilityTargetData TargetData;
+public sealed partial class GameplayEventData : RefCounted {
+  public required object Activator;
+  public GameplayAbilityTargetData? TargetData;
 }

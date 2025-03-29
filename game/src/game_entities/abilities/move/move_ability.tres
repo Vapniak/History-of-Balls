@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MoveAbilityResource" load_steps=20 format=3 uid="uid://jr0xec5ix0cv"]
+[gd_resource type="Resource" script_class="MoveAbilityResource" load_steps=22 format=3 uid="uid://jr0xec5ix0cv"]
 
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_kgiii"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_0y1sj"]
@@ -27,6 +27,14 @@ FullName = "State.Block.Movement"
 [sub_resource type="Resource" id="Resource_cuyoc"]
 script = ExtResource("2_0y1sj")
 Tags = [SubResource("Resource_g0tte"), SubResource("Resource_ouf3f")]
+
+[sub_resource type="Resource" id="Resource_iiooi"]
+script = ExtResource("1_kgiii")
+FullName = "Ability.Capture"
+
+[sub_resource type="Resource" id="Resource_6va7m"]
+script = ExtResource("2_0y1sj")
+Tags = [SubResource("Resource_iiooi")]
 
 [sub_resource type="Resource" id="Resource_cgmpx"]
 script = ExtResource("1_kgiii")
@@ -73,4 +81,5 @@ ActivateOnGranted = false
 RemoveOnEnd = false
 AbilityTriggers = null
 AbilityTags = SubResource("Resource_x2r8e")
+CancelAbilitiesWithTags = SubResource("Resource_6va7m")
 ActivationBlockedTags = SubResource("Resource_cuyoc")

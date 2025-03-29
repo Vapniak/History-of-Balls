@@ -4,8 +4,9 @@ using GameplayTags;
 
 public enum HOBTags {
   [GameplayTag("Ability")] Ability,
-  [GameplayTag("Ability.Move")] Move,
-  [GameplayTag("Ability.Attack")] Attack,
+  [GameplayTag("Ability.Move")] AbilityMove,
+  [GameplayTag("Ability.Attack")] AbilityAttack,
+  [GameplayTag("Ability.Capture")] AbilityCapture,
 
   [GameplayTag("Cooldown")] Cooldown,
   [GameplayTag("Cooldown.Move")] CooldownMove,
@@ -23,6 +24,7 @@ public enum HOBTags {
 
 
   [GameplayTag("Event")] Event,
+  [GameplayTag("Event.Entity.Capture")] EventEntityCapture,
   [GameplayTag("Event.Turn")] EventTurn,
   [GameplayTag("Event.Turn.Started")] EventTurnStarted,
   [GameplayTag("Event.Turn.Ended")] EventTurnEnded,

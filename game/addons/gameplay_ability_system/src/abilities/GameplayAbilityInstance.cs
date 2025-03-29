@@ -12,7 +12,7 @@ public abstract partial class GameplayAbilityInstance : Node {
   protected GameplayEventData? CurrentEventData { get; private set; }
 
   public float Level { get; set; }
-  public bool IsActive { get; set; }
+  public bool IsActive { get; private set; }
 
   public GameplayAbilityInstance(GameplayAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) {
     AbilityResource = abilityResource;
@@ -31,7 +31,7 @@ public abstract partial class GameplayAbilityInstance : Node {
     return !IsActive && CheckCost() && CheckCooldown() && CheckTags();
   }
 
-  public virtual void CancelAbility() { }
+  public virtual void CancelAbility() { EndAbility(null); }
   public virtual void PreActivate(GameplayEventData? eventData) {
     IsActive = true;
     CurrentEventData = eventData;

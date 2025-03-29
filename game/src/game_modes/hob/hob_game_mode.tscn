@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=38 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
@@ -65,13 +65,19 @@ EntityData = ExtResource("11_5j62k")
 Col = 10
 Row = 5
 
+[sub_resource type="Resource" id="Resource_enyxo"]
+script = ExtResource("5_chwnt")
+EntityData = ExtResource("12_d2ps5")
+Col = 2
+Row = 2
+
 [sub_resource type="Resource" id="Resource_1crgr"]
 script = ExtResource("5_ngu2m")
 PlayerType = 1
 Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
-Entities = Array[Object]([SubResource("Resource_g0g07")])
+Entities = Array[Object]([SubResource("Resource_g0g07"), SubResource("Resource_enyxo")])
 
 [sub_resource type="Resource" id="Resource_f57w2"]
 script = ExtResource("5_chwnt")
