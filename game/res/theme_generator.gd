@@ -95,6 +95,7 @@ func define_theme():
 		focus = focus_style,
 		pressed = pressed_style,
 		disabled = disabled_style,
+		icon_max_width = 24,
 	})
 
 	var action_button_style = stylebox_flat({

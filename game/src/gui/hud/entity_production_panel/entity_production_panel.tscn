@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dm85iu1q2xpt5"]
+[gd_scene load_steps=3 format=3 uid="uid://dm85iu1q2xpt5"]
 
 [ext_resource type="Script" path="res://src/gui/hud/entity_production_panel/EntityProductionPanel.cs" id="1_58636"]
+[ext_resource type="Texture2D" uid="uid://cu8ifpeobhj4p" path="res://assets/textures/icons/infantry.svg" id="2_4cm7d"]
 
 [node name="EntityProductionPanel" type="PanelContainer" node_paths=PackedStringArray("EntitiesList")]
 offset_right = 60.0
@@ -35,3 +36,4 @@ layout_mode = 2
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer2/VBoxContainer"]
 layout_mode = 2
 text = "UNIT 1"
+icon = ExtResource("2_4cm7d")

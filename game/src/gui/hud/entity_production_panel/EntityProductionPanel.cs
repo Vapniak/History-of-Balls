@@ -1,11 +1,9 @@
 namespace HOB;
 
+using GameplayFramework;
 using Godot;
-using Godot.Collections;
-using HOB.GameEntity;
 
 public partial class EntityProductionPanel : Control {
-  [Signal] public delegate void EntitySelectedEventHandler(EntityProductionAbilityResource.Instance entityData);
   [Export] private Control EntitiesList { get; set; }
 
   private ButtonGroup _buttonGroup;
@@ -18,18 +16,17 @@ public partial class EntityProductionPanel : Control {
       child.Free();
     }
   }
-  public void AddProducedEntity(EntityProductionAbilityResource.Instance ability, IMatchPlayerState playerState) {
-    var productionConfig = (ability.AbilityResource as EntityProductionAbilityResource).ProductionConfig;
-    var entityData = playerState.GetEntity(productionConfig.EntityTag);
-
-    var text = string.Format($"{entityData.EntityName}\nRounds to Produce: {productionConfig.ProductionTime}");
+  public void AddProducedEntity(EntityProductionAbilityResource.Instance ability, ProductionConfig productionConfig, IMatchPlayerState playerState) {
+    var text = string.Format($"{productionConfig.Entity.EntityName}\nRounds to Produce: {productionConfig.ProductionTime}");
     var button = new Button() {
       Alignment = HorizontalAlignment.Left,
       Text = text,
+      Icon = playerState.GetController<PlayerController>().GetHUD<HOBHUD>().GetIconFor(productionConfig.Entity),
+      ExpandIcon = false,
       ButtonGroup = _buttonGroup,
     };
 
-    button.Pressed += () => EmitSignal(SignalName.EntitySelected, ability);
+    button.Pressed += () => ability.OwnerAbilitySystem.TryActivateAbility(ability, new() { Activator = playerState.GetController(), TargetData = new() { Target = productionConfig } });
 
     EntitiesList.AddChild(button);
   }

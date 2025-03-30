@@ -59,7 +59,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GetHUD().CommandSelected += (command) => {
       SelectedCommand = command;
-      OnCommandSelected();
     };
   }
 
@@ -394,12 +393,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnSelectedCommandChanged() {
 
-  }
-
-  private void OnCommandSelected() {
-    if (SelectedCommand is EntityProductionAbilityResource.Instance) {
-      SelectedEntity?.AbilitySystem.TryActivateAbility(SelectedCommand, new() { Activator = this });
-    }
   }
 
   public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;

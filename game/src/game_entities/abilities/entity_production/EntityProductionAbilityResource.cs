@@ -7,7 +7,6 @@ using Godot;
 
 [GlobalClass]
 public partial class EntityProductionAbilityResource : HOBAbilityResource {
-  [Export] public ProductionConfig? ProductionConfig { get; private set; }
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
     return new Instance(this, abilitySystem);
   }
@@ -20,16 +19,16 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
     }
 
     public override bool CanActivateAbility(GameplayEventData? eventData) {
-      if (OwnerEntity.TryGetOwner(out var owner)) {
-        return base.CanActivateAbility(eventData) && CheckCostFor((AbilityResource as EntityProductionAbilityResource).ProductionConfig.CostEffect, OwnerAbilitySystem, owner.GetPlayerState().AbilitySystem);
+      if (OwnerEntity.TryGetOwner(out var owner) && eventData?.TargetData?.Target is ProductionConfig productionConfig) {
+        return base.CanActivateAbility(eventData) && CheckCostFor(productionConfig.CostEffect, OwnerAbilitySystem, owner.GetPlayerState().AbilitySystem);
       }
 
       return false;
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
-      if (OwnerEntity.TryGetOwner(out var owner)) {
-        var ei = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as EntityProductionAbilityResource).ProductionConfig.CostEffect, 0);
+      if (OwnerEntity.TryGetOwner(out var owner) && eventData.TargetData.Target is ProductionConfig productionConfig) {
+        var ei = OwnerAbilitySystem.MakeOutgoingInstance(productionConfig.CostEffect, 0);
         ei.Target = owner.GetPlayerState().AbilitySystem;
         ei.Target.ApplyGameplayEffectToSelf(ei);
 
@@ -40,16 +39,14 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
           _ = text.Animate();
         }
 
-
-        _turnsLeft = (int)(AbilityResource as EntityProductionAbilityResource).ProductionConfig.ProductionTime;
+        _turnsLeft = (int)productionConfig.ProductionTime;
 
         var taskData = new WaitForGameplayEventTask(this, TagManager.GetTag(HOBTags.EventTurnStarted));
         taskData.EventRecieved += (data) => {
           if (OwnerEntity.TryGetOwner(out var owner) && OwnerEntity.IsCurrentTurn()) {
             _turnsLeft--;
             if (_turnsLeft <= 0) {
-              var entity = owner.GetPlayerState().GetEntity((AbilityResource as EntityProductionAbilityResource).ProductionConfig.EntityTag);
-              if (OwnerEntity.EntityManagment.TryAddEntityOnCell(entity, OwnerEntity.Cell, owner)) {
+              if (OwnerEntity.EntityManagment.TryAddEntityOnCell(productionConfig.Entity, OwnerEntity.Cell, owner)) {
                 taskData.Complete();
 
                 if (owner is PlayerController) {

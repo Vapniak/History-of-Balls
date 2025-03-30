@@ -59,7 +59,6 @@ public partial class HOBHUD : HUD {
       }
     };
 
-    ProductionPanel.EntitySelected += (ability) => EmitSignal(SignalName.CommandSelected, ability);
     CommandPanel.CommandSelected += (command) => EmitSignal(SignalName.CommandSelected, command);
   }
 
@@ -98,6 +97,10 @@ public partial class HOBHUD : HUD {
 
   public Texture2D? GetIconFor(Entity entity) {
     return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasTag(i.EntityType), null)?.Icon;
+  }
+
+  public Texture2D? GetIconFor(EntityData entityData) {
+    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entityData.Tags.HasTag(i.EntityType), null)?.Icon;
   }
 
   private void UpdatePrimaryResourceValue(float value) {
@@ -169,7 +172,9 @@ public partial class HOBHUD : HUD {
 
       if (ability is EntityProductionAbilityResource.Instance production) {
         if (entity.TryGetOwner(out var owner) && owner == GetPlayerController()) {
-          ProductionPanel.AddProducedEntity(production, GetPlayerController().GetPlayerState());
+          foreach (var data in GetPlayerController().GetPlayerState().ProducedEntities) {
+            ProductionPanel.AddProducedEntity(production, data, GetPlayerController().GetPlayerState());
+          }
         }
       }
     }
