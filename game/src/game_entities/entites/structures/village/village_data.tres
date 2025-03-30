@@ -38,13 +38,13 @@ ActivateOnGranted = true
 RemoveOnEnd = true
 AbilityTriggers = Array[Object]([])
 
-[sub_resource type="Resource" id="Resource_tiuuy"]
+[sub_resource type="Resource" id="Resource_du6rs"]
 script = ExtResource("4_55sog")
-FullName = "Entity.Type.Structure"
+FullName = "Entity.Type.Structure.Village"
 
 [sub_resource type="Resource" id="Resource_1lt35"]
 script = ExtResource("5_gg7wk")
-Tags = [SubResource("Resource_tiuuy")]
+Tags = [SubResource("Resource_du6rs")]
 
 [resource]
 script = ExtResource("5_aor2c")

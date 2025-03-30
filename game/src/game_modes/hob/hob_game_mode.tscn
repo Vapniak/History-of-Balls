@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=57 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
@@ -86,13 +86,35 @@ Entity = ExtResource("10_8uwl6")
 CostEffect = SubResource("Resource_7s86h")
 ProductionTime = 1
 
+[sub_resource type="Resource" id="Resource_ik0l4"]
+script = ExtResource("12_sq2o2")
+Attribute = ExtResource("11_ndplg")
+ModifierType = 0
+Coefficient = -1.0
+
+[sub_resource type="Resource" id="Resource_7otm4"]
+script = ExtResource("13_nvasc")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_ik0l4")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_ls0y2"]
+script = ExtResource("14_8yndu")
+EffectDefinition = SubResource("Resource_7otm4")
+
+[sub_resource type="Resource" id="Resource_b8lna"]
+script = ExtResource("15_oajec")
+Entity = ExtResource("13_gnick")
+CostEffect = SubResource("Resource_ls0y2")
+ProductionTime = 2
+
 [sub_resource type="Resource" id="Resource_tn5oi"]
 script = ExtResource("5_ngu2m")
 PlayerType = 0
 Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 5
 SecondaryResourceInitialValue = 3
-ProducableEntities = Array[Object]([SubResource("Resource_5ek61")])
+ProducableEntities = Array[Object]([SubResource("Resource_5ek61"), SubResource("Resource_b8lna")])
 Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_btg4x"), SubResource("Resource_pn0ss"), SubResource("Resource_blu6b"), SubResource("Resource_t03xu")])
 
 [sub_resource type="Resource" id="Resource_g0g07"]
@@ -113,13 +135,35 @@ EntityData = ExtResource("18_wxxgu")
 Col = 4
 Row = 4
 
+[sub_resource type="Resource" id="Resource_l6fig"]
+script = ExtResource("12_sq2o2")
+Attribute = ExtResource("11_ndplg")
+ModifierType = 0
+Coefficient = -1.0
+
+[sub_resource type="Resource" id="Resource_aqnce"]
+script = ExtResource("13_nvasc")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_l6fig")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_f5p8x"]
+script = ExtResource("14_8yndu")
+EffectDefinition = SubResource("Resource_aqnce")
+
+[sub_resource type="Resource" id="Resource_3ecgd"]
+script = ExtResource("15_oajec")
+Entity = ExtResource("11_5j62k")
+CostEffect = SubResource("Resource_f5p8x")
+ProductionTime = 0
+
 [sub_resource type="Resource" id="Resource_1crgr"]
 script = ExtResource("5_ngu2m")
 PlayerType = 1
 Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
-ProducableEntities = null
+ProducableEntities = Array[Object]([SubResource("Resource_3ecgd")])
 Entities = Array[Object]([SubResource("Resource_g0g07"), SubResource("Resource_jmmtf"), SubResource("Resource_x7p8k")])
 
 [sub_resource type="Resource" id="Resource_ojho2"]

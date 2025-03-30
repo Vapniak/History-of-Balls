@@ -17,7 +17,13 @@ public partial class EntityProductionPanel : Control {
     }
   }
   public void AddProducedEntity(EntityProductionAbilityResource.Instance ability, ProductionConfig productionConfig, IMatchPlayerState playerState) {
-    var text = string.Format($"{productionConfig.Entity.EntityName}\nRounds to Produce: {productionConfig.ProductionTime}");
+    var costText = "";
+    foreach (var modifier in productionConfig.CostEffect.EffectDefinition.Modifiers) {
+      var ei = ability.OwnerAbilitySystem.MakeOutgoingInstance(productionConfig.CostEffect, 0);
+      costText += $"\n    {modifier.GetMagnitude(ei) * -1} {modifier.Attribute.AttributeName}";
+    }
+
+    var text = string.Format($"{productionConfig.Entity.EntityName}\nCost: {costText}\nRounds to Produce: {productionConfig.ProductionTime}");
     var button = new Button() {
       Alignment = HorizontalAlignment.Left,
       Text = text,

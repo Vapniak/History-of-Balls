@@ -2,6 +2,7 @@ namespace HOB;
 
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
@@ -176,7 +177,7 @@ public partial class HOBGameMode : GameMode {
         var controller = player.GetController<IMatchController>();
         var entities = GetEntityManagment().GetOwnedEntites(controller);
 
-        if (entities.Length != 0) {
+        if (entities.Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)))) {
           alivePlayers.Add(controller);
         }
         else {

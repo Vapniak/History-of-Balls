@@ -9,8 +9,6 @@ public enum HOBTags {
   [GameplayTag("Ability.Capture")] AbilityCapture,
   [GameplayTag("Ability.ProcessResources")] AbilityProcessResources,
 
-  [GameplayTag("Effect.Processing")] EffectProcessing,
-
   [GameplayTag("Cooldown")] Cooldown,
   [GameplayTag("Cooldown.Move")] CooldownMove,
   [GameplayTag("Cooldown.Attack")] CooldownAttack,
@@ -23,6 +21,10 @@ public enum HOBTags {
   [GameplayTag("Entity.Type")] EntityType,
   [GameplayTag("Entity.Type.Unit")] EntityTypeUnit,
   [GameplayTag("Entity.Type.Structure")] EntityTypeStructure,
+  [GameplayTag("Entity.Type.Structure.Village")] EntityTypeStructureVillage,
+  [GameplayTag("Entity.Type.Structure.City")] EntityTypeStructureCity,
+  [GameplayTag("Entity.Type.Structure.Factory")] EntityTypeStructureFactory,
+
   [GameplayTag("Entity.Type.Unit.Ranged")] EntityTypeUnitRanged,
   [GameplayTag("Entity.Type.Unit.Melee")] EntityTypeUnitMelee,
 

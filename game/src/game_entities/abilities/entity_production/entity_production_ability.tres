@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EntityProductionAbilityResource" load_steps=3 format=3 uid="uid://ciww6h4ocgdbp"]
+
+[ext_resource type="Texture2D" uid="uid://bjvxvscc746v8" path="res://assets/textures/icons/production.svg" id="1_ipwkc"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/entity_production/EntityProductionAbilityResource.cs" id="2_woeba"]
+
+[resource]
+script = ExtResource("2_woeba")
+Icon = ExtResource("1_ipwkc")
+ShowInUI = false
+UIOrder = 0
+AbilityName = "Produce"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null

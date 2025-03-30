@@ -170,7 +170,7 @@ public partial class GameplayAbilitySystem : Node {
       foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
         if (modifier != null) {
           var attribute = modifier.Attribute;
-          var magnitue = (modifier.ModifierMagnitude == null ? 1 : modifier.ModifierMagnitude.CalculateMagnitude(geInstance)) * modifier.Coefficient;
+          var magnitue = modifier.GetMagnitude(geInstance);
 
           if (attribute != null) {
             var value = AttributeSystem.GetAttributeCurrentValue(attribute);

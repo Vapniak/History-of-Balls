@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="GameplayEffectDefinition" load_steps=8 format=3 uid="uid://jgbhue1dj2ca"]
+
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="1_5t5u5"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="2_6uqln"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/modifiers/AttributeBackedModifierMagnitude.cs" id="3_jbk1t"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="4_yp7sv"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="5_kbmr4"]
+
+[sub_resource type="Resource" id="Resource_1bjuv"]
+script = ExtResource("3_jbk1t")
+CaptureAttribute = ExtResource("2_6uqln")
+CaptureAttributeFrom = 0
+CaptureAttributeWhen = 1
+
+[sub_resource type="Resource" id="Resource_2k2xe"]
+script = ExtResource("4_yp7sv")
+Attribute = ExtResource("1_5t5u5")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_1bjuv")
+Coefficient = -1.0
+
+[resource]
+script = ExtResource("5_kbmr4")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_2k2xe")])
+DurationMultiplier = 0.0

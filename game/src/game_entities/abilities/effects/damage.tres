@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="GameplayEffectResource" load_steps=3 format=3 uid="uid://hdsgocp7wlts"]
+
+[ext_resource type="Resource" uid="uid://jgbhue1dj2ca" path="res://src/game_entities/abilities/effects/damage_definition.tres" id="1_7hplg"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="6_a5nqy"]
+
+[resource]
+script = ExtResource("6_a5nqy")
+EffectDefinition = ExtResource("1_7hplg")

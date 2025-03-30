@@ -104,7 +104,7 @@ public abstract partial class GameplayAbilityInstance : Node {
           continue;
         }
 
-        var costValue = (modifier.ModifierMagnitude == null ? 1 : modifier.ModifierMagnitude.CalculateMagnitude(ei)) * modifier.Coefficient;
+        var costValue = modifier.GetMagnitude(ei);
 
         if (modifier.Attribute == null) {
           continue;

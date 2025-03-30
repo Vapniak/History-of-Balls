@@ -31,6 +31,9 @@ public partial class HOBHUD : HUD {
   [Export] private RichTextLabel? SecondaryResourceNameLabel { get; set; }
   [Export] private Label? SecondaryResourceValueLabel { get; set; }
 
+  private Entity? CurrentEntity { get; set; }
+
+
   public override void _Ready() {
     base._Ready();
 
@@ -53,6 +56,7 @@ public partial class HOBHUD : HUD {
 
     GetPlayerController().SelectedEntityChanged += () => {
       var selectedEntity = GetPlayerController().SelectedEntity;
+      CurrentEntity = selectedEntity;
 
       if (selectedEntity != null) {
         ShowUIFor(selectedEntity);
@@ -96,11 +100,11 @@ public partial class HOBHUD : HUD {
   }
 
   public Texture2D? GetIconFor(Entity entity) {
-    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasTag(i.EntityType), null)?.Icon;
+    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasExactTag(i.EntityType), null)?.Icon;
   }
 
   public Texture2D? GetIconFor(EntityData entityData) {
-    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entityData.Tags.HasTag(i.EntityType), null)?.Icon;
+    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entityData.Tags.HasExactTag(i.EntityType), null)?.Icon;
   }
 
   private void UpdatePrimaryResourceValue(float value) {
@@ -199,11 +203,11 @@ public partial class HOBHUD : HUD {
     CommandPanel.SelectCommand(abilityInstance);
   }
 
-  private void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
-    StatPanel.UpdateEntry(attribute.AttributeName, newValue.ToString());
-  }
-
   public new HOBPlayerController GetPlayerController() {
     return GetPlayerController<HOBPlayerController>();
+  }
+
+  private void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
+    StatPanel.UpdateEntry(attribute.AttributeName, newValue.ToString());
   }
 }

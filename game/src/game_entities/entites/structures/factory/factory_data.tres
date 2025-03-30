@@ -52,13 +52,13 @@ ActivateOnGranted = true
 RemoveOnEnd = true
 AbilityTriggers = null
 
-[sub_resource type="Resource" id="Resource_elyom"]
+[sub_resource type="Resource" id="Resource_gto37"]
 script = ExtResource("11_u6s3x")
-FullName = "Entity.Type.Structure"
+FullName = "Entity.Type.Structure.Factory"
 
 [sub_resource type="Resource" id="Resource_x8f5l"]
 script = ExtResource("12_h4hla")
-Tags = [SubResource("Resource_elyom")]
+Tags = [SubResource("Resource_gto37")]
 
 [resource]
 script = ExtResource("1_ujoy0")
