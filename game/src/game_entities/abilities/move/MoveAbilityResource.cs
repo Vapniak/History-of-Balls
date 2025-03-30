@@ -22,27 +22,25 @@ public partial class MoveAbilityResource : HOBAbilityResource {
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
-      if (!CommitCooldown()) {
-        EndAbility(eventData);
-        return;
+      if (eventData?.TargetData is MoveTargetData moveTargetData && CommitCooldown()) {
+        _ = WalkByPath(moveTargetData.Cell);
       }
-
-      if (eventData?.TargetData is MoveTargetData moveTargetData) {
-        _ = WalkByPath(GetOwner<Entity>(), moveTargetData.Cell);
+      else {
+        EndAbility(eventData);
       }
     }
 
     public virtual GameCell[] GetReachableCells() {
-      if (OwnerAbilitySystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
-        var mp = OwnerAbilitySystem.GetAttributeCurrentValue(moveAttributeSet.MovePoints);
+      if (OwnerAbilitySystem.AttributeSystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
+        var mp = OwnerAbilitySystem.AttributeSystem.GetAttributeCurrentValue(moveAttributeSet.MovePoints);
         return OwnerEntity.Cell.ExpandSearch((uint)mp.GetValueOrDefault(), IsReachable);
       }
 
       return [];
     }
     public virtual GameCell[] FindPathTo(GameCell cell) {
-      if (OwnerAbilitySystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
-        var mp = OwnerAbilitySystem.GetAttributeCurrentValue(moveAttributeSet.MovePoints);
+      if (OwnerAbilitySystem.AttributeSystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
+        var mp = OwnerAbilitySystem.AttributeSystem.GetAttributeCurrentValue(moveAttributeSet.MovePoints);
         return OwnerEntity.Cell.FindPathTo(cell, (uint)mp.GetValueOrDefault(), IsReachable);
       }
 
@@ -52,16 +50,16 @@ public partial class MoveAbilityResource : HOBAbilityResource {
     protected virtual bool IsReachable(GameCell from, GameCell to) {
       return
         !to.GetSetting().IsWater &&
-        !OwnerEntity.EntityManagment.GetEntitiesOnCell(to).Any(e => e.AbilitySystem.OwnedTags.HasExactTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) &&
+        !OwnerEntity.EntityManagment.GetEntitiesOnCell(to).Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) &&
         from.GetEdgeTypeTo(to) != GameCell.EdgeType.Cliff;
     }
 
-    private async Task WalkByPath(Entity entity, GameCell to) {
+    private async Task WalkByPath(GameCell to) {
       var path = FindPathTo(to);
 
       if (path.Length > 0) {
         foreach (var cell in path) {
-          await Walk(OwnerEntity, cell);
+          await Walk(cell);
         }
 
         var strucure = OwnerEntity.EntityManagment.GetEntitiesOnCell(path.Last()).FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure)));
@@ -74,29 +72,29 @@ public partial class MoveAbilityResource : HOBAbilityResource {
       EndAbility(CurrentEventData);
     }
 
-    private async Task Walk(Entity entity, GameCell to) {
-      var startPosition = entity.GetPosition();
+    private async Task Walk(GameCell to) {
+      var startPosition = OwnerEntity.GetPosition();
       var targetPosition = to.GetRealPosition();
 
       var midpoint = (startPosition + targetPosition) / 2;
       midpoint.Y += 1.0f;
 
-      var tween = entity.CreateTween();
+      var tween = OwnerEntity.CreateTween();
 
       tween.TweenMethod(
-          Callable.From<Vector3>(entity.SetPosition),
+          Callable.From<Vector3>(OwnerEntity.SetPosition),
           startPosition,
           midpoint,
           MOVE_ANIMATION_SPEED
       ).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.In);
 
-      entity.Cell = to;
+      OwnerEntity.Cell = to;
 
-      entity.TurnAt(targetPosition, MOVE_ANIMATION_SPEED);
+      OwnerEntity.TurnAt(targetPosition, MOVE_ANIMATION_SPEED);
 
 
       tween.TweenMethod(
-          Callable.From<Vector3>(entity.SetPosition),
+          Callable.From<Vector3>(OwnerEntity.SetPosition),
           midpoint,
           targetPosition,
           MOVE_ANIMATION_SPEED

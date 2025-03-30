@@ -29,9 +29,9 @@ public partial class AIController : Controller, IMatchController {
     // FIXME: temp fix for ai ending turn before checking for win condition in game mode
     await Task.Delay(1000);
 
-    foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
-      await Decide(entity);
-    }
+    // foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
+    //   await Decide(entity);
+    // }
 
     EndTurn();
   }

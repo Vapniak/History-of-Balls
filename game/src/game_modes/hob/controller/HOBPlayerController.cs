@@ -57,7 +57,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GetGameMode().GetEntityManagment().EntityAdded += OnEntityAdded;
 
-    GetHUD().CommandSelected += (command) => SelectedCommand = command;
+    GetHUD().CommandSelected += (command) => {
+      SelectedCommand = command;
+    };
   }
 
   public override void _Notification(int what) {
@@ -173,7 +175,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void CheckCommandInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.UseCommand)) {
-      if (SelectedEntity == null || SelectedCommand == null) {
+      if (SelectedEntity == null || SelectedCommand == null || HoveredCell == null) {
         return;
       }
 
@@ -191,7 +193,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         }
       }
 
-      _ = SelectedEntity.AbilitySystem.TryActivateAbility(SelectedCommand, eventData);
+      if (eventData != null) {
+        _ = SelectedEntity.AbilitySystem.TryActivateAbility(SelectedCommand, eventData);
+      }
     }
   }
 

@@ -1,0 +1,89 @@
+[gd_resource type="Resource" script_class="ProcessResourcesAbilityResource" load_steps=25 format=3 uid="uid://c7cg52qdriymg"]
+
+[ext_resource type="Script" path="res://src/game_entities/abilities/process_resources/ProcessResourcesAbilityResource.cs" id="1_cnt7a"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_k7lre"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayAbilityTriggerData.cs" id="2_3cm3k"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_t5qlo"]
+[ext_resource type="Resource" uid="uid://c0onf2wgsrrww" path="res://src/game_entities/attributes/secondary_resource.tres" id="4_frx26"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="4_gmc4r"]
+[ext_resource type="Resource" uid="uid://dqiisaqosnve4" path="res://src/game_entities/attributes/processed_value.tres" id="5_7hvlg"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="5_shswp"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="6_3wjxc"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/modifiers/AttributeBackedModifierMagnitude.cs" id="6_kmdhh"]
+[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://src/game_entities/attributes/primary_resource.tres" id="11_7lv3a"]
+[ext_resource type="Resource" uid="uid://8owi0mw7air3" path="res://src/game_entities/attributes/produced_value.tres" id="11_es1ny"]
+
+[sub_resource type="Resource" id="Resource_y2yo3"]
+script = ExtResource("1_k7lre")
+FullName = "Ability.ProcessResources"
+
+[sub_resource type="Resource" id="Resource_3j2su"]
+script = ExtResource("2_t5qlo")
+Tags = [SubResource("Resource_y2yo3")]
+
+[sub_resource type="Resource" id="Resource_66q2c"]
+script = ExtResource("1_k7lre")
+FullName = "Event.ResourceGenerated"
+
+[sub_resource type="Resource" id="Resource_hj5c8"]
+script = ExtResource("2_3cm3k")
+TriggerSource = 1
+TriggerTag = SubResource("Resource_66q2c")
+
+[sub_resource type="Resource" id="Resource_h84op"]
+script = ExtResource("6_kmdhh")
+CaptureAttribute = ExtResource("5_7hvlg")
+CaptureAttributeFrom = 0
+CaptureAttributeWhen = 1
+
+[sub_resource type="Resource" id="Resource_pge3d"]
+script = ExtResource("4_gmc4r")
+Attribute = ExtResource("4_frx26")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_h84op")
+Coefficient = -1.0
+
+[sub_resource type="Resource" id="Resource_c2lus"]
+script = ExtResource("5_shswp")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_pge3d")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_u7b3e"]
+script = ExtResource("6_3wjxc")
+EffectDefinition = SubResource("Resource_c2lus")
+
+[sub_resource type="Resource" id="Resource_ufoxk"]
+script = ExtResource("6_kmdhh")
+CaptureAttribute = ExtResource("11_es1ny")
+CaptureAttributeFrom = 0
+CaptureAttributeWhen = 1
+
+[sub_resource type="Resource" id="Resource_4g6rq"]
+script = ExtResource("4_gmc4r")
+Attribute = ExtResource("11_7lv3a")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_ufoxk")
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_lt0pw"]
+script = ExtResource("5_shswp")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_4g6rq")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_pl1pi"]
+script = ExtResource("6_3wjxc")
+EffectDefinition = SubResource("Resource_lt0pw")
+
+[resource]
+script = ExtResource("1_cnt7a")
+ProduceEffect = SubResource("Resource_pl1pi")
+ProcessEffect = SubResource("Resource_u7b3e")
+ShowInUI = false
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = Array[Object]([SubResource("Resource_hj5c8")])
+AbilityTags = SubResource("Resource_3j2su")

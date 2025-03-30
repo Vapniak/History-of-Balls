@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=36 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/gui/hud/hud.tscn" id="5_yn6q8"]
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBPlayerManagmentComponent.cs" id="8_crqp2"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="9_pkx38"]
+[ext_resource type="Resource" uid="uid://d3a8gfe2tbsyu" path="res://src/game_entities/entites/structures/factory/factory_data.tres" id="10_06c2x"]
 [ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/poland_infantry_data.tres" id="10_8uwl6"]
 [ext_resource type="Resource" uid="uid://c5dmvmose2efr" path="res://src/game_entities/entites/units/america_infantry_data.tres" id="11_5j62k"]
 [ext_resource type="Resource" uid="uid://doidx5bt2arat" path="res://src/game_entities/entites/structures/village/village_data.tres" id="12_d2ps5"]
@@ -20,7 +21,6 @@
 [ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
-[ext_resource type="Resource" uid="uid://f0u12f68y3vi" path="res://src/game_entities/entites/structures/city/poland_city_data.tres" id="19_d7njg"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
@@ -39,17 +39,17 @@ EntityData = ExtResource("13_gnick")
 Col = 1
 Row = 3
 
-[sub_resource type="Resource" id="Resource_o0g1g"]
-script = ExtResource("5_chwnt")
-EntityData = ExtResource("19_d7njg")
-Col = 2
-Row = 8
-
 [sub_resource type="Resource" id="Resource_pn0ss"]
 script = ExtResource("5_chwnt")
 EntityData = ExtResource("12_d2ps5")
 Col = 5
 Row = 5
+
+[sub_resource type="Resource" id="Resource_blu6b"]
+script = ExtResource("5_chwnt")
+EntityData = ExtResource("10_06c2x")
+Col = 3
+Row = 3
 
 [sub_resource type="Resource" id="Resource_tn5oi"]
 script = ExtResource("5_ngu2m")
@@ -57,7 +57,7 @@ PlayerType = 0
 Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 5
 SecondaryResourceInitialValue = 3
-Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_btg4x"), SubResource("Resource_o0g1g"), SubResource("Resource_pn0ss")])
+Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_btg4x"), SubResource("Resource_pn0ss"), SubResource("Resource_blu6b")])
 
 [sub_resource type="Resource" id="Resource_g0g07"]
 script = ExtResource("5_chwnt")
@@ -65,11 +65,11 @@ EntityData = ExtResource("11_5j62k")
 Col = 10
 Row = 5
 
-[sub_resource type="Resource" id="Resource_enyxo"]
+[sub_resource type="Resource" id="Resource_jmmtf"]
 script = ExtResource("5_chwnt")
 EntityData = ExtResource("12_d2ps5")
-Col = 2
-Row = 2
+Col = 7
+Row = 5
 
 [sub_resource type="Resource" id="Resource_1crgr"]
 script = ExtResource("5_ngu2m")
@@ -77,25 +77,12 @@ PlayerType = 1
 Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
-Entities = Array[Object]([SubResource("Resource_g0g07"), SubResource("Resource_enyxo")])
-
-[sub_resource type="Resource" id="Resource_f57w2"]
-script = ExtResource("5_chwnt")
-EntityData = ExtResource("12_d2ps5")
-Col = 10
-Row = 10
-
-[sub_resource type="Resource" id="Resource_ic5h1"]
-script = ExtResource("5_ngu2m")
-PlayerType = 2
-PrimaryResourceInitialValue = 0
-SecondaryResourceInitialValue = 0
-Entities = Array[Object]([SubResource("Resource_f57w2")])
+Entities = Array[Object]([SubResource("Resource_g0g07"), SubResource("Resource_jmmtf")])
 
 [sub_resource type="Resource" id="Resource_ojho2"]
 script = ExtResource("3_3m27j")
 Map = ExtResource("2_ir688")
-PlayerSpawnDatas = [SubResource("Resource_tn5oi"), SubResource("Resource_1crgr"), SubResource("Resource_ic5h1")]
+PlayerSpawnDatas = [SubResource("Resource_tn5oi"), SubResource("Resource_1crgr")]
 
 [node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "AudioPlayer", "StateChartNode")]
 script = ExtResource("1_ne2qg")

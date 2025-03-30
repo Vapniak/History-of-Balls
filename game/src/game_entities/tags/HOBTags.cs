@@ -7,6 +7,9 @@ public enum HOBTags {
   [GameplayTag("Ability.Move")] AbilityMove,
   [GameplayTag("Ability.Attack")] AbilityAttack,
   [GameplayTag("Ability.Capture")] AbilityCapture,
+  [GameplayTag("Ability.ProcessResources")] AbilityProcessResources,
+
+  [GameplayTag("Effect.Processing")] EffectProcessing,
 
   [GameplayTag("Cooldown")] Cooldown,
   [GameplayTag("Cooldown.Move")] CooldownMove,
@@ -25,9 +28,11 @@ public enum HOBTags {
 
 
   [GameplayTag("Event")] Event,
+  [GameplayTag("Event.ResourceGenerated")] EventResourceGenerated,
   [GameplayTag("Event.Entity.Capture")] EventEntityCapture,
   [GameplayTag("Event.Turn")] EventTurn,
   [GameplayTag("Event.Turn.Started")] EventTurnStarted,
+  [GameplayTag("Event.Turn.Preparation")] EventTurnPreparation,
   [GameplayTag("Event.Turn.Ended")] EventTurnEnded,
   [GameplayTag("Event.Game.Started")] EventGameStarted,
   [GameplayTag("Event.Game.Ended")] EventGameEnded,

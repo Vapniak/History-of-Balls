@@ -1,11 +1,69 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=3 format=3 uid="uid://d3a8gfe2tbsyu"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://d3a8gfe2tbsyu"]
 
+[ext_resource type="Resource" uid="uid://c7cg52qdriymg" path="res://src/game_entities/abilities/process_resources/process_resources_ability.tres" id="1_il57t"]
 [ext_resource type="PackedScene" uid="uid://cj3qtxcdbw00m" path="res://src/game_entities/entites/structures/factory/factory.tscn" id="1_knki7"]
+[ext_resource type="Resource" uid="uid://bn40jkf160k1f" path="res://src/game_entities/attribute_sets/process_resources_attribute_set.tres" id="1_rtwgg"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_ujoy0"]
+[ext_resource type="Resource" uid="uid://rs27sl4g42ho" path="res://src/game_entities/attributes/process_time.tres" id="2_weho1"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="3_jiwip"]
+[ext_resource type="Resource" uid="uid://8owi0mw7air3" path="res://src/game_entities/attributes/produced_value.tres" id="4_hvtmp"]
+[ext_resource type="Resource" uid="uid://dqiisaqosnve4" path="res://src/game_entities/attributes/processed_value.tres" id="5_d27gw"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="6_isgex"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="7_fiu0t"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="8_a2r4k"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="11_u6s3x"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="12_h4hla"]
+
+[sub_resource type="Resource" id="Resource_tyj8j"]
+script = ExtResource("3_jiwip")
+Attribute = ExtResource("2_weho1")
+ModifierType = 2
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_oumf5"]
+script = ExtResource("3_jiwip")
+Attribute = ExtResource("4_hvtmp")
+ModifierType = 2
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_t51u7"]
+script = ExtResource("3_jiwip")
+Attribute = ExtResource("5_d27gw")
+ModifierType = 2
+Coefficient = 2.0
+
+[sub_resource type="Resource" id="Resource_6t4ey"]
+script = ExtResource("6_isgex")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_tyj8j"), SubResource("Resource_oumf5"), SubResource("Resource_t51u7")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_orl55"]
+script = ExtResource("7_fiu0t")
+EffectDefinition = SubResource("Resource_6t4ey")
+
+[sub_resource type="Resource" id="Resource_swxcn"]
+script = ExtResource("8_a2r4k")
+InitializeStatsEffects = SubResource("Resource_orl55")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = true
+RemoveOnEnd = true
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_elyom"]
+script = ExtResource("11_u6s3x")
+FullName = "Entity.Type.Structure"
+
+[sub_resource type="Resource" id="Resource_x8f5l"]
+script = ExtResource("12_h4hla")
+Tags = [SubResource("Resource_elyom")]
 
 [resource]
 script = ExtResource("1_ujoy0")
 EntityName = "Factory"
-AttributeSets = null
-Abilities = null
+AttributeSets = Array[Object]([ExtResource("1_rtwgg")])
+Abilities = Array[Object]([SubResource("Resource_swxcn"), ExtResource("1_il57t")])
+Tags = SubResource("Resource_x8f5l")
 Body = ExtResource("1_knki7")

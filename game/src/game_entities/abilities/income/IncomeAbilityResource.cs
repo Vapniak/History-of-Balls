@@ -1,6 +1,7 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayFramework;
 using Godot;
 
 [GlobalClass]
@@ -20,8 +21,16 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
         var income = (AbilityResource as IncomeAbilityResource)?.IncomeEffect;
         if (income != null) {
           var ei = OwnerAbilitySystem.MakeOutgoingInstance(income, 0);
-          ei.Target = owner.GetPlayerState().AbilitySystem;
-          owner.GetPlayerState().AbilitySystem.TryApplyGameplayEffectToSelf(ei);
+          ei.Target = owner?.GetPlayerState().AbilitySystem;
+          ei.Target?.ApplyGameplayEffectToSelf(ei);
+
+          // FIXME: for now check like that
+          if (owner is PlayerController) {
+            var text = FloatingText.Create("Income Generated", Colors.Yellow);
+            GameInstance.GetWorld().AddChild(text);
+            text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
+            _ = text.Animate();
+          }
         }
       }
 

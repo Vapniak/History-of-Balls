@@ -1,22 +1,3 @@
-[gd_scene load_steps=6 format=3 uid="uid://dt6twghxcd03n"]
-
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/GameplayAbilitySystem.cs" id="1_703b7"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/gameplay_attributes/FloatGameplayAttribute.cs" id="2_ddm74"]
-[ext_resource type="Script" path="res://src/game_entities/entites/attribute_sets/HealthAttributeSet.cs" id="2_nlu7x"]
-
-[sub_resource type="Resource" id="Resource_q77uj"]
-script = ExtResource("2_ddm74")
-MinValue = 0.0
-MaxValue = 10.0
-BaseValue = 10.0
-AttributeName = "Health"
-
-[sub_resource type="Resource" id="Resource_hnnxe"]
-script = ExtResource("2_nlu7x")
-Health = SubResource("Resource_q77uj")
+[gd_scene format=3 uid="uid://cly4wtxnh50tk"]
 
 [node name="Entity" type="Node3D"]
-
-[node name="GameplayAbilitySystem" type="Node" parent="."]
-script = ExtResource("1_703b7")
-InitialAttributes = Array[Object]([SubResource("Resource_hnnxe")])

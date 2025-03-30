@@ -16,3 +16,6 @@ alpha_cut = 2
 render_priority = 10
 outline_render_priority = 9
 text = "100"
+font_size = 24
+outline_size = 2
+uppercase = true

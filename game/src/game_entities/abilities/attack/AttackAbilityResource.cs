@@ -2,6 +2,7 @@ namespace HOB;
 
 using GameplayAbilitySystem;
 using GameplayFramework;
+using GameplayTags;
 using Godot;
 using HOB.GameEntity;
 using System;
@@ -32,16 +33,11 @@ public partial class AttackAbilityResource : HOBAbilityResource {
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
-      if (!CommitCooldown()) {
-        EndAbility(eventData);
-        return;
-      }
-
-      if (eventData?.TargetData is AttackTargetData attackTargetData) {
+      if (eventData?.TargetData is AttackTargetData attackTargetData && CommitCooldown()) {
         var effect = (AbilityResource as AttackAbilityResource)?.BlockMovementEffect;
         if (effect != null) {
           var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
-          OwnerAbilitySystem.TryApplyGameplayEffectToSelf(ge);
+          OwnerAbilitySystem.ApplyGameplayEffectToSelf(ge);
         }
 
         _ = Attack(attackTargetData.TargetAbilitySystem.GetOwner<Entity>());
@@ -64,7 +60,7 @@ public partial class AttackAbilityResource : HOBAbilityResource {
         if (effect != null) {
           var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
           ge.Target = d.TargetAbilitySystem;
-          d.TargetAbilitySystem.TryApplyGameplayEffectToSelf(ge);
+          d.TargetAbilitySystem.ApplyGameplayEffectToSelf(ge);
         }
       }
 
@@ -80,9 +76,9 @@ public partial class AttackAbilityResource : HOBAbilityResource {
       var attackableEntities = new List<Entity>();
       var cellsInR = new List<GameCell>();
 
-      if (OwnerEntity.AbilitySystem.TryGetAttributeSet<AttackAttributeSet>(out var attributeSet)) {
+      if (OwnerEntity.AbilitySystem.AttributeSystem.TryGetAttributeSet<AttackAttributeSet>(out var attributeSet)) {
         if (attributeSet != null) {
-          var range = OwnerEntity.AbilitySystem.GetAttributeCurrentValue(attributeSet.Range);
+          var range = OwnerEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attributeSet.Range);
           var cells = OwnerEntity.Cell.GetCellsInRange((uint)range.GetValueOrDefault());
           foreach (var cell in cells) {
             if (cell == OwnerEntity.Cell) {
@@ -100,7 +96,7 @@ public partial class AttackAbilityResource : HOBAbilityResource {
     }
 
     public bool CanBeAttacked(Entity entity) {
-      return entity.TryGetOwner(out var enemyOwner) && OwnerEntity.TryGetOwner(out var owner) && enemyOwner != owner;
+      return entity.TryGetOwner(out var enemyOwner) && OwnerEntity.TryGetOwner(out var owner) && enemyOwner != owner && entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit));
     }
   }
 }

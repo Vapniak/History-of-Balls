@@ -55,7 +55,7 @@ public partial class TagContainer : Resource {
   }
 
   public bool HasExactTag(Tag tag) {
-    return Tags.Any(t => t == tag);
+    return Tags.Any(t => t.IsExact(tag));
   }
 
   public IEnumerable<Tag> GetTags() {

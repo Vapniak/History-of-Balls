@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ProcessResourcesAttributeSet" load_steps=5 format=3 uid="uid://bn40jkf160k1f"]
+
+[ext_resource type="Resource" uid="uid://rs27sl4g42ho" path="res://src/game_entities/attributes/process_time.tres" id="1_45gti"]
+[ext_resource type="Script" path="res://src/game_entities/attribute_sets/ProcessResourcesAttributeSet.cs" id="1_fmehs"]
+[ext_resource type="Resource" uid="uid://dqiisaqosnve4" path="res://src/game_entities/attributes/processed_value.tres" id="2_h87x3"]
+[ext_resource type="Resource" uid="uid://8owi0mw7air3" path="res://src/game_entities/attributes/produced_value.tres" id="3_egwcr"]
+
+[resource]
+script = ExtResource("1_fmehs")
+ProcessTime = ExtResource("1_45gti")
+ProcessedValue = ExtResource("2_h87x3")
+ProducedValue = ExtResource("3_egwcr")

@@ -7,12 +7,9 @@ using System.Threading.Tasks;
 using GameplayTags;
 using Godot;
 using Godot.Collections;
-using HOB;
-using HOB.GameEntity;
 
 [GlobalClass]
 public partial class GameplayAbilitySystem : Node {
-  [Signal] public delegate void AttributeValueChangedEventHandler(GameplayAttribute attribute, float oldValue, float newValue);
   [Signal] public delegate void GameplayEffectAppliedEventHandler(GameplayEffectInstance gameplayEffectInstance);
   [Signal] public delegate void GameplayEffectExecutedEventHandler(GameplayEffectInstance gameplayEffectInstance);
   [Signal] public delegate void GameplayEffectRemovedEventHandler(GameplayEffectInstance gameplayEffectInstance);
@@ -22,16 +19,20 @@ public partial class GameplayAbilitySystem : Node {
   [Signal] public delegate void GameplayAbilityActivatedEventHandler(GameplayAbilityInstance gameplayAbility);
   [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbilityInstance gameplayAbility);
 
-  [Signal] public delegate void GameplayEventRecievedEventHandler(Tag tag, GameplayEventData? eventData);
-
-  [Export] private Array<GameplayAttributeSet> AttributeSets { get; set; } = new();
+  public event Action<Tag, GameplayEventData?>? GameplayEventRecieved;
 
   public TagContainer OwnedTags { get; private set; } = new();
 
-
-  private Godot.Collections.Dictionary<GameplayAttribute, GameplayAttributeValue> AttributeValues { get; set; } = new();
   private List<GameplayEffectInstance> AppliedEffects { get; set; } = new();
   private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
+
+  public AttributeSystem AttributeSystem { get; private set; }
+
+  public GameplayAbilitySystem() {
+    AttributeSystem = new();
+
+    AddChild(AttributeSystem);
+  }
 
   public override void _Ready() {
     GameplayEffectApplied += OnGameplayEffectApplied;
@@ -114,7 +115,7 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   public void SendGameplayEvent(Tag tag, GameplayEventData? eventData = null) {
-    EmitSignal(nameof(GameplayEventRecieved), tag, eventData);
+    GameplayEventRecieved?.Invoke(tag, eventData);
 
     foreach (var ability in GrantedAbilities) {
       if (ability.AbilityResource.AbilityTriggers != null) {
@@ -125,68 +126,34 @@ public partial class GameplayAbilitySystem : Node {
     }
   }
 
-  public void TryApplyGameplayEffectToSelf(GameplayEffectInstance geInstance) {
+  public void ApplyGameplayEffectToSelf(GameplayEffectInstance geInstance) {
     geInstance.TreeExiting += () => {
       AppliedEffects.RemoveAll(e => e == geInstance);
       EmitSignal(SignalName.GameplayEffectRemoved, geInstance);
+      if (geInstance.GameplayEffect.ExpireEffect != null) {
+        var ei = geInstance.Source.MakeOutgoingInstance(geInstance.GameplayEffect.ExpireEffect, 0);
+        ei.Target = geInstance.Target;
+        ei.Target?.CallDeferred(nameof(ApplyGameplayEffectToSelf), ei);
+      }
     };
 
+    geInstance.Ready += () => {
+      EmitSignal(SignalName.GameplayEffectApplied, geInstance);
+      switch (geInstance.GameplayEffect?.EffectDefinition?.DurationPolicy) {
+        case DurationPolicy.Duration or DurationPolicy.Infinite:
+          geInstance.ExecutePeriodic += ApplyInstantGameplayEffect;
+          ApplyDurationGameplayEffect(geInstance);
+          break;
+        case DurationPolicy.Instant:
+          ApplyInstantGameplayEffect(geInstance);
+          geInstance.QueueFree();
+          break;
+        default:
+          break;
+      }
+    };
 
     AddChild(geInstance);
-
-    EmitSignal(SignalName.GameplayEffectApplied, geInstance);
-    switch (geInstance.GameplayEffect?.EffectDefinition?.DurationPolicy) {
-      case DurationPolicy.Duration or DurationPolicy.Infinite:
-        geInstance.ExecutePeriodic += ApplyInstantGameplayEffect;
-        ApplyDurationGameplayEffect(geInstance);
-        break;
-      case DurationPolicy.Instant:
-        ApplyInstantGameplayEffect(geInstance);
-        geInstance.QueueFree();
-        break;
-      default:
-        break;
-    }
-  }
-
-  public void AddAttributeSet(GameplayAttributeSet attributeSet) {
-    if (attributeSet == null) {
-      return;
-    }
-
-    AttributeSets.Add(attributeSet);
-
-    foreach (var attribute in attributeSet.GetAttributes()) {
-      AttributeValues.TryAdd(attribute, new() { });
-    }
-  }
-
-  public void RemoveAttributeSet(GameplayAttributeSet attributeSet) {
-    AttributeSets.Remove(attributeSet);
-    foreach (var attribute in attributeSet.GetAttributes()) {
-      AttributeValues.Remove(attribute);
-    }
-  }
-
-  public IEnumerable<GameplayAttribute> GetAllAttributes() {
-    return AttributeValues.Keys;
-  }
-
-  public void SetAttributeBaseValue(GameplayAttribute attribute, float baseValue) {
-    if (TryGetAttributeValue(attribute, out var value)) {
-      if (value != null) {
-        var oldValue = value.BaseValue;
-        value.BaseValue = baseValue;
-        EmitSignal(SignalName.AttributeValueChanged, attribute, oldValue, baseValue);
-      }
-    }
-  }
-
-
-  public bool TryGetAttributeSet<T>(out T? attributeSet) where T : GameplayAttributeSet {
-    attributeSet = AttributeSets.OfType<T>().FirstOrDefault();
-
-    return attributeSet != null;
   }
 
   public void Tick(ITickContext tickContext) {
@@ -194,11 +161,6 @@ public partial class GameplayAbilitySystem : Node {
       effect.Tick(tickContext);
     }
   }
-
-  public float? GetAttributeCurrentValue(GameplayAttribute attribute) {
-    return CalculateAttributeCurrentValue(attribute);
-  }
-
   public GameplayEffectInstance MakeOutgoingInstance(GameplayEffectResource gameplayEffect, float level) {
     return GameplayEffectInstance.CreateNew(gameplayEffect, this, level);
   }
@@ -211,35 +173,33 @@ public partial class GameplayAbilitySystem : Node {
           var magnitue = (modifier.ModifierMagnitude == null ? 1 : modifier.ModifierMagnitude.CalculateMagnitude(geInstance)) * modifier.Coefficient;
 
           if (attribute != null) {
-            if (TryGetAttributeValue(attribute, out var value)) {
-              if (value != null) {
-                var oldValue = value.BaseValue;
-                var newValue = oldValue;
-                switch (modifier?.ModifierType) {
-                  case AttributeModifierType.Add:
-                    newValue += magnitue;
-                    break;
-                  case AttributeModifierType.Multiply:
-                    newValue *= magnitue;
-                    break;
-                  case AttributeModifierType.Override:
-                    newValue = magnitue;
-                    break;
-                  default:
-                    break;
-                }
-                // foreach (var attributeSet in AttributeSets) {
-                //   attributeSet.PostGameplayEffectExecute(attribute, ref newValue);
-                // }
-                SetAttributeBaseValue(attribute, newValue);
+            var value = AttributeSystem.GetAttributeCurrentValue(attribute);
+            if (value != null) {
+              switch (modifier?.ModifierType) {
+                case AttributeModifierType.Add:
+                  value += magnitue;
+                  break;
+                case AttributeModifierType.Multiply:
+                  value *= magnitue;
+                  break;
+                case AttributeModifierType.Override:
+                  value = magnitue;
+                  break;
+                default:
+                  break;
               }
+
+              // foreach (var attributeSet in AttributeSets) {
+              //   attributeSet.PostGameplayEffectExecute(attribute, ref newValue);
+              // }
+              AttributeSystem.SetAttributeBaseValue(attribute, value ?? 0);
             }
           }
         }
       }
-
-      EmitSignal(SignalName.GameplayEffectExecuted, geInstance);
     }
+
+    EmitSignal(SignalName.GameplayEffectExecuted, geInstance);
   }
 
   private void ApplyDurationGameplayEffect(GameplayEffectInstance geInstance) {
@@ -282,19 +242,6 @@ public partial class GameplayAbilitySystem : Node {
       OwnedTags.RemoveTags(gameplayEffect.GameplayEffect.GrantedTags);
     }
   }
-
-  private float CalculateAttributeCurrentValue(GameplayAttribute attribute) {
-    var value = AttributeValues[attribute];
-
-    // TODO: apply modifiers
-
-    return value.BaseValue;
-  }
-
-  private bool TryGetAttributeValue(GameplayAttribute attribute, out GameplayAttributeValue? value) {
-    return AttributeValues.TryGetValue(attribute, out value);
-  }
-
   private void OnTagAdded(Tag tag) {
     foreach (var ability in GrantedAbilities) {
       if (ability.AbilityResource.AbilityTriggers != null) {

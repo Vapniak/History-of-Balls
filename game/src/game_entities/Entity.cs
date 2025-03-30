@@ -46,7 +46,7 @@ public partial class Entity : Node, ITurnAware {
     AddChild(AbilitySystem);
     AbilitySystem.Owner = this;
 
-    AbilitySystem.AttributeValueChanged += OnAttributeValueChanged;
+    AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
 
     if (tags != null) {
       AbilitySystem.OwnedTags.AddTags(tags);
@@ -54,7 +54,7 @@ public partial class Entity : Node, ITurnAware {
 
     if (attributeSets != null) {
       foreach (var @as in attributeSets) {
-        AbilitySystem.AddAttributeSet(@as);
+        AbilitySystem.AttributeSystem.AddAttributeSet(@as);
       }
     }
 
@@ -110,7 +110,7 @@ public partial class Entity : Node, ITurnAware {
   }
 
   public void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
-    if (AbilitySystem.TryGetAttributeSet<HealthAttributeSet>(out var healthAttributeSet)) {
+    if (AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var healthAttributeSet)) {
       if (attribute == healthAttributeSet?.HealthAttribute) {
         if (newValue <= 0f) {
           AbilitySystem.OwnedTags.AddTag(TagManager.GetTag(HOBTags.StateDead));

@@ -66,17 +66,18 @@ public partial class HOBHUD : HUD {
     var playerState = GetPlayerController().GetPlayerState<HOBPlayerState>();
 
 
-    // TODO: add resource values
-    if (playerState.AbilitySystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
-      UpdatePrimaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.PrimaryResource).GetValueOrDefault().ToString());
-      UpdateSecondaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.SecondaryResource).GetValueOrDefault().ToString());
+    if (playerState.AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
+      // UpdatePrimaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.PrimaryResource).GetValueOrDefault().ToString());
+      // UpdateSecondaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.SecondaryResource).GetValueOrDefault().ToString());
 
-      playerState.AbilitySystem.AttributeValueChanged += (attribute, oldValue, newValue) => {
+      playerState.AbilitySystem.AttributeSystem.AttributeValueChanged += (attribute, oldValue, newValue) => {
+        // GD.Print(attribute.AttributeName, oldValue, newValue);
         if (attribute == attributeSet.PrimaryResource) {
-          UpdatePrimaryResourceValue(newValue.ToString());
+          UpdatePrimaryResourceValue(newValue);
         }
-        else if (attribute == attributeSet.SecondaryResource) {
-          UpdateSecondaryResourceValue(newValue.ToString());
+
+        if (attribute == attributeSet.SecondaryResource) {
+          UpdateSecondaryResourceValue(newValue);
         }
       };
     }
@@ -98,12 +99,15 @@ public partial class HOBHUD : HUD {
     return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasTag(i.EntityType), null)?.Icon;
   }
 
-  private void UpdatePrimaryResourceValue(string value) {
-    PrimaryResourceValueLabel.Text = value;
+  private void UpdatePrimaryResourceValue(float value) {
+    PrimaryResourceValueLabel.Text = value.ToString();
   }
 
-  private void UpdateSecondaryResourceValue(string value) {
-    SecondaryResourceValueLabel.Text = value;
+  private void UpdateSecondaryResourceValue(float value) {
+    if (GetPlayerController().GetPlayerState().AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
+      // FIXME: the value is incorrect sometimes
+      SecondaryResourceValueLabel.Text = GetPlayerController().GetPlayerState().AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attributeSet.SecondaryResource).ToString();
+    }
   }
 
   private void OnMatchEvent(Tag tag) {
@@ -144,10 +148,10 @@ public partial class HOBHUD : HUD {
     StatPanel.SetNameLabel(entity.EntityName);
     StatPanel.SetIcon(GetIconFor(entity));
 
-    entity.AbilitySystem.AttributeValueChanged += OnAttributeValueChanged;
-    foreach (var attribute in entity.AbilitySystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
+    entity.AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
+    foreach (var attribute in entity.AbilitySystem.AttributeSystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
       if (attribute != null) {
-        StatPanel.AddEntry(attribute.AttributeName, entity.AbilitySystem.GetAttributeCurrentValue(attribute).GetValueOrDefault().ToString());
+        StatPanel.AddEntry(attribute.AttributeName, entity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault().ToString());
       }
     }
 
@@ -166,7 +170,7 @@ public partial class HOBHUD : HUD {
   }
   private void HideUIFor(Entity? entity) {
     if (entity != null) {
-      entity.AbilitySystem.AttributeValueChanged -= OnAttributeValueChanged;
+      entity.AbilitySystem.AttributeSystem.AttributeValueChanged -= OnAttributeValueChanged;
     }
     StatPanel.Hide();
     CommandPanel.Hide();

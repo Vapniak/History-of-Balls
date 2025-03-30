@@ -11,14 +11,14 @@
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="8_shave"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/income/IncomeAbilityResource.cs" id="9_o3c7h"]
 
-[sub_resource type="Resource" id="Resource_vbmrr"]
+[sub_resource type="Resource" id="Resource_nswf6"]
 script = ExtResource("1_14d7r")
-FullName = "Event.Turn.Started"
+FullName = "Event.Turn.Preparation"
 
 [sub_resource type="Resource" id="Resource_3l6vw"]
 script = ExtResource("2_xqlnj")
 TriggerSource = 1
-TriggerTag = SubResource("Resource_vbmrr")
+TriggerTag = SubResource("Resource_nswf6")
 
 [sub_resource type="Resource" id="Resource_jfogc"]
 script = ExtResource("1_14d7r")

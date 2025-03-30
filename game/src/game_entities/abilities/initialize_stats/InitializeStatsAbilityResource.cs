@@ -27,7 +27,7 @@ public partial class InitializeStatsAbilityResource : HOBAbilityResource {
       if (AbilityResource is InitializeStatsAbilityResource ability && ability.InitializeStatsEffects != null) {
         var ei = OwnerAbilitySystem.MakeOutgoingInstance(ability.InitializeStatsEffects, 0);
         ei.Target = OwnerAbilitySystem;
-        OwnerAbilitySystem.TryApplyGameplayEffectToSelf(ei);
+        OwnerAbilitySystem.ApplyGameplayEffectToSelf(ei);
         EndAbility(eventData);
       }
     }

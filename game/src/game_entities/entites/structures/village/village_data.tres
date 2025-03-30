@@ -36,7 +36,7 @@ UIOrder = 0
 AbilityName = "Ability"
 ActivateOnGranted = true
 RemoveOnEnd = true
-AbilityTriggers = null
+AbilityTriggers = Array[Object]([])
 
 [sub_resource type="Resource" id="Resource_tiuuy"]
 script = ExtResource("4_55sog")

@@ -14,7 +14,7 @@ public abstract partial class HOBEntityAbilityInstance : HOBAbilityInstance {
 
   public override bool CanActivateAbility(GameplayEventData? eventData) {
     if (eventData != null) {
-      return base.CanActivateAbility(eventData) && OwnerEntity.TryGetOwner(out var owner) && owner == eventData.Activator && owner.IsCurrentTurn();
+      return base.CanActivateAbility(eventData) && OwnerEntity.TryGetOwner(out var owner) && owner == eventData.Activator;
     }
 
     return base.CanActivateAbility(eventData);

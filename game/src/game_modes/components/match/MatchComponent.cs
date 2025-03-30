@@ -52,7 +52,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
     MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventGameStarted));
 
-    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnStarted));
     OnTurnStarted();
   }
 
@@ -143,12 +142,19 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public Entity[] GetEntities() => Entities.ToArray();
 
   private void OnTurnStarted() {
-    _lastPlayer?.OwnTurnEnded();
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnStarted));
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnPreparation));
+
     var player = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
 
     player.OwnTurnStarted();
 
     _lastPlayer = player;
+  }
+
+  private void OnTurnEnded() {
+    _lastPlayer?.OwnTurnEnded();
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnEnded));
   }
 
   private void OnEndTurn(IMatchController controller) {
@@ -158,7 +164,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   private void NextTurn() {
-    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnEnded));
+    OnTurnEnded();
 
     GetGameState().CurrentPlayerIndex++;
 
@@ -167,7 +173,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       GetGameState().CurrentPlayerIndex = 0;
       // new round
     }
-    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnStarted));
     OnTurnStarted();
   }
 

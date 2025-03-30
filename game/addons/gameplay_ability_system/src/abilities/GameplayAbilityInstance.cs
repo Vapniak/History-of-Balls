@@ -8,7 +8,7 @@ public abstract partial class GameplayAbilityInstance : Node {
   [Signal] public delegate void EndedEventHandler();
 
   public GameplayAbilityResource AbilityResource { get; private set; }
-  protected GameplayAbilitySystem OwnerAbilitySystem { get; private set; }
+  public GameplayAbilitySystem OwnerAbilitySystem { get; private set; }
   protected GameplayEventData? CurrentEventData { get; private set; }
 
   public float Level { get; set; }
@@ -46,7 +46,11 @@ public abstract partial class GameplayAbilityInstance : Node {
 
 
   public virtual bool CheckCost() {
-    return true;
+    if (AbilityResource.CostGameplayEffect == null) {
+      return true;
+    }
+
+    return CheckCostFor(AbilityResource.CostGameplayEffect);
   }
 
   public virtual bool CheckCooldown() {
@@ -63,7 +67,7 @@ public abstract partial class GameplayAbilityInstance : Node {
   protected virtual bool CommitCooldown() {
     if (AbilityResource.CooldownGameplayEffect != null) {
       var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CooldownGameplayEffect, 0);
-      OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+      OwnerAbilitySystem.ApplyGameplayEffectToSelf(instance);
       return true;
     }
 
@@ -73,11 +77,52 @@ public abstract partial class GameplayAbilityInstance : Node {
   protected virtual bool CommitCost() {
     if (AbilityResource.CostGameplayEffect != null) {
       var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CostGameplayEffect, 0);
-      OwnerAbilitySystem.TryApplyGameplayEffectToSelf(instance);
+      OwnerAbilitySystem.ApplyGameplayEffectToSelf(instance);
       return true;
     }
 
     return false;
+  }
+
+  protected bool CheckCostFor(GameplayEffectResource effectResource, GameplayAbilitySystem? source = null, GameplayAbilitySystem? target = null) {
+    source ??= OwnerAbilitySystem;
+    target ??= source;
+
+    if (effectResource != null) {
+      var ei = source.MakeOutgoingInstance(effectResource, Level);
+
+      if (ei.GameplayEffect?.EffectDefinition?.DurationPolicy != DurationPolicy.Instant) {
+        return true;
+      }
+
+      if (ei.GameplayEffect.EffectDefinition.Modifiers == null) {
+        return true;
+      }
+
+      foreach (var modifier in ei.GameplayEffect.EffectDefinition.Modifiers) {
+        if (modifier.ModifierType != AttributeModifierType.Add) {
+          continue;
+        }
+
+        var costValue = (modifier.ModifierMagnitude == null ? 1 : modifier.ModifierMagnitude.CalculateMagnitude(ei)) * modifier.Coefficient;
+
+        if (modifier.Attribute == null) {
+          continue;
+        }
+
+        var value = target.AttributeSystem.GetAttributeCurrentValue(modifier.Attribute);
+
+        if (value + costValue < GetCost(modifier.Attribute)) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  protected virtual float GetCost(GameplayAttribute attribute) {
+    return 0;
   }
 
   private bool CheckTags() {

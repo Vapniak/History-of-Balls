@@ -44,9 +44,9 @@ public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResourc
     if (CaptureAttribute != null) {
       switch (CaptureAttributeFrom) {
         case CaptureAttributeFrom.Source:
-          return instance.Source.GetAttributeCurrentValue(CaptureAttribute);
+          return instance.Source.AttributeSystem.GetAttributeCurrentValue(CaptureAttribute);
         case CaptureAttributeFrom.Target:
-          return instance.Target?.GetAttributeCurrentValue(CaptureAttribute);
+          return instance.Target?.AttributeSystem.GetAttributeCurrentValue(CaptureAttribute);
         default:
           break;
       }
