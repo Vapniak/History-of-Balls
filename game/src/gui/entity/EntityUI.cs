@@ -33,6 +33,7 @@ public partial class EntityUI : Control {
       IconTextureRect.SelfModulate = color.Luminance > 0.5 ? Colors.Black : Colors.White;
     }
   }
+
   public void SetIcon(Texture2D texture) {
     if (IconTextureRect != null) {
       IconTextureRect.Visible = true;

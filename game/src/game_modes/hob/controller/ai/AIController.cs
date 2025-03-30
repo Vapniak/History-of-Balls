@@ -77,14 +77,14 @@ public partial class AIController : Controller, IMatchController {
   public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 
   private async Task<(float score, GameplayEventData? data)> EvaluateAbility(Entity entity, GameplayAbilityInstance ability) {
-    if (ability is MoveAbilityResource.MoveAbilityInstance moveAbility) {
+    if (ability is MoveAbilityResource.Instance moveAbility) {
       return await EvaluateMoveAbility(entity, moveAbility);
     }
 
     return (0, null);
   }
 
-  private async Task<(float Score, GameplayEventData? Data)> EvaluateMoveAbility(Entity entity, MoveAbilityResource.MoveAbilityInstance moveAbility) {
+  private async Task<(float Score, GameplayEventData? Data)> EvaluateMoveAbility(Entity entity, MoveAbilityResource.Instance moveAbility) {
     var bestScore = float.MinValue;
     GameCell? bestCell = null;
 

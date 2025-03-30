@@ -1,6 +1,7 @@
 namespace HOB;
 
 using System.Collections.Generic;
+using System.Diagnostics;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
@@ -128,7 +129,17 @@ public partial class HOBGameMode : GameMode {
     }
 
     foreach (var playerData in MatchData.PlayerSpawnDatas) {
-      var state = new HOBPlayerState(PlayerAttributeSet);
+      if (PlayerAttributeSet == null) {
+        Debug.Assert(false, "Player attribute set cannot be null");
+        return;
+      }
+
+      if (playerData.ProducableEntities == null) {
+        Debug.Assert(false, "Producable entities cannot be null");
+        return;
+      }
+
+      var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities);
 
       Controller? controller = null;
       if (playerData.PlayerType == PlayerType.Player) {

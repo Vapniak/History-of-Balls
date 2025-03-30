@@ -59,6 +59,7 @@ public partial class HOBHUD : HUD {
       }
     };
 
+    ProductionPanel.EntitySelected += (ability) => EmitSignal(SignalName.CommandSelected, ability);
     CommandPanel.CommandSelected += (command) => EmitSignal(SignalName.CommandSelected, command);
   }
 
@@ -158,12 +159,23 @@ public partial class HOBHUD : HUD {
     StatPanel.Show();
 
     CommandPanel.ClearCommands();
+    ProductionPanel.ClearEntities();
 
 
     foreach (var ability in entity.AbilitySystem.GetGrantedAbilities().OrderBy(a => (a.AbilityResource as HOBAbilityResource)?.UIOrder)) {
       if (ability is HOBAbilityInstance hOBAbility && hOBAbility.AbilityResource.ShowInUI) {
         CommandPanel.AddCommand(hOBAbility);
       }
+
+      if (ability is EntityProductionAbilityResource.Instance production) {
+        if (entity.TryGetOwner(out var owner) && owner == GetPlayerController()) {
+          ProductionPanel.AddProducedEntity(production, GetPlayerController().GetPlayerState());
+        }
+      }
+    }
+
+    if (ProductionPanel.GetEntriesCount() > 0) {
+      ProductionPanel.Show();
     }
 
     CommandPanel.Show();
@@ -172,7 +184,9 @@ public partial class HOBHUD : HUD {
     if (entity != null) {
       entity.AbilitySystem.AttributeSystem.AttributeValueChanged -= OnAttributeValueChanged;
     }
+
     StatPanel.Hide();
+    ProductionPanel.Hide();
     CommandPanel.Hide();
   }
 

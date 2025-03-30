@@ -3,6 +3,7 @@ namespace HOB;
 using System;
 using Godot;
 using Godot.Collections;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class MatchPlayerSpawnData : Resource {
@@ -10,6 +11,7 @@ public partial class MatchPlayerSpawnData : Resource {
   [Export] public Country? Country { get; private set; }
   [Export] public int PrimaryResourceInitialValue { get; private set; }
   [Export] public int SecondaryResourceInitialValue { get; private set; }
+  [Export] public Array<EntityData>? ProducableEntities { get; private set; }
   [Export] public Array<EntitySpawnData>? Entities { get; private set; }
 }
 

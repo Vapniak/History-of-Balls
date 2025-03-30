@@ -16,11 +16,11 @@ public partial class AttackAbilityResource : HOBAbilityResource {
   [Export] public GameplayEffectResource? BlockMovementEffect { get; private set; }
 
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
-    return new AttackAbilityInstance(this, abilitySystem);
+    return new Instance(this, abilitySystem);
   }
 
-  public partial class AttackAbilityInstance : HOBEntityAbilityInstance {
-    public AttackAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+  public partial class Instance : HOBEntityAbilityInstance {
+    public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
     }
 

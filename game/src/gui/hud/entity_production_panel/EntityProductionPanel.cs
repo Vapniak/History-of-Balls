@@ -5,36 +5,34 @@ using Godot.Collections;
 using HOB.GameEntity;
 
 public partial class EntityProductionPanel : Control {
-  // [Signal] public delegate void EntitySelectedEventHandler(ProducedEntityData entityData);
-  // [Export] private Control EntitiesList { get; set; }
+  [Signal] public delegate void EntitySelectedEventHandler(EntityProductionAbilityResource.Instance entityData);
+  [Export] private Control EntitiesList { get; set; }
 
-  // private Array<ProducedEntityData> Entities { get; set; }
-  // private ButtonGroup _buttonGroup;
-  // public override void _Ready() {
-  //   _buttonGroup = new();
+  private ButtonGroup _buttonGroup;
+  public override void _Ready() {
+    _buttonGroup = new();
+  }
 
-  //   Entities = new();
-  // }
+  public void ClearEntities() {
+    foreach (var child in EntitiesList.GetChildren()) {
+      child.Free();
+    }
+  }
+  public void AddProducedEntity(EntityProductionAbilityResource.Instance ability, IMatchPlayerState playerState) {
+    var productionConfig = (ability.AbilityResource as EntityProductionAbilityResource).ProductionConfig;
+    var entityData = playerState.GetEntity(productionConfig.EntityTag);
 
-  // public void ClearEntities() {
-  //   foreach (var child in EntitiesList.GetChildren()) {
-  //     child.QueueFree();
-  //   }
+    var text = string.Format($"{entityData.EntityName}\nRounds to Produce: {productionConfig.ProductionTime}");
+    var button = new Button() {
+      Alignment = HorizontalAlignment.Left,
+      Text = text,
+      ButtonGroup = _buttonGroup,
+    };
 
-  //   Entities.Clear();
-  // }
-  // public void AddProducedEntity(ProducedEntityData data, IMatchPlayerState playerState, bool canBeProduced) {
-  //   var text = string.Format($"{data.Entity.EntityName}\n\nCost: {data.Cost} {playerState.GetResourceType(data.CostType).Name}\nRounds to Produce: {data.RoundsProductionTime}");
-  //   var button = new Button() {
-  //     Disabled = !canBeProduced,
-  //     Alignment = HorizontalAlignment.Left,
-  //     Text = text,
-  //     ButtonGroup = _buttonGroup,
-  //   };
+    button.Pressed += () => EmitSignal(SignalName.EntitySelected, ability);
 
-  //   button.Pressed += () => EmitSignal(SignalName.EntitySelected, data);
+    EntitiesList.AddChild(button);
+  }
 
-  //   Entities.Add(data);
-  //   EntitiesList.AddChild(button);
-  // }
+  public int GetEntriesCount() => EntitiesList.GetChildCount();
 }

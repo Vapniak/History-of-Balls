@@ -11,13 +11,13 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
   [Export] public GameplayEffectResource? ProcessEffect { get; private set; }
 
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
-    return new ProcessResourcesAbilityInstance(this, abilitySystem);
+    return new Instance(this, abilitySystem);
   }
 
-  public partial class ProcessResourcesAbilityInstance : HOBEntityAbilityInstance {
+  public partial class Instance : HOBEntityAbilityInstance {
     private int _turnsLeft;
 
-    public ProcessResourcesAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+    public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
     }
 

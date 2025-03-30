@@ -1,9 +1,53 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://f0u12f68y3vi"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=20 format=3 uid="uid://f0u12f68y3vi"]
 
+[ext_resource type="Texture2D" uid="uid://bjvxvscc746v8" path="res://assets/textures/icons/production.svg" id="1_78h16"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_iokii"]
 [ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="1_pqsli"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_hsun7"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="2_t23ov"]
+[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://src/game_entities/attributes/primary_resource.tres" id="2_w0vgf"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="3_ahgbb"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_bwfv2"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="4_0e0rw"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/entity_production/ProductionConfig.cs" id="4_qck50"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/entity_production/EntityProductionAbilityResource.cs" id="5_f6buj"]
+
+[sub_resource type="Resource" id="Resource_fgaph"]
+script = ExtResource("3_ahgbb")
+Attribute = ExtResource("2_w0vgf")
+ModifierType = 0
+Coefficient = -1.0
+
+[sub_resource type="Resource" id="Resource_d54kh"]
+script = ExtResource("4_0e0rw")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_fgaph")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_6r070"]
+script = ExtResource("2_t23ov")
+EffectDefinition = SubResource("Resource_d54kh")
+
+[sub_resource type="Resource" id="Resource_451tn"]
+script = ExtResource("2_hsun7")
+FullName = "Entity.Type.Unit.Melee"
+
+[sub_resource type="Resource" id="Resource_ash62"]
+script = ExtResource("4_qck50")
+EntityTag = SubResource("Resource_451tn")
+CostEffect = SubResource("Resource_6r070")
+ProductionTime = 1
+
+[sub_resource type="Resource" id="Resource_m5und"]
+script = ExtResource("5_f6buj")
+ProductionConfig = SubResource("Resource_ash62")
+Icon = ExtResource("1_78h16")
+ShowInUI = false
+UIOrder = 0
+AbilityName = "Produce"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
 
 [sub_resource type="Resource" id="Resource_s4qst"]
 script = ExtResource("2_hsun7")
@@ -17,6 +61,6 @@ Tags = [SubResource("Resource_s4qst")]
 script = ExtResource("1_iokii")
 EntityName = "Poland City"
 AttributeSets = null
-Abilities = null
+Abilities = Array[Object]([SubResource("Resource_m5und")])
 Tags = SubResource("Resource_w03jx")
 Body = ExtResource("1_pqsli")

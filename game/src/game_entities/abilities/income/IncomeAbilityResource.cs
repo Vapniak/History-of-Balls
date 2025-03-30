@@ -8,12 +8,12 @@ using Godot;
 public partial class IncomeAbilityResource : HOBAbilityResource {
   [Export] public GameplayEffectResource? IncomeEffect { get; private set; }
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
-    return new IncomeAbilityInstance(this, abilitySystem);
+    return new Instance(this, abilitySystem);
   }
 
 
-  public partial class IncomeAbilityInstance : HOBEntityAbilityInstance {
-    public IncomeAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+  public partial class Instance : HOBEntityAbilityInstance {
+    public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
     }
     public override void ActivateAbility(GameplayEventData? eventData) {

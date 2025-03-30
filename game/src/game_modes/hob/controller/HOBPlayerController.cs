@@ -59,6 +59,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GetHUD().CommandSelected += (command) => {
       SelectedCommand = command;
+      OnCommandSelected();
     };
   }
 
@@ -180,13 +181,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
 
       GameplayEventData? eventData = null;
-      if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
+      if (SelectedCommand is MoveAbilityResource.Instance moveAbility) {
         eventData = new() {
           Activator = this,
           TargetData = new MoveTargetData() { Cell = HoveredCell }
         };
       }
-      else if (SelectedCommand is AttackAbilityResource.AttackAbilityInstance attackAbility) {
+      else if (SelectedCommand is AttackAbilityResource.Instance attackAbility) {
         var unit = EntityManagment.GetEntitiesOnCell(HoveredCell)?.FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit)), null);
         if (unit != null) {
           eventData = new() { Activator = this, TargetData = new AttackTargetData() { TargetAbilitySystem = unit.AbilitySystem } };
@@ -335,8 +336,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (SelectedEntity != null && SelectedCommand == null) {
       var grantedAbilities = SelectedEntity.AbilitySystem.GetGrantedAbilities();
 
-      var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is MoveAbilityResource.MoveAbilityInstance);
-      ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is AttackAbilityResource.AttackAbilityInstance);
+      var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is MoveAbilityResource.Instance);
+      ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is AttackAbilityResource.Instance);
 
       if (ability is HOBAbilityInstance hOBAbility) {
         GetHUD().SelectCommand(hOBAbility);
@@ -395,10 +396,16 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   }
 
+  private void OnCommandSelected() {
+    if (SelectedCommand is EntityProductionAbilityResource.Instance) {
+      SelectedEntity?.AbilitySystem.TryActivateAbility(SelectedCommand, new() { Activator = this });
+    }
+  }
+
   public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 
   private void OnAbilityActivated(GameplayAbilityInstance abilityInstance) {
-    if (abilityInstance is MoveAbilityResource.MoveAbilityInstance or AttackAbilityResource.AttackAbilityInstance) {
+    if (abilityInstance is MoveAbilityResource.Instance or AttackAbilityResource.Instance) {
       StateChart?.SendEvent("command_started");
     }
   }
@@ -414,12 +421,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       HighlightSystem?.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
     }
 
-    if (SelectedCommand is MoveAbilityResource.MoveAbilityInstance moveAbility) {
+    if (SelectedCommand is MoveAbilityResource.Instance moveAbility) {
       foreach (var cell in moveAbility.GetReachableCells()) {
         HighlightSystem?.SetHighlight(HighlightType.Movement, cell);
       }
     }
-    else if (SelectedCommand is AttackAbilityResource.AttackAbilityInstance attackAbility) {
+    else if (SelectedCommand is AttackAbilityResource.Instance attackAbility) {
       foreach (var cell in attackAbility.GetAttackableEntities().cellsInRange) {
         HighlightSystem?.SetHighlight(HighlightType.Attack, cell);
       }
@@ -455,8 +462,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     entity.OwnerControllerChanged += () => {
       UpdateEntityUIColor(entityUI, entity);
     };
-
     ui3d.Position = aabb.GetCenter() + Vector3.Up * (aabb.Size.Y + 2);
+
+    if (entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))) {
+      ui3d.Position += Vector3.Up * 2;
+    }
     entity.Body.AddChild(ui3d);
   }
 

@@ -1,9 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://omhtmi8gorif"]
+[gd_scene load_steps=4 format=3 uid="uid://omhtmi8gorif"]
 
 [ext_resource type="PackedScene" uid="uid://c0wn2cfx3bg73" path="res://src/gui/entity/entity_ui.tscn" id="2_smlom"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1jaee"]
 viewport_path = NodePath("SubViewport")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_c3kik"]
 
 [node name="Sprite3D" type="Sprite3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -23,3 +25,8 @@ transparent_bg = true
 handle_input_locally = false
 
 [node name="MarginContainer" parent="SubViewport" instance=ExtResource("2_smlom")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("SphereShape3D_c3kik")

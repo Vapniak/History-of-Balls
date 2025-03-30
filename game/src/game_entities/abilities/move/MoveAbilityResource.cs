@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class MoveAbilityResource : HOBAbilityResource {
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
-    return new MoveAbilityInstance(this, abilitySystem);
+    return new Instance(this, abilitySystem);
   }
 
-  public partial class MoveAbilityInstance : HOBEntityAbilityInstance {
+  public partial class Instance : HOBEntityAbilityInstance {
     public const float MOVE_ANIMATION_SPEED = 0.2f;
 
-    public MoveAbilityInstance(MoveAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+    public Instance(MoveAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
     }
 

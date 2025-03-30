@@ -11,11 +11,11 @@ public partial class InitializeStatsAbilityResource : HOBAbilityResource {
     ActivateOnGranted = true;
     RemoveOnEnd = true;
 
-    return new InitializeStatsAbilityInstance(this, abilitySystem);
+    return new Instance(this, abilitySystem);
   }
 
-  public partial class InitializeStatsAbilityInstance : HOBAbilityInstance {
-    public InitializeStatsAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+  public partial class Instance : HOBAbilityInstance {
+    public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
     }
 

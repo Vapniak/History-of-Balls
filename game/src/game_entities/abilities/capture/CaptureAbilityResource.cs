@@ -12,13 +12,13 @@ using System.Threading.Tasks;
 [GlobalClass]
 public partial class CaptureAbilityResource : HOBAbilityResource {
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
-    return new CaptureAbilityInstance(this, abilitySystem);
+    return new Ability(this, abilitySystem);
   }
 
-  public partial class CaptureAbilityInstance : HOBEntityAbilityInstance {
+  public partial class Ability : HOBEntityAbilityInstance {
     private WaitForGameplayEventTask? Task { get; set; }
 
-    public CaptureAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem)
+    public Ability(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem)
         : base(abilityResource, abilitySystem) {
 
     }

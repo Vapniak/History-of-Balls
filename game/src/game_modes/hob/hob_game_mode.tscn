@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=38 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
@@ -21,6 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
+[ext_resource type="Resource" uid="uid://f0u12f68y3vi" path="res://src/game_entities/entites/structures/city/poland_city_data.tres" id="19_d7njg"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
@@ -51,13 +52,20 @@ EntityData = ExtResource("10_06c2x")
 Col = 3
 Row = 3
 
+[sub_resource type="Resource" id="Resource_t03xu"]
+script = ExtResource("5_chwnt")
+EntityData = ExtResource("19_d7njg")
+Col = 0
+Row = 5
+
 [sub_resource type="Resource" id="Resource_tn5oi"]
 script = ExtResource("5_ngu2m")
 PlayerType = 0
 Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 5
 SecondaryResourceInitialValue = 3
-Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_btg4x"), SubResource("Resource_pn0ss"), SubResource("Resource_blu6b")])
+ProducableEntities = Array[Object]([ExtResource("10_8uwl6")])
+Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_btg4x"), SubResource("Resource_pn0ss"), SubResource("Resource_blu6b"), SubResource("Resource_t03xu")])
 
 [sub_resource type="Resource" id="Resource_g0g07"]
 script = ExtResource("5_chwnt")
@@ -77,6 +85,7 @@ PlayerType = 1
 Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
+ProducableEntities = null
 Entities = Array[Object]([SubResource("Resource_g0g07"), SubResource("Resource_jmmtf")])
 
 [sub_resource type="Resource" id="Resource_ojho2"]
