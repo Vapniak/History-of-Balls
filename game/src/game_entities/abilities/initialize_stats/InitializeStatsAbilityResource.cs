@@ -29,7 +29,7 @@ public partial class InitializeStatsAbilityResource : HOBAbilityResource {
         var ei = OwnerAbilitySystem.MakeOutgoingInstance(ability.InitializeStatsEffects, 0);
         ei.Target = OwnerAbilitySystem;
         OwnerAbilitySystem.ApplyGameplayEffectToSelf(ei);
-        EndAbility(eventData);
+        EndAbility();
       }
     }
   }

@@ -167,7 +167,7 @@ public partial class HOBHUD : HUD {
 
       if (ability is EntityProductionAbilityResource.Instance production) {
         if (entity.TryGetOwner(out var owner)) {
-          ProductionPanel.ShowProducedEntities(production, owner.GetPlayerState());
+          ProductionPanel.ShowProducedEntities(production, owner.GetPlayerState(), GetPlayerController());
         }
       }
     }

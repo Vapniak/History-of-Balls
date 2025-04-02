@@ -33,7 +33,6 @@
 [ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
-[ext_resource type="Resource" uid="uid://cyurh50c61ayo" path="res://src/game_entities/entites/structures/city/city_data.tres" id="18_wxxgu"]
 [ext_resource type="Resource" uid="uid://f0u12f68y3vi" path="res://src/game_entities/entites/structures/city/poland_city_data.tres" id="19_d7njg"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
@@ -173,7 +172,7 @@ Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_b
 script = ExtResource("5_chwnt")
 EntityData = ExtResource("11_5j62k")
 Col = 10
-Row = 5
+Row = 10
 
 [sub_resource type="Resource" id="Resource_jmmtf"]
 script = ExtResource("5_chwnt")
@@ -183,9 +182,15 @@ Row = 5
 
 [sub_resource type="Resource" id="Resource_x7p8k"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("18_wxxgu")
+EntityData = ExtResource("19_d7njg")
 Col = 4
 Row = 4
+
+[sub_resource type="Resource" id="Resource_n7g8r"]
+script = ExtResource("5_chwnt")
+EntityData = ExtResource("10_06c2x")
+Col = 10
+Row = 10
 
 [sub_resource type="Resource" id="Resource_l6fig"]
 script = ExtResource("12_sq2o2")
@@ -207,7 +212,7 @@ EffectDefinition = SubResource("Resource_aqnce")
 script = ExtResource("15_oajec")
 Entity = ExtResource("11_5j62k")
 CostEffect = SubResource("Resource_f5p8x")
-ProductionTime = 2
+ProductionTime = 1
 
 [sub_resource type="Resource" id="Resource_1crgr"]
 script = ExtResource("5_ngu2m")
@@ -216,7 +221,7 @@ Country = ExtResource("3_qe1et")
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
 ProducableEntities = Array[Object]([SubResource("Resource_3ecgd")])
-Entities = Array[Object]([SubResource("Resource_g0g07"), SubResource("Resource_jmmtf"), SubResource("Resource_x7p8k")])
+Entities = Array[Object]([SubResource("Resource_g0g07"), SubResource("Resource_jmmtf"), SubResource("Resource_x7p8k"), SubResource("Resource_n7g8r")])
 
 [sub_resource type="Resource" id="Resource_ojho2"]
 script = ExtResource("3_3m27j")

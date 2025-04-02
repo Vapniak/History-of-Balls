@@ -30,14 +30,14 @@ public abstract partial class GameplayAbilityInstance : Node {
     return !IsActive && CheckCost() && CheckCooldown() && CheckTags();
   }
 
-  public virtual void CancelAbility() { EndAbility(null); }
+  public virtual void CancelAbility() { EndAbility(true); }
   public virtual void PreActivate(GameplayEventData? eventData) {
     IsActive = true;
     CurrentEventData = eventData;
     EmitSignal(SignalName.Activated);
   }
   public virtual void ActivateAbility(GameplayEventData? eventData) { }
-  public virtual void EndAbility(GameplayEventData? eventData) {
+  public virtual void EndAbility(bool wasCanceled = false) {
     IsActive = false;
     CurrentEventData = null;
     EmitSignal(SignalName.Ended);

@@ -26,7 +26,7 @@ public partial class MoveAbilityResource : HOBAbilityResource {
         _ = WalkByPath(moveTargetData.Cell);
       }
       else {
-        EndAbility(eventData);
+        EndAbility();
       }
     }
 
@@ -69,7 +69,7 @@ public partial class MoveAbilityResource : HOBAbilityResource {
         }
       }
 
-      EndAbility(CurrentEventData);
+      EndAbility();
     }
 
     private async Task Walk(GameCell to) {

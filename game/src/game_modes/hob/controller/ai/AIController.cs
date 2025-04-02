@@ -20,32 +20,52 @@ public partial class AIController : Controller, IMatchController {
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
   public async Task StartDecisionMaking() {
-    await Task.Delay(1000); // Temporary win condition check buffer
+    await Task.Delay(500); // Temporary win condition check buffer
 
-    foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
-      await ProcessEntityActions(entity);
-    }
+    await ProcessEntityActions();
 
-    await Task.Delay(1000);
+    await Task.Delay(500);
 
     EndTurn();
   }
 
-  private async Task ProcessEntityActions(Entity entity) {
+  private async Task ProcessEntityActions() {
     while (true) {
-      var (bestAbility, bestEventData) = await FindBestAction(entity);
-      if (bestAbility == null) {
-        break;
+      (Entity? bestEntity, GameplayAbilityInstance? bestAbility, GameplayEventData? bestData, var bestScore) =
+          (null, null, null, 0f);
+
+      foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
+        var (ability, data, score) = FindBestAction(entity);
+        if (ability != null && score > bestScore) {
+          bestEntity = entity;
+          bestAbility = ability;
+          bestData = data;
+          bestScore = score;
+        }
       }
 
-      var result = await entity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestEventData);
-      if (!result) {
+      if (bestEntity != null && bestAbility != null) {
+        GD.PrintS($"AI attempting: {bestEntity.EntityName} -> {bestAbility.AbilityResource.AbilityName}");
+
+        if (bestAbility is MoveAbilityResource.Instance or AttackAbilityResource.Instance) {
+          var success = await bestEntity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestData);
+
+          if (!success) {
+            GD.PrintS("Activation failed! Re-evaluating...");
+            await Task.Delay(100);
+          }
+        }
+        else {
+          bestEntity.AbilitySystem.TryActivateAbility(bestAbility, bestData);
+        }
+      }
+      else {
         break;
       }
     }
   }
 
-  private async Task<(GameplayAbilityInstance?, GameplayEventData?)> FindBestAction(Entity entity) {
+  private (GameplayAbilityInstance?, GameplayEventData?, float score) FindBestAction(Entity entity) {
     GameplayAbilityInstance? bestAbility = null;
     GameplayEventData? bestEventData = null;
     var bestScore = 0f;
@@ -55,7 +75,7 @@ public partial class AIController : Controller, IMatchController {
         continue;
       }
 
-      var (score, eventData) = await EvaluateAbility(entity, ability);
+      var (score, eventData) = EvaluateAbility(entity, ability);
       if (score > bestScore) {
         bestScore = score;
         bestAbility = ability;
@@ -63,20 +83,20 @@ public partial class AIController : Controller, IMatchController {
       }
     }
 
-    return (bestAbility, bestEventData);
+    return (bestAbility, bestEventData, bestScore);
   }
 
-  private async Task<(float score, GameplayEventData? data)> EvaluateAbility(Entity entity, GameplayAbilityInstance ability) {
+  private (float score, GameplayEventData? data) EvaluateAbility(Entity entity, GameplayAbilityInstance ability) {
     return ability switch {
-      MoveAbilityResource.Instance moveAbility => await EvaluateMoveAbility(entity, moveAbility),
-      AttackAbilityResource.Instance attackAbility => await EvaluateAttackAbility(entity, attackAbility),
-      //EntityProductionAbilityResource.Instance produceAbility => await EvaluateProduceAbility(entity, produceAbility),
+      MoveAbilityResource.Instance moveAbility => EvaluateMoveAbility(entity, moveAbility),
+      AttackAbilityResource.Instance attackAbility => EvaluateAttackAbility(entity, attackAbility),
+      EntityProductionAbilityResource.Instance produceAbility => EvaluateProduceAbility(entity, produceAbility),
       _ => (0, null)
     };
   }
 
-  private async Task<(float Score, GameplayEventData? Data)> EvaluateMoveAbility(Entity entity, MoveAbilityResource.Instance ability) {
-    var bestScore = float.MinValue;
+  private (float Score, GameplayEventData? Data) EvaluateMoveAbility(Entity entity, MoveAbilityResource.Instance ability) {
+    var bestScore = 0f;
     GameCell? bestCell = null;
 
     foreach (var enemy in GetPotentialEnemies(entity)) {
@@ -97,8 +117,8 @@ public partial class AIController : Controller, IMatchController {
         : (0, null);
   }
 
-  private async Task<(float Score, GameplayEventData? Data)> EvaluateAttackAbility(Entity entity, AttackAbilityResource.Instance ability) {
-    var bestScore = float.MinValue;
+  private (float Score, GameplayEventData? Data) EvaluateAttackAbility(Entity entity, AttackAbilityResource.Instance ability) {
+    var bestScore = 0f;
     Entity? bestTarget = null;
 
     var (entities, _) = ability.GetAttackableEntities();
@@ -118,22 +138,22 @@ public partial class AIController : Controller, IMatchController {
         : (0, null);
   }
 
-  // private async Task<(float Score, GameplayEventData? Data)> EvaluateProduceAbility(Entity entity, EntityProductionAbilityResource.Instance ability) {
-  //   var bestScore = float.MinValue;
-  //   ProducedEntityData? bestProduction = null;
+  private (float Score, GameplayEventData? Data) EvaluateProduceAbility(Entity entity, EntityProductionAbilityResource.Instance ability) {
+    var bestScore = 0f;
+    ProductionConfig? bestProduction = null;
 
-  //   foreach (var production in ability.GetProducibleEntities()) {
-  //     var score = CalculateProductionScore(entity, production);
-  //     if (score > bestScore) {
-  //       bestScore = score;
-  //       bestProduction = production;
-  //     }
-  //   }
+    foreach (var production in GetPlayerState<IMatchPlayerState>().ProducedEntities) {
+      var score = CalculateProductionScore(entity, ability, production);
+      if (score > bestScore) {
+        bestScore = score;
+        bestProduction = production;
+      }
+    }
 
-  //   return bestProduction != null
-  //       ? (bestScore, CreateProductionEvent(bestProduction))
-  //       : (0, null);
-  // }
+    return bestProduction != null
+        ? (bestScore, new() { Activator = this, TargetData = new() { Target = bestProduction } })
+        : (0, null);
+  }
 
   private float CalculateMoveScore(Entity entity, Entity target, IEnumerable<GameCell> path) {
     var distanceScore = 1f / entity.Cell.Coord.Distance(target.Cell.Coord);
@@ -144,37 +164,44 @@ public partial class AIController : Controller, IMatchController {
   }
 
   private float CalculateAttackScore(Entity attacker, AttackAbilityResource.Instance ability, Entity target) {
-    // var damage = ability.CalculatePotentialDamage(attacker, target);
-    // var killBonus = damage >= target.Health ? 3f : 0f;
-    // var valueScore = target.GetStrategicValue() * 0.5f;
+    if (attacker.AbilitySystem.AttributeSystem.TryGetAttributeSet<AttackAttributeSet>(out var attackSet) && target.AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var healthSet)) {
+      var damage = attacker.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attackSet.Damage).GetValueOrDefault();
+      var health = target.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(healthSet.HealthAttribute).GetValueOrDefault();
 
-    return 1f;//(damage / target.Health) * 2f + killBonus + valueScore;
+      if (health > 0) {
+        return damage / health;
+      }
+    }
+
+    return 0;
   }
 
-  // private float CalculateProductionScore(Entity producer, ProducedEntityData production) {
-  //   var forces = EntityManagment.GetOwnedEntites(this);
-  //   var unitCount = forces.Count(e => e.EntityType == production.EntityType);
-  //   var typeScore = production.EntityType switch {
-  //     EntityType.Ranged when unitCount < 3 => 2f,
-  //     EntityType.Melee when unitCount < 5 => 1.5f,
-  //     _ => 0.5f
-  //   };
+  private float CalculateProductionScore(Entity producer, EntityProductionAbilityResource.Instance ability, ProductionConfig production) {
+    if (ability.CanActivateAbility(new() { Activator = this, TargetData = new() { Target = production } })) {
+      var forces = EntityManagment.GetOwnedEntites(this);
+      // var unitCount = forces.Count(e => e.AbilitySystem.OwnedTags.GetTags().FirstOrDefault(
+      //   t =>
+      //   t.IsExact(
+      //     production.Entity.Tags.GetTags().FirstOrDefault(t => t == TagManager.GetTag(HOBTags.EntityType)))) != null);
 
-  //   return typeScore * production.StrategicWeight;
-  // }
+      return 1;
+    }
+    else {
+      return 0;
+    }
+  }
 
   private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>
       EntityManagment.GetEnemyEntities(this)
           .Union(EntityManagment.GetNotOwnedEntities());
 
-  // private IEnumerable<Entity> GetAttackTargets(Entity entity, AttackAbilityResource.Instance ability) =>
-  //     GetPotentialEnemies(entity)
-  //         .Where(e => ability.CanTarget(entity, e));
-
-  // private bool CanAttackFrom(Entity entity, GameCell position, Entity target) =>
-  //     position.DistanceTo(target.Cell) <= entity.GetStat<AttackStats>().Range;
-
-  public void OwnTurnStarted() => _ = StartDecisionMaking();
+  public void OwnTurnStarted() {
+    var ps = GetPlayerState<IMatchPlayerState>();
+    if (ps.AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var set)) {
+      GD.Print(ps.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.PrimaryResource));
+    }
+    _ = StartDecisionMaking();
+  }
   public void OwnTurnEnded() { }
   public void OnGameStarted() { }
   private void EndTurn() => EndTurnEvent?.Invoke();

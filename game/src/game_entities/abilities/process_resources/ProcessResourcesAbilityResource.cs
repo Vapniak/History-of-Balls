@@ -76,7 +76,7 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
               _ = text.Animate();
             }
 
-            EndAbility(CurrentEventData);
+            EndAbility();
           }
         }
       };

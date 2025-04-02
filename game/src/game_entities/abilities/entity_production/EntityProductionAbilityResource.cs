@@ -23,11 +23,11 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
         return base.CanActivateAbility(eventData) && CheckCostFor(productionConfig.CostEffect, OwnerAbilitySystem, owner.GetPlayerState().AbilitySystem);
       }
 
-      return false;
+      return base.CanActivateAbility(eventData);
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
-      if (OwnerEntity.TryGetOwner(out var owner) && eventData.TargetData.Target is ProductionConfig productionConfig) {
+      if (OwnerEntity.TryGetOwner(out var owner) && eventData?.TargetData?.Target is ProductionConfig productionConfig) {
         var ei = OwnerAbilitySystem.MakeOutgoingInstance(productionConfig.CostEffect, 0);
         ei.Target = owner.GetPlayerState().AbilitySystem;
         ei.Target.ApplyGameplayEffectToSelf(ei);
@@ -56,7 +56,7 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
                   _ = text.Animate();
                 }
 
-                EndAbility(CurrentEventData);
+                EndAbility();
               }
             }
           }

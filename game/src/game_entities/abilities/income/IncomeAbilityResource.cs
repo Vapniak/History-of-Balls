@@ -34,7 +34,7 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
         }
       }
 
-      EndAbility(eventData);
+      EndAbility();
     }
   }
 }

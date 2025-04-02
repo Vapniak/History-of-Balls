@@ -4,9 +4,6 @@ using GameplayAbilitySystem;
 using GameplayTags;
 using Godot;
 using HOB.GameEntity;
-using System;
-using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -28,12 +25,12 @@ public partial class CaptureAbilityResource : HOBAbilityResource {
         _ = StartCapture();
       }
       else {
-        EndAbility(eventData);
+        EndAbility();
       }
     }
 
-    public override void EndAbility(GameplayEventData? eventData) {
-      base.EndAbility(eventData);
+    public override void EndAbility(bool wasCanceled = false) {
+      base.EndAbility();
 
       Task?.Cancel();
     }
@@ -47,7 +44,7 @@ public partial class CaptureAbilityResource : HOBAbilityResource {
           if (OwnerEntity.TryGetOwner(out var owner) && target is Entity entity) {
             entity.ChangeOwner(owner);
             Task.Complete();
-            EndAbility(CurrentEventData);
+            EndAbility();
             return;
           }
         }

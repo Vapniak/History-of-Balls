@@ -23,7 +23,7 @@ public partial class Entity : Node, ITurnAware {
   public HOBGameplayAbilitySystem AbilitySystem { get; private set; }
 
   [Notify]
-  private IMatchController? OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
+  public IMatchController? OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
 
   public Entity(
     string name,

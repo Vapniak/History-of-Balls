@@ -44,7 +44,7 @@ public partial class AttackAbilityResource : HOBAbilityResource {
         return;
       }
 
-      EndAbility(eventData);
+      EndAbility();
     }
 
     public async Task Attack(Entity entity) {
@@ -69,7 +69,7 @@ public partial class AttackAbilityResource : HOBAbilityResource {
 
       await ToSignal(secondTween, Tween.SignalName.Finished);
 
-      EndAbility(CurrentEventData);
+      EndAbility();
     }
 
     public (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {

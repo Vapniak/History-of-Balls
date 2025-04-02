@@ -17,7 +17,7 @@ Tags = [SubResource("Resource_lkegw")]
 [resource]
 script = ExtResource("1_y43l5")
 EntityName = "City"
-AttributeSets = Array[Object]([])
+AttributeSets = null
 Abilities = Array[Object]([ExtResource("1_a2x60")])
 Tags = SubResource("Resource_asydq")
 Body = ExtResource("1_ht1wo")

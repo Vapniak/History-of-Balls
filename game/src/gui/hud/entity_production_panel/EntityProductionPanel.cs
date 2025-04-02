@@ -10,6 +10,7 @@ public partial class EntityProductionPanel : Control {
   [Export] private Control? EntitiesList { get; set; }
   private ButtonGroup? _buttonGroup;
   private EntityProductionAbilityResource.Instance? _ability;
+  private IMatchController _controller;
 
   private Dictionary<ProductionConfig, Button> ProductionToButton { get; set; } = new();
   public override void _Ready() {
@@ -32,10 +33,11 @@ public partial class EntityProductionPanel : Control {
     }
   }
 
-  public void ShowProducedEntities(EntityProductionAbilityResource.Instance ability, IMatchPlayerState playerState) {
+  public void ShowProducedEntities(EntityProductionAbilityResource.Instance ability, IMatchPlayerState playerState, IMatchController controller) {
     ClearEntities();
 
     _ability = ability;
+    _controller = controller;
 
     foreach (var config in playerState.ProducedEntities) {
       var costText = "";
@@ -55,7 +57,7 @@ public partial class EntityProductionPanel : Control {
         ButtonGroup = _buttonGroup,
       };
 
-      button.Pressed += () => ability.OwnerAbilitySystem.TryActivateAbility(ability, new() { Activator = playerState.GetController(), TargetData = new() { Target = config } });
+      button.Pressed += () => ability.OwnerAbilitySystem.TryActivateAbility(ability, new() { Activator = controller, TargetData = new() { Target = config } });
 
       ProductionToButton?.TryAdd(config, button);
       EntitiesList?.AddChild(button);
@@ -75,7 +77,10 @@ public partial class EntityProductionPanel : Control {
 
     if (_ability.OwnerAbilitySystem.Owner is Entity entity && entity.TryGetOwner(out var owner)) {
       foreach (var (config, button) in ProductionToButton) {
-        button.Disabled = !_ability.CanActivateAbility(new() { Activator = owner, TargetData = new() { Target = config } });
+        button.Disabled = !_ability.CanActivateAbility(new() {
+          Activator = _controller,
+          TargetData = new() { Target = config }
+        });
       }
     }
   }

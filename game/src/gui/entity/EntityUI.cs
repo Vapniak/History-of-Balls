@@ -88,7 +88,7 @@ public partial class EntityUI : Control {
 
   public override void _PhysicsProcess(double delta) {
     foreach (var (ability, icon) in AbilityToIcon) {
-      icon.SelfModulate = ability.CanActivateAbility(null) ? Colors.Green : Colors.Red;
+      icon.SelfModulate = ability.CanActivateAbility(new() { Activator = Entity.OwnerController }) ? Colors.Green : Colors.Red;
     }
   }
 
