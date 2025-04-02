@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://csrfuehkb1xu5"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_maa17"]
+[ext_resource type="PackedScene" uid="uid://cj3qtxcdbw00m" path="res://src/game_entities/entites/structures/factory/factory.tscn" id="2_onuyv"]
+
+[node name="OlivePressBody" type="Node3D"]
+script = ExtResource("1_maa17")
+
+[node name="EntityBody" parent="." instance=ExtResource("2_onuyv")]

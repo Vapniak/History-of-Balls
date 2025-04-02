@@ -172,7 +172,9 @@ public partial class HOBGameMode : GameMode {
       if (playerData.Entities != null) {
         foreach (var entitySpawn in playerData.Entities) {
           if (entitySpawn?.EntityData != null) {
-            MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(entitySpawn.Col, entitySpawn.Row), controller as IMatchController);
+            foreach (var coord in entitySpawn.SpawnAt) {
+              MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(coord.X, coord.Y), controller as IMatchController);
+            }
           }
         }
       }

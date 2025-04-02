@@ -1,0 +1,40 @@
+[gd_resource type="Resource" script_class="MeleeAttackAbility" load_steps=12 format=3 uid="uid://trtvj503md1n"]
+
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_pxp8w"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_3q8fk"]
+[ext_resource type="Resource" uid="uid://q8icnxg3tyi2" path="res://src/game_entities/abilities/effects/block_movement_effect.tres" id="3_mppbv"]
+[ext_resource type="Resource" uid="uid://biyibaycosom4" path="res://src/game_entities/abilities/effects/attack_cooldown_effect.tres" id="4_fivkm"]
+[ext_resource type="Resource" uid="uid://hdsgocp7wlts" path="res://src/game_entities/abilities/effects/damage.tres" id="5_1ufju"]
+[ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="6_puvlt"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/attack/melee/MeleeAttackAbility.cs" id="7_drtva"]
+
+[sub_resource type="Resource" id="Resource_kaxpn"]
+script = ExtResource("1_pxp8w")
+FullName = "Ability.Attack"
+
+[sub_resource type="Resource" id="Resource_v0vdn"]
+script = ExtResource("2_3q8fk")
+Tags = [SubResource("Resource_kaxpn")]
+
+[sub_resource type="Resource" id="Resource_g1j6y"]
+script = ExtResource("1_pxp8w")
+FullName = "State.CurrentTurn"
+
+[sub_resource type="Resource" id="Resource_dfrhx"]
+script = ExtResource("2_3q8fk")
+Tags = [SubResource("Resource_g1j6y")]
+
+[resource]
+script = ExtResource("7_drtva")
+DamageEffect = ExtResource("5_1ufju")
+BlockMovementEffect = ExtResource("3_mppbv")
+Icon = ExtResource("6_puvlt")
+ShowInUI = true
+UIOrder = 1
+AbilityName = "Melee Attack"
+CooldownGameplayEffect = ExtResource("4_fivkm")
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+AbilityTags = SubResource("Resource_v0vdn")
+ActivationRequiredTags = SubResource("Resource_dfrhx")

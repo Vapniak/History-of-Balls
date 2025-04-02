@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfpw2nk3wsd8q"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_axktj"]
+[ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game_entities/entites/units/country_balls/greek_ball.tscn" id="2_357p0"]
+
+[node name="PeltastBody" type="Node3D"]
+script = ExtResource("1_axktj")
+
+[node name="GreekBall" parent="." instance=ExtResource("2_357p0")]

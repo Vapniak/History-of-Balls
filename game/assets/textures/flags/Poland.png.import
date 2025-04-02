@@ -2,21 +2,22 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://em1vk1g3frpt"
-path="res://.godot/imported/Poland.png-e97bec36d5ac2e9d79e402300883196a.ctex"
+uid="uid://7w5wyjms26k2"
+path.s3tc="res://.godot/imported/Poland.png-e97bec36d5ac2e9d79e402300883196a.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/textures/flags/Poland.png"
-dest_files=["res://.godot/imported/Poland.png-e97bec36d5ac2e9d79e402300883196a.ctex"]
+dest_files=["res://.godot/imported/Poland.png-e97bec36d5ac2e9d79e402300883196a.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
-compress/high_quality=true
+compress/mode=2
+compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

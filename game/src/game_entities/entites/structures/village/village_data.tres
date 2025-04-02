@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=18 format=3 uid="uid://doidx5bt2arat"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=17 format=3 uid="uid://doidx5bt2arat"]
 
 [ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game_entities/abilities/income/income_ability.tres" id="1_xbr5h"]
 [ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://src/game_entities/attributes/income.tres" id="2_2e7dx"]
-[ext_resource type="Resource" uid="uid://drlt7vcqsu7gk" path="res://src/game_entities/attribute_sets/income_attribute_set.tres" id="2_mrftv"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="2_q80xx"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="3_4b4x0"]
 [ext_resource type="PackedScene" uid="uid://58211gsdw151" path="res://src/game_entities/entites/structures/village/village.tscn" id="3_7h7y5"]
@@ -49,7 +48,6 @@ Tags = [SubResource("Resource_du6rs")]
 [resource]
 script = ExtResource("5_aor2c")
 EntityName = "Village"
-AttributeSets = Array[Object]([ExtResource("2_mrftv")])
 Abilities = Array[Object]([ExtResource("1_xbr5h"), SubResource("Resource_akkco")])
 Tags = SubResource("Resource_1lt35")
 Body = ExtResource("3_7h7y5")

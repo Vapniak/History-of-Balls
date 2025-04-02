@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://behyfqf6g8eqx"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_exjfm"]
+[ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="2_ieky3"]
+
+[node name="PalaceAtPersepolisBody" type="Node3D"]
+script = ExtResource("1_exjfm")
+
+[node name="EntityBody" parent="." instance=ExtResource("2_ieky3")]

@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=26 format=3 uid="uid://blrqjygc1t1es"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_0pmly"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="1_enj8b"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="2_x2qof"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="3_a2obu"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="4_n06bt"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="5_lipou"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="6_psenc"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="7_nnosq"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="8_eup7t"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game_entities/abilities/move/walk/walk_move_ability.tres" id="9_3ss8i"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/game_entities/attribute_sets/unit_attribute_sets.tres" id="9_kihnn"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="10_0l51k"]
+[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game_entities/entites/units/ranged/peltast/peltast_throw_attack_ability.tres" id="11_trg7v"]
+[ext_resource type="PackedScene" uid="uid://dv33chs1kmb5g" path="res://src/game_entities/entites/units/ranged/persian_archer/persian_archer_body.tscn" id="13_ux774"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="14_3ud6a"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="15_p5gya"]
+
+[sub_resource type="Resource" id="Resource_pyujp"]
+script = ExtResource("2_x2qof")
+Attribute = ExtResource("1_enj8b")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_5obag"]
+script = ExtResource("2_x2qof")
+Attribute = ExtResource("3_a2obu")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_i4634"]
+script = ExtResource("2_x2qof")
+Attribute = ExtResource("4_n06bt")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_1e1u7"]
+script = ExtResource("2_x2qof")
+Attribute = ExtResource("5_lipou")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_fnvlt"]
+script = ExtResource("6_psenc")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_pyujp"), SubResource("Resource_5obag"), SubResource("Resource_i4634"), SubResource("Resource_1e1u7")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_d3t53"]
+script = ExtResource("7_nnosq")
+EffectDefinition = SubResource("Resource_fnvlt")
+
+[sub_resource type="Resource" id="Resource_shege"]
+script = ExtResource("8_eup7t")
+InitializeStatsEffects = SubResource("Resource_d3t53")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_pewft"]
+script = ExtResource("14_3ud6a")
+FullName = "Entity.Type.Unit.Ranged"
+
+[sub_resource type="Resource" id="Resource_dxkpm"]
+script = ExtResource("15_p5gya")
+Tags = [SubResource("Resource_pewft")]
+
+[resource]
+script = ExtResource("1_0pmly")
+EntityName = "Persian Archer"
+AttributeSetsContainer = ExtResource("9_kihnn")
+Abilities = Array[Object]([SubResource("Resource_shege"), ExtResource("9_3ss8i"), ExtResource("10_0l51k"), ExtResource("11_trg7v")])
+Tags = SubResource("Resource_dxkpm")
+Body = ExtResource("13_ux774")

@@ -171,13 +171,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       }
 
       GameplayEventData? eventData = null;
-      if (SelectedCommand is MoveAbilityResource.Instance moveAbility) {
+      if (SelectedCommand is MoveAbility.Instance moveAbility) {
         eventData = new() {
           Activator = this,
           TargetData = new MoveTargetData() { Cell = HoveredCell }
         };
       }
-      else if (SelectedCommand is AttackAbilityResource.Instance attackAbility) {
+      else if (SelectedCommand is AttackAbility.Instance attackAbility) {
         var unit = EntityManagment.GetEntitiesOnCell(HoveredCell)?.FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit)), null);
         if (unit != null) {
           eventData = new() { Activator = this, TargetData = new AttackTargetData() { TargetAbilitySystem = unit.AbilitySystem } };
@@ -326,8 +326,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (SelectedEntity != null && SelectedCommand == null) {
       var grantedAbilities = SelectedEntity.AbilitySystem.GetGrantedAbilities();
 
-      var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is MoveAbilityResource.Instance);
-      ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is AttackAbilityResource.Instance);
+      var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is MoveAbility.Instance);
+      ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is AttackAbility.Instance);
 
       if (ability is HOBAbilityInstance hOBAbility) {
         GetHUD().SelectCommand(hOBAbility);
@@ -389,7 +389,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 
   private void OnAbilityActivated(GameplayAbilityInstance abilityInstance) {
-    if (abilityInstance is MoveAbilityResource.Instance or AttackAbilityResource.Instance) {
+    if (abilityInstance is MoveAbility.Instance or AttackAbility.Instance) {
       StateChart?.SendEvent("command_started");
     }
   }
@@ -405,12 +405,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       HighlightSystem?.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
     }
 
-    if (SelectedCommand is MoveAbilityResource.Instance moveAbility) {
+    if (SelectedCommand is MoveAbility.Instance moveAbility) {
       foreach (var cell in moveAbility.GetReachableCells()) {
         HighlightSystem?.SetHighlight(HighlightType.Movement, cell);
       }
     }
-    else if (SelectedCommand is AttackAbilityResource.Instance attackAbility) {
+    else if (SelectedCommand is AttackAbility.Instance attackAbility) {
       foreach (var cell in attackAbility.GetAttackableEntities().cellsInRange) {
         HighlightSystem?.SetHighlight(HighlightType.Attack, cell);
       }

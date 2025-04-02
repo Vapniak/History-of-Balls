@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=8 format=3 uid="uid://bwrljuhwawe0a"]
+
+[ext_resource type="Resource" uid="uid://ciww6h4ocgdbp" path="res://src/game_entities/abilities/entity_production/entity_production_ability.tres" id="1_7vi7k"]
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rrh58"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_gcsyy"]
+[ext_resource type="PackedScene" uid="uid://behyfqf6g8eqx" path="res://src/game_entities/entites/structures/city/palace_at_persepolis/palace_at_persepolis_body.tscn" id="2_h0hn6"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_a7rsa"]
+
+[sub_resource type="Resource" id="Resource_veukt"]
+script = ExtResource("2_gcsyy")
+FullName = "Entity.Type.Structure.City"
+
+[sub_resource type="Resource" id="Resource_3cjao"]
+script = ExtResource("3_a7rsa")
+Tags = [SubResource("Resource_veukt")]
+
+[resource]
+script = ExtResource("1_rrh58")
+EntityName = "Palace at Persepolis"
+Abilities = Array[Object]([ExtResource("1_7vi7k")])
+Tags = SubResource("Resource_3cjao")
+Body = ExtResource("2_h0hn6")

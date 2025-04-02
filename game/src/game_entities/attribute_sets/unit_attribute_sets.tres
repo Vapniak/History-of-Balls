@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AttributeSetsContainer" load_steps=5 format=3 uid="uid://cn8fvqlw2mbf3"]
+
+[ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="1_c1khd"]
+[ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/game_entities/attribute_sets/health_attribute_set.tres" id="2_g4f62"]
+[ext_resource type="Resource" uid="uid://3qq327rqo575" path="res://src/game_entities/attribute_sets/move_attribute_set.tres" id="3_t7hu2"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/attributes/AttributeSetsContainer.cs" id="4_0oajp"]
+
+[resource]
+script = ExtResource("4_0oajp")
+AttributeSets = Array[Object]([ExtResource("1_c1khd"), ExtResource("2_g4f62"), ExtResource("3_t7hu2")])

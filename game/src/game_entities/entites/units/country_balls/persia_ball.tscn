@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://cro8sewdt76r0"]
+
+[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://res/meshes/base_country_ball.tscn" id="1_dm57s"]
+[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_2dw0v"]
+[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="3_si413"]
+[ext_resource type="Texture2D" uid="uid://dxo53o5yaxnyg" path="res://assets/textures/flags/Persia.png" id="4_vtgfu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqdx6"]
+render_priority = 0
+shader = ExtResource("2_2dw0v")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_57py6"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_eqdx6")
+shader = ExtResource("3_si413")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/base_texture = ExtResource("4_vtgfu")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(-0.25, 0)
+
+[node name="PersiaBall" type="Node3D"]
+
+[node name="BaseCountryBall" parent="." instance=ExtResource("1_dm57s")]
+
+[node name="Sphere" parent="BaseCountryBall/sphere" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_57py6")
+
+[editable path="BaseCountryBall"]
+[editable path="BaseCountryBall/sphere"]

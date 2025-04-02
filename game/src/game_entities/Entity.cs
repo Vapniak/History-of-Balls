@@ -29,7 +29,7 @@ public partial class Entity : Node, ITurnAware {
     string name,
     GameCell cell,
     IEntityManagment entityManagment,
-    Array<GameplayAttributeSet>? attributeSets,
+    AttributeSetsContainer? attributeSets,
     Array<GameplayAbilityResource>? abilities,
     TagContainer? tags,
     EntityBody body,
@@ -55,7 +55,7 @@ public partial class Entity : Node, ITurnAware {
       }
 
       if (attributeSets != null) {
-        foreach (var @as in attributeSets) {
+        foreach (var @as in attributeSets.AttributeSets) {
           AbilitySystem.AttributeSystem.AddAttributeSet(@as);
         }
       }

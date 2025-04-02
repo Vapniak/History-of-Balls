@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="GameplayEffectResource" load_steps=11 format=3 uid="uid://q8icnxg3tyi2"]
+
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_0jwm5"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/TurnDurationStrategy.cs" id="2_g40sm"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="3_ctafx"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="4_ny87i"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="5_q6fr1"]
+
+[sub_resource type="Resource" id="Resource_hbodx"]
+script = ExtResource("1_0jwm5")
+FullName = "Event.Turn.Started"
+
+[sub_resource type="Resource" id="Resource_6tyyh"]
+script = ExtResource("2_g40sm")
+TickAt = [SubResource("Resource_hbodx")]
+TickAtOwnTurn = true
+
+[sub_resource type="Resource" id="Resource_ygv6f"]
+script = ExtResource("3_ctafx")
+DurationPolicy = 2
+Modifiers = Array[Object]([])
+DurationMultiplier = 1.0
+DurationStrategy = SubResource("Resource_6tyyh")
+
+[sub_resource type="Resource" id="Resource_bphro"]
+script = ExtResource("1_0jwm5")
+FullName = "State.Block.Movement"
+
+[sub_resource type="Resource" id="Resource_gggta"]
+script = ExtResource("4_ny87i")
+Tags = [SubResource("Resource_bphro")]
+
+[resource]
+script = ExtResource("5_q6fr1")
+EffectDefinition = SubResource("Resource_ygv6f")
+GrantedTags = SubResource("Resource_gggta")

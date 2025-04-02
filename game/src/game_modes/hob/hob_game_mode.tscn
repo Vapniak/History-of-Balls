@@ -1,11 +1,10 @@
-[gd_scene load_steps=74 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=68 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
 [ext_resource type="Resource" uid="uid://5wuxfmlkqhss" path="res://src/maps/test_map.tres" id="2_ir688"]
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game_modes/hob/controller/hob_player_controller.tscn" id="2_st7p2"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchData.cs" id="3_3m27j"]
-[ext_resource type="Resource" uid="uid://cuv1436xdiogj" path="res://res/countries/poland.tres" id="3_qe1et"]
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="3_wvtpx"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="3_ynnc7"]
 [ext_resource type="Texture2D" uid="uid://bhrnb4qh1p6dx" path="res://assets/textures/icons/ranged.svg" id="4_5yy5j"]
@@ -20,23 +19,25 @@
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBPlayerManagmentComponent.cs" id="8_crqp2"]
 [ext_resource type="Texture2D" uid="uid://c7lexjg7kj31h" path="res://assets/textures/icons/village.svg" id="9_eom1f"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="9_pkx38"]
-[ext_resource type="Resource" uid="uid://d3a8gfe2tbsyu" path="res://src/game_entities/entites/structures/factory/factory_data.tres" id="10_06c2x"]
-[ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/poland_infantry_data.tres" id="10_8uwl6"]
-[ext_resource type="Resource" uid="uid://c5dmvmose2efr" path="res://src/game_entities/entites/units/america_infantry_data.tres" id="11_5j62k"]
-[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://src/game_entities/attributes/primary_resource.tres" id="11_ndplg"]
-[ext_resource type="Resource" uid="uid://doidx5bt2arat" path="res://src/game_entities/entites/structures/village/village_data.tres" id="12_d2ps5"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="12_sq2o2"]
-[ext_resource type="Resource" uid="uid://cq5vkdno7vnpj" path="res://src/game_entities/entites/units/poland_ranged_data.tres" id="13_gnick"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="13_nvasc"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="14_8yndu"]
+[ext_resource type="Resource" uid="uid://dlyqo7rtbq0iv" path="res://res/countries/greece.tres" id="11_tqy81"]
+[ext_resource type="Resource" uid="uid://do2ww3kn7ft3w" path="res://res/countries/persia.tres" id="13_q2jrx"]
+[ext_resource type="Resource" uid="uid://cao8spwvpdrph" path="res://src/game_entities/entites/units/infantry/hoplite/hoplite_data.tres" id="14_f53pr"]
+[ext_resource type="Resource" uid="uid://befewbyboktsi" path="res://src/game_entities/entites/units/ranged/peltast/peltast_data.tres" id="14_yahdf"]
+[ext_resource type="Resource" uid="uid://hmvhj37g1gc6" path="res://src/game_entities/entites/structures/city/acropolis/acropolis_data.tres" id="15_26aj8"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/entity_production/ProductionConfig.cs" id="15_oajec"]
+[ext_resource type="Resource" uid="uid://b2goj6tri5ofv" path="res://src/game_entities/entites/structures/factory/olive_press/olive_press_data.tres" id="16_2rl22"]
 [ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
+[ext_resource type="Resource" uid="uid://dx5mu6akcbsf8" path="res://src/game_entities/entites/units/infantry/immortal/immortal_data.tres" id="17_2gey1"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
+[ext_resource type="Resource" uid="uid://sek11tqnnxxa" path="res://src/game_entities/entites/structures/village/olive_production/olive_production_data.tres" id="17_ptebt"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
-[ext_resource type="Resource" uid="uid://f0u12f68y3vi" path="res://src/game_entities/entites/structures/city/poland_city_data.tres" id="19_d7njg"]
+[ext_resource type="Resource" uid="uid://blrqjygc1t1es" path="res://src/game_entities/entites/units/ranged/persian_archer/persian_archer_data.tres" id="18_hqavt"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
+[ext_resource type="Resource" uid="uid://bwrljuhwawe0a" path="res://src/game_entities/entites/structures/city/palace_at_persepolis/palace_at_persepolis_data.tres" id="22_knsxv"]
+[ext_resource type="Resource" uid="uid://by7hsihjbk52a" path="res://src/game_entities/entites/structures/village/rice_cultivation/rice_cultivation_data.tres" id="23_bebpu"]
+[ext_resource type="Resource" uid="uid://cgr6mageg16sj" path="res://src/game_entities/entites/structures/factory/pilaf_kitchen/pilaf_kitchen_data.tres" id="24_dvt8p"]
 [ext_resource type="AudioStream" uid="uid://j4c2av4m6pcl" path="res://assets/audio/music/Średniowiecze.wav" id="25_f3tc6"]
 [ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="25_jrlyp"]
 
@@ -51,7 +52,7 @@ Icon = ExtResource("4_5yy5j")
 
 [sub_resource type="Resource" id="Resource_olcgp"]
 script = ExtResource("3_ynnc7")
-FullName = "Entity.Type.Unit.Melee"
+FullName = "Entity.Type.Unit.Infantry"
 
 [sub_resource type="Resource" id="Resource_l11vm"]
 script = ExtResource("5_lpoos")
@@ -85,143 +86,93 @@ script = ExtResource("5_lpoos")
 EntityType = SubResource("Resource_du6rs")
 Icon = ExtResource("9_eom1f")
 
-[sub_resource type="Resource" id="Resource_avamu"]
+[sub_resource type="Resource" id="Resource_k5031"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("10_8uwl6")
-Col = 1
-Row = 0
+EntityData = ExtResource("14_f53pr")
+SpawnAt = Array[Vector2i]([Vector2i(1, 1)])
 
-[sub_resource type="Resource" id="Resource_btg4x"]
+[sub_resource type="Resource" id="Resource_1jclv"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("13_gnick")
-Col = 1
-Row = 3
+EntityData = ExtResource("14_yahdf")
+SpawnAt = Array[Vector2i]([Vector2i(2, 2)])
 
-[sub_resource type="Resource" id="Resource_pn0ss"]
+[sub_resource type="Resource" id="Resource_ieg6d"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("12_d2ps5")
-Col = 5
-Row = 5
+EntityData = ExtResource("15_26aj8")
+SpawnAt = Array[Vector2i]([Vector2i(5, 5)])
 
-[sub_resource type="Resource" id="Resource_blu6b"]
+[sub_resource type="Resource" id="Resource_18ux5"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("10_06c2x")
-Col = 3
-Row = 3
+EntityData = ExtResource("16_2rl22")
+SpawnAt = Array[Vector2i]([Vector2i(7, 7)])
 
-[sub_resource type="Resource" id="Resource_t03xu"]
+[sub_resource type="Resource" id="Resource_8qels"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("19_d7njg")
-Col = 0
-Row = 5
+EntityData = ExtResource("17_ptebt")
+SpawnAt = Array[Vector2i]([Vector2i(10, 5), Vector2i(8, 7)])
 
-[sub_resource type="Resource" id="Resource_kw5bv"]
-script = ExtResource("12_sq2o2")
-Attribute = ExtResource("11_ndplg")
-ModifierType = 0
-Coefficient = -1.0
-
-[sub_resource type="Resource" id="Resource_bymda"]
-script = ExtResource("13_nvasc")
-DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_kw5bv")])
-DurationMultiplier = 0.0
-
-[sub_resource type="Resource" id="Resource_7s86h"]
-script = ExtResource("14_8yndu")
-EffectDefinition = SubResource("Resource_bymda")
-
-[sub_resource type="Resource" id="Resource_5ek61"]
+[sub_resource type="Resource" id="Resource_57b8e"]
 script = ExtResource("15_oajec")
-Entity = ExtResource("10_8uwl6")
-CostEffect = SubResource("Resource_7s86h")
+Entity = ExtResource("14_f53pr")
 ProductionTime = 1
 
-[sub_resource type="Resource" id="Resource_ik0l4"]
-script = ExtResource("12_sq2o2")
-Attribute = ExtResource("11_ndplg")
-ModifierType = 0
-Coefficient = -1.0
-
-[sub_resource type="Resource" id="Resource_7otm4"]
-script = ExtResource("13_nvasc")
-DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_ik0l4")])
-DurationMultiplier = 0.0
-
-[sub_resource type="Resource" id="Resource_ls0y2"]
-script = ExtResource("14_8yndu")
-EffectDefinition = SubResource("Resource_7otm4")
-
-[sub_resource type="Resource" id="Resource_b8lna"]
+[sub_resource type="Resource" id="Resource_gu8gp"]
 script = ExtResource("15_oajec")
-Entity = ExtResource("13_gnick")
-CostEffect = SubResource("Resource_ls0y2")
-ProductionTime = 2
+Entity = ExtResource("14_yahdf")
+ProductionTime = 1
 
 [sub_resource type="Resource" id="Resource_tn5oi"]
 script = ExtResource("5_ngu2m")
 PlayerType = 0
-Country = ExtResource("3_qe1et")
+Country = ExtResource("11_tqy81")
 PrimaryResourceInitialValue = 5
 SecondaryResourceInitialValue = 3
-ProducableEntities = Array[Object]([SubResource("Resource_5ek61"), SubResource("Resource_b8lna")])
-Entities = Array[Object]([SubResource("Resource_avamu"), SubResource("Resource_btg4x"), SubResource("Resource_pn0ss"), SubResource("Resource_blu6b"), SubResource("Resource_t03xu")])
+ProducableEntities = Array[Object]([SubResource("Resource_57b8e"), SubResource("Resource_gu8gp")])
+Entities = Array[Object]([SubResource("Resource_k5031"), SubResource("Resource_1jclv"), SubResource("Resource_ieg6d"), SubResource("Resource_18ux5"), SubResource("Resource_8qels")])
 
-[sub_resource type="Resource" id="Resource_g0g07"]
+[sub_resource type="Resource" id="Resource_c176s"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("11_5j62k")
-Col = 10
-Row = 10
+EntityData = ExtResource("17_2gey1")
+SpawnAt = Array[Vector2i]([Vector2i(20, 20)])
 
-[sub_resource type="Resource" id="Resource_jmmtf"]
+[sub_resource type="Resource" id="Resource_bvpp7"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("12_d2ps5")
-Col = 7
-Row = 5
+EntityData = ExtResource("18_hqavt")
+SpawnAt = Array[Vector2i]([Vector2i(15, 15), Vector2i(12, 10)])
 
-[sub_resource type="Resource" id="Resource_x7p8k"]
+[sub_resource type="Resource" id="Resource_rjidx"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("19_d7njg")
-Col = 4
-Row = 4
+EntityData = ExtResource("22_knsxv")
+SpawnAt = Array[Vector2i]([Vector2i(25, 25)])
 
-[sub_resource type="Resource" id="Resource_n7g8r"]
+[sub_resource type="Resource" id="Resource_5xlng"]
 script = ExtResource("5_chwnt")
-EntityData = ExtResource("10_06c2x")
-Col = 10
-Row = 10
+EntityData = ExtResource("23_bebpu")
+SpawnAt = Array[Vector2i]([Vector2i(15, 17)])
 
-[sub_resource type="Resource" id="Resource_l6fig"]
-script = ExtResource("12_sq2o2")
-Attribute = ExtResource("11_ndplg")
-ModifierType = 0
-Coefficient = -1.0
+[sub_resource type="Resource" id="Resource_8b5vx"]
+script = ExtResource("5_chwnt")
+EntityData = ExtResource("24_dvt8p")
+SpawnAt = Array[Vector2i]([Vector2i(15, 15)])
 
-[sub_resource type="Resource" id="Resource_aqnce"]
-script = ExtResource("13_nvasc")
-DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_l6fig")])
-DurationMultiplier = 0.0
-
-[sub_resource type="Resource" id="Resource_f5p8x"]
-script = ExtResource("14_8yndu")
-EffectDefinition = SubResource("Resource_aqnce")
-
-[sub_resource type="Resource" id="Resource_3ecgd"]
+[sub_resource type="Resource" id="Resource_dppe7"]
 script = ExtResource("15_oajec")
-Entity = ExtResource("11_5j62k")
-CostEffect = SubResource("Resource_f5p8x")
-ProductionTime = 1
+Entity = ExtResource("17_2gey1")
+ProductionTime = 0
+
+[sub_resource type="Resource" id="Resource_2bv38"]
+script = ExtResource("15_oajec")
+Entity = ExtResource("18_hqavt")
+ProductionTime = 0
 
 [sub_resource type="Resource" id="Resource_1crgr"]
 script = ExtResource("5_ngu2m")
 PlayerType = 1
-Country = ExtResource("3_qe1et")
+Country = ExtResource("13_q2jrx")
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
-ProducableEntities = Array[Object]([SubResource("Resource_3ecgd")])
-Entities = Array[Object]([SubResource("Resource_g0g07"), SubResource("Resource_jmmtf"), SubResource("Resource_x7p8k"), SubResource("Resource_n7g8r")])
+ProducableEntities = Array[Object]([SubResource("Resource_dppe7"), SubResource("Resource_2bv38")])
+Entities = Array[Object]([SubResource("Resource_c176s"), SubResource("Resource_bvpp7"), SubResource("Resource_rjidx"), SubResource("Resource_5xlng"), SubResource("Resource_8b5vx")])
 
 [sub_resource type="Resource" id="Resource_ojho2"]
 script = ExtResource("3_3m27j")

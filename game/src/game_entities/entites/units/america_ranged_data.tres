@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=2 format=3 uid="uid://d3bpx6obdtifm"]
-
-[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="9_kxhf8"]
-
-[resource]
-script = ExtResource("9_kxhf8")
-EntityName = "America Ranged"
-AttributeSets = Array[Object]([])
-Abilities = Array[Object]([])

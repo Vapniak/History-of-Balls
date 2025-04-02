@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=2 format=3 uid="uid://nkx1l8uf2y8k"]
-
-[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="2_xis7g"]
-
-[resource]
-script = ExtResource("2_xis7g")
-EntityName = "America City"
-AttributeSets = []
-Abilities = []

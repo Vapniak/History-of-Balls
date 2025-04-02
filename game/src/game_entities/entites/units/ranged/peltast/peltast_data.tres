@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=26 format=3 uid="uid://befewbyboktsi"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_dwrs5"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="1_p537s"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game_entities/abilities/move/walk/walk_move_ability.tres" id="2_w6jli"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="3_mn7r4"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="4_vk2n1"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="5_33h1d"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="6_luepg"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="7_c4sat"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="7_w5fhn"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="8_wqo07"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="9_edv3g"]
+[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game_entities/entites/units/ranged/peltast/peltast_throw_attack_ability.tres" id="11_0f8xt"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/game_entities/attribute_sets/unit_attribute_sets.tres" id="11_rkwlh"]
+[ext_resource type="PackedScene" uid="uid://cfpw2nk3wsd8q" path="res://src/game_entities/entites/units/ranged/peltast/peltast_body.tscn" id="13_4jt7e"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="13_b3s60"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="14_lyjqa"]
+
+[sub_resource type="Resource" id="Resource_h6y6i"]
+script = ExtResource("4_vk2n1")
+Attribute = ExtResource("3_mn7r4")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_h683h"]
+script = ExtResource("4_vk2n1")
+Attribute = ExtResource("5_33h1d")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_n2q6m"]
+script = ExtResource("4_vk2n1")
+Attribute = ExtResource("6_luepg")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_wad7t"]
+script = ExtResource("4_vk2n1")
+Attribute = ExtResource("7_w5fhn")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_sbekc"]
+script = ExtResource("7_c4sat")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_h6y6i"), SubResource("Resource_h683h"), SubResource("Resource_n2q6m"), SubResource("Resource_wad7t")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_0xq8k"]
+script = ExtResource("8_wqo07")
+EffectDefinition = SubResource("Resource_sbekc")
+
+[sub_resource type="Resource" id="Resource_6sbge"]
+script = ExtResource("9_edv3g")
+InitializeStatsEffects = SubResource("Resource_0xq8k")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_oucqj"]
+script = ExtResource("13_b3s60")
+FullName = "Entity.Type.Unit.Ranged"
+
+[sub_resource type="Resource" id="Resource_lscwp"]
+script = ExtResource("14_lyjqa")
+Tags = [SubResource("Resource_oucqj")]
+
+[resource]
+script = ExtResource("1_dwrs5")
+EntityName = "Peltast"
+AttributeSetsContainer = ExtResource("11_rkwlh")
+Abilities = Array[Object]([ExtResource("1_p537s"), ExtResource("2_w6jli"), SubResource("Resource_6sbge"), ExtResource("11_0f8xt")])
+Tags = SubResource("Resource_lscwp")
+Body = ExtResource("13_4jt7e")

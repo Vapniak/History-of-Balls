@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6e18v4hrynhg"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_rsf1d"]
+[ext_resource type="PackedScene" uid="uid://58211gsdw151" path="res://src/game_entities/entites/structures/village/village.tscn" id="2_u63jr"]
+
+[node name="OliveProductionBody" type="Node3D"]
+script = ExtResource("1_rsf1d")
+
+[node name="EntityBody" parent="." instance=ExtResource("2_u63jr")]

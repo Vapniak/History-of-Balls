@@ -1,0 +1,78 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=26 format=3 uid="uid://dx5mu6akcbsf8"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_1422c"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/game_entities/attribute_sets/unit_attribute_sets.tres" id="1_qk2ld"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="1_rkf5v"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="2_5urlp"]
+[ext_resource type="PackedScene" uid="uid://b8s2rs2pckkg8" path="res://src/game_entities/entites/units/infantry/immortal/immortal_body.tscn" id="2_23d1v"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="3_7vsus"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="3_gafo8"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="4_4v8ce"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="4_857bx"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="5_hc31m"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="6_uslv4"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="7_ydgh8"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="8_hmd44"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game_entities/abilities/move/walk/walk_move_ability.tres" id="9_eo87b"]
+[ext_resource type="Resource" uid="uid://trtvj503md1n" path="res://src/game_entities/abilities/attack/melee/melee_attack_ability.tres" id="10_abd44"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="11_11llb"]
+
+[sub_resource type="Resource" id="Resource_wd3t6"]
+script = ExtResource("2_5urlp")
+Attribute = ExtResource("1_rkf5v")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_3evd7"]
+script = ExtResource("2_5urlp")
+Attribute = ExtResource("3_7vsus")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_j0jxq"]
+script = ExtResource("2_5urlp")
+Attribute = ExtResource("4_857bx")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_wkt6l"]
+script = ExtResource("2_5urlp")
+Attribute = ExtResource("5_hc31m")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_v8kdp"]
+script = ExtResource("6_uslv4")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_wd3t6"), SubResource("Resource_3evd7"), SubResource("Resource_j0jxq"), SubResource("Resource_wkt6l")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_4wjor"]
+script = ExtResource("7_ydgh8")
+EffectDefinition = SubResource("Resource_v8kdp")
+
+[sub_resource type="Resource" id="Resource_qich3"]
+script = ExtResource("8_hmd44")
+InitializeStatsEffects = SubResource("Resource_4wjor")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_3o5bo"]
+script = ExtResource("3_gafo8")
+FullName = "Entity.Type.Unit.Infantry"
+
+[sub_resource type="Resource" id="Resource_uu8k6"]
+script = ExtResource("4_4v8ce")
+Tags = [SubResource("Resource_3o5bo")]
+
+[resource]
+script = ExtResource("1_1422c")
+EntityName = "Immortal"
+AttributeSetsContainer = ExtResource("1_qk2ld")
+Abilities = Array[Object]([SubResource("Resource_qich3"), ExtResource("9_eo87b"), ExtResource("10_abd44"), ExtResource("11_11llb")])
+Tags = SubResource("Resource_uu8k6")
+Body = ExtResource("2_23d1v")

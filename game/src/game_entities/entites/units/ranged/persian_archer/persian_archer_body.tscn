@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv33chs1kmb5g"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_kpl6v"]
+[ext_resource type="PackedScene" uid="uid://cro8sewdt76r0" path="res://src/game_entities/entites/units/country_balls/persia_ball.tscn" id="2_352bc"]
+
+[node name="PersianArcherBody" type="Node3D"]
+script = ExtResource("1_kpl6v")
+
+[node name="PersiaBall" parent="." instance=ExtResource("2_352bc")]

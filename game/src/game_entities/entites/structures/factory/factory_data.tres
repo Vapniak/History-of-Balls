@@ -1,8 +1,7 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://d3a8gfe2tbsyu"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=21 format=3 uid="uid://d3a8gfe2tbsyu"]
 
 [ext_resource type="Resource" uid="uid://c7cg52qdriymg" path="res://src/game_entities/abilities/process_resources/process_resources_ability.tres" id="1_il57t"]
 [ext_resource type="PackedScene" uid="uid://cj3qtxcdbw00m" path="res://src/game_entities/entites/structures/factory/factory.tscn" id="1_knki7"]
-[ext_resource type="Resource" uid="uid://bn40jkf160k1f" path="res://src/game_entities/attribute_sets/process_resources_attribute_set.tres" id="1_rtwgg"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_ujoy0"]
 [ext_resource type="Resource" uid="uid://rs27sl4g42ho" path="res://src/game_entities/attributes/process_time.tres" id="2_weho1"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="3_jiwip"]
@@ -63,7 +62,6 @@ Tags = [SubResource("Resource_gto37")]
 [resource]
 script = ExtResource("1_ujoy0")
 EntityName = "Factory"
-AttributeSets = Array[Object]([ExtResource("1_rtwgg")])
 Abilities = Array[Object]([SubResource("Resource_swxcn"), ExtResource("1_il57t")])
 Tags = SubResource("Resource_x8f5l")
 Body = ExtResource("1_knki7")

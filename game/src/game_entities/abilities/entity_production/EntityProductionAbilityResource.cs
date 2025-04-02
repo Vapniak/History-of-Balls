@@ -28,9 +28,11 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
 
     public override void ActivateAbility(GameplayEventData? eventData) {
       if (OwnerEntity.TryGetOwner(out var owner) && eventData?.TargetData?.Target is ProductionConfig productionConfig) {
-        var ei = OwnerAbilitySystem.MakeOutgoingInstance(productionConfig.CostEffect, 0);
-        ei.Target = owner.GetPlayerState().AbilitySystem;
-        ei.Target.ApplyGameplayEffectToSelf(ei);
+        if (productionConfig.CostEffect != null) {
+          var ei = OwnerAbilitySystem.MakeOutgoingInstance(productionConfig.CostEffect, 0);
+          ei.Target = owner.GetPlayerState().AbilitySystem;
+          ei.Target.ApplyGameplayEffectToSelf(ei);
+        }
 
         if (owner is PlayerController) {
           var text = FloatingText.Create("Start Producing", Colors.Orange);

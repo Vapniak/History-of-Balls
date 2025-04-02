@@ -17,6 +17,7 @@ public abstract partial class HOBEntityAbilityInstance : HOBAbilityInstance {
       return base.CanActivateAbility(eventData) && OwnerEntity.TryGetOwner(out var owner) && owner == eventData.Activator;
     }
 
+    // TODO: fix that can activate always
     return base.CanActivateAbility(eventData);
   }
 }

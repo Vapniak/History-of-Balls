@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bucaranqn3cwj"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_yfbsv"]
+[ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="2_17vbq"]
+
+[node name="AcropolisBody" type="Node3D"]
+script = ExtResource("1_yfbsv")
+
+[node name="EntityBody" parent="." instance=ExtResource("2_17vbq")]
