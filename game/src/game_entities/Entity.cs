@@ -5,6 +5,7 @@ using GameplayFramework;
 using GameplayTags;
 using Godot;
 using Godot.Collections;
+using HexGridMap;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -34,39 +35,46 @@ public partial class Entity : Node, ITurnAware {
     EntityBody body,
     IMatchController? owner
     ) {
-    Cell = cell;
     EntityManagment = entityManagment;
     EntityName = name;
     OwnerController = owner;
-
-    Body = body;
-    AddChild(Body);
-
     AbilitySystem = new();
-    AddChild(AbilitySystem);
-    AbilitySystem.Owner = this;
+    Body = body;
 
-    AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
+    TreeEntered += () => {
+      Cell = cell;
 
-    if (tags != null) {
-      AbilitySystem.OwnedTags.AddTags(tags);
-    }
+      AddChild(Body);
 
-    if (attributeSets != null) {
-      foreach (var @as in attributeSets) {
-        AbilitySystem.AttributeSystem.AddAttributeSet(@as);
+      AddChild(AbilitySystem);
+      AbilitySystem.Owner = this;
+
+      AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
+      if (tags != null) {
+        AbilitySystem.OwnedTags.AddTags(tags);
       }
-    }
 
-    if (abilities != null) {
-      foreach (var ability in abilities) {
-        AbilitySystem.CallDeferred(nameof(AbilitySystem.GrantAbility), ability.CreateInstance(AbilitySystem));
+      if (attributeSets != null) {
+        foreach (var @as in attributeSets) {
+          AbilitySystem.AttributeSystem.AddAttributeSet(@as);
+        }
       }
-    }
 
-    var events = GameInstance.GetGameMode<HOBGameMode>().GetMatchEvents();
+      if (abilities != null) {
+        foreach (var ability in abilities) {
+          AbilitySystem.CallDeferred(nameof(AbilitySystem.GrantAbility), ability.CreateInstance(AbilitySystem));
+        }
+      }
 
-    CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
+      Body.AddChild(EntityUi3D.Create(this));
+
+      CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
+    };
+  }
+
+  public override void _Ready() {
+    base._Ready();
+
   }
 
   public override void _ExitTree() {

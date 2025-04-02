@@ -6,7 +6,7 @@ using System;
 
 [GlobalClass]
 public abstract partial class HOBAbilityResource : GameplayAbilityResource {
-  [Export] public Texture2D? Icon { get; private set; }
-  [Export] public bool ShowInUI { get; private set; } = true;
-  [Export] public int UIOrder { get; private set; }
+  [Export] public Texture2D? Icon { get; protected set; }
+  [Export] public bool ShowInUI { get; protected set; } = true;
+  [Export] public int UIOrder { get; protected set; }
 }

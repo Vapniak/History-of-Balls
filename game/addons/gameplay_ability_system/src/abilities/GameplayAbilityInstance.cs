@@ -1,6 +1,5 @@
 namespace GameplayAbilitySystem;
 
-using System.Threading.Tasks;
 using Godot;
 
 public abstract partial class GameplayAbilityInstance : Node {
@@ -89,17 +88,17 @@ public abstract partial class GameplayAbilityInstance : Node {
     target ??= source;
 
     if (effectResource != null) {
+      if (effectResource?.EffectDefinition?.DurationPolicy != DurationPolicy.Instant) {
+        return true;
+      }
+
+      if (effectResource.EffectDefinition.Modifiers == null) {
+        return true;
+      }
+
       var ei = source.MakeOutgoingInstance(effectResource, Level);
-
-      if (ei.GameplayEffect?.EffectDefinition?.DurationPolicy != DurationPolicy.Instant) {
-        return true;
-      }
-
-      if (ei.GameplayEffect.EffectDefinition.Modifiers == null) {
-        return true;
-      }
-
-      foreach (var modifier in ei.GameplayEffect.EffectDefinition.Modifiers) {
+      ei.QueueFree();
+      foreach (var modifier in effectResource.EffectDefinition.Modifiers) {
         if (modifier.ModifierType != AttributeModifierType.Add) {
           continue;
         }
@@ -111,6 +110,7 @@ public abstract partial class GameplayAbilityInstance : Node {
         }
 
         var value = target.AttributeSystem.GetAttributeCurrentValue(modifier.Attribute);
+
 
         if (value + costValue < GetCost(modifier.Attribute)) {
           return false;
@@ -129,7 +129,7 @@ public abstract partial class GameplayAbilityInstance : Node {
     return
     (
       AbilityResource.ActivationBlockedTags == null ||
-      !OwnerAbilitySystem.OwnedTags.HasAllTags(AbilityResource.ActivationBlockedTags)
+      !OwnerAbilitySystem.OwnedTags.HasAnyOfTags(AbilityResource.ActivationBlockedTags)
       ) &&
     (
       AbilityResource.ActivationRequiredTags == null ||

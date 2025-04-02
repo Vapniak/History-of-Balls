@@ -40,7 +40,7 @@ public partial class CommandPanel : Control {
 
   public void ClearCommands() {
     foreach (var child in CommandList.GetChildren()) {
-      child.QueueFree();
+      child.Free();
     }
 
     Commands.Clear();

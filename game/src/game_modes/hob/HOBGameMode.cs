@@ -1,12 +1,15 @@
 namespace HOB;
 
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
+using Godot.Collections;
 using GodotStateCharts;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
@@ -14,6 +17,7 @@ public partial class HOBGameMode : GameMode {
   [Export] private PauseMenu PauseMenu { get; set; }
   [Export] private AudioStreamPlayer AudioPlayer { get; set; }
   [Export] private PlayerAttributeSet? PlayerAttributeSet { get; set; }
+  [Export] public Array<EntityIcon> EntityIcons { get; private set; }
 
   [Export] private MatchData? MatchData { get; set; }
 
@@ -73,6 +77,15 @@ public partial class HOBGameMode : GameMode {
 
   public bool IsCurrentTurn(IMatchController controller) {
     return MatchComponent.IsCurrentTurn(controller);
+  }
+
+
+  public Texture2D? GetIconFor(Entity entity) {
+    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasExactTag(i.EntityType), null)?.Icon;
+  }
+
+  public Texture2D? GetIconFor(EntityData entityData) {
+    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entityData.Tags.HasExactTag(i.EntityType), null)?.Icon;
   }
 
   public IMatchEvents GetMatchEvents() => MatchComponent;

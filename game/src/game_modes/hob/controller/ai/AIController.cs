@@ -5,55 +5,57 @@ using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class AIController : Controller, IMatchController {
   public event Action? EndTurnEvent;
-
   public Country? Country { get; set; }
 
   private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
+  private HOBGameMode GameMode => GetGameMode();
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
-  private void EndTurn() {
-    EndTurnEvent?.Invoke();
-  }
-
   public async Task StartDecisionMaking() {
-    // FIXME: temp fix for ai ending turn before checking for win condition in game mode
-    await Task.Delay(1000);
+    await Task.Delay(1000); // Temporary win condition check buffer
 
-    // foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
-    //   await Decide(entity);
-    // }
+    foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
+      await ProcessEntityActions(entity);
+    }
+
+    await Task.Delay(1000);
 
     EndTurn();
   }
 
-  public void OwnTurnStarted() {
-    _ = StartDecisionMaking();
+  private async Task ProcessEntityActions(Entity entity) {
+    while (true) {
+      var (bestAbility, bestEventData) = await FindBestAction(entity);
+      if (bestAbility == null) {
+        break;
+      }
+
+      var result = await entity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestEventData);
+      if (!result) {
+        break;
+      }
+    }
   }
 
-  public async Task Decide(Entity entity) {
+  private async Task<(GameplayAbilityInstance?, GameplayEventData?)> FindBestAction(Entity entity) {
     GameplayAbilityInstance? bestAbility = null;
     GameplayEventData? bestEventData = null;
-    var bestScore = float.MinValue;
+    var bestScore = 0f;
 
-    var abilities = entity.AbilitySystem.GetGrantedAbilities();
-
-    foreach (var ability in abilities) {
+    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
       if (!ability.CanActivateAbility(new() { Activator = this })) {
         continue;
       }
 
       var (score, eventData) = await EvaluateAbility(entity, ability);
-
       if (score > bestScore) {
         bestScore = score;
         bestAbility = ability;
@@ -61,45 +63,29 @@ public partial class AIController : Controller, IMatchController {
       }
     }
 
-    if (bestAbility != null) {
-      var result = await entity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestEventData);
-      if (!result) {
-        GD.PrintErr("Failed to activate ability: ", bestAbility.AbilityResource.AbilityName);
-      }
-    }
+    return (bestAbility, bestEventData);
   }
-
-  public void OwnTurnEnded() { }
-
-  public void OnGameStarted() { }
-
-  IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
-  public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 
   private async Task<(float score, GameplayEventData? data)> EvaluateAbility(Entity entity, GameplayAbilityInstance ability) {
-    if (ability is MoveAbilityResource.Instance moveAbility) {
-      return await EvaluateMoveAbility(entity, moveAbility);
-    }
-
-    return (0, null);
+    return ability switch {
+      MoveAbilityResource.Instance moveAbility => await EvaluateMoveAbility(entity, moveAbility),
+      AttackAbilityResource.Instance attackAbility => await EvaluateAttackAbility(entity, attackAbility),
+      //EntityProductionAbilityResource.Instance produceAbility => await EvaluateProduceAbility(entity, produceAbility),
+      _ => (0, null)
+    };
   }
 
-  private async Task<(float Score, GameplayEventData? Data)> EvaluateMoveAbility(Entity entity, MoveAbilityResource.Instance moveAbility) {
+  private async Task<(float Score, GameplayEventData? Data)> EvaluateMoveAbility(Entity entity, MoveAbilityResource.Instance ability) {
     var bestScore = float.MinValue;
     GameCell? bestCell = null;
 
-    var enemyEntities = EntityManagment.GetEnemyEntities(this)
-        .Union(EntityManagment.GetNotOwnedEntities())
-        .Where(e => e != null);
-
-    foreach (var enemy in enemyEntities) {
-      var path = moveAbility.FindPathTo(enemy.Cell);
+    foreach (var enemy in GetPotentialEnemies(entity)) {
+      var path = ability.FindPathTo(enemy.Cell);
       if (path == null || path.Length == 0) {
         continue;
       }
 
       var score = CalculateMoveScore(entity, enemy, path);
-
       if (score > bestScore) {
         bestScore = score;
         bestCell = path.Last();
@@ -107,26 +93,91 @@ public partial class AIController : Controller, IMatchController {
     }
 
     return bestCell != null
-        ? (bestScore, new GameplayEventData {
+        ? (bestScore, new GameplayEventData() { Activator = this, TargetData = new MoveTargetData() { Cell = bestCell } })
+        : (0, null);
+  }
+
+  private async Task<(float Score, GameplayEventData? Data)> EvaluateAttackAbility(Entity entity, AttackAbilityResource.Instance ability) {
+    var bestScore = float.MinValue;
+    Entity? bestTarget = null;
+
+    var (entities, _) = ability.GetAttackableEntities();
+    foreach (var target in entities) {
+      var score = CalculateAttackScore(entity, ability, target);
+      if (score > bestScore) {
+        bestScore = score;
+        bestTarget = target;
+      }
+    }
+
+    return bestTarget != null
+        ? (bestScore, new GameplayEventData() {
           Activator = this,
-          TargetData = new MoveTargetData { Cell = bestCell }
+          TargetData = new AttackTargetData() { TargetAbilitySystem = bestTarget.AbilitySystem }
         })
         : (0, null);
   }
 
-  private float CalculateMoveScore(Entity entity, Entity enemy, IEnumerable<GameCell> path) {
-    // Calculate distance score (closer is better)
-    var distanceScore = 1f / (path.Count() + 1);
+  // private async Task<(float Score, GameplayEventData? Data)> EvaluateProduceAbility(Entity entity, EntityProductionAbilityResource.Instance ability) {
+  //   var bestScore = float.MinValue;
+  //   ProducedEntityData? bestProduction = null;
 
-    // Calculate threat score (avoid clustering)
-    // var nearbyAllies = EntityManagment.GetEntitiesInRadius(entity.Cell, 3)
-    //     .Count(e => e != entity && e.OwnerController == this);
-    // var spreadScore = 1f / (nearbyAllies + 1);
+  //   foreach (var production in ability.GetProducibleEntities()) {
+  //     var score = CalculateProductionScore(entity, production);
+  //     if (score > bestScore) {
+  //       bestScore = score;
+  //       bestProduction = production;
+  //     }
+  //   }
 
-    // Calculate attack position score
-    // var attackScore = CanAttackFromPosition(entity, path.Last()) ? 2f : 0f;
+  //   return bestProduction != null
+  //       ? (bestScore, CreateProductionEvent(bestProduction))
+  //       : (0, null);
+  // }
 
-    // Combine scores with weights
-    return distanceScore;// * 0.6f + spreadScore * 0.3f + attackScore * 1f;
+  private float CalculateMoveScore(Entity entity, Entity target, IEnumerable<GameCell> path) {
+    var distanceScore = 1f / entity.Cell.Coord.Distance(target.Cell.Coord);
+    // var attackScore = CanAttackFrom(entity, path.Last(), target) ? 2f : 0f;
+    // var threatScore = CalculateThreatAvoidance(entity, path.Last());
+
+    return distanceScore * 0.6f; //+ attackScore * 0.3f + threatScore * 0.1f;
   }
+
+  private float CalculateAttackScore(Entity attacker, AttackAbilityResource.Instance ability, Entity target) {
+    // var damage = ability.CalculatePotentialDamage(attacker, target);
+    // var killBonus = damage >= target.Health ? 3f : 0f;
+    // var valueScore = target.GetStrategicValue() * 0.5f;
+
+    return 1f;//(damage / target.Health) * 2f + killBonus + valueScore;
+  }
+
+  // private float CalculateProductionScore(Entity producer, ProducedEntityData production) {
+  //   var forces = EntityManagment.GetOwnedEntites(this);
+  //   var unitCount = forces.Count(e => e.EntityType == production.EntityType);
+  //   var typeScore = production.EntityType switch {
+  //     EntityType.Ranged when unitCount < 3 => 2f,
+  //     EntityType.Melee when unitCount < 5 => 1.5f,
+  //     _ => 0.5f
+  //   };
+
+  //   return typeScore * production.StrategicWeight;
+  // }
+
+  private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>
+      EntityManagment.GetEnemyEntities(this)
+          .Union(EntityManagment.GetNotOwnedEntities());
+
+  // private IEnumerable<Entity> GetAttackTargets(Entity entity, AttackAbilityResource.Instance ability) =>
+  //     GetPotentialEnemies(entity)
+  //         .Where(e => ability.CanTarget(entity, e));
+
+  // private bool CanAttackFrom(Entity entity, GameCell position, Entity target) =>
+  //     position.DistanceTo(target.Cell) <= entity.GetStat<AttackStats>().Range;
+
+  public void OwnTurnStarted() => _ = StartDecisionMaking();
+  public void OwnTurnEnded() { }
+  public void OnGameStarted() { }
+  private void EndTurn() => EndTurnEvent?.Invoke();
+  IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
+  public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 }

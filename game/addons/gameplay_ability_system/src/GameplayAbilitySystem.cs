@@ -6,7 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using GameplayTags;
 using Godot;
-using Godot.Collections;
 
 [GlobalClass]
 public partial class GameplayAbilitySystem : Node {
@@ -22,7 +21,6 @@ public partial class GameplayAbilitySystem : Node {
   public event Action<Tag, GameplayEventData?>? GameplayEventRecieved;
 
   public TagContainer OwnedTags { get; private set; } = new();
-
   private List<GameplayEffectInstance> AppliedEffects { get; set; } = new();
   private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
 
@@ -62,10 +60,12 @@ public partial class GameplayAbilitySystem : Node {
 
     GrantedAbilities.Add(abilityInstance);
     AddChild(abilityInstance);
+    EmitSignal(SignalName.GameplayAbilityGranted, abilityInstance);
   }
 
   public void RevokeAbility(GameplayAbilityInstance abilityInstance) {
     abilityInstance.QueueFree();
+    EmitSignal(SignalName.GameplayAbilityRevoked, abilityInstance);
   }
 
   public void CancelAllAbilities() {

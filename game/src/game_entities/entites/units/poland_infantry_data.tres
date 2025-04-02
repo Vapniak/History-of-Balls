@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://ddmnswe1q0sv8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=28 format=3 uid="uid://ddmnswe1q0sv8"]
 
 [ext_resource type="Resource" uid="uid://jr0xec5ix0cv" path="res://src/game_entities/abilities/move/move_ability.tres" id="1_dj1bn"]
 [ext_resource type="PackedScene" uid="uid://djmy308ykthsu" path="res://src/game_entities/entites/units/poland_ball.tscn" id="1_es5ke"]
@@ -10,9 +10,12 @@
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="5_0lmx8"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="5_5i68w"]
 [ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="5_7q1be"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="5_rhxyg"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="6_l2edk"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="6_myxjr"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="7_2e5sc"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="7_60r66"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="7_g25ul"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_rbvjr"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="8_i83vh"]
 
@@ -22,10 +25,28 @@ Attribute = ExtResource("3_t7kwq")
 ModifierType = 2
 Coefficient = 3.0
 
+[sub_resource type="Resource" id="Resource_v6ifs"]
+script = ExtResource("4_w50x3")
+Attribute = ExtResource("5_rhxyg")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_5kl77"]
+script = ExtResource("4_w50x3")
+Attribute = ExtResource("6_myxjr")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_upa0v"]
+script = ExtResource("4_w50x3")
+Attribute = ExtResource("7_g25ul")
+ModifierType = 0
+Coefficient = 1.0
+
 [sub_resource type="Resource" id="Resource_a4ddy"]
 script = ExtResource("5_0lmx8")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_lsoxx")])
+Modifiers = Array[Object]([SubResource("Resource_lsoxx"), SubResource("Resource_v6ifs"), SubResource("Resource_5kl77"), SubResource("Resource_upa0v")])
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_qvmy4"]

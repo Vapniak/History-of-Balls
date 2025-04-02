@@ -16,6 +16,7 @@ using RaycastSystem;
 public partial class HOBPlayerController : PlayerController, IMatchController {
   [Export] private Node? StateChartNode { get; set; }
   [Export] private Array<HighlightColorMap>? HighlightColors { get; set; }
+  [Export] private Material? TransparentMaterial { get; set; }
 
   [Notify] public Entity? SelectedEntity { get => _selectedEntity.Get(); private set => _selectedEntity.Set(value); }
   [Notify] public GameCell? HoveredCell { get => _hoveredCell.Get(); private set => _hoveredCell.Set(value); }
@@ -35,10 +36,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private HighlightSystem? HighlightSystem { get; set; }
   private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
 
-  private string _entityUISceneUID = "uid://omhtmi8gorif";
-
-  private Dictionary<Entity, EntityUI> EntityUIs { get; set; } = new();
-
   public override void _Ready() {
     base._Ready();
 
@@ -54,8 +51,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (StateChartNode != null) {
       StateChart = StateChart.Of(StateChartNode);
     }
-
-    GetGameMode().GetEntityManagment().EntityAdded += OnEntityAdded;
 
     GetHUD().CommandSelected += (command) => {
       SelectedCommand = command;
@@ -128,10 +123,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     CallDeferred(MethodName.FocusOnSelectedEntity);
 
     GetHUD().OnGameStarted();
-
-    foreach (var entity in EntityManagment.GetEntities()) {
-      SpawnUIForEntity(entity);
-    }
   }
 
   private void CheckHover() {
@@ -426,54 +417,5 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     HighlightSystem?.UpdateHighlights();
-  }
-
-  private void OnEntityAdded(Entity entity) {
-    SpawnUIForEntity(entity);
-  }
-
-  private void SpawnUIForEntity(Entity entity) {
-    var ui3d = ResourceLoader.Load<PackedScene>(_entityUISceneUID).Instantiate<Node3D>();
-
-    var entityUI = ui3d.GetChild(0).GetChild<EntityUI>(0);
-    entityUI.Initialize(entity);
-
-    var icon = GetHUD().GetIconFor(entity);
-    if (icon != null) {
-      entityUI.SetIcon(icon);
-    }
-
-    var aabb = new Aabb();
-    foreach (var child in entity.Body.GetAllChildren()) {
-      if (child is MeshInstance3D mesh) {
-        aabb = aabb.Merge(mesh.GetAabb());
-      }
-    }
-
-    UpdateEntityUIColor(entityUI, entity);
-
-    entity.OwnerControllerChanged += () => {
-      UpdateEntityUIColor(entityUI, entity);
-    };
-    ui3d.Position = aabb.GetCenter() + Vector3.Up * (aabb.Size.Y + 2);
-
-    if (entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))) {
-      ui3d.Position += Vector3.Up * 2;
-    }
-    entity.Body.AddChild(ui3d);
-  }
-
-  private void UpdateEntityUIColor(EntityUI ui, Entity entity) {
-    if (entity.TryGetOwner(out var owner)) {
-      if (owner == this) {
-        ui.SetTeamColor(Colors.Green);
-      }
-      else {
-        ui.SetTeamColor(Colors.Red);
-      }
-    }
-    else {
-      ui.SetTeamColor(Colors.White);
-    }
   }
 }

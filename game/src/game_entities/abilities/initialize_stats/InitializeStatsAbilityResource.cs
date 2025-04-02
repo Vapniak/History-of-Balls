@@ -10,6 +10,7 @@ public partial class InitializeStatsAbilityResource : HOBAbilityResource {
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
     ActivateOnGranted = true;
     RemoveOnEnd = true;
+    ShowInUI = false;
 
     return new Instance(this, abilitySystem);
   }

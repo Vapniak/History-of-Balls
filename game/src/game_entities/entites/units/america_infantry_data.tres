@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://c5dmvmose2efr"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=28 format=3 uid="uid://c5dmvmose2efr"]
 
 [ext_resource type="PackedScene" uid="uid://gsbrhj8onefx" path="res://src/game_entities/entites/units/america_ball.tscn" id="1_jnyy4"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_rx8d8"]
@@ -8,10 +8,13 @@
 [ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/game_entities/attribute_sets/health_attribute_set.tres" id="3_fv0r5"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="4_2jl7j"]
 [ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/game_entities/attribute_sets/attack_attribute_set.tres" id="4_ok3xb"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="5_40hqg"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="5_e54gi"]
 [ext_resource type="Resource" uid="uid://3qq327rqo575" path="res://src/game_entities/attribute_sets/move_attribute_set.tres" id="5_ob2ja"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="6_1lb46"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="6_u246v"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="7_218sx"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="7_nggmt"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="7_omemc"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="8_21w2o"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="8_uar7j"]
@@ -20,12 +23,30 @@
 script = ExtResource("4_2jl7j")
 Attribute = ExtResource("3_6skqm")
 ModifierType = 2
-Coefficient = 5.0
+Coefficient = 2.0
+
+[sub_resource type="Resource" id="Resource_nqk6u"]
+script = ExtResource("4_2jl7j")
+Attribute = ExtResource("5_40hqg")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_e852o"]
+script = ExtResource("4_2jl7j")
+Attribute = ExtResource("6_u246v")
+ModifierType = 0
+Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_y3u7k"]
+script = ExtResource("4_2jl7j")
+Attribute = ExtResource("7_nggmt")
+ModifierType = 0
+Coefficient = 1.0
 
 [sub_resource type="Resource" id="Resource_j7aek"]
 script = ExtResource("5_e54gi")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_mnlyv")])
+Modifiers = Array[Object]([SubResource("Resource_mnlyv"), SubResource("Resource_nqk6u"), SubResource("Resource_e852o"), SubResource("Resource_y3u7k")])
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_lvnti"]

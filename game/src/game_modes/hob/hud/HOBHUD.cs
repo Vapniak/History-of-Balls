@@ -23,7 +23,6 @@ public partial class HOBHUD : HUD {
   [Export] private Label? TurnLabel { get; set; }
   [Export] private TextureRect? CountryFlag { get; set; }
   [Export] private Label? CountryNameLabel { get; set; }
-  [Export] private Array<EntityIcon>? EntityIcons { get; set; }
 
   [ExportGroup("Resources")]
   [Export] private RichTextLabel? PrimaryResourceNameLabel { get; set; }
@@ -99,14 +98,6 @@ public partial class HOBHUD : HUD {
     CountryNameLabel.Text = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Name;
   }
 
-  public Texture2D? GetIconFor(Entity entity) {
-    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasExactTag(i.EntityType), null)?.Icon;
-  }
-
-  public Texture2D? GetIconFor(EntityData entityData) {
-    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entityData.Tags.HasExactTag(i.EntityType), null)?.Icon;
-  }
-
   private void UpdatePrimaryResourceValue(float value) {
     PrimaryResourceValueLabel.Text = value.ToString();
   }
@@ -154,7 +145,7 @@ public partial class HOBHUD : HUD {
     StatPanel.ClearEntries();
 
     StatPanel.SetNameLabel(entity.EntityName);
-    StatPanel.SetIcon(GetIconFor(entity));
+    StatPanel.SetIcon(GameInstance.GetGameMode<HOBGameMode>().GetIconFor(entity));
 
     entity.AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
     foreach (var attribute in entity.AbilitySystem.AttributeSystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
@@ -175,18 +166,11 @@ public partial class HOBHUD : HUD {
       }
 
       if (ability is EntityProductionAbilityResource.Instance production) {
-        if (entity.TryGetOwner(out var owner) && owner == GetPlayerController()) {
-          foreach (var data in GetPlayerController().GetPlayerState().ProducedEntities) {
-            ProductionPanel.AddProducedEntity(production, data, GetPlayerController().GetPlayerState());
-          }
+        if (entity.TryGetOwner(out var owner)) {
+          ProductionPanel.ShowProducedEntities(production, owner.GetPlayerState());
         }
       }
     }
-
-    if (ProductionPanel.GetEntriesCount() > 0) {
-      ProductionPanel.Show();
-    }
-
     CommandPanel.Show();
   }
   private void HideUIFor(Entity? entity) {

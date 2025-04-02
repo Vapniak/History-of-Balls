@@ -1,6 +1,7 @@
 namespace HOB;
 
 using System;
+using HexGridMap;
 using HOB.GameEntity;
 
 public interface IEntityManagment {

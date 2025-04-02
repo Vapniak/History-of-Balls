@@ -45,7 +45,7 @@ EffectDefinition = SubResource("Resource_6t4ey")
 [sub_resource type="Resource" id="Resource_swxcn"]
 script = ExtResource("8_a2r4k")
 InitializeStatsEffects = SubResource("Resource_orl55")
-ShowInUI = true
+ShowInUI = false
 UIOrder = 0
 AbilityName = "Ability"
 ActivateOnGranted = true

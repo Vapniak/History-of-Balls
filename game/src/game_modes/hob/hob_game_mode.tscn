@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=74 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
@@ -7,11 +7,18 @@
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchData.cs" id="3_3m27j"]
 [ext_resource type="Resource" uid="uid://cuv1436xdiogj" path="res://res/countries/poland.tres" id="3_qe1et"]
 [ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/player/player_character.tscn" id="3_wvtpx"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="3_ynnc7"]
+[ext_resource type="Texture2D" uid="uid://bhrnb4qh1p6dx" path="res://assets/textures/icons/ranged.svg" id="4_5yy5j"]
 [ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game_modes/hob/controller/ai/ai_controller.tscn" id="4_lhw57"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/EntitySpawnData.cs" id="5_chwnt"]
+[ext_resource type="Script" path="res://src/game_modes/hob/hud/EntityIcon.cs" id="5_lpoos"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchPlayerSpawnData.cs" id="5_ngu2m"]
 [ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/gui/hud/hud.tscn" id="5_yn6q8"]
+[ext_resource type="Texture2D" uid="uid://cu8ifpeobhj4p" path="res://assets/textures/icons/infantry.svg" id="6_qscmy"]
+[ext_resource type="Texture2D" uid="uid://id67rufsraj2" path="res://assets/textures/icons/industry.svg" id="7_wmxfe"]
+[ext_resource type="Texture2D" uid="uid://b4l2adrjoxkkh" path="res://assets/textures/icons/city.svg" id="8_46pgr"]
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBPlayerManagmentComponent.cs" id="8_crqp2"]
+[ext_resource type="Texture2D" uid="uid://c7lexjg7kj31h" path="res://assets/textures/icons/village.svg" id="9_eom1f"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="9_pkx38"]
 [ext_resource type="Resource" uid="uid://d3a8gfe2tbsyu" path="res://src/game_entities/entites/structures/factory/factory_data.tres" id="10_06c2x"]
 [ext_resource type="Resource" uid="uid://ddmnswe1q0sv8" path="res://src/game_entities/entites/units/poland_infantry_data.tres" id="10_8uwl6"]
@@ -33,6 +40,51 @@
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
 [ext_resource type="AudioStream" uid="uid://j4c2av4m6pcl" path="res://assets/audio/music/Średniowiecze.wav" id="25_f3tc6"]
 [ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="25_jrlyp"]
+
+[sub_resource type="Resource" id="Resource_f6qae"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Unit.Ranged"
+
+[sub_resource type="Resource" id="Resource_sdjv2"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_f6qae")
+Icon = ExtResource("4_5yy5j")
+
+[sub_resource type="Resource" id="Resource_olcgp"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Unit.Melee"
+
+[sub_resource type="Resource" id="Resource_l11vm"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_olcgp")
+Icon = ExtResource("6_qscmy")
+
+[sub_resource type="Resource" id="Resource_gto37"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Structure.Factory"
+
+[sub_resource type="Resource" id="Resource_dxcf4"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_gto37")
+Icon = ExtResource("7_wmxfe")
+
+[sub_resource type="Resource" id="Resource_7vkcg"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Structure.City"
+
+[sub_resource type="Resource" id="Resource_6uqfv"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_7vkcg")
+Icon = ExtResource("8_46pgr")
+
+[sub_resource type="Resource" id="Resource_du6rs"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Structure.Village"
+
+[sub_resource type="Resource" id="Resource_cfkre"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_du6rs")
+Icon = ExtResource("9_eom1f")
 
 [sub_resource type="Resource" id="Resource_avamu"]
 script = ExtResource("5_chwnt")
@@ -155,7 +207,7 @@ EffectDefinition = SubResource("Resource_aqnce")
 script = ExtResource("15_oajec")
 Entity = ExtResource("11_5j62k")
 CostEffect = SubResource("Resource_f5p8x")
-ProductionTime = 0
+ProductionTime = 2
 
 [sub_resource type="Resource" id="Resource_1crgr"]
 script = ExtResource("5_ngu2m")
@@ -177,6 +229,7 @@ MatchEndMenu = NodePath("MatchEndMenu")
 PauseMenu = NodePath("PauseMenu")
 AudioPlayer = NodePath("AudioStreamPlayer")
 PlayerAttributeSet = ExtResource("2_418xq")
+EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm"), SubResource("Resource_dxcf4"), SubResource("Resource_6uqfv"), SubResource("Resource_cfkre")])
 MatchData = SubResource("Resource_ojho2")
 PlayerControllerScene = ExtResource("2_st7p2")
 PlayerCharacterScene = ExtResource("3_wvtpx")

@@ -19,9 +19,13 @@ public partial class HOBGameplayAbilitySystem : GameplayAbilitySystem {
   protected override void Dispose(bool disposing) {
     base.Dispose(disposing);
 
-    var events = GameInstance.GetGameMode<HOBGameMode>()?.GetMatchEvents();
-    if (events != null) {
-      events.MatchEvent -= OnMatchEvent;
+
+    var gm = GameInstance.GetGameMode<HOBGameMode>();
+    if (IsInstanceValid(gm) && gm != null) {
+      var events = gm.GetMatchEvents();
+      if (events != null) {
+        events.MatchEvent -= OnMatchEvent;
+      }
     }
   }
 

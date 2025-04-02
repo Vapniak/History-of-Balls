@@ -37,7 +37,7 @@ TickAtOwnTurn = true
 [sub_resource type="Resource" id="Resource_ygv6f"]
 script = ExtResource("4_cdlsi")
 DurationPolicy = 2
-Modifiers = Array[Object]([])
+Modifiers = null
 DurationMultiplier = 1.0
 DurationStrategy = SubResource("Resource_6tyyh")
 
@@ -103,6 +103,6 @@ AbilityName = "Attack"
 CooldownGameplayEffect = SubResource("Resource_px1dh")
 ActivateOnGranted = false
 RemoveOnEnd = false
-AbilityTriggers = null
+AbilityTriggers = Array[Object]([])
 AbilityTags = SubResource("Resource_q4i8j")
 ActivationRequiredTags = SubResource("Resource_wgjlc")

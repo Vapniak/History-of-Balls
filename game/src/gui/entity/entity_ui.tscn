@@ -46,34 +46,34 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_d4aeq")
-IconTextureRect = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Panel/TextureRect")
-TeamColorContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Panel")
-CommandIconsContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2")
-IconTextureContainer = NodePath("CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Panel")
+IconTextureRect = NodePath("PanelContainer/VBoxContainer/HBoxContainer/Panel/TextureRect")
+TeamColorContainer = NodePath("PanelContainer/VBoxContainer/HBoxContainer/Panel")
+CommandIconsContainer = NodePath("PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2")
+IconTextureContainer = NodePath("PanelContainer/VBoxContainer/HBoxContainer/Panel")
 UnitIconPanelStyleBox = SubResource("StyleBoxFlat_rsmoj")
 StructureIconPanelStyleBox = SubResource("StyleBoxFlat_ry0gu")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer"]
-layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 theme_override_styles/panel = SubResource("StyleBoxEmpty_l3dck")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="Panel" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 20
+
+[node name="Panel" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_rsmoj")
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/Panel"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/Panel"]
 self_modulate = Color(0.20871, 0.20871, 0.20871, 1)
 custom_minimum_size = Vector2(120, 120)
 layout_mode = 2
@@ -82,30 +82,31 @@ size_flags_vertical = 4
 texture = ExtResource("1_58pqq")
 expand_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
-visible = false
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 
-[node name="Panel" type="Panel" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 theme_type_variation = &"MarginSmall"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/MarginContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="TextureRect" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2"]
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("4_6kxh0")
 expand_mode = 2
 
-[node name="TextureRect2" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2"]
+[node name="TextureRect2" type="TextureRect" parent="PanelContainer/VBoxContainer/PanelContainer/MarginContainer/HBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 3
 texture = ExtResource("5_3q8f8")
 expand_mode = 2
