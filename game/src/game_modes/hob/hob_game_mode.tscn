@@ -133,7 +133,7 @@ Entities = Array[Object]([SubResource("Resource_k5031"), SubResource("Resource_1
 [sub_resource type="Resource" id="Resource_c176s"]
 script = ExtResource("5_chwnt")
 EntityData = ExtResource("17_2gey1")
-SpawnAt = Array[Vector2i]([Vector2i(20, 20)])
+SpawnAt = Array[Vector2i]([Vector2i(20, 20), Vector2i(15, 15)])
 
 [sub_resource type="Resource" id="Resource_bvpp7"]
 script = ExtResource("5_chwnt")

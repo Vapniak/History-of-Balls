@@ -5,8 +5,10 @@ using GameplayFramework;
 using Godot;
 using HOB.GameEntity;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -19,8 +21,6 @@ public partial class AIController : Controller, IMatchController {
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
-  private float _timeBudgetPerFrame = 0.005f;
-
   public async Task StartDecisionMaking() {
     await Task.Delay(1000);
 
@@ -32,25 +32,46 @@ public partial class AIController : Controller, IMatchController {
 
   private async Task ProcessEntityActions() {
     while (true) {
-      (Entity? bestEntity, GameplayAbilityInstance? bestAbility, GameplayEventData? bestData, var bestScore) =
-          (null, null, null, 0f);
+      var entities = EntityManagment.GetOwnedEntites(this).ToList();
+      var batchSize = Mathf.Max(16 / entities.Count, 1);
+      if (entities.Count == 0) {
+        break;
+      }
 
-      foreach (var entity in EntityManagment.GetOwnedEntites(this)) {
-        var timer = new System.Diagnostics.Stopwatch();
-        timer.Start();
+      var bestScore = 0f;
+      Entity? bestEntity = null;
+      GameplayAbilityInstance? bestAbility = null;
+      GameplayEventData? bestData = null;
 
-        (var ability,
-          var data, var score) = await FindBestActionWithBudget(entity);
+      for (var i = 0; i < entities.Count; i += batchSize) {
+        var batch = entities
+               .Skip(i)
+               .Take(batchSize)
+               .ToList();
+
+
+        var results = new ConcurrentBag<(Entity?, GameplayAbilityInstance?, GameplayEventData?, float)>();
+        await Task.Run(() =>
+          Parallel.ForEach(batch,
+          entity => results.Add(EvaluateEntity(entity)))
+        );
+
+        var (entity, ability, data, score) = results
+            .OrderByDescending(r => r.Item4)
+            .FirstOrDefault();
 
         if (score > bestScore) {
+          bestScore = score;
           bestEntity = entity;
           bestAbility = ability;
           bestData = data;
-          bestScore = score;
         }
 
-        timer.Stop();
-        GD.Print($"Processed entity in {timer.ElapsedMilliseconds}ms");
+        await Task.Delay(16);
+      }
+
+      if (bestAbility == null) {
+        break;
       }
 
       if (bestEntity != null && bestAbility != null) {
@@ -74,21 +95,85 @@ public partial class AIController : Controller, IMatchController {
     }
   }
 
-  private async Task<(GameplayAbilityInstance?, GameplayEventData?, float)>
-      FindBestActionWithBudget(Entity entity) {
-    var timer = new System.Diagnostics.Stopwatch();
-    timer.Start();
+  private (Entity Entity, GameplayAbilityInstance? Ability, GameplayEventData? Data, float Score)
+      EvaluateEntity(Entity entity) {
+    var timer = System.Diagnostics.Stopwatch.StartNew();
 
+    var (ability, data, score) = FindBestActionWithBudget(entity);
+
+    timer.Stop();
+    GD.Print($"Processed {entity.EntityName} in {timer.ElapsedMilliseconds}ms");
+    return (entity, ability, data, score);
+  }
+
+
+  // private async Task ProcessEntityActions() {
+  //   while (true) {
+  //     (Entity? bestEntity, GameplayAbilityInstance? bestAbility, GameplayEventData? bestData, var bestScore) =
+  //         (null, null, null, 0f);
+
+  //     //var scores = new List<(Entity?, GameplayAbilityInstance?, GameplayEventData?, float)>();
+
+  //     // EntityManagment.GetOwnedEntites(this).AsParallel().ForAll(e => {
+  //     //   var timer = new System.Diagnostics.Stopwatch();
+  //     //   timer.Start();
+
+  //     //   var result = FindBestActionWithBudget(e);
+  //     //   scores.Add((e, result.Item1, result.Item2, result.Item3));
+
+  //     //   timer.Stop();
+  //     //   GD.Print($"Processed entity in {timer.ElapsedMilliseconds}ms");
+  //     // });
+
+  //     var entities = EntityManagment.GetOwnedEntites(this).ToList();
+  //     var evaluationTasks = new List<Task<(Entity Entity, GameplayAbilityInstance? Ability, GameplayEventData? Data, float Score)>>();
+
+  //     foreach (var entity in entities) {
+  //       evaluationTasks.Add(Task.Run(() => EvaluateEntityAsync(entity)));
+  //     }
+
+  //     var results = await Task.WhenAll(evaluationTasks);
+  //     (bestEntity, bestAbility, bestData, bestScore) = results
+  //         .OrderByDescending(r => r.Score)
+  //         .FirstOrDefault();
+
+  //     if (bestEntity != null && bestAbility != null) {
+  //       GD.PrintS($"AI attempting: {bestEntity.EntityName} -> {bestAbility.AbilityResource.AbilityName}");
+
+  //       if (bestAbility is MoveAbility.Instance or AttackAbility.Instance) {
+  //         var success = await bestEntity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestData);
+
+  //         if (!success) {
+  //           GD.PrintS("Activation failed! Re-evaluating...");
+  //           await Task.Delay(100);
+  //         }
+  //       }
+  //       else {
+  //         bestEntity.AbilitySystem.TryActivateAbility(bestAbility, bestData);
+  //       }
+  //     }
+  //     else {
+  //       break;
+  //     }
+  //   }
+  // }
+
+  private (Entity Entity, GameplayAbilityInstance? Ability, GameplayEventData? Data, float Score)
+    EvaluateEntityAsync(Entity entity) {
+    var timer = System.Diagnostics.Stopwatch.StartNew();
+    var (ability, data, score) = FindBestActionWithBudget(entity);
+    timer.Stop();
+    GD.Print($"Processed {entity.EntityName} in {timer.ElapsedMilliseconds}ms");
+    return (entity, ability, data, score);
+  }
+
+  private (GameplayAbilityInstance?, GameplayEventData?, float)
+      FindBestActionWithBudget(Entity entity) {
     GameplayAbilityInstance? bestAbility = null;
     GameplayEventData? bestEventData = null;
     var bestScore = 0f;
 
     foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
-      if (timer.Elapsed.TotalSeconds > _timeBudgetPerFrame) {
-        await Task.Delay(1);
-        timer.Restart();
-      }
-
       if (!ability.CanActivateAbility(new() { Activator = this })) {
         continue;
       }

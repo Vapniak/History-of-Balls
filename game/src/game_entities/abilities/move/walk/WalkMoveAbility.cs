@@ -30,7 +30,7 @@ public partial class WalkMoveAbility : MoveAbility {
     private async Task WalkByPath(GameCell to) {
       var path = FindPathTo(to);
 
-      if (path.Length > 0) {
+      if (path.Length > 0 && to != OwnerEntity.Cell) {
         foreach (var cell in path) {
           await Walk(cell);
         }
