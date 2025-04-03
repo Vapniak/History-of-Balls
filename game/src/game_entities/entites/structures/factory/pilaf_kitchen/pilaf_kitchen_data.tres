@@ -17,19 +17,19 @@
 [sub_resource type="Resource" id="Resource_40qdq"]
 script = ExtResource("3_pe1mc")
 Attribute = ExtResource("2_8bisb")
-ModifierType = 0
+ModifierType = 2
 Coefficient = 1.0
 
 [sub_resource type="Resource" id="Resource_usch3"]
 script = ExtResource("3_pe1mc")
 Attribute = ExtResource("4_plmdh")
-ModifierType = 0
+ModifierType = 2
 Coefficient = 1.0
 
 [sub_resource type="Resource" id="Resource_x6i8n"]
 script = ExtResource("3_pe1mc")
 Attribute = ExtResource("5_xtk5n")
-ModifierType = 0
+ModifierType = 2
 Coefficient = 1.0
 
 [sub_resource type="Resource" id="Resource_ay6xu"]

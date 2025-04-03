@@ -7,15 +7,22 @@ using System.Threading.Tasks;
 using System.Collections;
 
 public partial class FloatingText : Node3D {
-  [Export] private Label3D Label { get; set; }
+  [Export] public RichTextLabel? Label { get; private set; }
+  [Export] private Sprite3D? Sprite { get; set; }
 
   private static readonly string _sceneUID = "uid://dswl3q7q6in2p";
 
-  public static FloatingText Create(string text, Color color) {
+  public static FloatingText Create() {
     var floatingText = ResourceLoader.Load<PackedScene>(_sceneUID).Instantiate<FloatingText>();
 
-    floatingText.Label.Text = text;
-    floatingText.Label.Modulate = color;
+    if (floatingText.Label != null) {
+      floatingText.Label.Text = "";
+      floatingText.Label?.AppendText("[center]");
+    }
+
+    if (floatingText.Sprite != null) {
+      floatingText.Sprite.Transparency = 1;
+    }
 
     return floatingText;
   }
@@ -23,18 +30,17 @@ public partial class FloatingText : Node3D {
   public async Task Animate() {
     var tween = CreateTween();
 
-    tween.TweenProperty(this, "global_position", GlobalPosition + (Vector3.Up * 2), 1.5f);
+    tween.TweenProperty(Sprite, "transparency", 0f, 1f).SetEase(Tween.EaseType.In);
+    tween.Parallel().TweenProperty(this, "global_position", GlobalPosition + (Vector3.Up * 3), 1f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.InOut);
+    tween.TweenInterval(1);
+    await ToSignal(tween, Tween.SignalName.Finished);
 
-    var timer = new Timer();
-    AddChild(timer);
-    timer.Start(.5f);
-    await ToSignal(timer, Timer.SignalName.Timeout);
-    timer.QueueFree();
+    var second = CreateTween();
+    second.SetParallel();
+    second.TweenProperty(Sprite, "transparency", 1f, .5f).SetEase(Tween.EaseType.In);
+    second.TweenProperty(this, "global_position", GlobalPosition - (Vector3.Up * 3), 1f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.InOut);
 
-    var tween2 = CreateTween();
-    tween2.SetParallel(true);
-    tween2.Finished += QueueFree;
-    tween2.TweenProperty(this, "scale", Vector3.One * 0.5f, 1.0f).SetEase(Tween.EaseType.Out);
-    tween2.TweenProperty(Label, "transparency", 1, 1f);
+    await ToSignal(second, Tween.SignalName.Finished);
+    QueueFree();
   }
 }

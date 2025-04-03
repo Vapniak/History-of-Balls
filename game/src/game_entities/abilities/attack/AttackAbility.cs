@@ -62,7 +62,9 @@ public abstract partial class AttackAbility : HOBAbilityResource {
       var ei = OwnerAbilitySystem.MakeOutgoingInstance(damageEffect, Level);
       foreach (var modifier in damageEffect.EffectDefinition.Modifiers) {
         var magnitude = modifier.GetMagnitude(ei);
-        var text = FloatingText.Create($"{magnitude} {modifier?.Attribute?.AttributeName}", Colors.Red);
+        var text = FloatingText.Create();
+        text.Label?.PushColor(Colors.Red);
+        text.Label?.AppendText($"{magnitude} {modifier?.Attribute?.AttributeName}");
         GameInstance.GetWorld().AddChild(text);
         text.GlobalPosition = pos + Vector3.Up * 2;
         _ = text.Animate();

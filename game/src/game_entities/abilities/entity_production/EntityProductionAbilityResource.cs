@@ -34,12 +34,14 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
           ei.Target.ApplyGameplayEffectToSelf(ei);
         }
 
-        if (owner is PlayerController) {
-          var text = FloatingText.Create("Start Producing", Colors.Orange);
-          GameInstance.GetWorld().AddChild(text);
-          text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
-          _ = text.Animate();
-        }
+        // if (owner is PlayerController) {
+        //   var text = FloatingText.Create();
+        //   text.Label?.AppendText("Start Producing");
+
+        //   GameInstance.GetWorld().AddChild(text);
+        //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
+        //   _ = text.Animate();
+        // }
 
         _turnsLeft = (int)productionConfig.ProductionTime;
 
@@ -51,12 +53,13 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
               if (OwnerEntity.EntityManagment.TryAddEntityOnCell(productionConfig.Entity, OwnerEntity.Cell, owner)) {
                 taskData.Complete();
 
-                if (owner is PlayerController) {
-                  var text = FloatingText.Create("Entity produced", Colors.Orange);
-                  GameInstance.GetWorld().AddChild(text);
-                  text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
-                  _ = text.Animate();
-                }
+                // if (owner is PlayerController) {
+                //   var text = FloatingText.Create();
+                //   text.Label?.AppendText("Entity produced");
+                //   GameInstance.GetWorld().AddChild(text);
+                //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
+                //   _ = text.Animate();
+                // }
 
                 EndAbility();
               }

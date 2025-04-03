@@ -24,13 +24,14 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
           ei.Target = owner?.GetPlayerState().AbilitySystem;
           ei.Target?.ApplyGameplayEffectToSelf(ei);
 
-          // FIXME: for now check like that
-          if (owner is PlayerController) {
-            var text = FloatingText.Create("Income Generated", Colors.Yellow);
-            GameInstance.GetWorld().AddChild(text);
-            text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
-            _ = text.Animate();
-          }
+          // // FIXME: for now check like that
+          // if (owner is PlayerController) {
+          //   var text = FloatingText.Create();
+          //   text.Label?.AppendText("Income Generated");
+          //   GameInstance.GetWorld().AddChild(text);
+          //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
+          //   _ = text.Animate();
+          // }
         }
       }
 

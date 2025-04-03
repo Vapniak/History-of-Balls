@@ -65,7 +65,6 @@ public partial class ThrowAttackAbility : AttackAbility {
 
     private void OnTagRemoved(Tag tag) {
       if (tag == TagManager.GetTag(HOBTags.CooldownAttack)) {
-        GD.Print(tag.FullName);
         if (OwnerEntity.Body is UnitBody unit) {
           unit.UnitAttribute?.Reset();
         }

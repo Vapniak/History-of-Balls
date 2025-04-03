@@ -42,12 +42,13 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
         processEffect.Target = abilitySystem;
         processEffect.Target?.ApplyGameplayEffectToSelf(processEffect);
 
-        if (owner is PlayerController) {
-          var text = FloatingText.Create("Start Processing", Colors.Orange);
-          GameInstance.GetWorld().AddChild(text);
-          text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
-          _ = text.Animate();
-        }
+        // if (owner is PlayerController) {
+        //   var text = FloatingText.Create();
+        //   text.Label?.AppendText("");
+        //   GameInstance.GetWorld().AddChild(text);
+        //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
+        //   _ = text.Animate();
+        // }
 
         if (OwnerAbilitySystem.AttributeSystem.TryGetAttributeSet<ProcessResourcesAttributeSet>(out var set)) {
           _turnsLeft = (int)OwnerAbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.ProcessTime);
@@ -69,12 +70,13 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
             produceEffect.Target?.ApplyGameplayEffectToSelf(produceEffect);
             taskData.Complete();
 
-            if (owner is PlayerController) {
-              var text = FloatingText.Create("Processing Finished", Colors.Orange);
-              GameInstance.GetWorld().AddChild(text);
-              text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
-              _ = text.Animate();
-            }
+            // if (owner is PlayerController) {
+            //   var text = FloatingText.Create();
+            //   text.Label?.AppendText("Processing Finished");
+            //   GameInstance.GetWorld().AddChild(text);
+            //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
+            //   _ = text.Animate();
+            // }
 
             EndAbility();
           }
