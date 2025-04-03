@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
@@ -138,6 +139,10 @@ public partial class HOBGameMode : GameMode {
   private void OnQuit() => GameInstance.QuitGame();
 
   private void OnGridCreated() {
+    _ = InitGame();
+  }
+
+  private async Task InitGame() {
     if (MatchData == null) {
       return;
     }
@@ -169,10 +174,12 @@ public partial class HOBGameMode : GameMode {
 
       state.Country = playerData.Country;
 
+      await Task.Delay(500);
       if (playerData.Entities != null) {
         foreach (var entitySpawn in playerData.Entities) {
           if (entitySpawn?.EntityData != null) {
             foreach (var coord in entitySpawn.SpawnAt) {
+              await Task.Delay(10);
               MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(coord.X, coord.Y), controller as IMatchController);
             }
           }

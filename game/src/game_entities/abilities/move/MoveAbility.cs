@@ -3,10 +3,7 @@ namespace HOB;
 using GameplayAbilitySystem;
 using GameplayTags;
 using Godot;
-using HOB.GameEntity;
-using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 [GlobalClass]
 public abstract partial class MoveAbility : HOBAbilityResource {
@@ -15,7 +12,7 @@ public abstract partial class MoveAbility : HOBAbilityResource {
   }
 
   public partial class Instance : HOBEntityAbilityInstance {
-    public const float MOVE_ANIMATION_SPEED = 0.2f;
+    public const float MOVE_ANIMATION_SPEED = .2f;
 
     public Instance(MoveAbility abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 

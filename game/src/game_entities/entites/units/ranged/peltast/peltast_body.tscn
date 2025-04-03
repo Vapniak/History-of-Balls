@@ -45,7 +45,6 @@ _data = {
 size = Vector3(0.115, 0.2, 1.115)
 
 [node name="PeltastBody" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
-top_level = true
 script = ExtResource("1_dm6nx")
 UnitAttribute = NodePath("FollowParent3D/UnitAttribute")
 
@@ -60,6 +59,7 @@ libraries = {
 }
 
 [node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
 script = ExtResource("8_ut4yb")
 
 [node name="UnitAttribute" type="Node3D" parent="FollowParent3D"]

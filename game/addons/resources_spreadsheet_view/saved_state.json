@@ -8,12 +8,36 @@
         "visibility": 0
       }
     },
+    "res://addons/": {
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://addons/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers_table_import.tres": {
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://src/game_entities/entites/": {
       "resource_local_to_scene": {
         "visibility": 1
       },
       "resource_name": {
         "visibility": 1
+      }
+    },
+    "res://src/game_entities/entites/structures/": {
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
       }
     },
     "res://src/game_entities/entites/unit/": {
@@ -136,7 +160,10 @@
     "res://src/game_entities/entites::Abilities/",
     "res://src/game_entities/entites::Abilities::InitializeStatsEffects/",
     "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition/",
-    "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers/"
+    "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers/",
+    "res://addons/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers_table_import.tres",
+    "res://addons/",
+    "res://src/game_entities/entites/structures/"
   ],
   "table_functions": {
     "filter": [

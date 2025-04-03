@@ -12,6 +12,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   [Export] private float _stopSpeed = 5f;
 
   [ExportGroup("Zoom")]
+  [Export(PropertyHint.Range, "0,1")] private float _targetZoom = 1f;
   [Export] public bool AllowZoom { get; private set; } = true;
   [Export] private float _zoomLerpSpeed = 5f;
   [Export(PropertyHint.Range, "0,1")] private float _zoomSpeed = 0.1f;
@@ -25,11 +26,11 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   public float SpeedMulti { get; private set; } = 1;
   public Vector3 Velocity { get; private set; }
+
   public float Zoom { get; private set; } = 1f;
 
   public float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom) * SpeedMulti;
 
-  private float _targetZoom = 1f;
   private float _zoomVelocity;
   private Vector3 _cameraVelocity;
   private Vector3 _panVelocity;

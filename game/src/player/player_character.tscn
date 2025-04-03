@@ -115,6 +115,7 @@ _acceleration = 15.0
 _moveSpeedMinZoom = 60.0
 _moveSpeedMaxZoom = 20.0
 _stopSpeed = 1.0
+_targetZoom = 0.5
 _zoomLerpSpeed = 3.0
 _minZoomOffset = Vector3(0, 50, 30)
 _maxZoomOffset = Vector3(0, 5, 6)

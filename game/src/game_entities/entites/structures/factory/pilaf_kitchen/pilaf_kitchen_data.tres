@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=21 format=3 uid="uid://cgr6mageg16sj"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://cgr6mageg16sj"]
 
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="1_j8x1d"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_xor7c"]
@@ -12,6 +12,7 @@
 [ext_resource type="Resource" uid="uid://8owi0mw7air3" path="res://src/game_entities/attributes/produced_value.tres" id="5_xtk5n"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="6_2wpad"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="7_11n0u"]
+[ext_resource type="PackedScene" uid="uid://7f16m55m6kq5" path="res://src/game_entities/entites/structures/factory/pilaf_kitchen/pilaf_kitchen_body.tscn" id="10_gql6x"]
 
 [sub_resource type="Resource" id="Resource_40qdq"]
 script = ExtResource("3_pe1mc")
@@ -65,3 +66,4 @@ EntityName = "Pilaf Kitchen"
 AttributeSetsContainer = ExtResource("3_tmiaq")
 Abilities = Array[Object]([ExtResource("2_wcbwa"), SubResource("Resource_dp572")])
 Tags = SubResource("Resource_imikj")
+Body = ExtResource("10_gql6x")

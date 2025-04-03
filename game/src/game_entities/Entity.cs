@@ -1,15 +1,13 @@
 namespace HOB.GameEntity;
 
 using GameplayAbilitySystem;
-using GameplayFramework;
 using GameplayTags;
 using Godot;
 using Godot.Collections;
-using HexGridMap;
 using System.Threading.Tasks;
 
 [GlobalClass]
-public partial class Entity : Node, ITurnAware {
+public partial class Entity : Node3D, ITurnAware {
   public EntityBody Body { get; private set; }
   public string EntityName { get; private set; }
 
@@ -41,6 +39,8 @@ public partial class Entity : Node, ITurnAware {
     AbilitySystem = new();
     Body = body;
 
+    Scale = Vector3.Zero;
+
     TreeEntered += () => {
       Cell = cell;
 
@@ -54,7 +54,7 @@ public partial class Entity : Node, ITurnAware {
         AbilitySystem.OwnedTags.AddTags(tags);
       }
 
-      if (attributeSets != null) {
+      if (attributeSets?.AttributeSets != null) {
         foreach (var @as in attributeSets.AttributeSets) {
           AbilitySystem.AttributeSystem.AddAttributeSet(@as);
         }
@@ -66,15 +66,18 @@ public partial class Entity : Node, ITurnAware {
         }
       }
 
-      Body.AddChild(EntityUi3D.Create(this));
+      AddChild(EntityUi3D.Create(this));
 
-      CallDeferred(MethodName.SetPosition, Cell.GetRealPosition());
+      var tween = CreateTween();
+
+      tween.TweenProperty(this, "scale", Vector3.One, 1f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.InOut);
     };
   }
 
   public override void _Ready() {
     base._Ready();
 
+    GlobalPosition = Cell.GetRealPosition();
   }
 
   public override void _ExitTree() {
@@ -83,16 +86,10 @@ public partial class Entity : Node, ITurnAware {
     AbilitySystem.CancelAllAbilities();
   }
 
-  public void SetPosition(Vector3 position) {
-    Body.GlobalPosition = position;
-  }
-
   public bool TryGetOwner(out IMatchController? owner) {
     owner = OwnerController;
     return owner != null;
   }
-
-  public Vector3 GetPosition() => Body.GlobalPosition;
 
   public async Task TurnAt(Vector3 targetPosition, float duration) {
     var targetRotation = Basis.LookingAt(GetPosition().DirectionTo(targetPosition) * new Vector3(1, 0, 1)).GetRotationQuaternion();
@@ -122,7 +119,9 @@ public partial class Entity : Node, ITurnAware {
       if (attribute == healthAttributeSet?.HealthAttribute) {
         if (newValue <= 0f) {
           AbilitySystem.OwnedTags.AddTag(TagManager.GetTag(HOBTags.StateDead));
-          QueueFree();
+          var tween = CreateTween();
+          tween.TweenProperty(this, "scale", Vector3.Zero, 1f).SetTrans(Tween.TransitionType.Back);
+          tween.Finished += QueueFree;
         }
       }
     }
