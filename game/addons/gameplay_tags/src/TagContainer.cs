@@ -27,13 +27,13 @@ public partial class TagContainer : Resource {
   public void AddTag(Tag tag) {
     if (!Tags.Contains(tag)) {
       Tags.Add(tag);
-      EmitSignal(SignalName.TagAdded);
+      EmitSignal(SignalName.TagAdded, tag);
     }
   }
 
   public void RemoveTag(Tag tag) {
     if (Tags.Remove(tag)) {
-      EmitSignal(SignalName.TagAdded);
+      EmitSignal(SignalName.TagRemoved, tag);
     }
   }
 

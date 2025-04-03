@@ -9,7 +9,7 @@
 render_priority = 0
 shader = ExtResource("2_2dw0v")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_57py6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jkgsj"]
 resource_local_to_scene = true
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_eqdx6")
@@ -19,14 +19,14 @@ shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
 shader_parameter/base_texture = ExtResource("4_vtgfu")
 shader_parameter/uv_scale = Vector2(1, 1)
-shader_parameter/uv_offset = Vector2(-0.25, 0)
+shader_parameter/uv_offset = Vector2(0.75, 0)
 
 [node name="PersiaBall" type="Node3D"]
 
 [node name="BaseCountryBall" parent="." instance=ExtResource("1_dm57s")]
 
-[node name="Sphere" parent="BaseCountryBall/sphere" index="0"]
-surface_material_override/0 = SubResource("ShaderMaterial_57py6")
+[node name="Sphere" parent="BaseCountryBall/sphere (1)/Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_jkgsj")
 
 [editable path="BaseCountryBall"]
-[editable path="BaseCountryBall/sphere"]
+[editable path="BaseCountryBall/sphere (1)"]

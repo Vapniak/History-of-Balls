@@ -30,7 +30,7 @@ public partial class MeleeAttackAbility : AttackAbility {
       EndAbility();
     }
 
-    public async Task Attack(Entity entity) {
+    private async Task Attack(Entity entity) {
       await OwnerEntity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 
       var firstTween = CreateTween();
@@ -44,8 +44,10 @@ public partial class MeleeAttackAbility : AttackAbility {
           var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
           ge.Target = d.TargetAbilitySystem;
           d.TargetAbilitySystem.ApplyGameplayEffectToSelf(ge);
+          ShowDamageNumber(entity.Cell.GetRealPosition());
         }
       }
+
 
       var secondTween = CreateTween();
       secondTween.TweenMethod(Callable.From<Vector3>(OwnerEntity.SetPosition), OwnerEntity.GetPosition(), OwnerEntity.Cell.GetRealPosition(), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);

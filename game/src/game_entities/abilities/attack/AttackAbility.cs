@@ -1,6 +1,7 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayFramework;
 using GameplayTags;
 using Godot;
 using HOB.GameEntity;
@@ -50,6 +51,22 @@ public abstract partial class AttackAbility : HOBAbilityResource {
 
     public virtual bool CanBeAttacked(Entity entity) {
       return entity.TryGetOwner(out var enemyOwner) && OwnerEntity.TryGetOwner(out var owner) && enemyOwner != owner && entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit));
+    }
+
+    protected void ShowDamageNumber(Vector3 pos) {
+      var damageEffect = (AbilityResource as AttackAbility)?.DamageEffect;
+      if (damageEffect?.EffectDefinition?.Modifiers == null) {
+        return;
+      }
+
+      var ei = OwnerAbilitySystem.MakeOutgoingInstance(damageEffect, Level);
+      foreach (var modifier in damageEffect.EffectDefinition.Modifiers) {
+        var magnitude = modifier.GetMagnitude(ei);
+        var text = FloatingText.Create($"{magnitude} {modifier?.Attribute?.AttributeName}", Colors.Red);
+        GameInstance.GetWorld().AddChild(text);
+        text.GlobalPosition = pos + Vector3.Up * 2;
+        _ = text.Animate();
+      }
     }
 
     private uint GetRange() {

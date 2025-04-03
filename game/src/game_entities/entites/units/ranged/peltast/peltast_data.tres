@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="7_w5fhn"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="8_wqo07"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="9_edv3g"]
-[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game_entities/entites/units/ranged/peltast/peltast_throw_attack_ability.tres" id="11_0f8xt"]
+[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game_entities/abilities/attack/throw/throw_attack_ability.tres" id="11_mofes"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/game_entities/attribute_sets/unit_attribute_sets.tres" id="11_rkwlh"]
 [ext_resource type="PackedScene" uid="uid://cfpw2nk3wsd8q" path="res://src/game_entities/entites/units/ranged/peltast/peltast_body.tscn" id="13_4jt7e"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="13_b3s60"]
@@ -33,13 +33,13 @@ Coefficient = 1.0
 script = ExtResource("4_vk2n1")
 Attribute = ExtResource("6_luepg")
 ModifierType = 0
-Coefficient = 1.0
+Coefficient = 20.0
 
 [sub_resource type="Resource" id="Resource_wad7t"]
 script = ExtResource("4_vk2n1")
 Attribute = ExtResource("7_w5fhn")
 ModifierType = 0
-Coefficient = 1.0
+Coefficient = 20.0
 
 [sub_resource type="Resource" id="Resource_sbekc"]
 script = ExtResource("7_c4sat")
@@ -73,6 +73,6 @@ Tags = [SubResource("Resource_oucqj")]
 script = ExtResource("1_dwrs5")
 EntityName = "Peltast"
 AttributeSetsContainer = ExtResource("11_rkwlh")
-Abilities = Array[Object]([ExtResource("1_p537s"), ExtResource("2_w6jli"), SubResource("Resource_6sbge"), ExtResource("11_0f8xt")])
+Abilities = Array[Object]([ExtResource("1_p537s"), ExtResource("2_w6jli"), SubResource("Resource_6sbge"), ExtResource("11_mofes")])
 Tags = SubResource("Resource_lscwp")
 Body = ExtResource("13_4jt7e")

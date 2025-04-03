@@ -1,9 +1,76 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfpw2nk3wsd8q"]
+[gd_scene load_steps=16 format=3 uid="uid://cfpw2nk3wsd8q"]
 
-[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_axktj"]
+[ext_resource type="Script" path="res://src/game_entities/entites/units/UnitBody.cs" id="1_dm6nx"]
 [ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game_entities/entites/units/country_balls/greek_ball.tscn" id="2_357p0"]
+[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="3_8y3io"]
+[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="4_3i4fc"]
+[ext_resource type="Texture2D" uid="uid://b51t1aisjv4u5" path="res://assets/textures/flags/Greece.png" id="5_5emt8"]
+[ext_resource type="Animation" uid="uid://gw0ktv30hlte" path="res://assets/models/Armature_ArmatureAction.res" id="6_lmvu3"]
+[ext_resource type="Animation" uid="uid://dlp0qu0bms3i7" path="res://assets/models/Armature_SphereAction.res" id="7_0nf47"]
+[ext_resource type="Script" path="res://src/game_entities/entites/units/attribute/UnitAttribute.cs" id="8_iqukm"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="8_ut4yb"]
 
-[node name="PeltastBody" type="Node3D"]
-script = ExtResource("1_axktj")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqdx6"]
+render_priority = 0
+shader = ExtResource("3_8y3io")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_myhd5"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_eqdx6")
+shader = ExtResource("4_3i4fc")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/base_texture = ExtResource("5_5emt8")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0.75, 0)
+
+[sub_resource type="Animation" id="Animation_x2uwr"]
+length = 0.001
+
+[sub_resource type="Animation" id="Animation_vsqqk"]
+resource_name = "idle"
+loop_mode = 1
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_bww61"]
+_data = {
+"Armature|ArmatureAction": ExtResource("6_lmvu3"),
+"Armature|SphereAction": ExtResource("7_0nf47"),
+"RESET": SubResource("Animation_x2uwr"),
+"idle": SubResource("Animation_vsqqk")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_vrle6"]
+size = Vector3(0.115, 0.2, 1.115)
+
+[node name="PeltastBody" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
+top_level = true
+script = ExtResource("1_dm6nx")
+UnitAttribute = NodePath("FollowParent3D/UnitAttribute")
 
 [node name="GreekBall" parent="." instance=ExtResource("2_357p0")]
+
+[node name="Sphere" parent="GreekBall/BaseCountryBall/sphere (1)/Armature/Skeleton3D" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_myhd5")
+
+[node name="AnimationPlayer" parent="GreekBall/BaseCountryBall/sphere (1)" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_bww61")
+}
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+script = ExtResource("8_ut4yb")
+
+[node name="UnitAttribute" type="Node3D" parent="FollowParent3D"]
+transform = Transform3D(1, 0, 0, 0, 0.0515168, -0.998672, 0, 0.998672, 0.0515168, 0.887068, 0.447799, 0)
+script = ExtResource("8_iqukm")
+RotationSmoothness = 10.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FollowParent3D/UnitAttribute"]
+mesh = SubResource("BoxMesh_vrle6")
+skeleton = NodePath("../../..")
+
+[editable path="GreekBall"]
+[editable path="GreekBall/BaseCountryBall"]
+[editable path="GreekBall/BaseCountryBall/sphere (1)"]

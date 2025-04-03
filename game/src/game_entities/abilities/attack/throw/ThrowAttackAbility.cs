@@ -1,19 +1,26 @@
 namespace HOB;
 
+using System.Threading.Tasks;
 using GameplayAbilitySystem;
+using GameplayTags;
 using Godot;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class ThrowAttackAbility : AttackAbility {
-  [Export] public PackedScene? ThrowableObject { get; private set; }
-
   public override GameplayAbilityInstance CreateInstance(GameplayAbilitySystem abilitySystem) {
     return new Instance(this, abilitySystem);
   }
 
   public new partial class Instance : AttackAbility.Instance {
     public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+      OwnerAbilitySystem.OwnedTags.TagRemoved += OnTagRemoved;
+    }
 
+    protected override void Dispose(bool disposing) {
+      base.Dispose(disposing);
+
+      OwnerAbilitySystem.OwnedTags.TagRemoved -= OnTagRemoved;
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
@@ -24,24 +31,45 @@ public partial class ThrowAttackAbility : AttackAbility {
           OwnerAbilitySystem.ApplyGameplayEffectToSelf(ge);
         }
 
-
-        // TODO: throw
-        //        var throwable = (AbilityResource as ThrowAttackAbility)?.ThrowableObject?.InstantiateOrNull<Node3D>();
-
-        if (CurrentEventData?.TargetData is AttackTargetData d) {
-          var damage = (AbilityResource as AttackAbility)?.DamageEffect;
-          if (effect != null) {
-            var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
-            ge.Target = d.TargetAbilitySystem;
-            d.TargetAbilitySystem.ApplyGameplayEffectToSelf(ge);
-          }
-        }
-
-        EndAbility();
+        _ = Attack(attackTargetData.TargetAbilitySystem.GetOwner<Entity>());
         return;
       }
 
       EndAbility();
+    }
+
+    private async Task Attack(Entity entity) {
+      await OwnerEntity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
+
+      UnitAttribute? unitAttribute = null;
+      if (OwnerEntity.Body is UnitBody unit) {
+        unitAttribute = unit.UnitAttribute;
+        if (unitAttribute != null) {
+          await unitAttribute.ThrowToPosition(entity.Cell.GetRealPosition());
+        }
+      }
+
+      if (CurrentEventData?.TargetData is AttackTargetData d) {
+        var effect = (AbilityResource as AttackAbility)?.DamageEffect;
+        if (effect != null) {
+          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
+          ge.Target = d.TargetAbilitySystem;
+          d.TargetAbilitySystem.ApplyGameplayEffectToSelf(ge);
+          ShowDamageNumber(entity.Cell.GetRealPosition());
+        }
+      }
+
+
+      EndAbility();
+    }
+
+    private void OnTagRemoved(Tag tag) {
+      if (tag == TagManager.GetTag(HOBTags.CooldownAttack)) {
+        GD.Print(tag.FullName);
+        if (OwnerEntity.Body is UnitBody unit) {
+          unit.UnitAttribute?.Reset();
+        }
+      }
     }
   }
 }
