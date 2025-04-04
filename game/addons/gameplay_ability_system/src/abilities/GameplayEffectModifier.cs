@@ -2,7 +2,7 @@ namespace GameplayAbilitySystem;
 
 using Godot;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class GameplayEffectModifier : Resource {
   [Export] public GameplayAttribute? Attribute { get; private set; }
   [Export] public AttributeModifierType ModifierType { get; private set; }

@@ -31,19 +31,15 @@ public abstract partial class AttackAbility : HOBAbilityResource {
       var attackableEntities = new List<Entity>();
       var cellsInR = new List<GameCell>();
 
-      if (OwnerEntity.AbilitySystem.AttributeSystem.TryGetAttributeSet<AttackAttributeSet>(out var attributeSet)) {
-        if (attributeSet != null) {
-          var cells = OwnerEntity.Cell.GetCellsInRange(GetRange());
-          foreach (var cell in cells) {
-            if (cell == OwnerEntity.Cell) {
-              continue;
-            }
-
-            cellsInR.Add(cell);
-            var entities = OwnerEntity.EntityManagment.GetEntitiesOnCell(cell);
-            attackableEntities.AddRange(entities.Where(CanBeAttacked));
-          }
+      var cells = OwnerEntity.Cell.GetCellsInRange(GetRange());
+      foreach (var cell in cells) {
+        if (cell == OwnerEntity.Cell) {
+          continue;
         }
+
+        cellsInR.Add(cell);
+        var entities = OwnerEntity.EntityManagment.GetEntitiesOnCell(cell);
+        attackableEntities.AddRange(entities.Where(CanBeAttacked));
       }
 
       return (attackableEntities.ToArray(), cellsInR.ToArray());
@@ -71,7 +67,7 @@ public abstract partial class AttackAbility : HOBAbilityResource {
       }
     }
 
-    private uint GetRange() {
+    protected virtual uint GetRange() {
       if (OwnerEntity.AbilitySystem.AttributeSystem.TryGetAttributeSet<AttackAttributeSet>(out var attributeSet)) {
         return (uint)OwnerEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attributeSet.Range).GetValueOrDefault();
       }

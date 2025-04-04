@@ -26,4 +26,7 @@ size = Vector2i(1920, 1080)
 
 [node name="Control" parent="Sprite3D/SubViewport" instance=ExtResource("2_d4niw")]
 
+[node name="RichTextLabel" parent="Sprite3D/SubViewport/Control" index="0"]
+text = "[center]100"
+
 [editable path="Sprite3D/SubViewport/Control"]

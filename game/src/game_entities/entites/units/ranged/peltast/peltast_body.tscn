@@ -65,6 +65,7 @@ script = ExtResource("8_ut4yb")
 [node name="UnitAttribute" type="Node3D" parent="FollowParent3D"]
 transform = Transform3D(1, 0, 0, 0, 0.0515168, -0.998672, 0, 0.998672, 0.0515168, 0.887068, 0.447799, 0)
 script = ExtResource("8_iqukm")
+ThrowHeight = 3.0
 RotationSmoothness = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FollowParent3D/UnitAttribute"]

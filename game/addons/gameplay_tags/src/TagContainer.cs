@@ -6,7 +6,7 @@ using System.Linq;
 using Godot;
 using Godot.Collections;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class TagContainer : Resource {
   [Signal] public delegate void TagAddedEventHandler(Tag tag);
   [Signal] public delegate void TagRemovedEventHandler(Tag tag);

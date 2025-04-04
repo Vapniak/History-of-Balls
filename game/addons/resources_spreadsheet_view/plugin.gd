@@ -26,13 +26,13 @@ func _exit_tree() -> void:
 func _get_plugin_name():
 	return "ResourceTables"
 
-
 func _make_visible(visible):
 	if is_instance_valid(editor_view):
 		editor_view.visible = visible
 		if visible:
-			editor_view.display_folder(editor_view.current_path)
-
+			# Use safe path fallback
+			var target_path = editor_view.current_path if editor_view.current_path else "res://"
+			editor_view.display_folder(target_path)
 
 func _has_main_screen():
 	return true

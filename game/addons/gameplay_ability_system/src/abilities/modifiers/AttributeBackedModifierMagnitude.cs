@@ -3,7 +3,7 @@ namespace GameplayAbilitySystem;
 
 using Godot;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResource {
   //[Export] public Curve? ScalingFunction { get; private set; }
 

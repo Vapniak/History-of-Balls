@@ -56,5 +56,8 @@ public partial class MeleeAttackAbility : AttackAbility {
 
       EndAbility();
     }
+
+
+    protected override uint GetRange() => 1;
   }
 }

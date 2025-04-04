@@ -5,7 +5,7 @@ using GameplayTags;
 using Godot;
 using Godot.Collections;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class GameplayEffectResource : Resource {
   [Export] public GameplayEffectPeriod? Period { get; private set; }
   [Export] public GameplayEffectDefinition? EffectDefinition { get; private set; }

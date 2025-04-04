@@ -1,5 +1,7 @@
 namespace HOB;
 
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GameplayAbilitySystem;
 using GameplayTags;
@@ -38,6 +40,25 @@ public partial class ThrowAttackAbility : AttackAbility {
       EndAbility();
     }
 
+
+    public override (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
+      var attackableEntities = new List<Entity>();
+      var cellsInR = new List<GameCell>();
+
+      var cells = OwnerEntity.Cell.GetCellsInRange((uint)Mathf.Max(GetRange(), 2));
+      foreach (var cell in cells) {
+        if (cell == OwnerEntity.Cell || OwnerEntity.Cell.Coord.Distance(cell.Coord) <= 1) {
+          continue;
+        }
+
+        cellsInR.Add(cell);
+        var entities = OwnerEntity.EntityManagment.GetEntitiesOnCell(cell);
+        attackableEntities.AddRange(entities.Where(CanBeAttacked));
+      }
+
+      return (attackableEntities.ToArray(), cellsInR.ToArray());
+    }
+
     private async Task Attack(Entity entity) {
       await OwnerEntity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 
@@ -62,7 +83,6 @@ public partial class ThrowAttackAbility : AttackAbility {
 
       EndAbility();
     }
-
     private void OnTagRemoved(Tag tag) {
       if (tag == TagManager.GetTag(HOBTags.CooldownAttack)) {
         if (OwnerEntity.Body is UnitBody unit) {

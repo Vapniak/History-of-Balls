@@ -5,7 +5,7 @@ using Godot;
 using Godot.Collections;
 using System;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public abstract partial class GameplayAbilityResource : Resource {
   [Export] public string AbilityName { get; protected set; } = "Ability";
   [Export] public GameplayEffectResource? CooldownGameplayEffect { get; protected set; }

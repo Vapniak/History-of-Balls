@@ -2,7 +2,7 @@ namespace GameplayAbilitySystem;
 
 using Godot;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public abstract partial class DurationStrategy : Resource {
   public abstract bool IsExpired { get; }
   public abstract void Initialize(float magnitude);

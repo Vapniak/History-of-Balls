@@ -5,7 +5,7 @@ using GameplayTags;
 using Godot;
 using Godot.Collections;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class EntityData : Resource {
   [Export] public string EntityName { get; private set; } = "Entity";
   [Export] public AttributeSetsContainer? AttributeSetsContainer { get; private set; }

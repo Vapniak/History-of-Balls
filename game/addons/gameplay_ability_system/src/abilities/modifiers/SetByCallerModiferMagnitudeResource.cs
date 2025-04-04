@@ -4,7 +4,7 @@ using GameplayTags;
 using Godot;
 using System;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class SetByCallerModiferMagnitudeResource : ModifierMagnitudeResource {
   [Export] public Tag? DataTag;
 

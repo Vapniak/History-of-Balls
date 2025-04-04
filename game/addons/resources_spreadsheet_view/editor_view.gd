@@ -320,6 +320,7 @@ func _update_row(row_index : int, color_rows : bool = true):
 	var current_node : Control
 	var next_color := Color.WHITE
 	var column_editors : Array = _selection.column_editors
+  # IMPORTANT: this is where the resource name is visible
 	var shortened_path : String = rows[row_index].resource_path.get_file().split(".")[0]
 	for i in columns.size():
 		if node_table_root.get_child_count() <= (row_index - first_row) * columns.size() + i:
@@ -394,24 +395,24 @@ func set_edited_cells_values(new_cell_values : Array):
 
 	editor_plugin.undo_redo.create_action("Set Cell Values")
 	editor_plugin.undo_redo.add_undo_method(
-		self,
-		&"_update_resources",
-		edited_cells_resources.duplicate(),
-		edited_rows.duplicate(),
-		column,
-		get_edited_cells_values()
+	self,
+	&"_update_resources",
+	edited_cells_resources.duplicate(),
+	edited_rows.duplicate(),
+	column,
+	get_edited_cells_values()
 	)
 	editor_plugin.undo_redo.add_undo_method(
-		_selection,
-		&"_update_selected_cells_text"
+	_selection,
+	&"_update_selected_cells_text"
 	)
 	editor_plugin.undo_redo.add_do_method(
-		self,
-		&"_update_resources",
-		edited_cells_resources.duplicate(),
-		edited_rows.duplicate(),
-		column,
-		new_cell_values.duplicate()
+	self,
+	&"_update_resources",
+	edited_cells_resources.duplicate(),
+	edited_rows.duplicate(),
+	column,
+	new_cell_values.duplicate()
 	)
 	editor_plugin.undo_redo.commit_action(true)
 	_selection._update_selected_cells_text()
