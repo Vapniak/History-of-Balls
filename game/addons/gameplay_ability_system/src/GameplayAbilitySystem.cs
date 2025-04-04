@@ -68,6 +68,10 @@ public partial class GameplayAbilitySystem : Node {
     EmitSignal(SignalName.GameplayAbilityRevoked, abilityInstance);
   }
 
+  public T? GetGrantedAbility<T>() where T : GameplayAbilityInstance {
+    return GrantedAbilities.OfType<T>().FirstOrDefault();
+  }
+
   public void CancelAllAbilities() {
     foreach (var ability in GrantedAbilities.Where(a => a.IsActive)) {
       ability.CancelAbility();
@@ -131,8 +135,7 @@ public partial class GameplayAbilitySystem : Node {
       AppliedEffects.RemoveAll(e => e == geInstance);
       EmitSignal(SignalName.GameplayEffectRemoved, geInstance);
       if (geInstance.GameplayEffect.ExpireEffect != null) {
-        var ei = geInstance.Source.MakeOutgoingInstance(geInstance.GameplayEffect.ExpireEffect, 0);
-        ei.Target = geInstance.Target;
+        var ei = geInstance.Source.MakeOutgoingInstance(geInstance.GameplayEffect.ExpireEffect, 0, geInstance.Target);
         ei.Target?.CallDeferred(nameof(ApplyGameplayEffectToSelf), ei);
       }
     };
@@ -161,8 +164,8 @@ public partial class GameplayAbilitySystem : Node {
       effect.Tick(tickContext);
     }
   }
-  public GameplayEffectInstance MakeOutgoingInstance(GameplayEffectResource gameplayEffect, float level) {
-    return GameplayEffectInstance.CreateNew(gameplayEffect, this, level);
+  public GameplayEffectInstance MakeOutgoingInstance(GameplayEffectResource gameplayEffect, float level, GameplayAbilitySystem? target = null) {
+    return GameplayEffectInstance.CreateNew(gameplayEffect, this, target, level);
   }
 
   private void ApplyInstantGameplayEffect(GameplayEffectInstance geInstance) {
@@ -170,29 +173,40 @@ public partial class GameplayAbilitySystem : Node {
       foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
         if (modifier != null) {
           var attribute = modifier.Attribute;
-          var magnitue = modifier.GetMagnitude(geInstance);
+          var magnitude = modifier.GetMagnitude(geInstance);
 
           if (attribute != null) {
             var value = AttributeSystem.GetAttributeCurrentValue(attribute);
-            if (value != null) {
-              switch (modifier?.ModifierType) {
+            if (value != null && modifier != null) {
+              switch (modifier.ModifierType) {
                 case AttributeModifierType.Add:
-                  value += magnitue;
+                  value += magnitude;
                   break;
                 case AttributeModifierType.Multiply:
-                  value *= magnitue;
+                  value *= magnitude;
                   break;
                 case AttributeModifierType.Override:
-                  value = magnitue;
+                  value = magnitude;
                   break;
                 default:
                   break;
               }
 
-              // foreach (var attributeSet in AttributeSets) {
-              //   attributeSet.PostGameplayEffectExecute(attribute, ref newValue);
-              // }
+              var data = new GameplayEffectModData(
+                geInstance,
+                new(attribute, magnitude, modifier.ModifierType),
+                geInstance.Target
+              );
+
+              foreach (var attributeSet in AttributeSystem.GetAttributeSets()) {
+                attributeSet.PreGameplayEffectExecute(data);
+              }
+
               AttributeSystem.SetAttributeBaseValue(attribute, value ?? 0);
+
+              foreach (var attributeSet in AttributeSystem.GetAttributeSets()) {
+                attributeSet.PostGameplayEffectExecute(data);
+              }
             }
           }
         }

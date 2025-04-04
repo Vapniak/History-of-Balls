@@ -103,7 +103,12 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
 
   private void AddEntity(Entity entity) {
-    entity.TreeExiting += () => RemoveEntity(entity);
+    entity.AbilitySystem.OwnedTags.TagAdded += (tag) => {
+      if (tag == TagManager.GetTag(HOBTags.StateDead)) {
+        RemoveEntity(entity);
+      }
+    };
+
     entity.Ready += () => {
       EntityAdded?.Invoke(entity);
     };

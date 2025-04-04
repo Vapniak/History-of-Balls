@@ -52,7 +52,7 @@ TickAtOwnTurn = true
 [sub_resource type="Resource" id="Resource_cr24g"]
 script = ExtResource("4_vh7p2")
 DurationPolicy = 2
-Modifiers = null
+Modifiers = []
 DurationMultiplier = 1.0
 DurationStrategy = SubResource("Resource_s7xdi")
 

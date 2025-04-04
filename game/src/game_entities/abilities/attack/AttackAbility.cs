@@ -27,13 +27,15 @@ public abstract partial class AttackAbility : HOBAbilityResource {
 
       return base.CanActivateAbility(eventData);
     }
-    public virtual (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
+    public virtual (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities(GameCell? fromCell = null) {
       var attackableEntities = new List<Entity>();
       var cellsInR = new List<GameCell>();
 
-      var cells = OwnerEntity.Cell.GetCellsInRange(GetRange());
+      fromCell ??= OwnerEntity.Cell;
+
+      var cells = fromCell.GetCellsInRange(GetRange());
       foreach (var cell in cells) {
-        if (cell == OwnerEntity.Cell) {
+        if (cell == fromCell) {
           continue;
         }
 
@@ -67,7 +69,7 @@ public abstract partial class AttackAbility : HOBAbilityResource {
       }
     }
 
-    protected virtual uint GetRange() {
+    public virtual uint GetRange() {
       if (OwnerEntity.AbilitySystem.AttributeSystem.TryGetAttributeSet<AttackAttributeSet>(out var attributeSet)) {
         return (uint)OwnerEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attributeSet.Range).GetValueOrDefault();
       }

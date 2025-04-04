@@ -57,6 +57,8 @@ public partial class AttributeSystem : Node {
     return attributeSet != null;
   }
 
+  public IEnumerable<GameplayAttributeSet> GetAttributeSets() => AttributeSets;
+
   private bool TryGetAttributeValue(GameplayAttribute attribute, out GameplayAttributeValue? value) {
     return AttributeValues.TryGetValue(attribute, out value);
   }

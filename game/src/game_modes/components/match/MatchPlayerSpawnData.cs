@@ -8,6 +8,7 @@ using HOB.GameEntity;
 [GlobalClass]
 public partial class MatchPlayerSpawnData : Resource {
   [Export] public PlayerType PlayerType { get; private set; }
+  [Export] public AIProfile? AIProfile { get; private set; }
   [Export] public Country? Country { get; private set; }
   [Export] public int PrimaryResourceInitialValue { get; private set; }
   [Export] public int SecondaryResourceInitialValue { get; private set; }

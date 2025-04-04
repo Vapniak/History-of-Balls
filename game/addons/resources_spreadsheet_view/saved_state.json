@@ -11,6 +11,61 @@
         "visibility": 0
       }
     },
+    "res://src/game_entities/entites/structures/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/structures::Abilities/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects::EffectDefinition/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://src/game_entities/entites::Abilities/": {
       "metadata/_custom_type_script": {
         "visibility": 0
@@ -79,7 +134,12 @@
     "res://src/game_entities/entites::Abilities::InitializeStatsEffects/",
     "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition/",
     "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers/",
-    "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers::Attribute/"
+    "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers::Attribute/",
+    "res://src/game_entities/entites/structures/",
+    "res://src/game_entities/entites/structures::Abilities/",
+    "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects/",
+    "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects::EffectDefinition/",
+    "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers/"
   ],
   "table_functions": {
     "filter": [

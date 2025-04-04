@@ -8,13 +8,13 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class AIController : Controller, IMatchController {
   public event Action? EndTurnEvent;
   public Country? Country { get; set; }
+  public AIProfile Profile { get; set; } = new();
 
   private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
   private HOBGameMode GameMode => GetGameMode();
@@ -75,13 +75,13 @@ public partial class AIController : Controller, IMatchController {
       }
 
       if (bestEntity != null && bestAbility != null) {
-        GD.PrintS($"AI attempting: {bestEntity.EntityName} -> {bestAbility.AbilityResource.AbilityName}");
+        // GD.PrintS($"AI attempting: {bestEntity.EntityName} -> {bestAbility.AbilityResource.AbilityName}");
 
         if (bestAbility is MoveAbility.Instance or AttackAbility.Instance) {
           var success = await bestEntity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestData);
 
           if (!success) {
-            GD.PrintS("Activation failed! Re-evaluating...");
+            // GD.PrintS("Activation failed! Re-evaluating...");
             await Task.Delay(100);
           }
         }
@@ -102,68 +102,17 @@ public partial class AIController : Controller, IMatchController {
     var (ability, data, score) = FindBestActionWithBudget(entity);
 
     timer.Stop();
-    GD.Print($"Processed {entity.EntityName} in {timer.ElapsedMilliseconds}ms");
+    // GD.Print($"Processed {entity.EntityName} in {timer.ElapsedMilliseconds}ms");
     return (entity, ability, data, score);
   }
 
-
-  // private async Task ProcessEntityActions() {
-  //   while (true) {
-  //     (Entity? bestEntity, GameplayAbilityInstance? bestAbility, GameplayEventData? bestData, var bestScore) =
-  //         (null, null, null, 0f);
-
-  //     //var scores = new List<(Entity?, GameplayAbilityInstance?, GameplayEventData?, float)>();
-
-  //     // EntityManagment.GetOwnedEntites(this).AsParallel().ForAll(e => {
-  //     //   var timer = new System.Diagnostics.Stopwatch();
-  //     //   timer.Start();
-
-  //     //   var result = FindBestActionWithBudget(e);
-  //     //   scores.Add((e, result.Item1, result.Item2, result.Item3));
-
-  //     //   timer.Stop();
-  //     //   GD.Print($"Processed entity in {timer.ElapsedMilliseconds}ms");
-  //     // });
-
-  //     var entities = EntityManagment.GetOwnedEntites(this).ToList();
-  //     var evaluationTasks = new List<Task<(Entity Entity, GameplayAbilityInstance? Ability, GameplayEventData? Data, float Score)>>();
-
-  //     foreach (var entity in entities) {
-  //       evaluationTasks.Add(Task.Run(() => EvaluateEntityAsync(entity)));
-  //     }
-
-  //     var results = await Task.WhenAll(evaluationTasks);
-  //     (bestEntity, bestAbility, bestData, bestScore) = results
-  //         .OrderByDescending(r => r.Score)
-  //         .FirstOrDefault();
-
-  //     if (bestEntity != null && bestAbility != null) {
-  //       GD.PrintS($"AI attempting: {bestEntity.EntityName} -> {bestAbility.AbilityResource.AbilityName}");
-
-  //       if (bestAbility is MoveAbility.Instance or AttackAbility.Instance) {
-  //         var success = await bestEntity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestData);
-
-  //         if (!success) {
-  //           GD.PrintS("Activation failed! Re-evaluating...");
-  //           await Task.Delay(100);
-  //         }
-  //       }
-  //       else {
-  //         bestEntity.AbilitySystem.TryActivateAbility(bestAbility, bestData);
-  //       }
-  //     }
-  //     else {
-  //       break;
-  //     }
-  //   }
-  // }
 
   private (Entity Entity, GameplayAbilityInstance? Ability, GameplayEventData? Data, float Score)
     EvaluateEntityAsync(Entity entity) {
     var timer = System.Diagnostics.Stopwatch.StartNew();
     var (ability, data, score) = FindBestActionWithBudget(entity);
     timer.Stop();
-    GD.Print($"Processed {entity.EntityName} in {timer.ElapsedMilliseconds}ms");
+    // GD.Print($"Processed {entity.EntityName} in {timer.ElapsedMilliseconds}ms");
     return (entity, ability, data, score);
   }
 
@@ -213,10 +162,12 @@ public partial class AIController : Controller, IMatchController {
         continue;
       }
 
-      var score = CalculateMoveScore(entity, enemy, path);
-      if (score > bestScore) {
-        bestScore = score;
-        bestCell = path.Last();
+      foreach (var cell in path) {
+        var score = CalculateMoveScore(entity, enemy, path, cell);
+        if (score > bestScore) {
+          bestScore = score;
+          bestCell = cell;
+        }
       }
     }
 
@@ -234,7 +185,7 @@ public partial class AIController : Controller, IMatchController {
 
     var (entities, _) = ability.GetAttackableEntities();
     foreach (var target in entities) {
-      var score = CalculateAttackScore(entity, ability, target);
+      var score = CalculateDamageRatio(entity, ability, target);
       if (score > bestScore) {
         bestScore = score;
         bestTarget = target;
@@ -266,21 +217,48 @@ public partial class AIController : Controller, IMatchController {
         : (0, null);
   }
 
-  private float CalculateMoveScore(Entity entity, Entity target, IEnumerable<GameCell> path) {
-    var distanceScore = 1f / entity.Cell.Coord.Distance(target.Cell.Coord);
-    // var attackScore = CanAttackFrom(entity, path.Last(), target) ? 2f : 0f;
-    // var threatScore = CalculateThreatAvoidance(entity, path.Last());
+  private float CalculateMoveScore(Entity entity, Entity target, IEnumerable<GameCell> path, GameCell cell) {
+    var attackAbility = entity.AbilitySystem.GetGrantedAbility<AttackAbility.Instance>();
+    var distanceScore = 0f;
+    var attackScore = 0f;
+    uint desiredDistance = 0;
+    var actualDistance = cell.Coord.Distance(target.Cell.Coord);
 
-    return distanceScore * 0.6f; //+ attackScore * 0.3f + threatScore * 0.1f;
+    if (attackAbility != null && attackAbility.GetAttackableEntities(cell).entities.Contains(target)) {
+      attackScore = CalculateDamageRatio(entity, attackAbility, target) * Profile.Agressiveness;
+      var attackRange = attackAbility.GetRange();
+      desiredDistance = attackRange;
+    }
+
+    var threatScore = CalculateThreatAvoidance(entity, cell);
+    distanceScore = 1f / (Mathf.Abs(actualDistance - desiredDistance) + 1);
+
+    return distanceScore + attackScore + threatScore;
   }
 
-  private float CalculateAttackScore(Entity attacker, AttackAbility.Instance ability, Entity target) {
+  private float CalculateThreatAvoidance(Entity entity, GameCell cell) {
+    var threatCount = 0;
+    foreach (var enemy in GetPotentialEnemies(entity)) {
+      var enemyAttack = enemy.AbilitySystem.GetGrantedAbility<AttackAbility.Instance>();
+      if (enemyAttack != null && enemyAttack.GetAttackableEntities().cellsInRange.Contains(cell)) {
+        threatCount++;
+      }
+    }
+    return 1f / (threatCount + 1);
+  }
+
+  private static float CalculateDamageRatio(Entity attacker, AttackAbility.Instance ability, Entity target) {
     if (attacker.AbilitySystem.AttributeSystem.TryGetAttributeSet<AttackAttributeSet>(out var attackSet) && target.AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var healthSet)) {
       var damage = attacker.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attackSet.Damage).GetValueOrDefault();
       var health = target.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(healthSet.HealthAttribute).GetValueOrDefault();
 
       if (health > 0) {
-        return damage / health;
+        if (damage > health) {
+          return health / damage;
+        }
+        else {
+          return damage / health;
+        }
       }
     }
 
@@ -305,7 +283,6 @@ public partial class AIController : Controller, IMatchController {
   private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>
       EntityManagment.GetEnemyEntities(this)
           .Union(EntityManagment.GetNotOwnedEntities());
-
   public void OwnTurnStarted() {
     _ = StartDecisionMaking();
   }

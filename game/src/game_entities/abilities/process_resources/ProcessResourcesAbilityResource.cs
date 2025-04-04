@@ -38,8 +38,7 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
     public override void ActivateAbility(GameplayEventData? eventData) {
       if (OwnerEntity.TryGetOwner(out var owner)) {
         var abilitySystem = owner?.GetPlayerState().AbilitySystem;
-        var processEffect = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as ProcessResourcesAbilityResource).ProcessEffect, 0);
-        processEffect.Target = abilitySystem;
+        var processEffect = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as ProcessResourcesAbilityResource).ProcessEffect, 0, abilitySystem);
         processEffect.Target?.ApplyGameplayEffectToSelf(processEffect);
 
         // if (owner is PlayerController) {
@@ -64,9 +63,9 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
           _turnsLeft--;
           if (_turnsLeft <= 0) {
             var abilitySystem = owner?.GetPlayerState().AbilitySystem;
-            var produceEffect = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as ProcessResourcesAbilityResource).ProduceEffect, 0);
+            var produceEffect = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as ProcessResourcesAbilityResource).ProduceEffect, 0, abilitySystem);
 
-            produceEffect.Target = abilitySystem;
+
             produceEffect.Target?.ApplyGameplayEffectToSelf(produceEffect);
             taskData.Complete();
 

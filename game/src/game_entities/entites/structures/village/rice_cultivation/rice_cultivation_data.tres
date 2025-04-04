@@ -15,7 +15,7 @@
 [sub_resource type="Resource" id="Resource_he0a3"]
 script = ExtResource("2_f1nit")
 Attribute = ExtResource("2_hvxo5")
-ModifierType = 0
+ModifierType = 2
 Coefficient = 1.0
 
 [sub_resource type="Resource" id="Resource_eb8or"]

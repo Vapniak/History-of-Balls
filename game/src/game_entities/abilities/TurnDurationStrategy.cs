@@ -6,7 +6,7 @@ using GameplayTags;
 using Godot;
 using Godot.Collections;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class TurnDurationStrategy : DurationStrategy {
   [Export] public Array<Tag> TickAt { get; private set; } = new();
   [Export] public bool TickAtOwnTurn { get; private set; }

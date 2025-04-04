@@ -168,7 +168,12 @@ public partial class HOBGameMode : GameMode {
         PlayerManagmentComponent.SpawnPlayer(new(controller, state, "Player", hud, characterNode));
       }
       else if (playerData.PlayerType == PlayerType.AI) {
-        controller = AIControllerScene.Instantiate<Controller>();
+        var ai = AIControllerScene.Instantiate<AIController>();
+        if (playerData.AIProfile != null) {
+          ai.Profile = playerData.AIProfile;
+        }
+
+        controller = ai;
         PlayerManagmentComponent.SpawnPlayer(new(controller, state, "AI"));
       }
 

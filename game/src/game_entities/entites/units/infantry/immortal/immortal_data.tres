@@ -20,26 +20,26 @@
 [sub_resource type="Resource" id="Resource_wd3t6"]
 script = ExtResource("2_5urlp")
 Attribute = ExtResource("1_rkf5v")
-ModifierType = 0
-Coefficient = 1.0
+ModifierType = 2
+Coefficient = 7.0
 
 [sub_resource type="Resource" id="Resource_3evd7"]
 script = ExtResource("2_5urlp")
 Attribute = ExtResource("3_7vsus")
-ModifierType = 0
+ModifierType = 2
 Coefficient = 1.0
 
 [sub_resource type="Resource" id="Resource_j0jxq"]
 script = ExtResource("2_5urlp")
 Attribute = ExtResource("4_857bx")
-ModifierType = 0
-Coefficient = 1.0
+ModifierType = 2
+Coefficient = 22.0
 
 [sub_resource type="Resource" id="Resource_wkt6l"]
 script = ExtResource("2_5urlp")
 Attribute = ExtResource("5_hc31m")
-ModifierType = 0
-Coefficient = 1.0
+ModifierType = 2
+Coefficient = 2.0
 
 [sub_resource type="Resource" id="Resource_v8kdp"]
 script = ExtResource("6_uslv4")

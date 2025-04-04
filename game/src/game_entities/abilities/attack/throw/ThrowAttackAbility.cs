@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,11 +19,12 @@ public partial class ThrowAttackAbility : AttackAbility {
     public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
       OwnerAbilitySystem.OwnedTags.TagRemoved += OnTagRemoved;
     }
+    public override void _ExitTree() {
+      base._ExitTree();
 
-    protected override void Dispose(bool disposing) {
-      base.Dispose(disposing);
-
-      OwnerAbilitySystem.OwnedTags.TagRemoved -= OnTagRemoved;
+      if (IsInstanceValid(OwnerAbilitySystem) && IsInstanceValid(OwnerAbilitySystem.OwnedTags)) {
+        OwnerAbilitySystem.OwnedTags.TagRemoved -= OnTagRemoved;
+      }
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
@@ -41,22 +43,15 @@ public partial class ThrowAttackAbility : AttackAbility {
     }
 
 
-    public override (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities() {
-      var attackableEntities = new List<Entity>();
-      var cellsInR = new List<GameCell>();
+    public override (Entity[] entities, GameCell[] cellsInRange) GetAttackableEntities(GameCell? fromCell = null) {
+      fromCell ??= OwnerEntity.Cell;
 
-      var cells = OwnerEntity.Cell.GetCellsInRange((uint)Mathf.Max(GetRange(), 2));
-      foreach (var cell in cells) {
-        if (cell == OwnerEntity.Cell || OwnerEntity.Cell.Coord.Distance(cell.Coord) <= 1) {
-          continue;
-        }
+      (var attackableEntities, var cellsInR) = base.GetAttackableEntities(fromCell);
 
-        cellsInR.Add(cell);
-        var entities = OwnerEntity.EntityManagment.GetEntitiesOnCell(cell);
-        attackableEntities.AddRange(entities.Where(CanBeAttacked));
-      }
+      attackableEntities = attackableEntities.Where(e => e.Cell.Coord.Distance(fromCell.Coord) > 1).ToArray();
+      cellsInR = cellsInR.Where(c => c.Coord.Distance(fromCell.Coord) > 1).ToArray();
 
-      return (attackableEntities.ToArray(), cellsInR.ToArray());
+      return (attackableEntities, cellsInR);
     }
 
     private async Task Attack(Entity entity) {
@@ -66,15 +61,14 @@ public partial class ThrowAttackAbility : AttackAbility {
       if (OwnerEntity.Body is UnitBody unit) {
         unitAttribute = unit.UnitAttribute;
         if (unitAttribute != null) {
-          await unitAttribute.ThrowToPosition(entity.Cell.GetRealPosition());
+          await unitAttribute.DoAction(entity.Cell.GetRealPosition());
         }
       }
 
       if (CurrentEventData?.TargetData is AttackTargetData d) {
         var effect = (AbilityResource as AttackAbility)?.DamageEffect;
         if (effect != null) {
-          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
-          ge.Target = d.TargetAbilitySystem;
+          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0, d.TargetAbilitySystem);
           d.TargetAbilitySystem.ApplyGameplayEffectToSelf(ge);
           ShowDamageNumber(entity.Cell.GetRealPosition());
         }
@@ -83,9 +77,11 @@ public partial class ThrowAttackAbility : AttackAbility {
 
       EndAbility();
     }
+
+    // FIXME: null reference when died?
     private void OnTagRemoved(Tag tag) {
-      if (tag == TagManager.GetTag(HOBTags.CooldownAttack)) {
-        if (OwnerEntity.Body is UnitBody unit) {
+      if (IsInstanceValid(tag) && tag == TagManager.GetTag(HOBTags.CooldownAttack)) {
+        if (IsInstanceValid(OwnerEntity.Body) && OwnerEntity.Body is UnitBody unit) {
           unit.UnitAttribute?.Reset();
         }
       }

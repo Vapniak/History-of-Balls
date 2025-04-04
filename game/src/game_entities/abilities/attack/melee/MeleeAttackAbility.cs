@@ -41,8 +41,7 @@ public partial class MeleeAttackAbility : AttackAbility {
       if (CurrentEventData?.TargetData is AttackTargetData d) {
         var effect = (AbilityResource as AttackAbility)?.DamageEffect;
         if (effect != null) {
-          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
-          ge.Target = d.TargetAbilitySystem;
+          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0, d.TargetAbilitySystem);
           d.TargetAbilitySystem.ApplyGameplayEffectToSelf(ge);
           ShowDamageNumber(entity.Cell.GetRealPosition());
         }
@@ -58,6 +57,6 @@ public partial class MeleeAttackAbility : AttackAbility {
     }
 
 
-    protected override uint GetRange() => 1;
+    public override uint GetRange() => 1;
   }
 }

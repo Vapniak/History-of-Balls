@@ -12,21 +12,23 @@ public partial class GameplayEffectInstance : Node {
 
   public float Level { get; set; }
   public GameplayAbilitySystem Source { get; private set; }
-  public GameplayAbilitySystem? Target { get; set; }
+  public GameplayAbilitySystem Target { get; private set; }
 
   private DurationStrategy? DurationStrategy { get; set; }
   private DurationStrategy? PeriodStrategy { get; set; }
 
   private Dictionary<Tag, float> SetByCallers { get; set; } = new();
 
-  public static GameplayEffectInstance CreateNew(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, float level) {
-    return new GameplayEffectInstance(gameplayEffect, source, level);
+  public static GameplayEffectInstance CreateNew(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, GameplayAbilitySystem? target, float level) {
+    return new GameplayEffectInstance(gameplayEffect, source, target, level);
   }
 
-  private GameplayEffectInstance(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, float level) {
+  private GameplayEffectInstance(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, GameplayAbilitySystem? target, float level) {
     GameplayEffect = gameplayEffect;
     Source = source;
     Level = level;
+    target ??= source;
+    Target = target;
 
 
     if (GameplayEffect.EffectDefinition != null) {

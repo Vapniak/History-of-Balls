@@ -20,8 +20,7 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
       if (OwnerEntity.TryGetOwner(out var owner)) {
         var income = (AbilityResource as IncomeAbilityResource)?.IncomeEffect;
         if (income != null) {
-          var ei = OwnerAbilitySystem.MakeOutgoingInstance(income, 0);
-          ei.Target = owner?.GetPlayerState().AbilitySystem;
+          var ei = OwnerAbilitySystem.MakeOutgoingInstance(income, 0, owner?.GetPlayerState().AbilitySystem);
           ei.Target?.ApplyGameplayEffectToSelf(ei);
 
           // // FIXME: for now check like that

@@ -1,5 +1,6 @@
 namespace GameplayAbilitySystem;
 
+using System;
 using Godot;
 
 public abstract partial class GameplayAbilityInstance : Node {
