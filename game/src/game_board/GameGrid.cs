@@ -47,11 +47,13 @@ public class GameGrid : HexGrid<GameCell, GameGridLayout> {
     var fromElevation = GetSetting(from).Elevation;
     var toEleveation = GetSetting(to).Elevation;
 
-    if (fromElevation == toEleveation) {
+    var delta = Mathf.Abs(fromElevation - toEleveation);
+
+    if (delta <= GetLayout().FlatMaxElevationDelta) {
       return GameCell.EdgeType.Flat;
     }
 
-    if (Mathf.Abs(fromElevation - toEleveation) <= GetLayout().SlopeMaxElevationDelta) {
+    if (delta <= GetLayout().SlopeMaxElevationDelta) {
       return GameCell.EdgeType.Slope;
     }
 

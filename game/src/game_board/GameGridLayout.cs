@@ -9,6 +9,7 @@ public partial class GameGridLayout : HexLayout {
   [Export(PropertyHint.Range, "0, 1")] public float SolidFactor { get; private set; } = 0.8f;
   [Export] public int TerracesPerSlope { get; private set; } = 2;
   [Export] public float ElevationStep { get; private set; } = 0.1f;
+  [Export] public uint FlatMaxElevationDelta = 2;
   [Export] public uint SlopeMaxElevationDelta = 5;
   [Export] public float WaterFactor { get; private set; } = 0.6f;
   [Export] public float WaterLevel { get; private set; } = 0.1f;

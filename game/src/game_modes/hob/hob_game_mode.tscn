@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=38 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://c7lexjg7kj31h" path="res://assets/textures/icons/village.svg" id="9_eom1f"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="9_pkx38"]
 [ext_resource type="Resource" uid="uid://bdpkf72pdl4ga" path="res://res/match_data/first_match.tres" id="10_7ywoh"]
+[ext_resource type="Texture2D" uid="uid://d3gkqp17i6c6i" path="res://assets/textures/icons/chess-knight-solid.svg" id="10_khhvx"]
 [ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
@@ -70,13 +71,22 @@ script = ExtResource("5_lpoos")
 EntityType = SubResource("Resource_du6rs")
 Icon = ExtResource("9_eom1f")
 
+[sub_resource type="Resource" id="Resource_5p1at"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Unit.Cavalry"
+
+[sub_resource type="Resource" id="Resource_aqvyv"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_5p1at")
+Icon = ExtResource("10_khhvx")
+
 [node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "AudioPlayer", "StateChartNode")]
 script = ExtResource("1_ne2qg")
 MatchEndMenu = NodePath("MatchEndMenu")
 PauseMenu = NodePath("PauseMenu")
 AudioPlayer = NodePath("AudioStreamPlayer")
 PlayerAttributeSet = ExtResource("2_418xq")
-EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm"), SubResource("Resource_dxcf4"), SubResource("Resource_6uqfv"), SubResource("Resource_cfkre")])
+EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm"), SubResource("Resource_dxcf4"), SubResource("Resource_6uqfv"), SubResource("Resource_cfkre"), SubResource("Resource_aqvyv")])
 MatchData = ExtResource("10_7ywoh")
 PlayerControllerScene = ExtResource("2_st7p2")
 PlayerCharacterScene = ExtResource("3_wvtpx")

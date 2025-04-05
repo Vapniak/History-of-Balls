@@ -1,6 +1,5 @@
 namespace HOB;
 
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -186,7 +185,7 @@ public partial class HOBGameMode : GameMode {
         foreach (var entitySpawn in playerData.Entities) {
           if (entitySpawn?.EntityData != null && entitySpawn.SpawnAt != null) {
             foreach (var coord in entitySpawn.SpawnAt) {
-              await Task.Delay(10);
+              await Task.Delay(30);
               MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(coord.X, coord.Y), controller == null ? null : controller as IMatchController);
             }
           }

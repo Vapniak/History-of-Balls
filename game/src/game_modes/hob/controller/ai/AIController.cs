@@ -303,7 +303,6 @@ public partial class AIController : Controller, IMatchController {
 
     var productionTags = production.Entity?.Tags?.GetAllTags();
     foreach (var subtype in leastCommon) {
-      GD.Print($"Checking against least common type: {subtype.TypeName}");
       if (production.Entity?.Tags != null && production.Entity.Tags.HasTag(subtype.SubTypeTag)) {
         return 1f;
       }

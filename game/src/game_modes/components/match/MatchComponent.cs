@@ -27,6 +27,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
   private IMatchController? _lastPlayer;
 
+  private bool _gameStarted;
+
   public override void _Ready() {
     base._Ready();
 
@@ -50,13 +52,14 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
     _lastPlayer = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
 
-    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventGameStarted));
+    _gameStarted = true;
 
+    MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventGameStarted));
     OnTurnStarted();
   }
 
   public bool IsCurrentTurn(IMatchController controller) {
-    return GetGameState().CurrentPlayerIndex == controller.GetPlayerState().PlayerIndex;
+    return _gameStarted && GetGameState().CurrentPlayerIndex == controller.GetPlayerState().PlayerIndex;
   }
 
   public void AddEntityOnClosestAvailableCell(EntityData data, OffsetCoord coord, IMatchController? owner) {

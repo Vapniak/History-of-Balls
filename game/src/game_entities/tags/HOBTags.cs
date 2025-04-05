@@ -27,7 +27,7 @@ public enum HOBTags {
 
   [GameplayTag("Entity.Type.Unit.Ranged")] EntityTypeUnitRanged,
   [GameplayTag("Entity.Type.Unit.Infantry")] EntityTypeUnitInfantry,
-  [GameplayTag("Entity.Type.Unit.Cavalary")] EntityTypeUnitCavalary,
+  [GameplayTag("Entity.Type.Unit.Cavalry")] EntityTypeUnitCavalry,
 
 
   [GameplayTag("Event")] Event,
