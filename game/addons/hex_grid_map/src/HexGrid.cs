@@ -87,8 +87,8 @@ where TLayout : HexLayout {
 
 
   // FIXME: it gets the cell closest to coord not to edge of map which is wrong sometimes but works for
-  private TCell FindClosestValidCell(CubeCoord coord) {
-    TCell closestCell = null;
+  private TCell? FindClosestValidCell(CubeCoord coord) {
+    TCell? closestCell = null;
     var minDistance = int.MaxValue;
 
     foreach (var cell in GetCells()) {

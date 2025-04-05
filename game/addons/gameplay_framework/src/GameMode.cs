@@ -1,6 +1,5 @@
 namespace GameplayFramework;
 
-using System;
 using System.Collections.Generic;
 using Godot;
 using Godot.Collections;

@@ -41,4 +41,8 @@ public partial class GameCell : HexCell {
   public GameCell[] GetCellsInRange(uint range) {
     return Grid.GetCellsInRange(Coord, range);
   }
+
+  public GameCell[] GetCellsInLine(GameCell to) {
+    return Grid.GetCellsInLine(this, to);
+  }
 }

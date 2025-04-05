@@ -97,7 +97,7 @@ public abstract partial class GameplayAbilityInstance : Node {
         return true;
       }
 
-      var ei = source.MakeOutgoingInstance(effectResource, Level);
+      var ei = source.MakeOutgoingInstance(effectResource, Level, target);
       ei.QueueFree();
       foreach (var modifier in effectResource.EffectDefinition.Modifiers) {
         if (modifier.ModifierType != AttributeModifierType.Add) {

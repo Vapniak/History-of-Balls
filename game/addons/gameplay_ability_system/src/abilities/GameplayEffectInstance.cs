@@ -19,15 +19,14 @@ public partial class GameplayEffectInstance : Node {
 
   private Dictionary<Tag, float> SetByCallers { get; set; } = new();
 
-  public static GameplayEffectInstance CreateNew(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, GameplayAbilitySystem? target, float level) {
+  public static GameplayEffectInstance CreateNew(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, GameplayAbilitySystem target, float level) {
     return new GameplayEffectInstance(gameplayEffect, source, target, level);
   }
 
-  private GameplayEffectInstance(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, GameplayAbilitySystem? target, float level) {
+  private GameplayEffectInstance(GameplayEffectResource gameplayEffect, GameplayAbilitySystem source, GameplayAbilitySystem target, float level) {
     GameplayEffect = gameplayEffect;
     Source = source;
     Level = level;
-    target ??= source;
     Target = target;
 
 

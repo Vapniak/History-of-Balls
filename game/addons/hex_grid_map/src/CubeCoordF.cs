@@ -19,26 +19,30 @@ public struct CubeCoordF {
     R = coord.R;
   }
 
-
   public readonly CubeCoord Round() {
-    var qi = Mathf.RoundToInt(Q);
-    var ri = Mathf.RoundToInt(R);
-    var si = Mathf.RoundToInt(S);
-    double qDiff = Mathf.Abs(qi - Q);
-    double rDiff = Mathf.Abs(ri - R);
-    double sDiff = Mathf.Abs(si - S);
+    var q = Mathf.RoundToInt(Q);
+    var r = Mathf.RoundToInt(R);
+    var s = Mathf.RoundToInt(S);
+
+    var qDiff = Mathf.Abs(q - Q);
+    var rDiff = Mathf.Abs(r - R);
+    var sDiff = Mathf.Abs(s - S);
+
     if (qDiff > rDiff && qDiff > sDiff) {
-      qi = -ri - si;
+      q = -r - s;
     }
-    else
-        if (rDiff > sDiff) {
-      ri = -qi - si;
+    else if (rDiff > sDiff) {
+      r = -q - s;
     }
     else {
-      si = -qi - ri;
+      s = -q - r;
     }
-    return new(qi, ri);
+
+    return new CubeCoord(q, r);
   }
+
+  public static CubeCoordF operator +(CubeCoordF a, CubeCoordF b) =>
+      new(a.Q + b.Q, a.R + b.R);
   public readonly float Distance(CubeCoordF other) => Substract(other).Length();
   public readonly float Length() => (Mathf.Abs(Q) + Mathf.Abs(R) + Mathf.Abs(S)) / 2;
   public readonly CubeCoordF Lerp(CubeCoordF to, double weight) {

@@ -136,27 +136,26 @@ public partial class GameplayAbilitySystem : Node {
       EmitSignal(SignalName.GameplayEffectRemoved, geInstance);
       if (geInstance.GameplayEffect.ExpireEffect != null) {
         var ei = geInstance.Source.MakeOutgoingInstance(geInstance.GameplayEffect.ExpireEffect, 0, geInstance.Target);
-        ei.Target?.CallDeferred(nameof(ApplyGameplayEffectToSelf), ei);
-      }
-    };
-
-    geInstance.Ready += () => {
-      EmitSignal(SignalName.GameplayEffectApplied, geInstance);
-      switch (geInstance.GameplayEffect?.EffectDefinition?.DurationPolicy) {
-        case DurationPolicy.Duration or DurationPolicy.Infinite:
-          geInstance.ExecutePeriodic += ApplyInstantGameplayEffect;
-          ApplyDurationGameplayEffect(geInstance);
-          break;
-        case DurationPolicy.Instant:
-          ApplyInstantGameplayEffect(geInstance);
-          geInstance.QueueFree();
-          break;
-        default:
-          break;
+        ei.Target.CallDeferred(nameof(ApplyGameplayEffectToSelf), ei);
       }
     };
 
     AddChild(geInstance);
+
+    EmitSignal(SignalName.GameplayEffectApplied, geInstance);
+    switch (geInstance.GameplayEffect?.EffectDefinition?.DurationPolicy) {
+      case DurationPolicy.Duration or DurationPolicy.Infinite:
+        geInstance.ExecutePeriodic += ApplyInstantGameplayEffect;
+        ApplyDurationGameplayEffect(geInstance);
+        break;
+      case DurationPolicy.Instant:
+        ApplyInstantGameplayEffect(geInstance);
+        geInstance.QueueFree();
+        break;
+      default:
+        break;
+    }
+
   }
 
   public void Tick(ITickContext tickContext) {
@@ -165,7 +164,7 @@ public partial class GameplayAbilitySystem : Node {
     }
   }
   public GameplayEffectInstance MakeOutgoingInstance(GameplayEffectResource gameplayEffect, float level, GameplayAbilitySystem? target = null) {
-    return GameplayEffectInstance.CreateNew(gameplayEffect, this, target, level);
+    return GameplayEffectInstance.CreateNew(gameplayEffect, this, target ?? this, level);
   }
 
   private void ApplyInstantGameplayEffect(GameplayEffectInstance geInstance) {
@@ -177,7 +176,7 @@ public partial class GameplayAbilitySystem : Node {
 
           if (attribute != null) {
             var value = AttributeSystem.GetAttributeCurrentValue(attribute);
-            if (value != null && modifier != null) {
+            if (value != null) {
               switch (modifier.ModifierType) {
                 case AttributeModifierType.Add:
                   value += magnitude;

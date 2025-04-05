@@ -30,6 +30,10 @@ public partial class MeleeAttackAbility : AttackAbility {
       EndAbility();
     }
 
+    public override bool IsCellVisible(GameCell from, GameCell to) {
+      return base.IsCellVisible(from, to) && from.GetEdgeTypeTo(to) == GameCell.EdgeType.Flat;
+    }
+
     private async Task Attack(Entity entity) {
       await OwnerEntity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 

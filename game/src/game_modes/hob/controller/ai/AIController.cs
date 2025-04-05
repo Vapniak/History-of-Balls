@@ -2,12 +2,14 @@ namespace HOB;
 
 using GameplayAbilitySystem;
 using GameplayFramework;
+using GameplayTags;
 using Godot;
 using HOB.GameEntity;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -233,7 +235,7 @@ public partial class AIController : Controller, IMatchController {
     var threatScore = CalculateThreatAvoidance(entity, cell);
     distanceScore = 1f / (Mathf.Abs(actualDistance - desiredDistance) + 1);
 
-    return distanceScore + attackScore + threatScore;
+    return distanceScore + attackScore - threatScore;
   }
 
   private float CalculateThreatAvoidance(Entity entity, GameCell cell) {
@@ -244,7 +246,7 @@ public partial class AIController : Controller, IMatchController {
         threatCount++;
       }
     }
-    return 1f / (threatCount + 1);
+    return Mathf.Min(threatCount / 5f, 1);
   }
 
   private static float CalculateDamageRatio(Entity attacker, AttackAbility.Instance ability, Entity target) {
@@ -266,18 +268,48 @@ public partial class AIController : Controller, IMatchController {
   }
 
   private float CalculateProductionScore(Entity producer, EntityProductionAbilityResource.Instance ability, ProductionConfig production) {
-    if (ability.CanActivateAbility(new() { Activator = this, TargetData = new() { Target = production } })) {
-      var forces = EntityManagment.GetOwnedEntites(this);
-      // var unitCount = forces.Count(e => e.AbilitySystem.OwnedTags.GetTags().FirstOrDefault(
-      //   t =>
-      //   t.IsExact(
-      //     production.Entity.Tags.GetTags().FirstOrDefault(t => t == TagManager.GetTag(HOBTags.EntityType)))) != null);
+    if (!ability.CanActivateAbility(new() { Activator = this, TargetData = new() { Target = production } })) {
+      return 0f;
+    }
 
-      return 1;
+    var unitTypeTag = TagManager.GetTag(HOBTags.EntityTypeUnit);
+    var forces = EntityManagment.GetOwnedEntites(this);
+
+    var units = forces.Where(e => e.AbilitySystem.OwnedTags.HasTag(unitTypeTag)).ToList();
+
+    var subtypeCounts = units
+        .Select(u => {
+          var tags = u.AbilitySystem.OwnedTags.GetAllTags();
+          return new {
+            Unit = u,
+            SubTypeTag = tags.FirstOrDefault(t => t.IsChildOf(unitTypeTag))
+          };
+        })
+        .Where(x => x.SubTypeTag != null)
+        .GroupBy(x => x.SubTypeTag)
+        .Select(g => new {
+          SubTypeTag = g.Key,
+          Count = g.Count(),
+          TypeName = g.Key?.Name ?? "NULL"
+        })
+        .ToList();
+
+    if (subtypeCounts.Count == 0) {
+      return 1f;
     }
-    else {
-      return 0;
+
+    var minCount = subtypeCounts.Min(g => g.Count);
+    var leastCommon = subtypeCounts.Where(g => g.Count == minCount).ToList();
+
+    var productionTags = production.Entity?.Tags?.GetAllTags();
+    foreach (var subtype in leastCommon) {
+      GD.Print($"Checking against least common type: {subtype.TypeName}");
+      if (production.Entity?.Tags != null && production.Entity.Tags.HasTag(subtype.SubTypeTag)) {
+        return 1f;
+      }
     }
+
+    return 0f;
   }
 
   private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>

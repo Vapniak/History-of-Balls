@@ -35,7 +35,7 @@ public abstract partial class AttackAbility : HOBAbilityResource {
 
       var cells = fromCell.GetCellsInRange(GetRange());
       foreach (var cell in cells) {
-        if (cell == fromCell) {
+        if (cell == fromCell || !IsCellVisible(fromCell, cell)) {
           continue;
         }
 
@@ -46,6 +46,8 @@ public abstract partial class AttackAbility : HOBAbilityResource {
 
       return (attackableEntities.ToArray(), cellsInR.ToArray());
     }
+
+    public virtual bool IsCellVisible(GameCell from, GameCell to) => true;
 
     public virtual bool CanBeAttacked(Entity entity) {
       return entity.TryGetOwner(out var enemyOwner) && OwnerEntity.TryGetOwner(out var owner) && enemyOwner != owner && entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit));

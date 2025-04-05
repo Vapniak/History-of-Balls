@@ -78,6 +78,27 @@ public partial class ThrowAttackAbility : AttackAbility {
       EndAbility();
     }
 
+    public override bool CanBeAttacked(Entity entity) => base.CanBeAttacked(entity);
+
+    public override bool IsCellVisible(GameCell from, GameCell to) {
+      var cells = from.GetCellsInLine(to);
+
+      for (var i = 0; i < cells.Length - 1; i++) {
+        var current = cells[i];
+        var next = cells[i + 1];
+
+        if (current.Coord.Distance(next.Coord) > 1) {
+          return false;
+        }
+
+        if (current.GetEdgeTypeTo(next) is GameCell.EdgeType.Cliff) {
+          return false;
+        }
+      }
+
+      return base.IsCellVisible(from, to);
+    }
+
     // FIXME: null reference when died?
     private void OnTagRemoved(Tag tag) {
       if (IsInstanceValid(tag) && tag == TagManager.GetTag(HOBTags.CooldownAttack)) {

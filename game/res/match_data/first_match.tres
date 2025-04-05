@@ -1,0 +1,217 @@
+[gd_resource type="Resource" script_class="MatchData" load_steps=59 format=3 uid="uid://bdpkf72pdl4ga"]
+
+[ext_resource type="Resource" uid="uid://5wuxfmlkqhss" path="res://src/maps/test_map.tres" id="1_70n0q"]
+[ext_resource type="Resource" uid="uid://dlyqo7rtbq0iv" path="res://res/countries/greece.tres" id="2_dxtrp"]
+[ext_resource type="Resource" uid="uid://cao8spwvpdrph" path="res://src/game_entities/entites/units/infantry/hoplite/hoplite_data.tres" id="3_hmkfu"]
+[ext_resource type="Script" path="res://src/game_modes/components/match/EntitySpawnData.cs" id="4_ddqts"]
+[ext_resource type="Resource" uid="uid://befewbyboktsi" path="res://src/game_entities/entites/units/ranged/peltast/peltast_data.tres" id="5_p05ix"]
+[ext_resource type="Resource" uid="uid://hmvhj37g1gc6" path="res://src/game_entities/entites/structures/city/acropolis/acropolis_data.tres" id="6_5rpr2"]
+[ext_resource type="Resource" uid="uid://b2goj6tri5ofv" path="res://src/game_entities/entites/structures/factory/olive_press/olive_press_data.tres" id="7_m5a28"]
+[ext_resource type="Resource" uid="uid://sek11tqnnxxa" path="res://src/game_entities/entites/structures/village/olive_production/olive_production_data.tres" id="8_rnif3"]
+[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://src/game_entities/attributes/primary_resource.tres" id="9_wvshp"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="10_u1dgl"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="11_swite"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="12_lcw1e"]
+[ext_resource type="Script" path="res://src/game_entities/abilities/entity_production/ProductionConfig.cs" id="13_td48s"]
+[ext_resource type="Script" path="res://src/game_modes/components/match/MatchPlayerSpawnData.cs" id="14_8lu38"]
+[ext_resource type="Script" path="res://src/game_modes/hob/controller/ai/AIProfile.cs" id="15_vounu"]
+[ext_resource type="Resource" uid="uid://do2ww3kn7ft3w" path="res://res/countries/persia.tres" id="16_s735g"]
+[ext_resource type="Resource" uid="uid://dx5mu6akcbsf8" path="res://src/game_entities/entites/units/infantry/immortal/immortal_data.tres" id="17_04ttl"]
+[ext_resource type="Resource" uid="uid://blrqjygc1t1es" path="res://src/game_entities/entites/units/ranged/persian_archer/persian_archer_data.tres" id="18_1ldvv"]
+[ext_resource type="Resource" uid="uid://bwrljuhwawe0a" path="res://src/game_entities/entites/structures/city/palace_at_persepolis/palace_at_persepolis_data.tres" id="19_hd2uf"]
+[ext_resource type="Resource" uid="uid://by7hsihjbk52a" path="res://src/game_entities/entites/structures/village/rice_cultivation/rice_cultivation_data.tres" id="20_0byas"]
+[ext_resource type="Resource" uid="uid://cgr6mageg16sj" path="res://src/game_entities/entites/structures/factory/pilaf_kitchen/pilaf_kitchen_data.tres" id="21_7ww0s"]
+[ext_resource type="Resource" uid="uid://cyurh50c61ayo" path="res://src/game_entities/entites/structures/city/city_data.tres" id="22_4467r"]
+[ext_resource type="Resource" uid="uid://doidx5bt2arat" path="res://src/game_entities/entites/structures/village/village_data.tres" id="23_rwmpf"]
+[ext_resource type="Resource" uid="uid://d3a8gfe2tbsyu" path="res://src/game_entities/entites/structures/factory/factory_data.tres" id="24_bgjr6"]
+[ext_resource type="Script" path="res://src/game_modes/components/match/MatchData.cs" id="25_uhwax"]
+
+[sub_resource type="Resource" id="Resource_k5031"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("3_hmkfu")
+SpawnAt = Array[Vector2i]([Vector2i(1, 1), Vector2i(3, 11)])
+
+[sub_resource type="Resource" id="Resource_1jclv"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("5_p05ix")
+SpawnAt = Array[Vector2i]([Vector2i(2, 2), Vector2i(5, 5)])
+
+[sub_resource type="Resource" id="Resource_ieg6d"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("6_5rpr2")
+SpawnAt = Array[Vector2i]([Vector2i(4, 8)])
+
+[sub_resource type="Resource" id="Resource_18ux5"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("7_m5a28")
+SpawnAt = Array[Vector2i]([Vector2i(7, 7)])
+
+[sub_resource type="Resource" id="Resource_8qels"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("8_rnif3")
+SpawnAt = Array[Vector2i]([Vector2i(7, 4), Vector2i(6, 0)])
+
+[sub_resource type="Resource" id="Resource_tulai"]
+script = ExtResource("10_u1dgl")
+Attribute = ExtResource("9_wvshp")
+ModifierType = 0
+Coefficient = -2.0
+
+[sub_resource type="Resource" id="Resource_1r1h3"]
+script = ExtResource("11_swite")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_tulai")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_jmcbu"]
+script = ExtResource("12_lcw1e")
+EffectDefinition = SubResource("Resource_1r1h3")
+
+[sub_resource type="Resource" id="Resource_57b8e"]
+script = ExtResource("13_td48s")
+Entity = ExtResource("3_hmkfu")
+CostEffect = SubResource("Resource_jmcbu")
+ProductionTime = 1
+
+[sub_resource type="Resource" id="Resource_lytui"]
+script = ExtResource("10_u1dgl")
+Attribute = ExtResource("9_wvshp")
+ModifierType = 0
+Coefficient = -2.0
+
+[sub_resource type="Resource" id="Resource_06bj0"]
+script = ExtResource("11_swite")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_lytui")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_wd5kd"]
+script = ExtResource("12_lcw1e")
+EffectDefinition = SubResource("Resource_06bj0")
+
+[sub_resource type="Resource" id="Resource_gu8gp"]
+script = ExtResource("13_td48s")
+Entity = ExtResource("5_p05ix")
+CostEffect = SubResource("Resource_wd5kd")
+ProductionTime = 1
+
+[sub_resource type="Resource" id="Resource_tn5oi"]
+script = ExtResource("14_8lu38")
+PlayerType = 0
+Country = ExtResource("2_dxtrp")
+PrimaryResourceInitialValue = 0
+SecondaryResourceInitialValue = 0
+ProducableEntities = Array[Object]([SubResource("Resource_57b8e"), SubResource("Resource_gu8gp")])
+Entities = Array[Object]([SubResource("Resource_k5031"), SubResource("Resource_1jclv"), SubResource("Resource_ieg6d"), SubResource("Resource_18ux5"), SubResource("Resource_8qels")])
+
+[sub_resource type="Resource" id="Resource_sq6wn"]
+script = ExtResource("15_vounu")
+ProfileName = "AI Profile"
+Agressiveness = 0.8
+
+[sub_resource type="Resource" id="Resource_c176s"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("17_04ttl")
+SpawnAt = Array[Vector2i]([Vector2i(20, 20), Vector2i(15, 15)])
+
+[sub_resource type="Resource" id="Resource_bvpp7"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("18_1ldvv")
+SpawnAt = Array[Vector2i]([Vector2i(23, 13), Vector2i(18, 14)])
+
+[sub_resource type="Resource" id="Resource_rjidx"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("19_hd2uf")
+SpawnAt = Array[Vector2i]([Vector2i(25, 25)])
+
+[sub_resource type="Resource" id="Resource_5xlng"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("20_0byas")
+SpawnAt = Array[Vector2i]([Vector2i(12, 17), Vector2i(14, 13)])
+
+[sub_resource type="Resource" id="Resource_8b5vx"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("21_7ww0s")
+SpawnAt = Array[Vector2i]([Vector2i(10, 15)])
+
+[sub_resource type="Resource" id="Resource_5tkfe"]
+script = ExtResource("10_u1dgl")
+Attribute = ExtResource("9_wvshp")
+ModifierType = 0
+Coefficient = -1.0
+
+[sub_resource type="Resource" id="Resource_oret2"]
+script = ExtResource("11_swite")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_5tkfe")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_3lljv"]
+script = ExtResource("12_lcw1e")
+EffectDefinition = SubResource("Resource_oret2")
+
+[sub_resource type="Resource" id="Resource_dppe7"]
+script = ExtResource("13_td48s")
+Entity = ExtResource("17_04ttl")
+CostEffect = SubResource("Resource_3lljv")
+ProductionTime = 2
+
+[sub_resource type="Resource" id="Resource_ivppv"]
+script = ExtResource("10_u1dgl")
+Attribute = ExtResource("9_wvshp")
+ModifierType = 0
+Coefficient = -2.0
+
+[sub_resource type="Resource" id="Resource_goki4"]
+script = ExtResource("11_swite")
+DurationPolicy = 0
+Modifiers = Array[Object]([SubResource("Resource_ivppv")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_bnale"]
+script = ExtResource("12_lcw1e")
+EffectDefinition = SubResource("Resource_goki4")
+
+[sub_resource type="Resource" id="Resource_2bv38"]
+script = ExtResource("13_td48s")
+Entity = ExtResource("18_1ldvv")
+CostEffect = SubResource("Resource_bnale")
+ProductionTime = 1
+
+[sub_resource type="Resource" id="Resource_1crgr"]
+script = ExtResource("14_8lu38")
+PlayerType = 1
+AIProfile = SubResource("Resource_sq6wn")
+Country = ExtResource("16_s735g")
+PrimaryResourceInitialValue = 0
+SecondaryResourceInitialValue = 0
+ProducableEntities = Array[Object]([SubResource("Resource_dppe7"), SubResource("Resource_2bv38")])
+Entities = Array[Object]([SubResource("Resource_c176s"), SubResource("Resource_bvpp7"), SubResource("Resource_rjidx"), SubResource("Resource_5xlng"), SubResource("Resource_8b5vx")])
+
+[sub_resource type="Resource" id="Resource_w57b4"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("22_4467r")
+SpawnAt = Array[Vector2i]([Vector2i(25, 2)])
+
+[sub_resource type="Resource" id="Resource_13o3w"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("23_rwmpf")
+SpawnAt = Array[Vector2i]([Vector2i(21, 2), Vector2i(14, 6)])
+
+[sub_resource type="Resource" id="Resource_brk4d"]
+script = ExtResource("4_ddqts")
+EntityData = ExtResource("24_bgjr6")
+SpawnAt = Array[Vector2i]([Vector2i(19, 7)])
+
+[sub_resource type="Resource" id="Resource_hti3u"]
+script = ExtResource("14_8lu38")
+PlayerType = 2
+PrimaryResourceInitialValue = 0
+SecondaryResourceInitialValue = 0
+ProducableEntities = null
+Entities = Array[Object]([SubResource("Resource_w57b4"), SubResource("Resource_13o3w"), SubResource("Resource_brk4d")])
+
+[resource]
+script = ExtResource("25_uhwax")
+Map = ExtResource("1_70n0q")
+PlayerSpawnDatas = [SubResource("Resource_tn5oi"), SubResource("Resource_1crgr"), SubResource("Resource_hti3u")]

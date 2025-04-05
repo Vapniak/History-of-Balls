@@ -1,5 +1,82 @@
 {
   "column_properties": {
+    "res://res/match_data/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://res/match_data::PlayerSpawnDatas/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://res/match_data::PlayerSpawnDatas::Entities/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://res/match_data::PlayerSpawnDatas::ProducableEntities/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://res/match_data::PlayerSpawnDatas::ProducableEntities::CostEffect/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://res/match_data::PlayerSpawnDatas::ProducableEntities::CostEffect::EffectDefinition/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://res/match_data::PlayerSpawnDatas::ProducableEntities::CostEffect::EffectDefinition::Modifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://src/game_entities/entites/": {
       "metadata/_custom_type_script": {
         "visibility": 0
@@ -139,7 +216,14 @@
     "res://src/game_entities/entites/structures::Abilities/",
     "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects/",
     "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects::EffectDefinition/",
-    "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers/"
+    "res://src/game_entities/entites/structures::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers/",
+    "res://res/match_data/",
+    "res://res/match_data::PlayerSpawnDatas/",
+    "res://res/match_data::PlayerSpawnDatas::Entities/",
+    "res://res/match_data::PlayerSpawnDatas::ProducableEntities/",
+    "res://res/match_data::PlayerSpawnDatas::ProducableEntities::CostEffect/",
+    "res://res/match_data::PlayerSpawnDatas::ProducableEntities::CostEffect::EffectDefinition/",
+    "res://res/match_data::PlayerSpawnDatas::ProducableEntities::CostEffect::EffectDefinition::Modifiers/"
   ],
   "table_functions": {
     "filter": [

@@ -21,9 +21,9 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
         var income = (AbilityResource as IncomeAbilityResource)?.IncomeEffect;
         if (income != null) {
           var ei = OwnerAbilitySystem.MakeOutgoingInstance(income, 0, owner?.GetPlayerState().AbilitySystem);
-          ei.Target?.ApplyGameplayEffectToSelf(ei);
+          ei.Target.ApplyGameplayEffectToSelf(ei);
 
-          // // FIXME: for now check like that
+          // FIXME: for now check like that
           // if (owner is PlayerController) {
           //   var text = FloatingText.Create();
           //   text.Label?.AppendText("Income Generated");

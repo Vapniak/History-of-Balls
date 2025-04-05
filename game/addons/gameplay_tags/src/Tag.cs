@@ -32,6 +32,22 @@ public partial class Tag : Resource, IEquatable<Tag> {
     _children.Add(child);
   }
 
+  public IEnumerable<Tag> GetAllChildren() {
+    var tags = new List<Tag>();
+    foreach (var child in GetChildren()) {
+      tags.Add(child);
+      tags.AddRange(child.GetAllChildren());
+    }
+
+    return tags;
+  }
+
+  public bool IsChildOf(Tag? parent) =>
+    parent != null &&
+    FullName != parent.FullName &&
+    FullName.StartsWith(parent.FullName + ".");
+
+
   public IEnumerable<Tag> GetChildren() {
     return _children;
   }

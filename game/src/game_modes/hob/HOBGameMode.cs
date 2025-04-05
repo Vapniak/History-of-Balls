@@ -148,44 +148,46 @@ public partial class HOBGameMode : GameMode {
     }
 
     foreach (var playerData in MatchData.PlayerSpawnDatas) {
-      if (PlayerAttributeSet == null) {
-        Debug.Assert(false, "Player attribute set cannot be null");
-        return;
-      }
-
-      if (playerData.ProducableEntities == null) {
-        Debug.Assert(false, "Producable entities cannot be null");
-        return;
-      }
-
-      var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities);
-
       Controller? controller = null;
-      if (playerData.PlayerType == PlayerType.Player) {
-        controller = PlayerControllerScene.Instantiate<Controller>();
-        var hud = HUDScene.Instantiate<HUD>();
-        var characterNode = PlayerCharacterScene.Instantiate<Node>();
-        PlayerManagmentComponent.SpawnPlayer(new(controller, state, "Player", hud, characterNode));
-      }
-      else if (playerData.PlayerType == PlayerType.AI) {
-        var ai = AIControllerScene.Instantiate<AIController>();
-        if (playerData.AIProfile != null) {
-          ai.Profile = playerData.AIProfile;
+      if (playerData.PlayerType != PlayerType.None) {
+        if (PlayerAttributeSet == null) {
+          Debug.Assert(false, "Player attribute set cannot be null");
+          return;
         }
 
-        controller = ai;
-        PlayerManagmentComponent.SpawnPlayer(new(controller, state, "AI"));
-      }
+        if (playerData.ProducableEntities == null) {
+          Debug.Assert(false, "Producable entities cannot be null");
+          return;
+        }
 
-      state.Country = playerData.Country;
+        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities);
+
+        if (playerData.PlayerType == PlayerType.Player) {
+          controller = PlayerControllerScene.Instantiate<Controller>();
+          var hud = HUDScene.Instantiate<HUD>();
+          var characterNode = PlayerCharacterScene.Instantiate<Node>();
+          PlayerManagmentComponent.SpawnPlayer(new(controller, state, "Player", hud, characterNode));
+        }
+        else if (playerData.PlayerType == PlayerType.AI) {
+          var ai = AIControllerScene.Instantiate<AIController>();
+          if (playerData.AIProfile != null) {
+            ai.Profile = playerData.AIProfile;
+          }
+
+          controller = ai;
+          PlayerManagmentComponent.SpawnPlayer(new(controller, state, "AI"));
+        }
+
+        state.Country = playerData.Country;
+      }
 
       await Task.Delay(500);
       if (playerData.Entities != null) {
         foreach (var entitySpawn in playerData.Entities) {
-          if (entitySpawn?.EntityData != null) {
+          if (entitySpawn?.EntityData != null && entitySpawn.SpawnAt != null) {
             foreach (var coord in entitySpawn.SpawnAt) {
               await Task.Delay(10);
-              MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(coord.X, coord.Y), controller as IMatchController);
+              MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(coord.X, coord.Y), controller == null ? null : controller as IMatchController);
             }
           }
         }

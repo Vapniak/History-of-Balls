@@ -5,12 +5,6 @@ using Godot.Collections;
 
 [GlobalClass]
 public abstract partial class GameplayAttributeSet : Resource {
-
-  protected GameplayAbilitySystem? OwnerAbilitySystem { get; private set; }
-  public void Init(GameplayAbilitySystem abilitySystem) {
-    OwnerAbilitySystem = abilitySystem;
-  }
-
   // for now just add basic array, later add c# attribute which is attribute to get all attributes which are defined and get attribute sets by type
 
   /// <summary>

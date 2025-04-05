@@ -1,5 +1,6 @@
 namespace HOB.GameEntity;
 
+using System.Diagnostics;
 using GameplayAbilitySystem;
 using GameplayTags;
 using Godot;
@@ -14,10 +15,13 @@ public partial class EntityData : Resource {
   [Export] public PackedScene? Body { get; private set; }
 
   public Entity? CreateEntity(GameCell cell, IEntityManagment entityManagment, IMatchController? owner) {
-    var body = Body?.Instantiate<EntityBody>();
+    var body = Body?.InstantiateOrNull<EntityBody>();
 
     if (body != null) {
       return new(EntityName, cell, entityManagment, AttributeSetsContainer, Abilities, Tags, body, owner);
+    }
+    else {
+      Debug.Assert(false, "Body is null");
     }
 
     return null;

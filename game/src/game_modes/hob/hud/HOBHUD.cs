@@ -1,13 +1,10 @@
 namespace HOB;
 
-using System;
 using System.Linq;
-using System.Threading.Tasks;
 using GameplayAbilitySystem;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
-using Godot.Collections;
 using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
@@ -74,7 +71,6 @@ public partial class HOBHUD : HUD {
       // UpdateSecondaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.SecondaryResource).GetValueOrDefault().ToString());
 
       playerState.AbilitySystem.AttributeSystem.AttributeValueChanged += (attribute, oldValue, newValue) => {
-        // GD.Print(attribute.AttributeName, oldValue, newValue);
         if (attribute == attributeSet.PrimaryResource) {
           UpdatePrimaryResourceValue(newValue);
         }
@@ -103,10 +99,11 @@ public partial class HOBHUD : HUD {
   }
 
   private void UpdateSecondaryResourceValue(float value) {
-    if (GetPlayerController().GetPlayerState().AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
-      // FIXME: the value is incorrect sometimes
-      SecondaryResourceValueLabel.Text = GetPlayerController().GetPlayerState().AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attributeSet.SecondaryResource).ToString();
-    }
+    // if (GetPlayerController().GetPlayerState().AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
+    //   // FIXME: the value is incorrect sometimes
+    //   SecondaryResourceValueLabel.Text = GetPlayerController().GetPlayerState().AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attributeSet.SecondaryResource).ToString();
+    // }
+    SecondaryResourceValueLabel.Text = value.ToString();
   }
 
   private void OnMatchEvent(Tag tag) {

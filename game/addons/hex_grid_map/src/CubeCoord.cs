@@ -1,7 +1,6 @@
 namespace HexGridMap;
 
-using System.ComponentModel;
-using System.Security.AccessControl;
+using System.Linq;
 using Godot;
 
 public struct CubeCoord {
@@ -15,7 +14,12 @@ public struct CubeCoord {
     R = r;
   }
 
-  private static readonly CubeCoord[] _directions = {
+  public CubeCoord(CubeCoord other) {
+    Q = other.Q;
+    R = other.R;
+  }
+
+  public static readonly CubeCoord[] Directions = {
     new(1, 0),
     new(0, 1),
     new(-1, 1),
@@ -25,7 +29,7 @@ public struct CubeCoord {
   };
 
   public static CubeCoord GetDirection(HexDirection direction) {
-    return _directions[(int)direction];
+    return Directions[(int)direction];
   }
 
   public readonly CubeCoord GetNeighbor(HexDirection direction) {
@@ -81,5 +85,13 @@ public struct CubeCoord {
 
   public override readonly int GetHashCode() {
     return Q * R * S;
+  }
+
+  public static CubeCoord operator +(CubeCoord a, CubeCoord b) => new(a.Q + b.Q, a.R + b.R);
+  public static CubeCoord operator -(CubeCoord a, CubeCoord b) => new(a.Q - b.Q, a.R - b.R);
+
+  public readonly CubeCoord[] GetNeighbors() {
+    var val = this;
+    return Directions.Select(dir => val + dir).ToArray();
   }
 }

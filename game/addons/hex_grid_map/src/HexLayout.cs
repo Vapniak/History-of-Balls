@@ -105,6 +105,8 @@ public partial class HexLayout : Resource {
     return coords.ToArray();
   }
 
+
+  // FIXME: lines dont include double edge hexes
   public CubeCoord[] CoordsInLine(CubeCoord from, CubeCoord to) {
     var dist = from.Distance(to);
     List<CubeCoord> cells = new();

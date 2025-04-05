@@ -39,7 +39,7 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
       if (OwnerEntity.TryGetOwner(out var owner)) {
         var abilitySystem = owner?.GetPlayerState().AbilitySystem;
         var processEffect = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as ProcessResourcesAbilityResource).ProcessEffect, 0, abilitySystem);
-        processEffect.Target?.ApplyGameplayEffectToSelf(processEffect);
+        processEffect.Target.ApplyGameplayEffectToSelf(processEffect);
 
         // if (owner is PlayerController) {
         //   var text = FloatingText.Create();
@@ -65,8 +65,7 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
             var abilitySystem = owner?.GetPlayerState().AbilitySystem;
             var produceEffect = OwnerAbilitySystem.MakeOutgoingInstance((AbilityResource as ProcessResourcesAbilityResource).ProduceEffect, 0, abilitySystem);
 
-
-            produceEffect.Target?.ApplyGameplayEffectToSelf(produceEffect);
+            produceEffect.Target.ApplyGameplayEffectToSelf(produceEffect);
             taskData.Complete();
 
             // if (owner is PlayerController) {

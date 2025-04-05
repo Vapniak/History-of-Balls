@@ -44,7 +44,7 @@ public partial class AttributeSystem : Node {
 
   public float? GetAttributeCurrentValue(GameplayAttribute attribute) {
     if (TryGetAttributeValue(attribute, out var value)) {
-      return value.BaseValue;
+      return value?.BaseValue;
     }
 
     return null;

@@ -58,6 +58,17 @@ public partial class TagContainer : Resource {
     return Tags.Any(t => t.IsExact(tag));
   }
 
+  public IEnumerable<Tag> GetAllTags() {
+    var tags = new List<Tag>();
+
+    foreach (var tag in GetTags()) {
+      tags.Add(tag);
+      tags.AddRange(tag.GetAllChildren());
+    }
+
+    return tags;
+  }
+
   public IEnumerable<Tag> GetTags() {
     return Tags;
   }
