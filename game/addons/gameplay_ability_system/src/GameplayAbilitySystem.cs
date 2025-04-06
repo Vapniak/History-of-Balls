@@ -19,12 +19,13 @@ public partial class GameplayAbilitySystem : Node {
   [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbilityInstance gameplayAbility);
 
   public event Action<Tag, GameplayEventData?>? GameplayEventRecieved;
+  public AttributeSystem AttributeSystem { get; private set; }
 
   public TagContainer OwnedTags { get; private set; } = new();
   private List<GameplayEffectInstance> AppliedEffects { get; set; } = new();
   private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
 
-  public AttributeSystem AttributeSystem { get; private set; }
+
 
   public GameplayAbilitySystem() {
     AttributeSystem = new();
@@ -168,80 +169,37 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   private void ApplyInstantGameplayEffect(GameplayEffectInstance geInstance) {
-    if (geInstance.GameplayEffect?.EffectDefinition?.Modifiers != null) {
-      foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
-        if (modifier != null) {
-          var attribute = modifier.Attribute;
-          var magnitude = modifier.GetMagnitude(geInstance);
+    var aggregators = GetAggregators(geInstance);
+    while (aggregators.MoveNext()) {
+      var attribute = aggregators.Current.Item1;
+      var aggregator = aggregators.Current.Item2;
+      var value = aggregator.Evaluate(AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault());
+      var data = new GameplayEffectModData(
+        geInstance,
+        new(aggregators.Current.Item1),
+        geInstance.Target
+      );
 
-          if (attribute != null) {
-            var value = AttributeSystem.GetAttributeCurrentValue(attribute);
-            if (value != null) {
-              switch (modifier.ModifierType) {
-                case AttributeModifierType.Add:
-                  value += magnitude;
-                  break;
-                case AttributeModifierType.Multiply:
-                  value *= magnitude;
-                  break;
-                case AttributeModifierType.Override:
-                  value = magnitude;
-                  break;
-                default:
-                  break;
-              }
+      foreach (var attributeSet in AttributeSystem.GetAttributeSets()) {
+        attributeSet.PreGameplayEffectExecute(data);
+      }
 
-              var data = new GameplayEffectModData(
-                geInstance,
-                new(attribute, magnitude, modifier.ModifierType),
-                geInstance.Target
-              );
+      AttributeSystem.SetAttributeBaseValue(attribute, value);
 
-              foreach (var attributeSet in AttributeSystem.GetAttributeSets()) {
-                attributeSet.PreGameplayEffectExecute(data);
-              }
+      UpdateCurrentValues();
 
-              AttributeSystem.SetAttributeBaseValue(attribute, value ?? 0);
-
-              foreach (var attributeSet in AttributeSystem.GetAttributeSets()) {
-                attributeSet.PostGameplayEffectExecute(data);
-              }
-            }
-          }
-        }
+      foreach (var attributeSet in AttributeSystem.GetAttributeSets()) {
+        attributeSet.PostGameplayEffectExecute(data);
       }
     }
+
 
     EmitSignal(SignalName.GameplayEffectExecuted, geInstance);
   }
 
   private void ApplyDurationGameplayEffect(GameplayEffectInstance geInstance) {
-    // var modifiersToApply = new List<GameplayEffectContainer.ModifierContainer>();
-    // if (geInstance.GameplayEffect?.EffectDefinition?.Modifiers != null) {
-    //   foreach (var modifier in geInstance.GameplayEffect.EffectDefinition.Modifiers) {
-    //     var attributeModifier = new AttributeModifier();
-    //     var magnitude = (modifier?.ModifierMagnitude?.CalculateMagnitude(geInstance) * modifier?.Coefficient).GetValueOrDefault();
-
-    //     switch (modifier?.ModifierType) {
-    //       case AttributeModifierType.Add:
-    //         attributeModifier.Add = magnitude;
-    //         break;
-    //       case AttributeModifierType.Multiply:
-    //         attributeModifier.Multiply = magnitude;
-    //         break;
-    //       case AttributeModifierType.Override:
-    //         attributeModifier.Override = magnitude;
-    //         break;
-    //       default:
-    //         break;
-    //     }
-
-    //     if (modifier?.Attribute != null) {
-    //       modifiersToApply.Add(new() { Attribute = modifier.Attribute, Modifier = attributeModifier });
-    //     }
-    //   }
-    // }
     AppliedEffects.Add(geInstance);
+    UpdateCurrentValues();
   }
 
   private void OnGameplayEffectApplied(GameplayEffectInstance gameplayEffect) {
@@ -254,6 +212,8 @@ public partial class GameplayAbilitySystem : Node {
     if (gameplayEffect.GameplayEffect?.EffectDefinition?.DurationPolicy is DurationPolicy.Duration or DurationPolicy.Infinite && gameplayEffect.GameplayEffect.GrantedTags != null) {
       OwnedTags.RemoveTags(gameplayEffect.GameplayEffect.GrantedTags);
     }
+
+    UpdateCurrentValues();
   }
   private void OnTagAdded(Tag tag) {
     foreach (var ability in GrantedAbilities) {
@@ -261,6 +221,74 @@ public partial class GameplayAbilitySystem : Node {
         if (ability.AbilityResource.AbilityTriggers.Any(t => t.TriggerSource == AbilityTriggerSourceType.OwnedTagAdded && t.TriggerTag == tag)) {
           TryActivateAbility(ability);
         }
+      }
+    }
+  }
+
+  // private Dictionary<GameplayAttribute, AttributeModifier> GetModifiers(GameplayEffectInstance gameplayEffect) {
+  //   var modifiersToApply = new Dictionary<GameplayAttribute, AttributeModifier>();
+  //   if (gameplayEffect.GameplayEffect?.EffectDefinition?.Modifiers != null) {
+  //     foreach (var modifier in gameplayEffect.GameplayEffect.EffectDefinition.Modifiers) {
+  //       var attributeModifier = new AttributeModifier();
+  //       var magnitude = modifier.GetMagnitude(gameplayEffect);
+
+  //       switch (modifier.ModifierType) {
+  //         case AttributeModifierType.Add:
+  //           attributeModifier.Add = magnitude;
+  //           break;
+  //         case AttributeModifierType.Multiply:
+  //           attributeModifier.Multiply = magnitude;
+  //           break;
+  //         case AttributeModifierType.Override:
+  //           attributeModifier.Override = magnitude;
+  //           break;
+  //         default:
+  //           break;
+  //       }
+
+  //       if (modifier.Attribute != null) {
+  //         if (modifiersToApply.TryGetValue(modifier.Attribute, out var value)) {
+  //           value = value.Combine(attributeModifier);
+  //         }
+  //         else {
+  //           modifiersToApply.Add(modifier.Attribute, attributeModifier);
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   return modifiersToApply;
+  // }
+
+  private IEnumerator<(GameplayAttribute, Aggregator)> GetAggregators(GameplayEffectInstance effectInstance) {
+    var aggregator = new Aggregator();
+
+    var modifiers = effectInstance.GameplayEffect?.EffectDefinition?.Modifiers;
+    if (modifiers != null) {
+      foreach (var modifier in modifiers) {
+        // FIXME: what if i have 2 modifiers which are after another?
+        aggregator.AddMod(modifier.ModifierType, modifier.GetMagnitude(effectInstance));
+
+        if (modifier.Attribute != null) {
+          yield return (modifier.Attribute, aggregator);
+        }
+      }
+    }
+  }
+
+  private void UpdateCurrentValues() {
+    foreach (var attribute in AttributeSystem.GetAllAttributes()) {
+      var oldValue = AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
+      var value = AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault();
+
+      foreach (var set in AttributeSystem.GetAttributeSets()) {
+        set.PreAttributeChange(AttributeSystem, attribute, ref value);
+      }
+
+      AttributeSystem.SetAttributeCurrentValue(attribute, value);
+
+      foreach (var set in AttributeSystem.GetAttributeSets()) {
+        set.PostAttributeChange(AttributeSystem, attribute, oldValue, value);
       }
     }
   }

@@ -58,6 +58,11 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
 
     private void Process() {
       var taskData = new WaitForGameplayEventTask(this, TagManager.GetTag(HOBTags.EventTurnStarted));
+      var tween = CreateTween();
+      tween.SetLoops();
+      tween.SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.OutIn);
+      tween.TweenProperty(OwnerEntity.Body, "scale", new Vector3(1.1f, 0.9f, 1.1f), 0.5f).SetDelay(0.1f);
+      tween.TweenProperty(OwnerEntity.Body, "scale", new Vector3(0.9f, 1.1f, 0.9f), 0.5f).SetDelay(0.1f);
       taskData.EventRecieved += (data) => {
         if (OwnerEntity.TryGetOwner(out var owner) && OwnerEntity.IsCurrentTurn()) {
           _turnsLeft--;
@@ -75,6 +80,13 @@ public partial class ProcessResourcesAbilityResource : HOBAbilityResource {
             //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
             //   _ = text.Animate();
             // }
+
+            tween.Kill();
+
+            var t = CreateTween().SetTrans(Tween.TransitionType.Back);
+            t.TweenProperty(OwnerEntity.Body, "scale", new Vector3(1.2f, 1, 1.2f), 0.2f);
+            t.TweenProperty(OwnerEntity.Body, "scale", Vector3.One * 0.8f, 0.1f);
+            t.TweenProperty(OwnerEntity.Body, "scale", Vector3.One, 0.2f);
 
             EndAbility();
           }

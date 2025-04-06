@@ -8,11 +8,11 @@ public partial class Level : Node {
   [Signal] public delegate void LoadedEventHandler();
   [Signal] public delegate void UnloadedEventHandler();
 
-  [Signal] public delegate void GameModeChangedEventHandler(GameMode old, GameMode @new);
+  [Signal] public delegate void GameModeChangedEventHandler(GameMode? old, GameMode @new);
 
-  [Export] private PackedScene GameModeScene { get; set; }
+  [Export] private PackedScene? GameModeScene { get; set; }
 
-  public GameMode GameMode { get; private set; }
+  public GameMode? GameMode { get; private set; }
 
   private bool _canChangeGameMode = true;
 
@@ -35,19 +35,20 @@ public partial class Level : Node {
     GameMode = newGameMode;
     AddChild(GameMode);
   }
-  public virtual async Task Load() {
+
+  public virtual Task Load() {
     var gameMode = GameModeScene?.InstantiateOrNull<GameMode>();
     if (gameMode == null) {
       GD.Print("Game Mode Scene is null on:", Name);
-      return;
+      return Task.CompletedTask;
     }
 
     ChangeGameMode(gameMode);
     _canChangeGameMode = false;
+    return Task.CompletedTask;
   }
 
   // TODO: level streaming, so you can add multiple levels but keep the same game mode
-
   public virtual async Task UnLoad() {
     QueueFree();
 

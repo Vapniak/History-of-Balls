@@ -23,7 +23,7 @@ public partial class TurnDurationStrategy : DurationStrategy {
   public override void Tick(ITickContext tickContext) {
     if (tickContext is TurnTickContext turnTick) {
       if (turnTick.OwnTurn == TickAtOwnTurn) {
-        if (TickAt.Any(turnTick.Event.IsExact)) {
+        if (TickAt.Any(e => e.IsExact(turnTick.Event))) {
           _ticksLeft--;
         }
       }

@@ -10,6 +10,6 @@ public partial class GameplayEffectModifier : Resource {
   [Export] private float Coefficient { get; set; } = 1;
 
   public float GetMagnitude(GameplayEffectInstance geInstance) {
-    return (ModifierMagnitude == null ? 1 : ModifierMagnitude.CalculateMagnitude(geInstance)) * Coefficient;
+    return (ModifierMagnitude == null ? 1 : ModifierMagnitude.CalculateMagnitude(geInstance).GetValueOrDefault(1)) * Coefficient;
   }
 }

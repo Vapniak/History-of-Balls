@@ -1,21 +1,28 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=26 format=3 uid="uid://d307uif7aimiy"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=27 format=3 uid="uid://d307uif7aimiy"]
 
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/game_entities/attribute_sets/unit_attribute_sets.tres" id="1_171y2"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game_entities/abilities/move/walk/walk_move_ability.tres" id="1_w5hs0"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_xm7l6"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_eckvi"]
-[ext_resource type="Resource" uid="uid://trtvj503md1n" path="res://src/game_entities/abilities/attack/melee/melee_attack_ability.tres" id="2_w23px"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_f0nu4"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="3_r6chj"]
 [ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="4_q2vxv"]
 [ext_resource type="PackedScene" uid="uid://chf1rub1veny6" path="res://src/game_entities/entites/units/cavalry/thessalian_cavalry/thessalian_cavalry_body.tscn" id="5_blik1"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="5_nodjc"]
+[ext_resource type="Resource" uid="uid://5bbrwa5qxeou" path="res://src/game_entities/abilities/effects/modifiers/health_set_to_max_health.tres" id="6_3d3ht"]
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="6_33lxa"]
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://src/game_entities/attributes/max_health.tres" id="7_4gx8r"]
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="7_cjiwa"]
-[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="8_tf066"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="9_rkdsm"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="10_6ra7m"]
+[ext_resource type="Resource" uid="uid://bflof1b7lyv80" path="res://src/game_entities/abilities/attack/melee/cavalry_melee_attack_ability.tres" id="11_lwma5"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="11_qb0hw"]
+
+[sub_resource type="Resource" id="Resource_aue0j"]
+script = ExtResource("5_nodjc")
+Attribute = ExtResource("7_4gx8r")
+ModifierType = 2
+Coefficient = 17.0
 
 [sub_resource type="Resource" id="Resource_arjua"]
 script = ExtResource("5_nodjc")
@@ -35,16 +42,10 @@ Attribute = ExtResource("7_cjiwa")
 ModifierType = 2
 Coefficient = 1.0
 
-[sub_resource type="Resource" id="Resource_aue0j"]
-script = ExtResource("5_nodjc")
-Attribute = ExtResource("8_tf066")
-ModifierType = 2
-Coefficient = 17.0
-
 [sub_resource type="Resource" id="Resource_f7q70"]
 script = ExtResource("9_rkdsm")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_arjua"), SubResource("Resource_ns2i1"), SubResource("Resource_isrr7"), SubResource("Resource_aue0j")])
+Modifiers = Array[Object]([SubResource("Resource_aue0j"), SubResource("Resource_arjua"), SubResource("Resource_ns2i1"), SubResource("Resource_isrr7"), ExtResource("6_3d3ht")])
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_pdhbb"]
@@ -73,6 +74,6 @@ Tags = [SubResource("Resource_5p1at")]
 script = ExtResource("1_xm7l6")
 EntityName = "Thessalian Cavalry"
 AttributeSetsContainer = ExtResource("1_171y2")
-Abilities = [ExtResource("1_w5hs0"), ExtResource("2_w23px"), ExtResource("3_r6chj"), SubResource("Resource_vebok")]
+Abilities = [SubResource("Resource_vebok"), ExtResource("1_w5hs0"), ExtResource("3_r6chj"), ExtResource("11_lwma5")]
 Tags = SubResource("Resource_j0x4o")
 Body = ExtResource("5_blik1")

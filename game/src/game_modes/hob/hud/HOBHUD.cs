@@ -147,7 +147,9 @@ public partial class HOBHUD : HUD {
     entity.AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
     foreach (var attribute in entity.AbilitySystem.AttributeSystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
       if (attribute != null) {
-        StatPanel.AddEntry(attribute.AttributeName, entity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault().ToString());
+        var currentValue = entity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
+        var baseValue = entity.AbilitySystem.AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault();
+        StatPanel.AddEntry(attribute.AttributeName, baseValue != currentValue ? $"{currentValue}({baseValue})" : currentValue.ToString());
       }
     }
 
@@ -189,6 +191,8 @@ public partial class HOBHUD : HUD {
   }
 
   private void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
-    StatPanel.UpdateEntry(attribute.AttributeName, newValue.ToString());
+    var currentValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
+    var baseValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault();
+    StatPanel.UpdateEntry(attribute.AttributeName, baseValue != currentValue ? $"{currentValue}({baseValue})" : currentValue.ToString());
   }
 }

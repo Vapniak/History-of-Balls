@@ -11,6 +11,6 @@ public partial class MiniMap : MarginContainer {
   public override void _Process(double delta) {
     var pos = GetViewport().GetCamera3D().GlobalPosition;
     Camera.GlobalPosition = GetViewport().GetCamera3D().GetParent<Node3D>().GlobalPosition + (Vector3.Up * pos.Y);
-    Camera.Size = pos.Y * 5;
+    Camera.Size = pos.Y * 3;
   }
 }

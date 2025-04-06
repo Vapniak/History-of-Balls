@@ -16,16 +16,14 @@ public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResourc
   public override void Initialize(GameplayEffectInstance effectInstance) {
     CreationAttributeValue = GetAttribueValue(effectInstance);
   }
-  public override float CalculateMagnitude(GameplayEffectInstance effectInstance) {
+  public override float? CalculateMagnitude(GameplayEffectInstance effectInstance) {
     var value = GetCaptureAttribute(effectInstance);
     // if (value != null) {
     //   if (ScalingFunction != null) {
     //     return ScalingFunction.Sample(value.GetValueOrDefault());
     //   }
     // }
-
-
-    return value.GetValueOrDefault();
+    return value;
   }
 
   private float? GetCaptureAttribute(GameplayEffectInstance gameplayEffectInstance) {
@@ -46,7 +44,7 @@ public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResourc
         case CaptureAttributeFrom.Source:
           return instance.Source.AttributeSystem.GetAttributeCurrentValue(CaptureAttribute);
         case CaptureAttributeFrom.Target:
-          return instance.Target?.AttributeSystem.GetAttributeCurrentValue(CaptureAttribute);
+          return instance.Target.AttributeSystem.GetAttributeCurrentValue(CaptureAttribute);
         default:
           break;
       }

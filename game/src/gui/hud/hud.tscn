@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=11 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/hud/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/gui/flag/flag.tscn" id="2_3sw0n"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dm85iu1q2xpt5" path="res://src/gui/hud/entity_production_panel/entity_production_panel.tscn" id="4_77ne6"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/hud/stat_panel/stat_panel.tscn" id="4_yxp0t"]
 [ext_resource type="Script" path="res://src/gui/hud/MiniMap.cs" id="5_dr8w6"]
+[ext_resource type="Script" path="res://src/gui/hud/entity_list/EntityList.cs" id="8_4jikb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qeyv"]
 corner_radius_top_left = 5
@@ -207,7 +208,7 @@ size = Vector2i(200, 200)
 render_target_update_mode = 0
 
 [node name="Camera3D" type="Camera3D" parent="VBoxContainer/MarginContainer4/MiniMap/SubViewportContainer/SubViewport"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 300, 0)
+transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, 0, 0, 0)
 environment = SubResource("Environment_384c7")
 projection = 1
 
@@ -216,12 +217,14 @@ visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
+mouse_force_pass_scroll_events = false
 
 [node name="StatPanel" parent="VBoxContainer/MarginContainer4" instance=ExtResource("4_yxp0t")]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 8
 mouse_filter = 0
+mouse_force_pass_scroll_events = false
 
 [node name="HSeparator" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer" index="1"]
 visible = false
@@ -243,6 +246,49 @@ size_flags_horizontal = 3
 
 [node name="HSeparator2" type="HSeparator" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer" index="3"]
 layout_mode = 2
+
+[node name="EntityList" type="MarginContainer" parent="VBoxContainer/MarginContainer4"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+script = ExtResource("8_4jikb")
+
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer4/EntityList"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer4/EntityList"]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer"]
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[node name="Button2" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[node name="Button3" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[node name="Button4" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[node name="Button5" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer4/Button" to="." method="OnEndTurnPressed"]
 

@@ -1,16 +1,14 @@
 namespace GameplayFramework;
 
 using Godot;
-using HOB;
-using System;
 
 /// <summary>
 /// <inheritdoc/>
 /// </summary>
 [GlobalClass]
 public partial class PlayerController : Controller {
-  private HUD HUD { get; set; }
-  private IPlayerControllable Controllable { get; set; }
+  private HUD? HUD { get; set; }
+  private IPlayerControllable? Controllable { get; set; }
 
   public void SpawnHUD() {
     HUD ??= new();
@@ -28,11 +26,11 @@ public partial class PlayerController : Controller {
     hud.SetPlayerController(this);
   }
 
-  public virtual HUD GetHUD() => HUD;
-  public T GetHUD<T>() where T : HUD {
+  public virtual HUD? GetHUD() => HUD;
+  public T? GetHUD<T>() where T : HUD {
     return GetHUD() as T;
   }
 
   public void SetControllable(IPlayerControllable controllable) => Controllable = controllable;
-  public T GetCharacter<T>() where T : Node => Controllable.GetCharacter<T>();
+  public T? GetCharacter<T>() where T : Node => Controllable?.GetCharacter<T>();
 }

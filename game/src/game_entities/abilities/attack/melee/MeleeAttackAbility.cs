@@ -47,7 +47,6 @@ public partial class MeleeAttackAbility : AttackAbility {
         if (effect != null) {
           var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0, d.TargetAbilitySystem);
           d.TargetAbilitySystem.ApplyGameplayEffectToSelf(ge);
-          ShowDamageNumber(entity.Cell.GetRealPosition());
         }
       }
 

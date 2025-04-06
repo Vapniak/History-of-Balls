@@ -53,24 +53,6 @@ public abstract partial class AttackAbility : HOBAbilityResource {
       return entity.TryGetOwner(out var enemyOwner) && OwnerEntity.TryGetOwner(out var owner) && enemyOwner != owner && entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit));
     }
 
-    protected void ShowDamageNumber(Vector3 pos) {
-      var damageEffect = (AbilityResource as AttackAbility)?.DamageEffect;
-      if (damageEffect?.EffectDefinition?.Modifiers == null) {
-        return;
-      }
-
-      var ei = OwnerAbilitySystem.MakeOutgoingInstance(damageEffect, Level);
-      foreach (var modifier in damageEffect.EffectDefinition.Modifiers) {
-        var magnitude = modifier.GetMagnitude(ei);
-        var text = FloatingText.Create();
-        text.Label?.PushColor(Colors.Red);
-        text.Label?.AppendText($"{magnitude} {modifier?.Attribute?.AttributeName}");
-        GameInstance.GetWorld().AddChild(text);
-        text.GlobalPosition = pos + Vector3.Up * 2;
-        _ = text.Animate();
-      }
-    }
-
     public virtual uint GetRange() {
       if (OwnerEntity.AbilitySystem.AttributeSystem.TryGetAttributeSet<AttackAttributeSet>(out var attributeSet)) {
         return (uint)OwnerEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attributeSet.Range).GetValueOrDefault();

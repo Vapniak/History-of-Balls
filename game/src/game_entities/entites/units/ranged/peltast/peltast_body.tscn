@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cfpw2nk3wsd8q"]
+[gd_scene load_steps=18 format=3 uid="uid://cfpw2nk3wsd8q"]
 
 [ext_resource type="Script" path="res://src/game_entities/entites/units/UnitBody.cs" id="1_dm6nx"]
 [ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game_entities/entites/units/country_balls/greek_ball.tscn" id="2_357p0"]
@@ -41,6 +41,21 @@ _data = {
 "idle": SubResource("Animation_vsqqk")
 }
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qks2d"]
+render_priority = 0
+shader = ExtResource("3_8y3io")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u7g83"]
+resource_local_to_scene = true
+render_priority = 0
+next_pass = SubResource("ShaderMaterial_qks2d")
+shader = ExtResource("4_3i4fc")
+shader_parameter/color = Color(0, 0, 0, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
 [sub_resource type="BoxMesh" id="BoxMesh_vrle6"]
 size = Vector3(0.115, 0.2, 1.115)
 
@@ -58,12 +73,15 @@ libraries = {
 "": SubResource("AnimationLibrary_bww61")
 }
 
+[node name="CSGMesh3D2" parent="GreekBall/BaseCountryBall/sphere (1)" index="2"]
+material = SubResource("ShaderMaterial_u7g83")
+
 [node name="FollowParent3D" type="Node3D" parent="."]
 top_level = true
 script = ExtResource("8_ut4yb")
 
 [node name="UnitAttribute" type="Node3D" parent="FollowParent3D"]
-transform = Transform3D(1, 0, 0, 0, 0.0515168, -0.998672, 0, 0.998672, 0.0515168, 0.887068, 0.447799, 0)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.887068, 0.447799, 0)
 script = ExtResource("9_guo61")
 ThrowHeight = 1.0
 RotationSmoothness = 10.0

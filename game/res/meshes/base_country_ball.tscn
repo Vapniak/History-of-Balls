@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c6gjek7mpianb"]
+[gd_scene load_steps=17 format=3 uid="uid://c6gjek7mpianb"]
 
 [ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_aurth"]
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="2_wli4j"]
@@ -40,14 +40,17 @@ _data = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_miuwn"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqdx6"]
+[sub_resource type="BoxMesh" id="BoxMesh_3w7ws"]
+size = Vector3(0.95, 0.465, 0.415)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qks2d"]
 render_priority = 0
 shader = ExtResource("2_aurth")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tiwun"]
 resource_local_to_scene = true
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_eqdx6")
+next_pass = SubResource("ShaderMaterial_qks2d")
 shader = ExtResource("2_wli4j")
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
@@ -55,9 +58,10 @@ shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
 
-[sub_resource type="BoxMesh" id="BoxMesh_8hfmq"]
-material = SubResource("ShaderMaterial_tiwun")
-size = Vector3(0.796, 0.342, 0.407)
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uqutn"]
+radius = 0.62
+height = 2.52
+radial_segments = 12
 
 [node name="BaseCountryBall" type="Node3D"]
 
@@ -82,9 +86,15 @@ libraries = {
 }
 autoplay = "idle"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="sphere (1)"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49012e-08, 1.4874, -0.770292)
-mesh = SubResource("BoxMesh_8hfmq")
-skeleton = NodePath("../Armature/Skeleton3D/Sphere")
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="sphere (1)"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49012e-08, 1.4874, -0.761249)
+mesh = SubResource("BoxMesh_3w7ws")
+material = SubResource("ShaderMaterial_tiwun")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="sphere (1)/CSGMesh3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.355337)
+operation = 2
+calculate_tangents = false
+mesh = SubResource("CapsuleMesh_uqutn")
 
 [editable path="sphere (1)"]

@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="HealthAttributeSet" load_steps=3 format=3 uid="uid://d4eit2hgljauy"]
+[gd_resource type="Resource" script_class="HealthAttributeSet" load_steps=4 format=3 uid="uid://d4eit2hgljauy"]
 
 [ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="1_dfqqa"]
 [ext_resource type="Script" path="res://src/game_entities/attribute_sets/HealthAttributeSet.cs" id="2_1gxbu"]
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://src/game_entities/attributes/max_health.tres" id="2_yhhib"]
 
 [resource]
 script = ExtResource("2_1gxbu")
 HealthAttribute = ExtResource("1_dfqqa")
+MaxHealthAttribute = ExtResource("2_yhhib")

@@ -7,14 +7,14 @@ using Godot;
 /// </summary>
 [GlobalClass]
 public partial class Controller : Node3D, IController {
-  private PlayerState PlayerState { get; set; }
+  private PlayerState? PlayerState { get; set; }
 
   public void SetPlayerState(PlayerState playerState) {
     PlayerState = playerState;
   }
 
-  public virtual PlayerState GetPlayerState() => PlayerState;
-  public T GetPlayerState<T>() where T : class, IPlayerState {
+  public virtual PlayerState GetPlayerState() => PlayerState!;
+  public T? GetPlayerState<T>() where T : class, IPlayerState {
     return GetPlayerState() as T;
   }
 

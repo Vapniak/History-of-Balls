@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=26 format=3 uid="uid://dx5mu6akcbsf8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=27 format=3 uid="uid://dx5mu6akcbsf8"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_1422c"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/game_entities/attribute_sets/unit_attribute_sets.tres" id="1_qk2ld"]
@@ -8,8 +8,9 @@
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="3_7vsus"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="3_gafo8"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="4_4v8ce"]
-[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="4_857bx"]
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://src/game_entities/attributes/max_health.tres" id="4_bmt2s"]
 [ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="5_hc31m"]
+[ext_resource type="Resource" uid="uid://5bbrwa5qxeou" path="res://src/game_entities/abilities/effects/modifiers/health_set_to_max_health.tres" id="6_gaytl"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="6_uslv4"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="7_ydgh8"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="8_hmd44"]
@@ -31,7 +32,7 @@ Coefficient = 1.0
 
 [sub_resource type="Resource" id="Resource_j0jxq"]
 script = ExtResource("2_5urlp")
-Attribute = ExtResource("4_857bx")
+Attribute = ExtResource("4_bmt2s")
 ModifierType = 2
 Coefficient = 22.0
 
@@ -44,7 +45,7 @@ Coefficient = 2.0
 [sub_resource type="Resource" id="Resource_v8kdp"]
 script = ExtResource("6_uslv4")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_wd3t6"), SubResource("Resource_3evd7"), SubResource("Resource_j0jxq"), SubResource("Resource_wkt6l")])
+Modifiers = Array[Object]([SubResource("Resource_wd3t6"), SubResource("Resource_3evd7"), SubResource("Resource_j0jxq"), SubResource("Resource_wkt6l"), ExtResource("6_gaytl")])
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_4wjor"]

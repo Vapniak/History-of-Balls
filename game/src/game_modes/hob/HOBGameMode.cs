@@ -13,38 +13,36 @@ using HOB.GameEntity;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
-  [Export] private MatchEndMenu MatchEndMenu { get; set; }
-  [Export] private PauseMenu PauseMenu { get; set; }
-  [Export] private AudioStreamPlayer AudioPlayer { get; set; }
+  [Export] private MatchEndMenu? MatchEndMenu { get; set; }
+  [Export] private PauseMenu? PauseMenu { get; set; }
+  [Export] private AudioStreamPlayer? AudioPlayer { get; set; }
   [Export] private PlayerAttributeSet? PlayerAttributeSet { get; set; }
-  [Export] public Array<EntityIcon> EntityIcons { get; private set; }
+  [Export] public Array<EntityIcon>? EntityIcons { get; private set; }
 
   [Export] private MatchData? MatchData { get; set; }
 
-  [Export] private PackedScene PlayerControllerScene { get; set; }
-  [Export] private PackedScene PlayerCharacterScene { get; set; }
-  [Export] private PackedScene AIControllerScene { get; set; }
-  [Export] private PackedScene HUDScene { get; set; }
+  [Export] private PackedScene? PlayerControllerScene { get; set; }
+  [Export] private PackedScene? PlayerCharacterScene { get; set; }
+  [Export] private PackedScene? AIControllerScene { get; set; }
+  [Export] private PackedScene? HUDScene { get; set; }
 
-  [Export] private Node StateChartNode { get; set; }
+  [Export] private Node? StateChartNode { get; set; }
 
-  private StateChart StateChart { get; set; }
+  private StateChart? StateChart { get; set; }
 
-  private MatchComponent MatchComponent { get; set; }
-  private HOBPlayerManagmentComponent PlayerManagmentComponent { get; set; }
+  [Export] private MatchComponent? MatchComponent { get; set; }
+  [Export] private HOBPlayerManagmentComponent? PlayerManagmentComponent { get; set; }
 
   private GameBoard GameBoard => GetGameState().GameBoard;
 
   public override void _EnterTree() {
     base._EnterTree();
 
-    GetGameState().GameBoard = GameInstance.GetWorld().CurrentLevel.GetChildByType<GameBoard>();
+    GetGameState().GameBoard = GameInstance.GetWorld().GetCurrentLevel().GetChildByType<GameBoard>();
 
-    PlayerManagmentComponent = GetGameModeComponent<HOBPlayerManagmentComponent>();
-    MatchComponent = GetGameModeComponent<MatchComponent>();
-    StateChart = StateChart.Of(StateChartNode);
+    StateChart = StateChart.Of(StateChartNode!);
 
-    PlayerManagmentComponent.PlayerSpawned += (playerState) => MatchComponent.OnPlayerSpawned(playerState as IMatchPlayerState);
+    PlayerManagmentComponent!.PlayerSpawned += (playerState) => MatchComponent!.OnPlayerSpawned(playerState as IMatchPlayerState);
 
     GameBoard.GridCreated += () => CallDeferred(MethodName.OnGridCreated);
   }
@@ -58,9 +56,11 @@ public partial class HOBGameMode : GameMode {
   public override void _Ready() {
     base._Ready();
 
-    PauseMenu.ResumeEvent += Resume;
-    PauseMenu.MainMenuEvent += OnMainMenu;
-    PauseMenu.QuitEvent += OnQuit;
+    if (PauseMenu != null) {
+      PauseMenu.ResumeEvent += Resume;
+      PauseMenu.MainMenuEvent += OnMainMenu;
+      PauseMenu.QuitEvent += OnQuit;
+    }
 
     if (MatchData?.Map != null) {
       GameBoard.Init(MatchData.Map);
@@ -68,11 +68,11 @@ public partial class HOBGameMode : GameMode {
   }
 
   public void Pause() {
-    StateChart.SendEvent("pause");
+    StateChart?.SendEvent("pause");
   }
 
   public void Resume() {
-    StateChart.SendEvent("resume");
+    StateChart?.SendEvent("resume");
   }
 
   public bool IsCurrentTurn(IMatchController controller) {
@@ -88,8 +88,8 @@ public partial class HOBGameMode : GameMode {
     return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entityData.Tags.HasExactTag(i.EntityType), null)?.Icon;
   }
 
-  public IMatchEvents GetMatchEvents() => MatchComponent;
-  public IEntityManagment GetEntityManagment() => MatchComponent;
+  public IMatchEvents GetMatchEvents() => MatchComponent!;
+  public IEntityManagment GetEntityManagment() => MatchComponent!;
 
   public override HOBGameState GetGameState() => base.GetGameState() as HOBGameState;
 

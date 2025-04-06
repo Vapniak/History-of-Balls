@@ -44,6 +44,12 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
 
         _turnsLeft = (int)productionConfig.ProductionTime;
 
+        var tween = CreateTween();
+        tween.SetLoops();
+        tween.SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.OutIn);
+        tween.TweenProperty(OwnerEntity.Body, "scale", new Vector3(1.1f, 0.9f, 1.1f), 0.5f).SetDelay(0.1f);
+        tween.TweenProperty(OwnerEntity.Body, "scale", new Vector3(0.9f, 1.1f, 0.9f), 0.5f).SetDelay(0.1f);
+
         var taskData = new WaitForGameplayEventTask(this, TagManager.GetTag(HOBTags.EventTurnStarted));
         taskData.EventRecieved += (data) => {
           if (OwnerEntity.TryGetOwner(out var owner) && OwnerEntity.IsCurrentTurn()) {
@@ -59,6 +65,14 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
                 //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
                 //   _ = text.Animate();
                 // }
+
+                tween.Kill();
+
+                var t = CreateTween();
+                t.TweenProperty(OwnerEntity.Body, "scale", new Vector3(1.2f, 1, 1.2f), 0.2f).SetTrans(Tween.TransitionType.Back);
+                t.TweenProperty(OwnerEntity.Body, "scale", Vector3.One * 0.8f, 0.1f).SetTrans(Tween.TransitionType.Back);
+                t.TweenProperty(OwnerEntity.Body, "scale", Vector3.One, 0.2f).SetTrans(Tween.TransitionType.Back);
+                t.TweenProperty(OwnerEntity.Body, "scale", Vector3.One, 0.1f);
 
                 EndAbility();
               }

@@ -27,14 +27,14 @@ public partial class PlayerManagmentComponent : GameModeComponent {
     GetGameState().PlayerArray = new();
   }
 
-  public override IPlayerManagmentGameState GetGameState() => base.GetGameState() as IPlayerManagmentGameState;
+  public override IPlayerManagmentGameState GetGameState() => (base.GetGameState() as IPlayerManagmentGameState)!;
 
   public void SpawnPlayerDeferred(PlayerSpawnSettings spawnSettings) {
     CallDeferred(MethodName.SpawnPlayer, spawnSettings);
   }
 
   public virtual void SpawnPlayer(PlayerSpawnSettings settings) {
-    var parent = GameInstance.GetWorld().CurrentLevel;
+    var parent = GameInstance.GetWorld().GetCurrentLevel();
 
     if (settings.CharacterNode != null) {
       parent.AddChild(settings.CharacterNode);

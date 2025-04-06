@@ -10,14 +10,14 @@ using System;
 public partial class PlayerState : Node, IPlayerState {
   public string PlayerName { get; set; } = "Player";
   public int PlayerIndex { get; set; }
-  public Controller? OwningController { get; set; }
+  private Controller? OwningController { get; set; }
   public PlayerState() { }
 
   public void SetPlayerName(string playerName) => PlayerName = playerName;
   public void SetPlayerIndex(int index) => PlayerIndex = index;
 
-  public T GetController<T>() where T : class, IController => GetController() as T;
-  public IController GetController() => OwningController;
+  public T? GetController<T>() where T : class, IController => GetController() as T;
+  public IController GetController() => OwningController!;
   public void SetController(Controller controller) {
     OwningController = controller;
   }

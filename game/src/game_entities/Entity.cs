@@ -20,6 +20,8 @@ public partial class Entity : Node3D, ITurnAware {
   public IEntityManagment EntityManagment { get; private set; }
   public HOBGameplayAbilitySystem AbilitySystem { get; private set; }
 
+  public EntityUI UI { get; private set; }
+
   [Notify]
   public IMatchController? OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }
 
@@ -66,7 +68,9 @@ public partial class Entity : Node3D, ITurnAware {
         }
       }
 
-      AddChild(EntityUi3D.Create(this));
+      var ui3D = EntityUi3D.Create(this);
+      UI = ui3D.EntityUI;
+      AddChild(ui3D);
 
       var tween = CreateTween();
 
@@ -118,6 +122,7 @@ public partial class Entity : Node3D, ITurnAware {
     if (AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var healthAttributeSet)) {
       if (attribute == healthAttributeSet?.HealthAttribute) {
         if (newValue <= 0f) {
+          GD.PrintS(EntityName, newValue);
           AbilitySystem.OwnedTags.AddTag(TagManager.GetTag(HOBTags.StateDead));
           var tween = CreateTween();
           tween.TweenProperty(this, "scale", Vector3.Zero, 1f).SetTrans(Tween.TransitionType.Back);

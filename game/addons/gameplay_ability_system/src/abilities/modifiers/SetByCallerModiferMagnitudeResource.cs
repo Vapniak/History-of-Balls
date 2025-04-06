@@ -8,9 +8,9 @@ using System;
 public partial class SetByCallerModiferMagnitudeResource : ModifierMagnitudeResource {
   [Export] public Tag? DataTag;
 
-  public override float CalculateMagnitude(GameplayEffectInstance effectInstance) {
+  public override float? CalculateMagnitude(GameplayEffectInstance effectInstance) {
     if (DataTag == null) {
-      return 1;
+      return null;
     }
 
     return effectInstance.GetSetByCallerMagnitude(DataTag);

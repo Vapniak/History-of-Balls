@@ -5,7 +5,5 @@ using System;
 
 [GlobalClass]
 public abstract partial class GameModeComponent : Node {
-  public GameMode OwnerGameMode { get; set; }
-
-  public virtual IGameState GetGameState() => OwnerGameMode.GetGameState();
+  public virtual IGameState GetGameState() => GameInstance.GetGameState();
 }

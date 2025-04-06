@@ -34,17 +34,31 @@ public partial class AttributeSystem : Node {
 
   public void SetAttributeBaseValue(GameplayAttribute attribute, float baseValue) {
     if (TryGetAttributeValue(attribute, out var value)) {
-      if (value != null) {
-        var oldValue = value.BaseValue;
-        value.BaseValue = baseValue;
-        EmitSignal(SignalName.AttributeValueChanged, attribute, oldValue, baseValue);
+      value!.BaseValue = baseValue;
+    }
+  }
+
+  public float? GetAttributeBaseValue(GameplayAttribute attribute) {
+    if (TryGetAttributeValue(attribute, out var value)) {
+      return value?.BaseValue;
+    }
+
+    return null;
+  }
+
+  public void SetAttributeCurrentValue(GameplayAttribute attribute, float currentValue) {
+    if (TryGetAttributeValue(attribute, out var value)) {
+      var oldValue = value!.CurrentValue;
+      value.CurrentValue = currentValue;
+      if (oldValue != currentValue) {
+        EmitSignal(SignalName.AttributeValueChanged, attribute, oldValue, currentValue);
       }
     }
   }
 
   public float? GetAttributeCurrentValue(GameplayAttribute attribute) {
     if (TryGetAttributeValue(attribute, out var value)) {
-      return value?.BaseValue;
+      return value!.CurrentValue;
     }
 
     return null;

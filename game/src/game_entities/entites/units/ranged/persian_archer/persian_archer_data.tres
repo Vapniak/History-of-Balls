@@ -1,12 +1,13 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=26 format=3 uid="uid://blrqjygc1t1es"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=27 format=3 uid="uid://blrqjygc1t1es"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_0pmly"]
-[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="1_enj8b"]
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://src/game_entities/attributes/max_health.tres" id="1_trttc"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="2_x2qof"]
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="3_a2obu"]
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="4_n06bt"]
 [ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="5_lipou"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="6_psenc"]
+[ext_resource type="Resource" uid="uid://5bbrwa5qxeou" path="res://src/game_entities/abilities/effects/modifiers/health_set_to_max_health.tres" id="6_yxumn"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="7_nnosq"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="8_eup7t"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game_entities/abilities/move/walk/walk_move_ability.tres" id="9_3ss8i"]
@@ -19,7 +20,7 @@
 
 [sub_resource type="Resource" id="Resource_pyujp"]
 script = ExtResource("2_x2qof")
-Attribute = ExtResource("1_enj8b")
+Attribute = ExtResource("1_trttc")
 ModifierType = 2
 Coefficient = 12.0
 
@@ -44,7 +45,7 @@ Coefficient = 3.0
 [sub_resource type="Resource" id="Resource_fnvlt"]
 script = ExtResource("6_psenc")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_pyujp"), SubResource("Resource_5obag"), SubResource("Resource_i4634"), SubResource("Resource_1e1u7")])
+Modifiers = Array[Object]([SubResource("Resource_pyujp"), SubResource("Resource_5obag"), SubResource("Resource_i4634"), SubResource("Resource_1e1u7"), ExtResource("6_yxumn")])
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_d3t53"]
@@ -57,7 +58,7 @@ InitializeStatsEffects = SubResource("Resource_d3t53")
 ShowInUI = true
 UIOrder = 0
 AbilityName = "Ability"
-ActivateOnGranted = false
+ActivateOnGranted = true
 RemoveOnEnd = false
 AbilityTriggers = null
 

@@ -22,7 +22,7 @@ public partial class GameplayEffectDefinition : Resource {
       return DurationMultiplier;
     }
     else {
-      return DurationModifier.CalculateMagnitude(gameplayEffectInstance) * DurationMultiplier;
+      return DurationModifier.CalculateMagnitude(gameplayEffectInstance).GetValueOrDefault(1) * DurationMultiplier;
     }
   }
 }

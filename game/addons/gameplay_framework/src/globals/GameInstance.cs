@@ -1,5 +1,6 @@
 namespace GameplayFramework;
 
+using System.Diagnostics;
 using Godot;
 
 // maybe don't make it global node and just make it static instance
@@ -7,11 +8,11 @@ using Godot;
 /// Main game manager.
 /// </summary>
 public partial class GameInstance : Node {
-  // TODO: better flow of creation and deletion of nodes
-  [Export(PropertyHint.Dir)] public string LevelsDirectoryPath { get; private set; }
-  public static GameInstance Instance { get; private set; }
+  [Export(PropertyHint.Dir)] public string? LevelsDirectoryPath { get; private set; }
+  public static GameInstance? Instance { get; private set; }
 
-  private World World { get; set; }
+  private World? World { get; set; }
+
   public override void _EnterTree() {
     ProcessMode = ProcessModeEnum.Always;
 
@@ -32,11 +33,11 @@ public partial class GameInstance : Node {
   public static IGameState GetGameState() {
     return GetGameMode().GetGameState();
   }
-  public static T GetGameState<T>() where T : class, IGameState {
+  public static T? GetGameState<T>() where T : class, IGameState {
     return GetGameState() as T;
   }
 
-  public static GameMode GetGameMode() {
+  public static IGameMode GetGameMode() {
     return GetWorld().GetGameMode();
   }
 
@@ -44,10 +45,16 @@ public partial class GameInstance : Node {
     return GetGameMode() as T;
   }
 
-  public static void CreateWorld(string startLevelName = null) {
+  public static void CreateWorld(string? startLevelName = null) {
     var world = new World() {
       Name = "World"
     };
+
+    if (Instance == null) {
+      Debug.Assert(false, "Game instance is null");
+      return;
+    }
+
     Instance.World = world;
 
     Instance.GetTree().CurrentScene.QueueFree();
@@ -55,20 +62,20 @@ public partial class GameInstance : Node {
     Instance.GetTree().CurrentScene = world;
 
     if (startLevelName != null) {
-      world.OpenLevel(startLevelName);
+      _ = Instance.World.OpenLevel(startLevelName);
     }
   }
 
   public static World GetWorld() {
-    return Instance.World;
+    return Instance!.World!;
   }
 
 
   public static void SetPause(bool value) {
-    Instance.GetTree().Paused = value;
+    Instance!.GetTree().Paused = value;
   }
 
   public static void QuitGame() {
-    Instance.GetTree().Quit();
+    Instance!.GetTree().Quit();
   }
 }

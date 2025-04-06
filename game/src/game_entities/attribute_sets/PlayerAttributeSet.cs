@@ -4,7 +4,6 @@ using GameplayAbilitySystem;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
-using System;
 
 [GlobalClass]
 public partial class PlayerAttributeSet : GameplayAttributeSet {
@@ -15,6 +14,7 @@ public partial class PlayerAttributeSet : GameplayAttributeSet {
     base.PostGameplayEffectExecute(data);
 
     var @as = data.EffectInstance.Target;
+
     foreach (var entity in GameInstance.GetGameMode<HOBGameMode>().GetEntityManagment().GetOwnedEntites(@as.GetOwner<HOBPlayerState>().GetController<IMatchController>())) {
       entity.AbilitySystem.SendGameplayEvent(TagManager.GetTag(HOBTags.EventResourceGenerated));
     }

@@ -98,7 +98,6 @@ public abstract partial class GameplayAbilityInstance : Node {
       }
 
       var ei = source.MakeOutgoingInstance(effectResource, Level, target);
-      ei.QueueFree();
       foreach (var modifier in effectResource.EffectDefinition.Modifiers) {
         if (modifier.ModifierType != AttributeModifierType.Add) {
           continue;
@@ -112,11 +111,13 @@ public abstract partial class GameplayAbilityInstance : Node {
 
         var value = target.AttributeSystem.GetAttributeCurrentValue(modifier.Attribute);
 
-
         if (value + costValue < GetCost(modifier.Attribute)) {
+          ei.QueueFree();
           return false;
         }
       }
+
+      ei.QueueFree();
     }
 
     return true;

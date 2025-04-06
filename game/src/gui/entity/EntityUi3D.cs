@@ -7,7 +7,7 @@ using HOB.GameEntity;
 using System;
 
 public partial class EntityUi3D : Node3D {
-  [Export] public EntityUI? EntityUI { get; private set; }
+  [Export] public EntityUI EntityUI { get; private set; }
 
   private static readonly string _ui3dUID = "uid://omhtmi8gorif";
   public static EntityUi3D Create(Entity owner) {

@@ -80,7 +80,7 @@ script = ExtResource("5_lpoos")
 EntityType = SubResource("Resource_5p1at")
 Icon = ExtResource("10_khhvx")
 
-[node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "AudioPlayer", "StateChartNode")]
+[node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "AudioPlayer", "StateChartNode", "MatchComponent", "PlayerManagmentComponent")]
 script = ExtResource("1_ne2qg")
 MatchEndMenu = NodePath("MatchEndMenu")
 PauseMenu = NodePath("PauseMenu")
@@ -93,6 +93,8 @@ PlayerCharacterScene = ExtResource("3_wvtpx")
 AIControllerScene = ExtResource("4_lhw57")
 HUDScene = ExtResource("5_yn6q8")
 StateChartNode = NodePath("StateChart")
+MatchComponent = NodePath("MatchComponent")
+PlayerManagmentComponent = NodePath("TestPlayerManagmentComponent")
 
 [node name="MatchEndMenu" parent="." instance=ExtResource("16_6f2qf")]
 process_mode = 2

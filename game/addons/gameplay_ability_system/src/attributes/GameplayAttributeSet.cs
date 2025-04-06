@@ -12,11 +12,11 @@ public abstract partial class GameplayAttributeSet : Resource {
   /// </summary>
   /// <param name="attribute"></param>
   /// <param name="newValue"></param>
-  public virtual void PreAttributeChange(GameplayAttribute attribute, ref float newValue) {
+  public virtual void PreAttributeChange(AttributeSystem attributeSystem, GameplayAttribute attribute, ref float newValue) {
 
   }
 
-  public virtual void PostAttributeChange(GameplayAttribute attribute, float oldValue, float newValue) {
+  public virtual void PostAttributeChange(AttributeSystem attributeSystem, GameplayAttribute attribute, float oldValue, float newValue) {
 
   }
 
@@ -30,4 +30,9 @@ public abstract partial class GameplayAttributeSet : Resource {
 
   }
   public abstract GameplayAttribute[] GetAttributes();
+
+  // public static void AdjustForMax(ref float value, float maxValue, float newMaxValue) {
+  //   var delta = maxValue > 0f ? (value * newMaxValue / maxValue) - value : newMaxValue;
+  //   value += delta;
+  // }
 }

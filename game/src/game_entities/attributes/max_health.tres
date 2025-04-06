@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="GameplayAttribute" load_steps=2 format=3 uid="uid://icdrb28htvlw"]
+
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/attributes/GameplayAttribute.cs" id="1_ple4u"]
+
+[resource]
+script = ExtResource("1_ple4u")
+AttributeName = "Max Health"

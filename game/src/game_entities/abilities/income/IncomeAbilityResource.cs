@@ -23,6 +23,11 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
           var ei = OwnerAbilitySystem.MakeOutgoingInstance(income, 0, owner?.GetPlayerState().AbilitySystem);
           ei.Target.ApplyGameplayEffectToSelf(ei);
 
+          var tween = CreateTween();
+
+          tween.TweenProperty(OwnerEntity.Body, "scale", new Vector3(1.2f, 1, 1.2f), 0.2f).SetTrans(Tween.TransitionType.Back);
+          tween.TweenProperty(OwnerEntity.Body, "scale", Vector3.One * 0.8f, 0.1f).SetTrans(Tween.TransitionType.Back);
+          tween.TweenProperty(OwnerEntity.Body, "scale", Vector3.One, 0.2f).SetTrans(Tween.TransitionType.Back);
           // FIXME: for now check like that
           // if (owner is PlayerController) {
           //   var text = FloatingText.Create();

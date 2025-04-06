@@ -2,36 +2,36 @@ namespace GameplayFramework;
 
 using System.Threading.Tasks;
 using Godot;
-using Godot.Collections;
 
 [GlobalClass]
 public sealed partial class World : Node {
   [Signal]
   public delegate void LevelLoadedEventHandler(Level level);
 
-  public Level CurrentLevel { get; private set; }
+  private Level? CurrentLevel { get; set; }
   public bool LoadingLevel { get; private set; }
 
-  private string _loadedLevelPath;
-  private LoadingScreen _loadingScreen;
+  private string? _loadedLevelPath;
+  private LoadingScreen? _loadingScreen;
 
   public override void _Ready() {
     LevelLoaded += (level) => {
-      if (IsInstanceValid(_loadingScreen)) {
+      if (_loadingScreen != null) {
         _loadingScreen.QueueFree();
         _loadingScreen = null;
       }
     };
   }
 
-  public GameMode GetGameMode() => CurrentLevel.GameMode;
+  public IGameMode GetGameMode() => GetCurrentLevel().GameMode!;
+  public Level GetCurrentLevel() => CurrentLevel!;
 
   public async Task OpenLevel(string levelName) {
-    if (IsInstanceValid(CurrentLevel)) {
+    if (IsInstanceValid(CurrentLevel) && CurrentLevel != null) {
       await CurrentLevel.UnLoad();
     }
 
-    var levelPath = GameInstance.Instance.LevelsDirectoryPath + "/" + levelName + ".tscn";
+    var levelPath = GameInstance.Instance!.LevelsDirectoryPath + "/" + levelName + ".tscn";
     var level = ResourceLoader.Load<PackedScene>(levelPath).Instantiate<Level>();
     SwitchLevel(level);
   }
