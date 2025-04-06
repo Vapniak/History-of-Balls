@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_ajw3i"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_xscyh"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/TurnDurationStrategy.cs" id="3_csu3u"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="4_vh7p2"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="5_ovowi"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="4_vh7p2"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="5_ovowi"]
 [ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="6_vbyo0"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/move/walk/WalkMoveAbility.cs" id="7_x3r5o"]
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cymrsxohdq4hm"]
+
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/cues/GameplayCueManager.cs" id="1_qge2c"]
+
+[node name="GameplayCueManager" type="Node"]
+script = ExtResource("1_qge2c")

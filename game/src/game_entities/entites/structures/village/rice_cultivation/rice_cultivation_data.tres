@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="EntityData" load_steps=18 format=3 uid="uid://by7hsihjbk52a"]
 
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="2_f1nit"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="2_f1nit"]
 [ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://src/game_entities/attributes/income.tres" id="2_hvxo5"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="5_jm0fh"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="6_v88tl"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="5_jm0fh"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="6_v88tl"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="7_nkoux"]
 [ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game_entities/abilities/income/income_ability.tres" id="8_ucaga"]
 [ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/game_entities/attribute_sets/village_attribute_sets.tres" id="9_66ybl"]

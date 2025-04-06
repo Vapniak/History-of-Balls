@@ -1,6 +1,7 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayTags;
 using Godot;
 using HOB.GameEntity;
 using System.Threading.Tasks;
@@ -47,6 +48,18 @@ public partial class MeleeAttackAbility : AttackAbility {
         if (effect != null) {
           var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0, d.TargetAbilitySystem);
           d.TargetAbilitySystem.ApplyGameplayEffectToSelf(ge);
+
+          if (OwnerEntity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnitInfantry))) {
+            if (!IsInstanceValid(d.TargetAbilitySystem)) {
+              CooldownEffectInstance?.QueueFree();
+            }
+
+            if (d.TargetAbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var set)) {
+              if (d.TargetAbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.HealthAttribute) <= 0) {
+                CooldownEffectInstance?.QueueFree();
+              }
+            }
+          }
         }
       }
 

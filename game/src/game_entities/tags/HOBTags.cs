@@ -39,4 +39,6 @@ public enum HOBTags {
   [GameplayTag("Event.Turn.Ended")] EventTurnEnded,
   [GameplayTag("Event.Game.Started")] EventGameStarted,
   [GameplayTag("Event.Game.Ended")] EventGameEnded,
+
+  [GameplayTag("GameplayCue")] GameplayCue,
 }

@@ -14,6 +14,9 @@ public abstract partial class GameplayAbilityInstance : Node {
   public float Level { get; set; }
   public bool IsActive { get; private set; }
 
+  protected GameplayEffectInstance? CooldownEffectInstance { get; private set; }
+  protected GameplayEffectInstance? CostEffectInstance { get; private set; }
+
   public GameplayAbilityInstance(GameplayAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) {
     AbilityResource = abilityResource;
     OwnerAbilitySystem = abilitySystem;
@@ -67,6 +70,7 @@ public abstract partial class GameplayAbilityInstance : Node {
   protected virtual bool CommitCooldown() {
     if (AbilityResource.CooldownGameplayEffect != null) {
       var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CooldownGameplayEffect, 0);
+      CooldownEffectInstance = instance;
       OwnerAbilitySystem.ApplyGameplayEffectToSelf(instance);
       return true;
     }
@@ -77,6 +81,7 @@ public abstract partial class GameplayAbilityInstance : Node {
   protected virtual bool CommitCost() {
     if (AbilityResource.CostGameplayEffect != null) {
       var instance = OwnerAbilitySystem.MakeOutgoingInstance(AbilityResource.CostGameplayEffect, 0);
+      CostEffectInstance = instance;
       OwnerAbilitySystem.ApplyGameplayEffectToSelf(instance);
       return true;
     }

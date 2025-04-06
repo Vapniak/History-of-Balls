@@ -154,6 +154,89 @@
         "visibility": 0
       }
     },
+    "res://src/game_entities/entites/units/cavalry/thessalian_cavalry/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units/cavalry/thessalian_cavalry::CostEffect/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units/cavalry/thessalian_cavalry::CostEffect::EffectDefinition/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units::Abilities/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units::CostEffect/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units::CostEffect::EffectDefinition/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units::CostEffect::EffectDefinition::Modifiers/": {
+      "Attribute": {
+        "visibility": 1
+      },
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      },
+      "resource_path": {
+        "visibility": 1
+      }
+    },
     "res://src/game_entities/entites::Abilities/": {
       "metadata/_custom_type_script": {
         "visibility": 0
@@ -247,7 +330,14 @@
     "res://res/match_data::PlayerSpawnDatas::ProducableEntities::CostEffect::EffectDefinition/",
     "res://res/match_data::PlayerSpawnDatas::ProducableEntities::CostEffect::EffectDefinition::Modifiers/",
     "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers::ModifierMagnitude/",
-    "res://src/game_entities/entites/units/"
+    "res://src/game_entities/entites/units/",
+    "res://src/game_entities/entites/units::CostEffect/",
+    "res://src/game_entities/entites/units::CostEffect::EffectDefinition/",
+    "res://src/game_entities/entites/units::CostEffect::EffectDefinition::Modifiers/",
+    "res://src/game_entities/entites/units/cavalry/thessalian_cavalry/",
+    "res://src/game_entities/entites/units/cavalry/thessalian_cavalry::CostEffect/",
+    "res://src/game_entities/entites/units/cavalry/thessalian_cavalry::CostEffect::EffectDefinition/",
+    "res://src/game_entities/entites/units::Abilities/"
   ],
   "table_functions": {
     "filter": [

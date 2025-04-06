@@ -32,6 +32,7 @@ public partial class WalkMoveAbility : MoveAbility {
 
       if (path.Length > 0 && to != OwnerEntity.Cell) {
         var originalScale = OwnerEntity.Body.Scale;
+        OwnerEntity.Cell = path.Last();
         foreach (var cell in path) {
           const float JUMP_HEIGHT = 1.5f;
           const float SQUASH_SCALE = 0.8f;
@@ -108,9 +109,6 @@ public partial class WalkMoveAbility : MoveAbility {
                 .TweenProperty(OwnerEntity.Body, "scale", originalScale, MOVE_ANIMATION_SPEED / 2f)
                 .SetEase(Tween.EaseType.In);
           }
-
-
-          OwnerEntity.Cell = cell;
 
           await ToSignal(tween, Tween.SignalName.Finished);
 

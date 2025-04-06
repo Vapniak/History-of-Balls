@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_ojexb"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_odyqo"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/TurnDurationStrategy.cs" id="3_ioy3g"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectDefinition.cs" id="4_d25u0"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectResource.cs" id="5_qghng"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="4_d25u0"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="5_qghng"]
 
 [sub_resource type="Resource" id="Resource_7de16"]
 script = ExtResource("1_ojexb")

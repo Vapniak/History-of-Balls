@@ -77,9 +77,9 @@ public partial class AIController : Controller, IMatchController {
       }
 
       if (bestEntity != null && bestAbility != null) {
-        // GD.PrintS($"AI attempting: {bestEntity.EntityName} -> {bestAbility.AbilityResource.AbilityName}");
+        GD.PrintS($"AI attempting: {bestEntity.EntityName} -> {bestAbility.AbilityResource.AbilityName}");
 
-        if (bestAbility is MoveAbility.Instance or AttackAbility.Instance) {
+        if (bestAbility is AttackAbility.Instance or MoveAbility.Instance) {
           var success = await bestEntity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestData);
 
           if (!success) {
@@ -225,6 +225,7 @@ public partial class AIController : Controller, IMatchController {
     var attackScore = 0f;
     uint desiredDistance = 0;
     var actualDistance = cell.Coord.Distance(target.Cell.Coord);
+    var valueScore = 0f;
 
     if (attackAbility != null && attackAbility.GetAttackableEntities(cell).entities.Contains(target)) {
       attackScore = CalculateDamageRatio(entity, attackAbility, target) * Profile.Agressiveness;
@@ -232,10 +233,14 @@ public partial class AIController : Controller, IMatchController {
       desiredDistance = attackRange;
     }
 
+    if (target.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))) {
+      valueScore = 1 * Profile.Expansiveness;
+    }
+
     var threatScore = CalculateThreatAvoidance(entity, cell);
     distanceScore = 1f / (Mathf.Abs(actualDistance - desiredDistance) + 1);
 
-    return distanceScore + attackScore - threatScore;
+    return (distanceScore * 0.3f) + attackScore - (threatScore / Profile.Agressiveness) + valueScore;
   }
 
   private float CalculateThreatAvoidance(Entity entity, GameCell cell) {
@@ -246,7 +251,7 @@ public partial class AIController : Controller, IMatchController {
         threatCount++;
       }
     }
-    return Mathf.Min(threatCount / 5f, 1);
+    return Mathf.Min(threatCount / 5f, 0.5f);
   }
 
   private static float CalculateDamageRatio(Entity attacker, AttackAbility.Instance ability, Entity target) {

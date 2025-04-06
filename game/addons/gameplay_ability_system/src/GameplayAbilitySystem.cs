@@ -156,7 +156,6 @@ public partial class GameplayAbilitySystem : Node {
       default:
         break;
     }
-
   }
 
   public void Tick(ITickContext tickContext) {

@@ -2,8 +2,8 @@
 
 [ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="1_5cikw"]
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://src/game_entities/attributes/max_health.tres" id="2_oly7n"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/modifiers/AttributeBackedModifierMagnitude.cs" id="3_jufs0"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayEffectModifier.cs" id="4_84xbb"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/AttributeBackedModifierMagnitude.cs" id="3_jufs0"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="4_84xbb"]
 
 [sub_resource type="Resource" id="Resource_hhpyv"]
 script = ExtResource("3_jufs0")
