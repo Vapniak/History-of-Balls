@@ -27,4 +27,4 @@ EffectDefinition = SubResource("Resource_qr8d4")
 script = ExtResource("6_xpvh1")
 Entity = ExtResource("5_qkh4t")
 CostEffect = SubResource("Resource_sn04e")
-ProductionTime = 3.0
+ProductionTime = 3

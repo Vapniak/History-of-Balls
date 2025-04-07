@@ -35,13 +35,13 @@ public partial class HealthAttributeSet : GameplayAttributeSet {
       // TODO: this sould be gameplay cue
       if (data.Target.GetOwner() is Entity entity) {
         // TODO: fixme only add is shown
-        //var magnitude = data.EvaluatedData.Modifier.Add;
-        // var text = FloatingText.Create();
-        // text.Label?.PushColor(Colors.Red);
-        // text.Label?.AppendText($"{data.EvaluatedData.Modifier.Add} Health");
-        // GameInstance.GetWorld().AddChild(text);
-        // text.GlobalPosition = entity.GlobalPosition + Vector3.Up * 2;
-        // _ = text.Animate();
+        var magnitude = data.EvaluatedData.Magnitude;
+        var text = FloatingText.Create();
+        text.Label?.PushColor(Colors.Red);
+        text.Label?.AppendText($"{magnitude} Health");
+        GameInstance.GetWorld().AddChild(text);
+        text.GlobalPosition = entity.GlobalPosition + Vector3.Up * 2;
+        _ = text.Animate();
       }
     }
   }

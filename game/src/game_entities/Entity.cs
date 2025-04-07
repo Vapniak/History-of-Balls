@@ -76,6 +76,8 @@ public partial class Entity : Node3D, ITurnAware {
 
       tween.TweenProperty(this, "scale", Vector3.One, 1f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.InOut);
     };
+
+    OwnerControllerChanging += AbilitySystem.CancelAllAbilities;
   }
 
   public override void _Ready() {

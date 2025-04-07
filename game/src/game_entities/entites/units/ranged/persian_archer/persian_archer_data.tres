@@ -28,13 +28,13 @@ Coefficient = 12.0
 script = ExtResource("2_x2qof")
 Attribute = ExtResource("3_a2obu")
 ModifierType = 2
-Coefficient = 5.0
+Coefficient = 7.0
 
 [sub_resource type="Resource" id="Resource_i4634"]
 script = ExtResource("2_x2qof")
 Attribute = ExtResource("4_n06bt")
 ModifierType = 2
-Coefficient = 2.0
+Coefficient = 3.0
 
 [sub_resource type="Resource" id="Resource_1e1u7"]
 script = ExtResource("2_x2qof")

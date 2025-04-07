@@ -17,6 +17,11 @@ public partial class ThrowAttackAbility : AttackAbility {
 
   public new partial class Instance : AttackAbility.Instance {
     public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+    }
+
+    public override void _EnterTree() {
+      base._EnterTree();
+
       OwnerAbilitySystem.OwnedTags.TagRemoved += OnTagRemoved;
     }
     public override void _ExitTree() {
@@ -90,7 +95,7 @@ public partial class ThrowAttackAbility : AttackAbility {
           return false;
         }
 
-        if (current.GetEdgeTypeTo(next) is GameCell.EdgeType.Cliff) {
+        if (current.GetEdgeTypeTo(next) is GameCell.EdgeType.Cliff && current.GetSetting().Elevation < next.GetSetting().Elevation) {
           return false;
         }
       }

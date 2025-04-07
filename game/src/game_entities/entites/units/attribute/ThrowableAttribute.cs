@@ -61,7 +61,7 @@ public partial class ThrowableAttribute : UnitAttribute {
 
     var windUpTween = CreateTween();
 
-    var startQuat = Basis.GetRotationQuaternion();
+    var startQuat = Basis.GetRotationQuaternion().Normalized();
 
     var targetBasis = Basis.LookingAt(throwDirection, Vector3.Up);
     var targetQuat = targetBasis.GetRotationQuaternion().Normalized();
@@ -69,7 +69,6 @@ public partial class ThrowableAttribute : UnitAttribute {
     windUpTween.TweenMethod(Callable.From<float>(t => {
       var newQuat = startQuat.Slerp(targetQuat, EaseOutQuad(t)).Normalized();
       Basis = new Basis(newQuat);
-
     }), 0f, 1f, 0.3f);
 
     windUpTween.Parallel()

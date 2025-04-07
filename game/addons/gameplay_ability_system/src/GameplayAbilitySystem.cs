@@ -172,10 +172,12 @@ public partial class GameplayAbilitySystem : Node {
     while (aggregators.MoveNext()) {
       var attribute = aggregators.Current.Item1;
       var aggregator = aggregators.Current.Item2;
-      var value = aggregator.Evaluate(AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault());
+      var baseValue = AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault();
+      var value = aggregator.Evaluate(baseValue);
       var data = new GameplayEffectModData(
         geInstance,
-        new(aggregators.Current.Item1),
+        // FIXME: attribute magnitude should not be this way?
+        new(aggregators.Current.Item1, value - baseValue),
         geInstance.Target
       );
 
