@@ -10,6 +10,7 @@ public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResourc
   [Export] public GameplayAttribute? CaptureAttribute { get; private set; }
   [Export] public CaptureAttributeFrom CaptureAttributeFrom { get; private set; }
   [Export] public CaptureAttributeWhen CaptureAttributeWhen { get; private set; }
+  [Export] public float Coefficient { get; private set; } = 1;
 
   private float? CreationAttributeValue { get; set; }
 
@@ -23,7 +24,7 @@ public partial class AttributeBackedModifierMagnitude : ModifierMagnitudeResourc
     //     return ScalingFunction.Sample(value.GetValueOrDefault());
     //   }
     // }
-    return value;
+    return value * Coefficient;
   }
 
   private float? GetCaptureAttribute(GameplayEffectInstance gameplayEffectInstance) {

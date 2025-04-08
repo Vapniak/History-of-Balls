@@ -16,10 +16,7 @@ public partial class Aggregator : RefCounted {
   }
 
   public float Evaluate(float value) {
-    var sum = 0f;
-    if (Mods.TryGetValue(AttributeModifierType.Add, out var add)) {
-      sum = SumMods(add);
-    }
+    var sum = SumMods();
 
     var multiply = 1f;
     if (Mods.TryGetValue(AttributeModifierType.Multiply, out var multi)) {
@@ -39,11 +36,12 @@ public partial class Aggregator : RefCounted {
     return value;
   }
 
-  private static float SumMods(Array<AggregatorMod> mods) {
+  public float SumMods() {
     var sum = 0f;
-
-    foreach (var mod in mods) {
-      sum += mod.Magnitude;
+    if (Mods.TryGetValue(AttributeModifierType.Add, out var add)) {
+      foreach (var mod in add) {
+        sum += mod.Magnitude;
+      }
     }
 
     return sum;

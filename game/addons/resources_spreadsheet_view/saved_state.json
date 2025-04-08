@@ -1,5 +1,16 @@
 {
   "column_properties": {
+    "": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://res/match_data/": {
       "metadata/_custom_type_script": {
         "visibility": 0
@@ -198,6 +209,61 @@
         "visibility": 0
       }
     },
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects::EffectDefinition/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers::Modifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers::Modifiers::ModifierMagnitude/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://src/game_entities/entites/units::CostEffect/": {
       "metadata/_custom_type_script": {
         "visibility": 0
@@ -270,6 +336,17 @@
         "visibility": 0
       }
     },
+    "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::Modifiers/": {
       "Coefficient": {
         "visibility": 1
@@ -308,6 +385,39 @@
       "resource_name": {
         "visibility": 0
       }
+    },
+    "res://src/game_entities/entites::CostEffect/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites::CostEffect::EffectDefinition/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game_entities/entites::CostEffect::EffectDefinition::AttributeModifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
     }
   },
   "recent_paths": [
@@ -337,7 +447,16 @@
     "res://src/game_entities/entites/units/cavalry/thessalian_cavalry/",
     "res://src/game_entities/entites/units/cavalry/thessalian_cavalry::CostEffect/",
     "res://src/game_entities/entites/units/cavalry/thessalian_cavalry::CostEffect::EffectDefinition/",
-    "res://src/game_entities/entites/units::Abilities/"
+    "res://src/game_entities/entites/units::Abilities/",
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects/",
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects::EffectDefinition/",
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/",
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers::Modifiers/",
+    "res://src/game_entities/entites/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers::Modifiers::ModifierMagnitude/",
+    "res://src/game_entities/entites::CostEffect/",
+    "res://src/game_entities/entites::CostEffect::EffectDefinition/",
+    "res://src/game_entities/entites::CostEffect::EffectDefinition::AttributeModifiers/",
+    "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/"
   ],
   "table_functions": {
     "filter": [

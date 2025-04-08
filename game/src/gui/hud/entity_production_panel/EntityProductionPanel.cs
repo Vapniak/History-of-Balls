@@ -41,11 +41,11 @@ public partial class EntityProductionPanel : Control {
 
     foreach (var config in playerState.ProducedEntities) {
       var costText = "";
-      if (config.CostEffect?.EffectDefinition?.Modifiers != null) {
-        foreach (var modifier in config.CostEffect.EffectDefinition.Modifiers) {
-          var ei = ability.OwnerAbilitySystem.MakeOutgoingInstance(config.CostEffect, 0);
-          costText += $"\n    {modifier.GetMagnitude(ei) * -1} {modifier.Attribute.AttributeName}";
-        }
+      var ei = ability.OwnerAbilitySystem.MakeOutgoingInstance(config.CostEffect, 0, playerState.AbilitySystem);
+
+      var aggregators = ei.GetAggregators();
+      while (aggregators.MoveNext()) {
+        costText += $"\n    {aggregators.Current.aggregator.SumMods() * -1} {aggregators.Current.attribute.AttributeName}";
       }
 
       var text = string.Format($"{config?.Entity?.EntityName}\nCost: {costText}\nRounds to Produce: {config?.ProductionTime}");

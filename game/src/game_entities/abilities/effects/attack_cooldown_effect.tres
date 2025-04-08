@@ -26,7 +26,7 @@ TickAtOwnTurn = true
 [sub_resource type="Resource" id="Resource_gatex"]
 script = ExtResource("4_d25u0")
 DurationPolicy = 2
-Modifiers = []
+AttributeModifiers = []
 DurationMultiplier = 1.0
 DurationStrategy = SubResource("Resource_wrow3")
 

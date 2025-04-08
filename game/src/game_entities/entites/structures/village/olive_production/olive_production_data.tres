@@ -1,27 +1,37 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=18 format=3 uid="uid://sek11tqnnxxa"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=22 format=3 uid="uid://sek11tqnnxxa"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_5gi82"]
 [ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://src/game_entities/attributes/income.tres" id="1_6ec8q"]
 [ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/game_entities/attribute_sets/village_attribute_sets.tres" id="1_dv6va"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_ctr5x"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="2_wk2yp"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="3_iam4a"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="4_akpes"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_h0ddy"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="5_cqwrp"]
 [ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game_entities/abilities/income/income_ability.tres" id="6_0w0kr"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="8_3iaky"]
 [ext_resource type="PackedScene" uid="uid://c6e18v4hrynhg" path="res://src/game_entities/entites/structures/village/olive_production/olive_production_body.tscn" id="8_wh4vf"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="9_hce0o"]
 
-[sub_resource type="Resource" id="Resource_he0a3"]
+[sub_resource type="Resource" id="Resource_1m126"]
+script = ExtResource("2_ctr5x")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_ei1ld"]
 script = ExtResource("2_wk2yp")
-Attribute = ExtResource("1_6ec8q")
 ModifierType = 2
-Coefficient = 1.0
+ModifierMagnitude = SubResource("Resource_1m126")
+
+[sub_resource type="Resource" id="Resource_01yet"]
+script = ExtResource("4_h0ddy")
+Attribute = ExtResource("1_6ec8q")
+Modifiers = [SubResource("Resource_ei1ld")]
 
 [sub_resource type="Resource" id="Resource_eb8or"]
 script = ExtResource("3_iam4a")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_he0a3")])
+AttributeModifiers = Array[Object]([SubResource("Resource_01yet")])
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_05xw3"]

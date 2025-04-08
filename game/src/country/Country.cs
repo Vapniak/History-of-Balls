@@ -2,7 +2,7 @@ namespace HOB;
 
 using Godot;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class Country : Resource {
   [Export] public string Name { get; private set; } = "Country";
   [Export] public Color Color { get; private set; }

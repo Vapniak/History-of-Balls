@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://s2fankeerox6" path="res://src/game_entities/entites/units/infantry/hoplite/hoplite_production_data.tres" id="9_0l2m7"]
 [ext_resource type="Resource" uid="uid://d307uif7aimiy" path="res://src/game_entities/entites/units/cavalry/thessalian_cavalry/thessalian_cavalry_data.tres" id="9_pe6li"]
 [ext_resource type="Resource" uid="uid://cfcxaigmjvge6" path="res://src/game_entities/entites/units/ranged/peltast/peltast_production_data.tres" id="10_q2q08"]
-[ext_resource type="Resource" uid="uid://dkk5rlsn0edgx" path="res://src/game_entities/entites/units/cavalry/thessalian_cavalry/thessalian_cavalry_production_data.tres" id="12_btdem"]
+[ext_resource type="Resource" uid="uid://dbyq8cbfr7jsr" path="res://src/game_entities/entites/units/cavalry/thessalian_cavalry/thessalian_cavalry_production_data.tres" id="12_btdem"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchPlayerSpawnData.cs" id="14_8lu38"]
 [ext_resource type="Script" path="res://src/game_modes/hob/controller/ai/AIProfile.cs" id="15_vounu"]
 [ext_resource type="Resource" uid="uid://do2ww3kn7ft3w" path="res://res/countries/persia.tres" id="16_s735g"]
@@ -25,7 +25,7 @@
 [ext_resource type="Resource" uid="uid://dliu5ux78ireg" path="res://src/game_entities/entites/units/cavalry/persian_cavalry/persian_cavalry_data.tres" id="21_iedhq"]
 [ext_resource type="Resource" uid="uid://cyurh50c61ayo" path="res://src/game_entities/entites/structures/city/city_data.tres" id="22_4467r"]
 [ext_resource type="Resource" uid="uid://doidx5bt2arat" path="res://src/game_entities/entites/structures/village/village_data.tres" id="23_rwmpf"]
-[ext_resource type="Resource" uid="uid://cwbepj83egbnr" path="res://src/game_entities/entites/units/cavalry/persian_cavalry/persian_cavalry_production_data.tres" id="24_58808"]
+[ext_resource type="Resource" uid="uid://cwbepj83egbnr" path="res://src/game_entities/entites/units/cavalry/persian_cavalry/presian_cavalry_production_data.tres" id="24_58808"]
 [ext_resource type="Resource" uid="uid://d3a8gfe2tbsyu" path="res://src/game_entities/entites/structures/factory/factory_data.tres" id="24_bgjr6"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchData.cs" id="25_uhwax"]
 
@@ -72,6 +72,7 @@ Entities = Array[Object]([SubResource("Resource_k5031"), SubResource("Resource_1
 script = ExtResource("15_vounu")
 ProfileName = "AI Profile"
 Agressiveness = 0.8
+Expansiveness = 0.5
 
 [sub_resource type="Resource" id="Resource_c176s"]
 script = ExtResource("4_ddqts")
@@ -133,7 +134,7 @@ script = ExtResource("14_8lu38")
 PlayerType = 2
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
-ProducableEntities = null
+ProducableEntities = []
 Entities = Array[Object]([SubResource("Resource_w57b4"), SubResource("Resource_13o3w"), SubResource("Resource_brk4d")])
 
 [resource]

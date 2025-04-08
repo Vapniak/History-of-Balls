@@ -1,13 +1,15 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=27 format=3 uid="uid://befewbyboktsi"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=37 format=3 uid="uid://befewbyboktsi"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_dwrs5"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="1_p537s"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_gvkoi"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game_entities/abilities/move/walk/walk_move_ability.tres" id="2_w6jli"]
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="3_mn7r4"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_iuqyp"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="4_vk2n1"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game_entities/abilities/effects/modifiers/health_attribute_mod.tres" id="5_agk72"]
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://src/game_entities/attributes/max_health.tres" id="5_s42jl"]
 [ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="6_luepg"]
-[ext_resource type="Resource" uid="uid://5bbrwa5qxeou" path="res://src/game_entities/abilities/effects/modifiers/health_set_to_max_health.tres" id="6_muc1r"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="7_c4sat"]
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="7_w5fhn"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="8_wqo07"]
@@ -18,34 +20,66 @@
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="13_b3s60"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="14_lyjqa"]
 
-[sub_resource type="Resource" id="Resource_h6y6i"]
-script = ExtResource("4_vk2n1")
-Attribute = ExtResource("3_mn7r4")
-ModifierType = 2
-Coefficient = 6.0
+[sub_resource type="Resource" id="Resource_kq1ka"]
+script = ExtResource("2_gvkoi")
+Magnitude = 15.0
 
-[sub_resource type="Resource" id="Resource_h683h"]
+[sub_resource type="Resource" id="Resource_ns3tn"]
 script = ExtResource("4_vk2n1")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_kq1ka")
+
+[sub_resource type="Resource" id="Resource_jxncy"]
+script = ExtResource("4_iuqyp")
 Attribute = ExtResource("5_s42jl")
-ModifierType = 2
-Coefficient = 14.0
+Modifiers = [SubResource("Resource_ns3tn")]
 
-[sub_resource type="Resource" id="Resource_n2q6m"]
-script = ExtResource("4_vk2n1")
-Attribute = ExtResource("6_luepg")
-ModifierType = 2
-Coefficient = 3.0
+[sub_resource type="Resource" id="Resource_get7x"]
+script = ExtResource("2_gvkoi")
+Magnitude = 6.0
 
-[sub_resource type="Resource" id="Resource_wad7t"]
+[sub_resource type="Resource" id="Resource_c7gqc"]
 script = ExtResource("4_vk2n1")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_get7x")
+
+[sub_resource type="Resource" id="Resource_8ggi3"]
+script = ExtResource("4_iuqyp")
+Attribute = ExtResource("3_mn7r4")
+Modifiers = [SubResource("Resource_c7gqc")]
+
+[sub_resource type="Resource" id="Resource_rifln"]
+script = ExtResource("2_gvkoi")
+Magnitude = 3.0
+
+[sub_resource type="Resource" id="Resource_prdcs"]
+script = ExtResource("4_vk2n1")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_rifln")
+
+[sub_resource type="Resource" id="Resource_qu1lh"]
+script = ExtResource("4_iuqyp")
 Attribute = ExtResource("7_w5fhn")
+Modifiers = [SubResource("Resource_prdcs")]
+
+[sub_resource type="Resource" id="Resource_sd5yy"]
+script = ExtResource("2_gvkoi")
+Magnitude = 3.0
+
+[sub_resource type="Resource" id="Resource_mvxqu"]
+script = ExtResource("4_vk2n1")
 ModifierType = 2
-Coefficient = 3.0
+ModifierMagnitude = SubResource("Resource_sd5yy")
+
+[sub_resource type="Resource" id="Resource_j8bxp"]
+script = ExtResource("4_iuqyp")
+Attribute = ExtResource("6_luepg")
+Modifiers = [SubResource("Resource_mvxqu")]
 
 [sub_resource type="Resource" id="Resource_sbekc"]
 script = ExtResource("7_c4sat")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_h6y6i"), SubResource("Resource_h683h"), SubResource("Resource_n2q6m"), SubResource("Resource_wad7t"), ExtResource("6_muc1r")])
+AttributeModifiers = Array[Object]([SubResource("Resource_jxncy"), ExtResource("5_agk72"), SubResource("Resource_8ggi3"), SubResource("Resource_qu1lh"), SubResource("Resource_j8bxp")])
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_0xq8k"]

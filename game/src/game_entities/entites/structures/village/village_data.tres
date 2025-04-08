@@ -1,42 +1,9 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=18 format=3 uid="uid://doidx5bt2arat"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://doidx5bt2arat"]
 
-[ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game_entities/abilities/income/income_ability.tres" id="1_xbr5h"]
-[ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://src/game_entities/attributes/income.tres" id="2_2e7dx"]
-[ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="2_q80xx"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_4b4x0"]
 [ext_resource type="PackedScene" uid="uid://58211gsdw151" path="res://src/game_entities/entites/structures/village/village.tscn" id="3_7h7y5"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="4_55sog"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="4_imr8f"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="5_8mhss"]
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="5_aor2c"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="5_gg7wk"]
-[ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/game_entities/attribute_sets/village_attribute_sets.tres" id="7_lq3cg"]
-
-[sub_resource type="Resource" id="Resource_a7rww"]
-script = ExtResource("3_4b4x0")
-Attribute = ExtResource("2_2e7dx")
-ModifierType = 2
-Coefficient = 1.0
-
-[sub_resource type="Resource" id="Resource_jsxh7"]
-script = ExtResource("4_imr8f")
-DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_a7rww")])
-DurationMultiplier = 0.0
-
-[sub_resource type="Resource" id="Resource_iwrax"]
-script = ExtResource("5_8mhss")
-EffectDefinition = SubResource("Resource_jsxh7")
-
-[sub_resource type="Resource" id="Resource_akkco"]
-script = ExtResource("2_q80xx")
-InitializeStatsEffects = SubResource("Resource_iwrax")
-ShowInUI = false
-UIOrder = 0
-AbilityName = "Ability"
-ActivateOnGranted = true
-RemoveOnEnd = true
-AbilityTriggers = Array[Object]([])
 
 [sub_resource type="Resource" id="Resource_du6rs"]
 script = ExtResource("4_55sog")
@@ -49,7 +16,6 @@ Tags = [SubResource("Resource_du6rs")]
 [resource]
 script = ExtResource("5_aor2c")
 EntityName = "Village"
-AttributeSetsContainer = ExtResource("7_lq3cg")
-Abilities = Array[Object]([SubResource("Resource_akkco"), ExtResource("1_xbr5h")])
+Abilities = []
 Tags = SubResource("Resource_1lt35")
 Body = ExtResource("3_7h7y5")

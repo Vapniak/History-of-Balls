@@ -3,7 +3,6 @@ namespace HOB;
 using GameplayAbilitySystem;
 using GameplayFramework;
 using Godot;
-using HOB;
 using HOB.GameEntity;
 
 [GlobalClass]

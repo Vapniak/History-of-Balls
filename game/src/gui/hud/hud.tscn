@@ -1,13 +1,42 @@
-[gd_scene load_steps=11 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=24 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/hud/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/gui/flag/flag.tscn" id="2_3sw0n"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="2_ujf4x"]
 [ext_resource type="PackedScene" uid="uid://cccmeolyi0lk2" path="res://src/gui/hud/time_display.tscn" id="3_5bovs"]
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/gui/hud/command_panel/command_panel.tscn" id="3_a41a7"]
+[ext_resource type="Texture2D" uid="uid://fccrv3p77lu" path="res://assets/textures/icons/health.svg" id="3_qdosv"]
 [ext_resource type="PackedScene" uid="uid://dm85iu1q2xpt5" path="res://src/gui/hud/entity_production_panel/entity_production_panel.tscn" id="4_77ne6"]
+[ext_resource type="Script" path="res://src/game_modes/hob/hud/AttributeIcon.cs" id="4_g1ioo"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/gui/hud/stat_panel/stat_panel.tscn" id="4_yxp0t"]
 [ext_resource type="Script" path="res://src/gui/hud/MiniMap.cs" id="5_dr8w6"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="5_foi1l"]
+[ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="6_dnwa3"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="7_dbu2u"]
 [ext_resource type="Script" path="res://src/gui/hud/entity_list/EntityList.cs" id="8_4jikb"]
+[ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="8_ygg4n"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="9_4xxi0"]
+[ext_resource type="Texture2D" uid="uid://bifk8suk2tv7f" path="res://assets/textures/icons/range.svg" id="10_d2c4h"]
+
+[sub_resource type="Resource" id="Resource_cob3t"]
+script = ExtResource("4_g1ioo")
+Attribute = ExtResource("2_ujf4x")
+Icon = ExtResource("3_qdosv")
+
+[sub_resource type="Resource" id="Resource_kuy1d"]
+script = ExtResource("4_g1ioo")
+Attribute = ExtResource("5_foi1l")
+Icon = ExtResource("6_dnwa3")
+
+[sub_resource type="Resource" id="Resource_p0agh"]
+script = ExtResource("4_g1ioo")
+Attribute = ExtResource("7_dbu2u")
+Icon = ExtResource("8_ygg4n")
+
+[sub_resource type="Resource" id="Resource_bnmth"]
+script = ExtResource("4_g1ioo")
+Attribute = ExtResource("9_4xxi0")
+Icon = ExtResource("10_d2c4h")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qeyv"]
 corner_radius_top_left = 5
@@ -30,6 +59,7 @@ RoundLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContain
 TurnLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label2")
 CountryFlag = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Flag/PanelContainer/Texture")
 CountryNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Label")
+AttributeIcons = [SubResource("Resource_cob3t"), SubResource("Resource_kuy1d"), SubResource("Resource_p0agh"), SubResource("Resource_bnmth")]
 PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer/RichTextLabel")
 PrimaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer/Label2")
 SecondaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer2/RichTextLabel2")

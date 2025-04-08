@@ -168,16 +168,16 @@ public partial class GameplayAbilitySystem : Node {
   }
 
   private void ApplyInstantGameplayEffect(GameplayEffectInstance geInstance) {
-    var aggregators = GetAggregators(geInstance);
+    var aggregators = geInstance.GetAggregators();
     while (aggregators.MoveNext()) {
-      var attribute = aggregators.Current.Item1;
-      var aggregator = aggregators.Current.Item2;
+      var attribute = aggregators.Current.attribute;
+      var aggregator = aggregators.Current.aggregator;
       var baseValue = AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault();
       var value = aggregator.Evaluate(baseValue);
       var data = new GameplayEffectModData(
         geInstance,
         // FIXME: attribute magnitude should not be this way?
-        new(aggregators.Current.Item1, value - baseValue),
+        new(aggregators.Current.attribute, value - baseValue),
         geInstance.Target
       );
 
@@ -226,61 +226,13 @@ public partial class GameplayAbilitySystem : Node {
     }
   }
 
-  // private Dictionary<GameplayAttribute, AttributeModifier> GetModifiers(GameplayEffectInstance gameplayEffect) {
-  //   var modifiersToApply = new Dictionary<GameplayAttribute, AttributeModifier>();
-  //   if (gameplayEffect.GameplayEffect?.EffectDefinition?.Modifiers != null) {
-  //     foreach (var modifier in gameplayEffect.GameplayEffect.EffectDefinition.Modifiers) {
-  //       var attributeModifier = new AttributeModifier();
-  //       var magnitude = modifier.GetMagnitude(gameplayEffect);
-
-  //       switch (modifier.ModifierType) {
-  //         case AttributeModifierType.Add:
-  //           attributeModifier.Add = magnitude;
-  //           break;
-  //         case AttributeModifierType.Multiply:
-  //           attributeModifier.Multiply = magnitude;
-  //           break;
-  //         case AttributeModifierType.Override:
-  //           attributeModifier.Override = magnitude;
-  //           break;
-  //         default:
-  //           break;
-  //       }
-
-  //       if (modifier.Attribute != null) {
-  //         if (modifiersToApply.TryGetValue(modifier.Attribute, out var value)) {
-  //           value = value.Combine(attributeModifier);
-  //         }
-  //         else {
-  //           modifiersToApply.Add(modifier.Attribute, attributeModifier);
-  //         }
-  //       }
-  //     }
-  //   }
-
-  //   return modifiersToApply;
-  // }
-
-  private IEnumerator<(GameplayAttribute, Aggregator)> GetAggregators(GameplayEffectInstance effectInstance) {
-    var aggregator = new Aggregator();
-
-    var modifiers = effectInstance.GameplayEffect?.EffectDefinition?.Modifiers;
-    if (modifiers != null) {
-      foreach (var modifier in modifiers) {
-        // FIXME: what if i have 2 modifiers which are after another?
-        aggregator.AddMod(modifier.ModifierType, modifier.GetMagnitude(effectInstance));
-
-        if (modifier.Attribute != null) {
-          yield return (modifier.Attribute, aggregator);
-        }
-      }
-    }
-  }
-
   private void UpdateCurrentValues() {
     foreach (var attribute in AttributeSystem.GetAllAttributes()) {
       var oldValue = AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
       var value = AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault();
+
+
+      // TODO: apply temporarl modifiers
 
       foreach (var set in AttributeSystem.GetAttributeSets()) {
         set.PreAttributeChange(AttributeSystem, attribute, ref value);

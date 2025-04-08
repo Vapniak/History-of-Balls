@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="IncomeAbilityResource" load_steps=19 format=3 uid="uid://dqymud443mvvm"]
+[gd_resource type="Resource" script_class="IncomeAbilityResource" load_steps=21 format=3 uid="uid://dqymud443mvvm"]
 
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_14d7r"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/abilities/GameplayAbilityTriggerData.cs" id="2_xqlnj"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/AttributeBackedModifierMagnitude.cs" id="5_3sj1s"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="6_jndpx"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="7_s5nya"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="8_d4i3k"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="8_shave"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/income/IncomeAbilityResource.cs" id="9_o3c7h"]
 
@@ -28,23 +29,27 @@ FullName = "State.CurrentTurn"
 script = ExtResource("3_vk8w0")
 Tags = [SubResource("Resource_jfogc")]
 
-[sub_resource type="Resource" id="Resource_rahjx"]
+[sub_resource type="Resource" id="Resource_slay6"]
 script = ExtResource("5_3sj1s")
 CaptureAttribute = ExtResource("4_gynqb")
 CaptureAttributeFrom = 0
 CaptureAttributeWhen = 1
-
-[sub_resource type="Resource" id="Resource_wtrna"]
-script = ExtResource("6_jndpx")
-Attribute = ExtResource("3_qurhw")
-ModifierType = 0
-ModifierMagnitude = SubResource("Resource_rahjx")
 Coefficient = 1.0
+
+[sub_resource type="Resource" id="Resource_cm0pk"]
+script = ExtResource("6_jndpx")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_slay6")
+
+[sub_resource type="Resource" id="Resource_17m8i"]
+script = ExtResource("8_d4i3k")
+Attribute = ExtResource("3_qurhw")
+Modifiers = [SubResource("Resource_cm0pk")]
 
 [sub_resource type="Resource" id="Resource_fgu21"]
 script = ExtResource("7_s5nya")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_wtrna")])
+AttributeModifiers = [SubResource("Resource_17m8i")]
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_xmgnd"]

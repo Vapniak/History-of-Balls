@@ -2,7 +2,7 @@ namespace HOB;
 
 using Godot;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class AIProfile : Resource {
   [Export] public string ProfileName = "AI Profile";
 

@@ -1,30 +1,11 @@
-[gd_resource type="Resource" script_class="ProductionConfig" load_steps=10 format=3 uid="uid://cfcxaigmjvge6"]
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://cfcxaigmjvge6"]
 
-[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://src/game_entities/attributes/primary_resource.tres" id="1_28kll"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="2_8jn3k"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="3_gelrh"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="4_vimts"]
+[ext_resource type="Resource" uid="uid://bdm113oircfrt" path="res://src/game_entities/abilities/effects/ranged_cost_effect.tres" id="1_yv8ed"]
 [ext_resource type="Resource" uid="uid://befewbyboktsi" path="res://src/game_entities/entites/units/ranged/peltast/peltast_data.tres" id="5_1cjld"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/entity_production/ProductionConfig.cs" id="6_dr14w"]
-
-[sub_resource type="Resource" id="Resource_lytui"]
-script = ExtResource("2_8jn3k")
-Attribute = ExtResource("1_28kll")
-ModifierType = 0
-Coefficient = -2.0
-
-[sub_resource type="Resource" id="Resource_06bj0"]
-script = ExtResource("3_gelrh")
-DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_lytui")])
-DurationMultiplier = 0.0
-
-[sub_resource type="Resource" id="Resource_wd5kd"]
-script = ExtResource("4_vimts")
-EffectDefinition = SubResource("Resource_06bj0")
 
 [resource]
 script = ExtResource("6_dr14w")
 Entity = ExtResource("5_1cjld")
-CostEffect = SubResource("Resource_wd5kd")
+CostEffect = ExtResource("1_yv8ed")
 ProductionTime = 1

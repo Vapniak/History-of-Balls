@@ -1,10 +1,13 @@
 namespace HOB;
 
+using System;
 using System.Linq;
+using System.Net.WebSockets;
 using GameplayAbilitySystem;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
+using Godot.Collections;
 using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
@@ -20,6 +23,7 @@ public partial class HOBHUD : HUD {
   [Export] private Label? TurnLabel { get; set; }
   [Export] private TextureRect? CountryFlag { get; set; }
   [Export] private Label? CountryNameLabel { get; set; }
+  [Export] private Array<AttributeIcon> AttributeIcons { get; set; } = new();
 
   [ExportGroup("Resources")]
   [Export] private RichTextLabel? PrimaryResourceNameLabel { get; set; }
@@ -145,11 +149,10 @@ public partial class HOBHUD : HUD {
     StatPanel.SetIcon(GameInstance.GetGameMode<HOBGameMode>().GetIconFor(entity));
 
     entity.AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
+
     foreach (var attribute in entity.AbilitySystem.AttributeSystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
       if (attribute != null) {
-        var currentValue = entity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
-        var baseValue = entity.AbilitySystem.AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault();
-        StatPanel.AddEntry(attribute.AttributeName, baseValue != currentValue ? $"{currentValue}({baseValue})" : currentValue.ToString());
+        UpdateAttributeEntry(attribute);
       }
     }
 
@@ -191,8 +194,26 @@ public partial class HOBHUD : HUD {
   }
 
   private void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
-    var currentValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
-    var baseValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeBaseValue(attribute).GetValueOrDefault();
-    StatPanel.UpdateEntry(attribute.AttributeName, baseValue != currentValue ? $"{currentValue}({baseValue})" : currentValue.ToString());
+    UpdateAttributeEntry(attribute);
+  }
+
+  private void UpdateAttributeEntry(GameplayAttribute attribute) {
+    if (CurrentEntity == null) {
+      return;
+    }
+
+    if (CurrentEntity.AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var set) && (attribute == set.HealthAttribute || attribute == set.MaxHealthAttribute)) {
+      var healthValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.HealthAttribute).GetValueOrDefault();
+      var maxHealthValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.MaxHealthAttribute).GetValueOrDefault();
+      StatPanel.UpdateEntry(set.HealthAttribute.AttributeName, $"{healthValue}/{maxHealthValue}", GetIconForAttribute(set.HealthAttribute));
+    }
+    else {
+      var currentValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
+      StatPanel.UpdateEntry(attribute.AttributeName, currentValue.ToString(), GetIconForAttribute(attribute));
+    }
+  }
+
+  private Texture2D? GetIconForAttribute(GameplayAttribute attribute) {
+    return AttributeIcons.FirstOrDefault(a => a.Attribute == attribute)?.Icon;
   }
 }

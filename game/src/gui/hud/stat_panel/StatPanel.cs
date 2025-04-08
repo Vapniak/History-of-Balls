@@ -27,19 +27,24 @@ public partial class StatPanel : Control {
     }
   }
 
-  public void AddEntry(string name, string value) {
-    var entry = EntryScene.Instantiate<StatPanelEntry>();
-    entry.SetEntryName(name);
+  public void UpdateEntry(string name, string value, Texture2D? icon) {
+    StatPanelEntry entry;
+    if (Entries.TryGetValue(name, out entry!)) {
+
+    }
+    else {
+      entry = EntryScene!.InstantiateOrNull<StatPanelEntry>();
+      entry.SetEntryName(name + ": ");
+    }
+
     entry.SetEntryValue(value);
+    entry.SetIcon(icon);
+
 
     if (Entries.TryAdd(name, entry)) {
-      EntriesList.AddChild(entry);
+      EntriesList!.AddChild(entry);
     }
-  }
 
-  public void UpdateEntry(string name, string value) {
-    if (Entries.TryGetValue(name, out var entry)) {
-      entry.SetEntryValue(value);
-    }
+    // FIXME: the panel doesnt resize to fit labels
   }
 }

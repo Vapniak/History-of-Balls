@@ -31,9 +31,11 @@ public partial class GameplayEffectInstance : Node {
 
 
     if (GameplayEffect.EffectDefinition != null) {
-      if (GameplayEffect.EffectDefinition.Modifiers != null) {
-        foreach (var modifier in GameplayEffect.EffectDefinition.Modifiers) {
-          modifier?.ModifierMagnitude?.Initialize(this);
+      if (GameplayEffect.EffectDefinition.AttributeModifiers != null) {
+        foreach (var modifier in GameplayEffect.EffectDefinition.AttributeModifiers) {
+          foreach (var mod in modifier.Modifiers) {
+            mod?.ModifierMagnitude?.Initialize(this);
+          }
         }
       }
 
@@ -77,5 +79,24 @@ public partial class GameplayEffectInstance : Node {
 
   public float GetSetByCallerMagnitude(Tag tag, float defaultIfNotFound = 0) {
     return SetByCallers.GetValueOrDefault(tag, defaultIfNotFound);
+  }
+
+
+  public IEnumerator<(GameplayAttribute attribute, Aggregator aggregator)> GetAggregators() {
+    var attributeModifiers = GameplayEffect.EffectDefinition?.AttributeModifiers;
+    if (attributeModifiers != null) {
+      foreach (var attrModifier in attributeModifiers) {
+        if (attrModifier.Attribute != null) {
+          var aggregator = new Aggregator();
+          if (attrModifier.Modifiers != null) {
+            foreach (var mod in attrModifier.Modifiers) {
+              aggregator.AddMod(mod.ModifierType, mod.GetMagnitude(this));
+            }
+          }
+
+          yield return (attrModifier.Attribute, aggregator);
+        }
+      }
+    }
   }
 }

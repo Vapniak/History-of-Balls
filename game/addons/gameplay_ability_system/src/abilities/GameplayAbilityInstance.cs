@@ -98,25 +98,19 @@ public abstract partial class GameplayAbilityInstance : Node {
         return true;
       }
 
-      if (effectResource.EffectDefinition.Modifiers == null) {
+      if (effectResource.EffectDefinition.AttributeModifiers == null) {
         return true;
       }
 
       var ei = source.MakeOutgoingInstance(effectResource, Level, target);
-      foreach (var modifier in effectResource.EffectDefinition.Modifiers) {
-        if (modifier.ModifierType != AttributeModifierType.Add) {
-          continue;
-        }
 
-        var costValue = modifier.GetMagnitude(ei);
+      var aggregators = ei.GetAggregators();
 
-        if (modifier.Attribute == null) {
-          continue;
-        }
+      while (aggregators.MoveNext()) {
+        var currentValue = target.AttributeSystem.GetAttributeCurrentValue(aggregators.Current.attribute).GetValueOrDefault();
+        var costValue = aggregators.Current.aggregator.Evaluate(currentValue);
 
-        var value = target.AttributeSystem.GetAttributeCurrentValue(modifier.Attribute);
-
-        if (value + costValue < GetCost(modifier.Attribute)) {
+        if (costValue < GetCost(aggregators.Current.attribute)) {
           ei.QueueFree();
           return false;
         }

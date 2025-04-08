@@ -1,16 +1,18 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=27 format=3 uid="uid://dx5mu6akcbsf8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=37 format=3 uid="uid://dx5mu6akcbsf8"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_1422c"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/game_entities/attribute_sets/unit_attribute_sets.tres" id="1_qk2ld"]
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="1_rkf5v"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="2_5urlp"]
 [ext_resource type="PackedScene" uid="uid://b8s2rs2pckkg8" path="res://src/game_entities/entites/units/infantry/immortal/immortal_body.tscn" id="2_23d1v"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_se54k"]
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="3_7vsus"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="3_gafo8"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="4_4v8ce"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_b6qxi"]
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://src/game_entities/attributes/max_health.tres" id="4_bmt2s"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game_entities/abilities/effects/modifiers/health_attribute_mod.tres" id="5_8jml3"]
 [ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="5_hc31m"]
-[ext_resource type="Resource" uid="uid://5bbrwa5qxeou" path="res://src/game_entities/abilities/effects/modifiers/health_set_to_max_health.tres" id="6_gaytl"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="6_uslv4"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="7_ydgh8"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/initialize_stats/InitializeStatsAbilityResource.cs" id="8_hmd44"]
@@ -18,43 +20,75 @@
 [ext_resource type="Resource" uid="uid://trtvj503md1n" path="res://src/game_entities/abilities/attack/melee/melee_attack_ability.tres" id="10_abd44"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game_entities/abilities/capture/capture_ability.tres" id="11_11llb"]
 
-[sub_resource type="Resource" id="Resource_wd3t6"]
-script = ExtResource("2_5urlp")
-Attribute = ExtResource("1_rkf5v")
-ModifierType = 2
-Coefficient = 7.0
+[sub_resource type="Resource" id="Resource_xu708"]
+script = ExtResource("2_se54k")
+Magnitude = 25.0
 
-[sub_resource type="Resource" id="Resource_3evd7"]
+[sub_resource type="Resource" id="Resource_jqth8"]
 script = ExtResource("2_5urlp")
-Attribute = ExtResource("3_7vsus")
 ModifierType = 2
-Coefficient = 1.0
+ModifierMagnitude = SubResource("Resource_xu708")
 
-[sub_resource type="Resource" id="Resource_j0jxq"]
-script = ExtResource("2_5urlp")
+[sub_resource type="Resource" id="Resource_w0lij"]
+script = ExtResource("4_b6qxi")
 Attribute = ExtResource("4_bmt2s")
-ModifierType = 2
-Coefficient = 22.0
+Modifiers = [SubResource("Resource_jqth8")]
 
-[sub_resource type="Resource" id="Resource_wkt6l"]
+[sub_resource type="Resource" id="Resource_lsua4"]
+script = ExtResource("2_se54k")
+Magnitude = 7.0
+
+[sub_resource type="Resource" id="Resource_eram8"]
 script = ExtResource("2_5urlp")
-Attribute = ExtResource("5_hc31m")
 ModifierType = 2
-Coefficient = 2.0
+ModifierMagnitude = SubResource("Resource_lsua4")
 
-[sub_resource type="Resource" id="Resource_v8kdp"]
+[sub_resource type="Resource" id="Resource_pmg0p"]
+script = ExtResource("4_b6qxi")
+Attribute = ExtResource("1_rkf5v")
+Modifiers = [SubResource("Resource_eram8")]
+
+[sub_resource type="Resource" id="Resource_8tuy6"]
+script = ExtResource("2_se54k")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_vvanj"]
+script = ExtResource("2_5urlp")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_8tuy6")
+
+[sub_resource type="Resource" id="Resource_2oqjf"]
+script = ExtResource("4_b6qxi")
+Attribute = ExtResource("5_hc31m")
+Modifiers = [SubResource("Resource_vvanj")]
+
+[sub_resource type="Resource" id="Resource_11q5p"]
+script = ExtResource("2_se54k")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_cf8wc"]
+script = ExtResource("2_5urlp")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_11q5p")
+
+[sub_resource type="Resource" id="Resource_5y4f1"]
+script = ExtResource("4_b6qxi")
+Attribute = ExtResource("3_7vsus")
+Modifiers = [SubResource("Resource_cf8wc")]
+
+[sub_resource type="Resource" id="Resource_xfhf4"]
 script = ExtResource("6_uslv4")
 DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_wd3t6"), SubResource("Resource_3evd7"), SubResource("Resource_j0jxq"), SubResource("Resource_wkt6l"), ExtResource("6_gaytl")])
+AttributeModifiers = Array[Object]([SubResource("Resource_w0lij"), ExtResource("5_8jml3"), SubResource("Resource_pmg0p"), SubResource("Resource_2oqjf"), SubResource("Resource_5y4f1")])
 DurationMultiplier = 0.0
 
-[sub_resource type="Resource" id="Resource_4wjor"]
+[sub_resource type="Resource" id="Resource_ttdbb"]
 script = ExtResource("7_ydgh8")
-EffectDefinition = SubResource("Resource_v8kdp")
+EffectDefinition = SubResource("Resource_xfhf4")
 
-[sub_resource type="Resource" id="Resource_qich3"]
+[sub_resource type="Resource" id="Resource_cw2tc"]
 script = ExtResource("8_hmd44")
-InitializeStatsEffects = SubResource("Resource_4wjor")
+InitializeStatsEffects = SubResource("Resource_ttdbb")
 ShowInUI = true
 UIOrder = 0
 AbilityName = "Ability"
@@ -74,6 +108,6 @@ Tags = [SubResource("Resource_3o5bo")]
 script = ExtResource("1_1422c")
 EntityName = "Immortal"
 AttributeSetsContainer = ExtResource("1_qk2ld")
-Abilities = Array[Object]([SubResource("Resource_qich3"), ExtResource("9_eo87b"), ExtResource("10_abd44"), ExtResource("11_11llb")])
+Abilities = Array[Object]([SubResource("Resource_cw2tc"), ExtResource("9_eo87b"), ExtResource("10_abd44"), ExtResource("11_11llb")])
 Tags = SubResource("Resource_uu8k6")
 Body = ExtResource("2_23d1v")

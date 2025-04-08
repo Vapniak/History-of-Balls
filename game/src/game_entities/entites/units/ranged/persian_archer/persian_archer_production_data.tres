@@ -1,30 +1,11 @@
-[gd_resource type="Resource" script_class="ProductionConfig" load_steps=10 format=3 uid="uid://dk4avwabkxvm7"]
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://dk4avwabkxvm7"]
 
-[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://src/game_entities/attributes/primary_resource.tres" id="1_7u1fa"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="2_6yh78"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="3_qwsu6"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="4_lf68s"]
+[ext_resource type="Resource" uid="uid://bdm113oircfrt" path="res://src/game_entities/abilities/effects/ranged_cost_effect.tres" id="1_w6hmr"]
 [ext_resource type="Resource" uid="uid://blrqjygc1t1es" path="res://src/game_entities/entites/units/ranged/persian_archer/persian_archer_data.tres" id="5_rlxyt"]
 [ext_resource type="Script" path="res://src/game_entities/abilities/entity_production/ProductionConfig.cs" id="6_euklo"]
-
-[sub_resource type="Resource" id="Resource_ivppv"]
-script = ExtResource("2_6yh78")
-Attribute = ExtResource("1_7u1fa")
-ModifierType = 0
-Coefficient = -2.0
-
-[sub_resource type="Resource" id="Resource_goki4"]
-script = ExtResource("3_qwsu6")
-DurationPolicy = 0
-Modifiers = Array[Object]([SubResource("Resource_ivppv")])
-DurationMultiplier = 0.0
-
-[sub_resource type="Resource" id="Resource_bnale"]
-script = ExtResource("4_lf68s")
-EffectDefinition = SubResource("Resource_goki4")
 
 [resource]
 script = ExtResource("6_euklo")
 Entity = ExtResource("5_rlxyt")
-CostEffect = SubResource("Resource_bnale")
+CostEffect = ExtResource("1_w6hmr")
 ProductionTime = 1
