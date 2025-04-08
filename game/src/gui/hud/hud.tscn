@@ -326,3 +326,4 @@ text = "UNIT 123"
 [editable path="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/TimeDisplay"]
 [editable path="VBoxContainer/MarginContainer4/StatPanel"]
 [editable path="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel"]
+[editable path="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/StatEntries/HBoxContainer"]
