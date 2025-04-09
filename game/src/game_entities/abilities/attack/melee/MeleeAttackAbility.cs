@@ -17,6 +17,8 @@ public partial class MeleeAttackAbility : AttackAbility {
 
     }
     public override void ActivateAbility(GameplayEventData? eventData) {
+      base.ActivateAbility(eventData);
+
       if (eventData?.TargetData is AttackTargetData attackTargetData && CommitCooldown()) {
         var effect = (AbilityResource as AttackAbility)?.BlockMovementEffect;
         if (effect != null) {
@@ -71,7 +73,6 @@ public partial class MeleeAttackAbility : AttackAbility {
 
       base.EndAbility();
     }
-
 
     public override uint GetRange() => 1;
   }

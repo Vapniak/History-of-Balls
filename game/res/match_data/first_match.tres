@@ -124,7 +124,7 @@ SpawnAt = Array[Vector2i]([Vector2i(25, 2)])
 [sub_resource type="Resource" id="Resource_13o3w"]
 script = ExtResource("4_ddqts")
 EntityData = ExtResource("23_rwmpf")
-SpawnAt = Array[Vector2i]([Vector2i(21, 2), Vector2i(14, 6), Vector2i(3, 6)])
+SpawnAt = Array[Vector2i]([Vector2i(21, 2), Vector2i(14, 6)])
 
 [sub_resource type="Resource" id="Resource_brk4d"]
 script = ExtResource("4_ddqts")

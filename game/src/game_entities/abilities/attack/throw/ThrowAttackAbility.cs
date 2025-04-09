@@ -33,6 +33,8 @@ public partial class ThrowAttackAbility : AttackAbility {
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
+      base.ActivateAbility(eventData);
+
       if (eventData?.TargetData is AttackTargetData attackTargetData && CommitCooldown()) {
         var effect = (AbilityResource as AttackAbility)?.BlockMovementEffect;
         if (effect != null) {

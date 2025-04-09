@@ -20,6 +20,20 @@ public abstract partial class AttackAbility : HOBAbilityResource {
 
     }
 
+    public override void ActivateAbility(GameplayEventData? eventData) {
+      base.ActivateAbility(eventData);
+
+      AddBlockTurn();
+    }
+
+    public override void EndAbility(bool wasCanceled = false) {
+      base.EndAbility(wasCanceled);
+
+      if (!wasCanceled) {
+        RemoveBlockTurn();
+      }
+    }
+
     public override bool CanActivateAbility(GameplayEventData? eventData) {
       if (eventData?.TargetData is AttackTargetData data) {
         return GetAttackableEntities().entities.Contains(data.TargetAbilitySystem.GetOwner<Entity>()) && base.CanActivateAbility(eventData);
