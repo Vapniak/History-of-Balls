@@ -66,7 +66,8 @@ Country = ExtResource("2_dxtrp")
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
 ProducableEntities = Array[Object]([ExtResource("9_0l2m7"), ExtResource("10_q2q08"), ExtResource("12_btdem")])
-Entities = Array[Object]([SubResource("Resource_k5031"), SubResource("Resource_1jclv"), SubResource("Resource_ieg6d"), SubResource("Resource_18ux5"), SubResource("Resource_8qels"), SubResource("Resource_1knpj")])
+SpawnedEntities = Array[Object]([SubResource("Resource_k5031"), SubResource("Resource_1jclv"), SubResource("Resource_ieg6d"), SubResource("Resource_18ux5"), SubResource("Resource_8qels"), SubResource("Resource_1knpj")])
+Entities = [ExtResource("8_rnif3"), ExtResource("7_m5a28"), ExtResource("6_5rpr2")]
 
 [sub_resource type="Resource" id="Resource_sq6wn"]
 script = ExtResource("15_vounu")
@@ -112,7 +113,8 @@ Country = ExtResource("16_s735g")
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
 ProducableEntities = Array[Object]([ExtResource("19_bh6av"), ExtResource("20_7i6a5"), ExtResource("24_58808")])
-Entities = Array[Object]([SubResource("Resource_c176s"), SubResource("Resource_bvpp7"), SubResource("Resource_rjidx"), SubResource("Resource_5xlng"), SubResource("Resource_8b5vx"), SubResource("Resource_mgobw")])
+SpawnedEntities = Array[Object]([SubResource("Resource_c176s"), SubResource("Resource_bvpp7"), SubResource("Resource_rjidx"), SubResource("Resource_5xlng"), SubResource("Resource_8b5vx"), SubResource("Resource_mgobw")])
+Entities = [ExtResource("20_0byas"), ExtResource("21_7ww0s"), ExtResource("19_hd2uf")]
 
 [sub_resource type="Resource" id="Resource_w57b4"]
 script = ExtResource("4_ddqts")
@@ -122,7 +124,7 @@ SpawnAt = Array[Vector2i]([Vector2i(25, 2)])
 [sub_resource type="Resource" id="Resource_13o3w"]
 script = ExtResource("4_ddqts")
 EntityData = ExtResource("23_rwmpf")
-SpawnAt = Array[Vector2i]([Vector2i(21, 2), Vector2i(14, 6)])
+SpawnAt = Array[Vector2i]([Vector2i(21, 2), Vector2i(14, 6), Vector2i(3, 6)])
 
 [sub_resource type="Resource" id="Resource_brk4d"]
 script = ExtResource("4_ddqts")
@@ -135,7 +137,8 @@ PlayerType = 2
 PrimaryResourceInitialValue = 0
 SecondaryResourceInitialValue = 0
 ProducableEntities = []
-Entities = Array[Object]([SubResource("Resource_w57b4"), SubResource("Resource_13o3w"), SubResource("Resource_brk4d")])
+SpawnedEntities = Array[Object]([SubResource("Resource_w57b4"), SubResource("Resource_13o3w"), SubResource("Resource_brk4d")])
+Entities = []
 
 [resource]
 script = ExtResource("25_uhwax")

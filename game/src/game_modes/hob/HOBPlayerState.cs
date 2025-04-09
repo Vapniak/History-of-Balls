@@ -4,6 +4,7 @@ namespace HOB;
 using GameplayFramework;
 using Godot;
 using Godot.Collections;
+using HOB.GameEntity;
 
 [GlobalClass]
 public partial class HOBPlayerState : PlayerState, IMatchPlayerState {
@@ -11,9 +12,11 @@ public partial class HOBPlayerState : PlayerState, IMatchPlayerState {
   public HOBGameplayAbilitySystem AbilitySystem { get; set; }
 
   public Array<ProductionConfig> ProducedEntities { get; set; }
+  public Array<EntityData> Entities { get; set; }
 
-  public HOBPlayerState(PlayerAttributeSet playerAttributeSet, Array<ProductionConfig> producedEntities) : base() {
+  public HOBPlayerState(PlayerAttributeSet playerAttributeSet, Array<ProductionConfig> producedEntities, Array<EntityData> entities) : base() {
     ProducedEntities = producedEntities;
+    Entities = entities;
 
     AbilitySystem = new();
 

@@ -4,8 +4,6 @@ using System;
 using GameplayFramework;
 
 public interface IMatchController : IController {
-  public event Action EndTurnEvent;
-
   public bool IsCurrentTurn() => GetGameMode().IsCurrentTurn(this);
 
   public void OnGameStarted();

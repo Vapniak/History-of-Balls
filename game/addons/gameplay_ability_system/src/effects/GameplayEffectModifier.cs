@@ -8,6 +8,6 @@ public partial class GameplayEffectModifier : Resource {
   [Export] public ModifierMagnitudeResource? ModifierMagnitude { get; private set; }
 
   public float GetMagnitude(GameplayEffectInstance geInstance) {
-    return ModifierMagnitude == null ? 0 : ModifierMagnitude.CalculateMagnitude(geInstance).GetValueOrDefault(1);
+    return ModifierMagnitude == null ? 0 : ModifierMagnitude.CalculateMagnitude(geInstance).GetValueOrDefault(0);
   }
 }

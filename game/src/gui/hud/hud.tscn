@@ -47,13 +47,14 @@ shadow_color = Color(0, 0, 0, 0)
 
 [sub_resource type="Environment" id="Environment_384c7"]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "TurnLabel", "CountryFlag", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TurnChangedNotificationLabel", "StatPanel", "ProductionPanel", "EndTurnButton", "SkipTurnButton", "CommandPanel", "RoundLabel", "TurnLabel", "CountryFlag", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
 layer = 0
 script = ExtResource("1_ep1kh")
 TurnChangedNotificationLabel = NodePath("VBoxContainer/MarginContainer4/TurnLabel")
 StatPanel = NodePath("VBoxContainer/MarginContainer4/StatPanel")
 ProductionPanel = NodePath("VBoxContainer/MarginContainer4/EntityProductionPanel")
-EndTurnButton = NodePath("VBoxContainer/MarginContainer4/Button")
+EndTurnButton = NodePath("VBoxContainer/MarginContainer4/VBoxContainer/Button")
+SkipTurnButton = NodePath("VBoxContainer/MarginContainer4/VBoxContainer/Button2")
 CommandPanel = NodePath("VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel")
 RoundLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label")
 TurnLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label2")
@@ -212,12 +213,24 @@ text = "OBJECTIVES:
 - CAPTURE ALL CITIES"
 uppercase = true
 
-[node name="Button" type="Button" parent="VBoxContainer/MarginContainer4"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer4/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 theme_type_variation = &"ActionButton"
 text = "END TURN"
+
+[node name="Button2" type="Button" parent="VBoxContainer/MarginContainer4/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_type_variation = &"ActionButton"
+text = "SKIP TURN"
 
 [node name="MiniMap" type="MarginContainer" parent="VBoxContainer/MarginContainer4" node_paths=PackedStringArray("Camera")]
 visible = false
@@ -320,7 +333,8 @@ text = "UNIT 123"
 layout_mode = 2
 text = "UNIT 123"
 
-[connection signal="pressed" from="VBoxContainer/MarginContainer4/Button" to="." method="OnEndTurnPressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/VBoxContainer/Button" to="." method="OnEndTurnPressed" binds= [false]]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/VBoxContainer/Button2" to="." method="OnEndTurnPressed" binds= [true]]
 
 [editable path="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Flag"]
 [editable path="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/TimeDisplay"]

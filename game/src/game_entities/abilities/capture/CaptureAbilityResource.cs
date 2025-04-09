@@ -4,6 +4,8 @@ using GameplayAbilitySystem;
 using GameplayTags;
 using Godot;
 using HOB.GameEntity;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -21,16 +23,21 @@ public partial class CaptureAbilityResource : HOBAbilityResource {
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
-      if (eventData != null && eventData.TargetData?.Target != null) {
+      base.ActivateAbility(eventData);
+      if (eventData != null && eventData.TargetData?.Target != null && eventData.TargetData.Target is Entity entity) {
         _ = StartCapture();
       }
       else {
-        EndAbility();
+        EndAbility(true);
       }
     }
 
     public override void EndAbility(bool wasCanceled = false) {
-      base.EndAbility();
+      base.EndAbility(wasCanceled);
+
+      if (!wasCanceled) {
+        RemoveBlockTurn();
+      }
 
       Task?.Cancel();
     }
@@ -38,11 +45,28 @@ public partial class CaptureAbilityResource : HOBAbilityResource {
     private async Task StartCapture() {
       Task = new WaitForGameplayEventTask(this, TagManager.GetTag(HOBTags.EventTurnStarted));
 
-      Task.EventRecieved += (data) => {
+      Task.EventRecieved += async (data) => {
         if (OwnerEntity.IsCurrentTurn()) {
           var target = CurrentEventData?.TargetData?.Target;
-          if (OwnerEntity.TryGetOwner(out var owner) && target is Entity entity) {
-            entity.ChangeOwner(owner);
+          if (OwnerEntity.TryGetOwner(out var newOwner) && target is Entity capturedEntity) {
+            var typeTag = capturedEntity.AbilitySystem.OwnedTags.GetTags().FirstOrDefault(a => a.IsChildOf(TagManager.GetTag(HOBTags.EntityTypeStructure)));
+            if (typeTag == null) {
+              Debug.Assert(false, "Type tag is null");
+              return;
+            }
+
+            var newEntityData = newOwner!.GetPlayerState().Entities.FirstOrDefault(e => e.Tags != null && e.Tags.HasExactTag(typeTag));
+
+            if (newEntityData == null) {
+              Debug.Assert(false, "New entity data is null");
+              return;
+            }
+
+            AddBlockTurn();
+            capturedEntity.Die();
+            await ToSignal(capturedEntity, SignalName.TreeExited);
+            var entityManagment = newOwner.GetGameMode().GetEntityManagment();
+            entityManagment.TryAddEntityOnCell(newEntityData, capturedEntity.Cell, newOwner);
             Task.Complete();
             EndAbility();
             return;

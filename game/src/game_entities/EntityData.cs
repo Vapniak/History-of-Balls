@@ -16,7 +16,6 @@ public partial class EntityData : Resource {
 
   public Entity? CreateEntity(GameCell cell, IEntityManagment entityManagment, IMatchController? owner) {
     var body = Body?.InstantiateOrNull<EntityBody>();
-
     if (body != null) {
       return new(EntityName, cell, entityManagment, AttributeSetsContainer, Abilities, Tags, body, owner);
     }

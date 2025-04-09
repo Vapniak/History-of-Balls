@@ -44,7 +44,7 @@ public partial class ThrowAttackAbility : AttackAbility {
         return;
       }
 
-      EndAbility();
+      EndAbility(true);
     }
 
 

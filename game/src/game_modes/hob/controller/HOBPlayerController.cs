@@ -23,8 +23,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   [Notify] public HOBAbilityInstance? SelectedCommand { get => _selectedCommand.Get(); private set => _selectedCommand.Set(value); }
 
-  public event Action? EndTurnEvent;
-
   private StateChart? StateChart { get; set; }
 
   private GameBoard GameBoard => GetGameState().GameBoard;
@@ -54,6 +52,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     GetHUD().CommandSelected += (command) => {
       SelectedCommand = command;
+    };
+
+    GetGameMode().GetMatchEvents().MatchEvent += (tag) => {
+      if (tag == TagManager.GetTag(HOBTags.EventTurnStarted) && ((IMatchController)this).IsCurrentTurn()) {
+        Engine.TimeScale = 1;
+      }
     };
   }
 
@@ -106,9 +110,9 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     Character.ClampPosition(GameBoard.GetAabb());
   }
 
-  public void TryEndTurn() {
-    if (((IMatchController)this).IsCurrentTurn()) {
-      EndTurnEvent?.Invoke();
+  public void TryEndTurn(bool speedUp) {
+    if (GetGameMode().GetTurnManagment().TryEndTurn(this) && speedUp) {
+      Engine.TimeScale = 5;
     }
   }
   public void OwnTurnStarted() {
@@ -260,7 +264,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (@event.IsActionPressed(GameInputs.EndTurn)) {
-      TryEndTurn();
+      TryEndTurn(false);
     }
 
     @event.Dispose();
@@ -315,7 +319,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (@event.IsActionPressed(GameInputs.EndTurn)) {
-      TryEndTurn();
+      TryEndTurn(false);
     }
 
     @event.Dispose();
@@ -342,12 +346,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnCommandStateEntered() {
-    GetHUD().SetEndTurnButtonDisabled(true);
     SelectedCommand = null;
   }
 
   private void OnCommandStateExited() {
-    GetHUD().SetEndTurnButtonDisabled(false);
 
   }
   #endregion

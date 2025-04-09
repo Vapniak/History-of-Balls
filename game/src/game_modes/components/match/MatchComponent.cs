@@ -16,7 +16,10 @@ using HOB.GameEntity;
 ///
 
 [GlobalClass]
-public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityManagment {
+public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityManagment, ITurnManagment {
+  public event Action? TurnBlocked;
+  public event Action? TurnUnblocked;
+
   public event Action<Entity>? EntityAdded;
   public event Action<Entity>? EntityRemoved;
   public event Action<Tag>? MatchEvent;
@@ -27,19 +30,21 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
   private IMatchController? _lastPlayer;
 
+  private int BlockCounter { get; set; }
+
   private bool _gameStarted;
 
   public override void _Ready() {
     base._Ready();
 
     GetGameState().Entities = new();
+    GetGameState().CurrentPlayerIndex = -1;
   }
 
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
   public virtual void OnPlayerSpawned(IMatchPlayerState playerState) {
     var controller = playerState.GetController<IMatchController>();
-    controller.EndTurnEvent += () => OnEndTurn(controller);
   }
 
   public void OnGameStarted() {
@@ -49,9 +54,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       var controller = player.GetController<IMatchController>();
       controller.OnGameStarted();
     }
-
-    _lastPlayer = GetGameState().PlayerArray[GetGameState().CurrentPlayerIndex].GetController<IMatchController>();
-
     _gameStarted = true;
 
     MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventGameStarted));
@@ -76,10 +78,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     }
 
     if (closestCell != null) {
-      var entity = data.CreateEntity(closestCell, this, owner);
-      if (entity != null) {
-        AddEntity(entity);
-      }
+      TryAddEntityOnCell(data, closestCell, owner);
     }
   }
 
@@ -91,14 +90,11 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     return true;
   }
 
-  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController owner) {
-    if (CanEntityBePlacedOnCell(cell)) {
-
-      var entity = data.CreateEntity(cell, this, owner);
-      if (entity != null) {
-        AddEntity(entity);
-        return true;
-      }
+  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController? owner) {
+    var entity = data.CreateEntity(cell, this, owner);
+    if (entity != null) {
+      AddEntity(entity);
+      return true;
     }
 
     return false;
@@ -106,10 +102,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
 
   private void AddEntity(Entity entity) {
-    entity.AbilitySystem.OwnedTags.TagAdded += (tag) => {
-      if (tag == TagManager.GetTag(HOBTags.StateDead)) {
-        RemoveEntity(entity);
-      }
+    entity.TreeExited += () => {
+      RemoveEntity(entity);
     };
 
     entity.Ready += () => {
@@ -120,8 +114,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     AddChild(entity);
   }
 
-  public void RemoveEntity(Entity entity) {
-    entity.QueueFree();
+  private void RemoveEntity(Entity entity) {
     Entities.Remove(entity);
     EntityRemoved?.Invoke(entity);
   }
@@ -149,7 +142,28 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
   public Entity[] GetEntities() => Entities.ToArray();
 
+  public void AddBlockTurn() {
+    if (BlockCounter == 0) {
+      TurnBlocked?.Invoke();
+    }
+
+    BlockCounter++;
+  }
+
+  public void RemoveBlockTurn() {
+    if (BlockCounter > 0) {
+      BlockCounter--;
+      if (BlockCounter == 0) {
+        TurnUnblocked?.Invoke();
+      }
+    }
+  }
+
   private void OnTurnStarted() {
+    if (GetGameState().CurrentPlayerIndex == -1) {
+      GetGameState().CurrentPlayerIndex = 0;
+    }
+
     MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnStarted));
     MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnPreparation));
 
@@ -163,12 +177,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   private void OnTurnEnded() {
     _lastPlayer?.OwnTurnEnded();
     MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnEnded));
-  }
-
-  private void OnEndTurn(IMatchController controller) {
-    if (IsCurrentTurn(controller)) {
-      NextTurn();
-    }
   }
 
   private void NextTurn() {
@@ -186,5 +194,14 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
   public void TriggerGameEnd(IMatchController controller) {
     MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventGameEnded));
+  }
+
+  public bool TryEndTurn(IMatchController controller) {
+    if (IsCurrentTurn(controller) && BlockCounter == 0) {
+      NextTurn();
+      return true;
+    }
+
+    return false;
   }
 }

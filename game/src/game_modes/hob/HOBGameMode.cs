@@ -35,6 +35,8 @@ public partial class HOBGameMode : GameMode {
 
   private GameBoard GameBoard => GetGameState().GameBoard;
 
+  private double _savedTimeScale;
+
   public override void _EnterTree() {
     base._EnterTree();
 
@@ -50,6 +52,7 @@ public partial class HOBGameMode : GameMode {
   public override void _ExitTree() {
     base._ExitTree();
 
+    Engine.TimeScale = 1;
     GameInstance.SetPause(false);
   }
 
@@ -91,17 +94,22 @@ public partial class HOBGameMode : GameMode {
   public IMatchEvents GetMatchEvents() => MatchComponent!;
   public IEntityManagment GetEntityManagment() => MatchComponent!;
 
+  public ITurnManagment GetTurnManagment() => MatchComponent!;
+
   public override HOBGameState GetGameState() => base.GetGameState() as HOBGameState;
 
   protected override GameState CreateGameState() => new HOBGameState();
 
   private void OnPausedStateEntered() {
     PauseMenu.Show();
+    _savedTimeScale = Engine.TimeScale;
+    Engine.TimeScale = 1;
     GameInstance.SetPause(true);
   }
   private void OnPausedStateExited() {
     PauseMenu.Hide();
     GameInstance.SetPause(false);
+    Engine.TimeScale = _savedTimeScale;
   }
 
   private void OnInMatchStateEntered() {
@@ -159,7 +167,7 @@ public partial class HOBGameMode : GameMode {
           return;
         }
 
-        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities);
+        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities, playerData.Entities);
 
         if (playerData.PlayerType == PlayerType.Player) {
           controller = PlayerControllerScene.Instantiate<Controller>();
@@ -181,8 +189,8 @@ public partial class HOBGameMode : GameMode {
       }
 
       await Task.Delay(500);
-      if (playerData.Entities != null) {
-        foreach (var entitySpawn in playerData.Entities) {
+      if (playerData.SpawnedEntities != null) {
+        foreach (var entitySpawn in playerData.SpawnedEntities) {
           if (entitySpawn?.EntityData != null && entitySpawn.SpawnAt != null) {
             foreach (var coord in entitySpawn.SpawnAt) {
               await Task.Delay(30);

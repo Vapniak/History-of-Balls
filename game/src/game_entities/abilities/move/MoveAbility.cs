@@ -18,6 +18,19 @@ public abstract partial class MoveAbility : HOBAbilityResource {
 
     }
 
+    public override void ActivateAbility(GameplayEventData? eventData) {
+      base.ActivateAbility(eventData);
+      AddBlockTurn();
+    }
+
+    public override void EndAbility(bool wasCanceled = false) {
+      base.EndAbility(wasCanceled);
+
+      if (!wasCanceled) {
+        RemoveBlockTurn();
+      }
+    }
+
     public virtual GameCell[] GetReachableCells() {
       if (OwnerAbilitySystem.AttributeSystem.TryGetAttributeSet<MoveAttributeSet>(out var moveAttributeSet)) {
         var mp = OwnerAbilitySystem.AttributeSystem.GetAttributeCurrentValue(moveAttributeSet.MovePoints);

@@ -12,7 +12,7 @@ script = ExtResource("3_8cacw")
 CaptureAttribute = ExtResource("2_mklcr")
 CaptureAttributeFrom = 0
 CaptureAttributeWhen = 1
-Coefficient = 1.0
+Coefficient = -1.0
 
 [sub_resource type="Resource" id="Resource_bxy43"]
 script = ExtResource("4_82fie")

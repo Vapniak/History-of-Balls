@@ -25,6 +25,7 @@ public partial class InitializeStatsAbilityResource : HOBAbilityResource {
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
+      base.ActivateAbility(eventData);
       if (AbilityResource is InitializeStatsAbilityResource ability && ability.InitializeStatsEffects != null) {
         var ei = OwnerAbilitySystem.MakeOutgoingInstance(ability.InitializeStatsEffects, 0);
         OwnerAbilitySystem.ApplyGameplayEffectToSelf(ei);

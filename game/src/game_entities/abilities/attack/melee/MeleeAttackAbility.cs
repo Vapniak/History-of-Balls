@@ -28,7 +28,7 @@ public partial class MeleeAttackAbility : AttackAbility {
         return;
       }
 
-      EndAbility();
+      EndAbility(true);
     }
 
     public override bool IsCellVisible(GameCell from, GameCell to) {
@@ -69,7 +69,7 @@ public partial class MeleeAttackAbility : AttackAbility {
 
       await ToSignal(secondTween, Tween.SignalName.Finished);
 
-      EndAbility();
+      base.EndAbility();
     }
 
 

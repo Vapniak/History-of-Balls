@@ -17,6 +17,8 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
 
     }
     public override void ActivateAbility(GameplayEventData? eventData) {
+      base.ActivateAbility(eventData);
+
       if (OwnerEntity.TryGetOwner(out var owner)) {
         var income = (AbilityResource as IncomeAbilityResource)?.IncomeEffect;
         if (income != null) {

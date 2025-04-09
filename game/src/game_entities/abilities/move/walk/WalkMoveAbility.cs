@@ -19,11 +19,13 @@ public partial class WalkMoveAbility : MoveAbility {
     }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
+      base.ActivateAbility(eventData);
+
       if (eventData?.TargetData is MoveTargetData moveTargetData && CommitCooldown()) {
         _ = WalkByPath(moveTargetData.Cell);
       }
       else {
-        EndAbility();
+        EndAbility(true);
       }
     }
 
@@ -117,8 +119,11 @@ public partial class WalkMoveAbility : MoveAbility {
 
         var strucure = OwnerEntity.EntityManagment.GetEntitiesOnCell(path.Last()).FirstOrDefault(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure)));
 
-        if (strucure != null && OwnerEntity.TryGetOwner(out var owner) && owner != null) {
-          OwnerAbilitySystem.SendGameplayEvent(TagManager.GetTag(HOBTags.EventEntityCapture), new() { Activator = owner, TargetData = new() { Target = strucure } });
+        if (strucure != null) {
+          strucure.TryGetOwner(out var owner2);
+          if (OwnerEntity.TryGetOwner(out var owner) && owner != null && owner2 != owner) {
+            OwnerAbilitySystem.SendGameplayEvent(TagManager.GetTag(HOBTags.EventEntityCapture), new() { Activator = owner, TargetData = new() { Target = strucure } });
+          }
         }
       }
 

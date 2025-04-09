@@ -120,15 +120,18 @@ public partial class Entity : Node3D, ITurnAware {
     }
   }
 
+  public void Die() {
+    AbilitySystem.OwnedTags.AddTag(TagManager.GetTag(HOBTags.StateDead));
+    var tween = CreateTween();
+    tween.TweenProperty(this, "scale", Vector3.Zero, 1f).SetTrans(Tween.TransitionType.Back);
+    tween.Finished += QueueFree;
+  }
+
   public void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
     if (AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var healthAttributeSet)) {
       if (attribute == healthAttributeSet?.HealthAttribute) {
         if (newValue <= 0f) {
-          GD.PrintS(EntityName, newValue);
-          AbilitySystem.OwnedTags.AddTag(TagManager.GetTag(HOBTags.StateDead));
-          var tween = CreateTween();
-          tween.TweenProperty(this, "scale", Vector3.Zero, 1f).SetTrans(Tween.TransitionType.Back);
-          tween.Finished += QueueFree;
+          Die();
         }
       }
     }

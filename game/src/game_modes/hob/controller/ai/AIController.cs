@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class AIController : Controller, IMatchController {
-  public event Action? EndTurnEvent;
   public Country? Country { get; set; }
   public AIProfile Profile { get; set; } = new();
 
@@ -24,12 +23,12 @@ public partial class AIController : Controller, IMatchController {
   public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
 
   public async Task StartDecisionMaking() {
-    await Task.Delay(1000);
-
     await ProcessEntityActions();
 
-    await Task.Delay(1000);
-    EndTurn();
+    while (((IMatchController)this).IsCurrentTurn()) {
+      await Task.Delay(1000);
+      EndTurn();
+    }
   }
 
   private async Task ProcessEntityActions() {
@@ -324,7 +323,9 @@ public partial class AIController : Controller, IMatchController {
   }
   public void OwnTurnEnded() { }
   public void OnGameStarted() { }
-  private void EndTurn() => EndTurnEvent?.Invoke();
+  private void EndTurn() {
+    GetGameMode().GetTurnManagment().TryEndTurn(this);
+  }
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
   public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 }

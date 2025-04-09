@@ -12,12 +12,13 @@ using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
   [Signal] public delegate void CommandSelectedEventHandler(HOBAbilityInstance abilityInstance);
-  [Signal] public delegate void EndTurnPressedEventHandler();
+  [Signal] public delegate void EndTurnPressedEventHandler(bool skip);
 
   [Export] private Label? TurnChangedNotificationLabel { get; set; }
   [Export] private StatPanel? StatPanel { get; set; }
   [Export] private EntityProductionPanel? ProductionPanel { get; set; }
   [Export] private Button? EndTurnButton { get; set; }
+  [Export] private Button? SkipTurnButton { get; set; }
   [Export] private CommandPanel? CommandPanel { get; set; }
   [Export] private Label? RoundLabel { get; set; }
   [Export] private Label? TurnLabel { get; set; }
@@ -62,6 +63,22 @@ public partial class HOBHUD : HUD {
         ShowUIFor(selectedEntity);
       }
     };
+
+    var turnBlocking = GameInstance.GetGameMode<HOBGameMode>().GetTurnManagment();
+
+    turnBlocking.TurnBlocked += () => {
+      if (GetPlayerController<IMatchController>().IsCurrentTurn()) {
+        EndTurnButton.Disabled = true;
+        SkipTurnButton.Disabled = true;
+      }
+    };
+    turnBlocking.TurnUnblocked += () => {
+      if (GetPlayerController<IMatchController>().IsCurrentTurn()) {
+        EndTurnButton.Disabled = false;
+        SkipTurnButton.Disabled = false;
+      }
+    };
+
 
     CommandPanel.CommandSelected += (command) => EmitSignal(SignalName.CommandSelected, command);
   }
@@ -119,6 +136,7 @@ public partial class HOBHUD : HUD {
 
   private void OnTurnChanged(int playerIndex) {
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
+    SkipTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
 
     var player = GetPlayerController<IMatchController>().GetGameState().PlayerArray[playerIndex];
 
@@ -134,12 +152,9 @@ public partial class HOBHUD : HUD {
   private void OnRoundChanged(int roundNumber) {
     RoundLabel.Text = $"ROUND {roundNumber}";
   }
-  public void SetEndTurnButtonDisabled(bool value) {
-    EndTurnButton.Disabled = value;
-  }
 
-  private void OnEndTurnPressed() {
-    EmitSignal(SignalName.EndTurnPressed);
+  private void OnEndTurnPressed(bool speedUp) {
+    EmitSignal(SignalName.EndTurnPressed, speedUp);
   }
 
   private void ShowUIFor(Entity entity) {
