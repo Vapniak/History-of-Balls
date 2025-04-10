@@ -1,17 +1,11 @@
-[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://j8464ttxjhj8"]
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://j8464ttxjhj8"]
 
-[ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="1_lk8mr"]
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="2_4sowl"]
 [ext_resource type="Texture2D" uid="uid://4cn57wj6fv8b" path="res://assets/models/village_1_0.png" id="3_m7q87"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqdx6"]
-render_priority = 0
-shader = ExtResource("1_lk8mr")
 
 [resource]
 resource_local_to_scene = true
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_eqdx6")
 shader = ExtResource("2_4sowl")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)

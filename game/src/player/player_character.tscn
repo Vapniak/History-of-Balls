@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://bxvvk6td13ake"]
+[gd_scene load_steps=23 format=3 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
+[ext_resource type="Shader" path="res://res/shaders/post_process_outline.gdshader" id="2_bqmck"]
 [ext_resource type="RibbonTrailMesh" uid="uid://w2xv54d0lfdp" path="res://res/meshes/wind_ribbon.tres" id="3_w31k8"]
 
 [sub_resource type="Curve" id="Curve_t3eex"]
@@ -8,6 +9,19 @@ _data = [Vector2(0.183333, 0.424051), 0.0, -0.682045, 0, 1, Vector2(0.364286, 0.
 point_count = 3
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddym4"]
+render_priority = -1
+shader = ExtResource("2_bqmck")
+shader_parameter/color_outline_scale = 2.0
+shader_parameter/depth_outline_scale = 5.0
+shader_parameter/depth_threshold = 10.0
+shader_parameter/depth_multiplier = 1000.0
+shader_parameter/edge_threshold = 0.1
+shader_parameter/max_edge_alpha = 0.8
+shader_parameter/edge_alpha_multiplier = 3.0
+shader_parameter/edge_color = Color(0, 0, 0, 1)
+shader_parameter/depth_use_laplace = true
+shader_parameter/color_use_laplace = false
+shader_parameter/use_bg_texture = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_bpb6w"]
 material = SubResource("ShaderMaterial_ddym4")
@@ -124,7 +138,6 @@ _panSpeedMulti = 0.001
 
 [node name="OutlinePostProcess" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.120215)
-visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_bpb6w")
 skeleton = NodePath("")

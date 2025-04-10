@@ -1,9 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://i2nsfe0ypup5"]
+[gd_scene load_steps=10 format=4 uid="uid://i2nsfe0ypup5"]
 
 [ext_resource type="PackedScene" uid="uid://b8mjeotg42xkp" path="res://assets/models/sphere.fbx" id="1_juhw5"]
 [ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_n3882"]
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="3_ja5cj"]
-[ext_resource type="Texture2D" uid="uid://v3yc7rtrx2cs" path="res://assets/textures/flags/England.png" id="4_h2y0a"]
+[ext_resource type="Texture2D" uid="uid://x8qncwmkfm8" path="res://assets/textures/flags/England.png" id="4_h2y0a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hnlje"]
 render_priority = 0
@@ -55,14 +55,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_krgvb")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_eqdx6"]
-render_priority = 0
-shader = ExtResource("2_n3882")
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_dys2h"]
 resource_local_to_scene = true
 render_priority = 0
-next_pass = SubResource("ShaderMaterial_eqdx6")
 shader = ExtResource("3_ja5cj")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
