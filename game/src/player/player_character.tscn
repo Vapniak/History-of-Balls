@@ -11,12 +11,12 @@ point_count = 3
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ddym4"]
 render_priority = -1
 shader = ExtResource("2_bqmck")
-shader_parameter/color_outline_scale = 2.0
-shader_parameter/depth_outline_scale = 5.0
+shader_parameter/color_outline_scale = 1.0
+shader_parameter/depth_outline_scale = 2.0
 shader_parameter/depth_threshold = 10.0
 shader_parameter/depth_multiplier = 1000.0
-shader_parameter/edge_threshold = 0.1
-shader_parameter/max_edge_alpha = 0.8
+shader_parameter/edge_threshold = 0.8
+shader_parameter/max_edge_alpha = 1.0
 shader_parameter/edge_alpha_multiplier = 3.0
 shader_parameter/edge_color = Color(0, 0, 0, 1)
 shader_parameter/depth_use_laplace = true
@@ -120,10 +120,11 @@ turbulence_influence_min = 0.04
 turbulence_influence_max = 0.161
 turbulence_influence_over_life = SubResource("CurveTexture_tnoyy")
 
-[node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera")]
+[node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera", "CameraParent")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_ggdef")
 Camera = NodePath("Camera3D")
+CameraParent = NodePath("Camera3D")
 EdgeMarginPixels = 10
 _acceleration = 15.0
 _moveSpeedMinZoom = 60.0
@@ -142,9 +143,6 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_bpb6w")
 skeleton = NodePath("")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-current = true
-
 [node name="SpiralWindParticles" type="GPUParticles3D" parent="."]
 amount = 1
 lifetime = 4.0
@@ -160,3 +158,8 @@ trail_enabled = true
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_fst37")
 draw_pass_1 = ExtResource("3_w31k8")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+current = true
+fov = 80.0041

@@ -5,6 +5,7 @@ using Godot;
 
 public partial class PlayerCharacter : Node3D, IPlayerControllable {
   [Export] public Camera3D Camera { get; private set; }
+  [Export] public Node3D CameraParent { get; private set; }
   [Export] public int EdgeMarginPixels { get; private set; } = 50;
   [Export] private float _acceleration = 10f;
   [Export] private float _moveSpeedMinZoom = 400f, _moveSpeedMaxZoom = 100f;
@@ -135,10 +136,10 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     var targetHeight = Mathf.Lerp(_minZoomOffset.Y, _maxZoomOffset.Y, Zoom);
     var targetPosition = new Vector3(0, targetHeight, Mathf.Max(targetDistance, 1));
 
-    Camera.Position = new Vector3(
-        SmoothDamp(Camera.Position.X, targetPosition.X, ref _cameraVelocity.X, 0.1f, float.MaxValue, delta),
-        SmoothDamp(Camera.Position.Y, targetPosition.Y, ref _cameraVelocity.Y, 0.1f, float.MaxValue, delta),
-        SmoothDamp(Camera.Position.Z, targetPosition.Z, ref _cameraVelocity.Z, 0.1f, float.MaxValue, delta)
+    CameraParent.Position = new Vector3(
+        SmoothDamp(CameraParent.Position.X, targetPosition.X, ref _cameraVelocity.X, 0.1f, float.MaxValue, delta),
+        SmoothDamp(CameraParent.Position.Y, targetPosition.Y, ref _cameraVelocity.Y, 0.1f, float.MaxValue, delta),
+        SmoothDamp(CameraParent.Position.Z, targetPosition.Z, ref _cameraVelocity.Z, 0.1f, float.MaxValue, delta)
     );
 
     Camera.LookAt(Position);

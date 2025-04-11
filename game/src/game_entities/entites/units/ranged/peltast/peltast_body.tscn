@@ -57,6 +57,9 @@ UnitAttribute = NodePath("FollowParent3D/UnitAttribute")
 
 [node name="GreekBall" parent="." instance=ExtResource("2_357p0")]
 
+[node name="Armature" parent="GreekBall/BaseCountryBall/sphere (1)" index="0"]
+transform = Transform3D(140.698, 0, 0, 0, -6.15011e-06, 140.698, 0, -140.698, -6.15011e-06, 1.49012e-08, 1, 0)
+
 [node name="Sphere" parent="GreekBall/BaseCountryBall/sphere (1)/Armature/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("ShaderMaterial_myhd5")
 
@@ -75,7 +78,7 @@ script = ExtResource("8_ut4yb")
 [node name="UnitAttribute" type="Node3D" parent="FollowParent3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.887068, 0.447799, 0)
 script = ExtResource("9_guo61")
-ThrowHeight = 1.0
+ThrowHeight = 0.5
 RotationSmoothness = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FollowParent3D/UnitAttribute"]

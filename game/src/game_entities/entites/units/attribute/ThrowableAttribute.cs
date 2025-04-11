@@ -14,7 +14,6 @@ public partial class ThrowableAttribute : UnitAttribute {
 
   private Vector3 _launchVelocity;
   private Vector3 _startPosition;
-  private Tween? _tween;
   private Vector3 _initialOffset;
   private Quaternion _targetRotation;
   private Basis _initialBasis;
@@ -28,7 +27,11 @@ public partial class ThrowableAttribute : UnitAttribute {
     var height = ThrowHeight;
     var gravity = Mathf.Abs(_gravity.Y);
 
-    var horizontalDir = new Vector3(toPosition.X - GlobalPosition.X, 0, toPosition.Z - GlobalPosition.Z).Normalized();
+    var horizontalDir = new Vector3(toPosition.X - GlobalPosition.X, 0, toPosition.Z - GlobalPosition.Z);
+    if (horizontalDir.LengthSquared() > 0) {
+      horizontalDir = horizontalDir.Normalized();
+    }
+
     var horizontalDistance = GlobalPosition.DistanceTo(new Vector3(toPosition.X, GlobalPosition.Y, toPosition.Z));
 
     var time = Mathf.Sqrt(2 * height / gravity) + Mathf.Sqrt(2 * (height + toPosition.Y - GlobalPosition.Y) / gravity);
@@ -57,7 +60,11 @@ public partial class ThrowableAttribute : UnitAttribute {
   private async Task StartThrow(float duration) {
     TopLevel = true;
 
-    var throwDirection = (_launchVelocity + (_gravity * 0.1f)).Normalized();
+    var direction = _launchVelocity + (_gravity * 0.1f);
+    if (direction.LengthSquared() < 0.0001f) {
+      direction = Vector3.Forward;
+    }
+    var throwDirection = direction.Normalized();
 
     var windUpTween = CreateTween();
 
@@ -78,11 +85,11 @@ public partial class ThrowableAttribute : UnitAttribute {
 
     await ToSignal(windUpTween, Tween.SignalName.Finished);
 
-    _tween = CreateTween();
-    _tween.TweenMethod(Callable.From<float>(UpdateTrajectory), 0f, duration, duration)
+    var tween1 = CreateTween();
+    tween1.TweenMethod(Callable.From<float>(UpdateTrajectory), 0f, duration, duration)
           .SetEase(Tween.EaseType.Out);
 
-    await ToSignal(_tween, Tween.SignalName.Finished);
+    await ToSignal(tween1, Tween.SignalName.Finished);
 
     var tween = CreateTween();
     tween.TweenProperty(this, "scale", Vector3.Zero, .1f);

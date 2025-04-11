@@ -112,7 +112,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   public void TryEndTurn(bool speedUp) {
     if (GetGameMode().GetTurnManagment().TryEndTurn(this) && speedUp) {
-      Engine.TimeScale = 5;
+      Engine.TimeScale = 2;
     }
   }
   public void OwnTurnStarted() {

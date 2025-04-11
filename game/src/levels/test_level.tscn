@@ -1,10 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://dq50a8e3adq5a"]
+[gd_scene load_steps=11 format=3 uid="uid://dq50a8e3adq5a"]
 
 [ext_resource type="Script" path="res://src/levels/HOBLevel.cs" id="1_l02ep"]
 [ext_resource type="PackedScene" uid="uid://bpyq5jomq1pgv" path="res://src/levels/transitions/fade_in.tscn" id="2_51t61"]
 [ext_resource type="PackedScene" uid="uid://c7dofyt76uitu" path="res://src/levels/transitions/fade_out.tscn" id="3_3yt77"]
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/hob/hob_game_mode.tscn" id="4_eue7f"]
 [ext_resource type="PackedScene" uid="uid://b7p0e45e0ng0f" path="res://src/game_board/game_board.tscn" id="5_t3dxr"]
+
+[sub_resource type="Gradient" id="Gradient_vo8mk"]
+offsets = PackedFloat32Array(0.115721, 0.941048)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dh0sp"]
+gradient = SubResource("Gradient_vo8mk")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ashqd"]
 sky_top_color = Color(0.493548, 0.358776, 0.737175, 1)
@@ -17,22 +23,26 @@ sky_material = SubResource("ProceduralSkyMaterial_ashqd")
 
 [sub_resource type="Environment" id="Environment_mxfj4"]
 background_mode = 2
+background_color = Color(1, 1, 1, 1)
 sky = SubResource("Sky_w6xpn")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_sky_contribution = 0.76
+ambient_light_sky_contribution = 0.9
+tonemap_white = 9.31
 glow_normalized = true
-glow_intensity = 1.38
-glow_strength = 0.71
+glow_strength = 0.14
 glow_mix = 0.1
-glow_bloom = 0.29
-glow_blend_mode = 1
+glow_bloom = 0.1
+glow_blend_mode = 0
+glow_hdr_threshold = 0.9
 fog_light_color = Color(0.5, 0.5, 0.608, 1)
 fog_depth_begin = 37.0
 fog_depth_end = 111.1
 volumetric_fog_emission = Color(0.446777, 0.446777, 0.446777, 1)
 volumetric_fog_sky_affect = 0.0
-adjustment_enabled = true
+adjustment_contrast = 1.03
+adjustment_saturation = 1.01
+adjustment_color_correction = SubResource("GradientTexture1D_dh0sp")
 
 [node name="HOBLevel" type="Node"]
 script = ExtResource("1_l02ep")
@@ -42,9 +52,8 @@ GameModeScene = ExtResource("4_eue7f")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, 0.433013, -0.25, 0, 0.5, 0.866025, 0.5, 0.75, -0.433013, 0, -0.0460427, 0)
-light_color = Color(0.871004, 0.811454, 0.79966, 1)
+light_color = Color(0.893381, 0.761732, 0.69153, 1)
 shadow_enabled = true
-shadow_opacity = 0.35
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mxfj4")
