@@ -4,6 +4,7 @@ using System;
 using Godot;
 using HexGridMap;
 
+[Tool]
 public partial class GameCell : HexCell {
   public enum EdgeType {
     Flat, // ELEVATION DIFF 0

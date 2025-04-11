@@ -5,11 +5,23 @@ using Godot;
 /// <summary>
 /// Responsible for visualization and working with hex grid.
 /// </summary>
+[Tool]
 public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
   [Export] private GameGridLayout? Layout { get; set; }
   [Export] private TerrainManager? TerrainManager { get; set; }
 
+  [Export]
+  private MapData MapData {
+    get {
+      return _mapData;
+    }
+    set {
+      Init(value);
+      _mapData = value;
+    }
+  }
+  private MapData _mapData;
   public GameGrid? Grid { get; private set; }
 
   public void Init(MapData mapData) {

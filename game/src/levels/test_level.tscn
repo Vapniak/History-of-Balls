@@ -1,48 +1,43 @@
-[gd_scene load_steps=11 format=3 uid="uid://dq50a8e3adq5a"]
+[gd_scene load_steps=12 format=3 uid="uid://dq50a8e3adq5a"]
 
 [ext_resource type="Script" path="res://src/levels/HOBLevel.cs" id="1_l02ep"]
 [ext_resource type="PackedScene" uid="uid://bpyq5jomq1pgv" path="res://src/levels/transitions/fade_in.tscn" id="2_51t61"]
 [ext_resource type="PackedScene" uid="uid://c7dofyt76uitu" path="res://src/levels/transitions/fade_out.tscn" id="3_3yt77"]
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/hob/hob_game_mode.tscn" id="4_eue7f"]
 [ext_resource type="PackedScene" uid="uid://b7p0e45e0ng0f" path="res://src/game_board/game_board.tscn" id="5_t3dxr"]
+[ext_resource type="Resource" uid="uid://5wuxfmlkqhss" path="res://src/maps/test_map.tres" id="6_obe6s"]
 
-[sub_resource type="Gradient" id="Gradient_vo8mk"]
-offsets = PackedFloat32Array(0.115721, 0.941048)
+[sub_resource type="Gradient" id="Gradient_t1o45"]
+offsets = PackedFloat32Array(0, 0.131833, 0.858521, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.144, 0.1496, 0.2, 1, 1, 0.9525, 0.81, 1, 1, 1, 1, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_dh0sp"]
-gradient = SubResource("Gradient_vo8mk")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k7uxh"]
+gradient = SubResource("Gradient_t1o45")
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ashqd"]
-sky_top_color = Color(0.493548, 0.358776, 0.737175, 1)
-sky_horizon_color = Color(0.442263, 0.687237, 0.850094, 1)
-ground_bottom_color = Color(0, 0, 0, 1)
-ground_horizon_color = Color(0, 0, 0, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tbyee"]
+sky_top_color = Color(0.103845, 0.447242, 0.806523, 1)
 
-[sub_resource type="Sky" id="Sky_w6xpn"]
-sky_material = SubResource("ProceduralSkyMaterial_ashqd")
+[sub_resource type="Sky" id="Sky_6483f"]
+sky_material = SubResource("ProceduralSkyMaterial_tbyee")
 
-[sub_resource type="Environment" id="Environment_mxfj4"]
+[sub_resource type="Environment" id="Environment_0un0y"]
 background_mode = 2
-background_color = Color(1, 1, 1, 1)
-sky = SubResource("Sky_w6xpn")
-ambient_light_source = 3
-ambient_light_color = Color(1, 1, 1, 1)
-ambient_light_sky_contribution = 0.9
-tonemap_white = 9.31
+sky = SubResource("Sky_6483f")
+ambient_light_sky_contribution = 0.1
+tonemap_mode = 2
+tonemap_exposure = 0.57
+tonemap_white = 1.79
 glow_normalized = true
-glow_strength = 0.14
-glow_mix = 0.1
+glow_intensity = 3.13
+glow_strength = 0.64
 glow_bloom = 0.1
-glow_blend_mode = 0
-glow_hdr_threshold = 0.9
-fog_light_color = Color(0.5, 0.5, 0.608, 1)
-fog_depth_begin = 37.0
-fog_depth_end = 111.1
-volumetric_fog_emission = Color(0.446777, 0.446777, 0.446777, 1)
-volumetric_fog_sky_affect = 0.0
-adjustment_contrast = 1.03
-adjustment_saturation = 1.01
-adjustment_color_correction = SubResource("GradientTexture1D_dh0sp")
+glow_blend_mode = 1
+fog_density = 0.0029
+fog_sky_affect = 0.0
+volumetric_fog_density = 0.01
+adjustment_enabled = true
+adjustment_contrast = 1.04
+adjustment_color_correction = SubResource("GradientTexture1D_k7uxh")
 
 [node name="HOBLevel" type="Node"]
 script = ExtResource("1_l02ep")
@@ -50,12 +45,13 @@ LoadLevelTransitionScene = ExtResource("2_51t61")
 UnLoadLevelTransitionScene = ExtResource("3_3yt77")
 GameModeScene = ExtResource("4_eue7f")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866025, 0.433013, -0.25, 0, 0.5, 0.866025, 0.5, 0.75, -0.433013, 0, -0.0460427, 0)
-light_color = Color(0.893381, 0.761732, 0.69153, 1)
-shadow_enabled = true
+[node name="GameBoard" parent="." instance=ExtResource("5_t3dxr")]
+MapData = ExtResource("6_obe6s")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_mxfj4")
+environment = SubResource("Environment_0un0y")
 
-[node name="GameBoard" parent="." instance=ExtResource("5_t3dxr")]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.623129, 0.595729, 0.506772, -0.295466, -0.420629, 0.857771, 0.724162, -0.684236, -0.0860888, 0, 0, 0.15345)
+light_color = Color(0.75, 0.748, 0.72, 1)
+shadow_enabled = true

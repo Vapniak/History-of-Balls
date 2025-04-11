@@ -8,7 +8,7 @@ public enum OrientationType {
   PointyTop
 }
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class HexLayout : Resource {
   [Export] public float HexCellSize { get; private set; } = 1;
   [Export] public OrientationType OrientationType { get; private set; } = OrientationType.FlatTop;

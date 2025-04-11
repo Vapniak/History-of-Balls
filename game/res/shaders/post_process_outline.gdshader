@@ -35,7 +35,7 @@ void fragment() {
 	float halfScaleFloor_d = floor(depth_outline_scale * 0.5);
 	float halfScaleCeil_d = ceil(depth_outline_scale * 0.5);
 	vec2 texelSize = vec2(1.0/VIEWPORT_SIZE.x, 1.0/VIEWPORT_SIZE.y);
-	
+
 	vec2 bottomLeftUV_c = SCREEN_UV - vec2(texelSize.x, texelSize.y) * halfScaleFloor_c;
 	vec2 topRightUV_c = SCREEN_UV + vec2(texelSize.x, texelSize.y) * halfScaleCeil_c;
 	vec2 topUV_c = SCREEN_UV + vec2(0.0, texelSize.y * halfScaleCeil_c);
@@ -45,7 +45,7 @@ void fragment() {
 	vec2 bottomRightUV_c = SCREEN_UV + vec2(texelSize.x * halfScaleCeil_c, -texelSize.y * halfScaleFloor_c);
 	vec2 topLeftUV_c = SCREEN_UV + vec2(-texelSize.x * halfScaleFloor_c, texelSize.y * halfScaleCeil_c);
 	vec2 centerUV_c = SCREEN_UV;
-	
+
 	vec2 bottomLeftUV_d = SCREEN_UV - vec2(texelSize.x, texelSize.y) * halfScaleFloor_d;
 	vec2 topRightUV_d = SCREEN_UV + vec2(texelSize.x, texelSize.y) * halfScaleCeil_d;
 	vec2 topUV_d = SCREEN_UV + vec2(0.0, texelSize.y * halfScaleCeil_d);
@@ -55,7 +55,7 @@ void fragment() {
 	vec2 bottomRightUV_d = SCREEN_UV + vec2(texelSize.x * halfScaleCeil_d, -texelSize.y * halfScaleFloor_d);
 	vec2 topLeftUV_d = SCREEN_UV + vec2(-texelSize.x * halfScaleFloor_d, texelSize.y * halfScaleCeil_d);
 	vec2 centerUV_d = SCREEN_UV;
-	
+
 	float d0 = getDepthVal(DEPTH_TEXTURE, topLeftUV_d, INV_PROJECTION_MATRIX);
 	float d1 = getDepthVal(DEPTH_TEXTURE, topUV_d, INV_PROJECTION_MATRIX);
 	float d2 = getDepthVal(DEPTH_TEXTURE, topRightUV_d, INV_PROJECTION_MATRIX);
@@ -65,7 +65,7 @@ void fragment() {
 	float d6 = getDepthVal(DEPTH_TEXTURE, bottomLeftUV_d, INV_PROJECTION_MATRIX);
 	float d7 = getDepthVal(DEPTH_TEXTURE, bottomUV_d, INV_PROJECTION_MATRIX);
 	float d8 = getDepthVal(DEPTH_TEXTURE, bottomRightUV_d, INV_PROJECTION_MATRIX);
-	
+
 	float edgeDepth = 0.0;
 	if (depth_use_laplace) {
 		 edgeDepth = (8.0 * d4 - (d0+d1+d2+d3+d5+d6+d7+d8)) * depth_multiplier;
@@ -75,13 +75,13 @@ void fragment() {
   		float d_sobel_edge_v = (d0 + (2.0*d1) + d2 - (d6 + (2.0*d7) + d8)) / 4.0;
 		edgeDepth = sqrt((d_sobel_edge_h * d_sobel_edge_h) + (d_sobel_edge_v * d_sobel_edge_v)) * depth_multiplier;
 	}
-	
-	
+
+
 	float depthThreshold = depth_threshold * d0;
 	edgeDepth = smoothstep(depthThreshold-depthThreshold/5.0, depthThreshold, edgeDepth);
-	
+
 	float edgeVal = edgeDepth;
-	
+
 	vec4 n0 = texture(SCREEN_TEXTURE, topLeftUV_c);
 	vec4 n1 = texture(SCREEN_TEXTURE, topUV_c);
 	vec4 n2 = texture(SCREEN_TEXTURE, topRightUV_c);
@@ -94,7 +94,7 @@ void fragment() {
 
 
 	float color_edge;
-	
+
 	if (color_use_laplace) {
 		vec4 laplace_edge = (8.0 * n4 - (n0+n1+n2+n3+n5+n6+n7+n8));
 		color_edge = laplace_edge.r;
@@ -111,9 +111,9 @@ void fragment() {
 		color_edge +=  sobel.b;
 		color_edge /= 3.0;
 	}
-	
+
 	edgeVal = max(edgeVal, color_edge);
-	
+
 	if (edgeVal > edge_threshold) {
 		if (use_bg_texture) {
 			ALBEDO = edge_color.rgb * texture(bgTex, SCREEN_UV).rgb;
@@ -122,7 +122,7 @@ void fragment() {
 			ALBEDO = edge_color.rgb;
 			ALPHA = min(max_edge_alpha,edgeVal * edge_alpha_multiplier);
 		}
-		
+
 	}
 	else {
 		if (use_bg_texture) {

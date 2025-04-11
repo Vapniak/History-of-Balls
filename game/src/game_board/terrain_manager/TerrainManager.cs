@@ -1,14 +1,11 @@
 namespace HOB;
 
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
 using Godot;
 using HexGridMap;
 using RaycastSystem;
 
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class TerrainManager : Node3D {
   [Export] private Material TerrainMaterial { get; set; }
   [Export] private Material WaterMaterial { get; set; }

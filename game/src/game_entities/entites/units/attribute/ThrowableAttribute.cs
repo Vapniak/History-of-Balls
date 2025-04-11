@@ -74,7 +74,8 @@ public partial class ThrowableAttribute : UnitAttribute {
     var targetQuat = targetBasis.GetRotationQuaternion().Normalized();
 
     windUpTween.TweenMethod(Callable.From<float>(t => {
-      var newQuat = startQuat.Slerp(targetQuat, EaseOutQuad(t)).Normalized();
+      // FIXME: target quat is not nornalized
+      var newQuat = startQuat.Slerp(targetQuat, t).Normalized();
       Basis = new Basis(newQuat);
     }), 0f, 1f, 0.3f);
 
@@ -97,11 +98,6 @@ public partial class ThrowableAttribute : UnitAttribute {
 
     Visible = false;
   }
-
-  private static float EaseOutQuad(float t) {
-    return 1f - ((1f - t) * (1f - t));
-  }
-
   private void UpdateTrajectory(float time) {
     var newPosition = _startPosition +
                      (_launchVelocity * time) +

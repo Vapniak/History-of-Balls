@@ -6,6 +6,7 @@ using Godot;
 using HexGridMap;
 
 
+[Tool]
 public class GameGrid : HexGrid<GameCell, GameGridLayout> {
   public MapData MapData { get; private set; }
   public GameGrid(GameGridLayout layout) : base(layout) {

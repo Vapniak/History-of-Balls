@@ -91,10 +91,12 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController? owner) {
-    var entity = data.CreateEntity(cell, this, owner);
-    if (entity != null) {
-      AddEntity(entity);
-      return true;
+    if (CanEntityBePlacedOnCell(cell)) {
+      var entity = data.CreateEntity(cell, this, owner);
+      if (entity != null) {
+        AddEntity(entity);
+        return true;
+      }
     }
 
     return false;

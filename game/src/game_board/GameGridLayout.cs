@@ -3,7 +3,7 @@ namespace HOB;
 using Godot;
 using HexGridMap;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class GameGridLayout : HexLayout {
   [ExportGroup("Terrain Settings")]
   [Export(PropertyHint.Range, "0, 1")] public float SolidFactor { get; private set; } = 0.8f;

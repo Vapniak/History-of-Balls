@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://mu5j01k615e8"]
+
+[ext_resource type="Shader" path="res://res/shaders/terrain.gdshader" id="1_rjkbd"]
+
+[sub_resource type="Gradient" id="Gradient_lbrb1"]
+offsets = PackedFloat32Array(0.0797872, 0.664894)
+colors = PackedColorArray(0.28485, 0.28485, 0.28485, 1, 1, 1, 1, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_khc4l"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_adawn"]
+seamless = true
+color_ramp = SubResource("Gradient_lbrb1")
+noise = SubResource("FastNoiseLite_khc4l")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_rjkbd")
+shader_parameter/cloud_scale = 0.01
+shader_parameter/cloud_direction = Vector2(0.5, 0)
+shader_parameter/grid_size = null
+shader_parameter/mouse_world_pos = null
+shader_parameter/show_mouse_highlight = null
+shader_parameter/noise = SubResource("NoiseTexture2D_adawn")
