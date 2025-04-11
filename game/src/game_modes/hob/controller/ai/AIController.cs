@@ -232,14 +232,12 @@ public partial class AIController : Controller, IMatchController {
       desiredDistance = attackRange;
     }
 
-    if (target.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))) {
-      valueScore = 1 * Profile.Expansiveness;
-    }
+    valueScore = CalculateValueScore(target) * Profile.Expansiveness;
 
-    var threatScore = CalculateThreatAvoidance(entity, cell);
+    // var threatScore = CalculateThreatAvoidance(entity, cell);
     distanceScore = 1f / (Mathf.Abs(actualDistance - desiredDistance) + 1);
 
-    return (distanceScore * 0.3f) + attackScore - (threatScore / Profile.Agressiveness) + valueScore;
+    return (distanceScore * 0.3f) + attackScore + valueScore;
   }
 
   private float CalculateThreatAvoidance(Entity entity, GameCell cell) {
@@ -251,6 +249,21 @@ public partial class AIController : Controller, IMatchController {
       }
     }
     return Mathf.Min(threatCount / 5f, 0.5f);
+  }
+
+  private float CalculateValueScore(Entity target) {
+    var tags = target.AbilitySystem.OwnedTags;
+    if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity))) {
+      return 1;
+    }
+    else if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureVillage))) {
+      return 0.5f;
+    }
+    else if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureFactory))) {
+      return 0.75f;
+    }
+
+    return 0f;
   }
 
   private static float CalculateDamageRatio(Entity attacker, AttackAbility.Instance ability, Entity target) {

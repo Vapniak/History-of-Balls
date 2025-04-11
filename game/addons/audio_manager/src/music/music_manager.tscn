@@ -1,0 +1,32 @@
+[gd_scene load_steps=9 format=3 uid="uid://fy1meereswms"]
+
+[ext_resource type="Script" path="res://addons/audio_manager/src/music/MusicManager.cs" id="1_b02ew"]
+[ext_resource type="AudioStream" uid="uid://j4c2av4m6pcl" path="res://assets/audio/music/Średniowiecze.wav" id="2_cnstn"]
+[ext_resource type="Script" path="res://addons/audio_manager/src/music/MusicBank.cs" id="2_k4s6t"]
+[ext_resource type="Script" path="res://addons/audio_manager/src/music/MusicStem.cs" id="3_i5bxs"]
+[ext_resource type="Script" path="res://addons/audio_manager/src/music/MusicTrack.cs" id="4_08d5h"]
+
+[sub_resource type="Resource" id="Resource_b5wm7"]
+script = ExtResource("3_i5bxs")
+Name = ""
+Enabled = true
+Volume = 1.0
+Stream = ExtResource("2_cnstn")
+
+[sub_resource type="Resource" id="Resource_ijvp6"]
+script = ExtResource("4_08d5h")
+Name = "medival"
+Bus = ""
+Stems = [SubResource("Resource_b5wm7")]
+
+[sub_resource type="Resource" id="Resource_xk7tq"]
+script = ExtResource("2_k4s6t")
+Label = "music"
+Bus = "Music"
+Mode = 0
+Tracks = [SubResource("Resource_ijvp6")]
+
+[node name="MusicManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_b02ew")
+MusicBanks = [SubResource("Resource_xk7tq")]

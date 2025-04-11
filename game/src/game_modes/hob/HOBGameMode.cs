@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AudioManager;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
@@ -15,7 +16,6 @@ using HOB.GameEntity;
 public partial class HOBGameMode : GameMode {
   [Export] private MatchEndMenu? MatchEndMenu { get; set; }
   [Export] private PauseMenu? PauseMenu { get; set; }
-  [Export] private AudioStreamPlayer? AudioPlayer { get; set; }
   [Export] private PlayerAttributeSet? PlayerAttributeSet { get; set; }
   [Export] public Array<EntityIcon>? EntityIcons { get; private set; }
 
@@ -115,7 +115,8 @@ public partial class HOBGameMode : GameMode {
   private void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
 
-    AudioPlayer.Play();
+    // TODO: play music
+    MusicManager.Instance.Play("music", "medival", autoLoop: true);
 
     MatchComponent.MatchEvent += CheckWinCondition;
 
