@@ -49,7 +49,7 @@ public partial class StemmedMusicStreamPlayer : Node {
     if (_auto_loop) {
       var longestStem = GetLongestStem();
       if (longestStem != null) {
-        CallDeferred("_ScheduleAutoLoop", longestStem);
+        CallDeferred(nameof(ScheduleAutoLoop), longestStem);
       }
     }
   }
@@ -92,7 +92,7 @@ public partial class StemmedMusicStreamPlayer : Node {
     stem.SetVolume(volume);
   }
 
-  public IEnumerable<StemPlayer> GetStemDetails(string pName) {
+  public IEnumerable<StemPlayer> GetStem(string name) {
     return _stems.Values;
   }
 
@@ -122,8 +122,7 @@ public partial class StemmedMusicStreamPlayer : Node {
       return;
     }
 
-    // Calculate the time to emit the signal (stream length - crossfade time)
-    var crossfadeTime = 5.0f; // Default crossfade time
+    var crossfadeTime = 5.0f;
     var timeToLoop = streamLength - crossfadeTime;
 
     if (timeToLoop <= 0) {
@@ -207,3 +206,4 @@ public partial class StemmedMusicStreamPlayer : Node {
       _tween.TweenProperty(this, "volume_db", pTo, pDuration);
     }
   }
+}

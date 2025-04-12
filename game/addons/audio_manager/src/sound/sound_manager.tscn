@@ -1,0 +1,24 @@
+[gd_scene load_steps=7 format=3 uid="uid://ces4l1qatmnao"]
+
+[ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundManager.cs" id="1_e3bjy"]
+[ext_resource type="AudioStream" uid="uid://7l204iym12rt" path="res://assets/audio/sounds/Move.wav" id="2_drr3q"]
+[ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundEvent.cs" id="2_x5rg2"]
+[ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundBank.cs" id="3_rsmby"]
+
+[sub_resource type="Resource" id="Resource_k1arh"]
+script = ExtResource("2_x5rg2")
+Name = "tick"
+Bus = ""
+Volume = 0.0
+Pitch = 1.0
+Streams = Array[AudioStream]([ExtResource("2_drr3q")])
+
+[sub_resource type="Resource" id="Resource_4r6co"]
+script = ExtResource("3_rsmby")
+Label = "sounds"
+Bus = "Sound"
+Events = Array[Object]([SubResource("Resource_k1arh")])
+
+[node name="SoundManager" type="Node"]
+script = ExtResource("1_e3bjy")
+Banks = Array[Object]([SubResource("Resource_4r6co")])

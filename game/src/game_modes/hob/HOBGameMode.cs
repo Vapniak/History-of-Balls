@@ -192,10 +192,12 @@ public partial class HOBGameMode : GameMode {
       await Task.Delay(500);
       if (playerData.SpawnedEntities != null) {
         foreach (var entitySpawn in playerData.SpawnedEntities) {
+          var pitch = 5f;
           if (entitySpawn?.EntityData != null && entitySpawn.SpawnAt != null) {
             foreach (var coord in entitySpawn.SpawnAt) {
-              await Task.Delay(30);
+              await Task.Delay(50);
               MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(coord.X, coord.Y), controller == null ? null : controller as IMatchController);
+              pitch += 0.1f;
             }
           }
         }

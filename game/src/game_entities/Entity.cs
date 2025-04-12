@@ -1,5 +1,6 @@
 namespace HOB.GameEntity;
 
+using AudioManager;
 using GameplayAbilitySystem;
 using GameplayTags;
 using Godot;

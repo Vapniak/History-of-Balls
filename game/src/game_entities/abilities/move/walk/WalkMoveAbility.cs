@@ -1,5 +1,6 @@
 namespace HOB;
 
+using AudioManager;
 using GameplayAbilitySystem;
 using GameplayTags;
 using Godot;
@@ -44,7 +45,6 @@ public partial class WalkMoveAbility : MoveAbility {
           var startPosition = OwnerEntity.Position;
           var targetPosition = cell.GetRealPosition();
           var tween = OwnerEntity.CreateTween();
-
 
           if (cell == path.First()) {
             tween.TweenProperty(OwnerEntity.Body, "scale",
@@ -96,6 +96,15 @@ public partial class WalkMoveAbility : MoveAbility {
               .SetEase(Tween.EaseType.Out);
 
           _ = OwnerEntity.TurnAt(targetPosition, MOVE_ANIMATION_SPEED);
+
+          await ToSignal(tween, Tween.SignalName.Finished);
+          // landed
+          var pitch = GD.RandRange(5, 6);
+          SoundManager.Instance.PlayVaried("sounds", "tick", pitch);
+
+
+
+          tween = CreateTween();
 
           tween.TweenProperty(OwnerEntity.Body, "scale",
                   new Vector3(originalScale.X * STRETCH_SCALE, originalScale.Y * SQUASH_SCALE / 2f, originalScale.Z * STRETCH_SCALE),

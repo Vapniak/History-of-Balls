@@ -14,7 +14,7 @@ public partial class MusicManager : Node {
   [Export] private Array<MusicBank> MusicBanks { get; set; } = new();
 
 
-  public static MusicManager Instance { get; private set; }
+  public static MusicManager Instance { get; private set; } = default!;
   private Godot.Collections.Dictionary<string, MusicBank> _musicTable = new();
   private int _musicTableHash;
   private readonly List<StemmedMusicStreamPlayer> _musicStreams = new();
