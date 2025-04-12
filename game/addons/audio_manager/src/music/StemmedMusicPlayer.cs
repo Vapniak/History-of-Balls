@@ -15,20 +15,19 @@ public partial class StemmedMusicStreamPlayer : Node {
   public string BankLabel { get; private set; } = "";
   public string TrackName { get; private set; } = "";
 
-  private string _bus = "";
-  private ProcessModeEnum _mode;
-  private float _volume = 1.0f;
-  private bool _auto_loop;
+  private string Bus { get; set; } = default!;
+  private float Volume { get; set; } = 1.0f;
+  private bool AutoLoop { get; set; }
+
   private Godot.Collections.Dictionary<string, StemPlayer> _stems = new();
 
-  public static StemmedMusicStreamPlayer Create(string bankLabel, string trackName, string bus, ProcessModeEnum mode, float volume, bool autoLoop) {
+  public static StemmedMusicStreamPlayer Create(string bankLabel, string trackName, string bus, float volume, bool autoLoop) {
     var player = new StemmedMusicStreamPlayer {
       BankLabel = bankLabel,
       TrackName = trackName,
-      _bus = bus,
-      _mode = mode,
-      _volume = volume,
-      _auto_loop = autoLoop
+      Bus = bus,
+      Volume = volume,
+      AutoLoop = autoLoop
     };
 
     return player;
@@ -39,14 +38,13 @@ public partial class StemmedMusicStreamPlayer : Node {
       var stemPlayer = new StemPlayer(stem);
       AddChild(stemPlayer);
 
-      stemPlayer.Bus = _bus;
-      stemPlayer.VolumeDb = stem.Volume;
+      stemPlayer.Bus = Bus;
       stemPlayer.Play(stem.Enabled ? fadeInTime : 0);
 
       _stems[stem.Name] = stemPlayer;
     }
 
-    if (_auto_loop) {
+    if (AutoLoop) {
       var longestStem = GetLongestStem();
       if (longestStem != null) {
         CallDeferred(nameof(ScheduleAutoLoop), longestStem);
@@ -61,13 +59,11 @@ public partial class StemmedMusicStreamPlayer : Node {
       stem.Stop(fadeOutTime);
     }
 
-    GetTree().CreateTimer(fadeOutTime).Timeout += () => {
-      EmitSignal(SignalName.Stopped);
-    };
+    GetTree().CreateTimer(fadeOutTime).Timeout += () => EmitSignal(SignalName.Stopped);
   }
 
   public void SetVolume(float volume) {
-    _volume = volume;
+    Volume = volume;
 
     foreach (var stem in _stems.Values) {
       stem.SetVolume(volume);
@@ -76,7 +72,7 @@ public partial class StemmedMusicStreamPlayer : Node {
 
   public void ToggleStem(string name, bool enabled, float fadeTime) {
     if (!_stems.TryGetValue(name, out var stem)) {
-      GD.PushWarning($"Resonate - Cannot toggle the stem [{name}] as it doesn't exist.");
+      GD.PushWarning($"Cannot toggle the stem [{name}] as it doesn't exist.");
       return;
     }
 
@@ -85,7 +81,7 @@ public partial class StemmedMusicStreamPlayer : Node {
 
   public void SetStemVolume(string name, float volume) {
     if (!_stems.TryGetValue(name, out var stem)) {
-      GD.PushWarning($"Resonate - Cannot set the volume of stem [{name}] as it doesn't exist.");
+      GD.PushWarning($"Cannot set the volume of stem [{name}] as it doesn't exist.");
       return;
     }
 
@@ -136,74 +132,75 @@ public partial class StemmedMusicStreamPlayer : Node {
       }
     };
   }
+}
 
-  public partial class StemPlayer : AudioStreamPlayer {
-    public string StemName { get; private set; }
-    public bool IsEnabled { get; private set; }
-    public float Volume { get; private set; }
-    public float StreamLength {
-      get {
-        if (Stream == null) {
-          return 0;
-        }
-
-        return (float)Stream.GetLength();
+public partial class StemPlayer : AudioStreamPlayer {
+  public string StemName { get; private set; }
+  public bool IsEnabled { get; private set; }
+  public float Volume { get; private set; }
+  public float StreamLength {
+    get {
+      if (Stream == null) {
+        return 0;
       }
+
+      return (float)Stream.GetLength();
+    }
+  }
+
+  private Tween? _tween;
+
+  public StemPlayer(MusicStem stem) {
+    StemName = stem.Name;
+    IsEnabled = stem.Enabled;
+    Stream = stem.Stream;
+    Volume = stem.Volume;
+    VolumeDb = -80.0f;
+  }
+
+  public new void Play(float fadeInTime) {
+    Play();
+
+    if (IsEnabled && fadeInTime > 0) {
+      CreateVolumeTransition(-80.0f, Volume, fadeInTime);
+    }
+  }
+
+  public void Stop(float fadeOutTime) {
+    if (fadeOutTime > 0) {
+      CreateVolumeTransition(VolumeDb, -80.0f, fadeOutTime);
+      GetTree().CreateTimer(fadeOutTime).Timeout += Stop;
+    }
+    else {
+      Stop();
+    }
+  }
+
+  public void SetEnabled(bool pEnabled, float pFadeTime) {
+    IsEnabled = pEnabled;
+
+    if (pEnabled) {
+      CreateVolumeTransition(VolumeDb, Volume, pFadeTime);
+    }
+    else {
+      CreateVolumeTransition(VolumeDb, -80.0f, pFadeTime);
+    }
+  }
+
+  public void SetVolume(float pVolume) {
+    Volume = pVolume;
+
+    if (IsEnabled) {
+      VolumeDb = Mathf.LinearToDb(pVolume);
+    }
+  }
+
+  private void CreateVolumeTransition(float from, float to, float duration) {
+    if (_tween != null && _tween.IsValid()) {
+      _tween.Kill();
     }
 
-    private Tween? _tween;
-
-    public StemPlayer(MusicStem stem) {
-      StemName = stem.Name;
-      IsEnabled = stem.Enabled;
-      Stream = stem.Stream;
-      VolumeDb = -80.0f;
-    }
-
-    public new void Play(float fadeInTime) {
-      Play();
-
-      if (IsEnabled && fadeInTime > 0) {
-        CreateVolumeTransition(-80.0f, Volume, fadeInTime);
-      }
-    }
-
-    public void Stop(float fadeOutTime) {
-      if (fadeOutTime > 0) {
-        CreateVolumeTransition(VolumeDb, -80.0f, fadeOutTime);
-        GetTree().CreateTimer(fadeOutTime).Timeout += Stop;
-      }
-      else {
-        Stop();
-      }
-    }
-
-    public void SetEnabled(bool pEnabled, float pFadeTime) {
-      IsEnabled = pEnabled;
-
-      if (pEnabled) {
-        CreateVolumeTransition(VolumeDb, Volume, pFadeTime);
-      }
-      else {
-        CreateVolumeTransition(VolumeDb, -80.0f, pFadeTime);
-      }
-    }
-
-    public void SetVolume(float pVolume) {
-      Volume = pVolume;
-
-      if (IsEnabled) {
-        VolumeDb = Mathf.LinearToDb(pVolume);
-      }
-    }
-
-    private void CreateVolumeTransition(float pFrom, float pTo, float pDuration) {
-      if (_tween != null && _tween.IsValid()) {
-        _tween.Kill();
-      }
-
-      _tween = CreateTween();
-      _tween.TweenProperty(this, "volume_db", pTo, pDuration);
-    }
+    _tween = CreateTween();
+    _tween.TweenProperty(this, "volume_db", to, duration);
   }
 }

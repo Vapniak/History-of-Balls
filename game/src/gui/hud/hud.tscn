@@ -22,21 +22,25 @@
 script = ExtResource("4_g1ioo")
 Attribute = ExtResource("2_ujf4x")
 Icon = ExtResource("3_qdosv")
+Color = Color(1, 0.245241, 0.187845, 1)
 
 [sub_resource type="Resource" id="Resource_kuy1d"]
 script = ExtResource("4_g1ioo")
 Attribute = ExtResource("5_foi1l")
 Icon = ExtResource("6_dnwa3")
+Color = Color(0.8, 0.58, 0.272, 1)
 
 [sub_resource type="Resource" id="Resource_p0agh"]
 script = ExtResource("4_g1ioo")
 Attribute = ExtResource("7_dbu2u")
 Icon = ExtResource("8_ygg4n")
+Color = Color(0.910233, 1, 0.846321, 1)
 
 [sub_resource type="Resource" id="Resource_bnmth"]
 script = ExtResource("4_g1ioo")
 Attribute = ExtResource("9_4xxi0")
 Icon = ExtResource("10_d2c4h")
+Color = Color(0.747106, 0.833145, 0.999999, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2qeyv"]
 corner_radius_top_left = 5

@@ -26,6 +26,8 @@ public partial class SoundManager : Node {
     Instance = this;
 
     ProcessMode = ProcessModeEnum.Always;
+
+    GetTree().NodeAdded += OnNodeAdded;
   }
 
   public override void _Ready() {
@@ -185,7 +187,7 @@ public partial class SoundManager : Node {
     return "";
   }
 
-  private PooledAudioStreamPlayerBase? InstanceManual(string pBankLabel, string pEventName, bool pReserved = false, string pBus = "", bool pPoly = false, object pAttachment = null) {
+  private PooledAudioStreamPlayerBase? InstanceManual(string pBankLabel, string pEventName, bool pReserved = false, string pBus = "", bool pPoly = false, object? pAttachment = null) {
     var player = GetPlayer(pAttachment);
 
     if (player == null) {
@@ -286,5 +288,36 @@ public partial class SoundManager : Node {
     }
 
     EmitSignal(SignalName.PoolsUpdated);
+  }
+
+  private void OnNodeAdded(Node node) {
+    if (node is Button button) {
+      ConnectButtonSignals(button);
+    }
+  }
+
+  private void ConnectButtonSignals(Button button) {
+    var weakButton = WeakRef(button);
+
+    void handlePressed() {
+      if (weakButton?.GetRef().As<Node>() is Button validButton) {
+        Play("ui", "click");
+      }
+    }
+
+    // void handleHover() {
+    //   if (weakButton.GetRef().As<Node>() is Button validButton)
+    //     Play("UI", "hover");
+    // }
+
+    button.Pressed += handlePressed;
+    //button.MouseEntered += handleHover;
+
+    button.TreeExiting += () => {
+      if (weakButton?.GetRef().As<Node>() is Button validButton) {
+        validButton.Pressed -= handlePressed;
+        //validButton.MouseEntered -= handleHover;
+      }
+    };
   }
 }

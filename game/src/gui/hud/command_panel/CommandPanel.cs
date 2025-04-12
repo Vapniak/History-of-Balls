@@ -52,7 +52,7 @@ public partial class CommandPanel : Control {
       Icon = ability.AbilityResource.Icon,
       IconAlignment = HorizontalAlignment.Center,
       SizeFlagsHorizontal = SizeFlags.ExpandFill,
-      ExpandIcon = true,
+      // ExpandIcon = true,
       ButtonGroup = _buttonGroup,
       CustomMinimumSize = new(32, 32),
       ThemeTypeVariation = "ActionButton",

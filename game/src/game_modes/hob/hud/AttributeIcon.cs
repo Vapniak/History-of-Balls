@@ -7,4 +7,5 @@ using Godot;
 public partial class AttributeIcon : Resource {
   [Export] public GameplayAttribute Attribute { get; private set; } = new();
   [Export] public Texture2D Icon { get; private set; } = new();
+  [Export] public Color Color { get; private set; }
 }

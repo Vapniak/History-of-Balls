@@ -165,7 +165,7 @@ draw_pass_1 = ExtResource("3_w31k8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 current = true
-fov = 80.0041
+fov = 90.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_4ea2n")

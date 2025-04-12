@@ -23,7 +23,6 @@ Stems = [SubResource("Resource_b5wm7")]
 script = ExtResource("2_k4s6t")
 Label = "music"
 Bus = "Music"
-Mode = 0
 Tracks = [SubResource("Resource_ijvp6")]
 
 [node name="MusicManager" type="Node"]

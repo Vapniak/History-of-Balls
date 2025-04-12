@@ -26,7 +26,7 @@ public partial class SettingsManager : Node {
     GetWindow().Borderless = false;
     DisplayServer.WindowSetVsyncMode(DisplayServer.VSyncMode.Enabled);
     Engine.MaxFps = 0;
-    AudioServer.SetBusVolumeDb(0, 0);
+    //AudioServer.SetBusVolumeDb(0, 0);
 
     CenterWindowOnCurrentMonitor();
     SaveSettings();
@@ -70,7 +70,7 @@ public partial class SettingsManager : Node {
       Engine.MaxFps = fpsLimit;
 
       float volumeDb = (float)_configFile.GetValue("audio", "master_volume_db", 0.0f);
-      AudioServer.SetBusVolumeDb(0, volumeDb);
+      //AudioServer.SetBusVolumeDb(0, volumeDb);
 
       GetWindow().Mode = mode;
 

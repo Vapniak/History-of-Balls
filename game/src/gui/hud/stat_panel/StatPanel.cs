@@ -27,7 +27,7 @@ public partial class StatPanel : Control {
     }
   }
 
-  public void UpdateEntry(string name, string value, Texture2D? icon) {
+  public void UpdateEntry(string name, string value, Texture2D? icon, Color? color) {
     StatPanelEntry entry;
     if (Entries.TryGetValue(name, out entry!)) {
 
@@ -38,7 +38,8 @@ public partial class StatPanel : Control {
     }
 
     entry.SetEntryValue(value);
-    entry.SetIcon(icon);
+    entry.SetIcon(icon, color);
+
 
 
     if (Entries.TryAdd(name, entry)) {

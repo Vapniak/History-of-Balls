@@ -4,10 +4,10 @@ using Godot;
 
 [GlobalClass]
 public partial class MusicStem : Resource {
-  [Export] public string Name { get; set; } = "";
+  [Export] public string Name { get; set; } = default!;
   [Export] public bool Enabled { get; set; } = true;
   [Export(PropertyHint.Range, "0,1")] public float Volume { get; set; } = 1;
-  [Export] public AudioStream Stream { get; set; } = new();
+  [Export] public AudioStream Stream { get; set; } = default!;
 
   public MusicStem(string name, bool enabled, float volume, AudioStream audioStream) {
     Name = name;

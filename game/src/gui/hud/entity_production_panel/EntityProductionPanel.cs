@@ -54,6 +54,7 @@ public partial class EntityProductionPanel : Control {
         Text = text,
         Icon = GameInstance.GetGameMode<HOBGameMode>().GetIconFor(config.Entity),
         ExpandIcon = false,
+        Flat = true,
         ButtonGroup = _buttonGroup,
       };
 

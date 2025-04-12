@@ -213,7 +213,7 @@ public partial class SettingsMenu : Control {
 
     int busCount = AudioServer.GetBusCount();
     for (int i = 0; i < busCount; i++) {
-      AudioServer.SetBusVolumeDb(i, volumeDb);
+      //AudioServer.SetBusVolumeDb(i, volumeDb);
     }
 
     _VolumeLimitLabel.Text = $"Volume: {(int)value}%";

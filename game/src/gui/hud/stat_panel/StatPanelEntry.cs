@@ -14,8 +14,9 @@ public partial class StatPanelEntry : Control {
     ResetSize();
   }
 
-  public void SetIcon(Texture2D? icon) {
+  public void SetIcon(Texture2D? icon, Color? color = null) {
     IconTexture.Texture = icon;
+    IconTexture.SelfModulate = color.GetValueOrDefault(Colors.White);
   }
 
   public void SetEntryValue(string value) {

@@ -40,3 +40,4 @@ size_flags_vertical = 3
 layout_mode = 2
 text = "UNIT 1dasdasdadsadada"
 icon = ExtResource("2_4cm7d")
+flat = true

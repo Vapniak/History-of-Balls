@@ -6,7 +6,7 @@ using Godot.Collections;
 
 [GlobalClass]
 public partial class MusicTrack : Resource {
-  [Export] public string Name { get; set; } = "";
-  [Export] public string Bus { get; set; } = "";
-  [Export] public Array<MusicStem> Stems { get; set; } = new();
+  [Export] public string Name { get; set; } = default!;
+  [Export] public string Bus { get; set; } = default!;
+  [Export] public Array<MusicStem> Stems { get; set; } = default!;
 }

@@ -220,15 +220,17 @@ public partial class HOBHUD : HUD {
     if (CurrentEntity.AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var set) && (attribute == set.HealthAttribute || attribute == set.MaxHealthAttribute)) {
       var healthValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.HealthAttribute).GetValueOrDefault();
       var maxHealthValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.MaxHealthAttribute).GetValueOrDefault();
-      StatPanel.UpdateEntry(set.HealthAttribute.AttributeName, $"{healthValue}/{maxHealthValue}", GetIconForAttribute(set.HealthAttribute));
+      var icon = GetIconForAttribute(set.HealthAttribute);
+      StatPanel.UpdateEntry(set.HealthAttribute.AttributeName, $"{healthValue}/{maxHealthValue}", icon?.Icon, icon?.Color);
     }
     else {
       var currentValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
-      StatPanel.UpdateEntry(attribute.AttributeName, currentValue.ToString(), GetIconForAttribute(attribute));
+      var icon = GetIconForAttribute(attribute);
+      StatPanel.UpdateEntry(attribute.AttributeName, currentValue.ToString(), icon?.Icon, icon?.Color);
     }
   }
 
-  private Texture2D? GetIconForAttribute(GameplayAttribute attribute) {
-    return AttributeIcons.FirstOrDefault(a => a.Attribute == attribute)?.Icon;
+  private AttributeIcon? GetIconForAttribute(GameplayAttribute attribute) {
+    return AttributeIcons.FirstOrDefault(a => a.Attribute == attribute);
   }
 }

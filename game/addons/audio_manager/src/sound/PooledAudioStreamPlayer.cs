@@ -26,7 +26,6 @@ public partial class PooledAudioStreamPlayer : PooledAudioStreamPlayerBase {
 
   public override void Trigger() {
     if (_streams == null || _streams.Count == 0) {
-      GD.Print("null");
       return;
     }
 
@@ -34,7 +33,6 @@ public partial class PooledAudioStreamPlayer : PooledAudioStreamPlayerBase {
       Stop();
     }
 
-    GD.Print("trigerr");
     _player.Stream = GetStream();
     _player.Play();
     Playing = true;

@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ces4l1qatmnao"]
+[gd_scene load_steps=10 format=3 uid="uid://ces4l1qatmnao"]
 
 [ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundManager.cs" id="1_e3bjy"]
 [ext_resource type="AudioStream" uid="uid://7l204iym12rt" path="res://assets/audio/sounds/Move.wav" id="2_drr3q"]
 [ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundEvent.cs" id="2_x5rg2"]
 [ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundBank.cs" id="3_rsmby"]
+[ext_resource type="AudioStream" uid="uid://bjlb1r1n60xc8" path="res://assets/audio/sounds/przyciski.wav" id="5_wu4nb"]
 
 [sub_resource type="Resource" id="Resource_k1arh"]
 script = ExtResource("2_x5rg2")
@@ -19,6 +20,20 @@ Label = "sounds"
 Bus = "Sound"
 Events = Array[Object]([SubResource("Resource_k1arh")])
 
+[sub_resource type="Resource" id="Resource_aypc5"]
+script = ExtResource("2_x5rg2")
+Name = "click"
+Bus = ""
+Volume = -5.0
+Pitch = 3.0
+Streams = Array[AudioStream]([ExtResource("5_wu4nb")])
+
+[sub_resource type="Resource" id="Resource_4ihg7"]
+script = ExtResource("3_rsmby")
+Label = "ui"
+Bus = "Sound"
+Events = Array[Object]([SubResource("Resource_aypc5")])
+
 [node name="SoundManager" type="Node"]
 script = ExtResource("1_e3bjy")
-Banks = Array[Object]([SubResource("Resource_4r6co")])
+Banks = Array[Object]([SubResource("Resource_4r6co"), SubResource("Resource_4ihg7")])

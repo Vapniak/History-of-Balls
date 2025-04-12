@@ -64,7 +64,7 @@ public partial class MusicManager : Node {
     }
 
     var bus = GetBus(bank.Bus, track.Bus);
-    var player = StemmedMusicStreamPlayer.Create(bankLabel, trackName, bus, bank.Mode, _volume, autoLoop);
+    var player = StemmedMusicStreamPlayer.Create(bankLabel, trackName, bus, _volume, autoLoop);
 
     if (_musicStreams.Count > 0) {
       foreach (var stream in _musicStreams) {

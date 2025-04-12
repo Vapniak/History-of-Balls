@@ -124,15 +124,13 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
     UpdateCamera((float)delta);
     GlobalTranslate(GlobalTransform.Basis * -Velocity * (float)delta);
-    SpeedMulti = 1f;
 
     var speed = (CameraParent.GlobalPosition - prevPos).Length() / (float)delta;
     var targetVol = Mathf.Clamp(Mathf.Remap(speed, 0, MoveSpeed, WindMinVolume, WindMaxVolume),
     WindMinVolume, WindMaxVolume);
-
-
-
     WindPlayer.VolumeDb = (float)Mathf.Lerp(WindPlayer.VolumeDb, targetVol, delta * 5);
+
+    SpeedMulti = 1f;
   }
 
   public void ApplySpeedMulti() {
