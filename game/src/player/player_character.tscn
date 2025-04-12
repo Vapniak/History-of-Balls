@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=3 uid="uid://bxvvk6td13ake"]
+[gd_scene load_steps=24 format=3 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
 [ext_resource type="Shader" path="res://res/shaders/post_process_outline.gdshader" id="2_bqmck"]
 [ext_resource type="RibbonTrailMesh" uid="uid://w2xv54d0lfdp" path="res://res/meshes/wind_ribbon.tres" id="3_w31k8"]
+[ext_resource type="AudioStream" uid="uid://drht6ndnghb6r" path="res://assets/audio/sounds/wiatr.mp3" id="4_4ea2n"]
 
 [sub_resource type="Curve" id="Curve_t3eex"]
 _data = [Vector2(0.183333, 0.424051), 0.0, -0.682045, 0, 1, Vector2(0.364286, 0.300633), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.10013, 0.0, 1, 0]
@@ -120,7 +121,7 @@ turbulence_influence_min = 0.04
 turbulence_influence_max = 0.161
 turbulence_influence_over_life = SubResource("CurveTexture_tnoyy")
 
-[node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera", "CameraParent")]
+[node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera", "CameraParent", "WindPlayer")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_ggdef")
 Camera = NodePath("Camera3D")
@@ -130,6 +131,9 @@ _acceleration = 15.0
 _moveSpeedMinZoom = 60.0
 _moveSpeedMaxZoom = 20.0
 _stopSpeed = 1.0
+WindPlayer = NodePath("AudioStreamPlayer")
+WindMinVolume = -20.0
+WindMaxVolume = 10.0
 _targetZoom = 0.5
 _zoomLerpSpeed = 3.0
 _minZoomOffset = Vector3(0, 50, 30)
@@ -160,6 +164,11 @@ process_material = SubResource("ParticleProcessMaterial_fst37")
 draw_pass_1 = ExtResource("3_w31k8")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
 current = true
 fov = 80.0041
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4ea2n")
+volume_db = -5.0
+autoplay = true
+bus = &"Sound"

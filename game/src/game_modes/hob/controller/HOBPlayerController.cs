@@ -105,7 +105,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public override HOBHUD GetHUD() => base.GetHUD() as HOBHUD;
 
   public override void _Process(double delta) {
-    Character.Move(delta);
+    Character.Update(delta);
 
     Character.ClampPosition(GameBoard.GetAabb());
   }

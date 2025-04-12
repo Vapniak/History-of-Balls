@@ -99,7 +99,7 @@ public partial class WalkMoveAbility : MoveAbility {
 
           await ToSignal(tween, Tween.SignalName.Finished);
           // landed
-          var pitch = GD.RandRange(5, 6);
+          var pitch = GD.RandRange(3, 4);
           SoundManager.Instance.PlayVaried("sounds", "tick", pitch);
 
 

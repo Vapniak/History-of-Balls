@@ -4,13 +4,18 @@ using GameplayFramework;
 using Godot;
 
 public partial class PlayerCharacter : Node3D, IPlayerControllable {
-  [Export] public Camera3D Camera { get; private set; }
-  [Export] public Node3D CameraParent { get; private set; }
+  [Export] public Camera3D Camera { get; private set; } = default!;
+  [Export] public Node3D CameraParent { get; private set; } = default!;
   [Export] public int EdgeMarginPixels { get; private set; } = 50;
   [Export] private float _acceleration = 10f;
   [Export] private float _moveSpeedMinZoom = 400f, _moveSpeedMaxZoom = 100f;
   [Export] private float _friction = 10f;
   [Export] private float _stopSpeed = 5f;
+
+  [ExportGroup("Audio")]
+  [Export] private AudioStreamPlayer WindPlayer { get; set; } = default!;
+  [Export] private float WindMinVolume { get; set; }
+  [Export] private float WindMaxVolume { get; set; }
 
   [ExportGroup("Zoom")]
   [Export(PropertyHint.Range, "0,1")] private float _targetZoom = 1f;
@@ -38,10 +43,6 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   private bool _isMovingToPosition;
   private Tween _moveTween;
-
-  public override void _Process(double delta) {
-    UpdateCamera((float)delta);
-  }
 
   public void AdjustZoom(float zoomDelta) {
     zoomDelta = Mathf.Clamp(zoomDelta, -1, 1);
@@ -118,9 +119,20 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     GlobalPosition = new(pos.X, GlobalPosition.Y, pos.Z);
   }
 
-  public void Move(double delta) {
+  public void Update(double delta) {
+    var prevPos = CameraParent.GlobalPosition;
+
+    UpdateCamera((float)delta);
     GlobalTranslate(GlobalTransform.Basis * -Velocity * (float)delta);
     SpeedMulti = 1f;
+
+    var speed = (CameraParent.GlobalPosition - prevPos).Length() / (float)delta;
+    var targetVol = Mathf.Clamp(Mathf.Remap(speed, 0, MoveSpeed, WindMinVolume, WindMaxVolume),
+    WindMinVolume, WindMaxVolume);
+
+
+
+    WindPlayer.VolumeDb = (float)Mathf.Lerp(WindPlayer.VolumeDb, targetVol, delta * 5);
   }
 
   public void ApplySpeedMulti() {
