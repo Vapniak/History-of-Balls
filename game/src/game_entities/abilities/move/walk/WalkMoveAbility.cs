@@ -6,6 +6,7 @@ using GameplayTags;
 using Godot;
 using System;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -100,6 +101,9 @@ public partial class WalkMoveAbility : MoveAbility {
           await ToSignal(tween, Tween.SignalName.Finished);
           // landed
           var pitch = GD.RandRange(3, 4);
+
+          ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueMoveDust), new() { Position = cell.GetRealPosition() });
+
           SoundManager.Instance.PlayVaried("sounds", "tick", pitch);
 
 

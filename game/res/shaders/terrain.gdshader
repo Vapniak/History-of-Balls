@@ -2,6 +2,8 @@ shader_type spatial;
 
 #include "include/hex_utils.gdshaderinc"
 
+
+uniform sampler2D hex_texture: repeat_enable;
 uniform sampler2D highlight_data_texture : source_color, repeat_disable;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
 
@@ -35,6 +37,13 @@ void fragment() {
 	if(terrain_color.a > 0.){
 		ALBEDO = terrain_color.rgb;
 		ALBEDO *= dot(texture(noise, (world_pos.xz + -cloud_direction * TIME) * cloud_scale).rgb, vec3(0.299, 0.587, 0.114));
+
+
+		vec2 scaled_uv = UV / 2.;
+		vec2 uv_int = floor(scaled_uv);
+		vec2 uv_fract = fract(scaled_uv);
+		vec2 mirrored_uv = mix(uv_fract, 1.0 - uv_fract, mod(uv_int, 2.0));
+		ALBEDO -= texture(hex_texture, mirrored_uv).rgb / 40.0;
 	}
 	else {
 		ALBEDO = vec3(0, 0, 0);

@@ -19,18 +19,6 @@ public partial class ThrowAttackAbility : AttackAbility {
     public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
     }
 
-    public override void _EnterTree() {
-      base._EnterTree();
-
-      OwnerAbilitySystem.OwnedTags.TagRemoved += OnTagRemoved;
-    }
-    public override void _ExitTree() {
-      base._ExitTree();
-
-      if (IsInstanceValid(OwnerAbilitySystem) && IsInstanceValid(OwnerAbilitySystem.OwnedTags)) {
-        OwnerAbilitySystem.OwnedTags.TagRemoved -= OnTagRemoved;
-      }
-    }
 
     public override void ActivateAbility(GameplayEventData? eventData) {
       base.ActivateAbility(eventData);
@@ -38,6 +26,7 @@ public partial class ThrowAttackAbility : AttackAbility {
       if (eventData?.TargetData is AttackTargetData attackTargetData && CommitCooldown()) {
         var effect = (AbilityResource as AttackAbility)?.BlockMovementEffect;
         if (effect != null) {
+          OwnerAbilitySystem.OwnedTags.TagRemoved += OnTagRemoved;
           var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
           OwnerAbilitySystem.ApplyGameplayEffectToSelf(ge);
         }
@@ -47,6 +36,12 @@ public partial class ThrowAttackAbility : AttackAbility {
       }
 
       EndAbility(true);
+    }
+
+    public override void EndAbility(bool wasCanceled = false) {
+      base.EndAbility(wasCanceled);
+
+      OwnerAbilitySystem.OwnedTags.TagRemoved -= OnTagRemoved;
     }
 
 

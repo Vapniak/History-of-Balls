@@ -5,7 +5,7 @@ using Godot;
 
 [GlobalClass]
 public partial class ThrowableAttribute : UnitAttribute {
-  [Export] private Vector3 _gravity = new(0, -9.8f, 0);
+  private Vector3 _gravity = new(0, -20f, 0);
 
   [ExportGroup("Throw")]
   [Export] private bool OrientTowardVelocity { get; set; } = true;
@@ -16,11 +16,11 @@ public partial class ThrowableAttribute : UnitAttribute {
   private Vector3 _startPosition;
   private Vector3 _initialOffset;
   private Quaternion _targetRotation;
-  private Basis _initialBasis;
+  private Quaternion _initialRotation;
 
   public override void _Ready() {
     _initialOffset = Position;
-    _initialBasis = Basis;
+    _initialRotation = Quaternion;
   }
 
   public override async Task DoAction(Vector3 toPosition) {
@@ -47,9 +47,7 @@ public partial class ThrowableAttribute : UnitAttribute {
     TopLevel = false;
 
     Position = _initialOffset;
-    Basis = _initialBasis;
-
-    Visible = true;
+    Quaternion = _initialRotation;
 
     var tween = CreateTween();
     tween.TweenProperty(this, "scale", Vector3.One, 0.1f);
@@ -95,8 +93,6 @@ public partial class ThrowableAttribute : UnitAttribute {
     var tween = CreateTween();
     tween.TweenProperty(this, "scale", Vector3.Zero, .1f);
     await ToSignal(tween, Tween.SignalName.Finished);
-
-    Visible = false;
   }
   private void UpdateTrajectory(float time) {
     var newPosition = _startPosition +

@@ -81,9 +81,7 @@ public partial class HOBHUD : HUD {
 
 
     CommandPanel.CommandSelected += (command) => EmitSignal(SignalName.CommandSelected, command);
-  }
 
-  public void OnGameStarted() {
     var playerState = GetPlayerController().GetPlayerState<HOBPlayerState>();
 
 

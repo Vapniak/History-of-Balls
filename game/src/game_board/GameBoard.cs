@@ -13,15 +13,13 @@ public partial class GameBoard : Node3D {
 
   [Export]
   private MapData MapData {
-    get {
-      return _mapData;
-    }
+    get => _mapData;
     set {
       Init(value);
       _mapData = value;
     }
   }
-  private MapData _mapData;
+  private MapData _mapData = default!;
   public GameGrid? Grid { get; private set; }
 
   public void Init(MapData mapData) {

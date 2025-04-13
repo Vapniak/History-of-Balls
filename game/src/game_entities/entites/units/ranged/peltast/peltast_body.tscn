@@ -52,7 +52,6 @@ shader_parameter/uv_offset = Vector2(0, 0)
 size = Vector3(0.115, 0.2, 1.115)
 
 [node name="PeltastBody" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.444152)
 script = ExtResource("1_dm6nx")
 UnitAttribute = NodePath("FollowParent3D/UnitAttribute")
 
@@ -73,7 +72,6 @@ libraries = {
 material = SubResource("ShaderMaterial_u7g83")
 
 [node name="FollowParent3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.444152)
 top_level = true
 script = ExtResource("8_ut4yb")
 

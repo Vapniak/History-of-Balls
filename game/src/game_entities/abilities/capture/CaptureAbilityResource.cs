@@ -66,10 +66,11 @@ public partial class CaptureAbilityResource : HOBAbilityResource {
             capturedEntity.Die();
             await ToSignal(capturedEntity, SignalName.TreeExited);
             var entityManagment = newOwner.GetGameMode().GetEntityManagment();
-            entityManagment.TryAddEntityOnCell(newEntityData, capturedEntity.Cell, newOwner);
-            Task.Complete();
-            EndAbility();
-            return;
+            if (entityManagment.TryAddEntityOnCell(newEntityData, capturedEntity.Cell, newOwner)) {
+              Task.Complete();
+              EndAbility();
+              return;
+            }
           }
         }
       };

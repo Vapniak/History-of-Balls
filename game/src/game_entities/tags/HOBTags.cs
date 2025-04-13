@@ -41,4 +41,5 @@ public enum HOBTags {
   [GameplayTag("Event.Game.Ended")] EventGameEnded,
 
   [GameplayTag("GameplayCue")] GameplayCue,
+  [GameplayTag("GameplayCue.Move.Dust")] GameplayCueMoveDust,
 }

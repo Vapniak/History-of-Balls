@@ -167,6 +167,19 @@ public partial class GameplayAbilitySystem : Node {
     return GameplayEffectInstance.CreateNew(gameplayEffect, this, target ?? this, level);
   }
 
+  public void ExecuteGameplayCue(Tag cueTag, GameplayCueParameters parameters) {
+    GameplayCueManager.Instance.HandleGameplayCue(cueTag, GameplayCueEventType.Executed, parameters);
+  }
+
+  public void AddGameplayCue(Tag cueTag, GameplayCueParameters parameters) {
+    GameplayCueManager.Instance.HandleGameplayCue(cueTag, GameplayCueEventType.OnActive, parameters);
+  }
+
+  public void RemoveGameplayCue(Tag cueTag, GameplayCueParameters parameters) {
+    GameplayCueManager.Instance.HandleGameplayCue(cueTag, GameplayCueEventType.Removed, parameters);
+  }
+
+
   private void ApplyInstantGameplayEffect(GameplayEffectInstance geInstance) {
     var aggregators = geInstance.GetAggregators();
     while (aggregators.MoveNext()) {

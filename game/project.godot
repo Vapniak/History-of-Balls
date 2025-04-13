@@ -37,10 +37,10 @@ RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
 GameInstance="*res://src/game_instance.tscn"
 SettingsManager="*res://src/gui/settings_menu/SettingsManager.cs"
 GameplayCueManager="*res://addons/gameplay_ability_system/src/cues/gameplay_cue_manager.tscn"
-Panku="*res://addons/panku_console/console.tscn"
 MusicManager="*res://addons/audio_manager/src/music/music_manager.tscn"
 SoundManager="*res://addons/audio_manager/src/sound/sound_manager.tscn"
 TooltipManager="*res://addons/tooltip/src/tooltip_manager.tscn"
+Panku="*res://addons/panku_console/console.tscn"
 
 [debug_draw_3d]
 

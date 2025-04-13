@@ -1,0 +1,66 @@
+[gd_scene load_steps=12 format=3 uid="uid://drjbyoa0thbpx"]
+
+[ext_resource type="Script" path="res://src/gameplay_cues/move/dust/GCMoveDust.cs" id="1_5vfc3"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_8imxa"]
+[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="3_glca2"]
+
+[sub_resource type="Resource" id="Resource_yb4vc"]
+script = ExtResource("2_8imxa")
+FullName = "GameplayCue.Move.Dust"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xlhre"]
+render_priority = 0
+shader = ExtResource("3_glca2")
+shader_parameter/color = Color(0.77, 0.77, 0.77, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="Curve" id="Curve_o6qa8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.515665), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_eg3f6"]
+curve = SubResource("Curve_o6qa8")
+
+[sub_resource type="Curve" id="Curve_p58bu"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_51oeq"]
+curve = SubResource("Curve_p58bu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_63ym4"]
+emission_shape_scale = Vector3(0.5, 1, 0.5)
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 1.2
+emission_ring_inner_radius = 1.0
+radial_velocity_min = 0.999978
+radial_velocity_max = 5.99998
+radial_velocity_curve = SubResource("CurveTexture_eg3f6")
+gravity = Vector3(0, 5, 0)
+scale_min = 0.5
+scale_max = 1.2
+scale_curve = SubResource("CurveTexture_51oeq")
+
+[sub_resource type="SphereMesh" id="SphereMesh_tlyg2"]
+radius = 0.2
+height = 0.4
+
+[node name="GCMoveDust" type="Node" node_paths=PackedStringArray("Particles")]
+script = ExtResource("1_5vfc3")
+Particles = NodePath("GPUParticles3D")
+CueTag = SubResource("Resource_yb4vc")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("ShaderMaterial_xlhre")
+emitting = false
+amount = 32
+lifetime = 0.25
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_63ym4")
+draw_pass_1 = SubResource("SphereMesh_tlyg2")

@@ -30,8 +30,8 @@ public partial class HOBGameMode : GameMode {
 
   private StateChart? StateChart { get; set; }
 
-  [Export] private MatchComponent? MatchComponent { get; set; }
-  [Export] private HOBPlayerManagmentComponent? PlayerManagmentComponent { get; set; }
+  [Export] private MatchComponent MatchComponent { get; set; } = default!;
+  [Export] private HOBPlayerManagmentComponent PlayerManagmentComponent { get; set; } = default!;
 
   private GameBoard GameBoard => GetGameState().GameBoard;
 
@@ -115,7 +115,6 @@ public partial class HOBGameMode : GameMode {
   private void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
 
-    // TODO: play music
     MusicManager.Instance.Play("music", "medival", autoLoop: true);
 
     MatchComponent.MatchEvent += CheckWinCondition;
@@ -168,7 +167,9 @@ public partial class HOBGameMode : GameMode {
           return;
         }
 
-        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities, playerData.Entities);
+        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities, playerData.Entities) {
+          Country = playerData.Country
+        };
 
         if (playerData.PlayerType == PlayerType.Player) {
           controller = PlayerControllerScene.Instantiate<Controller>();
@@ -186,7 +187,6 @@ public partial class HOBGameMode : GameMode {
           PlayerManagmentComponent.SpawnPlayer(new(controller, state, "AI"));
         }
 
-        state.Country = playerData.Country;
       }
 
       await Task.Delay(500);

@@ -1,6 +1,7 @@
 namespace GameplayAbilitySystem;
 
 using System;
+using GameplayTags;
 using Godot;
 
 public abstract partial class GameplayAbilityInstance : Node {
@@ -124,6 +125,18 @@ public abstract partial class GameplayAbilityInstance : Node {
 
   protected virtual float GetCost(GameplayAttribute attribute) {
     return 0;
+  }
+
+  protected void ExecuteGameplayCue(Tag cueTag, GameplayCueParameters parameters) {
+    OwnerAbilitySystem.ExecuteGameplayCue(cueTag, parameters);
+  }
+
+  protected void AddGameplayCue(Tag cueTag, GameplayCueParameters parameters) {
+    OwnerAbilitySystem.AddGameplayCue(cueTag, parameters);
+  }
+
+  protected void RemoveGameplayCue(Tag cueTag, GameplayCueParameters parameters) {
+    OwnerAbilitySystem.RemoveGameplayCue(cueTag, parameters);
   }
 
   private bool CheckTags() {
