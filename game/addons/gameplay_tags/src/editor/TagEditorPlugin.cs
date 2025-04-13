@@ -1,3 +1,5 @@
+#if TOOLS
+
 namespace GameplayTags;
 
 using Godot;
@@ -16,3 +18,5 @@ public partial class TagEditorPlugin : EditorInspectorPlugin {
     return false;
   }
 }
+
+#endif

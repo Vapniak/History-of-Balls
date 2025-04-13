@@ -196,6 +196,11 @@ public partial class StemPlayer : AudioStreamPlayer {
   }
 
   private void CreateVolumeTransition(float from, float to, float duration) {
+    if (duration <= 0) {
+      VolumeDb = to;
+      return;
+    }
+
     if (_tween != null && _tween.IsValid()) {
       _tween.Kill();
     }

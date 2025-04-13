@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://drjbyoa0thbpx"]
 
-[ext_resource type="Script" path="res://src/gameplay_cues/move/dust/GCMoveDust.cs" id="1_5vfc3"]
+[ext_resource type="Script" path="res://src/gameplay_cues/GCParticle.cs" id="1_5vfc3"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_8imxa"]
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="3_glca2"]
 

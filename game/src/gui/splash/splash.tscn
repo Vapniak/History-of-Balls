@@ -5,7 +5,7 @@
 [ext_resource type="VideoStream" path="res://assets/videos/HoB-second.ogv" id="3_cf6hb"]
 [ext_resource type="AudioStream" uid="uid://bbbe7wyprdlly" path="res://assets/audio/sounds/HoB-ident.wav" id="3_nc0yi"]
 
-[node name="Splash" type="Control" node_paths=PackedStringArray("_videoStreamPlayer", "_audioStreamPlayer")]
+[node name="Splash" type="Control" node_paths=PackedStringArray("_videoStreamPlayer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,7 +15,6 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_pj6um")
 _videoStreamPlayer = NodePath("VideoStreamPlayer")
-_audioStreamPlayer = NodePath("AudioStreamPlayer")
 _firstVideo = ExtResource("2_5oo5l")
 _secondVideo = ExtResource("3_cf6hb")
 
@@ -27,7 +26,7 @@ anchor_bottom = 1.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-audio_track = 1
+audio_track = 3
 stream = ExtResource("2_5oo5l")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

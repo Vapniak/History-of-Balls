@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://fy1meereswms"]
+[gd_scene load_steps=18 format=3 uid="uid://fy1meereswms"]
 
 [ext_resource type="Script" path="res://addons/audio_manager/src/music/MusicManager.cs" id="1_b02ew"]
 [ext_resource type="AudioStream" uid="uid://j4c2av4m6pcl" path="res://assets/audio/music/Średniowiecze.wav" id="2_cnstn"]
 [ext_resource type="Script" path="res://addons/audio_manager/src/music/MusicBank.cs" id="2_k4s6t"]
 [ext_resource type="Script" path="res://addons/audio_manager/src/music/MusicStem.cs" id="3_i5bxs"]
 [ext_resource type="Script" path="res://addons/audio_manager/src/music/MusicTrack.cs" id="4_08d5h"]
+[ext_resource type="AudioStream" uid="uid://bfc7aoe46tflt" path="res://assets/audio/music/intro.wav" id="5_ijvy1"]
+[ext_resource type="AudioStream" uid="uid://bbbe7wyprdlly" path="res://assets/audio/sounds/HoB-ident.wav" id="5_ki521"]
+[ext_resource type="AudioStream" uid="uid://cgx5vouia0i38" path="res://assets/audio/music/Menu loop.wav" id="6_bgai0"]
 
 [sub_resource type="Resource" id="Resource_b5wm7"]
 script = ExtResource("3_i5bxs")
@@ -19,11 +22,50 @@ Name = "medival"
 Bus = ""
 Stems = [SubResource("Resource_b5wm7")]
 
+[sub_resource type="Resource" id="Resource_nly5a"]
+script = ExtResource("3_i5bxs")
+Name = ""
+Enabled = true
+Volume = 1.0
+Stream = ExtResource("5_ijvy1")
+
+[sub_resource type="Resource" id="Resource_w5rqm"]
+script = ExtResource("4_08d5h")
+Name = "intro"
+Bus = ""
+Stems = Array[Object]([SubResource("Resource_nly5a")])
+
+[sub_resource type="Resource" id="Resource_3ccad"]
+script = ExtResource("3_i5bxs")
+Name = ""
+Enabled = true
+Volume = 1.0
+Stream = ExtResource("5_ki521")
+
+[sub_resource type="Resource" id="Resource_5ryb6"]
+script = ExtResource("4_08d5h")
+Name = "splash"
+Bus = ""
+Stems = Array[Object]([SubResource("Resource_3ccad")])
+
+[sub_resource type="Resource" id="Resource_44ub6"]
+script = ExtResource("3_i5bxs")
+Name = ""
+Enabled = true
+Volume = 1.0
+Stream = ExtResource("6_bgai0")
+
+[sub_resource type="Resource" id="Resource_l0w3e"]
+script = ExtResource("4_08d5h")
+Name = "main_menu"
+Bus = ""
+Stems = Array[Object]([SubResource("Resource_44ub6")])
+
 [sub_resource type="Resource" id="Resource_xk7tq"]
 script = ExtResource("2_k4s6t")
 Label = "music"
 Bus = "Music"
-Tracks = [SubResource("Resource_ijvp6")]
+Tracks = [SubResource("Resource_ijvp6"), SubResource("Resource_w5rqm"), SubResource("Resource_5ryb6"), SubResource("Resource_l0w3e")]
 
 [node name="MusicManager" type="Node"]
 process_mode = 3

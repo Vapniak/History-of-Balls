@@ -44,6 +44,8 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   private bool _isMovingToPosition;
   private Tween _moveTween;
 
+  private Vector3 _prevPosition;
+
   public void AdjustZoom(float zoomDelta) {
     zoomDelta = Mathf.Clamp(zoomDelta, -1, 1);
     _targetZoom = Mathf.Clamp(_targetZoom + (zoomDelta * _zoomSpeed), 0, 1);
@@ -120,17 +122,16 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   }
 
   public void Update(double delta) {
-    var prevPos = CameraParent.GlobalPosition;
-
     UpdateCamera((float)delta);
     GlobalTranslate(GlobalTransform.Basis * -Velocity * (float)delta);
 
-    var speed = (CameraParent.GlobalPosition - prevPos).Length() / (float)delta;
+    var speed = (CameraParent.GlobalPosition - _prevPosition).Length() / (float)delta;
     var targetVol = Mathf.Clamp(Mathf.Remap(speed, 0, MoveSpeed, WindMinVolume, WindMaxVolume),
     WindMinVolume, WindMaxVolume);
-    WindPlayer.VolumeDb = (float)Mathf.Lerp(WindPlayer.VolumeDb, targetVol, delta * 5);
+    WindPlayer.VolumeDb = (float)Mathf.Lerp(WindPlayer.VolumeDb, targetVol, delta * _zoomLerpSpeed);
 
     SpeedMulti = 1f;
+    _prevPosition = CameraParent.GlobalPosition;
   }
 
   public void ApplySpeedMulti() {

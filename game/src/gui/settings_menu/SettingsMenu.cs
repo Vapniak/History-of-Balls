@@ -211,10 +211,7 @@ public partial class SettingsMenu : Control {
     float normalized = Math.Max(value / 100f, 0.0001f);
     float volumeDb = (float)Math.Log10(normalized) * 20f;
 
-    int busCount = AudioServer.GetBusCount();
-    for (int i = 0; i < busCount; i++) {
-      //AudioServer.SetBusVolumeDb(i, volumeDb);
-    }
+    AudioServer.SetBusVolumeDb(0, volumeDb);
 
     _VolumeLimitLabel.Text = $"Volume: {(int)value}%";
     SettingsManager.SaveSettings();

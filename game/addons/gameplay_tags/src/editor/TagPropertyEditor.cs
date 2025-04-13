@@ -1,3 +1,4 @@
+#if TOOLS
 namespace GameplayTags;
 
 using System.Collections.Generic;
@@ -108,3 +109,4 @@ public partial class TagPropertyEditor : EditorProperty {
     }
   }
 }
+#endif

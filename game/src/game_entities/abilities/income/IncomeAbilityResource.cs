@@ -2,6 +2,7 @@ namespace HOB;
 
 using GameplayAbilitySystem;
 using GameplayFramework;
+using GameplayTags;
 using Godot;
 
 [GlobalClass]
@@ -27,6 +28,7 @@ public partial class IncomeAbilityResource : HOBAbilityResource {
 
           var tween = CreateTween();
 
+          ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueSparkles), new() { Position = OwnerEntity.Cell.GetRealPosition() });
           tween.TweenProperty(OwnerEntity.Body, "scale", new Vector3(1.2f, 1, 1.2f), 0.2f).SetTrans(Tween.TransitionType.Back);
           tween.TweenProperty(OwnerEntity.Body, "scale", Vector3.One * 0.8f, 0.1f).SetTrans(Tween.TransitionType.Back);
           tween.TweenProperty(OwnerEntity.Body, "scale", Vector3.One, 0.2f).SetTrans(Tween.TransitionType.Back);

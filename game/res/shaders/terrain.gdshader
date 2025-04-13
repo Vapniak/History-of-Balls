@@ -43,7 +43,7 @@ void fragment() {
 		vec2 uv_int = floor(scaled_uv);
 		vec2 uv_fract = fract(scaled_uv);
 		vec2 mirrored_uv = mix(uv_fract, 1.0 - uv_fract, mod(uv_int, 2.0));
-		ALBEDO -= texture(hex_texture, mirrored_uv).rgb / 40.0;
+		ALBEDO = mix(ALBEDO, max(texture(hex_texture, mirrored_uv).rgb, vec3(0.1)) - 1., .02);
 	}
 	else {
 		ALBEDO = vec3(0, 0, 0);

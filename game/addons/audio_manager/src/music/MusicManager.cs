@@ -67,9 +67,7 @@ public partial class MusicManager : Node {
     var player = StemmedMusicStreamPlayer.Create(bankLabel, trackName, bus, _volume, autoLoop);
 
     if (_musicStreams.Count > 0) {
-      foreach (var stream in _musicStreams) {
-        stream.StopStems(crossfadeTime);
-      }
+      Stop(crossfadeTime);
     }
 
     _musicStreams.Add(player);
@@ -82,6 +80,16 @@ public partial class MusicManager : Node {
     }
 
     return true;
+  }
+
+  public void Stop(float fadeOutTime) {
+    foreach (var stream in _musicStreams) {
+      stream.StopStems(fadeOutTime);
+    }
+  }
+
+  public void Stop(string trackName, float fadeOutTime) {
+    _musicStreams.First(m => m.TrackName == trackName).StopStems(fadeOutTime);
   }
 
   private void AddBank(MusicBank bank) {

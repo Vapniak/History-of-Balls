@@ -100,7 +100,7 @@ public partial class WalkMoveAbility : MoveAbility {
 
           await ToSignal(tween, Tween.SignalName.Finished);
           // landed
-          var pitch = GD.RandRange(3, 4);
+          var pitch = GD.RandRange(2, 3);
 
           ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueMoveDust), new() { Position = cell.GetRealPosition() });
 

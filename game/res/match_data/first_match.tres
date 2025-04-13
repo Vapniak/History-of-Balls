@@ -78,7 +78,7 @@ Expansiveness = 0.5
 [sub_resource type="Resource" id="Resource_c176s"]
 script = ExtResource("4_ddqts")
 EntityData = ExtResource("17_04ttl")
-SpawnAt = Array[Vector2i]([Vector2i(20, 20), Vector2i(15, 15), Vector2i(3, 3)])
+SpawnAt = Array[Vector2i]([Vector2i(20, 20), Vector2i(15, 15)])
 
 [sub_resource type="Resource" id="Resource_bvpp7"]
 script = ExtResource("4_ddqts")

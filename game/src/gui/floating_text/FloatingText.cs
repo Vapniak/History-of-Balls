@@ -1,10 +1,7 @@
 namespace HOB;
 
 using Godot;
-using System;
-using Godot;
 using System.Threading.Tasks;
-using System.Collections;
 
 public partial class FloatingText : Node3D {
   [Export] public RichTextLabel? Label { get; private set; }

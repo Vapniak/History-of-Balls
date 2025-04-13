@@ -2,6 +2,7 @@ namespace HOB;
 
 using Godot;
 using GameplayFramework;
+using AudioManager;
 
 [GlobalClass]
 public partial class MainMenuGameMode : GameMode {
@@ -15,7 +16,12 @@ public partial class MainMenuGameMode : GameMode {
 
   protected override GameState CreateGameState() => new MainMenuGameState();
 
+  public override void _EnterTree() {
+    base._EnterTree();
+  }
+
   public void StartGame() {
+    MusicManager.Instance.Stop(1);
     GameInstance.GetWorld().OpenLevel("test_level");
   }
 

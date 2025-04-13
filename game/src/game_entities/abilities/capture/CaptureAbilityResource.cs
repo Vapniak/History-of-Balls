@@ -67,6 +67,7 @@ public partial class CaptureAbilityResource : HOBAbilityResource {
             await ToSignal(capturedEntity, SignalName.TreeExited);
             var entityManagment = newOwner.GetGameMode().GetEntityManagment();
             if (entityManagment.TryAddEntityOnCell(newEntityData, capturedEntity.Cell, newOwner)) {
+              ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueSparkles), new() { Position = OwnerEntity.Cell.GetRealPosition() });
               Task.Complete();
               EndAbility();
               return;

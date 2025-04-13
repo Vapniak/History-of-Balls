@@ -15,7 +15,6 @@ public partial class GameBoard : Node3D {
   private MapData MapData {
     get => _mapData;
     set {
-      Init(value);
       _mapData = value;
     }
   }

@@ -34,6 +34,7 @@ glow_strength = 0.64
 glow_bloom = 0.1
 glow_blend_mode = 1
 fog_mode = 1
+fog_density = 1.0
 fog_height = 87.66
 fog_height_density = -0.7471
 fog_depth_curve = 4.5948
