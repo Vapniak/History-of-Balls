@@ -72,6 +72,7 @@ libraries = {
 material = SubResource("ShaderMaterial_u7g83")
 
 [node name="FollowParent3D" type="Node3D" parent="."]
+transform = Transform3D(0.999995, 0, 0, 0, 0.999994, 0, 0, 0, 0.999993, 0, 0, 0)
 top_level = true
 script = ExtResource("8_ut4yb")
 

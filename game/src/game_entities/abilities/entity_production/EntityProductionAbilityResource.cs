@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System.Linq;
 using GameplayAbilitySystem;
 using GameplayFramework;
 using GameplayTags;
@@ -55,7 +56,7 @@ public partial class EntityProductionAbilityResource : HOBAbilityResource {
           if (OwnerEntity.TryGetOwner(out var owner) && OwnerEntity.IsCurrentTurn()) {
             _turnsLeft--;
             if (_turnsLeft <= 0) {
-              if (OwnerEntity.EntityManagment.TryAddEntityOnCell(productionConfig.Entity, OwnerEntity.Cell, owner)) {
+              if (!OwnerEntity.EntityManagment.GetEntitiesOnCell(OwnerEntity.Cell).Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) && OwnerEntity.EntityManagment.TryAddEntityOnCell(productionConfig.Entity, OwnerEntity.Cell, owner)) {
                 taskData.Complete();
 
                 // if (owner is PlayerController) {

@@ -71,7 +71,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     var cube = Grid.GetLayout().OffsetToCube(coord);
     foreach (var cell in Grid.GetCells()) {
       var distance = cube.Distance(cell.Coord);
-      if (distance < minDistance && CanEntityBePlacedOnCell(cell)) {
+      if (distance < minDistance) {
         minDistance = distance;
         closestCell = cell;
       }
@@ -82,21 +82,11 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     }
   }
 
-  private bool CanEntityBePlacedOnCell(GameCell cell) {
-    if (Grid.GetSetting(cell).IsWater || GetEntitiesOnCell(cell).Count(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) > 1) {
-      return false;
-    }
-
-    return true;
-  }
-
   public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController? owner) {
-    if (CanEntityBePlacedOnCell(cell)) {
-      var entity = data.CreateEntity(cell, this, owner);
-      if (entity != null) {
-        AddEntity(entity);
-        return true;
-      }
+    var entity = data.CreateEntity(cell, this, owner);
+    if (entity != null) {
+      AddEntity(entity);
+      return true;
     }
 
     return false;

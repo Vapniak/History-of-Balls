@@ -38,16 +38,6 @@ public partial class SoundManager : Node {
     foreach (var bank in Banks) {
       AddBank(bank);
     }
-
-    // InitializePool((int)ProjectSettings.GetSetting(
-    //     ResonateSettings.POOL_2D_SIZE_SETTING_NAME,
-    //     ResonateSettings.POOL_2D_SIZE_SETTING_DEFAULT),
-    //   nameof(CreatePlayer2d));
-
-    // InitializePool((int)ProjectSettings.GetSetting(
-    //     ResonateSettings.POOL_3D_SIZE_SETTING_NAME,
-    //     ResonateSettings.POOL_3D_SIZE_SETTING_DEFAULT),
-    //   nameof(CreatePlayer3d));
   }
 
   public override void _Process(double delta) {
@@ -191,7 +181,7 @@ public partial class SoundManager : Node {
     var player = GetPlayer(pAttachment);
 
     if (player == null) {
-      GD.PushWarning($"Resonate - The event [{pEventName}] on bank [{pBankLabel}] can't be instanced; no pooled players available.");
+      GD.PushWarning($"The event [{pEventName}] on bank [{pBankLabel}] can't be instanced; no pooled players available.");
       return null;
     }
 
@@ -214,7 +204,7 @@ public partial class SoundManager : Node {
 
   private static PooledAudioStreamPlayerBase? GetPlayerFromPool<T>(List<T> pPool) where T : PooledAudioStreamPlayerBase {
     if (pPool.Count == 0) {
-      GD.PushError("Resonate - Player pool has not been initialised. This can occur when calling a [play/instance*] function from [_ready].");
+      GD.PushError("Player pool has not been initialised. This can occur when calling a [play/instance*] function from [_ready].");
       return null;
     }
 
@@ -224,7 +214,7 @@ public partial class SoundManager : Node {
       }
     }
 
-    GD.PushWarning("Resonate - Player pool exhausted, consider increasing the pool size in the project settings (Audio/Manager/Pooling) or releasing unused audio stream players.");
+    GD.PushWarning("Player pool exhausted, consider increasing the pool size in the project settings (Audio/Manager/Pooling) or releasing unused audio stream players.");
     return null;
   }
 
@@ -232,21 +222,7 @@ public partial class SoundManager : Node {
     return GetPlayerFromPool(_1dPlayers) as PooledAudioStreamPlayer;
   }
 
-  // private PooledAudioStreamPlayer2D GetPlayer2d() {
-  //   return (PooledAudioStreamPlayer2D)GetPlayerFromPool(_2dPlayers);
-  // }
-
-  // private PooledAudioStreamPlayer3D GetPlayer3d() {
-  //   return (PooledAudioStreamPlayer3D)GetPlayerFromPool(_3dPlayers);
-  // }
-
   private PooledAudioStreamPlayerBase? GetPlayer(object? attachment = null) {
-    // if (ResonateUtils.Is2dNode(pAttachment))
-    //   return GetPlayer2d();
-
-    // if (ResonateUtils.Is3dNode(pAttachment))
-    //   return GetPlayer3d();
-
     return GetPlayer1d();
   }
 

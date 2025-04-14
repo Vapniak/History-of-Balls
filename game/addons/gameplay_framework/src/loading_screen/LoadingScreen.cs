@@ -15,7 +15,7 @@ public partial class LoadingScreen : CanvasLayer {
     }
   }
   public void SetProgressBarValue(float value) {
-    _value = value;
+    _value = value * 100;
   }
 
   public float GetProgressBarValue() => (float)ProgressBar.Value;

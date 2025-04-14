@@ -24,6 +24,7 @@ resources_spreadsheet_view/freeze_first_column=false
 [application]
 
 config/name="History of Balls"
+config/version="vBeta-1.0"
 run/main_scene="res://src/main.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)

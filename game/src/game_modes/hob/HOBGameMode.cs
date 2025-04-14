@@ -40,6 +40,8 @@ public partial class HOBGameMode : GameMode {
   public override void _EnterTree() {
     base._EnterTree();
 
+    MusicManager.Instance.Play("music", "medival", autoLoop: true);
+
     GetGameState().GameBoard = GameInstance.GetWorld().GetCurrentLevel().GetChildByType<GameBoard>();
 
     StateChart = StateChart.Of(StateChartNode!);
@@ -114,8 +116,6 @@ public partial class HOBGameMode : GameMode {
 
   private void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
-
-    MusicManager.Instance.Play("music", "medival", autoLoop: true);
 
     MatchComponent.MatchEvent += CheckWinCondition;
 

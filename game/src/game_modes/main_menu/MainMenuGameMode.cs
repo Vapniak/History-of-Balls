@@ -18,11 +18,12 @@ public partial class MainMenuGameMode : GameMode {
 
   public override void _EnterTree() {
     base._EnterTree();
+
+    MusicManager.Instance.Play("music", "main_menu", 2, true);
   }
 
   public void StartGame() {
-    MusicManager.Instance.Stop(1);
-    GameInstance.GetWorld().OpenLevel("test_level");
+    _ = GameInstance.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene);
   }
 
   public void OpenSettings() {

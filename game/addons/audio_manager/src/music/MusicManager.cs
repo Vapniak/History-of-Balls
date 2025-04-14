@@ -37,30 +37,26 @@ public partial class MusicManager : Node {
 
   public bool Play(string bankLabel, string trackName, float crossfadeTime = 5.0f, bool autoLoop = false) {
     if (!_musicTable.TryGetValue(bankLabel, out var bank)) {
-      GD.PushError($"Resonate - Tried to play the music track [{trackName}] from an unknown bank [{bankLabel}].");
+      GD.PushError($"Tried to play the music track [{trackName}] from an unknown bank [{bankLabel}].");
       return false;
     }
 
     var track = bank.Tracks.FirstOrDefault(t => t.Name == trackName);
     if (track == null) {
-      GD.PushError($"Resonate - Tried to play an unknown music track [{trackName}] from the bank [{bankLabel}].");
+      GD.PushError($"Tried to play an unknown music track [{trackName}] from the bank [{bankLabel}].");
       return false;
     }
 
     if (track.Stems.Count == 0) {
-      GD.PushError($"Resonate - The music track [{trackName}] on bank [{bankLabel}] has no stems.");
+      GD.PushError($"- The music track [{trackName}] on bank [{bankLabel}] has no stems.");
       return false;
     }
 
     foreach (var stem in track.Stems) {
       if (stem.Stream == null) {
-        GD.PushError($"Resonate - The stem [{stem.Name}] on the music track [{trackName}] on bank [{bankLabel}] is missing an audio stream.");
+        GD.PushError($"- The stem [{stem.Name}] on the music track [{trackName}] on bank [{bankLabel}] is missing an audio stream.");
         return false;
       }
-
-      // if (!autoLoop && !ResonateUtils.IsStreamLooped(stem.Stream)) {
-      //   GD.PushWarning($"Resonate - The stem [{stem.Name}] on the music track [{trackName}] on bank [{bankLabel}] is not looped.");
-      // }
     }
 
     var bus = GetBus(bank.Bus, track.Bus);
@@ -115,7 +111,7 @@ public partial class MusicManager : Node {
 
   private void OnPlayerStopped(StemmedMusicStreamPlayer player) {
     _musicStreams.Remove(player);
-    RemoveChild(player);
+    player.QueueFree();
   }
 
   private void OnAutoLoopCompleted(string bankLabel, string trackName, float crossfadeTime) {

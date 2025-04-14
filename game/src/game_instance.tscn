@@ -1,9 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://oabxjhe8u25j"]
+[gd_scene load_steps=5 format=3 uid="uid://oabxjhe8u25j"]
 
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/globals/GameInstance.cs" id="1_ld3ae"]
 [ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_2xn15"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8ab3c"]
+[ext_resource type="Script" path="res://src/gui/VersionLabel.cs" id="3_6yonl"]
+[ext_resource type="Texture2D" uid="uid://ddhnps6feb471" path="res://assets/textures/boomballer-ident-logo.svg" id="3_upo7v"]
 
 [node name="GameInstance" type="Node"]
 script = ExtResource("1_ld3ae")
@@ -12,19 +12,39 @@ LevelsDirectoryPath = "res://src/levels"
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
+[node name="PanelContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -23.0
-offset_right = 20.0
-grow_vertical = 0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_8ab3c")
+theme_type_variation = &"MarginSmall"
 
 [node name="Label" type="Label" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
 text = "60
 "
 horizontal_alignment = 1
 script = ExtResource("2_2xn15")
+
+[node name="BoxContainer" type="BoxContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Label2" type="Label" parent="CanvasLayer/PanelContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+text = "0.1"
+script = ExtResource("3_6yonl")
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/BoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture = ExtResource("3_upo7v")
+expand_mode = 1
+stretch_mode = 5

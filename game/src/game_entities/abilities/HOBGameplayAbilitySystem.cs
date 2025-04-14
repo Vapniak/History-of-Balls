@@ -16,9 +16,8 @@ public partial class HOBGameplayAbilitySystem : GameplayAbilitySystem {
     }
   }
 
-  protected override void Dispose(bool disposing) {
-    base.Dispose(disposing);
-
+  public override void _ExitTree() {
+    base._ExitTree();
 
     var gm = GameInstance.GetGameMode<HOBGameMode>();
     if (IsInstanceValid(gm) && gm != null) {

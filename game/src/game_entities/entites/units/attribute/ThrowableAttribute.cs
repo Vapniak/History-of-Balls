@@ -66,15 +66,15 @@ public partial class ThrowableAttribute : UnitAttribute {
 
     var windUpTween = CreateTween();
 
-    var startQuat = Basis.GetRotationQuaternion().Normalized();
+    var startQuat = Quaternion;
 
     var targetBasis = Basis.LookingAt(throwDirection, Vector3.Up);
     var targetQuat = targetBasis.GetRotationQuaternion().Normalized();
 
     windUpTween.TweenMethod(Callable.From<float>(t => {
-      // FIXME: target quat is not nornalized
+      // FIXME: target quat is not normalized
       var newQuat = startQuat.Slerp(targetQuat, t).Normalized();
-      Basis = new Basis(newQuat);
+      Quaternion = newQuat;
     }), 0f, 1f, 0.3f);
 
     windUpTween.Parallel()
@@ -107,11 +107,9 @@ public partial class ThrowableAttribute : UnitAttribute {
       var velocityDir = currentVelocity.Normalized();
       var targetBasis = Basis.LookingAt(velocityDir, Vector3.Up);
 
-      var currentQuat = Basis.GetRotationQuaternion().Normalized();
       var targetQuat = targetBasis.GetRotationQuaternion().Normalized();
 
-      var newQuat = currentQuat.Slerp(targetQuat, RotationSmoothness * (float)GetProcessDeltaTime());
-      Basis = new Basis(newQuat.Normalized());
+      Quaternion = Quaternion.Slerp(targetQuat, RotationSmoothness * (float)GetProcessDeltaTime()).Normalized();
     }
   }
 }
