@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cj3qtxcdbw00m"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_q74t3"]
-[ext_resource type="PackedScene" uid="uid://85umshsgagns" path="res://assets/models/factory.fbx" id="2_14bhb"]
+[ext_resource type="PackedScene" uid="uid://85umshsgagns" path="res://assets/models/objects/factory.fbx" id="2_14bhb"]
 
 [node name="EntityBody" type="Node3D"]
 script = ExtResource("1_q74t3")

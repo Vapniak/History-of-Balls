@@ -204,7 +204,23 @@ public partial class HOBGameMode : GameMode {
       }
     }
 
+    var props = PlaceProps();
+    while (props.MoveNext()) {
+      MatchComponent.TryAddEntityOnCell(props.Current.prop, props.Current.cell, null);
+    }
+
     StateChart.CallDeferred(StateChart.MethodName.SendEvent, "match_start");
+  }
+
+  private IEnumerator<(EntityData prop, GameCell cell)> PlaceProps() {
+    foreach (var cell in GameBoard.Grid.GetCells()) {
+      foreach (var prop in cell.GetSetting().Props) {
+        var value = GD.RandRange(0, 100);
+        if (value <= prop.Chance) {
+          yield return (prop.PropData, cell);
+        }
+      }
+    }
   }
 
   private void CheckWinCondition(Tag? tag) {

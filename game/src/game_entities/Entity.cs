@@ -69,9 +69,11 @@ public partial class Entity : Node3D, ITurnAware {
         }
       }
 
-      var ui3D = EntityUi3D.Create(this);
-      UI = ui3D.EntityUI;
-      AddChild(ui3D);
+      if (!AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeProp))) {
+        var ui3D = EntityUi3D.Create(this);
+        UI = ui3D.EntityUI;
+        AddChild(ui3D);
+      }
 
       var tween = CreateTween();
 

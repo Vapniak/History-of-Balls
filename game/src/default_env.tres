@@ -1,0 +1,46 @@
+[gd_resource type="Environment" load_steps=6 format=3 uid="uid://dr3jtxdu2f3kr"]
+
+[ext_resource type="Texture2D" uid="uid://eqhuxcvx7g2r" path="res://assets/textures/AllSkyFree_Sky_ClearBlueSky_Equirect.png" id="1_36ena"]
+
+[sub_resource type="Gradient" id="Gradient_1jpds"]
+offsets = PackedFloat32Array(0, 0.131833, 0.858521, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.144, 0.1496, 0.2, 1, 1, 0.9525, 0.81, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_k7uxh"]
+gradient = SubResource("Gradient_1jpds")
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nwfpu"]
+panorama = ExtResource("1_36ena")
+
+[sub_resource type="Sky" id="Sky_6483f"]
+sky_material = SubResource("PanoramaSkyMaterial_nwfpu")
+
+[resource]
+background_mode = 2
+sky = SubResource("Sky_6483f")
+ambient_light_source = 3
+ambient_light_sky_contribution = 0.5
+tonemap_mode = 2
+tonemap_exposure = 0.69
+tonemap_white = 3.25
+glow_enabled = true
+glow_normalized = true
+glow_intensity = 1.75
+glow_strength = 0.33
+glow_mix = 0.0
+glow_bloom = 1.0
+glow_blend_mode = 1
+glow_hdr_threshold = 4.0
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0, 0, 0, 1)
+fog_density = 1.0
+fog_height = 5.0
+fog_height_density = -1.0
+fog_depth_curve = 0.588627
+fog_depth_begin = 40.0
+fog_depth_end = 150.0
+volumetric_fog_ambient_inject = 1.87
+adjustment_enabled = true
+adjustment_contrast = 1.04
+adjustment_color_correction = SubResource("GradientTexture1D_k7uxh")

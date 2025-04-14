@@ -1,7 +1,10 @@
 namespace HOB;
 
+using System.Collections;
+using System.Collections.Generic;
 using Godot;
 using HexGridMap;
+using HOB.GameEntity;
 using RaycastSystem;
 
 

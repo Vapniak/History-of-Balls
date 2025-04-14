@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game_entities/entites/units/country_balls/greek_ball.tscn" id="2_357p0"]
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="4_3i4fc"]
 [ext_resource type="Texture2D" uid="uid://b51t1aisjv4u5" path="res://assets/textures/flags/Greece.png" id="5_5emt8"]
-[ext_resource type="Animation" uid="uid://gw0ktv30hlte" path="res://assets/models/Armature_ArmatureAction.res" id="6_lmvu3"]
-[ext_resource type="Animation" uid="uid://dlp0qu0bms3i7" path="res://assets/models/Armature_SphereAction.res" id="7_0nf47"]
+[ext_resource type="Animation" uid="uid://gw0ktv30hlte" path="res://assets/models/objects/Armature_ArmatureAction.res" id="6_lmvu3"]
+[ext_resource type="Animation" uid="uid://dlp0qu0bms3i7" path="res://assets/models/objects/Armature_SphereAction.res" id="7_0nf47"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="8_ut4yb"]
 [ext_resource type="Script" path="res://src/game_entities/entites/units/attribute/ThrowableAttribute.cs" id="9_guo61"]
 

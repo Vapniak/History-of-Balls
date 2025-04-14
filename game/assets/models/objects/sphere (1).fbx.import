@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dvbk6ri5sujk8"
-path="res://.godot/imported/sphere (1).fbx-eb4bf701e97be0db4e546472797bac3f.scn"
+path="res://.godot/imported/sphere (1).fbx-a9079adc9e8133f807603c8027e5a13a.scn"
 
 [deps]
 
-source_file="res://assets/models/sphere (1).fbx"
-dest_files=["res://.godot/imported/sphere (1).fbx-eb4bf701e97be0db4e546472797bac3f.scn"]
+source_file="res://assets/models/objects/sphere (1).fbx"
+dest_files=["res://.godot/imported/sphere (1).fbx-a9079adc9e8133f807603c8027e5a13a.scn"]
 
 [params]
 

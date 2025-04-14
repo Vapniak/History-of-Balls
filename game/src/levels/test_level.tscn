@@ -1,50 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://dq50a8e3adq5a"]
+[gd_scene load_steps=6 format=3 uid="uid://dq50a8e3adq5a"]
 
 [ext_resource type="Script" path="res://src/levels/HOBLevel.cs" id="1_l02ep"]
 [ext_resource type="PackedScene" uid="uid://bpyq5jomq1pgv" path="res://src/levels/transitions/fade_in.tscn" id="2_51t61"]
 [ext_resource type="PackedScene" uid="uid://c7dofyt76uitu" path="res://src/levels/transitions/fade_out.tscn" id="3_3yt77"]
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/hob/hob_game_mode.tscn" id="4_eue7f"]
 [ext_resource type="PackedScene" uid="uid://b7p0e45e0ng0f" path="res://src/game_board/game_board.tscn" id="5_t3dxr"]
-[ext_resource type="Texture2D" uid="uid://eqhuxcvx7g2r" path="res://assets/textures/AllSkyFree_Sky_ClearBlueSky_Equirect.png" id="6_368eu"]
-
-[sub_resource type="Gradient" id="Gradient_t1o45"]
-offsets = PackedFloat32Array(0, 0.131833, 0.858521, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.144, 0.1496, 0.2, 1, 1, 0.9525, 0.81, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_k7uxh"]
-gradient = SubResource("Gradient_t1o45")
-
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_46nhf"]
-panorama = ExtResource("6_368eu")
-
-[sub_resource type="Sky" id="Sky_6483f"]
-sky_material = SubResource("PanoramaSkyMaterial_46nhf")
-
-[sub_resource type="Environment" id="Environment_0un0y"]
-background_mode = 2
-sky = SubResource("Sky_6483f")
-ambient_light_source = 3
-ambient_light_sky_contribution = 0.5
-tonemap_mode = 2
-tonemap_exposure = 0.69
-tonemap_white = 3.25
-glow_normalized = true
-glow_intensity = 3.13
-glow_strength = 0.64
-glow_bloom = 0.1
-glow_blend_mode = 1
-fog_mode = 1
-fog_density = 1.0
-fog_height = 87.66
-fog_height_density = -0.7471
-fog_depth_curve = 4.5948
-fog_depth_begin = 162.0
-fog_depth_end = 224.3
-volumetric_fog_ambient_inject = 1.87
-volumetric_fog_sky_affect = 0.0
-adjustment_enabled = true
-adjustment_contrast = 1.04
-adjustment_color_correction = SubResource("GradientTexture1D_k7uxh")
 
 [node name="HOBLevel" type="Node"]
 script = ExtResource("1_l02ep")
@@ -53,9 +13,6 @@ UnLoadLevelTransitionScene = ExtResource("3_3yt77")
 GameModeScene = ExtResource("4_eue7f")
 
 [node name="GameBoard" parent="." instance=ExtResource("5_t3dxr")]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0un0y")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.623129, 0.595729, 0.506772, -0.295466, -0.420629, 0.857771, 0.724162, -0.684236, -0.0860888, 0, 0, 0.15345)

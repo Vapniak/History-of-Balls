@@ -66,7 +66,7 @@ public partial class ThrowableAttribute : UnitAttribute {
 
     var windUpTween = CreateTween();
 
-    var startQuat = Quaternion;
+    var startQuat = Quaternion.Normalized();
 
     var targetBasis = Basis.LookingAt(throwDirection, Vector3.Up);
     var targetQuat = targetBasis.GetRotationQuaternion().Normalized();

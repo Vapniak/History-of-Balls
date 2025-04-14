@@ -88,7 +88,7 @@ public partial class Chunk : StaticBody3D {
       Triangulate(index);
     }
 
-    GenerateHexBorderRectangle(20);
+    GenerateHexBorderRectangle(30);
 
     TerrainMesh.End();
     WaterMesh.End();

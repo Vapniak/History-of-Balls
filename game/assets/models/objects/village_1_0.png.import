@@ -2,16 +2,19 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d2j2gc3i23soi"
-path="res://.godot/imported/factory_0.png-c207b2f410fa5b91c82749376d56eebd.ctex"
+uid="uid://4cn57wj6fv8b"
+path="res://.godot/imported/village_1_0.png-8a50cc8e1ec843135a16bb367003f93d.ctex"
 metadata={
 "vram_texture": false
+}
+generator_parameters={
+"md5": "533e6b48ba6c9fbd50720e79bf435ed2"
 }
 
 [deps]
 
-source_file="res://assets/models/factory_0.png"
-dest_files=["res://.godot/imported/factory_0.png-c207b2f410fa5b91c82749376d56eebd.ctex"]
+source_file="res://assets/models/objects/village_1_0.png"
+dest_files=["res://.godot/imported/village_1_0.png-8a50cc8e1ec843135a16bb367003f93d.ctex"]
 
 [params]
 

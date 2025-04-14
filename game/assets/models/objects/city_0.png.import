@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cwmhqf6h0hp6b"
-path="res://.godot/imported/tree1_0.png-ca0cce9147bf733ef5abd3765a9fe3f7.ctex"
+uid="uid://be5tojd5exp5x"
+path="res://.godot/imported/city_0.png-cf4d06da27c8a3fa5493ea40ff72a3ea.ctex"
 metadata={
 "vram_texture": false
 }
@@ -13,8 +13,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/models/tree1_0.png"
-dest_files=["res://.godot/imported/tree1_0.png-ca0cce9147bf733ef5abd3765a9fe3f7.ctex"]
+source_file="res://assets/models/objects/city_0.png"
+dest_files=["res://.godot/imported/city_0.png-cf4d06da27c8a3fa5493ea40ff72a3ea.ctex"]
 
 [params]
 
@@ -34,4 +34,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

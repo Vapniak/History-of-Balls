@@ -1,6 +1,8 @@
 namespace HOB;
 
+using System.Collections.Generic;
 using Godot;
+using HOB.GameEntity;
 
 /// <summary>
 /// Responsible for visualization and working with hex grid.
@@ -8,8 +10,8 @@ using Godot;
 [Tool]
 public partial class GameBoard : Node3D {
   [Signal] public delegate void GridCreatedEventHandler();
-  [Export] private GameGridLayout? Layout { get; set; }
-  [Export] private TerrainManager? TerrainManager { get; set; }
+  [Export] private GameGridLayout Layout { get; set; } = default!;
+  [Export] private TerrainManager TerrainManager { get; set; } = default!;
 
   [Export]
   private MapData MapData {
@@ -19,7 +21,7 @@ public partial class GameBoard : Node3D {
     }
   }
   private MapData _mapData = default!;
-  public GameGrid? Grid { get; private set; }
+  public GameGrid Grid { get; private set; } = default!;
 
   public void Init(MapData mapData) {
     if (Layout == null) {

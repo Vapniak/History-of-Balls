@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b8mjeotg42xkp"
-path="res://.godot/imported/sphere.fbx-015c00823fc3928ceb8dc763b08fd4b1.scn"
+uid="uid://bbomj1qo5837x"
+path="res://.godot/imported/village_1.fbx-9a3e2c65a502370d33065b2ce6b14701.scn"
 
 [deps]
 
-source_file="res://assets/models/sphere.fbx"
-dest_files=["res://.godot/imported/sphere.fbx-015c00823fc3928ceb8dc763b08fd4b1.scn"]
+source_file="res://assets/models/objects/village_1.fbx"
+dest_files=["res://.godot/imported/village_1.fbx-9a3e2c65a502370d33065b2ce6b14701.scn"]
 
 [params]
 
@@ -33,20 +33,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"Material.002": {
+"Materiał.001": {
 "use_external/enabled": true,
-"use_external/path": "res://res/materials/cel_shading_mat.tres"
-}
-},
-"meshes": {
-"Sphere_001": {
-"generate/lightmap_uv": 0,
-"generate/lods": 0,
-"generate/shadow_meshes": 0,
-"lods/normal_merge_angle": 60.0,
-"lods/normal_split_angle": 25.0,
-"save_to_file/enabled": false,
-"save_to_file/path": "res://res/meshes/sphere.res"
+"use_external/path": "res://res/materials/village_mat.tres"
 }
 }
 }

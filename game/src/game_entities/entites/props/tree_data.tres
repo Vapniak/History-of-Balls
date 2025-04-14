@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://cloiq1lqufknp"]
+
+[ext_resource type="Script" path="res://src/game_entities/EntityData.cs" id="1_81tw8"]
+[ext_resource type="PackedScene" uid="uid://cwiim45cku4o7" path="res://src/game_entities/entites/props/tree_body.tscn" id="1_a2h3v"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_5y3hu"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="3_tfujv"]
+
+[sub_resource type="Resource" id="Resource_a4stu"]
+script = ExtResource("2_5y3hu")
+FullName = "Entity.Type.Prop"
+
+[sub_resource type="Resource" id="Resource_8wi8e"]
+script = ExtResource("3_tfujv")
+Tags = [SubResource("Resource_a4stu")]
+
+[resource]
+script = ExtResource("1_81tw8")
+EntityName = "Tree"
+Abilities = []
+Tags = SubResource("Resource_8wi8e")
+Body = ExtResource("1_a2h3v")

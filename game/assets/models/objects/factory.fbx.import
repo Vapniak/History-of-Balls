@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dxigbtu4prjow"
-path="res://.godot/imported/city.fbx-622c4ffd616b9e8e7c218ab82f3fb956.scn"
+uid="uid://85umshsgagns"
+path="res://.godot/imported/factory.fbx-5d72fd114895245f65192bc3958aac1d.scn"
 
 [deps]
 
-source_file="res://assets/models/city.fbx"
-dest_files=["res://.godot/imported/city.fbx-622c4ffd616b9e8e7c218ab82f3fb956.scn"]
+source_file="res://assets/models/objects/factory.fbx"
+dest_files=["res://.godot/imported/factory.fbx-5d72fd114895245f65192bc3958aac1d.scn"]
 
 [params]
 
@@ -33,9 +33,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"Materiał": {
+"Materiał.010": {
 "use_external/enabled": true,
-"use_external/path": "res://res/materials/city_mat.tres"
+"use_external/path": "res://res/materials/factory_mat.tres"
 }
 }
 }

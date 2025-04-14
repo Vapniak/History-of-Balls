@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bbomj1qo5837x"
-path="res://.godot/imported/village_1.fbx-de53e1ebcfbfde74909a79626003683c.scn"
+uid="uid://dxigbtu4prjow"
+path="res://.godot/imported/city.fbx-6c321a56866f7f0d7150e8f9be8a2867.scn"
 
 [deps]
 
-source_file="res://assets/models/village_1.fbx"
-dest_files=["res://.godot/imported/village_1.fbx-de53e1ebcfbfde74909a79626003683c.scn"]
+source_file="res://assets/models/objects/city.fbx"
+dest_files=["res://.godot/imported/city.fbx-6c321a56866f7f0d7150e8f9be8a2867.scn"]
 
 [params]
 
@@ -33,9 +33,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"Materiał.001": {
+"Materiał": {
 "use_external/enabled": true,
-"use_external/path": "res://res/materials/village_mat.tres"
+"use_external/path": "res://res/materials/city_mat.tres"
 }
 }
 }

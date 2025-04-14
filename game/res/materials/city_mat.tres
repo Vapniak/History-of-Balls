@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://cuew0jlxovdxb"]
 
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="2_g5t7i"]
-[ext_resource type="Texture2D" uid="uid://be5tojd5exp5x" path="res://assets/models/city_0.png" id="3_ar84n"]
+[ext_resource type="Texture2D" uid="uid://be5tojd5exp5x" path="res://assets/models/objects/city_0.png" id="3_ar84n"]
 
 [resource]
 resource_local_to_scene = true

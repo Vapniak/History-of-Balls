@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dipc6d0ibuoj4"]
+[gd_scene load_steps=20 format=3 uid="uid://dipc6d0ibuoj4"]
 
 [ext_resource type="Script" path="res://src/gameplay_cues/GCParticle.cs" id="1_076kc"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_v2buu"]
@@ -22,6 +22,13 @@ colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_w1y03"]
 gradient = SubResource("Gradient_spmwp")
 use_hdr = true
+
+[sub_resource type="Curve" id="Curve_g7hsi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5e3rs"]
+curve = SubResource("Curve_g7hsi")
 
 [sub_resource type="Curve" id="Curve_aekwq"]
 min_value = -1.0
@@ -76,6 +83,7 @@ scale_min = 0.5
 scale_max = 1.5
 scale_curve = SubResource("CurveTexture_sghi7")
 color_ramp = SubResource("GradientTexture1D_w1y03")
+emission_curve = SubResource("CurveTexture_5e3rs")
 hue_variation_min = 0.2
 hue_variation_max = 0.44
 hue_variation_curve = SubResource("CurveTexture_gdtyg")
@@ -93,5 +101,6 @@ emitting = false
 amount = 32
 lifetime = 0.5
 one_shot = true
+explosiveness = 0.12
 process_material = SubResource("ParticleProcessMaterial_et6ly")
 draw_pass_1 = SubResource("QuadMesh_7id0v")

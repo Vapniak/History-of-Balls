@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://fhqh85ntsr0t"]
 
-[ext_resource type="PackedScene" uid="uid://dvbk6ri5sujk8" path="res://assets/models/sphere (1).fbx" id="1_e8mkc"]
+[ext_resource type="PackedScene" uid="uid://dvbk6ri5sujk8" path="res://assets/models/objects/sphere (1).fbx" id="1_e8mkc"]
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="3_yrav4"]
 [ext_resource type="Texture2D" uid="uid://7w5wyjms26k2" path="res://assets/textures/flags/Poland.png" id="4_wd4oy"]
 

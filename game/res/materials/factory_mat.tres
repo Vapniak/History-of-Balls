@@ -1,7 +1,7 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://b0fvtsdscllyf"]
 
 [ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="2_wlmmt"]
-[ext_resource type="Texture2D" uid="uid://d2j2gc3i23soi" path="res://assets/models/factory_0.png" id="3_wx70p"]
+[ext_resource type="Texture2D" uid="uid://d2j2gc3i23soi" path="res://assets/models/objects/factory_0.png" id="2_yfnqb"]
 
 [resource]
 resource_local_to_scene = true
@@ -10,6 +10,6 @@ shader = ExtResource("2_wlmmt")
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
-shader_parameter/base_texture = ExtResource("3_wx70p")
+shader_parameter/base_texture = ExtResource("2_yfnqb")
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0, 0)
