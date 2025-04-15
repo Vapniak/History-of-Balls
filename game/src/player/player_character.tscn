@@ -1,8 +1,9 @@
-[gd_scene load_steps=24 format=4 uid="uid://bxvvk6td13ake"]
+[gd_scene load_steps=33 format=4 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/player/PlayerCharacter.cs" id="1_ggdef"]
 [ext_resource type="Shader" path="res://res/shaders/post_process_outline.gdshader" id="2_bqmck"]
 [ext_resource type="RibbonTrailMesh" uid="uid://w2xv54d0lfdp" path="res://res/meshes/wind_ribbon.tres" id="3_w31k8"]
+[ext_resource type="Texture2D" uid="uid://jwv27m6sh4ix" path="res://assets/textures/particle/PNG (Transparent)/smoke_08.png" id="4_b4ask"]
 
 [sub_resource type="Curve" id="Curve_t3eex"]
 _data = [Vector2(0.183333, 0.424051), 0.0, -0.682045, 0, 1, Vector2(0.364286, 0.300633), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.10013, 0.0, 1, 0]
@@ -127,8 +128,57 @@ loop_mode = 1
 loop_end = 705600
 stereo = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_46tce"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("4_b4ask")
+billboard_keep_scale = true
+
+[sub_resource type="Curve" id="Curve_4rovo"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.522184, 1), 0.0, 0.0, 0, 0, Vector2(0.78157, 0.677241), -3.07981, -3.07981, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_y4kea"]
+curve = SubResource("Curve_4rovo")
+
+[sub_resource type="Curve" id="Curve_hhllh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_fj5ut"]
+curve = SubResource("Curve_hhllh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jf1gu"]
+emission_shape = 3
+emission_box_extents = Vector3(10, 2, 10)
+angle_min = -360.0
+angle_max = 360.0
+direction = Vector3(-1, 0, 0)
+spread = 0.0
+initial_velocity_min = 1.0
+initial_velocity_max = 1.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.1
+scale_max = 1.2
+alpha_curve = SubResource("CurveTexture_y4kea")
+turbulence_influence_min = 0.033
+turbulence_influence_max = 0.038
+turbulence_influence_over_life = SubResource("CurveTexture_fj5ut")
+
+[sub_resource type="QuadMesh" id="QuadMesh_g5q82"]
+size = Vector2(20, 20)
+orientation = 1
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_q3jtm"]
+emission_shape = 3
+emission_box_extents = Vector3(50, 2, 50)
+gravity = Vector3(0, 0, 0)
+sub_emitter_mode = 2
+sub_emitter_amount_at_end = 1
+
 [node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera", "CameraParent", "WindPlayer")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 script = ExtResource("1_ggdef")
 Camera = NodePath("Camera3D")
 CameraParent = NodePath("Camera3D")
@@ -177,3 +227,24 @@ stream = SubResource("AudioStreamWAV_sj46q")
 volume_db = -5.0
 autoplay = true
 bus = &"Sound"
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+visible = false
+material_override = SubResource("StandardMaterial3D_46tce")
+extra_cull_margin = 16384.0
+amount = 25
+lifetime = 60.0
+explosiveness = 0.39
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_jf1gu")
+draw_pass_1 = SubResource("QuadMesh_g5q82")
+
+[node name="GPUParticles3D2" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 100, 0)
+visible = false
+extra_cull_margin = 16384.0
+amount = 10
+sub_emitter = NodePath("../GPUParticles3D")
+lifetime = 7.0
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_q3jtm")

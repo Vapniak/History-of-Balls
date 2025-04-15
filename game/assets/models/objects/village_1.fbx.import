@@ -35,7 +35,23 @@ _subresources={
 "materials": {
 "Materiał.001": {
 "use_external/enabled": true,
-"use_external/path": "res://res/materials/village_mat.tres"
+"use_external/path": "res://res/materials/objects_mat.tres"
+},
+"Materiał.002": {
+"use_external/enabled": true,
+"use_external/path": "res://res/materials/objects_mat.tres"
+},
+"Materiał.003": {
+"use_external/enabled": true,
+"use_external/path": "res://res/materials/objects_mat.tres"
+},
+"Materiał.004": {
+"use_external/enabled": true,
+"use_external/path": "res://res/materials/objects_mat.tres"
+},
+"Materiał.005": {
+"use_external/enabled": true,
+"use_external/path": "res://res/materials/objects_mat.tres"
 }
 }
 }

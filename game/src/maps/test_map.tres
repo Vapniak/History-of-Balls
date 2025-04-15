@@ -75,7 +75,7 @@ Color = Color(0.101961, 0.478431, 0.101961, 1)
 MoveCost = 1
 Elevation = 3
 IsWater = false
-Props = Array[Object]([SubResource("Resource_8kjyy"), SubResource("Resource_1t8qa")])
+Props = [SubResource("Resource_8kjyy"), SubResource("Resource_1t8qa")]
 
 [sub_resource type="Resource" id="Resource_515fd"]
 script = ExtResource("2_kwf6m")

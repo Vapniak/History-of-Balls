@@ -69,6 +69,7 @@ public partial class HOBGameMode : GameMode {
 
     if (MatchData?.Map != null) {
       GameBoard.Init(MatchData.Map);
+      PlaceProps();
     }
   }
 
@@ -203,8 +204,6 @@ public partial class HOBGameMode : GameMode {
         }
       }
     }
-
-    PlaceProps();
 
     StateChart.CallDeferred(StateChart.MethodName.SendEvent, "match_start");
   }

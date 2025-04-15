@@ -25,6 +25,3 @@ func _process(delta):
 	global_rotation = global_rotation.lerp(parent.global_rotation, delta * lerp_speed)
 	if global_rotation.distance_to(parent.global_rotation) < position_snap:
 		global_rotation = parent.global_rotation
-
-	# No scale tweening cause that's hard AF for some reason
-	# https://godotengine.org/qa/104034/how-to-get-global-scale-of-a-spatial-node

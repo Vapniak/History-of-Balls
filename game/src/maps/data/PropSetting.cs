@@ -1,10 +1,8 @@
 namespace HOB;
 
-using System;
 using Godot;
-using HOB.GameEntity;
 
-[GlobalClass]
+[GlobalClass, Tool]
 public partial class PropSetting : Resource {
   [Export] public PackedScene PropScene { get; private set; } = default!;
   [Export(PropertyHint.Range, "0,100")] public float Chance { get; private set; }

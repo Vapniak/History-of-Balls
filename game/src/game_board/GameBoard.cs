@@ -14,20 +14,21 @@ public partial class GameBoard : Node3D {
   [Export] private TerrainManager TerrainManager { get; set; } = default!;
 
   [Export]
-  private MapData MapData {
-    get => _mapData;
-    set {
-      _mapData = value;
+  private bool Generate {
+    get => false; set {
+      if (MapData != null) {
+        Init(MapData);
+      }
     }
   }
-  private MapData _mapData = default!;
+  [Export]
+  private MapData MapData { get; set; } = default!;
   public GameGrid Grid { get; private set; } = default!;
 
   public void Init(MapData mapData) {
     if (Layout == null) {
       return;
     }
-
 
     Grid = new(Layout);
 

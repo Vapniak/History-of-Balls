@@ -7,10 +7,6 @@ uniform sampler2D hex_texture: repeat_enable;
 uniform sampler2D highlight_data_texture : source_color, repeat_disable;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
 
-uniform float cloud_scale;
-uniform vec2 cloud_direction;
-uniform sampler2D noise;
-
 uniform ivec2 grid_size;
 
 uniform vec2 mouse_world_pos;
@@ -36,14 +32,12 @@ void fragment() {
 	vec4 terrain_color = texelFetch(terrain_data_texture, data.offsetCoord, 0);
 	if(terrain_color.a > 0.){
 		ALBEDO = terrain_color.rgb;
-		ALBEDO *= dot(texture(noise, (world_pos.xz + -cloud_direction * TIME) * cloud_scale).rgb, vec3(0.299, 0.587, 0.114));
 
-
-		vec2 scaled_uv = UV / 2.;
+		vec2 scaled_uv = UV * 2.;
 		vec2 uv_int = floor(scaled_uv);
 		vec2 uv_fract = fract(scaled_uv);
 		vec2 mirrored_uv = mix(uv_fract, 1.0 - uv_fract, mod(uv_int, 2.0));
-		ALBEDO = mix(ALBEDO, max(texture(hex_texture, mirrored_uv).rgb, vec3(0.1)) - 1., .02);
+		//ALBEDO *= max(texture(noise, UV / 5.).rgb, vec3(0.9));
 	}
 	else {
 		ALBEDO = vec3(0, 0, 0);
