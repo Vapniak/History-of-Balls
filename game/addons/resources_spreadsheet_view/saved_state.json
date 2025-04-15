@@ -11,6 +11,17 @@
         "visibility": 0
       }
     },
+    "res://res/maps/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://res/match_data/": {
       "metadata/_custom_type_script": {
         "visibility": 0
@@ -418,6 +429,61 @@
       "resource_name": {
         "visibility": 0
       }
+    },
+    "res://src/maps/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/maps::CellSettings/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/maps::Settings/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/maps::Settings::CellSettings/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/maps::Settings::CellSettings::Props/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
     }
   },
   "recent_paths": [
@@ -456,7 +522,13 @@
     "res://src/game_entities/entites::CostEffect/",
     "res://src/game_entities/entites::CostEffect::EffectDefinition/",
     "res://src/game_entities/entites::CostEffect::EffectDefinition::AttributeModifiers/",
-    "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/"
+    "res://src/game_entities/entites::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/",
+    "res://res/maps/",
+    "res://src/maps/",
+    "res://src/maps::Settings/",
+    "res://src/maps::Settings::CellSettings/",
+    "res://src/maps::Settings::CellSettings::Props/",
+    "res://src/maps::CellSettings/"
   ],
   "table_functions": {
     "filter": [

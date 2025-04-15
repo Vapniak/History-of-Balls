@@ -12,6 +12,7 @@ Color = Color(0.196078, 0.364706, 0.858824, 1)
 MoveCost = 0
 Elevation = -2
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_35sho"]
 script = ExtResource("2_a8q6r")
@@ -20,6 +21,7 @@ Color = Color(0.247059, 0.670588, 1, 1)
 MoveCost = 0
 Elevation = -1
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_17xwf"]
 script = ExtResource("2_a8q6r")
@@ -28,6 +30,7 @@ Color = Color(1, 0.843137, 0, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_rw3im"]
 script = ExtResource("2_a8q6r")
@@ -36,6 +39,7 @@ Color = Color(0.803922, 0.521569, 0.247059, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_ejxv3"]
 script = ExtResource("2_a8q6r")
@@ -44,6 +48,7 @@ Color = Color(0.941176, 0.901961, 0.54902, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_bg2ux"]
 script = ExtResource("2_a8q6r")
@@ -52,6 +57,7 @@ Color = Color(0.466667, 0.466667, 0.466667, 1)
 MoveCost = 1
 Elevation = 2
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_lr7on"]
 script = ExtResource("2_a8q6r")
@@ -60,6 +66,7 @@ Color = Color(0.101961, 0.478431, 0.101961, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_m8008"]
 script = ExtResource("2_a8q6r")
@@ -68,6 +75,7 @@ Color = Color(0, 0.733333, 0, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_gr1nu"]
 script = ExtResource("2_a8q6r")
@@ -76,6 +84,7 @@ Color = Color(0.498039, 1, 0, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_hgoel"]
 script = ExtResource("2_a8q6r")
@@ -84,6 +93,7 @@ Color = Color(0.133333, 0.545098, 0.4, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_kb06v"]
 script = ExtResource("2_a8q6r")
@@ -92,6 +102,7 @@ Color = Color(0.247059, 0.670588, 0.666667, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_8rkat"]
 script = ExtResource("2_a8q6r")
@@ -100,6 +111,7 @@ Color = Color(0.419608, 0.556863, 0.137255, 1)
 MoveCost = 1
 Elevation = 1
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_wvex5"]
 script = ExtResource("2_a8q6r")
@@ -108,6 +120,7 @@ Color = Color(1, 1, 1, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_v45w7"]
 script = ExtResource("2_a8q6r")
@@ -116,6 +129,7 @@ Color = Color(0.529412, 0.866667, 0.921569, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_e6hwo"]
 script = ExtResource("2_a8q6r")
@@ -124,6 +138,7 @@ Color = Color(0.27451, 0.509804, 0.705882, 1)
 MoveCost = 1
 Elevation = 0
 IsWater = false
+Props = []
 
 [sub_resource type="Resource" id="Resource_1pq3q"]
 script = ExtResource("3_tfxjq")

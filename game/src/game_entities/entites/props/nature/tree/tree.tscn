@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bgsc8xna5omfc"]
+
+[ext_resource type="PackedScene" uid="uid://dtbst4ckfjfw2" path="res://assets/models/props/tree/tree1.fbx" id="1_oojm1"]
+
+[node name="tree1" instance=ExtResource("1_oojm1")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="Cube" parent="." index="0"]
+transform = Transform3D(96.838, 0, 0, 0, -4.23292e-06, 96.838, 0, -96.838, -4.23292e-06, 0, -0.350056, 0)
+
+[node name="Icosphere_009" parent="." index="1"]
+transform = Transform3D(205.105, -7.74954, 85.2202, -89.5275, -15.6594, 195.33, -0.645092, -290.692, -12.7942, -3.91066, 7.93669, -3.65513)

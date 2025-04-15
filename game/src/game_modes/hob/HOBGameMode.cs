@@ -204,23 +204,148 @@ public partial class HOBGameMode : GameMode {
       }
     }
 
-    var props = PlaceProps();
-    while (props.MoveNext()) {
-      MatchComponent.TryAddEntityOnCell(props.Current.prop, props.Current.cell, null);
-    }
+    PlaceProps();
 
     StateChart.CallDeferred(StateChart.MethodName.SendEvent, "match_start");
   }
 
-  private IEnumerator<(EntityData prop, GameCell cell)> PlaceProps() {
-    foreach (var cell in GameBoard.Grid.GetCells()) {
-      foreach (var prop in cell.GetSetting().Props) {
-        var value = GD.RandRange(0, 100);
-        if (value <= prop.Chance) {
-          yield return (prop.PropData, cell);
+  public void PlaceProps() {
+    var rng = new RandomNumberGenerator();
+    var settingsGroups = GroupCellsByPropSettings();
+    var meshGroups = new System.Collections.Generic.Dictionary<(Mesh Mesh, Material Material), List<Transform3D>>();
+
+
+    foreach (var kvp in settingsGroups) {
+      var propSetting = kvp.Key;
+      var cells = kvp.Value;
+      var meshDataList = GetCachedMultiMeshData(propSetting);
+
+
+      foreach (var cell in cells) {
+        if (GetEntityManagment().GetEntitiesOnCell(cell).Length == 0 && rng.Randf() * 100 > propSetting.Chance) {
+          continue;
+        }
+
+        for (var i = 0; i < propSetting.Amount; i++) {
+          var worldPos = cell.GetRealPosition() +
+                   new Vector3(
+                       (float)rng.RandfRange(-1f, 1f),
+                       0,
+                       (float)rng.RandfRange(-1f, 1f)
+                   );
+
+          foreach (var (mesh, material, initialTransform) in meshDataList) {
+            if (!meshGroups.TryGetValue((mesh, material), out var transforms)) {
+              transforms = new List<Transform3D>(cells.Count);
+              meshGroups[(mesh, material)] = transforms;
+            }
+
+            var finalTransform = Transform3D.Identity
+                      .Translated(worldPos)
+                      * initialTransform;
+
+            transforms.Add(finalTransform);
+          }
         }
       }
     }
+
+    foreach (var kvp in meshGroups) {
+      if (kvp.Value.Count == 0) {
+        continue;
+      }
+
+      var multimesh = new MultiMesh {
+        Mesh = kvp.Key.Mesh,
+        TransformFormat = MultiMesh.TransformFormatEnum.Transform3D,
+        InstanceCount = kvp.Value.Count
+      };
+
+      if (kvp.Key.Material != null) {
+        multimesh.Mesh.SurfaceSetMaterial(0, kvp.Key.Material);
+      }
+
+      for (var i = 0; i < kvp.Value.Count; i++) {
+        multimesh.SetInstanceTransform(i, kvp.Value[i]);
+      }
+
+      AddChild(new MultiMeshInstance3D { Multimesh = multimesh });
+    }
+  }
+
+  private System.Collections.Generic.Dictionary<PropSetting, List<(Mesh Mesh, Material Material, Transform3D Transform)>> _multiMeshCache
+      = new();
+
+  private List<(Mesh Mesh, Material Material, Transform3D Transform)> GetCachedMultiMeshData(PropSetting setting) {
+    if (_multiMeshCache.TryGetValue(setting, out var cached)) {
+      return cached;
+    }
+
+    using var scene = setting.PropScene.Instantiate<Node3D>();
+    var meshInstances = GetAllMeshInstances(scene);
+    var result = new List<(Mesh, Material, Transform3D)>();
+
+    foreach (var meshInstance in meshInstances) {
+
+      var transform = CalculateFullTransform(meshInstance, scene);
+      result.Add((
+          meshInstance.Mesh,
+          meshInstance.GetActiveMaterial(0),
+          transform
+      ));
+    }
+
+    _multiMeshCache[setting] = result;
+    return result;
+  }
+
+  private List<MeshInstance3D> GetAllMeshInstances(Node root) {
+    var instances = new List<MeshInstance3D>();
+    var queue = new Queue<Node>();
+    queue.Enqueue(root);
+
+    while (queue.Count > 0) {
+      var node = queue.Dequeue();
+      if (node is MeshInstance3D meshInstance) {
+        instances.Add(meshInstance);
+      }
+
+      foreach (var child in node.GetChildren()) {
+        queue.Enqueue(child);
+      }
+    }
+
+    return instances;
+  }
+
+  private Transform3D CalculateFullTransform(Node3D node, Node3D root) {
+    var transform = node.Transform;
+    var current = node.GetParent();
+
+    while (current != null) {
+      if (current is Node3D node3d) {
+        transform = node3d.Transform * transform;
+      }
+      current = current.GetParent<Node3D>();
+    }
+
+    return transform;
+  }
+
+  private System.Collections.Generic.Dictionary<PropSetting, List<GameCell>> GroupCellsByPropSettings() {
+    var settingsDict = new System.Collections.Generic.Dictionary<PropSetting, List<GameCell>>();
+
+    foreach (var cell in GameBoard.Grid.GetCells()) {
+      foreach (var propSetting in cell.GetSetting().Props) {
+        if (!settingsDict.TryGetValue(propSetting, out var cells)) {
+          cells = new List<GameCell>();
+          settingsDict[propSetting] = cells;
+        }
+        cells.Add(cell);
+      }
+    }
+
+    return settingsDict;
   }
 
   private void CheckWinCondition(Tag? tag) {

@@ -99,15 +99,18 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     };
 
     entity.Ready += () => {
+      if (!entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeProp))) {
+        Entities.Add(entity);
+      }
       EntityAdded?.Invoke(entity);
     };
-
-    Entities.Add(entity);
     AddChild(entity);
   }
 
   private void RemoveEntity(Entity entity) {
-    Entities.Remove(entity);
+    if (!entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeProp))) {
+      Entities.Remove(entity);
+    }
     EntityRemoved?.Invoke(entity);
   }
 

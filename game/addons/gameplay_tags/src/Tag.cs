@@ -56,7 +56,7 @@ public partial class Tag : Resource, IEquatable<Tag> {
     return other != null && other.FullName == FullName;
   }
   public bool Equals(Tag? other) {
-    return other != null && FullName.StartsWith(other.FullName);
+    return other != null && (FullName.StartsWith(other.FullName) || FullName == other.FullName);
   }
 
   public override bool Equals(object? obj) {

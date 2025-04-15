@@ -9,7 +9,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -220,11 +219,11 @@ public partial class AIController : Controller, IMatchController {
 
   private float CalculateMoveScore(Entity entity, Entity target, IEnumerable<GameCell> path, GameCell cell) {
     var attackAbility = entity.AbilitySystem.GetGrantedAbility<AttackAbility.Instance>();
-    var distanceScore = 0f;
-    var attackScore = 0f;
+    var distanceScore = 1f;
+    var attackScore = 1f;
     uint desiredDistance = 0;
     var actualDistance = cell.Coord.Distance(target.Cell.Coord);
-    var valueScore = 0f;
+    var valueScore = 1f;
 
     if (attackAbility != null && attackAbility.GetAttackableEntities(cell).entities.Contains(target)) {
       attackScore = CalculateDamageRatio(entity, attackAbility, target) * Profile.Agressiveness;
@@ -234,10 +233,10 @@ public partial class AIController : Controller, IMatchController {
 
     valueScore = CalculateValueScore(target) * Profile.Expansiveness;
 
-    // var threatScore = CalculateThreatAvoidance(entity, cell);
+    // var threatScore = Calcu  lateThreatAvoidance(entity, cell);
     distanceScore = 1f / (Mathf.Abs(actualDistance - desiredDistance) + 1);
 
-    return (distanceScore * 0.3f) + attackScore + valueScore;
+    return distanceScore * attackScore * valueScore;
   }
 
   private float CalculateThreatAvoidance(Entity entity, GameCell cell) {
@@ -251,19 +250,19 @@ public partial class AIController : Controller, IMatchController {
     return Mathf.Min(threatCount / 5f, 0.5f);
   }
 
-  private float CalculateValueScore(Entity target) {
+  private static float CalculateValueScore(Entity target) {
     var tags = target.AbilitySystem.OwnedTags;
     if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity))) {
-      return 1;
+      return .5f;
     }
     else if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureVillage))) {
-      return 0.5f;
-    }
-    else if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureFactory))) {
       return 0.75f;
     }
+    else if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureFactory))) {
+      return 1f;
+    }
 
-    return 0f;
+    return 0.1f;
   }
 
   private static float CalculateDamageRatio(Entity attacker, AttackAbility.Instance ability, Entity target) {
@@ -315,13 +314,11 @@ public partial class AIController : Controller, IMatchController {
       return 1f;
     }
 
-    var minCount = subtypeCounts.Min(g => g.Count);
-    var leastCommon = subtypeCounts.Where(g => g.Count == minCount).ToList();
 
     var productionTags = production.Entity?.Tags?.GetAllTags();
-    foreach (var subtype in leastCommon) {
+    foreach (var subtype in subtypeCounts) {
       if (production.Entity?.Tags != null && production.Entity.Tags.HasTag(subtype.SubTypeTag)) {
-        return 1f;
+        return Mathf.Min(1f / (subtype.Count + 1f), 1);
       }
     }
 

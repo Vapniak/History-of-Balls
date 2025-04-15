@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://duxqxw26eck1g"]
+
+[ext_resource type="PackedScene" uid="uid://cco5av4mndm2n" path="res://assets/models/props/nature/rocks/pebbles.fbx" id="1_u3mk1"]
+
+[node name="pebbles" instance=ExtResource("1_u3mk1")]
