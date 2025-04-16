@@ -54,6 +54,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().CommandSelected += (command) => {
       SelectedCommand = command;
     };
+
+    GetHUD().TimeScaleButtonWidget.TimeScaleButtonPressed += ToggleTimeScale;
   }
 
   public override void _Notification(int what) {
@@ -124,6 +126,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     CallDeferred(MethodName.FocusOnSelectedEntity);
 
     _gameStarted = true;
+  }
+
+  private void ToggleTimeScale() {
+    Engine.TimeScale = Engine.TimeScale == 2 ? 1 : 2;
   }
 
   private void CheckHover() {

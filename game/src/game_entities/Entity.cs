@@ -21,7 +21,7 @@ public partial class Entity : Node3D, ITurnAware {
   public IEntityManagment EntityManagment { get; private set; }
   public HOBGameplayAbilitySystem AbilitySystem { get; private set; }
 
-  public EntityUI UI { get; private set; }
+  public EntityUIWidget UI { get; private set; }
 
   [Notify]
   public IMatchController? OwnerController { get => _ownerController.Get(); set => _ownerController.Set(value); }

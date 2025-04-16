@@ -35,7 +35,7 @@ public partial class HealthAttributeSet : GameplayAttributeSet {
       if (data.Target.GetOwner() is Entity entity) {
         // TODO: fixme only add is shown
         var magnitude = data.EvaluatedData.Magnitude;
-        var text = FloatingText.Create();
+        var text = FloatingText3D.Create();
         text.Label?.PushColor(Colors.Red);
         text.Label?.AppendText($"{magnitude} Health");
         GameInstance.GetWorld().AddChild(text);

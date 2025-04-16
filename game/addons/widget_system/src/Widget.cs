@@ -4,16 +4,13 @@ using System;
 using Godot;
 
 [GlobalClass]
-public partial class Widget : Control, IWidget<Widget> {
+public partial class Widget : Control, IWidget<Widget>, IWidgetFactory<Widget> {
   protected WidgetManager WidgetManager => WidgetManager.Instance;
 
-  public static Widget Create() {
-    return new();
-  }
+  static Widget IWidgetFactory<Widget>.CreateWidget() => new();
 
-  public void CloseWidget() {
+  public void PopWidget() {
     WidgetManager.PopWidget();
   }
-
   public virtual bool CanBePopped() => WidgetManager.WidgetStackCount > 1;
 }

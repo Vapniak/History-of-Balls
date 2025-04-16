@@ -100,7 +100,7 @@ public partial class HOBGameMode : GameMode {
   protected override GameState CreateGameState() => new HOBGameState();
 
   private void OnPausedStateEntered() {
-    WidgetManager.Instance.PushWidget<PauseMenu>(menu => {
+    WidgetManager.Instance.PushWidget<PauseMenuWidget>(menu => {
       menu.ResumeEvent += Resume;
       menu.MainMenuEvent += () => _ = OnMainMenu();
       menu.QuitEvent += OnQuit;

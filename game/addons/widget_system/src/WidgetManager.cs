@@ -34,8 +34,8 @@ public partial class WidgetManager : Node {
     }
   }
 
-  public void PushWidget<T>(T widget, Action<T>? configure = null, bool hidePrevious = true) where T : Widget, IWidget<T> {
-    if (hidePrevious && CurrentWidget != null) {
+  public void PushWidget<T>(T widget, Action<T>? configure = null, bool hidePrevious = true) where T : Widget {
+    if (hidePrevious && IsInstanceValid(CurrentWidget) && CurrentWidget != null) {
       CurrentWidget.Hide();
       CurrentWidget.ProcessMode = ProcessModeEnum.Disabled;
     }
@@ -50,8 +50,8 @@ public partial class WidgetManager : Node {
     WidgetPushed?.Invoke(widget);
   }
 
-  public void PushWidget<T>(Action<T>? configure = null, bool hidePrevious = true) where T : Widget, IWidget<T> {
-    var widget = T.Create();
+  public void PushWidget<T>(Action<T>? configure = null, bool hidePrevious = true) where T : Widget, IWidgetFactory<T> {
+    var widget = T.CreateWidget();
 
     PushWidget(widget, configure, hidePrevious);
   }

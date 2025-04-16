@@ -12,14 +12,15 @@ public partial class HOBHUD : HUD {
   [Signal] public delegate void CommandSelectedEventHandler(HOBAbilityInstance abilityInstance);
   [Signal] public delegate void EndTurnPressedEventHandler(bool skip);
 
+  [Export] public TimeScaleButtonWidget TimeScaleButtonWidget { get; set; } = default!;
   [Export] private Label? TurnChangedNotificationLabel { get; set; }
-  [Export] private StatPanel? StatPanel { get; set; }
+  [Export] private EntityPanelWidget EntityPanel { get; set; } = default!;
   [Export] private EntityProductionPanel? ProductionPanel { get; set; }
   [Export] private Button? EndTurnButton { get; set; }
-  [Export] private CommandPanel? CommandPanel { get; set; }
+  [Export] private CommandPanelWidget? CommandPanel { get; set; }
   [Export] private Label? RoundLabel { get; set; }
   [Export] private Label? TurnLabel { get; set; }
-  [Export] private TextureRect? CountryFlag { get; set; }
+  [Export] private FlagWidget FlagWidget { get; set; } = default!;
   [Export] private Label? CountryNameLabel { get; set; }
   [Export] private Array<AttributeIcon> AttributeIcons { get; set; } = new();
 
@@ -104,7 +105,7 @@ public partial class HOBHUD : HUD {
     SecondaryResourceNameLabel.AddImage(playerState.Country.SecondaryResource.Icon, 16, 16);
     SecondaryResourceNameLabel.AddText($" {playerState.Country.SecondaryResource.Name}: ");
 
-    CountryFlag.Texture = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Flag;
+    FlagWidget.SetFlag(GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Flag);
     CountryNameLabel.Text = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Name;
   }
 
@@ -113,10 +114,6 @@ public partial class HOBHUD : HUD {
   }
 
   private void UpdateSecondaryResourceValue(float value) {
-    // if (GetPlayerController().GetPlayerState().AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
-    //   // FIXME: the value is incorrect sometimes
-    //   SecondaryResourceValueLabel.Text = GetPlayerController().GetPlayerState().AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attributeSet.SecondaryResource).ToString();
-    // }
     SecondaryResourceValueLabel.Text = value.ToString();
   }
 
@@ -149,20 +146,11 @@ public partial class HOBHUD : HUD {
   }
 
   private void ShowUIFor(Entity entity) {
-    StatPanel.ClearEntries();
+    EntityPanel.ClearEntries();
 
-    StatPanel.SetNameLabel(entity.EntityName);
-    StatPanel.SetIcon(GameInstance.GetGameMode<HOBGameMode>().GetIconFor(entity));
+    EntityPanel.BindToEntity(entity, GameInstance.GetGameMode<HOBGameMode>().GetIconFor(entity));
 
-    entity.AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
-
-    foreach (var attribute in entity.AbilitySystem.AttributeSystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
-      if (attribute != null) {
-        UpdateAttributeEntry(attribute);
-      }
-    }
-
-    StatPanel.Show();
+    EntityPanel.Show();
 
     CommandPanel.ClearCommands();
     ProductionPanel.ClearEntities();
@@ -179,14 +167,13 @@ public partial class HOBHUD : HUD {
         }
       }
     }
+
     CommandPanel.Show();
   }
   private void HideUIFor(Entity? entity) {
-    if (entity != null) {
-      entity.AbilitySystem.AttributeSystem.AttributeValueChanged -= OnAttributeValueChanged;
-    }
+    EntityPanel.Unbind();
+    EntityPanel.Hide();
 
-    StatPanel.Hide();
     ProductionPanel.Hide();
     CommandPanel.Hide();
   }
@@ -197,31 +184,5 @@ public partial class HOBHUD : HUD {
 
   public new HOBPlayerController GetPlayerController() {
     return GetPlayerController<HOBPlayerController>();
-  }
-
-  private void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
-    UpdateAttributeEntry(attribute);
-  }
-
-  private void UpdateAttributeEntry(GameplayAttribute attribute) {
-    if (CurrentEntity == null) {
-      return;
-    }
-
-    if (CurrentEntity.AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var set) && (attribute == set.HealthAttribute || attribute == set.MaxHealthAttribute)) {
-      var healthValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.HealthAttribute).GetValueOrDefault();
-      var maxHealthValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(set.MaxHealthAttribute).GetValueOrDefault();
-      var icon = GetIconForAttribute(set.HealthAttribute);
-      StatPanel.UpdateEntry(set.HealthAttribute.AttributeName, $"{healthValue}/{maxHealthValue}", icon?.Icon, icon?.Color);
-    }
-    else {
-      var currentValue = CurrentEntity.AbilitySystem.AttributeSystem.GetAttributeCurrentValue(attribute).GetValueOrDefault();
-      var icon = GetIconForAttribute(attribute);
-      StatPanel.UpdateEntry(attribute.AttributeName, currentValue.ToString(), icon?.Icon, icon?.Color);
-    }
-  }
-
-  private AttributeIcon? GetIconForAttribute(GameplayAttribute attribute) {
-    return AttributeIcons.FirstOrDefault(a => a.Attribute == attribute);
   }
 }

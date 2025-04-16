@@ -1,0 +1,77 @@
+[gd_scene load_steps=2 format=3 uid="uid://y6icx2blahqk"]
+
+[ext_resource type="Script" path="res://src/widgets/menus/pause_menu/PauseMenuWidget.cs" id="1_moos1"]
+
+[node name="PauseMenu" type="Control"]
+process_mode = 2
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_moos1")
+
+[node name="ColorRect" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_type_variation = &"BackgroundTransparency"
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"MarginLarge"
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_type_variation = &"HeaderLarge"
+text = "PAUSE"
+horizontal_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LargeButton"
+text = "RESUME"
+
+[node name="SettingsButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LargeButton"
+text = "SETTINGS"
+
+[node name="TutorialButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LargeButton"
+text = "TUTORIAL"
+
+[node name="MainMenuButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LargeButton"
+text = "MAIN MENU"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"LargeButton"
+text = "QUIT"
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/ResumeButton" to="." method="OnResumePressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/SettingsButton" to="." method="OnSettingsPressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/TutorialButton" to="." method="OnTutorialPressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/MainMenuButton" to="." method="OnMainMenuPressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/QuitButton" to="." method="OnQuitPressed"]

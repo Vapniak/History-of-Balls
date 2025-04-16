@@ -1,0 +1,293 @@
+[gd_scene load_steps=23 format=3 uid="uid://knv3bilnx05e"]
+
+[ext_resource type="Script" path="res://src/game_modes/hob/hud/HOBHUD.cs" id="1_ep1kh"]
+[ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/widgets/flag/flag.tscn" id="2_3sw0n"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://src/game_entities/attributes/health.tres" id="2_ujf4x"]
+[ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/widgets/command_panel/command_panel.tscn" id="3_a41a7"]
+[ext_resource type="Texture2D" uid="uid://fccrv3p77lu" path="res://assets/textures/icons/health.svg" id="3_qdosv"]
+[ext_resource type="PackedScene" uid="uid://dm85iu1q2xpt5" path="res://src/widgets/entity_production_panel/entity_production_panel.tscn" id="4_77ne6"]
+[ext_resource type="Script" path="res://src/game_modes/hob/hud/AttributeIcon.cs" id="4_g1ioo"]
+[ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/widgets/entity_panel/entity_panel.tscn" id="4_yxp0t"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://src/game_entities/attributes/damage.tres" id="5_foi1l"]
+[ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="6_dnwa3"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://src/game_entities/attributes/move_points.tres" id="7_dbu2u"]
+[ext_resource type="Script" path="res://src/widgets/entity_list/EntityList.cs" id="8_4jikb"]
+[ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="8_ygg4n"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://src/game_entities/attributes/range.tres" id="9_4xxi0"]
+[ext_resource type="Texture2D" uid="uid://bifk8suk2tv7f" path="res://assets/textures/icons/range.svg" id="10_d2c4h"]
+[ext_resource type="PackedScene" uid="uid://bmlv80etq4l1b" path="res://src/widgets/current_time/current_time.tscn" id="12_2ykvv"]
+[ext_resource type="PackedScene" uid="uid://c3lvr615cvoaa" path="res://src/widgets/time_played/time_played.tscn" id="13_7vy0t"]
+[ext_resource type="PackedScene" uid="uid://cyidgmoevposj" path="res://src/widgets/time_scale/time_scale.tscn" id="13_q7q03"]
+
+[sub_resource type="Resource" id="Resource_cob3t"]
+script = ExtResource("4_g1ioo")
+Attribute = ExtResource("2_ujf4x")
+Icon = ExtResource("3_qdosv")
+Color = Color(1, 0.245241, 0.187845, 1)
+
+[sub_resource type="Resource" id="Resource_kuy1d"]
+script = ExtResource("4_g1ioo")
+Attribute = ExtResource("5_foi1l")
+Icon = ExtResource("6_dnwa3")
+Color = Color(0.8, 0.58, 0.272, 1)
+
+[sub_resource type="Resource" id="Resource_p0agh"]
+script = ExtResource("4_g1ioo")
+Attribute = ExtResource("7_dbu2u")
+Icon = ExtResource("8_ygg4n")
+Color = Color(0.910233, 1, 0.846321, 1)
+
+[sub_resource type="Resource" id="Resource_bnmth"]
+script = ExtResource("4_g1ioo")
+Attribute = ExtResource("9_4xxi0")
+Icon = ExtResource("10_d2c4h")
+Color = Color(0.747106, 0.833145, 0.999999, 1)
+
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TimeScaleButtonWidget", "TurnChangedNotificationLabel", "EntityPanel", "ProductionPanel", "EndTurnButton", "CommandPanel", "RoundLabel", "TurnLabel", "FlagWidget", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+layer = 0
+script = ExtResource("1_ep1kh")
+TimeScaleButtonWidget = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimeScale")
+TurnChangedNotificationLabel = NodePath("VBoxContainer/MarginContainer4/TurnLabel")
+EntityPanel = NodePath("VBoxContainer/MarginContainer4/StatPanel")
+ProductionPanel = NodePath("VBoxContainer/MarginContainer4/EntityProductionPanel")
+EndTurnButton = NodePath("VBoxContainer/MarginContainer4/VBoxContainer/Button")
+CommandPanel = NodePath("VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel")
+RoundLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label")
+TurnLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label2")
+FlagWidget = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Flag")
+CountryNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Label")
+AttributeIcons = [SubResource("Resource_cob3t"), SubResource("Resource_kuy1d"), SubResource("Resource_p0agh"), SubResource("Resource_bnmth")]
+PrimaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer/RichTextLabel")
+PrimaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer/Label2")
+SecondaryResourceNameLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer2/RichTextLabel2")
+SecondaryResourceValueLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer2/Label2")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+
+[node name="Panel" type="Panel" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_type_variation = &"TopBarPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Resources" type="MarginContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2"]
+layout_mode = 2
+
+[node name="Flag" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer" instance=ExtResource("2_3sw0n")]
+custom_minimum_size = Vector2(48, 30)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
+text = "Team Name"
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Primary:"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Secondary:"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "0"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderMedium"
+text = "ROUND 0"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "PLAYER TURN"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CurrentTime" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("12_2ykvv")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="TimeScale" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer" instance=ExtResource("13_q7q03")]
+layout_mode = 2
+
+[node name="TimePlayed" parent="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer" instance=ExtResource("13_7vy0t")]
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+theme_type_variation = &"MarginLarge"
+
+[node name="TurnLabel" type="Label" parent="VBoxContainer/MarginContainer4"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+theme_type_variation = &"HeaderLarge"
+theme_override_constants/outline_size = 12
+text = "YOUR TURN"
+horizontal_alignment = 1
+uppercase = true
+
+[node name="PanelContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer4"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer4/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer4/PanelContainer"]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer4/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "OBJECTIVES:
+- CAPTURE ALL CITIES"
+uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer4/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+theme_type_variation = &"ActionButton"
+text = "END TURN"
+
+[node name="EntityProductionPanel" parent="VBoxContainer/MarginContainer4" instance=ExtResource("4_77ne6")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 10
+size_flags_vertical = 4
+mouse_force_pass_scroll_events = false
+
+[node name="StatPanel" parent="VBoxContainer/MarginContainer4" instance=ExtResource("4_yxp0t")]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 8
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
+
+[node name="CommandPanel" parent="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer" index="1" instance=ExtResource("3_a41a7")]
+layout_mode = 2
+
+[node name="EntityList" type="MarginContainer" parent="VBoxContainer/MarginContainer4"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+script = ExtResource("8_4jikb")
+
+[node name="Panel" type="Panel" parent="VBoxContainer/MarginContainer4/EntityList"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/MarginContainer4/EntityList"]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer"]
+custom_minimum_size = Vector2(100, 200)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Button" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[node name="Button2" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[node name="Button3" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[node name="Button4" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[node name="Button5" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+text = "UNIT 123"
+
+[connection signal="TimeScaleButtonPressed" from="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimeScale" to="." method="OnTimeScaleButtonPressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/VBoxContainer/Button" to="." method="OnEndTurnPressed" binds= [false]]
+
+[editable path="VBoxContainer/MarginContainer4/StatPanel"]
+[editable path="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/StatEntries/HBoxContainer"]

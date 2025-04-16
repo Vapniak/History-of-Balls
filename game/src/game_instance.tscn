@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://oabxjhe8u25j"]
 
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/globals/GameInstance.cs" id="1_ld3ae"]
-[ext_resource type="Script" path="res://src/gui/FPSLabel.cs" id="2_2xn15"]
-[ext_resource type="Script" path="res://src/gui/VersionLabel.cs" id="3_6yonl"]
+[ext_resource type="PackedScene" uid="uid://hnn3v40nxtxw" path="res://src/widgets/current_version/current_version.tscn" id="3_m3yl0"]
 [ext_resource type="Texture2D" uid="uid://ddhnps6feb471" path="res://assets/textures/boomballer-ident-logo.svg" id="3_upo7v"]
+[ext_resource type="PackedScene" uid="uid://c5d5h1jxh7gwp" path="res://src/widgets/fps/fps.tscn" id="4_twqu5"]
 
 [node name="GameInstance" type="Node"]
 script = ExtResource("1_ld3ae")
@@ -21,26 +21,18 @@ grow_vertical = 2
 mouse_filter = 2
 theme_type_variation = &"MarginSmall"
 
-[node name="Label" type="Label" parent="CanvasLayer/PanelContainer"]
+[node name="Fps" parent="CanvasLayer/PanelContainer" instance=ExtResource("4_twqu5")]
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 8
-text = "60
-"
-horizontal_alignment = 1
-script = ExtResource("2_2xn15")
 
 [node name="BoxContainer" type="BoxContainer" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 8
 
-[node name="Label2" type="Label" parent="CanvasLayer/PanelContainer/BoxContainer"]
+[node name="CurrentVersion" parent="CanvasLayer/PanelContainer/BoxContainer" instance=ExtResource("3_m3yl0")]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 8
-text = "0.1"
-script = ExtResource("3_6yonl")
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/PanelContainer/BoxContainer"]
 custom_minimum_size = Vector2(24, 24)

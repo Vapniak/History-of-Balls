@@ -14,7 +14,7 @@ public partial class MainMenuGameMode : GameMode {
 
   public override void _Ready() {
     base._Ready();
-    WidgetManager.Instance.PushWidget<MainMenu>();
+    WidgetManager.Instance.PushWidget<MainMenuWidget>();
     MusicManager.Instance.Play("music", "main_menu", 2, true);
   }
 

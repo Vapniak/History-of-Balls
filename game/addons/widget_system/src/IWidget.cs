@@ -2,6 +2,6 @@ namespace WidgetSystem;
 
 using Godot;
 
-public interface IWidget<T> where T : Control, IWidget<T> {
-  public static abstract T Create();
+public interface IWidget<out T> where T : Control {
+  public bool CanBePopped();
 }
