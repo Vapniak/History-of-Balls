@@ -11,7 +11,7 @@ public partial class EntityIconWidget : Widget, IWidgetFactory<EntityIconWidget>
     return ResourceLoader.Load<PackedScene>("").Instantiate<EntityIconWidget>();
   }
 
-  public void SetIcon(Texture2D icon) {
+  public void SetIcon(Texture2D? icon) {
     IconRect.Texture = icon;
   }
 }

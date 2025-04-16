@@ -35,7 +35,7 @@ _subresources={
 "materials": {
 "Materiał.010": {
 "use_external/enabled": true,
-"use_external/path": "res://res/materials/factory_mat.tres"
+"use_external/path": "res://res/materials/objects_mat.tres"
 }
 }
 }

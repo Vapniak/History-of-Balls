@@ -2,6 +2,7 @@ namespace HOB.GameEntity;
 
 using AudioManager;
 using GameplayAbilitySystem;
+using GameplayFramework;
 using GameplayTags;
 using Godot;
 using Godot.Collections;
@@ -11,6 +12,8 @@ using System.Threading.Tasks;
 public partial class Entity : Node3D, ITurnAware {
   public EntityBody Body { get; private set; }
   public string EntityName { get; private set; }
+
+  public Texture2D? Icon => GameInstance.GetGameMode<HOBGameMode>()?.GetIconFor(this);
 
   [Notify]
   public GameCell Cell {
@@ -42,10 +45,17 @@ public partial class Entity : Node3D, ITurnAware {
     AbilitySystem = new();
     Body = body;
 
-    Scale = Vector3.Zero;
+
+    Ready += () => {
+      Scale = Vector3.Zero;
+      var tween = CreateTween();
+
+      tween.TweenProperty(this, "scale", Vector3.One, 1f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.InOut);
+    };
 
     TreeEntered += () => {
       Cell = cell;
+      GlobalPosition = Cell.GetRealPosition();
 
       AddChild(Body);
 
@@ -74,19 +84,9 @@ public partial class Entity : Node3D, ITurnAware {
         UI = ui3D.EntityUI;
         AddChild(ui3D);
       }
-
-      var tween = CreateTween();
-
-      tween.TweenProperty(this, "scale", Vector3.One, 1f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.InOut);
     };
 
     OwnerControllerChanging += AbilitySystem.CancelAllAbilities;
-  }
-
-  public override void _Ready() {
-    base._Ready();
-
-    GlobalPosition = Cell.GetRealPosition();
   }
 
   public override void _ExitTree() {

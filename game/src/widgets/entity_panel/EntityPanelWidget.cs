@@ -16,29 +16,51 @@ public partial class EntityPanelWidget : Widget {
 
   private Entity? CurrentEntity { get; set; }
 
-  public void BindToEntity(Entity entity, Texture2D icon) {
-    IconWidget.SetIcon(icon);
+  public void Initialize(HOBPlayerController playerController) {
+    Hide();
+
+    playerController.SelectedEntityChanged += () => {
+      var entity = playerController.SelectedEntity;
+
+      if (entity != null) {
+        BindToEntity(entity);
+      }
+      else {
+        Unbind();
+      }
+    };
+  }
+
+  private void BindToEntity(Entity entity) {
+    Unbind();
+
+    IconWidget.SetIcon(entity.Icon);
     NameLabel.Text = entity.EntityName;
 
     CurrentEntity = entity;
     CurrentEntity.AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
 
+    ClearEntries();
     foreach (var attribute in entity.AbilitySystem.AttributeSystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
       if (attribute != null) {
         UpdateAttributeEntry(attribute);
       }
     }
+
+    Show();
   }
 
-  public void Unbind() {
+  private void Unbind() {
+    Hide();
     if (CurrentEntity == null) {
       return;
     }
 
     CurrentEntity.AbilitySystem.AttributeSystem.AttributeValueChanged -= OnAttributeValueChanged;
+    CurrentEntity = null;
   }
 
-  public void ClearEntries() {
+  private void ClearEntries() {
     Entries.Clear();
     foreach (var child in EntriesList.GetChildren()) {
       child.Free();

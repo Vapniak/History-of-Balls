@@ -64,7 +64,7 @@ public partial class WidgetManager : Node {
     var widget = _widgetStack.Pop();
     widget.QueueFree();
 
-    if (showPrevious && CurrentWidget != null) {
+    if (showPrevious && IsInstanceValid(CurrentWidget) && CurrentWidget != null) {
       CurrentWidget.Show();
       CurrentWidget.ProcessMode = ProcessModeEnum.Inherit;
     }

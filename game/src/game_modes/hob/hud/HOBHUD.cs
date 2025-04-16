@@ -1,7 +1,6 @@
 namespace HOB;
 
 using System.Linq;
-using GameplayAbilitySystem;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
@@ -10,19 +9,21 @@ using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
   [Signal] public delegate void CommandSelectedEventHandler(HOBAbilityInstance abilityInstance);
-  [Signal] public delegate void EndTurnPressedEventHandler(bool skip);
+  [Signal] public delegate void EndTurnPressedEventHandler();
 
   [Export] public TimeScaleButtonWidget TimeScaleButtonWidget { get; set; } = default!;
   [Export] private Label? TurnChangedNotificationLabel { get; set; }
+
   [Export] private EntityPanelWidget EntityPanel { get; set; } = default!;
   [Export] private EntityProductionPanel? ProductionPanel { get; set; }
+  [Export] private CommandPanelWidget CommandPanel { get; set; } = default!;
+
   [Export] private Button? EndTurnButton { get; set; }
-  [Export] private CommandPanelWidget? CommandPanel { get; set; }
   [Export] private Label? RoundLabel { get; set; }
   [Export] private Label? TurnLabel { get; set; }
+
   [Export] private FlagWidget FlagWidget { get; set; } = default!;
   [Export] private Label? CountryNameLabel { get; set; }
-  [Export] private Array<AttributeIcon> AttributeIcons { get; set; } = new();
 
   [ExportGroup("Resources")]
   [Export] private RichTextLabel? PrimaryResourceNameLabel { get; set; }
@@ -36,31 +37,12 @@ public partial class HOBHUD : HUD {
   public override void _Ready() {
     base._Ready();
 
-    HideUIFor(null);
+    EntityPanel.Initialize(GetPlayerController());
+    CommandPanel.Initialize(GetPlayerController());
 
     TurnChangedNotificationLabel.Modulate = Colors.Transparent;
 
     GetPlayerController().GetGameMode().GetMatchEvents().MatchEvent += OnMatchEvent;
-
-    GetPlayerController().SelectedEntityChanging += () => {
-      var selectedEntity = GetPlayerController().SelectedEntity;
-
-      if (selectedEntity == null) {
-
-      }
-      else {
-        HideUIFor(selectedEntity);
-      }
-    };
-
-    GetPlayerController().SelectedEntityChanged += () => {
-      var selectedEntity = GetPlayerController().SelectedEntity;
-      CurrentEntity = selectedEntity;
-
-      if (selectedEntity != null) {
-        ShowUIFor(selectedEntity);
-      }
-    };
 
     var turnBlocking = GameInstance.GetGameMode<HOBGameMode>().GetTurnManagment();
 
@@ -131,7 +113,7 @@ public partial class HOBHUD : HUD {
     TurnChangedNotificationLabel.Text = player.PlayerName + " TURN";
     TurnLabel.Text = $"{player.PlayerName} TURN";
 
-    var tween = CreateTween();
+    var tween = CreateTween().SetEase(Tween.EaseType.OutIn);
     tween.TweenProperty(TurnChangedNotificationLabel, "modulate", Colors.White, 0.5);
     tween.TweenInterval(1);
     tween.TweenProperty(TurnChangedNotificationLabel, "modulate", Colors.Transparent, 1);
@@ -144,45 +126,7 @@ public partial class HOBHUD : HUD {
   private void OnEndTurnPressed(bool speedUp) {
     EmitSignal(SignalName.EndTurnPressed, speedUp);
   }
-
-  private void ShowUIFor(Entity entity) {
-    EntityPanel.ClearEntries();
-
-    EntityPanel.BindToEntity(entity, GameInstance.GetGameMode<HOBGameMode>().GetIconFor(entity));
-
-    EntityPanel.Show();
-
-    CommandPanel.ClearCommands();
-    ProductionPanel.ClearEntities();
-
-
-    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities().OrderBy(a => (a.AbilityResource as HOBAbilityResource)?.UIOrder)) {
-      if (ability is HOBAbilityInstance hOBAbility && hOBAbility.AbilityResource.ShowInUI) {
-        CommandPanel.AddCommand(hOBAbility);
-      }
-
-      if (ability is EntityProductionAbilityResource.Instance production) {
-        if (entity.TryGetOwner(out var owner)) {
-          ProductionPanel.ShowProducedEntities(production, owner.GetPlayerState(), GetPlayerController());
-        }
-      }
-    }
-
-    CommandPanel.Show();
-  }
-  private void HideUIFor(Entity? entity) {
-    EntityPanel.Unbind();
-    EntityPanel.Hide();
-
-    ProductionPanel.Hide();
-    CommandPanel.Hide();
-  }
-
-  public void SelectCommand(HOBAbilityInstance abilityInstance) {
-    CommandPanel.SelectCommand(abilityInstance);
-  }
-
   public new HOBPlayerController GetPlayerController() {
-    return GetPlayerController<HOBPlayerController>();
+    return GetPlayerController<HOBPlayerController>()!;
   }
 }

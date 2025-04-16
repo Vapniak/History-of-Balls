@@ -2,6 +2,7 @@ namespace HOB;
 
 using Godot;
 using Godot.Collections;
+using HOB.GameEntity;
 using System.Linq;
 
 public partial class CommandPanelWidget : Control {
@@ -10,15 +11,57 @@ public partial class CommandPanelWidget : Control {
 
   private Dictionary<HOBAbilityInstance, CommandButtonWidget> Commands { get; set; } = new();
 
+  private Entity? CurrentEntity { get; set; }
 
-  public void SelectCommand(int index) {
+  public void Initialize(HOBPlayerController playerController) {
+    Hide();
+
+    playerController.SelectedCommandChanged += () => {
+      if (playerController.SelectedCommand != null) {
+        SelectCommand(playerController.SelectedCommand);
+      }
+    };
+
+    playerController.SelectedEntityChanged += () => {
+      var entity = playerController.SelectedEntity;
+
+      if (entity != null) {
+        BindTo(entity);
+      }
+      else {
+        Unbind();
+      }
+    };
+  }
+
+  private void BindTo(Entity entity) {
+    CurrentEntity = entity;
+
+    ClearCommands();
+    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities().OrderBy(a => (a.AbilityResource as HOBAbilityResource)?.UIOrder)) {
+      if (ability is HOBAbilityInstance hOBAbility && hOBAbility.AbilityResource.ShowInUI) {
+        AddCommand(hOBAbility);
+      }
+    }
+
+    if (GetCommandCount() > 0) {
+      Show();
+    }
+  }
+
+  private void Unbind() {
+    CurrentEntity = null;
+    Hide();
+  }
+
+  private void SelectCommand(int index) {
     if (index >= 0 && index < Commands.Count) {
       var command = Commands.ElementAt(index);
       SelectCommand(command.Key);
     }
   }
 
-  public void SelectCommand(HOBAbilityInstance command) {
+  private void SelectCommand(HOBAbilityInstance command) {
     if (command == null) {
       return;
     }
@@ -29,14 +72,14 @@ public partial class CommandPanelWidget : Control {
     }
   }
 
-  public void ClearCommands() {
+  private void ClearCommands() {
     foreach (var child in CommandList.GetChildren()) {
       child.Free();
     }
 
     Commands.Clear();
   }
-  public void AddCommand(HOBAbilityInstance ability) {
+  private void AddCommand(HOBAbilityInstance ability) {
     var buttonWidget = CommandButtonWidget.CreateWidget();
     buttonWidget.BindAbility(ability);
     var button = buttonWidget.Button;
@@ -46,5 +89,5 @@ public partial class CommandPanelWidget : Control {
     Commands.Add(ability, buttonWidget);
   }
 
-  public int GetCommandCount() => Commands.Count;
+  private int GetCommandCount() => Commands.Count;
 }

@@ -12,7 +12,7 @@ public partial class PauseMenuWidget : Widget, IWidgetFactory<PauseMenuWidget> {
 
   private void OnResumePressed() {
     ResumeEvent?.Invoke();
-    QueueFree();
+    PopWidget();
   }
 
   public override void _ExitTree() {

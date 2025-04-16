@@ -35,6 +35,9 @@ shader_parameter/uv_offset = Vector2(0, 0)
 
 [node name="BaseCountryBall" parent="." instance=ExtResource("1_7c3a6")]
 
+[node name="Armature" parent="BaseCountryBall/sphere (1)" index="0"]
+transform = Transform3D(140.698, 0, 0, 0, -6.15011e-06, 140.698, 0, -140.698, -6.15011e-06, 1.49012e-08, 1, 0)
+
 [node name="Sphere" parent="BaseCountryBall/sphere (1)/Armature/Skeleton3D" index="0"]
 surface_material_override/0 = SubResource("ShaderMaterial_tye72")
 

@@ -111,7 +111,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     Character.ClampPosition(GameBoard.GetAabb());
   }
 
-  public void TryEndTurn(bool speedUp) {
+  public void TryEndTurn() {
     GetGameMode().GetTurnManagment().TryEndTurn(this);
   }
   public void OwnTurnStarted() {
@@ -267,7 +267,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (@event.IsActionPressed(GameInputs.EndTurn)) {
-      TryEndTurn(false);
+      TryEndTurn();
     }
 
     @event.Dispose();
@@ -322,7 +322,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (@event.IsActionPressed(GameInputs.EndTurn)) {
-      TryEndTurn(false);
+      TryEndTurn();
     }
 
     @event.Dispose();
@@ -336,8 +336,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is MoveAbility.Instance);
       ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is AttackAbility.Instance);
 
-      if (ability is HOBAbilityInstance hOBAbility) {
-        GetHUD().SelectCommand(hOBAbility);
+      if (ability != null) {
+        SelectedCommand = (HOBAbilityInstance)ability;
       }
     }
 

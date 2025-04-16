@@ -19,6 +19,14 @@ public partial class ThrowAttackAbility : AttackAbility {
     public Instance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
     }
 
+    public override void _Ready() {
+      OwnerAbilitySystem.OwnedTags.TagRemoved += OnTagRemoved;
+    }
+
+    public override void _ExitTree() {
+      // OwnerAbilitySystem.OwnedTags.TagRemoved -= OnTagRemoved;
+    }
+
 
     public override void ActivateAbility(GameplayEventData? eventData) {
       base.ActivateAbility(eventData);
@@ -26,7 +34,6 @@ public partial class ThrowAttackAbility : AttackAbility {
       if (eventData?.TargetData is AttackTargetData attackTargetData && CommitCooldown()) {
         var effect = (AbilityResource as AttackAbility)?.BlockMovementEffect;
         if (effect != null) {
-          OwnerAbilitySystem.OwnedTags.TagRemoved += OnTagRemoved;
           var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
           OwnerAbilitySystem.ApplyGameplayEffectToSelf(ge);
         }
@@ -36,12 +43,6 @@ public partial class ThrowAttackAbility : AttackAbility {
       }
 
       EndAbility(true);
-    }
-
-    public override void EndAbility(bool wasCanceled = false) {
-      base.EndAbility(wasCanceled);
-
-      OwnerAbilitySystem.OwnedTags.TagRemoved -= OnTagRemoved;
     }
 
 
@@ -82,28 +83,29 @@ public partial class ThrowAttackAbility : AttackAbility {
     public override bool CanBeAttacked(Entity entity) => base.CanBeAttacked(entity);
 
     public override bool IsCellVisible(GameCell from, GameCell to) {
-      var cells = from.GetCellsInLine(to);
+      // var cells = from.GetCellsInLine(to);
 
-      for (var i = 0; i < cells.Length - 1; i++) {
-        var current = cells[i];
-        var next = cells[i + 1];
+      // for (var i = 0; i < cells.Length - 1; i++) {
+      //   var current = cells[i];
+      //   var next = cells[i + 1];
 
-        if (current.Coord.Distance(next.Coord) > 1) {
-          return false;
-        }
-
-        if (current.GetEdgeTypeTo(next) is GameCell.EdgeType.Cliff && current.GetSetting().Elevation < next.GetSetting().Elevation) {
-          return false;
-        }
-      }
+      //   if (from.GetEdgeTypeTo(next) is GameCell.EdgeType.Cliff) {
+      //     if (from.GetSetting().Elevation <= next.GetSetting().Elevation) {
+      //       continue;
+      //     }
+      //     else {
+      //       return false;
+      //     }
+      //   }
+      // }
 
       return base.IsCellVisible(from, to);
     }
 
     // FIXME: null reference when died?
     private void OnTagRemoved(Tag tag) {
-      if (IsInstanceValid(tag) && tag == TagManager.GetTag(HOBTags.CooldownAttack)) {
-        if (IsInstanceValid(OwnerEntity.Body) && OwnerEntity.Body is UnitBody unit) {
+      if (tag == TagManager.GetTag(HOBTags.CooldownAttack)) {
+        if (IsInstanceValid(OwnerEntity) && IsInstanceValid(OwnerEntity.Body) && IsInstanceValid(OwnerEntity) && OwnerEntity.Body is UnitBody unit) {
           unit.UnitAttribute?.Reset();
         }
       }

@@ -16,6 +16,7 @@ shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0.75, 0)
 
 [node name="sphere (1)" instance=ExtResource("1_e8mkc")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 
 [node name="Armature" parent="." index="0"]
 transform = Transform3D(140.698, 0, 0, 0, -6.1501e-06, 140.698, 0, -140.698, -6.1501e-06, 1.49012e-08, 1, 0)
