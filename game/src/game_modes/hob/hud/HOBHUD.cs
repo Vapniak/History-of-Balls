@@ -16,7 +16,6 @@ public partial class HOBHUD : HUD {
   [Export] private StatPanel? StatPanel { get; set; }
   [Export] private EntityProductionPanel? ProductionPanel { get; set; }
   [Export] private Button? EndTurnButton { get; set; }
-  [Export] private Button? SkipTurnButton { get; set; }
   [Export] private CommandPanel? CommandPanel { get; set; }
   [Export] private Label? RoundLabel { get; set; }
   [Export] private Label? TurnLabel { get; set; }
@@ -67,13 +66,11 @@ public partial class HOBHUD : HUD {
     turnBlocking.TurnBlocked += () => {
       if (GetPlayerController<IMatchController>().IsCurrentTurn()) {
         EndTurnButton.Disabled = true;
-        SkipTurnButton.Disabled = true;
       }
     };
     turnBlocking.TurnUnblocked += () => {
       if (GetPlayerController<IMatchController>().IsCurrentTurn()) {
         EndTurnButton.Disabled = false;
-        SkipTurnButton.Disabled = false;
       }
     };
 
@@ -132,8 +129,6 @@ public partial class HOBHUD : HUD {
 
   private void OnTurnChanged(int playerIndex) {
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
-    SkipTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
-
     var player = GetPlayerController<IMatchController>().GetGameState().PlayerArray[playerIndex];
 
     TurnChangedNotificationLabel.Text = player.PlayerName + " TURN";

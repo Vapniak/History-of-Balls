@@ -1,6 +1,7 @@
 namespace HOB;
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,12 +11,12 @@ using GameplayTags;
 using Godot;
 using Godot.Collections;
 using GodotStateCharts;
+using HexGridMap;
 using HOB.GameEntity;
+using WidgetSystem;
 
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
-  [Export] private MatchEndMenu? MatchEndMenu { get; set; }
-  [Export] private PauseMenu? PauseMenu { get; set; }
   [Export] private PlayerAttributeSet? PlayerAttributeSet { get; set; }
   [Export] public Array<EntityIcon>? EntityIcons { get; private set; }
 
@@ -54,18 +55,13 @@ public partial class HOBGameMode : GameMode {
   public override void _ExitTree() {
     base._ExitTree();
 
+    WidgetManager.Instance.PopAllWidgets();
     Engine.TimeScale = 1;
     GameInstance.SetPause(false);
   }
 
   public override void _Ready() {
     base._Ready();
-
-    if (PauseMenu != null) {
-      PauseMenu.ResumeEvent += Resume;
-      PauseMenu.MainMenuEvent += OnMainMenu;
-      PauseMenu.QuitEvent += OnQuit;
-    }
 
     if (MatchData?.Map != null) {
       GameBoard.Init(MatchData.Map);
@@ -104,13 +100,17 @@ public partial class HOBGameMode : GameMode {
   protected override GameState CreateGameState() => new HOBGameState();
 
   private void OnPausedStateEntered() {
-    PauseMenu.Show();
+    WidgetManager.Instance.PushWidget<PauseMenu>(menu => {
+      menu.ResumeEvent += Resume;
+      menu.MainMenuEvent += () => _ = OnMainMenu();
+      menu.QuitEvent += OnQuit;
+    });
+
     _savedTimeScale = Engine.TimeScale;
     Engine.TimeScale = 1;
     GameInstance.SetPause(true);
   }
   private void OnPausedStateExited() {
-    PauseMenu.Hide();
     GameInstance.SetPause(false);
     Engine.TimeScale = _savedTimeScale;
   }
@@ -138,10 +138,8 @@ public partial class HOBGameMode : GameMode {
     GameInstance.SetPause(true);
   }
 
-  private void OnMainMenu() {
-
-    // FIXME: normal open level waits some time before unloading
-    _ = GameInstance.GetWorld().OpenLevel("main_menu_level");
+  private async Task OnMainMenu() {
+    await GameInstance.GetWorld().OpenLevel("main_menu_level");
   }
 
   private void OnQuit() => GameInstance.QuitGame();
@@ -213,6 +211,16 @@ public partial class HOBGameMode : GameMode {
     var settingsGroups = GroupCellsByPropSettings();
     var meshGroups = new System.Collections.Generic.Dictionary<(Mesh Mesh, Material Material), List<Transform3D>>();
 
+    var occupiedCells = new List<OffsetCoord>();
+
+    foreach (var playerData in MatchData.PlayerSpawnDatas) {
+      foreach (var entity in playerData.SpawnedEntities) {
+        foreach (var spawnAt in entity.SpawnAt) {
+          occupiedCells.Add(new(spawnAt.X, spawnAt.Y));
+        }
+      }
+    }
+
 
     foreach (var kvp in settingsGroups) {
       var propSetting = kvp.Key;
@@ -221,17 +229,19 @@ public partial class HOBGameMode : GameMode {
 
 
       foreach (var cell in cells) {
-        if (GetEntityManagment().GetEntitiesOnCell(cell).Length == 0 && rng.Randf() * 100 > propSetting.Chance) {
+        if (occupiedCells.Contains(cell.OffsetCoord) || rng.Randf() * 100 > propSetting.Chance) {
           continue;
         }
 
-        for (var i = 0; i < propSetting.Amount; i++) {
+
+        for (var i = 0; i < rng.RandiRange(propSetting.AmountRange.X, propSetting.AmountRange.Y); i++) {
           var worldPos = cell.GetRealPosition() +
                    new Vector3(
                        (float)rng.RandfRange(-1f, 1f),
                        0,
                        (float)rng.RandfRange(-1f, 1f)
                    );
+          var rotation = rng.RandfRange(Mathf.DegToRad(0), Mathf.DegToRad(360));
 
           foreach (var (mesh, material, initialTransform) in meshDataList) {
             if (!meshGroups.TryGetValue((mesh, material), out var transforms)) {
@@ -240,6 +250,7 @@ public partial class HOBGameMode : GameMode {
             }
 
             var finalTransform = Transform3D.Identity
+                      .Rotated(Vector3.Up, rotation)
                       .Translated(worldPos)
                       * initialTransform;
 
@@ -368,7 +379,9 @@ public partial class HOBGameMode : GameMode {
         MatchComponent.TriggerGameEnd(alivePlayers[0]);
 
         StateChart.SendEvent("match_end");
-        MatchEndMenu.OnGameEnd(alivePlayers[0]);
+        WidgetManager.Instance.PushWidget<MatchEndMenu>(menu => {
+          menu.OnGameEnd(alivePlayers[0]);
+        });
       }
     }
   }

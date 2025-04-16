@@ -2,10 +2,9 @@ namespace HOB;
 
 using Godot;
 using System;
+using WidgetSystem;
 
-public partial class TutorialPanel : Control {
-  [Signal] public delegate void ClosedEventHandler();
-
+public partial class TutorialPanel : Widget, IWidget<TutorialPanel> {
   [Export] private TabContainer _tabContainer;
   [Export] private Label _tabsLabel;
 
@@ -15,14 +14,6 @@ public partial class TutorialPanel : Control {
     UpdateTabsLabel();
 
     _tabContainer.TabChanged += (_) => UpdateTabsLabel();
-  }
-
-  public override void _Input(InputEvent @event) {
-    base._Input(@event);
-    if (Visible && @event.IsActionPressed(BuiltinInputActions.UICancel)) {
-      GetViewport().SetInputAsHandled();
-      OnExitPressed();
-    }
   }
   public void NextTab() {
     if (!_tabContainer.SelectNextAvailable()) {
@@ -36,11 +27,11 @@ public partial class TutorialPanel : Control {
     }
   }
 
-  public void OnExitPressed() {
-    EmitSignal(SignalName.Closed);
-  }
-
   private void UpdateTabsLabel() {
     _tabsLabel.Text = $"{_tabContainer.CurrentTab + 1}/{_tabContainer.GetChildren().Count}";
+  }
+
+  static TutorialPanel IWidget<TutorialPanel>.Create() {
+    return ResourceLoader.Load<PackedScene>("uid://stlrfv5fg27j").Instantiate<TutorialPanel>();
   }
 }

@@ -28,6 +28,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private GameBoard GameBoard => GetGameState().GameBoard;
   private PlayerCharacter Character => GetCharacter<PlayerCharacter>();
 
+  private bool _gameStarted;
   private bool _isPanning;
   private Vector2 _lastMousePosition;
 
@@ -53,12 +54,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     GetHUD().CommandSelected += (command) => {
       SelectedCommand = command;
     };
-
-    GetGameMode().GetMatchEvents().MatchEvent += (tag) => {
-      if (tag == TagManager.GetTag(HOBTags.EventTurnStarted) && ((IMatchController)this).IsCurrentTurn()) {
-        Engine.TimeScale = 1;
-      }
-    };
   }
 
   public override void _Notification(int what) {
@@ -81,6 +76,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   public override void _UnhandledInput(InputEvent @event) {
+    if (!_gameStarted) {
+      return;
+    }
+
     if (@event.IsActionPressed(GameInputs.CameraPan)) {
       _isPanning = true;
       _lastMousePosition = GetViewport().GetMousePosition();
@@ -111,9 +110,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   public void TryEndTurn(bool speedUp) {
-    if (GetGameMode().GetTurnManagment().TryEndTurn(this) && speedUp) {
-      Engine.TimeScale = 2;
-    }
+    GetGameMode().GetTurnManagment().TryEndTurn(this);
   }
   public void OwnTurnStarted() {
 
@@ -125,6 +122,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public void OnGameStarted() {
     CallDeferred(MethodName.SelectEntity, EntityManagment.GetOwnedEntites(this)[0]);
     CallDeferred(MethodName.FocusOnSelectedEntity);
+
+    _gameStarted = true;
   }
 
   private void CheckHover() {
@@ -198,8 +197,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
   private void HandleMovement(float delta) {
-    if (Input.IsActionPressed(GameInputs.SpeedMulti)) {
-      Character.ApplySpeedMulti();
+    if (!_gameStarted) {
+      return;
     }
 
     if (!_isPanning) {

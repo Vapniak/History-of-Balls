@@ -30,12 +30,11 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   [Export] public bool AllowPan { get; private set; } = true;
   [Export] private float _panSpeedMulti = 20f;
 
-  public float SpeedMulti { get; private set; } = 1;
   public Vector3 Velocity { get; private set; }
 
   public float Zoom { get; private set; } = 1f;
 
-  public float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom) * SpeedMulti;
+  public float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom);
 
   private float _zoomVelocity;
   private Vector3 _cameraVelocity;
@@ -130,12 +129,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     WindMinVolume, WindMaxVolume);
     WindPlayer.VolumeDb = (float)Mathf.Lerp(WindPlayer.VolumeDb, targetVol, delta * _zoomLerpSpeed);
 
-    SpeedMulti = 1f;
     _prevPosition = CameraParent.GlobalPosition;
-  }
-
-  public void ApplySpeedMulti() {
-    SpeedMulti = 2f;
   }
 
   public T GetCharacter<T>() where T : Node => this as T;

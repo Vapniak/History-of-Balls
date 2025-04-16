@@ -3,6 +3,8 @@ namespace HOB;
 using Godot;
 using GameplayFramework;
 using AudioManager;
+using WidgetSystem;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class MainMenuGameMode : GameMode {
@@ -10,14 +12,18 @@ public partial class MainMenuGameMode : GameMode {
 
   protected override GameState CreateGameState() => new MainMenuGameState();
 
-  public override void _EnterTree() {
-    base._EnterTree();
-
+  public override void _Ready() {
+    base._Ready();
+    WidgetManager.Instance.PushWidget<MainMenu>();
     MusicManager.Instance.Play("music", "main_menu", 2, true);
   }
 
-  public void StartGame() {
-    _ = GameInstance.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene);
+  public override void _ExitTree() {
+    WidgetManager.Instance.PopAllWidgets();
+  }
+
+  public async Task StartGame() {
+    await GameInstance.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene);
   }
 
   public void Quit() => GameInstance.QuitGame();

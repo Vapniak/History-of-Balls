@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5gy2cpsleyi7"]
+
+[ext_resource type="Script" path="res://addons/widget_system/src/WidgetManager.cs" id="1_aunq4"]
+
+[node name="WidgetManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_aunq4")

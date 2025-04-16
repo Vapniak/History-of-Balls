@@ -164,7 +164,7 @@ size_flags_vertical = 4
 value = 30.0
 rounded = true
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="OnClosePressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/CloseButton" to="." method="CloseWidget"]
 [connection signal="value_changed" from="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer2/FPS Limit" to="." method="OnFpsLimiterSliderValueChanged"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer3/ScreenModeOption" to="." method="OnScreenModeOptionButtonPressed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/TabContainer/Video/VBoxContainer/HBoxContainer/ResolutionOption" to="." method="OnResolutionOptionButtonPressed"]

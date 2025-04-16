@@ -71,11 +71,11 @@ public partial class ThrowableAttribute : UnitAttribute {
     var targetBasis = Basis.LookingAt(throwDirection, Vector3.Up);
     var targetQuat = targetBasis.GetRotationQuaternion().Normalized();
 
-    windUpTween.TweenMethod(Callable.From<float>(t => {
-      // FIXME: target quat is not normalized
-      var newQuat = startQuat.Slerp(targetQuat, t).Normalized();
-      Quaternion = newQuat;
-    }), 0f, 1f, 0.3f);
+    // windUpTween.TweenMethod(Callable.From<float>(t => {
+    //   // FIXME: target quat is not normalized
+    //   var newQuat = startQuat.Slerp(targetQuat, t).Normalized();
+    //   Quaternion = newQuat;
+    // }), 0f, 1f, 0.3f);
 
     windUpTween.Parallel()
           .TweenProperty(this, "position", new Vector3(0, -.2f, -.4f), 0.3f)

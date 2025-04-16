@@ -2,40 +2,28 @@ namespace HOB;
 
 using Godot;
 using System;
+using WidgetSystem;
 
-public partial class PauseMenu : CanvasLayer {
-  [Export] private SettingsMenu SettingsMenu { get; set; }
-  [Export] private TutorialPanel TutorialPanel { get; set; }
-  public event Action ResumeEvent;
-  public event Action MainMenuEvent;
-  public event Action QuitEvent;
-
-  public override void _Ready() {
-    base._Ready();
-
-    SettingsMenu.Closed += () => SettingsMenu.Visible = false;
-    TutorialPanel.Closed += () => TutorialPanel.Visible = false;
-  }
-
-  public override void _Input(InputEvent @event) {
-    base._Input(@event);
-
-    if (Visible && @event.IsActionPressed(BuiltinInputActions.UICancel)) {
-      GetViewport().SetInputAsHandled();
-      OnResumePressed();
-    }
-  }
+public partial class PauseMenu : Widget, IWidget<PauseMenu> {
+  public event Action? ResumeEvent;
+  public event Action? MainMenuEvent;
+  public event Action? QuitEvent;
 
   private void OnResumePressed() {
+    ResumeEvent?.Invoke();
+    CloseWidget();
+  }
+
+  public override void _ExitTree() {
     ResumeEvent?.Invoke();
   }
 
   private void OnSettingsPressed() {
-    SettingsMenu.Visible = true;
+    WidgetManager.PushWidget<SettingsMenu>();
   }
 
   private void OnTutorialPressed() {
-    TutorialPanel.Visible = true;
+    WidgetManager.PushWidget<TutorialPanel>();
   }
 
   private void OnMainMenuPressed() {
@@ -46,4 +34,9 @@ public partial class PauseMenu : CanvasLayer {
     QuitEvent?.Invoke();
   }
 
+  static PauseMenu IWidget<PauseMenu>.Create() {
+    return ResourceLoader.Load<PackedScene>("uid://y6icx2blahqk").Instantiate<PauseMenu>();
+  }
+
+  public override bool CanBePopped() => true;
 }

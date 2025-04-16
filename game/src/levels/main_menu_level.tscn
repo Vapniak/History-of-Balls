@@ -1,14 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://bho42afyokt62"]
+[gd_scene load_steps=5 format=3 uid="uid://bho42afyokt62"]
 
 [ext_resource type="Script" path="res://src/levels/HOBLevel.cs" id="1_qb510"]
 [ext_resource type="PackedScene" uid="uid://diw8kotx1evqt" path="res://src/game_modes/main_menu/main_menu_game_mode.tscn" id="2_2q8va"]
 [ext_resource type="PackedScene" uid="uid://bpyq5jomq1pgv" path="res://src/levels/transitions/fade_in.tscn" id="2_c7jj3"]
 [ext_resource type="PackedScene" uid="uid://c7dofyt76uitu" path="res://src/levels/transitions/fade_out.tscn" id="2_lcnpx"]
-[ext_resource type="PackedScene" uid="uid://d4knun30ujmci" path="res://src/gui/main_menu/main_menu.tscn" id="3_stilb"]
-[ext_resource type="PackedScene" uid="uid://bc1qqk4div8dj" path="res://src/gui/settings_menu/settings_menu.tscn" id="6_frgjs"]
-[ext_resource type="PackedScene" uid="uid://stlrfv5fg27j" path="res://src/gui/tutorial/tutorial_panel.tscn" id="7_y6gsx"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_up2x8"]
 
 [node name="MainMenuLevel" type="Node"]
 script = ExtResource("1_qb510")
@@ -23,35 +18,3 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
-
-[node name="TabContainer" type="TabContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxEmpty_up2x8")
-current_tab = 0
-tabs_visible = false
-
-[node name="MainMenu" parent="TabContainer" instance=ExtResource("3_stilb")]
-layout_mode = 2
-metadata/_tab_index = 0
-
-[node name="SettingsMenu" parent="TabContainer" instance=ExtResource("6_frgjs")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 1
-
-[node name="TutorialPanel" parent="TabContainer" instance=ExtResource("7_y6gsx")]
-visible = false
-layout_mode = 2
-metadata/_tab_index = 2
-
-[connection signal="pressed" from="TabContainer/MainMenu/MarginContainer/VBoxContainer/SettigsButton" to="TabContainer" method="set_current_tab" binds= [1]]
-[connection signal="pressed" from="TabContainer/MainMenu/MarginContainer/VBoxContainer/TutorialButton" to="TabContainer" method="set_current_tab" binds= [2]]
-[connection signal="Closed" from="TabContainer/SettingsMenu" to="TabContainer" method="set_current_tab" binds= [0]]
-[connection signal="Closed" from="TabContainer/TutorialPanel" to="TabContainer" method="set_current_tab" binds= [0]]
-
-[editable path="TabContainer/MainMenu"]
-[editable path="TabContainer/SettingsMenu"]

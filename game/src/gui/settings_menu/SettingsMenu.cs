@@ -1,11 +1,11 @@
+namespace HOB;
+
 using Godot;
 using System;
 using HOB;
+using WidgetSystem;
 
-public partial class SettingsMenu : Control {
-  [Signal]
-  public delegate void ClosedEventHandler();
-
+public partial class SettingsMenu : Widget, IWidget<SettingsMenu> {
   [Export] private OptionButton _resolutionOptionButton;
   [Export] private OptionButton _screenModeOptionButton;
   [Export] private CheckBox _borderlessCheckbox;
@@ -44,15 +44,6 @@ public partial class SettingsMenu : Control {
     InitializeVolumeControl();
 
     UpdateFpsLimitAvailability(DisplayServer.WindowGetVsyncMode() == DisplayServer.VSyncMode.Enabled);
-  }
-
-  public override void _Input(InputEvent @event) {
-    base._Input(@event);
-
-    if (Visible && @event.IsActionPressed(BuiltinInputActions.UICancel)) {
-      GetViewport().SetInputAsHandled();
-      OnClosePressed();
-    }
   }
 
   private void InitializeScreenModeOptions() {
@@ -140,8 +131,6 @@ public partial class SettingsMenu : Control {
     }
   }
 
-  public void OnClosePressed() => EmitSignal(SignalName.Closed);
-
   private void OnResolutionOptionButtonPressed(long index) {
     if (_resolutionOptionButton.Disabled)
       return;
@@ -215,5 +204,9 @@ public partial class SettingsMenu : Control {
 
     _VolumeLimitLabel.Text = $"Volume: {(int)value}%";
     SettingsManager.SaveSettings();
+  }
+
+  static SettingsMenu IWidget<SettingsMenu>.Create() {
+    return ResourceLoader.Load<PackedScene>("uid://bc1qqk4div8dj").Instantiate<SettingsMenu>();
   }
 }

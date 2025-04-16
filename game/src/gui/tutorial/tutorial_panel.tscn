@@ -528,6 +528,6 @@ texture = ExtResource("19_g3a30")
 expand_mode = 1
 stretch_mode = 4
 
-[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Button" to="." method="OnExitPressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/Button" to="." method="CloseWidget"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/Button" to="." method="PreviousTab"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/Button2" to="." method="NextTab"]

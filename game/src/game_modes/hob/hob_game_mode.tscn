@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://k0w7kdfh2ctc"]
+[gd_scene load_steps=35 format=3 uid="uid://k0w7kdfh2ctc"]
 
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBGameMode.cs" id="1_ne2qg"]
 [ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/game_entities/attribute_sets/player_attribute_set.tres" id="2_418xq"]
@@ -17,13 +17,11 @@
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="9_pkx38"]
 [ext_resource type="Resource" uid="uid://bdpkf72pdl4ga" path="res://res/match_data/first_match.tres" id="10_7ywoh"]
 [ext_resource type="Texture2D" uid="uid://d3gkqp17i6c6i" path="res://assets/textures/icons/chess-knight-solid.svg" id="10_khhvx"]
-[ext_resource type="PackedScene" uid="uid://cnww5rxeofin3" path="res://src/gui/match_end_menu/match_end_menu.tscn" id="16_6f2qf"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
-[ext_resource type="PackedScene" uid="uid://y6icx2blahqk" path="res://src/gui/pause_menu/pause_menu.tscn" id="25_jrlyp"]
 
 [sub_resource type="Resource" id="Resource_f6qae"]
 script = ExtResource("3_ynnc7")
@@ -79,10 +77,8 @@ script = ExtResource("5_lpoos")
 EntityType = SubResource("Resource_5p1at")
 Icon = ExtResource("10_khhvx")
 
-[node name="TestGameMode" type="Node" node_paths=PackedStringArray("MatchEndMenu", "PauseMenu", "StateChartNode", "MatchComponent", "PlayerManagmentComponent")]
+[node name="TestGameMode" type="Node" node_paths=PackedStringArray("StateChartNode", "MatchComponent", "PlayerManagmentComponent")]
 script = ExtResource("1_ne2qg")
-MatchEndMenu = NodePath("MatchEndMenu")
-PauseMenu = NodePath("PauseMenu")
 PlayerAttributeSet = ExtResource("2_418xq")
 EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm"), SubResource("Resource_dxcf4"), SubResource("Resource_6uqfv"), SubResource("Resource_cfkre"), SubResource("Resource_aqvyv")])
 MatchData = ExtResource("10_7ywoh")
@@ -93,13 +89,6 @@ HUDScene = ExtResource("5_yn6q8")
 StateChartNode = NodePath("StateChart")
 MatchComponent = NodePath("MatchComponent")
 PlayerManagmentComponent = NodePath("TestPlayerManagmentComponent")
-
-[node name="MatchEndMenu" parent="." instance=ExtResource("16_6f2qf")]
-process_mode = 2
-visible = false
-
-[node name="PauseMenu" parent="." instance=ExtResource("25_jrlyp")]
-visible = false
 
 [node name="TestPlayerManagmentComponent" type="Node" parent="."]
 script = ExtResource("8_crqp2")
@@ -165,12 +154,9 @@ grow_horizontal = 0
 enabled = false
 initial_node_to_watch = NodePath("..")
 
-[connection signal="pressed" from="MatchEndMenu/MarginContainer/VBoxContainer/Button" to="." method="OnMainMenu"]
 [connection signal="state_entered" from="StateChart/Root/InMatch" to="." method="OnInMatchStateEntered"]
 [connection signal="state_exited" from="StateChart/Root/InMatch" to="." method="OnInMatchStateExited"]
 [connection signal="state_physics_processing" from="StateChart/Root/InMatch/Playing" to="." method="OnInMatchPlayingStateProcess"]
 [connection signal="state_entered" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateEntered"]
 [connection signal="state_exited" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateExited"]
 [connection signal="state_entered" from="StateChart/Root/MatchEnd" to="." method="OnMatchEndedStateEntered"]
-
-[editable path="MatchEndMenu"]

@@ -45,6 +45,7 @@ GameplayCueManager="*res://addons/gameplay_ability_system/src/cues/gameplay_cue_
 MusicManager="*res://addons/audio_manager/src/music/music_manager.tscn"
 SoundManager="*res://addons/audio_manager/src/sound/sound_manager.tscn"
 TooltipManager="*res://addons/tooltip/src/tooltip_manager.tscn"
+WidgetManager="*res://addons/widget_system/src/widget_manager.tscn"
 
 [debug_draw_3d]
 
@@ -66,7 +67,7 @@ project/assembly_name="History of Balls"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/tooltip/plugin.cfg")
+enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/tooltip/plugin.cfg", "res://addons/widget_system/plugin.cfg")
 
 [file_customization]
 
