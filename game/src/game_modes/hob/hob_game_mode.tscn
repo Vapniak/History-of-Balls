@@ -15,8 +15,8 @@
 [ext_resource type="Script" path="res://src/game_modes/hob/HOBPlayerManagmentComponent.cs" id="8_crqp2"]
 [ext_resource type="Texture2D" uid="uid://c7lexjg7kj31h" path="res://assets/textures/icons/village.svg" id="9_eom1f"]
 [ext_resource type="Script" path="res://src/game_modes/components/match/MatchComponent.cs" id="9_pkx38"]
-[ext_resource type="Resource" uid="uid://bdpkf72pdl4ga" path="res://res/match_data/first_match.tres" id="10_7ywoh"]
 [ext_resource type="Texture2D" uid="uid://d3gkqp17i6c6i" path="res://assets/textures/icons/chess-knight-solid.svg" id="10_khhvx"]
+[ext_resource type="Resource" uid="uid://ywxo6fkvhdd2" path="res://res/missions/the_last_bastion_of_freedom.tres" id="11_kw1b6"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
@@ -81,7 +81,7 @@ Icon = ExtResource("10_khhvx")
 script = ExtResource("1_ne2qg")
 PlayerAttributeSet = ExtResource("2_418xq")
 EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm"), SubResource("Resource_dxcf4"), SubResource("Resource_6uqfv"), SubResource("Resource_cfkre"), SubResource("Resource_aqvyv")])
-MatchData = ExtResource("10_7ywoh")
+MatchData = ExtResource("11_kw1b6")
 PlayerControllerScene = ExtResource("2_st7p2")
 PlayerCharacterScene = ExtResource("3_wvtpx")
 AIControllerScene = ExtResource("4_lhw57")

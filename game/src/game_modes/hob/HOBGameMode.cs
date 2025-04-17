@@ -1,9 +1,11 @@
 namespace HOB;
 
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices.Marshalling;
 using System.Threading.Tasks;
 using AudioManager;
 using GameplayFramework;
@@ -20,7 +22,7 @@ public partial class HOBGameMode : GameMode {
   [Export] private PlayerAttributeSet? PlayerAttributeSet { get; set; }
   [Export] public Array<EntityIcon>? EntityIcons { get; private set; }
 
-  [Export] private MatchData? MatchData { get; set; }
+  [Export] private MissionData? MatchData { get; set; }
 
   [Export] private PackedScene? PlayerControllerScene { get; set; }
   [Export] private PackedScene? PlayerCharacterScene { get; set; }
@@ -195,7 +197,7 @@ public partial class HOBGameMode : GameMode {
           if (entitySpawn?.EntityData != null && entitySpawn.SpawnAt != null) {
             foreach (var coord in entitySpawn.SpawnAt) {
               await Task.Delay(50);
-              MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new HexGridMap.OffsetCoord(coord.X, coord.Y), controller == null ? null : controller as IMatchController);
+              MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new OffsetCoord(coord.X, coord.Y), controller == null ? null : controller as IMatchController);
               pitch += 0.1f;
             }
           }
@@ -360,29 +362,39 @@ public partial class HOBGameMode : GameMode {
 
   private void CheckWinCondition(Tag? tag) {
     if (tag == TagManager.GetTag(HOBTags.EventTurnStarted) || tag == null) {
-      var alivePlayers = new List<IMatchController>();
-      var eliminatedPlayers = new List<IMatchController>();
-
-      foreach (var player in GetGameState().PlayerArray) {
-        var controller = player.GetController<IMatchController>();
-        var entities = GetEntityManagment().GetOwnedEntites(controller);
-
-        if (entities.Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)))) {
-          alivePlayers.Add(controller);
-        }
-        else {
-          eliminatedPlayers.Add(controller);
-        }
-      }
-
-      if (eliminatedPlayers.Count > 0) {
-        MatchComponent.TriggerGameEnd(alivePlayers[0]);
+      var winner = CheckWinner();
+      if (winner != null) {
+        MatchComponent.TriggerGameEnd(winner);
 
         StateChart.SendEvent("match_end");
         WidgetManager.Instance.PushWidget<MatchEndMenu>(menu => {
-          menu.OnGameEnd(alivePlayers[0]);
+          menu.OnGameEnd(winner);
         });
       }
+    }
+  }
+
+  protected virtual IMatchController? CheckWinner() {
+    var alivePlayers = new List<IMatchController>();
+    var eliminatedPlayers = new List<IMatchController>();
+
+    foreach (var player in GetGameState().PlayerArray) {
+      var controller = player.GetController<IMatchController>();
+      var entities = GetEntityManagment().GetOwnedEntites(controller);
+
+      if (entities.Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)))) {
+        alivePlayers.Add(controller);
+      }
+      else {
+        eliminatedPlayers.Add(controller);
+      }
+    }
+
+    if (eliminatedPlayers.Count > 0) {
+      return alivePlayers.FirstOrDefault();
+    }
+    else {
+      return null;
     }
   }
 }

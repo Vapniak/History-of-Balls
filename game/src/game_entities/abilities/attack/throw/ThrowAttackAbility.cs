@@ -102,7 +102,6 @@ public partial class ThrowAttackAbility : AttackAbility {
       return base.IsCellVisible(from, to);
     }
 
-    // FIXME: null reference when died?
     private void OnTagRemoved(Tag tag) {
       if (tag == TagManager.GetTag(HOBTags.CooldownAttack)) {
         if (IsInstanceValid(OwnerEntity) && IsInstanceValid(OwnerEntity.Body) && IsInstanceValid(OwnerEntity) && OwnerEntity.Body is UnitBody unit) {

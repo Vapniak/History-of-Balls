@@ -46,7 +46,6 @@ mesh = SubResource("CylinderMesh_0evk5")
 [node name="UnitAttribute" type="Node3D" parent="FollowParent3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.696939, 0.393258, 0)
 script = ExtResource("4_8q8f1")
-ThrowHeight = 1.5
 RotationSmoothness = 10.0
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="FollowParent3D/UnitAttribute"]

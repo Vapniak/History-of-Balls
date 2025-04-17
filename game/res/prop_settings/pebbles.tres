@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PropSetting" load_steps=3 format=3 uid="uid://cy6mvys3o82oc"]
+
+[ext_resource type="PackedScene" uid="uid://duxqxw26eck1g" path="res://src/game_entities/entites/props/nature/pebbles.tscn" id="1_ultkn"]
+[ext_resource type="Script" path="res://src/map/PropSetting.cs" id="2_ewmsj"]
+
+[resource]
+script = ExtResource("2_ewmsj")
+PropScene = ExtResource("1_ultkn")
+Chance = 10.0
+AmountRange = Vector2i(1, 2)

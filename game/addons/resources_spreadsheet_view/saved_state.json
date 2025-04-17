@@ -11,6 +11,28 @@
         "visibility": 0
       }
     },
+    "::Settings/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "::Settings::CellSettings/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://res/maps/": {
       "metadata/_custom_type_script": {
         "visibility": 0
@@ -539,7 +561,8 @@
     "res://src/maps::Settings/",
     "res://src/maps::Settings::CellSettings/",
     "res://src/maps::Settings::CellSettings::Props/",
-    "res://src/maps::CellSettings/"
+    "res://src/maps::CellSettings/",
+    "::Settings/"
   ],
   "table_functions": {
     "filter": [

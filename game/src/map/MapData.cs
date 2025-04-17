@@ -14,7 +14,6 @@ public partial class MapData : Resource {
     set => ParseMap();
   }
   [Export] public string Title { get; set; }
-  [Export] public string Description { get; set; }
   [Export] public int Cols { get; set; }
   [Export] public int Rows { get; set; }
   [Export] public MapSettings Settings { get; set; }
@@ -29,7 +28,7 @@ public partial class MapData : Resource {
 
     var data = MapFile.Data.AsGodotDictionary();
     Title = data.ContainsKey("title") ? data["title"].AsString() : "";
-    Description = data.ContainsKey("description") ? data["description"].AsString() : "";
+    //Description = data.ContainsKey("description") ? data["description"].AsString() : "";
     Cols = data.ContainsKey("cols") ? data["cols"].AsInt32() : 0;
     Rows = data.ContainsKey("rows") ? data["rows"].AsInt32() : 0;
 
@@ -147,7 +146,7 @@ public partial class MapData : Resource {
 
     var data = new Dictionary {
             { "title", Title },
-            { "description", Description },
+            //{ "description", Description },
             { "cols", Cols },
             { "rows", Rows },
             { "cells", new Array() }

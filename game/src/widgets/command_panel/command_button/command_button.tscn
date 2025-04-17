@@ -13,12 +13,14 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+tooltip_text = "asdsa"
 focus_mode = 2
 script = ExtResource("1_ljw8a")
 Button = NodePath("Button")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
+mouse_filter = 1
 theme_type_variation = &"ActionButton"
 toggle_mode = true
 button_group = SubResource("ButtonGroup_r4y83")

@@ -122,7 +122,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   public void OnGameStarted() {
-    CallDeferred(MethodName.SelectEntity, EntityManagment.GetOwnedEntites(this)[0]);
+    CallDeferred(MethodName.SelectEntity, EntityManagment.GetOwnedEntites(this).FirstOrDefault());
     CallDeferred(MethodName.FocusOnSelectedEntity);
 
     _gameStarted = true;

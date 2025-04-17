@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="MissionData" load_steps=10 format=3 uid="uid://ywxo6fkvhdd2"]
+
+[ext_resource type="Resource" uid="uid://cmcaxks27ftru" path="res://res/maps/thermopylae/thermopylae.tres" id="1_gk1xd"]
+[ext_resource type="Resource" uid="uid://dlyqo7rtbq0iv" path="res://res/countries/greece.tres" id="2_pvebx"]
+[ext_resource type="Script" path="res://src/mission/MatchPlayerSpawnData.cs" id="3_nitm1"]
+[ext_resource type="Script" path="res://src/game_modes/hob/controller/ai/AIProfile.cs" id="4_ie0dy"]
+[ext_resource type="Resource" uid="uid://do2ww3kn7ft3w" path="res://res/countries/persia.tres" id="5_3pij7"]
+[ext_resource type="Script" path="res://src/mission/MissionData.cs" id="6_aasjh"]
+
+[sub_resource type="Resource" id="Resource_r28ec"]
+script = ExtResource("3_nitm1")
+PlayerType = 0
+Country = ExtResource("2_pvebx")
+ProducableEntities = []
+SpawnedEntities = []
+Entities = []
+
+[sub_resource type="Resource" id="Resource_e62xs"]
+script = ExtResource("4_ie0dy")
+ProfileName = "AI Profile"
+Agressiveness = 0.5
+Expansiveness = 0.5
+
+[sub_resource type="Resource" id="Resource_tjfg2"]
+script = ExtResource("3_nitm1")
+PlayerType = 1
+AIProfile = SubResource("Resource_e62xs")
+Country = ExtResource("5_3pij7")
+ProducableEntities = []
+SpawnedEntities = []
+Entities = []
+
+[resource]
+script = ExtResource("6_aasjh")
+MissionName = "The Last Bastion of Freedom"
+Description = ""
+Map = ExtResource("1_gk1xd")
+PlayerSpawnDatas = [SubResource("Resource_r28ec"), SubResource("Resource_tjfg2")]

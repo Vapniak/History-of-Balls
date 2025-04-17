@@ -38,6 +38,10 @@ func define_theme():
 		panel = panel_style,
 	})
 
+	define_variant_style("TooltipPanel", "Panel",{
+		panel = stylebox_empty({})
+	});
+
 	define_variant_style("TopBarPanel", "Panel", {
 		panel = inherit(panel_style, {
 			content_margins_ = content_margins(base_margin),
