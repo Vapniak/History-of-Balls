@@ -86,7 +86,7 @@ func define_theme():
 	})
 
 	var disabled_style = inherit(button_style, {
-		bg_color = primary_color.lightened(.1)
+		bg_color = background_color.lightened(.2)
 	})
 
 	define_style("Button", {

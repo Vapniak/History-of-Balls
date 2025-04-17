@@ -317,8 +317,12 @@ public partial class AIController : Controller, IMatchController {
 
     var productionTags = production.Entity?.Tags?.GetAllTags();
     foreach (var subtype in subtypeCounts) {
+      if (subtype.Count == 0) {
+        return 1;
+      }
+
       if (production.Entity?.Tags != null && production.Entity.Tags.HasTag(subtype.SubTypeTag)) {
-        return Mathf.Min(1f / (subtype.Count + 1f), 1);
+        return Mathf.Min(1f / subtype.Count, 1);
       }
     }
 

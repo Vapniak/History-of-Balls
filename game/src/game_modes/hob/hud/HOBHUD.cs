@@ -15,7 +15,7 @@ public partial class HOBHUD : HUD {
   [Export] private Label? TurnChangedNotificationLabel { get; set; }
 
   [Export] private EntityPanelWidget EntityPanel { get; set; } = default!;
-  [Export] private EntityProductionPanel? ProductionPanel { get; set; }
+  [Export] private EntityProductionPanelWidget ProductionPanel { get; set; } = default!;
   [Export] private CommandPanelWidget CommandPanel { get; set; } = default!;
 
   [Export] private Button? EndTurnButton { get; set; }
@@ -39,6 +39,7 @@ public partial class HOBHUD : HUD {
 
     EntityPanel.Initialize(GetPlayerController());
     CommandPanel.Initialize(GetPlayerController());
+    ProductionPanel.Initialize(GetPlayerController());
 
     TurnChangedNotificationLabel.Modulate = Colors.Transparent;
 

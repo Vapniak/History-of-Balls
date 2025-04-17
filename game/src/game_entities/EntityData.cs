@@ -2,6 +2,7 @@ namespace HOB.GameEntity;
 
 using System.Diagnostics;
 using GameplayAbilitySystem;
+using GameplayFramework;
 using GameplayTags;
 using Godot;
 using Godot.Collections;
@@ -13,6 +14,8 @@ public partial class EntityData : Resource {
   [Export] public Array<GameplayAbilityResource>? Abilities { get; private set; }
   [Export] public TagContainer? Tags { get; private set; }
   [Export] public PackedScene? Body { get; private set; }
+
+  public Texture2D? Icon => GameInstance.GetGameMode<HOBGameMode>()?.GetIconFor(this);
 
   public Entity? CreateEntity(GameCell cell, IEntityManagment entityManagment, IMatchController? owner) {
     var body = Body?.InstantiateOrNull<EntityBody>();

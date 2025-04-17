@@ -7,7 +7,7 @@ using HOB.GameEntity;
 
 [GlobalClass]
 public abstract partial class HOBEntityAbilityInstance : HOBAbilityInstance {
-  protected Entity OwnerEntity => OwnerAbilitySystem.GetOwner<Entity>();
+  public Entity OwnerEntity => OwnerAbilitySystem.GetOwner<Entity>();
   protected HOBEntityAbilityInstance(HOBAbilityResource abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
     AbilityResource.ActivationBlockedTags?.AddTag(TagManager.GetTag(HOBTags.StateDead));
   }
