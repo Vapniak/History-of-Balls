@@ -23,9 +23,13 @@ public partial class MainMenuGameMode : GameMode {
     WidgetManager.Instance.PopAllWidgets();
   }
 
-  public async Task StartGame() {
-    await GameInstance.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene, Config);
+  public void StartMission(MissionData missionData) {
+    _ = GameInstance.GetWorld().OpenLevelThreaded("mission_level", _loadingScreenScene, missionData.GetGameModeConfig());
   }
+
+  // public async Task StartGame() {
+  //   await GameInstance.GetWorld().OpenLevelThreaded("test_level", _loadingScreenScene, Config);
+  // }
 
   public void Quit() => GameInstance.QuitGame();
 }

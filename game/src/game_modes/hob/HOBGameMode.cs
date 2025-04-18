@@ -19,7 +19,6 @@ public partial class HOBGameMode : GameMode {
   [Export] private PlayerAttributeSet? PlayerAttributeSet { get; set; }
   [Export] public Array<EntityIcon>? EntityIcons { get; private set; }
 
-  [Export] private MissionData? MatchData { get; set; }
 
   [Export] private PackedScene? PlayerControllerScene { get; set; }
   [Export] private PackedScene? PlayerCharacterScene { get; set; }
@@ -32,6 +31,8 @@ public partial class HOBGameMode : GameMode {
 
   [Export] private MatchComponent MatchComponent { get; set; } = default!;
   [Export] private HOBPlayerManagmentComponent PlayerManagmentComponent { get; set; } = default!;
+
+  public MissionData MissionData { get; set; } = default!;
 
   private GameBoard GameBoard => GetGameState().GameBoard;
 
@@ -62,8 +63,8 @@ public partial class HOBGameMode : GameMode {
   public override void _Ready() {
     base._Ready();
 
-    if (MatchData?.Map != null) {
-      GameBoard.Init(MatchData.Map);
+    if (MissionData?.Map != null) {
+      GameBoard.Init(MissionData.Map);
       PlaceProps();
     }
   }
@@ -142,11 +143,11 @@ public partial class HOBGameMode : GameMode {
   }
 
   private async Task InitGame() {
-    if (MatchData == null) {
+    if (MissionData == null) {
       return;
     }
 
-    foreach (var playerData in MatchData.PlayerSpawnDatas) {
+    foreach (var playerData in MissionData.PlayerSpawnDatas) {
       Controller? controller = null;
       if (playerData.PlayerType != PlayerType.None) {
         if (PlayerAttributeSet == null) {
@@ -206,7 +207,7 @@ public partial class HOBGameMode : GameMode {
 
     var occupiedCells = new List<OffsetCoord>();
 
-    foreach (var playerData in MatchData.PlayerSpawnDatas) {
+    foreach (var playerData in MissionData.PlayerSpawnDatas) {
       foreach (var entity in playerData.SpawnedEntities) {
         foreach (var spawnAt in entity.SpawnAt) {
           occupiedCells.Add(new(spawnAt.X, spawnAt.Y));

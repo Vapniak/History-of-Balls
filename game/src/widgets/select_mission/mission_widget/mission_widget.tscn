@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpnm84svvttf3"]
+
+[ext_resource type="Script" path="res://src/widgets/select_mission/mission_widget/MissionWidget.cs" id="1_mkx4f"]
+
+[node name="MissionWidget" type="MarginContainer" node_paths=PackedStringArray("Button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mkx4f")
+Button = NodePath("Button")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+text = "MISSION"
+flat = true

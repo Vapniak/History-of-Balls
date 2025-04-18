@@ -18,6 +18,7 @@ public partial class HOBHUD : HUD {
   [Export] private EntityProductionPanelWidget ProductionPanel { get; set; } = default!;
   [Export] private CommandPanelWidget CommandPanel { get; set; } = default!;
 
+  [Export] private Label ObjectivesLabel { get; set; } = default!;
   [Export] private Button? EndTurnButton { get; set; }
   [Export] private Label? RoundLabel { get; set; }
   [Export] private Label? TurnLabel { get; set; }
@@ -57,6 +58,8 @@ public partial class HOBHUD : HUD {
         EndTurnButton.Disabled = false;
       }
     };
+
+    ObjectivesLabel.Text = GetPlayerController().GetGameMode().MissionData.ObjectivesText;
 
 
     CommandPanel.CommandSelected += (command) => EmitSignal(SignalName.CommandSelected, command);

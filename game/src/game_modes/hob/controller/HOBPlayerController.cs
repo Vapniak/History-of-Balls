@@ -266,10 +266,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       SelectEntity(entites.FirstOrDefault());
     }
 
-    if (@event.IsActionPressed(GameInputs.EndTurn)) {
-      TryEndTurn();
-    }
-
     @event.Dispose();
   }
 

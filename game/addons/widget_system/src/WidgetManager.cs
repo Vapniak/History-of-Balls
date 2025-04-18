@@ -40,13 +40,15 @@ public partial class WidgetManager : Node {
       CurrentWidget.ProcessMode = ProcessModeEnum.Disabled;
     }
 
+    _widgetStack.Push(widget);
+
     widget.ProcessMode = ProcessModeEnum.Inherit;
     _widgetLayer.AddChild(widget);
-    _widgetStack.Push(widget);
 
     configure?.Invoke(widget);
 
     widget.Show();
+    widget.CallDeferred(Control.MethodName.GrabFocus);
     WidgetPushed?.Invoke(widget);
   }
 
@@ -67,6 +69,7 @@ public partial class WidgetManager : Node {
 
     if (showPrevious && IsInstanceValid(CurrentWidget) && CurrentWidget != null) {
       CurrentWidget.Show();
+      CurrentWidget.CallDeferred(Control.MethodName.GrabFocus);
       CurrentWidget.ProcessMode = ProcessModeEnum.Inherit;
     }
 

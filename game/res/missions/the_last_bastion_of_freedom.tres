@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=31 format=3 uid="uid://ywxo6fkvhdd2"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=39 format=3 uid="uid://ywxo6fkvhdd2"]
 
 [ext_resource type="Resource" uid="uid://cmcaxks27ftru" path="res://res/maps/thermopylae/thermopylae.tres" id="1_gk1xd"]
+[ext_resource type="Script" path="res://src/game_modes/hob/survive/SurviveGameModeConfig.cs" id="1_wnw16"]
 [ext_resource type="Resource" uid="uid://dlyqo7rtbq0iv" path="res://res/countries/greece.tres" id="2_pvebx"]
 [ext_resource type="Script" path="res://src/mission/OwnedEntitiesData.cs" id="3_81nn0"]
 [ext_resource type="Script" path="res://src/mission/MatchPlayerSpawnData.cs" id="3_nitm1"]
@@ -13,9 +14,19 @@
 [ext_resource type="Script" path="res://src/mission/MissionData.cs" id="6_aasjh"]
 [ext_resource type="Resource" uid="uid://sek11tqnnxxa" path="res://src/game_entities/entites/structures/village/olive_production/olive_production_data.tres" id="6_vo22o"]
 [ext_resource type="Resource" uid="uid://cao8spwvpdrph" path="res://src/game_entities/entites/units/infantry/hoplite/hoplite_data.tres" id="7_43sde"]
+[ext_resource type="Resource" uid="uid://s2fankeerox6" path="res://src/game_entities/entites/units/infantry/hoplite/hoplite_production_data.tres" id="8_fxlr1"]
+[ext_resource type="Resource" uid="uid://cfcxaigmjvge6" path="res://src/game_entities/entites/units/ranged/peltast/peltast_production_data.tres" id="9_migq2"]
 [ext_resource type="Resource" uid="uid://bwrljuhwawe0a" path="res://src/game_entities/entites/structures/city/palace_at_persepolis/palace_at_persepolis_data.tres" id="10_3rlvb"]
+[ext_resource type="Resource" uid="uid://dbyq8cbfr7jsr" path="res://src/game_entities/entites/units/cavalry/thessalian_cavalry/thessalian_cavalry_production_data.tres" id="10_de6ne"]
 [ext_resource type="Resource" uid="uid://cgr6mageg16sj" path="res://src/game_entities/entites/structures/factory/pilaf_kitchen/pilaf_kitchen_data.tres" id="11_lvk1e"]
 [ext_resource type="Resource" uid="uid://by7hsihjbk52a" path="res://src/game_entities/entites/structures/village/rice_cultivation/rice_cultivation_data.tres" id="12_8d0hx"]
+[ext_resource type="Resource" uid="uid://sbqinq0q8ajx" path="res://src/game_entities/entites/units/infantry/immortal/immortal_production_data.tres" id="20_odxmy"]
+[ext_resource type="Resource" uid="uid://dk4avwabkxvm7" path="res://src/game_entities/entites/units/ranged/persian_archer/persian_archer_production_data.tres" id="21_7u28p"]
+[ext_resource type="Resource" uid="uid://cwbepj83egbnr" path="res://src/game_entities/entites/units/cavalry/persian_cavalry/presian_cavalry_production_data.tres" id="22_nf8vi"]
+
+[sub_resource type="Resource" id="Resource_tphyi"]
+script = ExtResource("1_wnw16")
+RoundsToSurvive = 15
 
 [sub_resource type="Resource" id="Resource_u4t3u"]
 script = ExtResource("3_81nn0")
@@ -23,7 +34,7 @@ Entities = [ExtResource("3_vcgl0"), ExtResource("5_jwbqs"), ExtResource("6_vo22o
 
 [sub_resource type="Resource" id="Resource_ln230"]
 script = ExtResource("3_rv5r8")
-ProducableEntities = []
+ProducableEntities = [ExtResource("8_fxlr1"), ExtResource("9_migq2"), ExtResource("10_de6ne")]
 
 [sub_resource type="Resource" id="Resource_b7kl5"]
 script = ExtResource("4_ktqov")
@@ -61,11 +72,11 @@ Expansiveness = 0.5
 
 [sub_resource type="Resource" id="Resource_0nite"]
 script = ExtResource("3_81nn0")
-Entities = [ExtResource("10_3rlvb")]
+Entities = [ExtResource("10_3rlvb"), ExtResource("12_8d0hx"), ExtResource("11_lvk1e")]
 
 [sub_resource type="Resource" id="Resource_raq2m"]
 script = ExtResource("3_rv5r8")
-ProducableEntities = []
+ProducableEntities = [ExtResource("20_odxmy"), ExtResource("21_7u28p"), ExtResource("22_nf8vi")]
 
 [sub_resource type="Resource" id="Resource_dexxc"]
 script = ExtResource("4_ktqov")
@@ -95,5 +106,8 @@ OwnedEntities = SubResource("Resource_0nite")
 script = ExtResource("6_aasjh")
 MissionName = "The Last Bastion of Freedom"
 Description = ""
+ObjectivesText = "⚔️ Hold your position for 15 rounds
+🔥 Repel successive waves of the Persian army"
 Map = ExtResource("1_gk1xd")
 PlayerSpawnDatas = [SubResource("Resource_r28ec"), SubResource("Resource_tjfg2")]
+GameModeConfig = SubResource("Resource_tphyi")

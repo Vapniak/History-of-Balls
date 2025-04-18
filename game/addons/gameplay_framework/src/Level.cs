@@ -40,6 +40,7 @@ public partial class Level : Node {
     GameMode? gameMode = null;
     if (config != null) {
       gameMode = config.CreateGameMode();
+      config.ConfigureGameMode(gameMode);
     }
 
     gameMode ??= GameModeScene?.InstantiateOrNull<GameMode>();

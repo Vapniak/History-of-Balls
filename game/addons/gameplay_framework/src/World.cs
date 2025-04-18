@@ -1,5 +1,6 @@
 namespace GameplayFramework;
 
+using System.Diagnostics;
 using System.Threading.Tasks;
 using Godot;
 
@@ -34,6 +35,8 @@ public sealed partial class World : Node {
 
     var levelPath = GameInstance.Instance!.LevelsDirectoryPath + "/" + levelName + ".tscn";
     var level = ResourceLoader.Load<PackedScene>(levelPath).Instantiate<Level>();
+    Debug.Assert(ResourceLoader.Exists(levelPath), $"Level doesnt exist {levelPath}");
+
     SwitchLevel(level, config);
   }
 
@@ -43,6 +46,8 @@ public sealed partial class World : Node {
     }
 
     var levelPath = GameInstance.Instance!.LevelsDirectoryPath + "/" + levelName + ".tscn";
+    Debug.Assert(ResourceLoader.Exists(levelPath), $"Level doesnt exist {levelPath}");
+
     await LoadLevelThreaded(levelPath, loadingScreenScene, config);
   }
 

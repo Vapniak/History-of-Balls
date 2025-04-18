@@ -7,8 +7,10 @@ using WidgetSystem;
 
 [GlobalClass]
 public partial class MainMenuWidget : Widget, IWidgetFactory<MainMenuWidget> {
-  private static void OnStartGamePressed() {
-    _ = GameInstance.GetGameMode<MainMenuGameMode>()?.StartGame();
+
+  private void OnSelectMissionPressed() {
+    //_ = GameInstance.GetGameMode<MainMenuGameMode>()?.StartGame();
+    WidgetManager.PushWidget<SelectMissionWidget>();
   }
   private void OnSettingsPressed() {
     WidgetManager.PushWidget<SettingsMenu>();

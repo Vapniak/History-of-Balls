@@ -21,6 +21,6 @@ public partial class MatchEndMenuWidget : Widget, IWidgetFactory<MatchEndMenuWid
   }
 
   private void GoToMainMenu() {
-    _ = GameInstance.GetWorld().OpenLevel("main_menu");
+    _ = GameInstance.GetWorld().OpenLevel("main_menu_level");
   }
 }

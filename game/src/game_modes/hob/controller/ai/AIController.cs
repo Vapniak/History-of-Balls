@@ -306,7 +306,6 @@ public partial class AIController : Controller, IMatchController {
         .Select(g => new {
           SubTypeTag = g.Key,
           Count = g.Count(),
-          TypeName = g.Key?.Name ?? "NULL"
         })
         .ToList();
 
@@ -315,18 +314,17 @@ public partial class AIController : Controller, IMatchController {
     }
 
 
-    var productionTags = production.Entity?.Tags?.GetAllTags();
-    foreach (var subtype in subtypeCounts) {
-      if (subtype.Count == 0) {
-        return 1;
-      }
+    var minCount = subtypeCounts.Min(g => g.Count);
+    var leastCommon = subtypeCounts.Where(g => g.Count == minCount).ToList();
 
+    var productionTags = production.Entity?.Tags?.GetAllTags();
+    foreach (var subtype in leastCommon) {
       if (production.Entity?.Tags != null && production.Entity.Tags.HasTag(subtype.SubTypeTag)) {
-        return Mathf.Min(1f / subtype.Count, 1);
+        return 1f;
       }
     }
 
-    return 0f;
+    return 1f;
   }
 
   private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>
