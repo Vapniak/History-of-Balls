@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://b0f1c3ip0vy3u"]
+
+[ext_resource type="PackedScene" uid="uid://pq16su1j6aw2" path="res://assets/models/objects/lance.fbx" id="1_2qmcu"]
+
+[node name="Horse" type="Node3D"]
+
+[node name="lance" parent="." instance=ExtResource("1_2qmcu")]

@@ -324,7 +324,7 @@ public partial class AIController : Controller, IMatchController {
       }
     }
 
-    return 1f;
+    return 0f;
   }
 
   private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>

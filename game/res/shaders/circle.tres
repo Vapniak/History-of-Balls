@@ -107,7 +107,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(55.4972, 288.894)
 modes/depth_draw = 1
 modes/cull = 2
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_cu3bd")
