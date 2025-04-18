@@ -1,8 +1,11 @@
 namespace HOB;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Godot;
+using Godot.Collections;
 using HexGridMap;
 using HOB.GameEntity;
 using RaycastSystem;
@@ -15,6 +18,9 @@ public partial class TerrainManager : Node3D {
 
   private Image TerrainData { get; set; }
   private Image HighlightData { get; set; }
+  private Texture2DArray HexTextures { get; set; }
+  private Image TextureLookup { get; set; }
+
 
   private Vector2I ChunkCount { get; set; }
   private Vector2I ChunkSize { get; set; }
@@ -60,11 +66,42 @@ public partial class TerrainManager : Node3D {
 
     TerrainData = Image.CreateEmpty(cols, rows, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(cols, rows, false, Image.Format.Rgba8);
+    TextureLookup = Image.CreateEmpty(cols, rows, false, Image.Format.R8);
+    TextureLookup.Fill(Color.Color8(0, 0, 0, 0));
+
 
     TerrainData.Fill(Colors.Transparent);
 
+    var settings = grid.MapData.Settings.CellSettings;
+
+    var textureSize = new Vector2I(1080, 1080);
+    var empty = Image.CreateEmpty(textureSize.X, textureSize.Y, false, Image.Format.Rgb8);
+    empty.Fill(Colors.White);
+    var textures = new Array<Image>();
+    foreach (var setting in settings) {
+      if (setting.Texture != null) {
+        var img = setting.Texture.GetImage();
+        if (img.GetSize() != textureSize) {
+          // img.Resize(textureSize.X, textureSize.Y);
+        }
+        textures.Add(img);
+      }
+      else {
+        textures.Add(empty);
+      }
+    }
+
+    HexTextures = new();
+    HexTextures.CreateFromImages(textures);
+
     foreach (var hex in grid.GetCells()) {
       var setting = hex.GetSetting();
+      var index = System.Array.IndexOf(settings.ToArray(), setting) + 1;
+      if (setting.Texture == null) {
+        index = 0;
+      }
+
+      TextureLookup.SetPixel(hex.OffsetCoord.Col, hex.OffsetCoord.Row, Color.Color8((byte)index, 0, 0, 255));
       SetTerrainPixel(new(hex.OffsetCoord.Col, hex.OffsetCoord.Row), setting.Color);
     }
 
@@ -73,6 +110,11 @@ public partial class TerrainManager : Node3D {
     UpdateHighlights();
 
     TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
+
+    var lookupTexture = ImageTexture.CreateFromImage(TextureLookup);
+    TerrainMaterial.Set("shader_parameter/hex_texture_lookup", lookupTexture);
+
+    TerrainMaterial.Set("shader_parameter/hex_textures", HexTextures);
   }
 
 

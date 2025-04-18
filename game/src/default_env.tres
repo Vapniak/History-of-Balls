@@ -11,6 +11,7 @@ gradient = SubResource("Gradient_1jpds")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nwfpu"]
 panorama = ExtResource("1_36ena")
+energy_multiplier = 2.0
 
 [sub_resource type="Sky" id="Sky_6483f"]
 sky_material = SubResource("PanoramaSkyMaterial_nwfpu")
@@ -19,13 +20,12 @@ sky_material = SubResource("PanoramaSkyMaterial_nwfpu")
 background_mode = 2
 sky = SubResource("Sky_6483f")
 ambient_light_source = 3
-ambient_light_sky_contribution = 0.5
 tonemap_mode = 2
 tonemap_exposure = 0.51
 tonemap_white = 3.33
 glow_enabled = true
 glow_normalized = true
-glow_intensity = 1.75
+glow_intensity = 1.0
 glow_strength = 0.33
 glow_mix = 0.0
 glow_bloom = 1.0

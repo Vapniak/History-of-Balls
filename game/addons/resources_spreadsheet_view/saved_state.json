@@ -562,7 +562,8 @@
     "res://src/maps::Settings::CellSettings/",
     "res://src/maps::Settings::CellSettings::Props/",
     "res://src/maps::CellSettings/",
-    "::Settings/"
+    "::Settings/",
+    "::Settings::CellSettings/"
   ],
   "table_functions": {
     "filter": [

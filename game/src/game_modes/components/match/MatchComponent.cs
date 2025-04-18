@@ -183,6 +183,8 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
       GetGameState().CurrentRound++;
       GetGameState().CurrentPlayerIndex = 0;
       // new round
+
+      MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventRoundStarted));
     }
     OnTurnStarted();
   }

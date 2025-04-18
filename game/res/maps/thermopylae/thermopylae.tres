@@ -2,14 +2,13 @@
 
 [ext_resource type="JSON" path="res://res/maps/thermopylae/Termopile.json" id="1_kn58x"]
 [ext_resource type="Script" path="res://src/map/MapData.cs" id="2_8ycqk"]
-[ext_resource type="Resource" uid="uid://q8gl7hmrrq3t" path="res://res/maps/default_map_settings.tres" id="2_nyphv"]
+[ext_resource type="Resource" uid="uid://den26mhc6fsde" path="res://res/maps/default_map_settings.tres" id="2_nyphv"]
 
 [resource]
 script = ExtResource("2_8ycqk")
 MapFile = ExtResource("1_kn58x")
 Generate = false
 Title = "Thermopylae"
-Description = "The year is 480 BC. Persian King Xerxes marches to conquer Hellas with an uncountable army. Standing in his way is a narrow pass - Thermopylae - and 300 unyielding Spartans led by King Leonidas. Supported by few allies, they are the last line of defense for free Greece.As Leonidas, your task is to hold the pass as long as possible. The enemy has numerical superiority, but you have terrain advantage, discipline, and courage. Use the bottleneck of the pass to neutralize Persian numbers. Every minute of delay brings hope to Greece!"
 Cols = 30
 Rows = 20
 Settings = ExtResource("2_nyphv")

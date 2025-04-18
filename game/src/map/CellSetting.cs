@@ -12,4 +12,5 @@ public partial class CellSetting : Resource {
   [Export] public int Elevation { get; set; }
   [Export] public bool IsWater { get; set; } = false;
   [Export] public Array<PropSetting> Props { get; set; } = new();
+  [Export] public Texture2D? Texture { get; set; }
 }

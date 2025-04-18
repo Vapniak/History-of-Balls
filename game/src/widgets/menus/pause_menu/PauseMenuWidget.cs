@@ -15,7 +15,8 @@ public partial class PauseMenuWidget : Widget, IWidgetFactory<PauseMenuWidget> {
     PopWidget();
   }
 
-  public override void _ExitTree() {
+  public override void OnPopped() {
+    base.OnPopped();
     ResumeEvent?.Invoke();
   }
 

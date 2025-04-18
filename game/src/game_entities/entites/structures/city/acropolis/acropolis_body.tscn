@@ -1,9 +1,10 @@
 [gd_scene load_steps=3 format=3 uid="uid://bucaranqn3cwj"]
 
 [ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_yfbsv"]
-[ext_resource type="PackedScene" uid="uid://2yr24bcrlxe8" path="res://src/game_entities/entites/structures/city/city.tscn" id="2_17vbq"]
+[ext_resource type="PackedScene" uid="uid://bb2177x5o300i" path="res://assets/models/objects/greece/greece-city.fbx" id="2_w3g1a"]
 
 [node name="AcropolisBody" type="Node3D"]
 script = ExtResource("1_yfbsv")
 
-[node name="EntityBody" parent="." instance=ExtResource("2_17vbq")]
+[node name="greece-city" parent="." instance=ExtResource("2_w3g1a")]
+transform = Transform3D(-0.0134212, 0, 0.99991, 0, 1, 0, -0.99991, 0, -0.0134212, 0, 0, 0)

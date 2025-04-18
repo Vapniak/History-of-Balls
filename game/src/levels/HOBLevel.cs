@@ -9,11 +9,11 @@ public partial class HOBLevel : Level {
   [Export] private PackedScene? LoadLevelTransitionScene { get; set; }
   [Export] private PackedScene? UnLoadLevelTransitionScene { get; set; }
 
-  public override async Task Load() {
+  public override async Task Load(IGameModeConfig<GameMode>? config) {
     var loadTransition = LoadLevelTransitionScene?.InstantiateOrNull<LevelTransition>();
 
     // TODO: level loading
-    await base.Load();
+    await base.Load(config);
 
     if (loadTransition != null) {
       var tcs = new TaskCompletionSource<bool>();

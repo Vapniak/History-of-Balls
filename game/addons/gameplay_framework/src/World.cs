@@ -1,9 +1,7 @@
 namespace GameplayFramework;
 
-using System;
 using System.Threading.Tasks;
 using Godot;
-using Godot.Collections;
 
 [GlobalClass]
 public sealed partial class World : Node {
@@ -29,26 +27,26 @@ public sealed partial class World : Node {
   public IGameMode GetGameMode() => GetCurrentLevel().GameMode!;
   public Level GetCurrentLevel() => CurrentLevel!;
 
-  public async Task OpenLevel(string levelName) {
+  public async Task OpenLevel(string levelName, IGameModeConfig<GameMode>? config = null) {
     if (IsInstanceValid(CurrentLevel) && CurrentLevel != null) {
       await CurrentLevel.UnLoad();
     }
 
     var levelPath = GameInstance.Instance!.LevelsDirectoryPath + "/" + levelName + ".tscn";
     var level = ResourceLoader.Load<PackedScene>(levelPath).Instantiate<Level>();
-    SwitchLevel(level);
+    SwitchLevel(level, config);
   }
 
-  public async Task OpenLevelThreaded(string levelName, PackedScene? loadingScreenScene) {
+  public async Task OpenLevelThreaded(string levelName, PackedScene? loadingScreenScene, IGameModeConfig<GameMode>? config = null) {
     if (IsInstanceValid(CurrentLevel) && CurrentLevel != null) {
       await CurrentLevel.UnLoad();
     }
 
     var levelPath = GameInstance.Instance!.LevelsDirectoryPath + "/" + levelName + ".tscn";
-    await LoadLevelThreaded(levelPath, loadingScreenScene);
+    await LoadLevelThreaded(levelPath, loadingScreenScene, config);
   }
 
-  private async Task LoadLevelThreaded(string levelPath, PackedScene? loadingScreenScene) {
+  private async Task LoadLevelThreaded(string levelPath, PackedScene? loadingScreenScene, IGameModeConfig<GameMode>? config = null) {
     _loadingScreen = loadingScreenScene?.InstantiateOrNull<LoadingScreen>();
     if (_loadingScreen != null) {
       GetTree().Root.AddChild(_loadingScreen);
@@ -80,7 +78,7 @@ public sealed partial class World : Node {
 
       if (ResourceLoader.LoadThreadedGet(levelPath) is PackedScene levelScene) {
         var level = levelScene.Instantiate<Level>();
-        SwitchLevel(level);
+        SwitchLevel(level, config);
       }
       else {
         GD.PrintErr($"Failed to instantiate level from: {levelPath}");
@@ -97,12 +95,12 @@ public sealed partial class World : Node {
 
 
 
-  private void SwitchLevel(Level level) {
+  private void SwitchLevel(Level level, IGameModeConfig<GameMode>? config) {
     CurrentLevel = level;
 
     CurrentLevel.TreeEntered += async () => {
       EmitSignal(SignalName.LevelLoaded, level);
-      await CurrentLevel.Load();
+      await CurrentLevel.Load(config);
     };
     AddChild(CurrentLevel);
   }

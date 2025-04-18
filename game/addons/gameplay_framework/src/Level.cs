@@ -21,7 +21,7 @@ public partial class Level : Node {
   /// Changes the level game mode. It can be changed until the level is loaded.
   /// </summary>
   /// <param name="newGameMode"></param>
-  public void ChangeGameMode(GameMode newGameMode) {
+  private void ChangeGameMode(GameMode newGameMode) {
     if (!_canChangeGameMode) {
       GD.PrintErr("Can't change game mode, because level is already loaded.");
       return;
@@ -36,14 +36,20 @@ public partial class Level : Node {
     AddChild(GameMode);
   }
 
-  public virtual Task Load() {
-    var gameMode = GameModeScene?.InstantiateOrNull<GameMode>();
+  public virtual Task Load(IGameModeConfig<GameMode>? config) {
+    GameMode? gameMode = null;
+    if (config != null) {
+      gameMode = config.CreateGameMode();
+    }
+
+    gameMode ??= GameModeScene?.InstantiateOrNull<GameMode>();
     if (gameMode == null) {
-      GD.Print("Game Mode Scene is null on:", Name);
+      GD.Print("Game Mode is null on:", Name);
       return Task.CompletedTask;
     }
 
     ChangeGameMode(gameMode);
+
     _canChangeGameMode = false;
     return Task.CompletedTask;
   }

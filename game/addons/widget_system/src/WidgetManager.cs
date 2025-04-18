@@ -62,6 +62,7 @@ public partial class WidgetManager : Node {
     }
 
     var widget = _widgetStack.Pop();
+    widget.OnPopped();
     widget.QueueFree();
 
     if (showPrevious && IsInstanceValid(CurrentWidget) && CurrentWidget != null) {

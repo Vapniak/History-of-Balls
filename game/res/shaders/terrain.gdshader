@@ -2,8 +2,9 @@ shader_type spatial;
 
 #include "include/hex_utils.gdshaderinc"
 
+uniform sampler2DArray hex_textures;
+uniform sampler2D hex_texture_lookup;
 
-uniform sampler2D hex_texture: repeat_enable;
 uniform sampler2D highlight_data_texture : source_color, repeat_disable;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
 
@@ -13,6 +14,12 @@ uniform vec2 mouse_world_pos;
 uniform bool show_mouse_highlight;
 
 const int CELL_SCALE = 2;
+
+vec4 overlay(vec4 base, vec4 blend){
+	vec4 limit = step(0.5, base);
+	return mix(2.0 * base * blend, 1.0 - 2.0 * (1.0 - base) * (1.0 - blend), limit);
+}
+
 
 // TODO: when colors are simmilar highlight is not visible
 vec3 apply_highlight(vec3 base_color, vec3 highlight_color, HexCellData data){
@@ -38,6 +45,14 @@ void fragment() {
 		vec2 uv_fract = fract(scaled_uv);
 		vec2 mirrored_uv = mix(uv_fract, 1.0 - uv_fract, mod(uv_int, 2.0));
 		//ALBEDO *= max(texture(noise, UV / 5.).rgb, vec3(0.9));
+		float tex_index = texelFetch(hex_texture_lookup, data.offsetCoord, 0).r * 255.0;
+		
+		//ALBEDO = overlay(vec4(ALBEDO, 1), texture(hex_textures, vec3(mirrored_uv.x, mirrored_uv.y, id.r))).rgb;
+		 if(tex_index > 0.5) { 
+            vec4 tex_color = texture(hex_textures, vec3(mirrored_uv, tex_index - 1.0));
+            ALBEDO *= mix(ALBEDO, tex_color.rgb, 0.2);
+        }
+        
 	}
 	else {
 		ALBEDO = vec3(0, 0, 0);
@@ -65,4 +80,5 @@ void fragment() {
 	else if (highlight_color.a > 0.) {
   		ALBEDO = apply_highlight(ALBEDO, highlight_color.rgb, data);
 	}
+
 }

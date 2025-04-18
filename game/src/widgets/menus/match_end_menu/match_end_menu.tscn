@@ -55,3 +55,5 @@ text = "TIME PLAYED: 10 minutes"
 [node name="Button" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "GO TO MAIN MENU"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Button" to="." method="GoToMainMenu"]

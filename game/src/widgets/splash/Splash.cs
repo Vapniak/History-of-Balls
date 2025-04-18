@@ -42,6 +42,6 @@ public partial class Splash : Control {
   private void GoToMainMenu() {
     _videoStreamPlayer.Paused = true;
     MusicManager.Instance.Stop(1);
-    GameInstance.GetWorld().OpenLevel("main_menu_level");
+    _ = GameInstance.GetWorld().OpenLevel("main_menu_level");
   }
 }

@@ -253,7 +253,7 @@ layout_mode = 2
 text = "UNIT 123"
 
 [connection signal="TimeScaleButtonPressed" from="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimeScale" to="." method="OnTimeScaleButtonPressed"]
-[connection signal="pressed" from="VBoxContainer/MarginContainer4/VBoxContainer/Button" to="." method="OnEndTurnPressed" binds= [false]]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/VBoxContainer/Button" to="." method="OnEndTurnPressed"]
 
 [editable path="VBoxContainer/MarginContainer4/StatPanel"]
 [editable path="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/StatEntries/HBoxContainer"]

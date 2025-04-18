@@ -4,7 +4,7 @@ extends ProgrammaticTheme
 const UPDATE_ON_SAVE = true
 
 var background_color: Color = Color(.1, .1, .1, .8)
-var primary_color = Color.DODGER_BLUE
+var primary_color = Color("#fcc428")
 var text_color = Color.WHITE
 
 var default_font = "res://res/fonts/normal_font.tres"
@@ -76,7 +76,7 @@ func define_theme():
 	})
 
 	var hover_style = inherit(button_style, {
-		bg_color = primary_color.lightened(0.15),
+		bg_color = background_color.lightened(0.05),
 		#border_color = background_color.lightened(0.2)
 	})
 

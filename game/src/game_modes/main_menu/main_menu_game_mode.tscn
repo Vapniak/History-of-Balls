@@ -1,8 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://diw8kotx1evqt"]
+[gd_scene load_steps=5 format=3 uid="uid://diw8kotx1evqt"]
 
 [ext_resource type="Script" path="res://src/game_modes/main_menu/MainMenuGameMode.cs" id="1_30ibs"]
+[ext_resource type="Script" path="res://src/game_modes/hob/survive/SurviveGameModeConfig.cs" id="3_i0hj7"]
 [ext_resource type="PackedScene" uid="uid://4np7vinx0jpp" path="res://addons/gameplay_framework/src/loading_screen/loading_screen.tscn" id="3_uf8je"]
+
+[sub_resource type="Resource" id="Resource_id7m7"]
+script = ExtResource("3_i0hj7")
+RoundsToSurvive = 3
 
 [node name="MainMenuGameMode" type="Node"]
 script = ExtResource("1_30ibs")
 _loadingScreenScene = ExtResource("3_uf8je")
+Config = SubResource("Resource_id7m7")

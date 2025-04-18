@@ -13,4 +13,5 @@ public partial class Widget : Control, IWidget<Widget>, IWidgetFactory<Widget> {
     WidgetManager.PopWidget();
   }
   public virtual bool CanBePopped() => WidgetManager.WidgetStackCount > 1;
+  public virtual void OnPopped() { }
 }

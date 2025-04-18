@@ -1,11 +1,8 @@
 namespace HOB;
 
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices.Marshalling;
 using System.Threading.Tasks;
 using AudioManager;
 using GameplayFramework;
@@ -117,18 +114,12 @@ public partial class HOBGameMode : GameMode {
     Engine.TimeScale = _savedTimeScale;
   }
 
-  private void OnInMatchStateEntered() {
+  protected virtual void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
-
-    MatchComponent.MatchEvent += CheckWinCondition;
-
-    foreach (var entity in GetEntityManagment().GetEntities()) {
-      entity.OwnerControllerChanged += () => CheckWinCondition(null);
-    }
   }
 
-  private void OnInMatchStateExited() {
-    MatchComponent.MatchEvent -= CheckWinCondition;
+  protected virtual void OnInMatchStateExited() {
+
   }
 
   private void OnInMatchPlayingStateProcess(float delta) {
@@ -168,7 +159,7 @@ public partial class HOBGameMode : GameMode {
           return;
         }
 
-        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities, playerData.Entities) {
+        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities.ProducableEntities, playerData.OwnedEntities.Entities) {
           Country = playerData.Country
         };
 
@@ -360,41 +351,36 @@ public partial class HOBGameMode : GameMode {
     return settingsDict;
   }
 
-  private void CheckWinCondition(Tag? tag) {
-    if (tag == TagManager.GetTag(HOBTags.EventTurnStarted) || tag == null) {
-      var winner = CheckWinner();
-      if (winner != null) {
-        MatchComponent.TriggerGameEnd(winner);
+  protected void EndGame(IMatchController winner) {
+    MatchComponent.TriggerGameEnd(winner);
 
-        StateChart.SendEvent("match_end");
-        WidgetManager.Instance.PushWidget<MatchEndMenu>(menu => {
-          menu.OnGameEnd(winner);
-        });
-      }
-    }
+    StateChart.SendEvent("match_end");
+    WidgetManager.Instance.PushWidget<MatchEndMenuWidget>(menu => {
+      menu.OnGameEnd(winner);
+    });
   }
 
-  protected virtual IMatchController? CheckWinner() {
-    var alivePlayers = new List<IMatchController>();
-    var eliminatedPlayers = new List<IMatchController>();
+  // protected virtual IMatchController? CheckWinner() {
+  //   var alivePlayers = new List<IMatchController>();
+  //   var eliminatedPlayers = new List<IMatchController>();
 
-    foreach (var player in GetGameState().PlayerArray) {
-      var controller = player.GetController<IMatchController>();
-      var entities = GetEntityManagment().GetOwnedEntites(controller);
+  //   foreach (var player in GetGameState().PlayerArray) {
+  //     var controller = player.GetController<IMatchController>();
+  //     var entities = GetEntityManagment().GetOwnedEntites(controller);
 
-      if (entities.Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)))) {
-        alivePlayers.Add(controller);
-      }
-      else {
-        eliminatedPlayers.Add(controller);
-      }
-    }
+  //     if (entities.Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)))) {
+  //       alivePlayers.Add(controller);
+  //     }
+  //     else {
+  //       eliminatedPlayers.Add(controller);
+  //     }
+  //   }
 
-    if (eliminatedPlayers.Count > 0) {
-      return alivePlayers.FirstOrDefault();
-    }
-    else {
-      return null;
-    }
-  }
+  //   if (eliminatedPlayers.Count > 0) {
+  //     return alivePlayers.FirstOrDefault();
+  //   }
+  //   else {
+  //     return null;
+  //   }
+  // }
 }

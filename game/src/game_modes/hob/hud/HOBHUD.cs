@@ -121,11 +121,13 @@ public partial class HOBHUD : HUD {
   }
 
   private void OnRoundChanged(int roundNumber) {
-    RoundLabel.Text = $"ROUND {roundNumber}";
+    if (GetPlayerController().GetGameMode() is SurviveGameMode surviveGameMode) {
+      RoundLabel.Text = $"ROUND {roundNumber} / {surviveGameMode.RoundsToSurvive}";
+    }
   }
 
-  private void OnEndTurnPressed(bool speedUp) {
-    EmitSignal(SignalName.EndTurnPressed, speedUp);
+  private void OnEndTurnPressed() {
+    EmitSignal(SignalName.EndTurnPressed);
   }
   public new HOBPlayerController GetPlayerController() {
     return GetPlayerController<HOBPlayerController>()!;
