@@ -12,7 +12,7 @@ public partial class EntityProductionAbilityResource : HOBAbility {
     return new Instance(this, abilitySystem);
   }
 
-  public partial class Instance : EntityInstance {
+  public new partial class Instance : EntityInstance {
     private int _turnsLeft;
 
     public Instance(HOBAbility abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {

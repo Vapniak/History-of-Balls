@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://cln7fle4i8vpa"]
+
+[ext_resource type="Script" path="res://src/game/gameplay_cues/GCParticle.cs" id="1_vwbq0"]
+[ext_resource type="PackedScene" uid="uid://b45m3cxeof0u5" path="res://src/game/vfx/hit/hit_effect.tscn" id="2_8fyqk"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_j3i0v"]
+
+[sub_resource type="Resource" id="Resource_k4uce"]
+script = ExtResource("2_j3i0v")
+FullName = "GameplayCue.Hit"
+
+[node name="GcHit" type="Node" node_paths=PackedStringArray("Particles")]
+script = ExtResource("1_vwbq0")
+Particles = NodePath("HitEffect/GPUParticles3D")
+CueTag = SubResource("Resource_k4uce")
+
+[node name="HitEffect" parent="." instance=ExtResource("2_8fyqk")]
+
+[editable path="HitEffect"]

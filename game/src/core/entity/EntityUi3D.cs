@@ -6,7 +6,7 @@ using HOB;
 using HOB.GameEntity;
 using System;
 
-public partial class EntityUi3D : Node3D {
+public partial class EntityUi3D : Sprite3D {
   [Export] public EntityUIWidget EntityUI { get; private set; } = default!;
 
   private static readonly string _ui3dUID = "uid://omhtmi8gorif";
@@ -21,7 +21,7 @@ public partial class EntityUi3D : Node3D {
       }
     }
 
-    entityUI3D.Position = aabb.GetCenter() + Vector3.Up * (aabb.Size.Y + 2);
+    entityUI3D.Position = (Vector3.Up * (aabb.Size.Y + 2));
 
     if (owner.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))) {
       entityUI3D.Position += Vector3.Up * 2;

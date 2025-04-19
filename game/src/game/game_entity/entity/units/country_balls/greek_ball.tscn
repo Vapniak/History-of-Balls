@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqyau6o140ie3"]
 
-[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://res/meshes/base_country_ball.tscn" id="1_7c3a6"]
+[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://src/game/game_entity/entity/units/base_country_ball.tscn" id="1_7c3a6"]
 [ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="3_qysk0"]
 [ext_resource type="Texture2D" uid="uid://b51t1aisjv4u5" path="res://assets/textures/flags/Greece.png" id="4_y1p5l"]
 

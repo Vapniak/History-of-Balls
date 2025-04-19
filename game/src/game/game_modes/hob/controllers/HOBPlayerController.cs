@@ -1,7 +1,6 @@
 namespace HOB;
 
 using System;
-using System.Diagnostics;
 using System.Linq;
 using GameplayAbilitySystem;
 using GameplayFramework;
@@ -80,6 +79,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public override void _UnhandledInput(InputEvent @event) {
     if (!_gameStarted) {
       return;
+    }
+
+    if (@event.IsActionPressed(GameInputs.RotateRight)) {
+      Character.RotateInDirection(true);
+    }
+    else if (@event.IsActionPressed(GameInputs.RotateLeft)) {
+      Character.RotateInDirection(false);
     }
 
     if (@event.IsActionPressed(GameInputs.CameraPan)) {

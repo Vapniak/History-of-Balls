@@ -86,6 +86,15 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     }
   }
 
+  private Tween? _rotationTween = null;
+  public void RotateInDirection(bool right) {
+    if (_rotationTween == null || !_rotationTween.IsRunning()) {
+      _rotationTween = CreateTween();
+      _rotationTween.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Back);
+      _rotationTween.TweenProperty(this, "rotation:y", Mathf.DegToRad(right ? 90 : -90), .5).AsRelative();
+    }
+  }
+
   public void Friction(double delta) {
     var vel = Velocity;
     vel.Y = 0;
@@ -122,7 +131,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   public void Update(double delta) {
     UpdateCamera((float)delta);
-    GlobalTranslate(GlobalTransform.Basis * -Velocity * (float)delta);
+    GlobalTranslate(Velocity * (float)delta);
 
     var speed = (CameraParent.GlobalPosition - _prevPosition).Length() / (float)delta;
     var targetVol = Mathf.Clamp(Mathf.Remap(speed, 0, MoveSpeed, WindMinVolume, WindMaxVolume),

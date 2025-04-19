@@ -11,8 +11,10 @@ using WidgetSystem;
 [GlobalClass]
 public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
   [Export] private TextureRect? IconTextureRect { get; set; }
+  [Export] private Label EntityNameLabel { get; set; } = default!;
   [Export] private Control? TeamColorContainer { get; set; }
   [Export] private Control? CommandIconsContainer { get; set; }
+  [Export] private Control CommandIconsParent { get; set; } = default!;
   [Export] private PanelContainer? IconTextureContainer { get; set; }
   [Export] private StyleBox? UnitIconPanelStyleBox { get; set; }
   [Export] private StyleBox? StructureIconPanelStyleBox { get; set; }
@@ -29,6 +31,8 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
 
     Entity = entity;
 
+    EntityNameLabel.Text = entity.EntityName;
+
     OnOwnerControllerChanged();
 
     Entity.OwnerControllerChanged += OnOwnerControllerChanged;
@@ -42,7 +46,7 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
       child.Free();
     }
 
-    CommandIconsContainer.GetParent<Control>().Hide();
+    HideCommandIcons();
 
     Entity.AbilitySystem.GameplayAbilityGranted += (ability) => {
       if (ability is HOBAbility.Instance hob) {
@@ -95,10 +99,10 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
   }
 
   private void SetTeamColor(Color color) {
-    TeamColorContainer?.SetSelfModulate(color);
+    IconTextureRect?.SetSelfModulate(color);
 
     if (IconTextureRect != null) {
-      IconTextureRect.SelfModulate = color.Luminance > 0.5f ? Colors.Black : Colors.White;
+      //IconTextureRect.SelfModulate = color.Luminance > 0.5f ? Colors.Black : Colors.White;
     }
   }
 
@@ -131,12 +135,13 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
     }
 
     if (Entity.TryGetOwner(out var owner)) {
-      if (owner is PlayerController) {
-        SetTeamColor(Colors.Green);
-      }
-      else {
-        SetTeamColor(Colors.Red);
-      }
+      // if (owner is PlayerController) {
+      //   SetTeamColor(Colors.Green);
+      // }
+      // else {
+      //   SetTeamColor(Colors.Red);
+      // }
+      SetTeamColor(owner.GetPlayerState().Country.Color);
     }
     else {
       SetTeamColor(Colors.White);
@@ -145,7 +150,7 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
 
   private void ShowCommandIcons() {
     if (CommandIconsContainer?.GetChildCount() > 0 && Entity != null && Entity.TryGetOwner(out var owner) && owner is PlayerController) {
-      CommandIconsContainer.GetParent<Control>().Show();
+      CommandIconsParent.Show();
     }
     else {
       HideCommandIcons();
@@ -153,7 +158,7 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
   }
 
   private void HideCommandIcons() {
-    CommandIconsContainer?.GetParent<Control>().Hide();
+    CommandIconsParent.Hide();
   }
 
   static EntityUIWidget IWidgetFactory<EntityUIWidget>.CreateWidget() {

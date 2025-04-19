@@ -8,3 +8,5 @@ transform = Transform3D(-2.18557e-08, 0, 0.5, 0, 0.5, 0, -0.5, 0, -2.18557e-08, 
 script = ExtResource("1_rsf1d")
 
 [node name="greece-village" parent="." instance=ExtResource("2_2517d")]
+
+[editable path="greece-village"]

@@ -45,4 +45,5 @@ public enum HOBTags {
   [GameplayTag("GameplayCue")] GameplayCue,
   [GameplayTag("GameplayCue.Move.Dust")] GameplayCueMoveDust,
   [GameplayTag("GameplayCue.Sparkles")] GameplayCueSparkles,
+  [GameplayTag("GameplayCue.Hit")] GameplayCueHit,
 }

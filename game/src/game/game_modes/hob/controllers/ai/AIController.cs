@@ -9,6 +9,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 [GlobalClass]
@@ -87,6 +88,7 @@ public partial class AIController : Controller, IMatchController {
         }
         else {
           if (!bestEntity.AbilitySystem.TryActivateAbility(bestAbility, bestData)) {
+            GD.PrintErr("Ability activation failed", bestAbility.AbilityResource.AbilityName);
             break;
           }
         }
@@ -212,6 +214,10 @@ public partial class AIController : Controller, IMatchController {
         bestScore = score;
         bestProduction = production;
       }
+
+      if (!ability.CanActivateAbility(new GameplayEventData() { Activator = this, TargetData = new() { Target = bestProduction } })) {
+        bestProduction = null;
+      }
     }
 
     return bestProduction != null
@@ -313,14 +319,15 @@ public partial class AIController : Controller, IMatchController {
     }
 
     var productionTags = production.Entity?.Tags?.GetAllTags();
+    var score = 1f;
     foreach (var subtype in subtypeCounts) {
       //GD.Print($"Checking against least common type: {subtype.TypeName}");
       if (production.Entity?.Tags != null && production.Entity.Tags.HasTag(subtype.SubTypeTag)) {
-        return 1f / subtype.Count;
+        score *= subtype.Count / units.Count;
       }
     }
 
-    return 1f;
+    return score;
   }
 
   private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>

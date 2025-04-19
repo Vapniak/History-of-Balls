@@ -44,6 +44,7 @@ public partial class MeleeAttackAbility : AttackAbility {
       firstTween.TweenMethod(Callable.From<Vector3>(OwnerEntity.SetPosition), OwnerEntity.GetPosition(), OwnerEntity.GetPosition() + OwnerEntity.GetPosition().DirectionTo(entity.GetPosition()), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
 
       await ToSignal(firstTween, Tween.SignalName.Finished);
+      ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueHit), new() { Position = entity.Cell.GetRealPosition() });
 
       if (CurrentEventData?.TargetData is AttackTargetData d) {
         var effect = (AbilityResource as AttackAbility)?.DamageEffect;
@@ -70,6 +71,7 @@ public partial class MeleeAttackAbility : AttackAbility {
       secondTween.TweenMethod(Callable.From<Vector3>(OwnerEntity.SetPosition), OwnerEntity.GetPosition(), OwnerEntity.Cell.GetRealPosition(), .2f).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.Out);
 
       await ToSignal(secondTween, Tween.SignalName.Finished);
+
 
       base.EndAbility();
     }

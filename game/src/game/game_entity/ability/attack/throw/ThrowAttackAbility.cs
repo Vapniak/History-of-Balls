@@ -65,6 +65,7 @@ public partial class ThrowAttackAbility : AttackAbility {
         unitAttribute = unit.UnitAttribute;
         if (unitAttribute != null) {
           await unitAttribute.DoAction(entity.Cell.GetRealPosition());
+          ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueHit), new() { Position = entity.Cell.GetRealPosition() });
         }
       }
 

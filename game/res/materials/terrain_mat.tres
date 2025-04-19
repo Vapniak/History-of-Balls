@@ -3,7 +3,7 @@
 [ext_resource type="Shader" path="res://src/core/shaders/terrain.gdshader" id="1_rjkbd"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_60fii"]
-frequency = 0.0255
+frequency = 0.0027
 fractal_type = 0
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lh2dt"]
@@ -14,11 +14,11 @@ noise = SubResource("FastNoiseLite_60fii")
 render_priority = 0
 shader = ExtResource("1_rjkbd")
 shader_parameter/hex_texture_scale = 0.7
-shader_parameter/distortion_strength = 0.02
-shader_parameter/noise_scale = 1.0
+shader_parameter/distortion_strength = 0.0
+shader_parameter/noise_scale = 5.0
 shader_parameter/color_variation = 1.0
 shader_parameter/texture_opacity = 1.0
-shader_parameter/rotation_variation = 0.1
+shader_parameter/rotation_variation = 0.0
 shader_parameter/scale_variation = 0.0
 shader_parameter/edge_smoothness = 10.0
 shader_parameter/grid_size = null

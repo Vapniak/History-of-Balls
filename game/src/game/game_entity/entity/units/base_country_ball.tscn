@@ -1,19 +1,21 @@
 [gd_scene load_steps=15 format=3 uid="uid://c6gjek7mpianb"]
 
-[ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="2_wli4j"]
-[ext_resource type="PackedScene" uid="uid://fhqh85ntsr0t" path="res://assets/models/objects/generic/sphere/sphere_(1).tscn" id="3_c307d"]
-[ext_resource type="Texture2D" uid="uid://7w5wyjms26k2" path="res://assets/textures/flags/Poland.png" id="4_fptbj"]
-[ext_resource type="Animation" uid="uid://dimrfio4umt7" path="res://assets/models/objects/generic/sphere/Armature_ArmatureAction.res" id="6_afjep"]
-[ext_resource type="Animation" uid="uid://66i6exvq871" path="res://assets/models/objects/generic/sphere/Armature_SphereAction.res" id="7_hupgv"]
+[ext_resource type="PackedScene" uid="uid://fhqh85ntsr0t" path="res://assets/models/objects/generic/sphere/sphere_(1).tscn" id="1_7gdqx"]
+[ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="2_pcdo2"]
+[ext_resource type="Texture2D" uid="uid://7w5wyjms26k2" path="res://assets/textures/flags/Poland.png" id="3_rp3f1"]
+[ext_resource type="Animation" uid="uid://dimrfio4umt7" path="res://assets/models/objects/generic/sphere/Armature_ArmatureAction.res" id="4_p2hkh"]
+[ext_resource type="Animation" uid="uid://66i6exvq871" path="res://assets/models/objects/generic/sphere/Armature_SphereAction.res" id="5_8c4ya"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a1f2y"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("2_wli4j")
+shader = ExtResource("2_pcdo2")
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
-shader_parameter/base_texture = ExtResource("4_fptbj")
+shader_parameter/base_texture = ExtResource("3_rp3f1")
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(0.75, 0)
 
@@ -26,8 +28,8 @@ loop_mode = 1
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bww61"]
 _data = {
-"Armature|ArmatureAction": ExtResource("6_afjep"),
-"Armature|SphereAction": ExtResource("7_hupgv"),
+"Armature|ArmatureAction": ExtResource("4_p2hkh"),
+"Armature|SphereAction": ExtResource("5_8c4ya"),
 "RESET": SubResource("Animation_x2uwr"),
 "idle": SubResource("Animation_vsqqk")
 }
@@ -43,7 +45,9 @@ size = Vector3(0.95, 0.465, 0.415)
 resource_local_to_scene = true
 render_priority = 0
 next_pass = SubResource("ShaderMaterial_qks2d")
-shader = ExtResource("2_wli4j")
+shader = ExtResource("2_pcdo2")
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
 shader_parameter/color = Color(0, 0, 0, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
@@ -57,8 +61,7 @@ radial_segments = 12
 
 [node name="BaseCountryBall" type="Node3D"]
 
-[node name="sphere (1)" parent="." instance=ExtResource("3_c307d")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+[node name="sphere (1)" parent="." instance=ExtResource("1_7gdqx")]
 
 [node name="Armature" parent="sphere (1)" index="0"]
 transform = Transform3D(140.698, 0, 0, 0, -6.15011e-06, 140.698, 0, -140.698, -6.15011e-06, 1.49012e-08, 1, 0)
@@ -68,7 +71,6 @@ bones/1/position = Vector3(6.46235e-27, 0.00575322, 0)
 bones/1/scale = Vector3(1, 1, 1)
 
 [node name="Sphere" parent="sphere (1)/Armature/Skeleton3D" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 surface_material_override/0 = SubResource("ShaderMaterial_a1f2y")
 
 [node name="AnimationPlayer" parent="sphere (1)" index="1"]
