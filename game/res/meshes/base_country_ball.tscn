@@ -1,10 +1,10 @@
 [gd_scene load_steps=15 format=3 uid="uid://c6gjek7mpianb"]
 
-[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="2_wli4j"]
+[ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="2_wli4j"]
 [ext_resource type="PackedScene" uid="uid://fhqh85ntsr0t" path="res://assets/models/objects/sphere_(1).tscn" id="3_c307d"]
 [ext_resource type="Texture2D" uid="uid://7w5wyjms26k2" path="res://assets/textures/flags/Poland.png" id="4_fptbj"]
-[ext_resource type="Animation" uid="uid://gw0ktv30hlte" path="res://assets/models/objects/Armature_ArmatureAction.res" id="6_afjep"]
-[ext_resource type="Animation" uid="uid://dlp0qu0bms3i7" path="res://assets/models/objects/Armature_SphereAction.res" id="7_hupgv"]
+[ext_resource type="Animation" uid="uid://creuscb8a3s3b" path="res://assets/models/objects/Armature_ArmatureAction.res" id="6_afjep"]
+[ext_resource type="Animation" uid="uid://d2k2uodo0ctdb" path="res://assets/models/objects/Armature_SphereAction.res" id="7_hupgv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a1f2y"]
 resource_local_to_scene = true

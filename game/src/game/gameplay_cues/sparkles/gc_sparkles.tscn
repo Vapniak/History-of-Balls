@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dipc6d0ibuoj4"]
+
+[ext_resource type="Script" path="res://src/game/gameplay_cues/GCParticle.cs" id="1_076kc"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_v2buu"]
+[ext_resource type="PackedScene" uid="uid://cvs6r3omk88q1" path="res://src/game/vfx/sparkles/sparkles.tscn" id="3_o5cjt"]
+
+[sub_resource type="Resource" id="Resource_v5t3g"]
+script = ExtResource("2_v2buu")
+FullName = "GameplayCue.Sparkles"
+
+[node name="GcSparkles" type="Node"]
+script = ExtResource("1_076kc")
+CueTag = SubResource("Resource_v5t3g")
+
+[node name="GPUParticles3D" parent="." instance=ExtResource("3_o5cjt")]

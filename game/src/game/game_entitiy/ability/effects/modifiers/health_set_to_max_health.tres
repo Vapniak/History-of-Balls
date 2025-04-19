@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GameplayEffectModifier" load_steps=5 format=3 uid="uid://5bbrwa5qxeou"]
+
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_6xsr6"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/AttributeBackedModifierMagnitude.cs" id="2_o3fqw"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_7n17y"]
+
+[sub_resource type="Resource" id="Resource_hhpyv"]
+script = ExtResource("2_o3fqw")
+CaptureAttribute = ExtResource("1_6xsr6")
+CaptureAttributeFrom = 0
+CaptureAttributeWhen = 1
+Coefficient = 1.0
+
+[resource]
+script = ExtResource("3_7n17y")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_hhpyv")

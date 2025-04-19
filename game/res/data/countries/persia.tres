@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Country" load_steps=5 format=3 uid="uid://do2ww3kn7ft3w"]
+
+[ext_resource type="Script" path="res://src/core/country/Country.cs" id="1_8s2mg"]
+[ext_resource type="Texture2D" uid="uid://dxo53o5yaxnyg" path="res://assets/textures/flags/Persia.png" id="1_t13h1"]
+[ext_resource type="Resource" uid="uid://bxlwj2isc0xej" path="res://res/data/resource_types/dumpling.tres" id="2_wubrm"]
+[ext_resource type="Resource" uid="uid://c0gi1dmpjjefo" path="res://res/data/resource_types/flour.tres" id="3_taukf"]
+
+[resource]
+script = ExtResource("1_8s2mg")
+Name = "Persia"
+Color = Color(0, 0, 0, 0)
+Flag = ExtResource("1_t13h1")
+PrimaryResource = ExtResource("2_wubrm")
+SecondaryResource = ExtResource("3_taukf")

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://2yr24bcrlxe8"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_txtq4"]
+[ext_resource type="PackedScene" uid="uid://dxigbtu4prjow" path="res://assets/models/objects/city.fbx" id="2_x4nb2"]
+
+[node name="EntityBody" type="Node3D"]
+script = ExtResource("1_txtq4")
+
+[node name="city" parent="." instance=ExtResource("2_x4nb2")]
+transform = Transform3D(-0.437104, 0, 1.4349, 0, 1.5, 0, -1.4349, 0, -0.437104, 0, 0, 0)
+
+[editable path="city"]

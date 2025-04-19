@@ -1,0 +1,97 @@
+[gd_scene load_steps=17 format=3 uid="uid://cvs6r3omk88q1"]
+
+[ext_resource type="Texture2D" uid="uid://xf4t0ad3ugiu" path="res://assets/textures/particle/PNG (Transparent)/star_07.png" id="1_34fxl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf8tf"]
+transparency = 4
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_34fxl")
+billboard_mode = 1
+billboard_keep_scale = true
+
+[sub_resource type="Gradient" id="Gradient_spmwp"]
+colors = PackedColorArray(1, 1, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_w1y03"]
+gradient = SubResource("Gradient_spmwp")
+use_hdr = true
+
+[sub_resource type="Curve" id="Curve_g7hsi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_5e3rs"]
+curve = SubResource("Curve_g7hsi")
+
+[sub_resource type="Curve" id="Curve_aekwq"]
+min_value = -1.0
+_data = [Vector2(0, -0.322734), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gdtyg"]
+curve = SubResource("Curve_aekwq")
+
+[sub_resource type="Curve" id="Curve_2txk8"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 1, Vector2(1, 0), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_fdsdn"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 1.54531), 0.0, -0.539428, 0, 0, Vector2(0.444444, 0.801272), -3.80773, -3.80773, 0, 0, Vector2(1, 0.139905), -1.19046, 0.0, 1, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_r6sxg"]
+min_value = -2.0
+max_value = 2.0
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 1, Vector2(1, 0), 0.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_g3ump"]
+curve_x = SubResource("Curve_2txk8")
+curve_y = SubResource("Curve_fdsdn")
+curve_z = SubResource("Curve_r6sxg")
+
+[sub_resource type="Curve" id="Curve_np4eh"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.501916, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_sghi7"]
+curve = SubResource("Curve_np4eh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_et6ly"]
+emission_shape = 6
+emission_ring_axis = Vector3(0, 1, 0)
+emission_ring_height = 0.0
+emission_ring_radius = 2.0
+emission_ring_inner_radius = 1.5
+direction = Vector3(0, 1, 0)
+orbit_velocity_min = 0.5
+orbit_velocity_max = 1.0
+orbit_velocity_curve = SubResource("CurveXYZTexture_g3ump")
+gravity = Vector3(0, 20, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_sghi7")
+color_ramp = SubResource("GradientTexture1D_w1y03")
+emission_curve = SubResource("CurveTexture_5e3rs")
+hue_variation_min = 0.2
+hue_variation_max = 0.44
+hue_variation_curve = SubResource("CurveTexture_gdtyg")
+
+[sub_resource type="QuadMesh" id="QuadMesh_7id0v"]
+
+[node name="Sparkles" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_yf8tf")
+emitting = false
+amount = 32
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.12
+process_material = SubResource("ParticleProcessMaterial_et6ly")
+draw_pass_1 = SubResource("QuadMesh_7id0v")

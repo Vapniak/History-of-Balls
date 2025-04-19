@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://dk4avwabkxvm7"]
+
+[ext_resource type="Resource" uid="uid://bdm113oircfrt" path="res://src/game/game_entitiy/ability/effects/ranged_cost_effect.tres" id="1_w6hmr"]
+[ext_resource type="Resource" uid="uid://blrqjygc1t1es" path="res://src/game/game_entitiy/entity/units/ranged/persian_archer/persian_archer_data.tres" id="5_rlxyt"]
+[ext_resource type="Script" path="res://src/game/game_entitiy/ability/entity_production/ProductionConfig.cs" id="6_euklo"]
+
+[resource]
+script = ExtResource("6_euklo")
+Entity = ExtResource("5_rlxyt")
+CostEffect = ExtResource("1_w6hmr")
+ProductionTime = 1

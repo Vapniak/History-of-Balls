@@ -1,8 +1,0 @@
-[gd_resource type="Resource" script_class="AttributeSetsContainer" load_steps=3 format=3 uid="uid://dvtc84pr4gkdb"]
-
-[ext_resource type="Resource" uid="uid://bn40jkf160k1f" path="res://src/game_entities/attribute_sets/process_resources_attribute_set.tres" id="1_bv6gw"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/attributes/AttributeSetsContainer.cs" id="2_ba574"]
-
-[resource]
-script = ExtResource("2_ba574")
-AttributeSets = Array[Object]([ExtResource("1_bv6gw")])

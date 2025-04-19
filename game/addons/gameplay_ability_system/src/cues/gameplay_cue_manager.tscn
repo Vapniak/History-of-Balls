@@ -4,4 +4,4 @@
 
 [node name="GameplayCueManager" type="Node"]
 script = ExtResource("1_qge2c")
-GameplayCuesPath = "res://src/gameplay_cues"
+GameplayCuesPath = "res://src/game/gameplay_cues"

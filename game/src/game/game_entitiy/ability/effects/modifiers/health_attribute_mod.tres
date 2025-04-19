@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="GameplayAttributeModifier" load_steps=4 format=3 uid="uid://b8kricapbq0ox"]
+
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://res/data/attributes/health.tres" id="1_ox84c"]
+[ext_resource type="Resource" uid="uid://5bbrwa5qxeou" path="res://src/game/game_entitiy/ability/effects/modifiers/health_set_to_max_health.tres" id="2_6657x"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="3_505kp"]
+
+[resource]
+script = ExtResource("3_505kp")
+Attribute = ExtResource("1_ox84c")
+Modifiers = [ExtResource("2_6657x")]

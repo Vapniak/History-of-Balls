@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="GameGridLayout" load_steps=2 format=3 uid="uid://lp5grltc6rsd"]
+
+[ext_resource type="Script" path="res://src/game/game_board/GameGridLayout.cs" id="1_n4u1y"]
+
+[resource]
+script = ExtResource("1_n4u1y")
+SolidFactor = 0.99
+TerracesPerSlope = 0
+ElevationStep = 0.2
+FlatMaxElevationDelta = 2
+SlopeMaxElevationDelta = 5
+WaterFactor = 1.0
+WaterLevel = 0.1
+HexCellSize = 2.0
+OrientationType = 1
+Offset = 1
+OffsetType = 0

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b8mjeotg42xkp" path="res://assets/models/objects/sphere.fbx" id="1_juhw5"]
 [ext_resource type="Shader" path="res://res/shaders/object_outline.gdshader" id="2_n3882"]
-[ext_resource type="Shader" path="res://res/shaders/cel_shading.gdshader" id="3_ja5cj"]
+[ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="3_ja5cj"]
 [ext_resource type="Texture2D" uid="uid://x8qncwmkfm8" path="res://assets/textures/flags/England.png" id="4_h2y0a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hnlje"]

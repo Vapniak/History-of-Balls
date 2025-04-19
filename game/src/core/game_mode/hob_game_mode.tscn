@@ -1,0 +1,162 @@
+[gd_scene load_steps=35 format=3 uid="uid://k0w7kdfh2ctc"]
+
+[ext_resource type="Script" path="res://src/core/game_mode/HOBGameMode.cs" id="1_ne2qg"]
+[ext_resource type="Resource" uid="uid://71n6687oqmhi" path="res://src/core/entity/attribute_sets/player_attribute_set.tres" id="2_418xq"]
+[ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game/game_modes/hob/controllers/hob_player_controller.tscn" id="2_st7p2"]
+[ext_resource type="PackedScene" uid="uid://bxvvk6td13ake" path="res://src/game/player/player_character.tscn" id="3_wvtpx"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="3_ynnc7"]
+[ext_resource type="Texture2D" uid="uid://bhrnb4qh1p6dx" path="res://assets/textures/icons/ranged.svg" id="4_5yy5j"]
+[ext_resource type="PackedScene" uid="uid://ckan83j5lv8sv" path="res://src/game/game_modes/hob/controllers/ai/ai_controller.tscn" id="4_lhw57"]
+[ext_resource type="Script" path="res://src/core/game_mode/hud/EntityIcon.cs" id="5_lpoos"]
+[ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/game/ui/hud/hud.tscn" id="5_yn6q8"]
+[ext_resource type="Texture2D" uid="uid://cu8ifpeobhj4p" path="res://assets/textures/icons/infantry.svg" id="6_qscmy"]
+[ext_resource type="Texture2D" uid="uid://id67rufsraj2" path="res://assets/textures/icons/industry.svg" id="7_wmxfe"]
+[ext_resource type="Texture2D" uid="uid://b4l2adrjoxkkh" path="res://assets/textures/icons/city.svg" id="8_46pgr"]
+[ext_resource type="Script" path="res://src/core/game_mode/HOBPlayerManagmentComponent.cs" id="8_crqp2"]
+[ext_resource type="Texture2D" uid="uid://c7lexjg7kj31h" path="res://assets/textures/icons/village.svg" id="9_eom1f"]
+[ext_resource type="Script" path="res://src/core/game_mode/component/match/MatchComponent.cs" id="9_pkx38"]
+[ext_resource type="Texture2D" uid="uid://d3gkqp17i6c6i" path="res://assets/textures/icons/chess-knight-solid.svg" id="10_khhvx"]
+[ext_resource type="Resource" uid="uid://ywxo6fkvhdd2" path="res://res/data/missions/the_last_bastion_of_freedom.tres" id="11_kw1b6"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="17_4xfd2"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="18_57nfy"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="19_mt2ta"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="20_smv4s"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="21_tlju4"]
+
+[sub_resource type="Resource" id="Resource_f6qae"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Unit.Ranged"
+
+[sub_resource type="Resource" id="Resource_sdjv2"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_f6qae")
+Icon = ExtResource("4_5yy5j")
+
+[sub_resource type="Resource" id="Resource_olcgp"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Unit.Infantry"
+
+[sub_resource type="Resource" id="Resource_l11vm"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_olcgp")
+Icon = ExtResource("6_qscmy")
+
+[sub_resource type="Resource" id="Resource_gto37"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Structure.Factory"
+
+[sub_resource type="Resource" id="Resource_dxcf4"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_gto37")
+Icon = ExtResource("7_wmxfe")
+
+[sub_resource type="Resource" id="Resource_7vkcg"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Structure.City"
+
+[sub_resource type="Resource" id="Resource_6uqfv"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_7vkcg")
+Icon = ExtResource("8_46pgr")
+
+[sub_resource type="Resource" id="Resource_du6rs"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Structure.Village"
+
+[sub_resource type="Resource" id="Resource_cfkre"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_du6rs")
+Icon = ExtResource("9_eom1f")
+
+[sub_resource type="Resource" id="Resource_5p1at"]
+script = ExtResource("3_ynnc7")
+FullName = "Entity.Type.Unit.Cavalry"
+
+[sub_resource type="Resource" id="Resource_aqvyv"]
+script = ExtResource("5_lpoos")
+EntityType = SubResource("Resource_5p1at")
+Icon = ExtResource("10_khhvx")
+
+[node name="TestGameMode" type="Node" node_paths=PackedStringArray("StateChartNode", "MatchComponent", "PlayerManagmentComponent")]
+script = ExtResource("1_ne2qg")
+PlayerAttributeSet = ExtResource("2_418xq")
+EntityIcons = Array[Object]([SubResource("Resource_sdjv2"), SubResource("Resource_l11vm"), SubResource("Resource_dxcf4"), SubResource("Resource_6uqfv"), SubResource("Resource_cfkre"), SubResource("Resource_aqvyv")])
+MatchData = ExtResource("11_kw1b6")
+PlayerControllerScene = ExtResource("2_st7p2")
+PlayerCharacterScene = ExtResource("3_wvtpx")
+AIControllerScene = ExtResource("4_lhw57")
+HUDScene = ExtResource("5_yn6q8")
+StateChartNode = NodePath("StateChart")
+MatchComponent = NodePath("MatchComponent")
+PlayerManagmentComponent = NodePath("TestPlayerManagmentComponent")
+
+[node name="TestPlayerManagmentComponent" type="Node" parent="."]
+script = ExtResource("8_crqp2")
+
+[node name="MatchComponent" type="Node" parent="."]
+script = ExtResource("9_pkx38")
+
+[node name="StateChart" type="Node" parent="."]
+script = ExtResource("17_4xfd2")
+
+[node name="Root" type="Node" parent="StateChart"]
+script = ExtResource("18_57nfy")
+initial_state = NodePath("MatchStart")
+
+[node name="MatchStart" type="Node" parent="StateChart/Root"]
+script = ExtResource("19_mt2ta")
+
+[node name="ToMatch" type="Node" parent="StateChart/Root/MatchStart"]
+script = ExtResource("20_smv4s")
+to = NodePath("../../InMatch")
+event = &"match_start"
+delay_in_seconds = "1.0"
+
+[node name="InMatch" type="Node" parent="StateChart/Root"]
+script = ExtResource("18_57nfy")
+initial_state = NodePath("Playing")
+
+[node name="Playing" type="Node" parent="StateChart/Root/InMatch"]
+script = ExtResource("19_mt2ta")
+
+[node name="ToMatchEnd" type="Node" parent="StateChart/Root/InMatch/Playing"]
+script = ExtResource("20_smv4s")
+to = NodePath("../../../MatchEnd")
+event = &"match_end"
+delay_in_seconds = "0.0"
+
+[node name="ToPaused" type="Node" parent="StateChart/Root/InMatch/Playing"]
+script = ExtResource("20_smv4s")
+to = NodePath("../../Paused")
+event = &"pause"
+delay_in_seconds = "0.0"
+
+[node name="Paused" type="Node" parent="StateChart/Root/InMatch"]
+script = ExtResource("19_mt2ta")
+
+[node name="ToPlaying" type="Node" parent="StateChart/Root/InMatch/Paused"]
+script = ExtResource("20_smv4s")
+to = NodePath("../../Playing")
+event = &"resume"
+delay_in_seconds = "0.0"
+
+[node name="MatchEnd" type="Node" parent="StateChart/Root"]
+script = ExtResource("19_mt2ta")
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("21_tlju4")]
+visible = false
+anchors_preset = 11
+anchor_left = 1.0
+offset_left = -461.0
+offset_top = 209.0
+offset_bottom = -295.0
+grow_horizontal = 0
+enabled = false
+initial_node_to_watch = NodePath("..")
+
+[connection signal="state_entered" from="StateChart/Root/InMatch" to="." method="OnInMatchStateEntered"]
+[connection signal="state_exited" from="StateChart/Root/InMatch" to="." method="OnInMatchStateExited"]
+[connection signal="state_physics_processing" from="StateChart/Root/InMatch/Playing" to="." method="OnInMatchPlayingStateProcess"]
+[connection signal="state_entered" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateEntered"]
+[connection signal="state_exited" from="StateChart/Root/InMatch/Paused" to="." method="OnPausedStateExited"]
+[connection signal="state_entered" from="StateChart/Root/MatchEnd" to="." method="OnMatchEndedStateEntered"]

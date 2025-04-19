@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://2ylf572m7yx0"]
-
-[ext_resource type="Script" path="res://src/game_entities/EntityBody.cs" id="1_keevr"]
-[ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game_entities/entites/units/country_balls/greek_ball.tscn" id="1_xega4"]
-
-[node name="HopliteBody" type="Node3D"]
-script = ExtResource("1_keevr")
-
-[node name="GreekBall" parent="." instance=ExtResource("1_xega4")]

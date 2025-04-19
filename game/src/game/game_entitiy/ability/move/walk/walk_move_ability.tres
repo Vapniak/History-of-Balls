@@ -1,0 +1,85 @@
+[gd_resource type="Resource" script_class="WalkMoveAbility" load_steps=22 format=3 uid="uid://bteucqwcukcnq"]
+
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_tva44"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_16l8l"]
+[ext_resource type="Script" path="res://src/core/entity/ability/TurnDurationStrategy.cs" id="3_p5hyb"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="4_y687l"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="5_2qpgg"]
+[ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="6_6s1ot"]
+[ext_resource type="Script" path="res://src/game/game_entitiy/ability/move/walk/WalkMoveAbility.cs" id="7_x88ka"]
+
+[sub_resource type="Resource" id="Resource_1hi0p"]
+script = ExtResource("1_tva44")
+FullName = "Ability.Move"
+
+[sub_resource type="Resource" id="Resource_ao7kj"]
+script = ExtResource("2_16l8l")
+Tags = [SubResource("Resource_1hi0p")]
+
+[sub_resource type="Resource" id="Resource_s85gp"]
+script = ExtResource("1_tva44")
+FullName = "State.Block.Movement"
+
+[sub_resource type="Resource" id="Resource_5vo07"]
+script = ExtResource("2_16l8l")
+Tags = [SubResource("Resource_s85gp")]
+
+[sub_resource type="Resource" id="Resource_c7yum"]
+script = ExtResource("1_tva44")
+FullName = "State.CurrentTurn"
+
+[sub_resource type="Resource" id="Resource_rbejn"]
+script = ExtResource("2_16l8l")
+Tags = [SubResource("Resource_c7yum")]
+
+[sub_resource type="Resource" id="Resource_k86uj"]
+script = ExtResource("1_tva44")
+FullName = "Ability.Capture"
+
+[sub_resource type="Resource" id="Resource_11248"]
+script = ExtResource("2_16l8l")
+Tags = [SubResource("Resource_k86uj")]
+
+[sub_resource type="Resource" id="Resource_53iek"]
+script = ExtResource("1_tva44")
+FullName = "Event.Turn.Started"
+
+[sub_resource type="Resource" id="Resource_s7xdi"]
+script = ExtResource("3_p5hyb")
+TickAt = [SubResource("Resource_53iek")]
+TickAtOwnTurn = true
+
+[sub_resource type="Resource" id="Resource_cr24g"]
+script = ExtResource("4_y687l")
+DurationPolicy = 2
+AttributeModifiers = []
+DurationMultiplier = 1.0
+DurationStrategy = SubResource("Resource_s7xdi")
+
+[sub_resource type="Resource" id="Resource_j5ckc"]
+script = ExtResource("1_tva44")
+FullName = "Cooldown.Move"
+
+[sub_resource type="Resource" id="Resource_oxiev"]
+script = ExtResource("2_16l8l")
+Tags = [SubResource("Resource_j5ckc")]
+
+[sub_resource type="Resource" id="Resource_07glx"]
+script = ExtResource("5_2qpgg")
+EffectDefinition = SubResource("Resource_cr24g")
+GrantedTags = SubResource("Resource_oxiev")
+
+[resource]
+script = ExtResource("7_x88ka")
+Icon = ExtResource("6_6s1ot")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Walk Move"
+CooldownGameplayEffect = SubResource("Resource_07glx")
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+AbilityTags = SubResource("Resource_ao7kj")
+CancelAbilitiesWithTags = SubResource("Resource_11248")
+ActivationBlockedTags = SubResource("Resource_5vo07")
+ActivationRequiredTags = SubResource("Resource_rbejn")

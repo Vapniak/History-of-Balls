@@ -1,0 +1,45 @@
+[gd_resource type="Resource" script_class="GameplayEffectResource" load_steps=13 format=3 uid="uid://biyibaycosom4"]
+
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_yclkq"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_d0q1o"]
+[ext_resource type="Script" path="res://src/core/entity/ability/TurnDurationStrategy.cs" id="3_4emj7"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="4_j2a8m"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="5_mc6df"]
+
+[sub_resource type="Resource" id="Resource_7de16"]
+script = ExtResource("1_yclkq")
+FullName = "Cooldown"
+
+[sub_resource type="Resource" id="Resource_s5hak"]
+script = ExtResource("2_d0q1o")
+Tags = [SubResource("Resource_7de16")]
+
+[sub_resource type="Resource" id="Resource_wehkw"]
+script = ExtResource("1_yclkq")
+FullName = "Event.Turn.Started"
+
+[sub_resource type="Resource" id="Resource_wrow3"]
+script = ExtResource("3_4emj7")
+TickAt = [SubResource("Resource_wehkw")]
+TickAtOwnTurn = true
+
+[sub_resource type="Resource" id="Resource_gatex"]
+script = ExtResource("4_j2a8m")
+DurationPolicy = 2
+AttributeModifiers = []
+DurationMultiplier = 1.0
+DurationStrategy = SubResource("Resource_wrow3")
+
+[sub_resource type="Resource" id="Resource_dahcy"]
+script = ExtResource("1_yclkq")
+FullName = "Cooldown.Attack"
+
+[sub_resource type="Resource" id="Resource_kxgwj"]
+script = ExtResource("2_d0q1o")
+Tags = [SubResource("Resource_dahcy")]
+
+[resource]
+script = ExtResource("5_mc6df")
+EffectDefinition = SubResource("Resource_gatex")
+AssetTags = SubResource("Resource_s5hak")
+GrantedTags = SubResource("Resource_kxgwj")

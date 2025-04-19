@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://cafnytwiyv201"]
+
+[ext_resource type="Script" path="res://src/game/ui/widgets/tooltip/TooltipWidget.cs" id="1_8vq1w"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qyrep"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_awcpx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bkokk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4jtr6"]
+
+[node name="Tooltip" type="MarginContainer" node_paths=PackedStringArray("Label")]
+offset_right = 72.0
+offset_bottom = 41.0
+script = ExtResource("1_8vq1w")
+Label = NodePath("MarginContainer2/MarginContainer/RichTextLabel")
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="MarginContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer2/MarginContainer"]
+layout_mode = 2
+theme_override_styles/fill = SubResource("StyleBoxEmpty_qyrep")
+theme_override_styles/background = SubResource("StyleBoxEmpty_awcpx")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bkokk")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_4jtr6")
+bbcode_enabled = true
+text = "Tooltip"
+fit_content = true
+autowrap_mode = 0
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false

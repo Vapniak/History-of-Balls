@@ -1,7 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqhwhujtv6m5t"]
-
-[ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/game_modes/hob/hob_game_mode.tscn" id="1_wyevw"]
-[ext_resource type="Script" path="res://src/game_modes/hob/survive/SurviveGameMode.cs" id="2_cw5s7"]
-
-[node name="SurviveGameMode" instance=ExtResource("1_wyevw")]
-script = ExtResource("2_cw5s7")

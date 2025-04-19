@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="EntityProductionAbilityResource" load_steps=7 format=3 uid="uid://ciww6h4ocgdbp"]
+
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_3hmt8"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_bam7f"]
+[ext_resource type="Texture2D" uid="uid://bjvxvscc746v8" path="res://assets/textures/icons/production.svg" id="3_1m1nk"]
+[ext_resource type="Script" path="res://src/game/game_entitiy/ability/entity_production/EntityProductionAbilityResource.cs" id="4_l5x2k"]
+
+[sub_resource type="Resource" id="Resource_n0ebk"]
+script = ExtResource("1_3hmt8")
+FullName = "State.CurrentTurn"
+
+[sub_resource type="Resource" id="Resource_llcd7"]
+script = ExtResource("2_bam7f")
+Tags = [SubResource("Resource_n0ebk")]
+
+[resource]
+script = ExtResource("4_l5x2k")
+Icon = ExtResource("3_1m1nk")
+ShowInUI = false
+UIOrder = 0
+AbilityName = "Produce"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+ActivationRequiredTags = SubResource("Resource_llcd7")

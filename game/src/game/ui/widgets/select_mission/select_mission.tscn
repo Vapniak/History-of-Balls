@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyib3loosl782"]
+
+[ext_resource type="Script" path="res://src/game/ui/widgets/select_mission/SelectMissionWidget.cs" id="1_1d1dh"]
+[ext_resource type="Resource" uid="uid://ywxo6fkvhdd2" path="res://res/data/missions/the_last_bastion_of_freedom.tres" id="2_guq23"]
+[ext_resource type="PackedScene" uid="uid://bpnm84svvttf3" path="res://src/game/ui/widgets/select_mission/mission_widget/mission_widget.tscn" id="2_nno2l"]
+
+[node name="SelectMission" type="MarginContainer" node_paths=PackedStringArray("MissionList")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1d1dh")
+Missions = Array[Object]([ExtResource("2_guq23")])
+MissionList = NodePath("VBoxContainer")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MissionWidget" parent="VBoxContainer" instance=ExtResource("2_nno2l")]
+layout_mode = 2

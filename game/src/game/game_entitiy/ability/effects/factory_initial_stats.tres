@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="GameplayEffectResource" load_steps=19 format=3 uid="uid://cwih8oemud71l"]
+
+[ext_resource type="Resource" uid="uid://dqiisaqosnve4" path="res://res/data/attributes/processed_value.tres" id="1_y3nea"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_x3kcn"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_s5y0q"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_u0uij"]
+[ext_resource type="Resource" uid="uid://rs27sl4g42ho" path="res://res/data/attributes/process_time.tres" id="5_s4q2a"]
+[ext_resource type="Resource" uid="uid://8owi0mw7air3" path="res://res/data/attributes/produced_value.tres" id="6_yn2gi"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="7_2gjuk"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="8_32auh"]
+
+[sub_resource type="Resource" id="Resource_miv4p"]
+script = ExtResource("2_x3kcn")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_hk8o4"]
+script = ExtResource("3_s5y0q")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_miv4p")
+
+[sub_resource type="Resource" id="Resource_83r54"]
+script = ExtResource("4_u0uij")
+Attribute = ExtResource("1_y3nea")
+Modifiers = [SubResource("Resource_hk8o4")]
+
+[sub_resource type="Resource" id="Resource_wlgyb"]
+script = ExtResource("2_x3kcn")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_erbgn"]
+script = ExtResource("3_s5y0q")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_wlgyb")
+
+[sub_resource type="Resource" id="Resource_hj3k2"]
+script = ExtResource("4_u0uij")
+Attribute = ExtResource("5_s4q2a")
+Modifiers = [SubResource("Resource_erbgn")]
+
+[sub_resource type="Resource" id="Resource_3a33f"]
+script = ExtResource("2_x3kcn")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_w8vv7"]
+script = ExtResource("3_s5y0q")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_3a33f")
+
+[sub_resource type="Resource" id="Resource_o2yi5"]
+script = ExtResource("4_u0uij")
+Attribute = ExtResource("6_yn2gi")
+Modifiers = [SubResource("Resource_w8vv7")]
+
+[sub_resource type="Resource" id="Resource_ay6xu"]
+script = ExtResource("7_2gjuk")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_83r54"), SubResource("Resource_hj3k2"), SubResource("Resource_o2yi5")])
+DurationMultiplier = 0.0
+
+[resource]
+script = ExtResource("8_32auh")
+EffectDefinition = SubResource("Resource_ay6xu")

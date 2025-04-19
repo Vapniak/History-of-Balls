@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://drjbyoa0thbpx"]
+
+[ext_resource type="Script" path="res://src/game/gameplay_cues/GCParticle.cs" id="1_5vfc3"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_8imxa"]
+[ext_resource type="PackedScene" uid="uid://dlnk05p24avcf" path="res://src/game/vfx/dust/dust.tscn" id="3_6ktim"]
+
+[sub_resource type="Resource" id="Resource_yb4vc"]
+script = ExtResource("2_8imxa")
+FullName = "GameplayCue.Move.Dust"
+
+[node name="GCMoveDust" type="Node" node_paths=PackedStringArray("Particles")]
+script = ExtResource("1_5vfc3")
+Particles = NodePath("")
+CueTag = SubResource("Resource_yb4vc")
+
+[node name="Dust" parent="." instance=ExtResource("3_6ktim")]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://sbqinq0q8ajx"]
+
+[ext_resource type="Resource" uid="uid://fw08t7fm0yoq" path="res://src/game/game_entitiy/ability/effects/infantry_cost_effect.tres" id="1_i2gcp"]
+[ext_resource type="Resource" uid="uid://dx5mu6akcbsf8" path="res://src/game/game_entitiy/entity/units/infantry/immortal/immortal_data.tres" id="5_wfv7e"]
+[ext_resource type="Script" path="res://src/game/game_entitiy/ability/entity_production/ProductionConfig.cs" id="6_l15bx"]
+
+[resource]
+script = ExtResource("6_l15bx")
+Entity = ExtResource("5_wfv7e")
+CostEffect = ExtResource("1_i2gcp")
+ProductionTime = 2

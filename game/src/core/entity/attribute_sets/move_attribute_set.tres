@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="MoveAttributeSet" load_steps=3 format=3 uid="uid://3qq327rqo575"]
+
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="1_mtxr3"]
+[ext_resource type="Script" path="res://src/core/entity/attribute_sets/MoveAttributeSet.cs" id="2_wtxg6"]
+
+[resource]
+script = ExtResource("2_wtxg6")
+MovePoints = ExtResource("1_mtxr3")
