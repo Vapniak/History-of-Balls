@@ -5,7 +5,6 @@ using Godot;
 
 [GlobalClass]
 public partial class ThrowableAttribute : UnitAttribute {
-
   [ExportGroup("Throw")]
   [Export] private bool OrientTowardVelocity { get; set; } = true;
   [Export] private float RotationSmoothness { get; set; } = 5f;
@@ -23,6 +22,8 @@ public partial class ThrowableAttribute : UnitAttribute {
   }
 
   public override async Task DoAction(Vector3 toPosition) {
+    await base.DoAction(toPosition);
+
     var height = ThrowHeight;
     var gravity = Mathf.Abs(_gravity.Y);
 
@@ -39,8 +40,10 @@ public partial class ThrowableAttribute : UnitAttribute {
   }
 
   public override async Task Reset() {
-    TopLevel = false;
+    await base.Reset();
 
+    TopLevel = false;
+    Visible = true;
     var tween = CreateTween();
     tween.TweenProperty(this, "scale", Vector3.One, 0.1f);
 
@@ -88,8 +91,9 @@ public partial class ThrowableAttribute : UnitAttribute {
     await ToSignal(throwTween, Tween.SignalName.Finished);
 
     var fadeTween = CreateTween();
-    fadeTween.TweenProperty(this, "scale", Vector3.Zero, 0.1f);
+    fadeTween.TweenProperty(this, "scale", Vector3.One * Mathf.Epsilon, 0.1f);
     await ToSignal(fadeTween, Tween.SignalName.Finished);
+    Visible = false;
   }
 
   private void UpdateTrajectory(float time) {

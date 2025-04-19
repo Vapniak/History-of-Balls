@@ -5,7 +5,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class MissionWidget : Widget, IWidgetFactory<MissionWidget> {
+public partial class MissionWidget : HOBWidget, IWidgetFactory<MissionWidget> {
   [Signal] public delegate void MissionSelectedEventHandler();
   [Export] private Button Button { get; set; } = default!;
 

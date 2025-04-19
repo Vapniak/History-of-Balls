@@ -6,7 +6,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class ProductionEntryWidget : Widget, IWidgetFactory<ProductionEntryWidget> {
+public partial class ProductionEntryWidget : HOBWidget, IWidgetFactory<ProductionEntryWidget> {
   [Export] private Button Button { get; set; } = default!;
   [Export] private RichTextLabel Label { get; set; } = default!;
 

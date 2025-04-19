@@ -7,7 +7,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class SelectMissionWidget : Widget, IWidgetFactory<SelectMissionWidget> {
+public partial class SelectMissionWidget : HOBWidget, IWidgetFactory<SelectMissionWidget> {
   [Export] private Array<MissionData> Missions { get; set; } = default!;
   [Export] private Control MissionList { get; set; } = default!;
   public static SelectMissionWidget CreateWidget() {

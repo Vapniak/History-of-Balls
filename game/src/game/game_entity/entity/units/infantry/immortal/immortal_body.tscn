@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://b8s2rs2pckkg8"]
+[gd_scene load_steps=5 format=3 uid="uid://b8s2rs2pckkg8"]
 
 [ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_6exja"]
 [ext_resource type="PackedScene" uid="uid://cro8sewdt76r0" path="res://src/game/game_entity/entity/units/country_balls/persia_ball.tscn" id="2_tr022"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_heny1"]
+[ext_resource type="PackedScene" uid="uid://d3dqqnsewb7nb" path="res://assets/models/elements/persia/persia-Immortal.fbx" id="4_kebie"]
 
 [node name="ImmortalBody" type="Node3D"]
 script = ExtResource("1_6exja")
 
 [node name="PersiaBall" parent="." instance=ExtResource("2_tr022")]
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_heny1")
+
+[node name="persia-Immortal" parent="FollowParent3D" instance=ExtResource("4_kebie")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.771421, 0.3, 0)

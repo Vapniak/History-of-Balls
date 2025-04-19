@@ -3,7 +3,7 @@ namespace HOB;
 using Godot;
 using WidgetSystem;
 
-public partial class AttributeEntryWidget : Widget, IWidgetFactory<AttributeEntryWidget> {
+public partial class AttributeEntryWidget : HOBWidget, IWidgetFactory<AttributeEntryWidget> {
   [Export] private Label EntryNameLabel { get; set; } = default!;
   [Export] private Label EntryValueLabel { get; set; } = default!;
   [Export] private TextureRect IconTexture { get; set; } = default!;

@@ -1,14 +1,43 @@
-[gd_scene load_steps=7 format=3 uid="uid://cfpw2nk3wsd8q"]
+[gd_scene load_steps=16 format=3 uid="uid://cfpw2nk3wsd8q"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_dm6nx"]
 [ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game/game_entity/entity/units/country_balls/greek_ball.tscn" id="2_357p0"]
+[ext_resource type="PackedScene" uid="uid://duf3ury7qwfo6" path="res://assets/models/elements/greece/greece-Peltast.fbx" id="5_ommay"]
+[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="5_v1ihn"]
+[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="6_t2tgd"]
+[ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="7_no1gc"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="8_ut4yb"]
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ThrowableAttribute.cs" id="9_guo61"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_vrle6"]
-size = Vector3(0.115, 0.2, 1.115)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rcjtb"]
+shader = ExtResource("5_v1ihn")
 
-[sub_resource type="PrismMesh" id="PrismMesh_ik51o"]
+[sub_resource type="Gradient" id="Gradient_eufl4"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_0k1mc"]
+gradient = SubResource("Gradient_eufl4")
+
+[sub_resource type="Curve" id="Curve_p6ckn"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ve3nk"]
+curve = SubResource("Curve_p6ckn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0e4le"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_t2tgd")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 44
+shader_parameter/color_ramp = SubResource("GradientTexture1D_0k1mc")
+shader_parameter/curve = SubResource("CurveTexture_ve3nk")
+
+[sub_resource type="QuadMesh" id="QuadMesh_mywyq"]
+material = SubResource("ShaderMaterial_0e4le")
 
 [node name="PeltastBody" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
 script = ExtResource("1_dm6nx")
@@ -21,15 +50,28 @@ top_level = true
 script = ExtResource("8_ut4yb")
 
 [node name="UnitAttribute" type="Node3D" parent="FollowParent3D"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.887068, 0.643308, 0.212382)
+transform = Transform3D(0.998255, -2.58094e-09, -0.059045, -0.059045, -4.36351e-08, -0.998255, 0, 1, -4.37114e-08, 0.887068, 0.541936, -0.0288257)
 script = ExtResource("9_guo61")
 RotationSmoothness = 10.0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="FollowParent3D/UnitAttribute"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.176632, 0)
-mesh = SubResource("BoxMesh_vrle6")
-skeleton = NodePath("../../..")
+[node name="greece-Peltast" parent="FollowParent3D/UnitAttribute" instance=ExtResource("5_ommay")]
+transform = Transform3D(0.996336, -0.0589682, -0.0619466, 0.0589682, -0.0509765, 0.996957, -0.0619466, -0.996957, -0.0473124, -0.113474, 2.42144e-08, 0.565945)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="FollowParent3D/UnitAttribute"]
-transform = Transform3D(0.23, 0, 0, 0, -0.0088292, 0.229831, 0, -0.229831, -0.0088292, 0, 0.165926, -0.634795)
-mesh = SubResource("PrismMesh_ik51o")
+[node name="GPUTrail3D" type="GPUParticles3D" parent="FollowParent3D/UnitAttribute"]
+transform = Transform3D(0.105, -7.77146e-18, -3.25963e-09, -1.38787e-16, 0.105, -3.55271e-15, 3.25963e-09, 0, 0.105, -0.11947, -0.00271373, 0.540422)
+visible = false
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 165
+process_material = SubResource("ShaderMaterial_rcjtb")
+draw_pass_1 = SubResource("QuadMesh_mywyq")
+script = ExtResource("7_no1gc")
+length_seconds = 0.606061
+color_ramp = SubResource("GradientTexture1D_0k1mc")
+curve = SubResource("CurveTexture_ve3nk")
+billboard = true
+_defaults_have_been_set = true
+
+[connection signal="Acted" from="FollowParent3D/UnitAttribute" to="FollowParent3D/UnitAttribute/GPUTrail3D" method="set_visible" binds= [true]]
+[connection signal="Reseted" from="FollowParent3D/UnitAttribute" to="FollowParent3D/UnitAttribute/GPUTrail3D" method="set_visible" binds= [false]]

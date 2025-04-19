@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapSettings" load_steps=49 format=3 uid="uid://den26mhc6fsde"]
+[gd_resource type="Resource" script_class="MapSettings" load_steps=56 format=3 uid="uid://den26mhc6fsde"]
 
 [ext_resource type="PackedScene" uid="uid://cohqg7okmf4ky" path="res://src/game/game_entity/entity/props/nature/grass_water.tscn" id="1_oyuk6"]
 [ext_resource type="Script" path="res://src/core/map/CellSetting.cs" id="1_u5vua"]
@@ -7,18 +7,24 @@
 [ext_resource type="PackedScene" uid="uid://b45vsdduuhmkn" path="res://src/game/game_entity/entity/props/nature/rock.tscn" id="3_klp6g"]
 [ext_resource type="Resource" uid="uid://cknkmkh75xb2n" path="res://res/data/prop_settings/flower.tres" id="5_e5o4k"]
 [ext_resource type="PackedScene" uid="uid://bgsc8xna5omfc" path="res://src/game/game_entity/entity/props/nature/tree/tree.tscn" id="5_keg8l"]
+[ext_resource type="Texture2D" uid="uid://dj4ufvqfbiqwq" path="res://assets/textures/hex/4.png" id="5_t2gek"]
 [ext_resource type="Resource" uid="uid://2t4aosur46iy" path="res://res/data/prop_settings/tree_prop.tres" id="6_1otyp"]
 [ext_resource type="Resource" uid="uid://b6mpddyapgkrf" path="res://res/data/prop_settings/mushroom.tres" id="7_gj57k"]
 [ext_resource type="Resource" uid="uid://cy6mvys3o82oc" path="res://res/data/prop_settings/pebbles.tres" id="7_k7xks"]
 [ext_resource type="Texture2D" uid="uid://d10jj1fbpr722" path="res://assets/textures/hex/9.png" id="8_75ac4"]
+[ext_resource type="PackedScene" uid="uid://dq38svchx4x6u" path="res://src/game/game_entity/entity/props/nature/grass.tscn" id="8_jgtb4"]
+[ext_resource type="Texture2D" uid="uid://bv6ldat55hhmn" path="res://assets/textures/hex/8.png" id="9_1myf1"]
 [ext_resource type="Texture2D" uid="uid://dq4k3mne5m1eh" path="res://assets/textures/hex/7.png" id="9_qq4q1"]
 [ext_resource type="PackedScene" uid="uid://dv21udkqkq718" path="res://src/game/game_entity/entity/props/nature/rock1.tscn" id="10_iq8s0"]
 [ext_resource type="PackedScene" uid="uid://bc0yupryeox7" path="res://src/game/game_entity/entity/props/nature/rock2.tscn" id="11_qs8y3"]
 [ext_resource type="Texture2D" uid="uid://cultpcvwh3ikf" path="res://assets/textures/hex/6.png" id="11_sqeh6"]
 [ext_resource type="Texture2D" uid="uid://cp4qrvmtl6gvx" path="res://assets/textures/hex/2.png" id="12_b62aa"]
-[ext_resource type="Texture2D" uid="uid://bb4uctqaul008" path="res://assets/textures/hex/14.png" id="14_xds7p"]
+[ext_resource type="Texture2D" uid="uid://d10xvcl3tlvde" path="res://assets/textures/hex/11.png" id="16_iiye7"]
 [ext_resource type="Texture2D" uid="uid://mh008ibchvnt" path="res://assets/textures/hex/17.png" id="17_21j3p"]
 [ext_resource type="Texture2D" uid="uid://du2govhtklon1" path="res://assets/textures/hex/16.png" id="18_pgt1s"]
+[ext_resource type="Texture2D" uid="uid://57cw6287hs8l" path="res://assets/textures/hex/5.png" id="19_g3svm"]
+[ext_resource type="Texture2D" uid="uid://drcljhdn5qrnk" path="res://assets/textures/hex/15.png" id="20_i0ho8"]
+[ext_resource type="Texture2D" uid="uid://bv3ylgsf1ac5w" path="res://assets/textures/hex/10.png" id="23_81f4x"]
 
 [sub_resource type="Resource" id="Resource_iu6ae"]
 script = ExtResource("2_v7yhy")
@@ -47,7 +53,7 @@ Name = "Water"
 Color = Color(0.247059, 0.670588, 1, 1)
 MoveCost = 1
 Elevation = -4
-IsWater = false
+IsWater = true
 Props = []
 
 [sub_resource type="Resource" id="Resource_ugp0j"]
@@ -58,7 +64,7 @@ MoveCost = 1
 Elevation = 1
 IsWater = false
 Props = []
-Texture = ExtResource("12_b62aa")
+Texture = ExtResource("5_t2gek")
 
 [sub_resource type="Resource" id="Resource_xunho"]
 script = ExtResource("2_v7yhy")
@@ -66,15 +72,21 @@ PropScene = ExtResource("5_keg8l")
 Chance = 30.0
 AmountRange = Vector2i(1, 2)
 
+[sub_resource type="Resource" id="Resource_xvfg7"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("8_jgtb4")
+Chance = 0.0
+AmountRange = Vector2i(50, 60)
+
 [sub_resource type="Resource" id="Resource_rxka0"]
 script = ExtResource("1_u5vua")
 Name = "Grassland"
 Color = Color(0.364991, 0.746193, 0, 1)
 MoveCost = 1
-Elevation = 3
+Elevation = 2
 IsWater = false
-Props = [ExtResource("5_e5o4k"), SubResource("Resource_xunho")]
-Texture = ExtResource("8_75ac4")
+Props = [ExtResource("5_e5o4k"), SubResource("Resource_xunho"), SubResource("Resource_xvfg7")]
+Texture = ExtResource("9_1myf1")
 
 [sub_resource type="Resource" id="Resource_88oxo"]
 script = ExtResource("2_v7yhy")
@@ -103,7 +115,7 @@ script = ExtResource("1_u5vua")
 Name = "Forest"
 Color = Color(0.101961, 0.478431, 0.101961, 1)
 MoveCost = 1
-Elevation = 2
+Elevation = 3
 IsWater = false
 Props = [SubResource("Resource_tdygp"), ExtResource("7_gj57k")]
 Texture = ExtResource("11_sqeh6")
@@ -116,16 +128,17 @@ MoveCost = 1
 Elevation = 3
 IsWater = false
 Props = [ExtResource("6_1otyp"), ExtResource("7_gj57k")]
+Texture = ExtResource("8_75ac4")
 
 [sub_resource type="Resource" id="Resource_1ldl1"]
 script = ExtResource("1_u5vua")
 Name = "Highlands"
 Color = Color(0.419608, 0.556863, 0.137255, 1)
 MoveCost = 1
-Elevation = 3
+Elevation = 4
 IsWater = false
 Props = [ExtResource("7_k7xks"), ExtResource("5_e5o4k")]
-Texture = ExtResource("14_xds7p")
+Texture = ExtResource("16_iiye7")
 
 [sub_resource type="Resource" id="Resource_ux7n1"]
 script = ExtResource("2_v7yhy")
@@ -153,7 +166,7 @@ MoveCost = 1
 Elevation = 8
 IsWater = false
 Props = [ExtResource("7_k7xks"), SubResource("Resource_ux7n1"), SubResource("Resource_s7k0t"), SubResource("Resource_bgdrk")]
-Texture = ExtResource("17_21j3p")
+Texture = ExtResource("19_g3svm")
 
 [sub_resource type="Resource" id="Resource_ixmmq"]
 script = ExtResource("2_v7yhy")
@@ -181,7 +194,7 @@ MoveCost = 1
 Elevation = 12
 IsWater = false
 Props = [ExtResource("7_k7xks"), SubResource("Resource_ixmmq"), SubResource("Resource_vp8lv"), SubResource("Resource_1372c")]
-Texture = ExtResource("18_pgt1s")
+Texture = ExtResource("20_i0ho8")
 
 [sub_resource type="Resource" id="Resource_4ldwo"]
 script = ExtResource("1_u5vua")
@@ -191,31 +204,34 @@ MoveCost = 1
 Elevation = 15
 IsWater = false
 Props = []
+Texture = ExtResource("18_pgt1s")
 
 [sub_resource type="Resource" id="Resource_0jc6q"]
 script = ExtResource("1_u5vua")
 Name = "Volcanic  Mountains"
 Color = Color(0.54902, 0.262745, 0.262745, 1)
 MoveCost = 1
-Elevation = 1
+Elevation = 15
 IsWater = false
 Props = []
+Texture = ExtResource("17_21j3p")
 
 [sub_resource type="Resource" id="Resource_wi0pj"]
 script = ExtResource("1_u5vua")
 Name = "Swamp"
 Color = Color(0.247059, 0.670588, 0.666667, 1)
 MoveCost = 1
-Elevation = 2
+Elevation = 1
 IsWater = false
 Props = []
+Texture = ExtResource("23_81f4x")
 
 [sub_resource type="Resource" id="Resource_j0sq1"]
 script = ExtResource("1_u5vua")
 Name = "Desert"
 Color = Color(0.839216, 0.752941, 0.278431, 1)
 MoveCost = 1
-Elevation = 3
+Elevation = 2
 IsWater = false
 Props = []
 Texture = ExtResource("12_b62aa")
@@ -225,7 +241,7 @@ script = ExtResource("1_u5vua")
 Name = "Cactus Desert"
 Color = Color(0.803922, 0.521569, 0.247059, 1)
 MoveCost = 1
-Elevation = 1
+Elevation = 2
 IsWater = false
 Props = []
 
@@ -234,7 +250,7 @@ script = ExtResource("1_u5vua")
 Name = "Snowfield"
 Color = Color(1, 1, 1, 1)
 MoveCost = 1
-Elevation = 1
+Elevation = 2
 IsWater = false
 Props = []
 
@@ -243,7 +259,7 @@ script = ExtResource("1_u5vua")
 Name = "Snowy Forest"
 Color = Color(0.529412, 0.866667, 0.921569, 1)
 MoveCost = 1
-Elevation = 1
+Elevation = 3
 IsWater = false
 Props = []
 
@@ -252,7 +268,7 @@ script = ExtResource("1_u5vua")
 Name = "Glacier"
 Color = Color(0.27451, 0.509804, 0.705882, 1)
 MoveCost = 1
-Elevation = 1
+Elevation = 5
 IsWater = false
 Props = []
 

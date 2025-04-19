@@ -5,6 +5,14 @@ using Godot;
 
 [GlobalClass]
 public abstract partial class UnitAttribute : Node3D {
-  public abstract Task DoAction(Vector3 toPosition);
-  public abstract Task Reset();
+  [Signal] public delegate void ActedEventHandler();
+  [Signal] public delegate void ResetedEventHandler();
+  public virtual Task DoAction(Vector3 toPosition) {
+    EmitSignal(SignalName.Acted);
+    return Task.CompletedTask;
+  }
+  public virtual Task Reset() {
+    EmitSignal(SignalName.Reseted);
+    return Task.CompletedTask;
+  }
 }

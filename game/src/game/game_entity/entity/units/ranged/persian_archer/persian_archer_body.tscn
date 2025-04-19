@@ -1,23 +1,44 @@
-[gd_scene load_steps=9 format=3 uid="uid://dv33chs1kmb5g"]
+[gd_scene load_steps=17 format=3 uid="uid://dv33chs1kmb5g"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_lycp1"]
 [ext_resource type="PackedScene" uid="uid://cro8sewdt76r0" path="res://src/game/game_entity/entity/units/country_balls/persia_ball.tscn" id="2_352bc"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_kh6pq"]
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ThrowableAttribute.cs" id="4_8q8f1"]
+[ext_resource type="PackedScene" uid="uid://bulne3jer22mb" path="res://assets/models/elements/persia/persia-Persian-Archer-bow.fbx" id="4_kwtxr"]
+[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="5_ra235"]
+[ext_resource type="PackedScene" uid="uid://dvr32145hutia" path="res://assets/models/elements/persia/persia-Persian-Archer-arrow.fbx" id="6_gkk0o"]
+[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="6_jux2u"]
+[ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="7_6qrka"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_7rh4w"]
-size = Vector3(0.125, 0.075, 0.97)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mjddw"]
+shader = ExtResource("5_ra235")
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_3ewhs"]
-height = 0.1
+[sub_resource type="Gradient" id="Gradient_hqjwt"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_0evk5"]
-top_radius = 0.6
-bottom_radius = 0.6
-height = 2.5
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_koq1x"]
+gradient = SubResource("Gradient_hqjwt")
 
-[sub_resource type="SphereMesh" id="SphereMesh_8xqg5"]
-radius = 0.02
+[sub_resource type="Curve" id="Curve_xejuj"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_onh1c"]
+curve = SubResource("Curve_xejuj")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qewuv"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("6_jux2u")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+shader_parameter/color_ramp = SubResource("GradientTexture1D_koq1x")
+shader_parameter/curve = SubResource("CurveTexture_onh1c")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vvj43"]
+material = SubResource("ShaderMaterial_qewuv")
 
 [node name="PersianArcherBody" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
 script = ExtResource("1_lycp1")
@@ -29,25 +50,31 @@ UnitAttribute = NodePath("FollowParent3D/UnitAttribute")
 top_level = true
 script = ExtResource("3_kh6pq")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="FollowParent3D"]
-transform = Transform3D(0.895, 0, 0, 0, 0.0253958, -0.89464, 0, 0.89464, 0.0253958, 0.696939, 0.393258, 0.133033)
-mesh = SubResource("BoxMesh_7rh4w")
-skeleton = NodePath("../UnitAttribute")
-
-[node name="CSGMesh3D" type="CSGMesh3D" parent="FollowParent3D"]
-transform = Transform3D(0.0110013, -0.782714, -0.0588391, -5.14438e-09, -0.0588448, 0.782791, -0.784923, -0.0109704, -0.000824684, 0.698016, 0.410704, 0.0917061)
-mesh = SubResource("CylinderMesh_3ewhs")
-
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="FollowParent3D/CSGMesh3D"]
-transform = Transform3D(0.785, 0, 0, 0, 0.785, -3.1057e-09, 0, 3.1057e-09, 0.785, -0.1944, 0.00244927, 0.000184089)
-operation = 2
-mesh = SubResource("CylinderMesh_0evk5")
+[node name="persia-Persian-Archer-bow" parent="FollowParent3D" instance=ExtResource("4_kwtxr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.746806, 0.127947, -0.161759)
 
 [node name="UnitAttribute" type="Node3D" parent="FollowParent3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.696939, 0.393258, 0)
 script = ExtResource("4_8q8f1")
 RotationSmoothness = 10.0
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="FollowParent3D/UnitAttribute"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("SphereMesh_8xqg5")
+[node name="persia-Persian-Archer-arrow" parent="FollowParent3D/UnitAttribute" instance=ExtResource("6_gkk0o")]
+transform = Transform3D(1, 0, 0, 0, 0.979255, -0.202633, 0, 0.202633, 0.979255, 0.021554, 0.290405, -0.264404)
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="FollowParent3D/UnitAttribute"]
+transform = Transform3D(0.01, 0, 0, 0, 0.00999999, 0, 0, 0, 0.00999999, 0, 0.265542, -0.163856)
+visible = false
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 165
+process_material = SubResource("ShaderMaterial_mjddw")
+draw_pass_1 = SubResource("QuadMesh_vvj43")
+script = ExtResource("7_6qrka")
+length_seconds = 0.606061
+color_ramp = SubResource("GradientTexture1D_koq1x")
+curve = SubResource("CurveTexture_onh1c")
+_defaults_have_been_set = true
+
+[connection signal="Acted" from="FollowParent3D/UnitAttribute" to="FollowParent3D/UnitAttribute/GPUTrail3D" method="set_visible" binds= [true]]
+[connection signal="Reseted" from="FollowParent3D/UnitAttribute" to="FollowParent3D/UnitAttribute/GPUTrail3D" method="set_visible" binds= [false]]

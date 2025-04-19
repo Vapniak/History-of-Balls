@@ -9,7 +9,7 @@ using HOB.GameEntity;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
+public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> {
   [Export] private TextureRect? IconTextureRect { get; set; }
   [Export] private Label EntityNameLabel { get; set; } = default!;
   [Export] private Control? TeamColorContainer { get; set; }

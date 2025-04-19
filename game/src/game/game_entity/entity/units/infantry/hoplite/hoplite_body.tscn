@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://2ylf572m7yx0"]
+[gd_scene load_steps=5 format=3 uid="uid://2ylf572m7yx0"]
 
 [ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_keevr"]
 [ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game/game_entity/entity/units/country_balls/greek_ball.tscn" id="1_xega4"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_16rxj"]
+[ext_resource type="PackedScene" uid="uid://bmgbj3u21bypl" path="res://assets/models/elements/greece/greece-Hoplite.fbx" id="4_mmtlc"]
 
 [node name="HopliteBody" type="Node3D"]
 script = ExtResource("1_keevr")
 
 [node name="GreekBall" parent="." instance=ExtResource("1_xega4")]
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_16rxj")
+
+[node name="greece-Hoplite" parent="FollowParent3D" instance=ExtResource("4_mmtlc")]
+transform = Transform3D(0.782893, -0.0543855, 0.619775, 0.0321961, 0.998379, 0.0469385, -0.621323, -0.0167935, 0.783375, 0.759294, 0.0282416, -0.43316)

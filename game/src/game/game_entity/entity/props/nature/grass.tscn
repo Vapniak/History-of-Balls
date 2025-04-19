@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://cnvfeiooydoe5" path="res://assets/models/objects/props/nature/grasses/grass.fbx" id="1_ajd56"]
 [ext_resource type="Shader" path="res://src/core/shaders/wind_sway.gdshader" id="2_amp1x"]
-[ext_resource type="Texture2D" uid="uid://bqwdl5he7o47e" path="res://assets/models/objects/props/nature/grasses/grass_0.png" id="3_x6xq1"]
+[ext_resource type="Texture2D" uid="uid://b0uku1djkejtd" path="res://assets/models/objects/props/nature/grasses/HoB-grass-texture.png" id="3_rxs3s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_rurq6"]
 render_priority = 0
@@ -22,7 +22,7 @@ shader_parameter/wind_direction = Vector2(1, 1)
 shader_parameter/enable_fade = false
 shader_parameter/fade_start_distance = 50.0
 shader_parameter/fade_length = 20.0
-shader_parameter/texture_albedo = ExtResource("3_x6xq1")
+shader_parameter/texture_albedo = ExtResource("3_rxs3s")
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_ccaka"]
 _surfaces = [{

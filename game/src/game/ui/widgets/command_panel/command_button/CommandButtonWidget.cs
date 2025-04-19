@@ -4,7 +4,7 @@ using Godot;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class CommandButtonWidget : Widget, IWidgetFactory<CommandButtonWidget> {
+public partial class CommandButtonWidget : HOBWidget, IWidgetFactory<CommandButtonWidget> {
   [Export] public Button Button { get; private set; } = default!;
 
   public override void _Ready() {

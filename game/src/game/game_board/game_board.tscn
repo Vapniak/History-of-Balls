@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b7p0e45e0ng0f"]
+[gd_scene load_steps=7 format=3 uid="uid://b7p0e45e0ng0f"]
 
 [ext_resource type="Script" path="res://src/game/game_board/GameBoard.cs" id="1_fetkt"]
 [ext_resource type="Resource" uid="uid://lp5grltc6rsd" path="res://src/game/game_board/grid_layout.tres" id="2_i1283"]
-[ext_resource type="Resource" uid="uid://cmcaxks27ftru" path="res://res/data/maps/thermopylae/thermopylae.tres" id="3_73vsa"]
 [ext_resource type="Material" uid="uid://mu5j01k615e8" path="res://res/materials/terrain_mat.tres" id="5_iew3d"]
 [ext_resource type="Script" path="res://src/game/game_board/terrain_manager/TerrainManager.cs" id="5_ml5l7"]
 [ext_resource type="Material" uid="uid://d24gecd5hxyay" path="res://res/materials/water_mat.tres" id="6_pxya1"]
@@ -13,7 +12,6 @@
 script = ExtResource("1_fetkt")
 Layout = ExtResource("2_i1283")
 TerrainManager = NodePath("TerrainManager")
-MapData = ExtResource("3_73vsa")
 
 [node name="TerrainManager" type="Node3D" parent="."]
 script = ExtResource("5_ml5l7")

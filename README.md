@@ -1,5 +1,7 @@
 # History of Balls
 
+[LICENSE](LICENSE)
+
 ### Technology
 
 - Godot version 4.3 mono

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=39 format=3 uid="uid://ywxo6fkvhdd2"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=49 format=3 uid="uid://ywxo6fkvhdd2"]
 
 [ext_resource type="Resource" uid="uid://cmcaxks27ftru" path="res://res/data/maps/thermopylae/thermopylae.tres" id="1_gk1xd"]
 [ext_resource type="Script" path="res://src/game/game_modes/hob/survive/SurviveGameModeConfig.cs" id="1_wnw16"]
@@ -20,13 +20,18 @@
 [ext_resource type="Resource" uid="uid://dbyq8cbfr7jsr" path="res://src/game/game_entity/entity/units/cavalry/thessalian_cavalry/thessalian_cavalry_production_data.tres" id="10_de6ne"]
 [ext_resource type="Resource" uid="uid://cgr6mageg16sj" path="res://src/game/game_entity/entity/structures/factory/pilaf_kitchen/pilaf_kitchen_data.tres" id="11_lvk1e"]
 [ext_resource type="Resource" uid="uid://by7hsihjbk52a" path="res://src/game/game_entity/entity/structures/village/rice_cultivation/rice_cultivation_data.tres" id="12_8d0hx"]
+[ext_resource type="Resource" uid="uid://d307uif7aimiy" path="res://src/game/game_entity/entity/units/cavalry/thessalian_cavalry/thessalian_cavalry_data.tres" id="14_vlp0y"]
+[ext_resource type="Resource" uid="uid://befewbyboktsi" path="res://src/game/game_entity/entity/units/ranged/peltast/peltast_data.tres" id="15_td7yr"]
 [ext_resource type="Resource" uid="uid://sbqinq0q8ajx" path="res://src/game/game_entity/entity/units/infantry/immortal/immortal_production_data.tres" id="20_odxmy"]
 [ext_resource type="Resource" uid="uid://dk4avwabkxvm7" path="res://src/game/game_entity/entity/units/ranged/persian_archer/persian_archer_production_data.tres" id="21_7u28p"]
 [ext_resource type="Resource" uid="uid://cwbepj83egbnr" path="res://src/game/game_entity/entity/units/cavalry/persian_cavalry/presian_cavalry_production_data.tres" id="22_nf8vi"]
+[ext_resource type="Resource" uid="uid://dx5mu6akcbsf8" path="res://src/game/game_entity/entity/units/infantry/immortal/immortal_data.tres" id="23_wfabn"]
+[ext_resource type="Resource" uid="uid://blrqjygc1t1es" path="res://src/game/game_entity/entity/units/ranged/persian_archer/persian_archer_data.tres" id="24_xshd4"]
+[ext_resource type="Resource" uid="uid://dliu5ux78ireg" path="res://src/game/game_entity/entity/units/cavalry/persian_cavalry/persian_cavalry_data.tres" id="25_dait8"]
 
 [sub_resource type="Resource" id="Resource_tphyi"]
 script = ExtResource("1_wnw16")
-RoundsToSurvive = 45
+RoundsToSurvive = 30
 
 [sub_resource type="Resource" id="Resource_u4t3u"]
 script = ExtResource("3_81nn0")
@@ -44,24 +49,34 @@ SpawnAt = Array[Vector2i]([Vector2i(29, 17)])
 [sub_resource type="Resource" id="Resource_47u4y"]
 script = ExtResource("4_ktqov")
 EntityData = ExtResource("5_jwbqs")
-SpawnAt = Array[Vector2i]([Vector2i(24, 16)])
+SpawnAt = Array[Vector2i]([Vector2i(21, 16), Vector2i(16, 17)])
 
 [sub_resource type="Resource" id="Resource_lq60d"]
 script = ExtResource("4_ktqov")
 EntityData = ExtResource("6_vo22o")
-SpawnAt = Array[Vector2i]([Vector2i(22, 18), Vector2i(24, 17)])
+SpawnAt = Array[Vector2i]([Vector2i(29, 16), Vector2i(27, 10), Vector2i(20, 18), Vector2i(17, 17)])
 
 [sub_resource type="Resource" id="Resource_vqd8k"]
 script = ExtResource("4_ktqov")
 EntityData = ExtResource("7_43sde")
-SpawnAt = Array[Vector2i]([Vector2i(20, 10)])
+SpawnAt = Array[Vector2i]([Vector2i(19, 9), Vector2i(18, 10)])
+
+[sub_resource type="Resource" id="Resource_jjrnh"]
+script = ExtResource("4_ktqov")
+EntityData = ExtResource("14_vlp0y")
+SpawnAt = Array[Vector2i]([Vector2i(18, 9)])
+
+[sub_resource type="Resource" id="Resource_wm8no"]
+script = ExtResource("4_ktqov")
+EntityData = ExtResource("15_td7yr")
+SpawnAt = Array[Vector2i]([Vector2i(20, 10), Vector2i(20, 11)])
 
 [sub_resource type="Resource" id="Resource_r28ec"]
 script = ExtResource("3_nitm1")
 PlayerType = 0
 Country = ExtResource("2_pvebx")
 ProducableEntities = SubResource("Resource_ln230")
-SpawnedEntities = [SubResource("Resource_b7kl5"), SubResource("Resource_47u4y"), SubResource("Resource_lq60d"), SubResource("Resource_vqd8k")]
+SpawnedEntities = [SubResource("Resource_b7kl5"), SubResource("Resource_47u4y"), SubResource("Resource_lq60d"), SubResource("Resource_vqd8k"), SubResource("Resource_jjrnh"), SubResource("Resource_wm8no")]
 OwnedEntities = SubResource("Resource_u4t3u")
 
 [sub_resource type="Resource" id="Resource_e62xs"]
@@ -81,17 +96,32 @@ ProducableEntities = [ExtResource("20_odxmy"), ExtResource("21_7u28p"), ExtResou
 [sub_resource type="Resource" id="Resource_dexxc"]
 script = ExtResource("4_ktqov")
 EntityData = ExtResource("10_3rlvb")
-SpawnAt = Array[Vector2i]([Vector2i(2, 2)])
+SpawnAt = Array[Vector2i]([Vector2i(1, 1)])
 
 [sub_resource type="Resource" id="Resource_x3qtr"]
 script = ExtResource("4_ktqov")
 EntityData = ExtResource("11_lvk1e")
-SpawnAt = Array[Vector2i]([Vector2i(6, 10)])
+SpawnAt = Array[Vector2i]([Vector2i(5, 11), Vector2i(4, 13), Vector2i(2, 17)])
 
 [sub_resource type="Resource" id="Resource_2mwyn"]
 script = ExtResource("4_ktqov")
 EntityData = ExtResource("12_8d0hx")
-SpawnAt = Array[Vector2i]([Vector2i(0, 10)])
+SpawnAt = Array[Vector2i]([Vector2i(0, 9), Vector2i(1, 12), Vector2i(2, 15), Vector2i(4, 19), Vector2i(4, 16), Vector2i(8, 15), Vector2i(8, 12)])
+
+[sub_resource type="Resource" id="Resource_iijj3"]
+script = ExtResource("4_ktqov")
+EntityData = ExtResource("23_wfabn")
+SpawnAt = Array[Vector2i]([Vector2i(4, 16), Vector2i(3, 14), Vector2i(3, 5)])
+
+[sub_resource type="Resource" id="Resource_qxp6d"]
+script = ExtResource("4_ktqov")
+EntityData = ExtResource("24_xshd4")
+SpawnAt = Array[Vector2i]([Vector2i(3, 14), Vector2i(3, 2), Vector2i(3, 3), Vector2i(2, 4), Vector2i(2, 5)])
+
+[sub_resource type="Resource" id="Resource_da7ml"]
+script = ExtResource("4_ktqov")
+EntityData = ExtResource("25_dait8")
+SpawnAt = Array[Vector2i]([Vector2i(4, 3), Vector2i(3, 4)])
 
 [sub_resource type="Resource" id="Resource_tjfg2"]
 script = ExtResource("3_nitm1")
@@ -99,14 +129,14 @@ PlayerType = 1
 AIProfile = SubResource("Resource_e62xs")
 Country = ExtResource("5_3pij7")
 ProducableEntities = SubResource("Resource_raq2m")
-SpawnedEntities = [SubResource("Resource_dexxc"), SubResource("Resource_x3qtr"), SubResource("Resource_2mwyn")]
+SpawnedEntities = [SubResource("Resource_dexxc"), SubResource("Resource_x3qtr"), SubResource("Resource_2mwyn"), SubResource("Resource_iijj3"), SubResource("Resource_qxp6d"), SubResource("Resource_da7ml")]
 OwnedEntities = SubResource("Resource_0nite")
 
 [resource]
 script = ExtResource("6_aasjh")
 MissionName = "The Last Bastion of Freedom"
 Description = ""
-ObjectivesText = "⚔️ Hold your position for 15 rounds
+ObjectivesText = "⚔️ Hold your position for 30 rounds
 🔥 Repel successive waves of the Persian army"
 Map = ExtResource("1_gk1xd")
 PlayerSpawnDatas = [SubResource("Resource_r28ec"), SubResource("Resource_tjfg2")]

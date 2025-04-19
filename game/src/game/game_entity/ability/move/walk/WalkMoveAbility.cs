@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class WalkMoveAbility : MoveAbility {
+  [Export] public int MaxWalkElevation = 8;
+
   public override GameplayAbility.Instance CreateInstance(GameplayAbilitySystem abilitySystem) {
     return new Instance(this, abilitySystem);
   }
@@ -142,5 +144,7 @@ public partial class WalkMoveAbility : MoveAbility {
 
       EndAbility();
     }
+
+    protected override bool IsReachable(GameCell from, GameCell to) => base.IsReachable(from, to) && to.GetSetting().Elevation <= ((WalkMoveAbility)AbilityResource).MaxWalkElevation;
   }
 }

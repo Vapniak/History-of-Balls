@@ -5,7 +5,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class TimeScaleButtonWidget : Widget {
+public partial class TimeScaleButtonWidget : HOBWidget {
   [Signal] public delegate void TimeScaleButtonPressedEventHandler();
 
   [Export] private Button TimeScaleButton { get; set; } = default!;

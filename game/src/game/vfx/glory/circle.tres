@@ -15,7 +15,7 @@ operator = 2
 parameter_name = "Speed"
 
 [sub_resource type="Gradient" id="Gradient_j2bu1"]
-offsets = PackedFloat32Array(0, 0.529412, 1)
+offsets = PackedFloat32Array(0, 0.348837, 0.713953)
 colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_8b06i"]
@@ -50,7 +50,7 @@ texture_type = 1
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_always, cull_disabled, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_always, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec4 Color : source_color;
 uniform vec2 Speed;
@@ -108,7 +108,6 @@ void fragment() {
 }
 "
 modes/depth_draw = 1
-modes/cull = 2
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_cu3bd")
 nodes/fragment/2/position = Vector2(-500, 200)
 nodes/fragment/3/node = SubResource("VisualShaderNodeUVFunc_0bvdm")

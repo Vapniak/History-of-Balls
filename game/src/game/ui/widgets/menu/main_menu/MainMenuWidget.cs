@@ -6,7 +6,7 @@ using Godot;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class MainMenuWidget : Widget, IWidgetFactory<MainMenuWidget> {
+public partial class MainMenuWidget : HOBWidget, IWidgetFactory<MainMenuWidget> {
 
   private void OnSelectMissionPressed() {
     //_ = GameInstance.GetGameMode<MainMenuGameMode>()?.StartGame();

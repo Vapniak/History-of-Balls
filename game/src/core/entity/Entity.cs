@@ -1,6 +1,5 @@
 namespace HOB.GameEntity;
 
-using AudioManager;
 using GameplayAbilitySystem;
 using GameplayFramework;
 using GameplayTags;
@@ -46,8 +45,9 @@ public partial class Entity : Node3D, ITurnAware {
     Body = body;
 
 
+    Scale = Vector3.One * Mathf.Epsilon;
+
     Ready += () => {
-      Scale = Vector3.Zero;
       var tween = CreateTween();
 
       tween.TweenProperty(this, "scale", Vector3.One, 1f).SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.InOut);

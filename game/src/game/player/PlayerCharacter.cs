@@ -44,6 +44,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   private Tween _moveTween;
 
   private Vector3 _prevPosition;
+  private Vector3 _prevRotation;
 
   public void AdjustZoom(float zoomDelta) {
     zoomDelta = Mathf.Clamp(zoomDelta, -1, 1);
@@ -55,7 +56,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
       return;
     }
 
-    var direction = Transform.Basis * new Vector3(horizontalDirection.X, 0f, horizontalDirection.Y).Normalized();
+    var direction = new Vector3(horizontalDirection.X, 0f, horizontalDirection.Y).Normalized();
     Velocity = Velocity.Lerp(direction * MoveSpeed, (float)delta * _acceleration);
   }
 
@@ -64,7 +65,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
       return;
     }
 
-    var targetVelocity = new Vector3(mouseDisplacement.X, 0f, mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti / (float)delta;
+    var targetVelocity = -new Vector3(mouseDisplacement.X, 0f, mouseDisplacement.Y) * MoveSpeed * _panSpeedMulti / (float)delta;
     Velocity = new Vector3(
         SmoothDamp(Velocity.X, targetVelocity.X, ref _panVelocity.X, 0.1f, float.MaxValue, (float)delta),
         Velocity.Y,
@@ -131,14 +132,17 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   public void Update(double delta) {
     UpdateCamera((float)delta);
-    GlobalTranslate(Velocity * (float)delta);
+    GlobalTranslate(Transform.Basis * Velocity * (float)delta);
 
+    var rotationSpeed = (Rotation - _prevRotation).Length() / (float)delta;
     var speed = (CameraParent.GlobalPosition - _prevPosition).Length() / (float)delta;
+    speed += rotationSpeed;
     var targetVol = Mathf.Clamp(Mathf.Remap(speed, 0, MoveSpeed, WindMinVolume, WindMaxVolume),
     WindMinVolume, WindMaxVolume);
     WindPlayer.VolumeDb = (float)Mathf.Lerp(WindPlayer.VolumeDb, targetVol, delta * _zoomLerpSpeed);
 
     _prevPosition = CameraParent.GlobalPosition;
+    _prevRotation = Rotation;
   }
 
   public T GetCharacter<T>() where T : Node => this as T;

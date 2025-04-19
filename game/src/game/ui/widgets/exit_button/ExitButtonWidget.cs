@@ -5,6 +5,6 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class ExitButtonWidget : Widget {
+public partial class ExitButtonWidget : HOBWidget {
 
 }

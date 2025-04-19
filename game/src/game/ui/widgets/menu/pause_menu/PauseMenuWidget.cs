@@ -5,7 +5,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class PauseMenuWidget : Widget, IWidgetFactory<PauseMenuWidget> {
+public partial class PauseMenuWidget : HOBWidget, IWidgetFactory<PauseMenuWidget> {
   public event Action? ResumeEvent;
   public event Action? MainMenuEvent;
   public event Action? QuitEvent;

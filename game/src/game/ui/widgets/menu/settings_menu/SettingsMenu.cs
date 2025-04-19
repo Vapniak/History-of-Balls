@@ -5,7 +5,7 @@ using System;
 using HOB;
 using WidgetSystem;
 
-public partial class SettingsMenu : Widget, IWidgetFactory<SettingsMenu> {
+public partial class SettingsMenu : HOBWidget, IWidgetFactory<SettingsMenu> {
   [Export] private OptionButton _resolutionOptionButton;
   [Export] private OptionButton _screenModeOptionButton;
   [Export] private CheckBox _borderlessCheckbox;

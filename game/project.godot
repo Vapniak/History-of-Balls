@@ -24,7 +24,7 @@ resources_spreadsheet_view/freeze_first_column=false
 [application]
 
 config/name="History of Balls"
-config/version="vBeta-1.0"
+config/version="1.0.0vBeta"
 run/main_scene="res://src/game/main.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
@@ -64,9 +64,15 @@ mouse_cursor/version=""
 
 project/assembly_name="History of Balls"
 
+[editor]
+
+movie_writer/mjpeg_quality=1.0
+movie_writer/movie_file="/home/vapniak/development/projects/History-of-Balls/game/test.avi"
+movie_writer/disable_vsync=true
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/widget_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/GPUTrail/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/widget_system/plugin.cfg")
 
 [file_customization]
 

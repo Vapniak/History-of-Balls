@@ -1,12 +1,10 @@
 namespace HOB;
 
-
-
 using Godot;
 using System;
 using WidgetSystem;
 
-public partial class TooltipWidget : Widget, IWidgetFactory<TooltipWidget>, IWidgetConfig<TooltipWidget, RichTextLabel> {
+public partial class TooltipWidget : HOBWidget, IWidgetFactory<TooltipWidget>, IWidgetConfig<TooltipWidget, RichTextLabel> {
   [Export] private RichTextLabel Label { get; set; } = default!;
 
 

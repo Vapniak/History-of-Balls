@@ -8,7 +8,7 @@ using System.Linq;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class EntityPanelWidget : Widget {
+public partial class EntityPanelWidget : HOBWidget {
   [Export] private Label NameLabel { get; set; } = default!;
   [Export] private Control? EntriesList { get; set; }
   [Export] private EntityIconWidget IconWidget { get; set; } = default!;

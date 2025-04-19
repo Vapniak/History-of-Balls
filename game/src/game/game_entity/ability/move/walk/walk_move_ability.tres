@@ -71,6 +71,7 @@ GrantedTags = SubResource("Resource_oxiev")
 
 [resource]
 script = ExtResource("7_x88ka")
+MaxWalkElevation = 8
 Icon = ExtResource("6_6s1ot")
 ShowInUI = true
 UIOrder = 0

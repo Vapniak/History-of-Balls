@@ -5,7 +5,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class TutorialMenuWidget : Widget, IWidgetFactory<TutorialMenuWidget> {
+public partial class TutorialMenuWidget : HOBWidget, IWidgetFactory<TutorialMenuWidget> {
   [Export] private TabContainer _tabContainer;
   [Export] private Label _tabsLabel;
 

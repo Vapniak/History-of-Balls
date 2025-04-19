@@ -6,7 +6,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class TimePlayedWidget : Widget {
+public partial class TimePlayedWidget : HOBWidget {
   [Export] private Label TimePlayedLabel { get; set; } = default!;
 
   public override void _Ready() {

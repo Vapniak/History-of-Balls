@@ -5,7 +5,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class CurrentTimeWidget : Widget {
+public partial class CurrentTimeWidget : HOBWidget {
   [Export] private Label CurrentTimeLabel { get; set; } = default!;
   public override void _Ready() {
     var timer = new Timer() {

@@ -6,7 +6,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class MatchEndMenuWidget : Widget, IWidgetFactory<MatchEndMenuWidget> {
+public partial class MatchEndMenuWidget : HOBWidget, IWidgetFactory<MatchEndMenuWidget> {
   [Export] private Label WinnerTextLabel { get; set; }
   [Export] private Label TimePlayedLabel { get; set; }
 

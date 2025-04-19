@@ -42,6 +42,7 @@ public partial class AIController : Controller, IMatchController {
       var bestScore = 0f;
       Entity? bestEntity = null;
       GameplayAbility.Instance? bestAbility = null;
+      GameplayAbility.Instance? abilityToSkip = null;
       GameplayEventData? bestData = null;
 
       for (var i = 0; i < entities.Count; i += batchSize) {
@@ -61,7 +62,7 @@ public partial class AIController : Controller, IMatchController {
             .OrderByDescending(r => r.Item4)
             .FirstOrDefault();
 
-        if (score > bestScore) {
+        if (score > bestScore && ability != bestAbility) {
           bestScore = score;
           bestEntity = entity;
           bestAbility = ability;
@@ -78,19 +79,20 @@ public partial class AIController : Controller, IMatchController {
       if (bestEntity != null && bestAbility != null) {
         GD.PrintS($"AI attempting: {bestEntity.EntityName} -> {bestAbility.AbilityResource.AbilityName}");
 
+        var success = false;
         if (bestAbility is AttackAbility.Instance or MoveAbility.Instance) {
-          var success = await bestEntity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestData);
-
-          if (!success) {
-            // GD.PrintS("Activation failed! Re-evaluating...");
-            await Task.Delay(100);
-          }
+          success = await bestEntity.AbilitySystem.TryActivateAbilityAsync(bestAbility, bestData);
         }
         else {
-          if (!bestEntity.AbilitySystem.TryActivateAbility(bestAbility, bestData)) {
-            GD.PrintErr("Ability activation failed", bestAbility.AbilityResource.AbilityName);
-            break;
-          }
+          success = bestEntity.AbilitySystem.TryActivateAbility(bestAbility, bestData);
+        }
+
+        if (!success) {
+          GD.PrintErr("Ability activation failed", bestAbility.AbilityResource.AbilityName);
+          abilityToSkip = bestAbility;
+        }
+        else {
+          abilityToSkip = null;
         }
       }
       else {
@@ -157,7 +159,7 @@ public partial class AIController : Controller, IMatchController {
     GameCell? bestCell = null;
 
     var enemies = GetPotentialEnemies(entity)
-        .OrderBy(e => entity.Cell.Coord.Distance(e.Cell.Coord))
+        .OrderByDescending(e => ability.FindPathTo(e.Cell).Length)
         .Take(maxEnemiesToConsider);
 
     foreach (var enemy in enemies) {
@@ -231,7 +233,7 @@ public partial class AIController : Controller, IMatchController {
     var attackScore = 1f;
     uint desiredDistance = 0;
     var actualDistance = cell.Coord.Distance(target.Cell.Coord);
-    var valueScore = 1f;
+    // valueScore = 1f;
 
     if (attackAbility != null && attackAbility.GetAttackableEntities(cell).entities.Contains(target)) {
       attackScore = CalculateDamageRatio(entity, attackAbility, target) * Profile.Agressiveness;
@@ -239,12 +241,12 @@ public partial class AIController : Controller, IMatchController {
       desiredDistance = attackRange;
     }
 
-    valueScore = CalculateValueScore(target) * Profile.Expansiveness;
+    //valueScore = CalculateValueScore(target) * Profile.Expansiveness;
 
     // var threatScore = Calcu  lateThreatAvoidance(entity, cell);
-    distanceScore = 1f / (Mathf.Abs(actualDistance - desiredDistance) + 1);
+    distanceScore = 1f / Mathf.Max(Mathf.Abs(actualDistance - desiredDistance) + 1, 1);
 
-    return distanceScore * attackScore * valueScore;
+    return distanceScore * attackScore;
   }
 
   private float CalculateThreatAvoidance(Entity entity, GameCell cell) {
@@ -323,7 +325,7 @@ public partial class AIController : Controller, IMatchController {
     foreach (var subtype in subtypeCounts) {
       //GD.Print($"Checking against least common type: {subtype.TypeName}");
       if (production.Entity?.Tags != null && production.Entity.Tags.HasTag(subtype.SubTypeTag)) {
-        score *= subtype.Count / units.Count;
+        score *= units.Count / (float)subtype.Count;
       }
     }
 

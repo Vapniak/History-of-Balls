@@ -5,7 +5,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class EntityIconWidget : Widget, IWidgetFactory<EntityIconWidget> {
+public partial class EntityIconWidget : HOBWidget, IWidgetFactory<EntityIconWidget> {
   [Export] private TextureRect IconRect { get; set; } = default!;
   public static EntityIconWidget CreateWidget() {
     return ResourceLoader.Load<PackedScene>("").Instantiate<EntityIconWidget>();

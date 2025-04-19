@@ -4,7 +4,7 @@ using Godot;
 using HOB.GameEntity;
 using WidgetSystem;
 
-public partial class EntityProductionPanelWidget : Widget {
+public partial class EntityProductionPanelWidget : HOBWidget {
   [Export] private Control? EntitiesList { get; set; }
   private EntityProductionAbilityResource.Instance? _ability;
   private HOBPlayerController _playerController = default!;
