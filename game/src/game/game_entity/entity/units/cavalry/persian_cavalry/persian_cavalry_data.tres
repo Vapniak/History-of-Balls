@@ -1,0 +1,113 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=37 format=3 uid="uid://dliu5ux78ireg"]
+
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_38d7e"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_xj72g"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_yrhi3"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_phgxp"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_m2lm3"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_3o7re"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="7_1ikkh"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="8_p8spg"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_frmgo"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_gl3uj"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_g2w3f"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="12_lkt22"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="13_ny8xf"]
+[ext_resource type="Resource" uid="uid://bflof1b7lyv80" path="res://src/game/game_entity/ability/attack/melee/cavalry_melee_attack_ability.tres" id="14_ql5gk"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_gsrhp"]
+[ext_resource type="PackedScene" uid="uid://cyecju8xo48xi" path="res://src/game/game_entity/entity/units/cavalry/persian_cavalry/persian_cavalry_body.tscn" id="16_o5sax"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="17_w24gu"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="18_hhjbx"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="19_agg7s"]
+
+[sub_resource type="Resource" id="Resource_eypah"]
+script = ExtResource("2_xj72g")
+Magnitude = 24.0
+
+[sub_resource type="Resource" id="Resource_m5hg7"]
+script = ExtResource("3_yrhi3")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_eypah")
+
+[sub_resource type="Resource" id="Resource_64ikk"]
+script = ExtResource("4_phgxp")
+Attribute = ExtResource("1_38d7e")
+Modifiers = [SubResource("Resource_m5hg7")]
+
+[sub_resource type="Resource" id="Resource_8prv6"]
+script = ExtResource("2_xj72g")
+Magnitude = 7.0
+
+[sub_resource type="Resource" id="Resource_phxhc"]
+script = ExtResource("3_yrhi3")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_8prv6")
+
+[sub_resource type="Resource" id="Resource_2wh53"]
+script = ExtResource("4_phgxp")
+Attribute = ExtResource("6_3o7re")
+Modifiers = [SubResource("Resource_phxhc")]
+
+[sub_resource type="Resource" id="Resource_fp5io"]
+script = ExtResource("2_xj72g")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_yoaoq"]
+script = ExtResource("3_yrhi3")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_fp5io")
+
+[sub_resource type="Resource" id="Resource_qowq8"]
+script = ExtResource("4_phgxp")
+Attribute = ExtResource("7_1ikkh")
+Modifiers = [SubResource("Resource_yoaoq")]
+
+[sub_resource type="Resource" id="Resource_ythxl"]
+script = ExtResource("2_xj72g")
+Magnitude = 4.0
+
+[sub_resource type="Resource" id="Resource_8nkuf"]
+script = ExtResource("3_yrhi3")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_ythxl")
+
+[sub_resource type="Resource" id="Resource_1lkwk"]
+script = ExtResource("4_phgxp")
+Attribute = ExtResource("8_p8spg")
+Modifiers = [SubResource("Resource_8nkuf")]
+
+[sub_resource type="Resource" id="Resource_qkuan"]
+script = ExtResource("9_frmgo")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_64ikk"), ExtResource("5_m2lm3"), SubResource("Resource_2wh53"), SubResource("Resource_qowq8"), SubResource("Resource_1lkwk")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_h7lg3"]
+script = ExtResource("10_gl3uj")
+EffectDefinition = SubResource("Resource_qkuan")
+
+[sub_resource type="Resource" id="Resource_40syl"]
+script = ExtResource("11_g2w3f")
+InitializeStatsEffects = SubResource("Resource_h7lg3")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_7wu2y"]
+script = ExtResource("17_w24gu")
+FullName = "Entity.Type.Unit.Cavalry"
+
+[sub_resource type="Resource" id="Resource_afme1"]
+script = ExtResource("18_hhjbx")
+Tags = [SubResource("Resource_7wu2y")]
+
+[resource]
+script = ExtResource("19_agg7s")
+EntityName = "Persian Cavalry"
+AttributeSetsContainer = ExtResource("15_gsrhp")
+Abilities = Array[Object]([SubResource("Resource_40syl"), ExtResource("12_lkt22"), ExtResource("13_ny8xf"), ExtResource("14_ql5gk")])
+Tags = SubResource("Resource_afme1")
+Body = ExtResource("16_o5sax")

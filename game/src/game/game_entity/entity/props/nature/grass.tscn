@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=4 uid="uid://dq38svchx4x6u"]
+
+[ext_resource type="PackedScene" uid="uid://cnvfeiooydoe5" path="res://assets/models/objects/props/nature/grasses/grass.fbx" id="1_ajd56"]
+[ext_resource type="Shader" path="res://src/core/shaders/wind_sway.gdshader" id="2_amp1x"]
+[ext_resource type="Texture2D" uid="uid://bqwdl5he7o47e" path="res://assets/models/objects/props/nature/grasses/grass_0.png" id="3_x6xq1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rurq6"]
+render_priority = 0
+shader = ExtResource("2_amp1x")
+shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/roughness = 0.0
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 0.0
+shader_parameter/normal_scale = 1.0
+shader_parameter/enable_wind = true
+shader_parameter/wind_type = 3
+shader_parameter/wind_strength = 0.001
+shader_parameter/wind_speed = 1.0
+shader_parameter/wind_frequency = 2.0
+shader_parameter/wind_direction = Vector2(1, 1)
+shader_parameter/enable_fade = false
+shader_parameter/fade_start_distance = 50.0
+shader_parameter/fade_length = 20.0
+shader_parameter/texture_albedo = ExtResource("3_x6xq1")
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ccaka"]
+_surfaces = [{
+"aabb": AABB(-0.0107866, -0.0043795, -0.00661856, 0.021277, 0.0165658, 0.0206623),
+"format": 34359742465,
+"index_count": 42,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAAQAVAAIABAAWAAUABwAXAAgACgAYAAsADQAZAA4AEAAaABEAEwAbABQA"),
+"name": "HoB-grass-texture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("tKIRvAAAAABPTnCvtKIRvArXIzxPTnCvtKIRPAAAAABPTnCvo/8EPLvyzjpRhGa7098rPJ3WCzyf4VU7H8vQu8r5LLvorMA7A3skuuKBj7vZ2R885keZu3o5cjvYF2Y8+wVVu6XhODvg7827uuzwO6b+6bplUoI7KgPFO1lNojtYNjg8iMUavJuKHDqbXq664FK0ux1ZWbvpGfI7PMEPvIEdxTszbxE8jiiqO+XBIzs9aLa7Znh7u1KaOTuUvc67bE8fuvGoRzzqmJ+77nnoO6amPrsXXdQ7/WxrO++zQjuD4Ni7bkL2O84nMTysT+26NMTFugYtg7t3HRI8tKIRPArXIzxPTnCvvAqDu6VzjTvvb088gzvvu7iHMjzB5wK7T7owvFde8DumgsI71+P7OoHVQTy/o4W7GiYpPGYx0zvhwAE8xDUeO0GRezvD42A8")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_kk3av"]
+resource_name = "HoB-grass-texture_197"
+_surfaces = [{
+"aabb": AABB(-0.0107866, -0.0043795, -0.00661856, 0.021277, 0.0165658, 0.0206623),
+"attribute_data": PackedByteArray("/////wAAAAAAAIA/FBQU/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/AAAA/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/Gxsb/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/AgIC/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/BAQE/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/NjY2/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/AwMD/wAAAAAAAAAA/////wAAgD8AAIA/AAAA/wAAgD8AAAAAAAAA/wAAAAAAAAAAAgIC/wAAgD8AAAAA/////wAAgD8AAIA/Gxsb/wAAAAAAAAAAERER/wAAgD8AAAAA/////wAAgD8AAIA/AgIC/wAAAAAAAAAABAQE/wAAgD8AAAAA/////wAAgD8AAIA/BAQE/wAAAAAAAAAAAAAA/wAAgD8AAAAA/////wAAgD8AAIA/NjY2/wAAAAAAAAAAAAAA/wAAgD8AAAAA/////wAAgD8AAIA/AwMD/wAAAAAAAAAAJSUl/wAAgD8AAAAA/////wAAgD8AAIA/"),
+"format": 34359742495,
+"index_count": 42,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAAQAVAAIAFgAXABgAGQAaABsAHAAdAB4AHwAgACEAIgAjACQAJQAmACcA"),
+"material": SubResource("ShaderMaterial_rurq6"),
+"name": "HoB-grass-texture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("tKIRvAAAAABPTnCvtKIRvArXIzxPTnCvtKIRPAAAAABPTnCvo/8EPLvyzjpRhGa7098rPJ3WCzyf4VU7H8vQu8r5LLvorMA7A3skuuKBj7vZ2R885keZu3o5cjvYF2Y8+wVVu6XhODvg7827uuzwO6b+6bplUoI7KgPFO1lNojtYNjg8iMUavJuKHDqbXq664FK0ux1ZWbvpGfI7PMEPvIEdxTszbxE8jiiqO+XBIzs9aLa7Znh7u1KaOTuUvc67bE8fuvGoRzzqmJ+77nnoO6amPrsXXdQ7/WxrO++zQjuD4Ni7bkL2O84nMTysT+26NMTFugYtg7t3HRI8tKIRPArXIzxPTnCv098rPJ3WCzyf4VU7vAqDu6VzjTvvb088H8vQu8r5LLvorMA75keZu3o5cjvYF2Y8gzvvu7iHMjzB5wK7+wVVu6XhODvg7827KgPFO1lNojtYNjg8T7owvFde8DumgsI7iMUavJuKHDqbXq66PMEPvIEdxTszbxE81+P7OoHVQTy/o4W7jiiqO+XBIzs9aLa7bE8fuvGoRzzqmJ+7GiYpPGYx0zvhwAE87nnoO6amPrsXXdQ7bkL2O84nMTysT+26xDUeO0GRezvD42A8NMTFugYtg7t3HRI8/3//f////7//f/9/////v/9//3////+/ijKZ2AI+ZLaKMpnYAj5ktooymdgCPmS279Php6Ijgfnv0+GnoiOB+e/T4aeiI4H5a8fA6HMMF9Rrx8DocwwX1GvHwOhzDBfUVLxRjLzmw+hUvFGMvObD6FS8UYy85sPoT0Tvi32vhrNPRO+Lfa+Gs09E74t9r4azKSuLsVlo1a8pK4uxWWjVrykri7FZaNWv/3//f////7+KMpnYAj5ktooymdgCPmS2ijKZ2AI+ZLbv0+GnoiOB+e/T4aeiI4H579Php6Ijgflrx8DocwwX1GvHwOhzDBfUa8fA6HMMF9RUvFGMvObD6FS8UYy85sPoVLxRjLzmw+hPRO+Lfa+Gs09E74t9r4azT0Tvi32vhrMpK4uxWWjVrykri7FZaNWvKSuLsVlo1a8=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ccaka")
+
+[node name="grass" instance=ExtResource("1_ajd56")]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+
+[node name="HoB-grass-texture_197" parent="." index="0"]
+mesh = SubResource("ArrayMesh_kk3av")

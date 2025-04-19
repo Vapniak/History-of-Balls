@@ -8,7 +8,7 @@ using Godot.Collections;
 using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
-  [Signal] public delegate void CommandSelectedEventHandler(HOBAbilityInstance abilityInstance);
+  [Signal] public delegate void CommandSelectedEventHandler(HOBAbility.Instance abilityInstance);
   [Signal] public delegate void EndTurnPressedEventHandler();
 
   [Export] public TimeScaleButtonWidget TimeScaleButtonWidget { get; set; } = default!;

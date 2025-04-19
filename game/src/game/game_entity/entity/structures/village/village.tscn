@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://58211gsdw151"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_32meo"]
+[ext_resource type="PackedScene" uid="uid://bbomj1qo5837x" path="res://assets/models/objects/generic/village/village_1.fbx" id="2_kabe6"]
+
+[node name="EntityBody" type="Node3D"]
+script = ExtResource("1_32meo")
+
+[node name="village_1" parent="." instance=ExtResource("2_kabe6")]
+transform = Transform3D(-0.53033, 0, 0.53033, 0, 0.75, 0, -0.53033, 0, -0.53033, 0, 0, -0.6)
+
+[node name="village_3" parent="." instance=ExtResource("2_kabe6")]
+transform = Transform3D(0.7, 0, -2.98023e-08, 0, 0.7, 0, 2.98023e-08, 0, 0.7, -0.6, 0, -2.98023e-08)
+
+[node name="village_2" parent="." instance=ExtResource("2_kabe6")]
+transform = Transform3D(0.519615, 0, 0.3, 0, 0.6, 0, -0.3, 0, 0.519615, 0.3, 0, 0.4)

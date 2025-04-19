@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://behyfqf6g8eqx"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_exjfm"]
+[ext_resource type="PackedScene" uid="uid://4o8m5kf8cfiv" path="res://assets/models/objects/countries/persia/persia-city.fbx" id="2_pypjb"]
+[ext_resource type="PackedScene" uid="uid://douqqdvfbmfb3" path="res://src/game/vfx/glory/glory_circle.tscn" id="3_cw44o"]
+
+[node name="PalaceAtPersepolisBody" type="Node3D"]
+script = ExtResource("1_exjfm")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-1.74846e-08, 0, 0.4, 0, 0.4, 0, -0.4, 0, -1.74846e-08, 0, 0, 0)
+
+[node name="persia-city" parent="Node3D" instance=ExtResource("2_pypjb")]
+
+[node name="Node3D2" parent="." instance=ExtResource("3_cw44o")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)

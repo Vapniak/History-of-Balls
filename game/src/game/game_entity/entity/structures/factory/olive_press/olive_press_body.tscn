@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://csrfuehkb1xu5"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_maa17"]
+[ext_resource type="PackedScene" uid="uid://blrkdixsvncih" path="res://assets/models/objects/countries/greece/greece-industry.fbx" id="2_5vpco"]
+
+[node name="OlivePressBody" type="Node3D"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
+script = ExtResource("1_maa17")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 3.07692e-08, 0, 0.351958)
+
+[node name="greece-industry" parent="Node3D" instance=ExtResource("2_5vpco")]
+transform = Transform3D(1, 0, -7.10543e-15, 0, 1, 0, 7.10543e-15, 0, 1, 0, 0, 0)

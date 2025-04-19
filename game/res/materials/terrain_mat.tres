@@ -1,10 +1,27 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://mu5j01k615e8"]
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://mu5j01k615e8"]
 
 [ext_resource type="Shader" path="res://src/core/shaders/terrain.gdshader" id="1_rjkbd"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_60fii"]
+frequency = 0.0255
+fractal_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_lh2dt"]
+seamless = true
+noise = SubResource("FastNoiseLite_60fii")
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_rjkbd")
+shader_parameter/hex_texture_scale = 0.7
+shader_parameter/distortion_strength = 0.02
+shader_parameter/noise_scale = 1.0
+shader_parameter/color_variation = 1.0
+shader_parameter/texture_opacity = 1.0
+shader_parameter/rotation_variation = 0.1
+shader_parameter/scale_variation = 0.0
+shader_parameter/edge_smoothness = 10.0
 shader_parameter/grid_size = null
 shader_parameter/mouse_world_pos = null
 shader_parameter/show_mouse_highlight = null
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_lh2dt")

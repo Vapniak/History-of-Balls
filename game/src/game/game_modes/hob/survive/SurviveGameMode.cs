@@ -1,5 +1,7 @@
 namespace HOB;
 
+using System.Collections.Generic;
+using System.Linq;
 using GameplayTags;
 
 public partial class SurviveGameMode : HOBGameMode {
@@ -27,6 +29,30 @@ public partial class SurviveGameMode : HOBGameMode {
           if (player.GetController() is HOBPlayerController controller) {
             EndGame(controller);
           }
+        }
+      }
+    }
+
+    if (eventTag.IsExact(TagManager.GetTag(HOBTags.EventTurnStarted)) || eventTag.IsExact(TagManager.GetTag(HOBTags.EventTurnEnded))) {
+      var alivePlayers = new List<IMatchController>();
+      var eliminatedPlayers = new List<IMatchController>();
+
+      foreach (var player in GetGameState().PlayerArray) {
+        var controller = player.GetController<IMatchController>();
+        var entities = GetEntityManagment().GetOwnedEntites(controller);
+
+        if (entities.Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)))) {
+          alivePlayers.Add(controller);
+        }
+        else {
+          eliminatedPlayers.Add(controller);
+        }
+      }
+
+      if (eliminatedPlayers.Count > 0) {
+        var winner = alivePlayers.FirstOrDefault();
+        if (winner != null) {
+          EndGame(winner);
         }
       }
     }

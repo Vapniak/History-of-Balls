@@ -13,17 +13,17 @@ public partial class GameplayAbilitySystem : Node {
   [Signal] public delegate void GameplayEffectExecutedEventHandler(GameplayEffectInstance gameplayEffectInstance);
   [Signal] public delegate void GameplayEffectRemovedEventHandler(GameplayEffectInstance gameplayEffectInstance);
 
-  [Signal] public delegate void GameplayAbilityGrantedEventHandler(GameplayAbilityInstance gameplayAbility);
-  [Signal] public delegate void GameplayAbilityRevokedEventHandler(GameplayAbilityInstance gameplayAbility);
-  [Signal] public delegate void GameplayAbilityActivatedEventHandler(GameplayAbilityInstance gameplayAbility);
-  [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbilityInstance gameplayAbility);
+  [Signal] public delegate void GameplayAbilityGrantedEventHandler(GameplayAbility.Instance gameplayAbility);
+  [Signal] public delegate void GameplayAbilityRevokedEventHandler(GameplayAbility.Instance gameplayAbility);
+  [Signal] public delegate void GameplayAbilityActivatedEventHandler(GameplayAbility.Instance gameplayAbility);
+  [Signal] public delegate void GameplayAbilityEndedEventHandler(GameplayAbility.Instance gameplayAbility);
 
   public event Action<Tag, GameplayEventData?>? GameplayEventRecieved;
   public AttributeSystem AttributeSystem { get; private set; }
 
   public TagContainer OwnedTags { get; private set; } = new();
   private List<GameplayEffectInstance> AppliedEffects { get; set; } = new();
-  private List<GameplayAbilityInstance> GrantedAbilities { get; set; } = new();
+  private List<GameplayAbility.Instance> GrantedAbilities { get; set; } = new();
 
 
 
@@ -44,7 +44,7 @@ public partial class GameplayAbilitySystem : Node {
     Tick(new TimeTickContext((float)delta));
   }
 
-  public void GrantAbility(GameplayAbilityInstance abilityInstance) {
+  public void GrantAbility(GameplayAbility.Instance abilityInstance) {
     abilityInstance.Activated += () => EmitSignal(SignalName.GameplayAbilityActivated, abilityInstance);
     abilityInstance.Ended += () => {
       EmitSignal(SignalName.GameplayAbilityEnded, abilityInstance);
@@ -64,12 +64,12 @@ public partial class GameplayAbilitySystem : Node {
     EmitSignal(SignalName.GameplayAbilityGranted, abilityInstance);
   }
 
-  public void RevokeAbility(GameplayAbilityInstance abilityInstance) {
+  public void RevokeAbility(GameplayAbility.Instance abilityInstance) {
     abilityInstance.QueueFree();
     EmitSignal(SignalName.GameplayAbilityRevoked, abilityInstance);
   }
 
-  public T? GetGrantedAbility<T>() where T : GameplayAbilityInstance {
+  public T? GetGrantedAbility<T>() where T : GameplayAbility.Instance {
     return GrantedAbilities.OfType<T>().FirstOrDefault();
   }
 
@@ -85,13 +85,13 @@ public partial class GameplayAbilitySystem : Node {
     }
   }
 
-  public void CancelAbility(GameplayAbilityInstance abilityInstance) {
+  public void CancelAbility(GameplayAbility.Instance abilityInstance) {
     abilityInstance.CancelAbility();
   }
 
-  public IEnumerable<GameplayAbilityInstance> GetGrantedAbilities() => GrantedAbilities;
+  public IEnumerable<GameplayAbility.Instance> GetGrantedAbilities() => GrantedAbilities;
 
-  public bool TryActivateAbility(GameplayAbilityInstance abilityInstance, GameplayEventData? eventData = null) {
+  public bool TryActivateAbility(GameplayAbility.Instance abilityInstance, GameplayEventData? eventData = null) {
     if (!abilityInstance.CanActivateAbility(eventData)) {
       return false;
     }
@@ -102,7 +102,7 @@ public partial class GameplayAbilitySystem : Node {
     return true;
   }
 
-  public async Task<bool> TryActivateAbilityAsync(GameplayAbilityInstance abilityInsance, GameplayEventData? eventData = null) {
+  public async Task<bool> TryActivateAbilityAsync(GameplayAbility.Instance abilityInsance, GameplayEventData? eventData = null) {
     var tcs = new TaskCompletionSource<bool>();
 
     void handleCompleted() {

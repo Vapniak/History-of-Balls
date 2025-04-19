@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=12 format=3 uid="uid://cgr6mageg16sj"]
+
+[ext_resource type="Resource" uid="uid://c7cg52qdriymg" path="res://src/game/game_entity/ability/process_resources/process_resources_ability.tres" id="1_4ckkg"]
+[ext_resource type="Resource" uid="uid://cwih8oemud71l" path="res://src/game/game_entity/ability/effects/factory_initial_stats.tres" id="2_i6ljg"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="3_4cmlq"]
+[ext_resource type="Resource" uid="uid://dvtc84pr4gkdb" path="res://src/core/entity/attribute_sets/factory_attribute_sets.tres" id="4_j3hr5"]
+[ext_resource type="PackedScene" uid="uid://7f16m55m6kq5" path="res://src/game/game_entity/entity/structures/factory/pilaf_kitchen/pilaf_kitchen_body.tscn" id="5_qs8ot"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="6_d4rjh"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="7_w60hs"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="8_ee1d1"]
+
+[sub_resource type="Resource" id="Resource_dp572"]
+script = ExtResource("3_4cmlq")
+InitializeStatsEffects = ExtResource("2_i6ljg")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_v3p6c"]
+script = ExtResource("6_d4rjh")
+FullName = "Entity.Type.Structure.Factory"
+
+[sub_resource type="Resource" id="Resource_imikj"]
+script = ExtResource("7_w60hs")
+Tags = [SubResource("Resource_v3p6c")]
+
+[resource]
+script = ExtResource("8_ee1d1")
+EntityName = "Pilaf Kitchen"
+AttributeSetsContainer = ExtResource("4_j3hr5")
+Abilities = Array[Object]([ExtResource("1_4ckkg"), SubResource("Resource_dp572")])
+Tags = SubResource("Resource_imikj")
+Body = ExtResource("5_qs8ot")

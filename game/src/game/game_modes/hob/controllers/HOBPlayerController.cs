@@ -21,7 +21,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   [Notify] public Entity? SelectedEntity { get => _selectedEntity.Get(); private set => _selectedEntity.Set(value); }
   [Notify] public GameCell? HoveredCell { get => _hoveredCell.Get(); private set => _hoveredCell.Set(value); }
 
-  [Notify] public HOBAbilityInstance? SelectedCommand { get => _selectedCommand.Get(); private set => _selectedCommand.Set(value); }
+  [Notify] public HOBAbility.Instance? SelectedCommand { get => _selectedCommand.Get(); private set => _selectedCommand.Set(value); }
 
   private StateChart? StateChart { get; set; }
 
@@ -333,7 +333,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is AttackAbility.Instance);
 
       if (ability != null) {
-        SelectedCommand = (HOBAbilityInstance)ability;
+        SelectedCommand = (HOBAbility.Instance)ability;
       }
     }
 
@@ -389,13 +389,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 
-  private void OnAbilityActivated(GameplayAbilityInstance abilityInstance) {
+  private void OnAbilityActivated(GameplayAbility.Instance abilityInstance) {
     if (abilityInstance is MoveAbility.Instance or AttackAbility.Instance) {
       StateChart?.SendEvent("command_started");
     }
   }
 
-  private void OnAbilityEnded(GameplayAbilityInstance abilityInstance) {
+  private void OnAbilityEnded(GameplayAbility.Instance abilityInstance) {
     StateChart?.SendEvent("command_finished");
   }
 

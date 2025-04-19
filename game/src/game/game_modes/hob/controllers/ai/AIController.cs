@@ -40,7 +40,7 @@ public partial class AIController : Controller, IMatchController {
 
       var bestScore = 0f;
       Entity? bestEntity = null;
-      GameplayAbilityInstance? bestAbility = null;
+      GameplayAbility.Instance? bestAbility = null;
       GameplayEventData? bestData = null;
 
       for (var i = 0; i < entities.Count; i += batchSize) {
@@ -50,7 +50,7 @@ public partial class AIController : Controller, IMatchController {
                .ToList();
 
 
-        var results = new ConcurrentBag<(Entity?, GameplayAbilityInstance?, GameplayEventData?, float)>();
+        var results = new ConcurrentBag<(Entity?, GameplayAbility.Instance?, GameplayEventData?, float)>();
         await Task.Run(() =>
           Parallel.ForEach(batch,
           entity => results.Add(EvaluateEntity(entity)))
@@ -86,7 +86,9 @@ public partial class AIController : Controller, IMatchController {
           }
         }
         else {
-          bestEntity.AbilitySystem.TryActivateAbility(bestAbility, bestData);
+          if (!bestEntity.AbilitySystem.TryActivateAbility(bestAbility, bestData)) {
+            break;
+          }
         }
       }
       else {
@@ -95,7 +97,7 @@ public partial class AIController : Controller, IMatchController {
     }
   }
 
-  private (Entity Entity, GameplayAbilityInstance? Ability, GameplayEventData? Data, float Score)
+  private (Entity Entity, GameplayAbility.Instance? Ability, GameplayEventData? Data, float Score)
       EvaluateEntity(Entity entity) {
     var timer = System.Diagnostics.Stopwatch.StartNew();
 
@@ -107,7 +109,7 @@ public partial class AIController : Controller, IMatchController {
   }
 
 
-  private (Entity Entity, GameplayAbilityInstance? Ability, GameplayEventData? Data, float Score)
+  private (Entity Entity, GameplayAbility.Instance? Ability, GameplayEventData? Data, float Score)
     EvaluateEntityAsync(Entity entity) {
     var timer = System.Diagnostics.Stopwatch.StartNew();
     var (ability, data, score) = FindBestActionWithBudget(entity);
@@ -116,9 +118,9 @@ public partial class AIController : Controller, IMatchController {
     return (entity, ability, data, score);
   }
 
-  private (GameplayAbilityInstance?, GameplayEventData?, float)
+  private (GameplayAbility.Instance?, GameplayEventData?, float)
       FindBestActionWithBudget(Entity entity) {
-    GameplayAbilityInstance? bestAbility = null;
+    GameplayAbility.Instance? bestAbility = null;
     GameplayEventData? bestEventData = null;
     var bestScore = 0f;
 
@@ -138,7 +140,7 @@ public partial class AIController : Controller, IMatchController {
     return (bestAbility, bestEventData, bestScore);
   }
 
-  private (float score, GameplayEventData? data) EvaluateAbility(Entity entity, GameplayAbilityInstance ability) {
+  private (float score, GameplayEventData? data) EvaluateAbility(Entity entity, GameplayAbility.Instance ability) {
     return ability switch {
       MoveAbility.Instance moveAbility => EvaluateMoveAbility(entity, moveAbility),
       AttackAbility.Instance attackAbility => EvaluateAttackAbility(entity, attackAbility),
@@ -284,10 +286,6 @@ public partial class AIController : Controller, IMatchController {
   }
 
   private float CalculateProductionScore(Entity producer, EntityProductionAbilityResource.Instance ability, ProductionConfig production) {
-    if (!ability.CanActivateAbility(new() { Activator = this, TargetData = new() { Target = production } })) {
-      return 0f;
-    }
-
     var unitTypeTag = TagManager.GetTag(HOBTags.EntityTypeUnit);
     var forces = EntityManagment.GetOwnedEntites(this);
 
@@ -306,6 +304,7 @@ public partial class AIController : Controller, IMatchController {
         .Select(g => new {
           SubTypeTag = g.Key,
           Count = g.Count(),
+          TypeName = g.Key?.Name ?? "NULL"
         })
         .ToList();
 
@@ -313,18 +312,15 @@ public partial class AIController : Controller, IMatchController {
       return 1f;
     }
 
-
-    var minCount = subtypeCounts.Min(g => g.Count);
-    var leastCommon = subtypeCounts.Where(g => g.Count == minCount).ToList();
-
     var productionTags = production.Entity?.Tags?.GetAllTags();
-    foreach (var subtype in leastCommon) {
+    foreach (var subtype in subtypeCounts) {
+      //GD.Print($"Checking against least common type: {subtype.TypeName}");
       if (production.Entity?.Tags != null && production.Entity.Tags.HasTag(subtype.SubTypeTag)) {
-        return 1f;
+        return 1f / subtype.Count;
       }
     }
 
-    return 0f;
+    return 1f;
   }
 
   private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>

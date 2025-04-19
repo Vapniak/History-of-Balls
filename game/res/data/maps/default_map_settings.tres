@@ -1,19 +1,19 @@
 [gd_resource type="Resource" script_class="MapSettings" load_steps=49 format=3 uid="uid://den26mhc6fsde"]
 
-[ext_resource type="PackedScene" uid="uid://cohqg7okmf4ky" path="res://src/game/game_entitiy/entity/props/nature/grass_water.tscn" id="1_oyuk6"]
+[ext_resource type="PackedScene" uid="uid://cohqg7okmf4ky" path="res://src/game/game_entity/entity/props/nature/grass_water.tscn" id="1_oyuk6"]
 [ext_resource type="Script" path="res://src/core/map/CellSetting.cs" id="1_u5vua"]
 [ext_resource type="Script" path="res://src/core/map/MapSettings.cs" id="2_d00xa"]
 [ext_resource type="Script" path="res://src/core/map/PropSetting.cs" id="2_v7yhy"]
-[ext_resource type="PackedScene" uid="uid://b45vsdduuhmkn" path="res://src/game/game_entitiy/entity/props/nature/rock.tscn" id="3_klp6g"]
+[ext_resource type="PackedScene" uid="uid://b45vsdduuhmkn" path="res://src/game/game_entity/entity/props/nature/rock.tscn" id="3_klp6g"]
 [ext_resource type="Resource" uid="uid://cknkmkh75xb2n" path="res://res/data/prop_settings/flower.tres" id="5_e5o4k"]
-[ext_resource type="PackedScene" uid="uid://bgsc8xna5omfc" path="res://src/game/game_entitiy/entity/props/nature/tree/tree.tscn" id="5_keg8l"]
+[ext_resource type="PackedScene" uid="uid://bgsc8xna5omfc" path="res://src/game/game_entity/entity/props/nature/tree/tree.tscn" id="5_keg8l"]
 [ext_resource type="Resource" uid="uid://2t4aosur46iy" path="res://res/data/prop_settings/tree_prop.tres" id="6_1otyp"]
 [ext_resource type="Resource" uid="uid://b6mpddyapgkrf" path="res://res/data/prop_settings/mushroom.tres" id="7_gj57k"]
 [ext_resource type="Resource" uid="uid://cy6mvys3o82oc" path="res://res/data/prop_settings/pebbles.tres" id="7_k7xks"]
 [ext_resource type="Texture2D" uid="uid://d10jj1fbpr722" path="res://assets/textures/hex/9.png" id="8_75ac4"]
 [ext_resource type="Texture2D" uid="uid://dq4k3mne5m1eh" path="res://assets/textures/hex/7.png" id="9_qq4q1"]
-[ext_resource type="PackedScene" uid="uid://dv21udkqkq718" path="res://src/game/game_entitiy/entity/props/nature/rock1.tscn" id="10_iq8s0"]
-[ext_resource type="PackedScene" uid="uid://bc0yupryeox7" path="res://src/game/game_entitiy/entity/props/nature/rock2.tscn" id="11_qs8y3"]
+[ext_resource type="PackedScene" uid="uid://dv21udkqkq718" path="res://src/game/game_entity/entity/props/nature/rock1.tscn" id="10_iq8s0"]
+[ext_resource type="PackedScene" uid="uid://bc0yupryeox7" path="res://src/game/game_entity/entity/props/nature/rock2.tscn" id="11_qs8y3"]
 [ext_resource type="Texture2D" uid="uid://cultpcvwh3ikf" path="res://assets/textures/hex/6.png" id="11_sqeh6"]
 [ext_resource type="Texture2D" uid="uid://cp4qrvmtl6gvx" path="res://assets/textures/hex/2.png" id="12_b62aa"]
 [ext_resource type="Texture2D" uid="uid://bb4uctqaul008" path="res://assets/textures/hex/14.png" id="14_xds7p"]
@@ -63,7 +63,7 @@ Texture = ExtResource("12_b62aa")
 [sub_resource type="Resource" id="Resource_xunho"]
 script = ExtResource("2_v7yhy")
 PropScene = ExtResource("5_keg8l")
-Chance = 10.0
+Chance = 30.0
 AmountRange = Vector2i(1, 2)
 
 [sub_resource type="Resource" id="Resource_rxka0"]
@@ -79,7 +79,7 @@ Texture = ExtResource("8_75ac4")
 [sub_resource type="Resource" id="Resource_88oxo"]
 script = ExtResource("2_v7yhy")
 PropScene = ExtResource("5_keg8l")
-Chance = 5.0
+Chance = 20.0
 AmountRange = Vector2i(1, 1)
 
 [sub_resource type="Resource" id="Resource_3xyhb"]

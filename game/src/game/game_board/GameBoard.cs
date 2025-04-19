@@ -16,25 +16,25 @@ public partial class GameBoard : Node3D {
   [Export]
   private bool Generate {
     get => false; set {
-      if (MapData != null) {
-        Init(MapData);
+      if (MissionData != null) {
+        Init(MissionData);
       }
     }
   }
-  [Export]
-  private MapData MapData { get; set; } = default!;
+
+  private MissionData MissionData { get; set; } = default!;
   public GameGrid Grid { get; private set; } = default!;
 
-  public void Init(MapData mapData) {
+  public void Init(MissionData mission) {
     if (Layout == null) {
       return;
     }
 
     Grid = new(Layout);
 
-    Grid.LoadMap(mapData);
+    Grid.LoadMap(mission.Map);
 
-    TerrainManager?.CreateData(Grid);
+    TerrainManager?.CreateData(Grid, mission);
 
     foreach (var cell in Grid.GetCells()) {
       TerrainManager?.AddCellToChunk(cell);

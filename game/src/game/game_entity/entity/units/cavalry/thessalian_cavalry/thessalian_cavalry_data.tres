@@ -1,0 +1,113 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=37 format=3 uid="uid://d307uif7aimiy"]
+
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_tsval"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_jcjyg"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_fqo0i"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_jydty"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_a024u"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_ybmst"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="7_e2s6m"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="8_52yy1"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_mn1u4"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_oq3xo"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_dluwn"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="12_46mei"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="13_fwam3"]
+[ext_resource type="Resource" uid="uid://bflof1b7lyv80" path="res://src/game/game_entity/ability/attack/melee/cavalry_melee_attack_ability.tres" id="14_wba3y"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_wyfqc"]
+[ext_resource type="PackedScene" uid="uid://chf1rub1veny6" path="res://src/game/game_entity/entity/units/cavalry/thessalian_cavalry/thessalian_cavalry_body.tscn" id="16_sq5id"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="17_fwped"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="18_vfxir"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="19_1bmwi"]
+
+[sub_resource type="Resource" id="Resource_m2wv0"]
+script = ExtResource("2_jcjyg")
+Magnitude = 20.0
+
+[sub_resource type="Resource" id="Resource_dxsjy"]
+script = ExtResource("3_fqo0i")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_m2wv0")
+
+[sub_resource type="Resource" id="Resource_jnl2p"]
+script = ExtResource("4_jydty")
+Attribute = ExtResource("1_tsval")
+Modifiers = [SubResource("Resource_dxsjy")]
+
+[sub_resource type="Resource" id="Resource_psfsa"]
+script = ExtResource("2_jcjyg")
+Magnitude = 7.0
+
+[sub_resource type="Resource" id="Resource_ybqte"]
+script = ExtResource("3_fqo0i")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_psfsa")
+
+[sub_resource type="Resource" id="Resource_5o8pe"]
+script = ExtResource("4_jydty")
+Attribute = ExtResource("6_ybmst")
+Modifiers = [SubResource("Resource_ybqte")]
+
+[sub_resource type="Resource" id="Resource_oxhaf"]
+script = ExtResource("2_jcjyg")
+Magnitude = 4.0
+
+[sub_resource type="Resource" id="Resource_me18d"]
+script = ExtResource("3_fqo0i")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_oxhaf")
+
+[sub_resource type="Resource" id="Resource_67f1g"]
+script = ExtResource("4_jydty")
+Attribute = ExtResource("7_e2s6m")
+Modifiers = [SubResource("Resource_me18d")]
+
+[sub_resource type="Resource" id="Resource_n6ytd"]
+script = ExtResource("2_jcjyg")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_7lp21"]
+script = ExtResource("3_fqo0i")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_n6ytd")
+
+[sub_resource type="Resource" id="Resource_rqk2u"]
+script = ExtResource("4_jydty")
+Attribute = ExtResource("8_52yy1")
+Modifiers = [SubResource("Resource_7lp21")]
+
+[sub_resource type="Resource" id="Resource_f7q70"]
+script = ExtResource("9_mn1u4")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_jnl2p"), ExtResource("5_a024u"), SubResource("Resource_5o8pe"), SubResource("Resource_67f1g"), SubResource("Resource_rqk2u")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_pdhbb"]
+script = ExtResource("10_oq3xo")
+EffectDefinition = SubResource("Resource_f7q70")
+
+[sub_resource type="Resource" id="Resource_vebok"]
+script = ExtResource("11_dluwn")
+InitializeStatsEffects = SubResource("Resource_pdhbb")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_5p1at"]
+script = ExtResource("17_fwped")
+FullName = "Entity.Type.Unit.Cavalry"
+
+[sub_resource type="Resource" id="Resource_j0x4o"]
+script = ExtResource("18_vfxir")
+Tags = [SubResource("Resource_5p1at")]
+
+[resource]
+script = ExtResource("19_1bmwi")
+EntityName = "Thessalian Cavalry"
+AttributeSetsContainer = ExtResource("15_wyfqc")
+Abilities = [SubResource("Resource_vebok"), ExtResource("12_46mei"), ExtResource("13_fwam3"), ExtResource("14_wba3y")]
+Tags = SubResource("Resource_j0x4o")
+Body = ExtResource("16_sq5id")

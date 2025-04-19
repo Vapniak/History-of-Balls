@@ -6,10 +6,10 @@ using HOB.GameEntity;
 using System.Linq;
 
 public partial class CommandPanelWidget : Control {
-  [Signal] public delegate void CommandSelectedEventHandler(HOBAbilityInstance abilityInstance);
+  [Signal] public delegate void CommandSelectedEventHandler(HOBAbility.Instance abilityInstance);
   [Export] private Control CommandList { get; set; } = default!;
 
-  private Dictionary<HOBAbilityInstance, CommandButtonWidget> Commands { get; set; } = new();
+  private Dictionary<HOBAbility.Instance, CommandButtonWidget> Commands { get; set; } = new();
 
   private Entity? CurrentEntity { get; set; }
 
@@ -38,8 +38,8 @@ public partial class CommandPanelWidget : Control {
     CurrentEntity = entity;
 
     ClearCommands();
-    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities().OrderBy(a => (a.AbilityResource as HOBAbilityResource)?.UIOrder)) {
-      if (ability is HOBAbilityInstance hOBAbility && hOBAbility.AbilityResource.ShowInUI) {
+    foreach (var ability in entity.AbilitySystem.GetGrantedAbilities().OrderBy(a => (a.AbilityResource as HOBAbility)?.UIOrder)) {
+      if (ability is HOBAbility.Instance hOBAbility && hOBAbility.AbilityResource.ShowInUI) {
         AddCommand(hOBAbility);
       }
     }
@@ -61,7 +61,7 @@ public partial class CommandPanelWidget : Control {
     }
   }
 
-  private void SelectCommand(HOBAbilityInstance command) {
+  private void SelectCommand(HOBAbility.Instance command) {
     if (command == null) {
       return;
     }
@@ -79,7 +79,7 @@ public partial class CommandPanelWidget : Control {
 
     Commands.Clear();
   }
-  private void AddCommand(HOBAbilityInstance ability) {
+  private void AddCommand(HOBAbility.Instance ability) {
     var buttonWidget = CommandButtonWidget.CreateWidget();
     buttonWidget.BindAbility(ability);
     var button = buttonWidget.Button;

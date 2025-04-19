@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj3qtxcdbw00m"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_q74t3"]
+[ext_resource type="PackedScene" uid="uid://85umshsgagns" path="res://assets/models/objects/generic/factory/factory.fbx" id="2_14bhb"]
+
+[node name="EntityBody" type="Node3D"]
+script = ExtResource("1_q74t3")
+
+[node name="factory" parent="." instance=ExtResource("2_14bhb")]
+transform = Transform3D(0.120038, 0, 1.19398, 0, 1.2, 0, -1.19398, 0, 0.120038, 0, 0, 0)

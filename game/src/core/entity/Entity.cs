@@ -34,7 +34,7 @@ public partial class Entity : Node3D, ITurnAware {
     GameCell cell,
     IEntityManagment entityManagment,
     AttributeSetsContainer? attributeSets,
-    Array<GameplayAbilityResource>? abilities,
+    Array<GameplayAbility>? abilities,
     TagContainer? tags,
     EntityBody body,
     IMatchController? owner

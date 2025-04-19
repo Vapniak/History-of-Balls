@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bwrmlt738alol"]
+
+[ext_resource type="Texture2D" uid="uid://bqwdl5he7o47e" path="res://assets/models/objects/props/nature/grasses/grass_0.png" id="1_e62sw"]
+
+[resource]
+resource_name = "HoB-grass-texture"
+transparency = 4
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_e62sw")
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+texture_repeat = false

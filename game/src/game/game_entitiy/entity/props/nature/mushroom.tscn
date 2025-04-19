@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ch3iiu2mjm3jt"]
-
-[ext_resource type="PackedScene" uid="uid://6g0nsmyoc5aw" path="res://assets/models/props/nature/small-plants/mushroom.fbx" id="1_i6rsw"]
-
-[node name="mushroom" instance=ExtResource("1_i6rsw")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)

@@ -15,7 +15,7 @@ public partial class CommandButtonWidget : Widget, IWidgetFactory<CommandButtonW
     return ResourceLoader.Load<PackedScene>("uid://s6oh5eah6obb").Instantiate<CommandButtonWidget>();
   }
 
-  public void BindAbility(HOBAbilityInstance ability) {
+  public void BindAbility(HOBAbility.Instance ability) {
     Button.Icon = ability.AbilityResource.Icon;
   }
 

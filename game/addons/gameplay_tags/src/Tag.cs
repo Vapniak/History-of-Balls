@@ -45,7 +45,7 @@ public partial class Tag : Resource, IEquatable<Tag> {
   public bool IsChildOf(Tag? parent) =>
     parent != null &&
     FullName != parent.FullName &&
-    FullName.StartsWith(parent.FullName + ".");
+    FullName.StartsWith(parent.FullName);
 
 
   public IEnumerable<Tag> GetChildren() {

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PropSetting" load_steps=3 format=3 uid="uid://b6mpddyapgkrf"]
 
-[ext_resource type="PackedScene" uid="uid://ch3iiu2mjm3jt" path="res://src/game/game_entitiy/entity/props/nature/mushroom.tscn" id="1_euhhc"]
+[ext_resource type="PackedScene" uid="uid://ch3iiu2mjm3jt" path="res://src/game/game_entity/entity/props/nature/mushroom.tscn" id="1_euhhc"]
 [ext_resource type="Script" path="res://src/core/map/PropSetting.cs" id="2_ynv7e"]
 
 [resource]

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://dbyq8cbfr7jsr"]
+
+[ext_resource type="Resource" uid="uid://bmkx3bvod4wdy" path="res://src/game/game_entity/ability/effects/cavalry_cost_effect.tres" id="1_14fka"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="1_a4nwm"]
+[ext_resource type="Resource" uid="uid://d307uif7aimiy" path="res://src/game/game_entity/entity/units/cavalry/thessalian_cavalry/thessalian_cavalry_data.tres" id="5_gxaul"]
+
+[resource]
+script = ExtResource("1_a4nwm")
+Entity = ExtResource("5_gxaul")
+CostEffect = ExtResource("1_14fka")
+ProductionTime = 3

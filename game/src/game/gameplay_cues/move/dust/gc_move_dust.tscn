@@ -10,7 +10,9 @@ FullName = "GameplayCue.Move.Dust"
 
 [node name="GCMoveDust" type="Node" node_paths=PackedStringArray("Particles")]
 script = ExtResource("1_5vfc3")
-Particles = NodePath("")
+Particles = NodePath("Dust/GPUParticles3D")
 CueTag = SubResource("Resource_yb4vc")
 
 [node name="Dust" parent="." instance=ExtResource("3_6ktim")]
+
+[editable path="Dust"]

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://7f16m55m6kq5"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_anklk"]
+[ext_resource type="PackedScene" uid="uid://bdg2dtrjkqwb1" path="res://assets/models/objects/countries/persia/persia-industry.fbx" id="2_ourkj"]
+
+[node name="PilafKitchenBody" type="Node3D"]
+script = ExtResource("1_anklk")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(-1.31134e-08, 0, 0.3, 0, 0.3, 0, -0.3, 0, -1.31134e-08, 0, 0, 0)
+
+[node name="persia-industry" parent="Node3D" instance=ExtResource("2_ourkj")]

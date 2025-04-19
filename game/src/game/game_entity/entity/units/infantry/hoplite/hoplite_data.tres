@@ -1,0 +1,113 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=37 format=3 uid="uid://cao8spwvpdrph"]
+
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_gg7nc"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_1nap0"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_8js7r"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_xkgod"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_j85bn"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_d6xxj"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="7_4qld6"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="8_fqkww"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_kitwx"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_qbkmj"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_awjaj"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="12_5o5mu"]
+[ext_resource type="Resource" uid="uid://trtvj503md1n" path="res://src/game/game_entity/ability/attack/melee/melee_attack_ability.tres" id="13_hnpro"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="14_w6jt3"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_qcdtx"]
+[ext_resource type="PackedScene" uid="uid://2ylf572m7yx0" path="res://src/game/game_entity/entity/units/infantry/hoplite/hoplite_body.tscn" id="16_j27ow"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="17_3d3df"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="18_vgi5n"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="19_obu7n"]
+
+[sub_resource type="Resource" id="Resource_dhamy"]
+script = ExtResource("2_1nap0")
+Magnitude = 22.0
+
+[sub_resource type="Resource" id="Resource_8h30t"]
+script = ExtResource("3_8js7r")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_dhamy")
+
+[sub_resource type="Resource" id="Resource_uqhag"]
+script = ExtResource("4_xkgod")
+Attribute = ExtResource("1_gg7nc")
+Modifiers = [SubResource("Resource_8h30t")]
+
+[sub_resource type="Resource" id="Resource_yss68"]
+script = ExtResource("2_1nap0")
+Magnitude = 8.0
+
+[sub_resource type="Resource" id="Resource_cq3sh"]
+script = ExtResource("3_8js7r")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_yss68")
+
+[sub_resource type="Resource" id="Resource_4i0w6"]
+script = ExtResource("4_xkgod")
+Attribute = ExtResource("6_d6xxj")
+Modifiers = [SubResource("Resource_cq3sh")]
+
+[sub_resource type="Resource" id="Resource_jlaxf"]
+script = ExtResource("2_1nap0")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_kxf8t"]
+script = ExtResource("3_8js7r")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_jlaxf")
+
+[sub_resource type="Resource" id="Resource_l3g4w"]
+script = ExtResource("4_xkgod")
+Attribute = ExtResource("7_4qld6")
+Modifiers = [SubResource("Resource_kxf8t")]
+
+[sub_resource type="Resource" id="Resource_3nqlg"]
+script = ExtResource("2_1nap0")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_h5jwp"]
+script = ExtResource("3_8js7r")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_3nqlg")
+
+[sub_resource type="Resource" id="Resource_20flb"]
+script = ExtResource("4_xkgod")
+Attribute = ExtResource("8_fqkww")
+Modifiers = [SubResource("Resource_h5jwp")]
+
+[sub_resource type="Resource" id="Resource_g67on"]
+script = ExtResource("9_kitwx")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_uqhag"), ExtResource("5_j85bn"), SubResource("Resource_4i0w6"), SubResource("Resource_l3g4w"), SubResource("Resource_20flb")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_4x3dw"]
+script = ExtResource("10_qbkmj")
+EffectDefinition = SubResource("Resource_g67on")
+
+[sub_resource type="Resource" id="Resource_te0u8"]
+script = ExtResource("11_awjaj")
+InitializeStatsEffects = SubResource("Resource_4x3dw")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_pjc1c"]
+script = ExtResource("17_3d3df")
+FullName = "Entity.Type.Unit.Infantry"
+
+[sub_resource type="Resource" id="Resource_ex2qo"]
+script = ExtResource("18_vgi5n")
+Tags = [SubResource("Resource_pjc1c")]
+
+[resource]
+script = ExtResource("19_obu7n")
+EntityName = "Hoplite"
+AttributeSetsContainer = ExtResource("15_qcdtx")
+Abilities = Array[Object]([SubResource("Resource_te0u8"), ExtResource("12_5o5mu"), ExtResource("13_hnpro"), ExtResource("14_w6jt3")])
+Tags = SubResource("Resource_ex2qo")
+Body = ExtResource("16_j27ow")

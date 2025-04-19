@@ -11,7 +11,7 @@ using Godot.Collections;
 public partial class EntityData : Resource {
   [Export] public string EntityName { get; private set; } = "Entity";
   [Export] public AttributeSetsContainer? AttributeSetsContainer { get; private set; }
-  [Export] public Array<GameplayAbilityResource>? Abilities { get; private set; }
+  [Export] public Array<GameplayAbility>? Abilities { get; private set; }
   [Export] public TagContainer? Tags { get; private set; }
   [Export] public PackedScene? Body { get; private set; }
 

@@ -19,7 +19,7 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
 
   private Entity? Entity { get; set; }
 
-  private Dictionary<HOBAbilityInstance, TextureRect> AbilityToIcon { get; set; } = new();
+  private Dictionary<HOBAbility.Instance, TextureRect> AbilityToIcon { get; set; } = new();
 
   public void BindTo(Entity entity) {
     if (entity == null) {
@@ -45,7 +45,7 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
     CommandIconsContainer.GetParent<Control>().Hide();
 
     Entity.AbilitySystem.GameplayAbilityGranted += (ability) => {
-      if (ability is HOBAbilityInstance hob) {
+      if (ability is HOBAbility.Instance hob) {
         if (!hob.AbilityResource.ShowInUI) {
           return;
         }
@@ -68,7 +68,7 @@ public partial class EntityUIWidget : Widget, IWidgetFactory<EntityUIWidget> {
     };
 
     Entity.AbilitySystem.GameplayAbilityRevoked += (ability) => {
-      if (ability is HOBAbilityInstance hob) {
+      if (ability is HOBAbility.Instance hob) {
         if (AbilityToIcon.TryGetValue(hob, out var icon)) {
           icon.Free();
           AbilityToIcon.Remove(hob);

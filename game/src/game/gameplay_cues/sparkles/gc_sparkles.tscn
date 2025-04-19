@@ -8,8 +8,11 @@
 script = ExtResource("2_v2buu")
 FullName = "GameplayCue.Sparkles"
 
-[node name="GcSparkles" type="Node"]
+[node name="GcSparkles" type="Node" node_paths=PackedStringArray("Particles")]
 script = ExtResource("1_076kc")
+Particles = NodePath("GPUParticles3D/GPUParticles3D")
 CueTag = SubResource("Resource_v5t3g")
 
 [node name="GPUParticles3D" parent="." instance=ExtResource("3_o5cjt")]
+
+[editable path="GPUParticles3D"]

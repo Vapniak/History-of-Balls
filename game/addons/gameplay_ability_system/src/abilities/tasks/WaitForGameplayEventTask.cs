@@ -10,7 +10,7 @@ public class WaitForGameplayEventTask {
   public event Action<GameplayEventData>? EventRecieved;
   public event Action? Cancelled;
 
-  private readonly GameplayAbilityInstance _ability;
+  private readonly GameplayAbility.Instance _ability;
   private readonly Tag _tag;
   private readonly CancellationTokenSource _cts;
   private readonly TaskCompletionSource _tcs;
@@ -18,7 +18,7 @@ public class WaitForGameplayEventTask {
   private Task Task => _tcs.Task;
 
   public WaitForGameplayEventTask(
-      GameplayAbilityInstance ability,
+      GameplayAbility.Instance ability,
       Tag tag,
       CancellationToken cancellationToken = default) {
     _ability = ability;

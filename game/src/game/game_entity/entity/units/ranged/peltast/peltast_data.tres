@@ -1,0 +1,113 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=37 format=3 uid="uid://befewbyboktsi"]
+
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_0gmck"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_sq1s6"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_3isfb"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_tsp0v"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_aeuxq"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_8j7ce"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="7_j7jrq"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="8_edyav"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_m115n"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_c3opr"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_f5oqh"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="12_7mbu6"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="13_l33oo"]
+[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game/game_entity/ability/attack/throw/throw_attack_ability.tres" id="14_y540g"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_qhnlr"]
+[ext_resource type="PackedScene" uid="uid://cfpw2nk3wsd8q" path="res://src/game/game_entity/entity/units/ranged/peltast/peltast_body.tscn" id="16_n8n10"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="17_3uuwb"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="18_kasqp"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="19_gunju"]
+
+[sub_resource type="Resource" id="Resource_kq1ka"]
+script = ExtResource("2_sq1s6")
+Magnitude = 15.0
+
+[sub_resource type="Resource" id="Resource_ns3tn"]
+script = ExtResource("3_3isfb")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_kq1ka")
+
+[sub_resource type="Resource" id="Resource_jxncy"]
+script = ExtResource("4_tsp0v")
+Attribute = ExtResource("1_0gmck")
+Modifiers = [SubResource("Resource_ns3tn")]
+
+[sub_resource type="Resource" id="Resource_get7x"]
+script = ExtResource("2_sq1s6")
+Magnitude = 6.0
+
+[sub_resource type="Resource" id="Resource_c7gqc"]
+script = ExtResource("3_3isfb")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_get7x")
+
+[sub_resource type="Resource" id="Resource_8ggi3"]
+script = ExtResource("4_tsp0v")
+Attribute = ExtResource("6_8j7ce")
+Modifiers = [SubResource("Resource_c7gqc")]
+
+[sub_resource type="Resource" id="Resource_rifln"]
+script = ExtResource("2_sq1s6")
+Magnitude = 3.0
+
+[sub_resource type="Resource" id="Resource_prdcs"]
+script = ExtResource("3_3isfb")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_rifln")
+
+[sub_resource type="Resource" id="Resource_qu1lh"]
+script = ExtResource("4_tsp0v")
+Attribute = ExtResource("7_j7jrq")
+Modifiers = [SubResource("Resource_prdcs")]
+
+[sub_resource type="Resource" id="Resource_sd5yy"]
+script = ExtResource("2_sq1s6")
+Magnitude = 3.0
+
+[sub_resource type="Resource" id="Resource_mvxqu"]
+script = ExtResource("3_3isfb")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_sd5yy")
+
+[sub_resource type="Resource" id="Resource_j8bxp"]
+script = ExtResource("4_tsp0v")
+Attribute = ExtResource("8_edyav")
+Modifiers = [SubResource("Resource_mvxqu")]
+
+[sub_resource type="Resource" id="Resource_sbekc"]
+script = ExtResource("9_m115n")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_jxncy"), ExtResource("5_aeuxq"), SubResource("Resource_8ggi3"), SubResource("Resource_qu1lh"), SubResource("Resource_j8bxp")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_0xq8k"]
+script = ExtResource("10_c3opr")
+EffectDefinition = SubResource("Resource_sbekc")
+
+[sub_resource type="Resource" id="Resource_6sbge"]
+script = ExtResource("11_f5oqh")
+InitializeStatsEffects = SubResource("Resource_0xq8k")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_oucqj"]
+script = ExtResource("17_3uuwb")
+FullName = "Entity.Type.Unit.Ranged"
+
+[sub_resource type="Resource" id="Resource_lscwp"]
+script = ExtResource("18_kasqp")
+Tags = [SubResource("Resource_oucqj")]
+
+[resource]
+script = ExtResource("19_gunju")
+EntityName = "Peltast"
+AttributeSetsContainer = ExtResource("15_qhnlr")
+Abilities = Array[Object]([SubResource("Resource_6sbge"), ExtResource("12_7mbu6"), ExtResource("13_l33oo"), ExtResource("14_y540g")])
+Tags = SubResource("Resource_lscwp")
+Body = ExtResource("16_n8n10")
