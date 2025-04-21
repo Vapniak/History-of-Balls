@@ -13,6 +13,7 @@ public partial class HOBTheme : ProgrammaticTheme {
   [Export] public int BaseCornerRadius { get; private set; }
   [Export] public int BaseBorderWidth { get; private set; }
 
+  public Color PrimaryTransparent => new(PrimaryColor, .3f);
   public int BaseMargin => BaseSpacing;
 
   public override void DefineTheme() {
@@ -42,6 +43,8 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["bg_color"] = BaseColor,
       ["content_margins_"] = ContentMargins(BaseMargin),
       ["corner_radius_"] = CornerRadius(BaseCornerRadius),
+      // ["border_color"] = PrimaryTransparent,
+      // ["border_width_"] = BorderWidth(BaseBorderWidth),
     });
 
     DefineStyle("Panel", new Style() {
@@ -103,17 +106,25 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["icon_max_width"] = 24,
     };
 
-    buttonStyle["hover_pressed"] = Merge(buttonStyle["pressed"].As<Style>(), buttonStyle["hover"].As<Style>());
+    buttonStyle["hover_pressed"] = Merge(buttonStyle["pressed"].As<Style>(), buttonStyle["hover"].As<Style>(), StyleboxFlat(new() { ["border_color"] = AccentColor.Lightened(.2f) }));
 
     DefineStyle("Button", buttonStyle);
 
     DefineStyle("ProgressBar", new Style() {
       ["fill"] = Inherit(baseStyleBox, StyleboxFlat(new() {
-        ["bg_color"] = Colors.Transparent,
+        ["bg_color"] = PrimaryTransparent,
         ["border_width_"] = BorderWidth(BaseBorderWidth),
         ["border_color"] = PrimaryColor,
       })),
       ["background"] = baseStyleBox,
     });
+
+    DefineStyle("HSeparator", new() {
+      ["separator"] = StyleboxLine(new() {
+        ["color"] = new Color(PrimaryColor, 0.5f),
+      })
+    });
+
+
   }
 }

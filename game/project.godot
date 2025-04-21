@@ -45,6 +45,7 @@ GameplayCueManager="*res://addons/gameplay_ability_system/src/cues/gameplay_cue_
 MusicManager="*res://addons/audio_manager/src/music/music_manager.tscn"
 SoundManager="*res://addons/audio_manager/src/sound/sound_manager.tscn"
 WidgetManager="*res://addons/widget_system/src/widget_manager.tscn"
+GameAssetsRegistry="*res://src/core/game_assets_registry/game_assets_registry.tscn"
 
 [debug_draw_3d]
 
@@ -183,9 +184,11 @@ common/physics_interpolation=true
 
 [rendering]
 
-environment/ssao/quality=0
-environment/ssil/quality=0
 anti_aliasing/screen_space_roughness_limiter/enabled=false
+scaling_3d/mode=2
+scaling_3d/fsr_sharpness=1.0
+anti_aliasing/quality/msaa_2d=2
+anti_aliasing/quality/msaa_3d=2
 mesh_lod/lod_change/threshold_pixels=2.0
 environment/defaults/default_environment="res://res/default_env.tres"
 

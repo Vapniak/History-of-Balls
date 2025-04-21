@@ -1,10 +1,9 @@
 namespace HOB;
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using Godot;
+using Godot.Collections;
 using HexGridMap;
 
 public partial class Chunk : StaticBody3D {
@@ -31,6 +30,8 @@ public partial class Chunk : StaticBody3D {
   private HexMesh WaterMesh { get; set; }
   private CollisionShape3D CollisionShape { get; set; }
 
+
+  private Dictionary<GameCell, Array<HexDirection>> Connections { get; set; } = new();
 
   private HexMesh BorderMesh { get; set; }
 
@@ -70,6 +71,7 @@ public partial class Chunk : StaticBody3D {
   public override void _PhysicsProcess(double delta) {
     if (_refresh) {
       _refresh = false;
+      Connections.Clear();
       Triangulate();
     }
   }
@@ -113,7 +115,13 @@ public partial class Chunk : StaticBody3D {
 
     TriangulateEdgeFan(pos, e, TerrainMesh);
 
-    TriangulateConnection(direction, cell, e);
+    if (!HasConnection(cell, direction)) {
+      TriangulateConnection(direction, cell, e);
+
+      if (Grid.GetCell(cell, direction) != null) {
+        MarkConnection(cell, Grid.GetCell(cell, direction));
+      }
+    }
 
     if (cell.GetSetting().IsWater) {
       TriangulateWater(direction, cell);
@@ -285,7 +293,7 @@ public partial class Chunk : StaticBody3D {
     }
   }
   private void GenerateHexBorderRectangle(int borderLayers) {
-    var originalCells = new HashSet<OffsetCoord>(
+    var originalCells = new System.Collections.Generic.HashSet<OffsetCoord>(
         CellIndices.Select(i => Grid.GetCell(i).OffsetCoord)
                    .Where(oc => oc.Col >= 0 && oc.Row >= 0)
     );
@@ -338,5 +346,31 @@ public partial class Chunk : StaticBody3D {
 
     //   _borderMesh.AddQuadAutoUV(top1, top2, bottom1, bottom2);
     // }
+  }
+
+  private bool HasConnection(GameCell cell, HexDirection direction) {
+    if (Connections.TryGetValue(cell, out var directions)) {
+      return directions.Contains(direction);
+    }
+    return false;
+  }
+  private void MarkConnection(GameCell fromCell, GameCell toCell) {
+    if (fromCell == null || toCell == null) {
+      return;
+    }
+
+    var direction = (toCell.Coord - fromCell.Coord).ToDirection();
+    if (!Connections.TryGetValue(fromCell, out var fromDirections)) {
+      fromDirections = new Array<HexDirection>();
+      Connections[fromCell] = fromDirections;
+    }
+    fromDirections.Add(direction);
+
+    var oppositeDirection = direction.Opposite();
+    if (!Connections.TryGetValue(toCell, out var toDirections)) {
+      toDirections = new Array<HexDirection>();
+      Connections[toCell] = toDirections;
+    }
+    toDirections.Add(oppositeDirection);
   }
 }

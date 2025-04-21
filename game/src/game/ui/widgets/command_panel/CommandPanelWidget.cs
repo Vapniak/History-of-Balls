@@ -82,8 +82,8 @@ public partial class CommandPanelWidget : Control {
   private void AddCommand(HOBAbility.Instance ability) {
     var buttonWidget = CommandButtonWidget.CreateWidget();
     buttonWidget.BindAbility(ability);
-    var button = buttonWidget.Button;
-    button.Toggled += (toggledOn) => EmitSignal(SignalName.CommandSelected, ability);
+    var button = buttonWidget;
+    button.Button.Pressed += () => EmitSignal(SignalName.CommandSelected, ability);
 
     CommandList.AddChild(buttonWidget);
     Commands.Add(ability, buttonWidget);

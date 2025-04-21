@@ -1,9 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://s6oh5eah6obb"]
+[gd_scene load_steps=3 format=3 uid="uid://s6oh5eah6obb"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/command_panel/command_button/CommandButtonWidget.cs" id="1_ljw8a"]
 [ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="2_8idwn"]
-
-[sub_resource type="ButtonGroup" id="ButtonGroup_r4y83"]
 
 [node name="CommandButton" type="MarginContainer" node_paths=PackedStringArray("Button")]
 anchors_preset = 15
@@ -19,9 +17,6 @@ Button = NodePath("Button")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
-mouse_filter = 1
-theme_type_variation = &"ActionButton"
-toggle_mode = true
-button_group = SubResource("ButtonGroup_r4y83")
+mouse_default_cursor_shape = 2
 icon = ExtResource("2_8idwn")
 icon_alignment = 1

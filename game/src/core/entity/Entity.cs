@@ -12,7 +12,7 @@ public partial class Entity : Node3D, ITurnAware {
   public EntityBody Body { get; private set; }
   public string EntityName { get; private set; }
 
-  public Texture2D? Icon => GameInstance.GetGameMode<HOBGameMode>()?.GetIconFor(this);
+  public Texture2D? Icon => GameAssetsRegistry.Instance.GetIconFor(this);
 
   [Notify]
   public GameCell Cell {
@@ -43,9 +43,11 @@ public partial class Entity : Node3D, ITurnAware {
     OwnerController = owner;
     AbilitySystem = new();
     Body = body;
+    Cell = cell;
 
 
     Scale = Vector3.One * Mathf.Epsilon;
+    Position = Cell.GetRealPosition();
 
     Ready += () => {
       var tween = CreateTween();
@@ -54,8 +56,6 @@ public partial class Entity : Node3D, ITurnAware {
     };
 
     TreeEntered += () => {
-      Cell = cell;
-      GlobalPosition = Cell.GetRealPosition();
 
       AddChild(Body);
 
@@ -126,7 +126,7 @@ public partial class Entity : Node3D, ITurnAware {
   public void Die() {
     AbilitySystem.OwnedTags.AddTag(TagManager.GetTag(HOBTags.StateDead));
     var tween = CreateTween();
-    tween.TweenProperty(this, "scale", Vector3.Zero, 1f).SetTrans(Tween.TransitionType.Back);
+    tween.TweenProperty(this, "scale", Vector3.One * Mathf.Epsilon, 1f).SetTrans(Tween.TransitionType.Back);
     tween.Finished += QueueFree;
   }
 

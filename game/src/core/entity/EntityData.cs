@@ -12,10 +12,10 @@ public partial class EntityData : Resource {
   [Export] public string EntityName { get; private set; } = "Entity";
   [Export] public AttributeSetsContainer? AttributeSetsContainer { get; private set; }
   [Export] public Array<GameplayAbility>? Abilities { get; private set; }
-  [Export] public TagContainer? Tags { get; private set; }
+  [Export] public TagContainer Tags { get; private set; } = default!;
   [Export] public PackedScene? Body { get; private set; }
 
-  public Texture2D? Icon => GameInstance.GetGameMode<HOBGameMode>()?.GetIconFor(this);
+  public Texture2D? Icon => GameAssetsRegistry.Instance.GetIconFor(this);
 
   public Entity? CreateEntity(GameCell cell, IEntityManagment entityManagment, IMatchController? owner) {
     var body = Body?.InstantiateOrNull<EntityBody>();

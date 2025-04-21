@@ -17,9 +17,6 @@ using WidgetSystem;
 [GlobalClass]
 public partial class HOBGameMode : GameMode {
   [Export] private PlayerAttributeSet? PlayerAttributeSet { get; set; }
-  [Export] public Array<EntityIcon>? EntityIcons { get; private set; }
-
-
   [Export] private PackedScene? PlayerControllerScene { get; set; }
   [Export] private PackedScene? PlayerCharacterScene { get; set; }
   [Export] private PackedScene? AIControllerScene { get; set; }
@@ -78,15 +75,6 @@ public partial class HOBGameMode : GameMode {
 
   public bool IsCurrentTurn(IMatchController controller) {
     return MatchComponent.IsCurrentTurn(controller);
-  }
-
-
-  public Texture2D? GetIconFor(Entity entity) {
-    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entity.AbilitySystem.OwnedTags.HasExactTag(i.EntityType), null)?.Icon;
-  }
-
-  public Texture2D? GetIconFor(EntityData entityData) {
-    return EntityIcons?.FirstOrDefault(i => i.EntityType != null && entityData.Tags.HasExactTag(i.EntityType), null)?.Icon;
   }
 
   public IMatchEvents GetMatchEvents() => MatchComponent!;

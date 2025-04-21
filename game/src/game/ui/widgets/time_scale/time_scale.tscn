@@ -1,34 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://cyidgmoevposj"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/time_scale/TimeScaleButtonWidget.cs" id="1_o14s0"]
-[ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="2_qbj76"]
+[ext_resource type="PackedScene" uid="uid://bucr6se6rejrr" path="res://src/game/ui/widgets/button/label_button/label_button.tscn" id="2_amjb2"]
 
-[sub_resource type="InputEventAction" id="InputEventAction_bfquf"]
+[sub_resource type="InputEventAction" id="InputEventAction_waene"]
 action = &"speed_multi"
 
-[sub_resource type="Shortcut" id="Shortcut_4fehq"]
-events = [SubResource("InputEventAction_bfquf")]
+[sub_resource type="Shortcut" id="Shortcut_mh8y5"]
+events = [SubResource("InputEventAction_waene")]
 
-[node name="TimeScale" type="MarginContainer" node_paths=PackedStringArray("ButtonWidget")]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="TimeScale" instance=ExtResource("2_amjb2")]
 script = ExtResource("1_o14s0")
-ButtonWidget = NodePath("Button2")
 
-[node name="Button2" parent="." instance=ExtResource("2_qbj76")]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+[node name="Button" parent="." index="0"]
+shortcut = SubResource("Shortcut_mh8y5")
 
-[node name="Button" parent="Button2" index="0"]
-shortcut = SubResource("Shortcut_4fehq")
-
-[node name="Label" parent="Button2/MarginContainer" index="0"]
+[node name="RichTextLabel" parent="MarginContainer" index="0"]
 text = ">"
-
-[connection signal="pressed" from="Button2/Button" to="." method="OnTimeScaleButtonPressed"]
-
-[editable path="Button2"]

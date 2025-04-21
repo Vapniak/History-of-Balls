@@ -15,10 +15,13 @@ uniform float rotation_variation;
 uniform float scale_variation;
 uniform float edge_smoothness;
 
+
 uniform sampler2D highlight_data_texture : source_color, repeat_disable;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
 
+uniform float grid_overlay_color_range: hint_range(0.0, 1.0, 0.01);
 uniform ivec2 grid_size;
+uniform vec3 grid_color: source_color;
 
 uniform vec2 mouse_world_pos;
 uniform bool show_mouse_highlight;
@@ -112,7 +115,7 @@ void fragment() {
 
 
 	// apply grid
-	ALBEDO = mix(ALBEDO, vec3(0.01), smoothstep_range(data, 0.84, 1));
+	ALBEDO = mix(ALBEDO, grid_color, smoothstep_range(data, grid_overlay_color_range, 1));
 
 	HexCellData mouse_hex_data = get_hex_cell_data(mouse_world_pos, CELL_SCALE);
 

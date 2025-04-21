@@ -1,17 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://2cvrfbj6u5ju"]
 
-[ext_resource type="Script" path="res://src/game/ui/widgets/exit_button/ExitButtonWidget.cs" id="1_8hfti"]
+[ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="1_5tgpa"]
 
-[node name="ExitButton" type="MarginContainer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("1_8hfti")
+[node name="ExitButton" instance=ExtResource("1_5tgpa")]
 
-[node name="Button" type="Button" parent="."]
-layout_mode = 2
+[node name="Button" parent="." index="0"]
 text = "X"
 flat = true
 

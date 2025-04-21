@@ -159,7 +159,7 @@ public partial class AIController : Controller, IMatchController {
     GameCell? bestCell = null;
 
     var enemies = GetPotentialEnemies(entity)
-        .OrderByDescending(e => ability.FindPathTo(e.Cell).Length)
+        .OrderBy(e => ability.FindPathTo(e.Cell).Length)
         .Take(maxEnemiesToConsider);
 
     foreach (var enemy in enemies) {
@@ -232,7 +232,7 @@ public partial class AIController : Controller, IMatchController {
     var distanceScore = 1f;
     var attackScore = 1f;
     uint desiredDistance = 0;
-    var actualDistance = cell.Coord.Distance(target.Cell.Coord);
+    var actualDistance = path.Count() - Array.IndexOf(path.ToArray(), cell);
     // valueScore = 1f;
 
     if (attackAbility != null && attackAbility.GetAttackableEntities(cell).entities.Contains(target)) {

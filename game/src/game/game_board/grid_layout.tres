@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_n4u1y")
-SolidFactor = 0.99
+SolidFactor = 1.0
 TerracesPerSlope = 0
 ElevationStep = 0.2
 FlatMaxElevationDelta = 2

@@ -6,10 +6,7 @@ using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class ProductionEntryWidget : HOBWidget, IWidgetFactory<ProductionEntryWidget> {
-  [Export] private Button Button { get; set; } = default!;
-  [Export] private RichTextLabel Label { get; set; } = default!;
-
+public partial class ProductionEntryWidget : LabelButtonWidget, IWidgetFactory<ProductionEntryWidget> {
   private IMatchController? _boundController;
   private EntityProductionAbilityResource.Instance? _boundAbility;
   private ProductionConfig? _boundProductionConfig;

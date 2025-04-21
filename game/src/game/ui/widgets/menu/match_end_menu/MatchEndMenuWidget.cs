@@ -7,8 +7,8 @@ using WidgetSystem;
 
 [GlobalClass]
 public partial class MatchEndMenuWidget : HOBWidget, IWidgetFactory<MatchEndMenuWidget> {
-  [Export] private Label WinnerTextLabel { get; set; }
-  [Export] private Label TimePlayedLabel { get; set; }
+  [Export] private Label WinnerTextLabel { get; set; } = default!;
+  [Export] private Label TimePlayedLabel { get; set; } = default!;
 
   static MatchEndMenuWidget IWidgetFactory<MatchEndMenuWidget>.CreateWidget() {
     return ResourceLoader.Load<PackedScene>("uid://cnww5rxeofin3").Instantiate<MatchEndMenuWidget>();

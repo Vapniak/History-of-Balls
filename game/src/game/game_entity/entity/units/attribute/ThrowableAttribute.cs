@@ -43,13 +43,13 @@ public partial class ThrowableAttribute : UnitAttribute {
     await base.Reset();
 
     TopLevel = false;
-    Visible = true;
     var tween = CreateTween();
     tween.TweenProperty(this, "scale", Vector3.One, 0.1f);
 
     Position = _initialOffset;
     Rotation = _initialRotation;
 
+    Visible = true;
     await ToSignal(tween, Tween.SignalName.Finished);
   }
 

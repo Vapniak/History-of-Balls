@@ -81,7 +81,7 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
       }
     };
 
-    var icon = GameInstance.GetGameMode<HOBGameMode>().GetIconFor(Entity);
+    var icon = Entity.Icon;
     if (icon != null) {
       SetIcon(icon);
     }

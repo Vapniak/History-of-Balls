@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bum4ub8a6a0qj" path="res://assets/textures/menu/HoB-menu-leaves-l-t.png" id="7_p70vy"]
 [ext_resource type="Texture2D" uid="uid://cyc3yfkoriiec" path="res://assets/textures/menu/HoB-menu-leaves-r-t.png" id="8_id7dy"]
 [ext_resource type="Texture2D" uid="uid://diuewmtyjbtp" path="res://assets/textures/menu/HoB-menu-logo-m-t.png" id="9_eetrs"]
-[ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="10_twrwg"]
+[ext_resource type="PackedScene" uid="uid://bucr6se6rejrr" path="res://src/game/ui/widgets/button/label_button/label_button.tscn" id="10_14ap1"]
 
 [node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -102,40 +102,36 @@ size_flags_vertical = 4
 theme_type_variation = &"SpacingSmall"
 vertical = true
 
-[node name="Button" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_twrwg")]
+[node name="Button5" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
-[node name="Label" parent="Control/MarginContainer/VBoxContainer/Button/MarginContainer" index="0"]
-theme_type_variation = &"HeaderSmall"
-text = "SELECT MISSION"
+[node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button5/MarginContainer" index="0"]
+text = "SELECT CAMPAIN"
 
-[node name="Button2" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_twrwg")]
+[node name="Button6" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
-[node name="Label" parent="Control/MarginContainer/VBoxContainer/Button2/MarginContainer" index="0"]
-theme_type_variation = &"HeaderSmall"
+[node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button6/MarginContainer" index="0"]
 text = "SETTINGS"
 
-[node name="Button3" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_twrwg")]
+[node name="Button7" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
-[node name="Label" parent="Control/MarginContainer/VBoxContainer/Button3/MarginContainer" index="0"]
-theme_type_variation = &"HeaderSmall"
+[node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button7/MarginContainer" index="0"]
 text = "TUTORIAL"
 
-[node name="Button4" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_twrwg")]
+[node name="Button8" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
-[node name="Label" parent="Control/MarginContainer/VBoxContainer/Button4/MarginContainer" index="0"]
-theme_type_variation = &"HeaderSmall"
+[node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button8/MarginContainer" index="0"]
 text = "QUIT"
 
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button/Button" to="." method="OnSelectMissionPressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button2/Button" to="." method="OnSettingsPressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button3/Button" to="." method="OnTutorialPressed"]
-[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button4/Button" to="." method="OnQuitButtonPressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button5/Button" to="." method="OnSelectMissionPressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button6/Button" to="." method="OnSettingsPressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button7/Button" to="." method="OnTutorialPressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button8/Button" to="." method="OnQuitButtonPressed"]
 
-[editable path="Control/MarginContainer/VBoxContainer/Button"]
-[editable path="Control/MarginContainer/VBoxContainer/Button2"]
-[editable path="Control/MarginContainer/VBoxContainer/Button3"]
-[editable path="Control/MarginContainer/VBoxContainer/Button4"]
+[editable path="Control/MarginContainer/VBoxContainer/Button5"]
+[editable path="Control/MarginContainer/VBoxContainer/Button6"]
+[editable path="Control/MarginContainer/VBoxContainer/Button7"]
+[editable path="Control/MarginContainer/VBoxContainer/Button8"]

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/button/ButtonWidget.cs" id="1_qb4v7"]
 
-[node name="Button" type="MarginContainer" node_paths=PackedStringArray("Button", "Label")]
+[node name="Button" type="MarginContainer" node_paths=PackedStringArray("Button")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -10,22 +10,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qb4v7")
 Button = NodePath("Button")
-Label = NodePath("MarginContainer/Label")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
 mouse_default_cursor_shape = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="."]
-layout_mode = 2
-mouse_filter = 2
-theme_type_variation = &"MarginSmall"
-
-[node name="Label" type="RichTextLabel" parent="MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-mouse_filter = 2
-bbcode_enabled = true
-fit_content = true
-autowrap_mode = 0

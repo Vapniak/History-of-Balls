@@ -1,5 +1,6 @@
 namespace HexGridMap;
 
+using System;
 using System.Linq;
 using Godot;
 
@@ -34,6 +35,11 @@ public struct CubeCoord {
 
   public readonly CubeCoord GetNeighbor(HexDirection direction) {
     return Add(GetDirection(direction));
+  }
+
+
+  public readonly HexDirection ToDirection() {
+    return (HexDirection)Array.IndexOf(Directions, this);
   }
 
   public readonly int Length() {
