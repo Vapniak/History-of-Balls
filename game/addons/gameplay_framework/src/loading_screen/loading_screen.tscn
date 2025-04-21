@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" path="res://addons/gameplay_framework/src/loading_screen/LoadingScreen.cs" id="1_rir2i"]
 
-[node name="LoadingScreen" type="CanvasLayer" node_paths=PackedStringArray("ProgressBar")]
+[node name="LoadingScreen" type="CanvasLayer" node_paths=PackedStringArray("ProgressBar", "ProgressBarLabel")]
 script = ExtResource("1_rir2i")
-ProgressBar = NodePath("ColorRect/VBoxContainer/ProgressBar")
+ProgressBar = NodePath("ColorRect/VBoxContainer/TextureProgressBar")
+ProgressBarLabel = NodePath("ColorRect/VBoxContainer/Label")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
@@ -30,7 +31,10 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="ColorRect/VBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"HeaderLarge"
 text = "LOADING"
 
-[node name="ProgressBar" type="ProgressBar" parent="ColorRect/VBoxContainer"]
+[node name="TextureProgressBar" type="ProgressBar" parent="ColorRect/VBoxContainer"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+size_flags_vertical = 3

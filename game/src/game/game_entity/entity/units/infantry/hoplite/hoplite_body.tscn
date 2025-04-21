@@ -9,6 +9,7 @@
 script = ExtResource("1_keevr")
 
 [node name="GreekBall" parent="." instance=ExtResource("1_xega4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="FollowParent3D" type="Node3D" parent="."]
 top_level = true

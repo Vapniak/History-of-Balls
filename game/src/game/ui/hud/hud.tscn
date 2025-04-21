@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=13 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/core/game_mode/hud/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/game/ui/widgets/flag/flag.tscn" id="2_3sw0n"]
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/game/ui/widgets/command_panel/command_panel.tscn" id="3_a41a7"]
 [ext_resource type="PackedScene" uid="uid://dm85iu1q2xpt5" path="res://src/game/ui/widgets/entity_production_panel/entity_production_panel.tscn" id="4_77ne6"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/game/ui/widgets/entity_panel/entity_panel.tscn" id="4_yxp0t"]
+[ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="6_cgdq5"]
 [ext_resource type="Script" path="res://src/game/ui/widgets/entity_list/EntityList.cs" id="8_4jikb"]
 [ext_resource type="PackedScene" uid="uid://bmlv80etq4l1b" path="res://src/game/ui/widgets/current_time/current_time.tscn" id="12_2ykvv"]
 [ext_resource type="PackedScene" uid="uid://c3lvr615cvoaa" path="res://src/game/ui/widgets/time_played/time_played.tscn" id="13_7vy0t"]
@@ -25,7 +26,7 @@ EntityPanel = NodePath("VBoxContainer/MarginContainer4/StatPanel")
 ProductionPanel = NodePath("VBoxContainer/MarginContainer4/EntityProductionPanel")
 CommandPanel = NodePath("VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel")
 ObjectivesLabel = NodePath("VBoxContainer/MarginContainer4/PanelContainer/MarginContainer/VBoxContainer/ObjectivesLabel")
-EndTurnButton = NodePath("VBoxContainer/MarginContainer4/VBoxContainer/Button")
+EndTurnButton = NodePath("VBoxContainer/MarginContainer4/VBoxContainer/Button2/Button")
 RoundLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label")
 TurnLabel = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer/Label2")
 FlagWidget = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Flag")
@@ -199,12 +200,13 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 
-[node name="Button" type="Button" parent="VBoxContainer/MarginContainer4/VBoxContainer"]
+[node name="Button2" parent="VBoxContainer/MarginContainer4/VBoxContainer" instance=ExtResource("6_cgdq5")]
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
-theme_type_variation = &"ActionButton"
+
+[node name="Button" parent="VBoxContainer/MarginContainer4/VBoxContainer/Button2" index="0"]
 shortcut = SubResource("Shortcut_2o4se")
+
+[node name="Label" parent="VBoxContainer/MarginContainer4/VBoxContainer/Button2/MarginContainer" index="0"]
 text = "END TURN"
 
 [node name="EntityProductionPanel" parent="VBoxContainer/MarginContainer4" instance=ExtResource("4_77ne6")]
@@ -268,7 +270,8 @@ layout_mode = 2
 text = "UNIT 123"
 
 [connection signal="TimeScaleButtonPressed" from="VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimeScale" to="." method="OnTimeScaleButtonPressed"]
-[connection signal="pressed" from="VBoxContainer/MarginContainer4/VBoxContainer/Button" to="." method="OnEndTurnPressed"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer4/VBoxContainer/Button2/Button" to="." method="OnEndTurnPressed"]
 
+[editable path="VBoxContainer/MarginContainer4/VBoxContainer/Button2"]
 [editable path="VBoxContainer/MarginContainer4/StatPanel"]
 [editable path="VBoxContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/StatEntries/HBoxContainer"]

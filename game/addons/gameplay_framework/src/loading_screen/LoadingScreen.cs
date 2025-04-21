@@ -4,7 +4,9 @@ using Godot;
 
 public partial class LoadingScreen : CanvasLayer {
   [Signal] public delegate void FullReachedEventHandler();
-  [Export] private ProgressBar ProgressBar { get; set; }
+  [Export] private Range ProgressBar { get; set; } = default!;
+  [Export] private Label ProgressBarLabel { get; set; } = default!;
+
 
   private float _value;
 

@@ -2,6 +2,8 @@ namespace HOB;
 
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using Godot;
 using Godot.Collections;
 
@@ -49,5 +51,31 @@ public static class NodeExtensions {
     }
 
     return children;
+  }
+  public static Aabb GetCombinedAABB(this Node3D node, bool excludeTopLevelParent = true) {
+    var combinedAABB = new Aabb();
+
+    if (node is VisualInstance3D visualInstance) {
+      combinedAABB = visualInstance.Transform * visualInstance.GetAabb();
+    }
+
+    foreach (var child in node.GetChildren()) {
+      if (child is Node3D child3D) {
+        var childAABB = child3D.GetCombinedAABB(false);
+
+        if (!childAABB.IsFinite()) {
+          continue;
+        }
+
+        combinedAABB = combinedAABB == new Aabb() ? childAABB : combinedAABB.Merge(childAABB);
+      }
+    }
+
+    if (excludeTopLevelParent && node.GetParent() is Node3D parent3D) {
+      var inverseParent = parent3D.Transform.AffineInverse();
+      combinedAABB = inverseParent * combinedAABB;
+    }
+
+    return combinedAABB;
   }
 }

@@ -4,8 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bt5xecr7ql1ag" path="res://assets/textures/HoB-menu-background.png" id="2_aemso"]
 [ext_resource type="PackedScene" uid="uid://2cvrfbj6u5ju" path="res://src/game/ui/widgets/exit_button/exit_button.tscn" id="3_xeh68"]
 
-[node name="SettingsMenu" type="Control" node_paths=PackedStringArray("_resolutionOptionButton", "_screenModeOptionButton", "_borderlessCheckbox", "_vsyncCheckbox", "_fpsLimitSlider", "_fpsLimitLabel", "_VolumeLimitSlider", "_VolumeLimitLabel")]
-layout_mode = 3
+[node name="SettingsMenu" type="MarginContainer" node_paths=PackedStringArray("_resolutionOptionButton", "_screenModeOptionButton", "_borderlessCheckbox", "_vsyncCheckbox", "_fpsLimitSlider", "_fpsLimitLabel", "_VolumeLimitSlider", "_VolumeLimitLabel")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -22,14 +21,12 @@ _fpsLimitLabel = NodePath("MarginContainer/VBoxContainer/TabContainer/Video/VBox
 _VolumeLimitSlider = NodePath("MarginContainer/VBoxContainer/TabContainer/Sound/VBoxContainer/HBoxContainer/Sound")
 _VolumeLimitLabel = NodePath("MarginContainer/VBoxContainer/TabContainer/Sound/VBoxContainer/HBoxContainer/SoundLabel")
 
-[node name="MarginContainer" type="PanelContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_type_variation = &"BackgroundPanel"
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"MarginLarge"
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer"]
 visible = false

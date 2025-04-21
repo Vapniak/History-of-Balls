@@ -13,7 +13,6 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-tooltip_text = "asdsa"
 focus_mode = 2
 script = ExtResource("1_ljw8a")
 Button = NodePath("Button")

@@ -85,7 +85,7 @@ folder_colors={
 
 [gui]
 
-theme/custom="res://res/default_theme.tres"
+theme/custom="res://res/hob_theme.tres"
 theme/default_font_hinting=2
 theme/default_font_generate_mipmaps=true
 
@@ -183,10 +183,9 @@ common/physics_interpolation=true
 
 [rendering]
 
-scaling_3d/mode=2
-scaling_3d/fsr_sharpness=1.0
-anti_aliasing/quality/msaa_2d=2
-anti_aliasing/quality/msaa_3d=2
+environment/ssao/quality=0
+environment/ssil/quality=0
+anti_aliasing/screen_space_roughness_limiter/enabled=false
 mesh_lod/lod_change/threshold_pixels=2.0
 environment/defaults/default_environment="res://res/default_env.tres"
 

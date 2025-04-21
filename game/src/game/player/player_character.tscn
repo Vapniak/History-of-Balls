@@ -198,6 +198,7 @@ _panSpeedMulti = 0.001
 
 [node name="OutlinePostProcess" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.120215)
+layers = 2
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_bpb6w")
 skeleton = NodePath("")

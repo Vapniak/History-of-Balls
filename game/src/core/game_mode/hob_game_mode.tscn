@@ -25,6 +25,7 @@
 [sub_resource type="Resource" id="Resource_f6qae"]
 script = ExtResource("3_ynnc7")
 FullName = "Entity.Type.Unit.Ranged"
+Parent = null
 
 [sub_resource type="Resource" id="Resource_sdjv2"]
 script = ExtResource("5_lpoos")
@@ -34,6 +35,7 @@ Icon = ExtResource("4_5yy5j")
 [sub_resource type="Resource" id="Resource_olcgp"]
 script = ExtResource("3_ynnc7")
 FullName = "Entity.Type.Unit.Infantry"
+Parent = null
 
 [sub_resource type="Resource" id="Resource_l11vm"]
 script = ExtResource("5_lpoos")
@@ -43,6 +45,7 @@ Icon = ExtResource("6_qscmy")
 [sub_resource type="Resource" id="Resource_gto37"]
 script = ExtResource("3_ynnc7")
 FullName = "Entity.Type.Structure.Factory"
+Parent = null
 
 [sub_resource type="Resource" id="Resource_dxcf4"]
 script = ExtResource("5_lpoos")
@@ -52,6 +55,7 @@ Icon = ExtResource("7_wmxfe")
 [sub_resource type="Resource" id="Resource_7vkcg"]
 script = ExtResource("3_ynnc7")
 FullName = "Entity.Type.Structure.City"
+Parent = null
 
 [sub_resource type="Resource" id="Resource_6uqfv"]
 script = ExtResource("5_lpoos")
@@ -61,6 +65,7 @@ Icon = ExtResource("8_46pgr")
 [sub_resource type="Resource" id="Resource_du6rs"]
 script = ExtResource("3_ynnc7")
 FullName = "Entity.Type.Structure.Village"
+Parent = null
 
 [sub_resource type="Resource" id="Resource_cfkre"]
 script = ExtResource("5_lpoos")
@@ -70,6 +75,7 @@ Icon = ExtResource("9_eom1f")
 [sub_resource type="Resource" id="Resource_5p1at"]
 script = ExtResource("3_ynnc7")
 FullName = "Entity.Type.Unit.Cavalry"
+Parent = null
 
 [sub_resource type="Resource" id="Resource_aqvyv"]
 script = ExtResource("5_lpoos")

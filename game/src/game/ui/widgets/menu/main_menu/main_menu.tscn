@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=11 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/main_menu/MainMenuWidget.cs" id="1_pi010"]
 [ext_resource type="Texture2D" uid="uid://btjul3v867rxh" path="res://assets/textures/menu/HoB-menu-background-m-t.png" id="2_64xfh"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bum4ub8a6a0qj" path="res://assets/textures/menu/HoB-menu-leaves-l-t.png" id="7_p70vy"]
 [ext_resource type="Texture2D" uid="uid://cyc3yfkoriiec" path="res://assets/textures/menu/HoB-menu-leaves-r-t.png" id="8_id7dy"]
 [ext_resource type="Texture2D" uid="uid://diuewmtyjbtp" path="res://assets/textures/menu/HoB-menu-logo-m-t.png" id="9_eetrs"]
+[ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="10_twrwg"]
 
 [node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -80,55 +81,61 @@ expand_mode = 1
 [node name="Control" type="Control" parent="."]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 2
-offset_left = 850.0
-offset_top = 540.0
-offset_right = 1070.0
-offset_bottom = 774.0
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -110.0
+offset_top = 3.64502
+offset_right = 110.0
+offset_bottom = 305.645
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="VBoxContainer" type="BoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_type_variation = &"SpacingSmall"
+vertical = true
 
-[node name="SelectMission" type="Button" parent="Control/VBoxContainer"]
+[node name="Button" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_twrwg")]
 layout_mode = 2
-size_flags_horizontal = 4
-focus_next = NodePath("../SettigsButton")
-focus_previous = NodePath("../QuitButton")
-theme_type_variation = &"LargeButton"
+
+[node name="Label" parent="Control/MarginContainer/VBoxContainer/Button/MarginContainer" index="0"]
+theme_type_variation = &"HeaderSmall"
 text = "SELECT MISSION"
-flat = true
 
-[node name="SettigsButton" type="Button" parent="Control/VBoxContainer"]
+[node name="Button2" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_twrwg")]
 layout_mode = 2
-size_flags_horizontal = 4
-focus_next = NodePath("../TutorialButton")
-focus_previous = NodePath("../SelectMission")
-theme_type_variation = &"LargeButton"
+
+[node name="Label" parent="Control/MarginContainer/VBoxContainer/Button2/MarginContainer" index="0"]
+theme_type_variation = &"HeaderSmall"
 text = "SETTINGS"
-flat = true
 
-[node name="TutorialButton" type="Button" parent="Control/VBoxContainer"]
+[node name="Button3" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_twrwg")]
 layout_mode = 2
-size_flags_horizontal = 4
-focus_next = NodePath("../QuitButton")
-focus_previous = NodePath("../SettigsButton")
-theme_type_variation = &"LargeButton"
+
+[node name="Label" parent="Control/MarginContainer/VBoxContainer/Button3/MarginContainer" index="0"]
+theme_type_variation = &"HeaderSmall"
 text = "TUTORIAL"
-flat = true
 
-[node name="QuitButton" type="Button" parent="Control/VBoxContainer"]
+[node name="Button4" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_twrwg")]
 layout_mode = 2
-size_flags_horizontal = 4
-focus_next = NodePath("../SelectMission")
-focus_previous = NodePath("../TutorialButton")
-theme_type_variation = &"LargeButton"
-text = "QUIT"
-flat = true
 
-[connection signal="focus_entered" from="." to="Control/VBoxContainer/SelectMission" method="grab_focus"]
-[connection signal="pressed" from="Control/VBoxContainer/SelectMission" to="." method="OnSelectMissionPressed"]
-[connection signal="pressed" from="Control/VBoxContainer/SettigsButton" to="." method="OnSettingsPressed"]
-[connection signal="pressed" from="Control/VBoxContainer/TutorialButton" to="." method="OnTutorialPressed"]
-[connection signal="pressed" from="Control/VBoxContainer/QuitButton" to="." method="OnQuitButtonPressed"]
+[node name="Label" parent="Control/MarginContainer/VBoxContainer/Button4/MarginContainer" index="0"]
+theme_type_variation = &"HeaderSmall"
+text = "QUIT"
+
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button/Button" to="." method="OnSelectMissionPressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button2/Button" to="." method="OnSettingsPressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button3/Button" to="." method="OnTutorialPressed"]
+[connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button4/Button" to="." method="OnQuitButtonPressed"]
+
+[editable path="Control/MarginContainer/VBoxContainer/Button"]
+[editable path="Control/MarginContainer/VBoxContainer/Button2"]
+[editable path="Control/MarginContainer/VBoxContainer/Button3"]
+[editable path="Control/MarginContainer/VBoxContainer/Button4"]

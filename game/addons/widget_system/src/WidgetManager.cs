@@ -9,13 +9,15 @@ public partial class WidgetManager : Node {
   private static WidgetManager _instance = default!;
   public static WidgetManager Instance => _instance ?? throw new InvalidOperationException("WidgetManager not initialized");
 
-  public int WidgetStackCount => _widgetStack.Count;
-  private readonly Stack<Widget> _widgetStack = new();
-  private CanvasLayer _widgetLayer = default!;
-
-  public Widget? CurrentWidget => _widgetStack.Count > 0 ? _widgetStack.Peek() : null;
   public event Action<Widget>? WidgetPushed;
   public event Action<Widget>? WidgetPopped;
+
+  [Export] private CanvasLayer WidgetLayer { get; set; } = default!;
+
+  public int WidgetStackCount => _widgetStack.Count;
+  public Widget? CurrentWidget => _widgetStack.Count > 0 ? _widgetStack.Peek() : null;
+
+  private readonly Stack<Widget> _widgetStack = new();
 
   public override void _EnterTree() {
     if (_instance != null) {
@@ -23,9 +25,6 @@ public partial class WidgetManager : Node {
       return;
     }
     _instance = this;
-
-    _widgetLayer = new CanvasLayer { };
-    AddChild(_widgetLayer);
   }
 
   public override void _ExitTree() {
@@ -43,7 +42,7 @@ public partial class WidgetManager : Node {
     _widgetStack.Push(widget);
 
     widget.ProcessMode = ProcessModeEnum.Inherit;
-    _widgetLayer.AddChild(widget);
+    WidgetLayer.AddChild(widget);
 
     configure?.Invoke(widget);
 
