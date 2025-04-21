@@ -112,7 +112,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   public override HOBHUD GetHUD() => base.GetHUD() as HOBHUD;
 
   public override void _Process(double delta) {
-    Character.Update(delta);
+    Character.Update(delta / Engine.TimeScale);
 
     Character.ClampPosition(GameBoard.GetAabb());
   }
@@ -210,6 +210,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
   private void HandleMovement(float delta) {
+    delta /= (float)Engine.TimeScale;
     if (!_gameStarted) {
       return;
     }

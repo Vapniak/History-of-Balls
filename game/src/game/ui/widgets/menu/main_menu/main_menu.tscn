@@ -106,24 +106,28 @@ vertical = true
 layout_mode = 2
 
 [node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button5/MarginContainer" index="0"]
+theme_type_variation = &"RichTextLabelSmall"
 text = "SELECT CAMPAIN"
 
 [node name="Button6" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
 [node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button6/MarginContainer" index="0"]
+theme_type_variation = &"RichTextLabelSmall"
 text = "SETTINGS"
 
 [node name="Button7" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
 [node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button7/MarginContainer" index="0"]
+theme_type_variation = &"RichTextLabelSmall"
 text = "TUTORIAL"
 
 [node name="Button8" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
 [node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button8/MarginContainer" index="0"]
+theme_type_variation = &"RichTextLabelSmall"
 text = "QUIT"
 
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button5/Button" to="." method="OnSelectMissionPressed"]

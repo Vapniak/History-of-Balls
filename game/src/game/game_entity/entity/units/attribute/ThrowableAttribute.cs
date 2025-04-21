@@ -71,7 +71,7 @@ public partial class ThrowableAttribute : UnitAttribute {
 
     var windUpTween = CreateTween();
     windUpTween.TweenMethod(Callable.From<float>(t => {
-      if (startQuat != targetQuat) {
+      if (startQuat.Normalized() != targetQuat.Normalized()) {
         var newQuat = startQuat.Normalized().Slerp(targetQuat.Normalized(), t).Normalized();
         Quaternion = newQuat;
       }

@@ -73,6 +73,10 @@ public partial class HOBTheme : ProgrammaticTheme {
       DefineVariantStyle("Spacing" + size, "BoxContainer", new Style() {
         ["separation"] = BaseSpacing * i,
       });
+
+      DefineVariantStyle("RichTextLabel" + size, "RichTextLabel", new() {
+        ["normal_font_size"] = DefaultFontSize + 8 * i,
+      });
     }
 
     DefineStyle("BoxContainer", new Style() {

@@ -74,7 +74,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   }
 
   public void MoveToPosition(Vector3 position, double duration, Tween.TransitionType transitionType) {
-    _moveTween = CreateTween();
+    _moveTween = CreateTween().SetSpeedScale(1f / (float)Engine.TimeScale);
     _moveTween.TweenProperty(this, "global_position", position, duration).SetTrans(transitionType);
     _isMovingToPosition = true;
     _moveTween.Finished += () => _isMovingToPosition = false;
@@ -90,7 +90,8 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
   private Tween? _rotationTween = null;
   public void RotateInDirection(bool right) {
     if (_rotationTween == null || !_rotationTween.IsRunning()) {
-      _rotationTween = CreateTween();
+      _rotationTween = CreateTween().SetSpeedScale(1f / (float)Engine.TimeScale);
+
       _rotationTween.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Back);
       _rotationTween.TweenProperty(this, "rotation:y", Mathf.DegToRad(right ? 90 : -90), .5).AsRelative();
     }
