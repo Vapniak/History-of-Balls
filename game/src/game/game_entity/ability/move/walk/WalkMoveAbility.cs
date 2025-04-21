@@ -114,7 +114,7 @@ public partial class WalkMoveAbility : MoveAbility {
 
         ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueMoveDust), new() { Position = cell.GetRealPosition() });
 
-        SoundManager.Instance.PlayVaried("sounds", "tick", pitch);
+        SoundManager.Instance.PlayVaried("sound", "tick", pitch);
 
 
 

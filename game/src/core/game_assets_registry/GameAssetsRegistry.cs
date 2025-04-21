@@ -7,6 +7,7 @@ using Godot;
 using Godot.Collections;
 using HOB.GameEntity;
 
+// This should not be global node but exist on player controller
 public partial class GameAssetsRegistry : Node {
   public static GameAssetsRegistry Instance { get; private set; } = default!;
 

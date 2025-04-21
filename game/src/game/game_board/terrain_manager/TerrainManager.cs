@@ -206,6 +206,9 @@ public partial class TerrainManager : Node3D {
                        0,
                        (float)rng.RandfRange(-1f, 1f)
                    );
+
+          var scale = Vector3.One * rng.RandfRange(propSetting.ScaleRange.X, propSetting.ScaleRange.Y);
+
           var rotation = rng.RandfRange(Mathf.DegToRad(0), Mathf.DegToRad(360));
 
           foreach (var (mesh, material, initialTransform) in meshDataList) {
@@ -216,6 +219,7 @@ public partial class TerrainManager : Node3D {
 
             var finalTransform = Transform3D.Identity
                       .Rotated(Vector3.Up, rotation)
+                      .Scaled(scale)
                       .Translated(worldPos)
                       * initialTransform;
 

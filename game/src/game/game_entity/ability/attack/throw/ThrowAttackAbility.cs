@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AudioManager;
 using GameplayAbilitySystem;
 using GameplayTags;
 using Godot;
@@ -66,6 +67,8 @@ public partial class ThrowAttackAbility : AttackAbility {
         if (unitAttribute != null) {
           await unitAttribute.DoAction(entity.Cell.GetRealPosition());
           ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueHit), new() { Position = entity.Cell.GetRealPosition() });
+          var pitch = GD.RandRange(1, 2);
+          SoundManager.Instance.PlayVaried("sound", "hit", pitch);
         }
       }
 

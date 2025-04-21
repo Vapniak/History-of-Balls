@@ -11,6 +11,8 @@ public partial class HOBHUD : HUD {
   [Signal] public delegate void CommandSelectedEventHandler(HOBAbility.Instance abilityInstance);
   [Signal] public delegate void EndTurnPressedEventHandler();
 
+  [Export] private ShaderMaterial VignetteShaderMaterial { get; set; } = default!;
+
   [Export] public TimeScaleButtonWidget TimeScaleButtonWidget { get; set; } = default!;
   [Export] private Label? TurnChangedNotificationLabel { get; set; }
 
@@ -112,7 +114,7 @@ public partial class HOBHUD : HUD {
 
   private void OnTurnChanged(int playerIndex) {
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
-    var player = GetPlayerController<IMatchController>().GetGameState().PlayerArray[playerIndex];
+    var player = GetPlayerController<IMatchController>().GetGameState().PlayerArray[playerIndex] as HOBPlayerState;
 
     TurnChangedNotificationLabel.Text = player.PlayerName + " TURN";
     TurnLabel.Text = $"{player.PlayerName} TURN";
@@ -121,6 +123,9 @@ public partial class HOBHUD : HUD {
     tween.TweenProperty(TurnChangedNotificationLabel, "modulate", Colors.White, 0.5);
     tween.TweenInterval(1);
     tween.TweenProperty(TurnChangedNotificationLabel, "modulate", Colors.Transparent, 1);
+
+    var vignetteTween = CreateTween();
+    vignetteTween.TweenProperty(VignetteShaderMaterial, "shader_parameter/color", player.Country.Color, 1f);
   }
 
   private void OnRoundChanged(int roundNumber) {

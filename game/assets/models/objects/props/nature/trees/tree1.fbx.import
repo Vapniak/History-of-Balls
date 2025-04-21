@@ -4,19 +4,19 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dtbst4ckfjfw2"
-path="res://.godot/imported/tree1.fbx-acf88d4cce9b58ac90ecfd541c6da4bf.scn"
+path="res://.godot/imported/tree1.fbx-0dc5e8213ecb73c3a8be065cdb66e8c0.scn"
 
 [deps]
 
-source_file="res://assets/models/objects/props/tree/tree1.fbx"
-dest_files=["res://.godot/imported/tree1.fbx-acf88d4cce9b58ac90ecfd541c6da4bf.scn"]
+source_file="res://assets/models/objects/props/nature/trees/tree1.fbx"
+dest_files=["res://.godot/imported/tree1.fbx-0dc5e8213ecb73c3a8be065cdb66e8c0.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
-nodes/root_scale=1.0
+nodes/root_scale=0.05
 nodes/import_as_skeleton_bones=false
 meshes/ensure_tangents=true
 meshes/generate_lods=true

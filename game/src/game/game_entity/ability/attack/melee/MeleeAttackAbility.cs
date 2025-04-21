@@ -1,5 +1,6 @@
 namespace HOB;
 
+using AudioManager;
 using GameplayAbilitySystem;
 using GameplayTags;
 using Godot;
@@ -45,6 +46,8 @@ public partial class MeleeAttackAbility : AttackAbility {
 
       await ToSignal(firstTween, Tween.SignalName.Finished);
       ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueHit), new() { Position = entity.Cell.GetRealPosition() });
+      var pitch = GD.RandRange(1, 2);
+      SoundManager.Instance.PlayVaried("sound", "hit", pitch);
 
       if (CurrentEventData?.TargetData is AttackTargetData d) {
         var effect = (AbilityResource as AttackAbility)?.DamageEffect;

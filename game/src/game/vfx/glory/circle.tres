@@ -50,7 +50,7 @@ texture_type = 1
 
 [resource]
 code = "shader_type spatial;
-render_mode blend_mix, depth_draw_always, cull_back, diffuse_lambert, specular_schlick_ggx;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx, depth_test_disabled;
 
 uniform vec4 Color : source_color;
 uniform vec2 Speed;
@@ -107,7 +107,7 @@ void fragment() {
 
 }
 "
-modes/depth_draw = 1
+flags/depth_test_disabled = true
 nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_cu3bd")
 nodes/fragment/2/position = Vector2(-500, 200)
 nodes/fragment/3/node = SubResource("VisualShaderNodeUVFunc_0bvdm")

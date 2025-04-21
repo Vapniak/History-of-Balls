@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=15 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/core/game_mode/hud/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/game/ui/widgets/flag/flag.tscn" id="2_3sw0n"]
@@ -7,9 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/game/ui/widgets/entity_panel/entity_panel.tscn" id="4_yxp0t"]
 [ext_resource type="PackedScene" uid="uid://bucr6se6rejrr" path="res://src/game/ui/widgets/button/label_button/label_button.tscn" id="7_6kx04"]
 [ext_resource type="Script" path="res://src/game/ui/widgets/entity_list/EntityList.cs" id="8_4jikb"]
+[ext_resource type="Shader" path="res://src/core/shaders/vignette.gdshader" id="11_8agjb"]
 [ext_resource type="PackedScene" uid="uid://bmlv80etq4l1b" path="res://src/game/ui/widgets/current_time/current_time.tscn" id="12_2ykvv"]
 [ext_resource type="PackedScene" uid="uid://c3lvr615cvoaa" path="res://src/game/ui/widgets/time_played/time_played.tscn" id="13_7vy0t"]
 [ext_resource type="PackedScene" uid="uid://cyidgmoevposj" path="res://src/game/ui/widgets/time_scale/time_scale.tscn" id="13_q7q03"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ef3ti"]
+shader = ExtResource("11_8agjb")
+shader_parameter/alpha = 0.155
+shader_parameter/inner_radius = 0.5
+shader_parameter/outer_radius = 1.485
+shader_parameter/color = Color(0, 0, 0, 1)
 
 [sub_resource type="InputEventAction" id="InputEventAction_55cjs"]
 action = &"end_turn"
@@ -20,6 +28,7 @@ events = [SubResource("InputEventAction_55cjs")]
 [node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TimeScaleButtonWidget", "TurnChangedNotificationLabel", "EntityPanel", "ProductionPanel", "CommandPanel", "ObjectivesLabel", "EndTurnButton", "RoundLabel", "TurnLabel", "FlagWidget", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
 layer = 0
 script = ExtResource("1_ep1kh")
+VignetteShaderMaterial = SubResource("ShaderMaterial_ef3ti")
 TimeScaleButtonWidget = NodePath("VBoxContainer/PanelContainer2/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimeScale")
 TurnChangedNotificationLabel = NodePath("VBoxContainer/MarginContainer4/TurnLabel")
 EntityPanel = NodePath("VBoxContainer/MarginContainer4/StatPanel")
@@ -269,6 +278,15 @@ text = "UNIT 123"
 [node name="Button5" type="Button" parent="VBoxContainer/MarginContainer4/EntityList/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 text = "UNIT 123"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ef3ti")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer4/VBoxContainer/Button/Button" to="." method="OnEndTurnPressed"]
 

@@ -62,7 +62,7 @@ public partial class AIController : Controller, IMatchController {
             .OrderByDescending(r => r.Item4)
             .FirstOrDefault();
 
-        if (score > bestScore && ability != bestAbility) {
+        if (score >= bestScore && ability != bestAbility) {
           bestScore = score;
           bestEntity = entity;
           bestAbility = ability;
@@ -107,6 +107,7 @@ public partial class AIController : Controller, IMatchController {
 
     var (ability, data, score) = FindBestActionWithBudget(entity);
 
+    GD.Print(entity.EntityName, score);
     timer.Stop();
     // GD.Print($"Processed {entity.EntityName} in {timer.ElapsedMilliseconds}ms");
     return (entity, ability, data, score);
@@ -230,9 +231,9 @@ public partial class AIController : Controller, IMatchController {
   private float CalculateMoveScore(Entity entity, Entity target, IEnumerable<GameCell> path, GameCell cell) {
     var attackAbility = entity.AbilitySystem.GetGrantedAbility<AttackAbility.Instance>();
     var distanceScore = 1f;
-    var attackScore = 1f;
+    var attackScore = .1f;
     uint desiredDistance = 0;
-    var actualDistance = path.Count() - Array.IndexOf(path.ToArray(), cell);
+    var actualDistance = path.Count() - Array.IndexOf(path.ToArray(), cell) + 1;
     // valueScore = 1f;
 
     if (attackAbility != null && attackAbility.GetAttackableEntities(cell).entities.Contains(target)) {

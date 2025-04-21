@@ -12,7 +12,7 @@ public abstract partial class MoveAbility : HOBAbility {
   }
 
   public new partial class Instance : EntityInstance {
-    public const float MOVE_ANIMATION_SPEED = .2f;
+    public const float MOVE_ANIMATION_SPEED = .12f;
 
     public Instance(MoveAbility abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 

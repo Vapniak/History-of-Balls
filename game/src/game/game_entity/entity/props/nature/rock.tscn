@@ -1,8 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://b45vsdduuhmkn"]
+[gd_scene load_steps=4 format=3 uid="uid://vq4xn2tpb10w"]
 
-[ext_resource type="PackedScene" uid="uid://bfj5wl3jd0lb4" path="res://assets/models/objects/props/nature/rocks/rock1.fbx" id="1_0ay3t"]
+[ext_resource type="PackedScene" uid="uid://bvlukku31baub" path="res://assets/models/objects/props/nature/small-plants/flower3.fbx" id="1_y022m"]
+[ext_resource type="PackedScene" uid="uid://bp06acteouiyo" path="res://assets/models/objects/props/nature/small-plants/flower.fbx" id="2_ndqwe"]
+[ext_resource type="PackedScene" uid="uid://6g0nsmyoc5aw" path="res://assets/models/objects/props/nature/small-plants/mushroom.fbx" id="3_jd4l2"]
 
 [node name="Rock" type="Node3D"]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
-[node name="rock1" parent="." instance=ExtResource("1_0ay3t")]
+[node name="flower3" parent="." instance=ExtResource("1_y022m")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3.3995, 0, 0.929169)
+
+[node name="flower" parent="." instance=ExtResource("2_ndqwe")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3.3995, 0, 0.929169)
+
+[node name="mushroom" parent="." instance=ExtResource("3_jd4l2")]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, -3.3995, 0, 0.929169)

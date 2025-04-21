@@ -38,8 +38,7 @@ public partial class HOBGameMode : GameMode {
   public override void _EnterTree() {
     base._EnterTree();
 
-    MusicManager.Instance.Play("music", "medival", autoLoop: true);
-
+    MusicManager.Instance.Stop(1);
     GetGameState().GameBoard = GameInstance.GetWorld().GetCurrentLevel().GetChildByType<GameBoard>();
 
     StateChart = StateChart.Of(StateChartNode!);
@@ -104,6 +103,8 @@ public partial class HOBGameMode : GameMode {
 
   protected virtual void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
+    SoundManager.Instance.Play("sound", "intro_map");
+    MusicManager.Instance.Play("music", "medival", autoLoop: true, crossfadeTime: 0);
   }
 
   protected virtual void OnInMatchStateExited() {

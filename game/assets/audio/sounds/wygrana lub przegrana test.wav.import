@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cg0l7ajxdic7c"
+path="res://.godot/imported/wygrana lub przegrana test.wav-5dc909c4ee6316ba0cf53701597da605.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/wygrana lub przegrana test.wav"
+dest_files=["res://.godot/imported/wygrana lub przegrana test.wav-5dc909c4ee6316ba0cf53701597da605.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

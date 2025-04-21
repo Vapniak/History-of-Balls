@@ -1,14 +1,47 @@
-[gd_scene load_steps=22 format=3 uid="uid://c3rkwsfswilpg"]
+[gd_scene load_steps=35 format=3 uid="uid://c3rkwsfswilpg"]
 
 [ext_resource type="Script" path="res://src/core/game_assets_registry/GameAssetsRegistry.cs" id="1_atajw"]
+[ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://res/data/attributes/health.tres" id="2_7g2dx"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="2_tjuqi"]
 [ext_resource type="Texture2D" uid="uid://dxensglltokpm" path="res://assets/textures/icons/cavalry.svg" id="3_o5hoj"]
+[ext_resource type="Texture2D" uid="uid://fccrv3p77lu" path="res://assets/textures/icons/health.svg" id="3_uyr0u"]
 [ext_resource type="Script" path="res://src/core/game_assets_registry/EntityIcon.cs" id="4_bjtj5"]
+[ext_resource type="Script" path="res://src/core/game_assets_registry/AttributeIcon.cs" id="4_r2324"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="5_n7jge"]
 [ext_resource type="Texture2D" uid="uid://bhrnb4qh1p6dx" path="res://assets/textures/icons/ranged.svg" id="5_o2c5y"]
+[ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="6_2iyq4"]
 [ext_resource type="Texture2D" uid="uid://cu8ifpeobhj4p" path="res://assets/textures/icons/infantry.svg" id="6_cyh62"]
 [ext_resource type="Texture2D" uid="uid://id67rufsraj2" path="res://assets/textures/icons/industry.svg" id="7_1bitw"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="7_p8jf3"]
 [ext_resource type="Texture2D" uid="uid://b4l2adrjoxkkh" path="res://assets/textures/icons/city.svg" id="8_24xrg"]
+[ext_resource type="Texture2D" uid="uid://cau6mxxxonc8s" path="res://assets/textures/icons/move.svg" id="8_m0k4l"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="9_0s3ed"]
 [ext_resource type="Texture2D" uid="uid://c7lexjg7kj31h" path="res://assets/textures/icons/village.svg" id="9_xkjhw"]
+[ext_resource type="Texture2D" uid="uid://bifk8suk2tv7f" path="res://assets/textures/icons/range.svg" id="10_rm8qa"]
+
+[sub_resource type="Resource" id="Resource_0c2d8"]
+script = ExtResource("4_r2324")
+Attribute = ExtResource("2_7g2dx")
+Icon = ExtResource("3_uyr0u")
+Color = Color(0, 0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_fr8aj"]
+script = ExtResource("4_r2324")
+Attribute = ExtResource("5_n7jge")
+Icon = ExtResource("6_2iyq4")
+Color = Color(0, 0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_ndhgi"]
+script = ExtResource("4_r2324")
+Attribute = ExtResource("7_p8jf3")
+Icon = ExtResource("8_m0k4l")
+Color = Color(0, 0, 0, 0)
+
+[sub_resource type="Resource" id="Resource_f5e2b"]
+script = ExtResource("4_r2324")
+Attribute = ExtResource("9_0s3ed")
+Icon = ExtResource("10_rm8qa")
+Color = Color(0, 0, 0, 0)
 
 [sub_resource type="Resource" id="Resource_5p1at"]
 script = ExtResource("2_tjuqi")
@@ -66,4 +99,5 @@ Icon = ExtResource("9_xkjhw")
 
 [node name="GameAssetsRegistry" type="Node"]
 script = ExtResource("1_atajw")
+AttributeIcons = [SubResource("Resource_0c2d8"), SubResource("Resource_fr8aj"), SubResource("Resource_ndhgi"), SubResource("Resource_f5e2b")]
 EntityIcons = [SubResource("Resource_vb055"), SubResource("Resource_ookro"), SubResource("Resource_l3lgd"), SubResource("Resource_sx71d"), SubResource("Resource_h7kek"), SubResource("Resource_r15xb")]

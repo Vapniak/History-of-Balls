@@ -8,11 +8,11 @@
 resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_6s75r")
-shader_parameter/metallic = 0.256
+shader_parameter/metallic = 0.0
 shader_parameter/roughness = 1.0
 shader_parameter/texture_surface = ExtResource("3_vyegt")
 shader_parameter/color = Color(1, 1, 1, 1)
-shader_parameter/specular = Color(0.301961, 0.301961, 0.301961, 0)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
 shader_parameter/base_texture = ExtResource("2_iwhmj")
 shader_parameter/uv_scale = Vector2(1, 1)

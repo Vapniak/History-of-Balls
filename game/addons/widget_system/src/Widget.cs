@@ -5,6 +5,8 @@ using Godot;
 
 [GlobalClass]
 public partial class Widget : Control, IWidget<Widget>, IWidgetFactory<Widget> {
+  // TODO: binding system
+
   protected WidgetManager WidgetManager => WidgetManager.Instance;
 
   static Widget IWidgetFactory<Widget>.CreateWidget() => new();

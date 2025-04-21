@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://ces4l1qatmnao"]
+[gd_scene load_steps=14 format=3 uid="uid://ces4l1qatmnao"]
 
 [ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundManager.cs" id="1_e3bjy"]
 [ext_resource type="AudioStream" uid="uid://7l204iym12rt" path="res://assets/audio/sounds/Move.wav" id="2_drr3q"]
 [ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundEvent.cs" id="2_x5rg2"]
 [ext_resource type="Script" path="res://addons/audio_manager/src/sound/SoundBank.cs" id="3_rsmby"]
+[ext_resource type="AudioStream" uid="uid://cg0l7ajxdic7c" path="res://assets/audio/sounds/wygrana lub przegrana test.wav" id="4_51wvu"]
+[ext_resource type="AudioStream" uid="uid://smtpxls3kxg0" path="res://assets/audio/sounds/uderzenie 1.mp3" id="5_j281e"]
 [ext_resource type="AudioStream" uid="uid://bjlb1r1n60xc8" path="res://assets/audio/sounds/przyciski.wav" id="5_wu4nb"]
 
 [sub_resource type="Resource" id="Resource_k1arh"]
@@ -14,11 +16,27 @@ Volume = 0.0
 Pitch = 1.0
 Streams = Array[AudioStream]([ExtResource("2_drr3q")])
 
+[sub_resource type="Resource" id="Resource_n6l6i"]
+script = ExtResource("2_x5rg2")
+Name = "intro_map"
+Bus = ""
+Volume = 0.0
+Pitch = 1.0
+Streams = Array[AudioStream]([ExtResource("4_51wvu")])
+
+[sub_resource type="Resource" id="Resource_7h0bu"]
+script = ExtResource("2_x5rg2")
+Name = "hit"
+Bus = ""
+Volume = -5.0
+Pitch = 1.0
+Streams = Array[AudioStream]([ExtResource("5_j281e")])
+
 [sub_resource type="Resource" id="Resource_4r6co"]
 script = ExtResource("3_rsmby")
-Label = "sounds"
+Label = "sound"
 Bus = "Sound"
-Events = Array[Object]([SubResource("Resource_k1arh")])
+Events = Array[Object]([SubResource("Resource_k1arh"), SubResource("Resource_n6l6i"), SubResource("Resource_7h0bu")])
 
 [sub_resource type="Resource" id="Resource_aypc5"]
 script = ExtResource("2_x5rg2")

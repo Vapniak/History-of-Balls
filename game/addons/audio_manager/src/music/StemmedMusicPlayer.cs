@@ -161,7 +161,7 @@ public partial class StemPlayer : AudioStreamPlayer {
   public new void Play(float fadeInTime) {
     Play();
 
-    if (IsEnabled && fadeInTime > 0) {
+    if (IsEnabled) {
       CreateVolumeTransition(-80.0f, Volume, fadeInTime);
     }
   }

@@ -1,42 +1,47 @@
-[gd_resource type="Resource" script_class="MapSettings" load_steps=56 format=3 uid="uid://den26mhc6fsde"]
+[gd_resource type="Resource" script_class="MapSettings" load_steps=103 format=3 uid="uid://den26mhc6fsde"]
 
-[ext_resource type="PackedScene" uid="uid://cohqg7okmf4ky" path="res://src/game/game_entity/entity/props/nature/grass_water.tscn" id="1_oyuk6"]
 [ext_resource type="Script" path="res://src/core/map/CellSetting.cs" id="1_u5vua"]
+[ext_resource type="PackedScene" uid="uid://cnvfeiooydoe5" path="res://assets/models/objects/props/nature/grasses/grass.fbx" id="1_vvq26"]
 [ext_resource type="Script" path="res://src/core/map/MapSettings.cs" id="2_d00xa"]
 [ext_resource type="Script" path="res://src/core/map/PropSetting.cs" id="2_v7yhy"]
-[ext_resource type="PackedScene" uid="uid://b45vsdduuhmkn" path="res://src/game/game_entity/entity/props/nature/rock.tscn" id="3_klp6g"]
-[ext_resource type="Resource" uid="uid://cknkmkh75xb2n" path="res://res/data/prop_settings/flower.tres" id="5_e5o4k"]
-[ext_resource type="PackedScene" uid="uid://bgsc8xna5omfc" path="res://src/game/game_entity/entity/props/nature/tree/tree.tscn" id="5_keg8l"]
+[ext_resource type="PackedScene" uid="uid://chrw5me85wx3j" path="res://assets/models/objects/props/nature/grasses/grass-short.fbx" id="4_g7ajo"]
+[ext_resource type="PackedScene" uid="uid://dxbjp451j1set" path="res://assets/models/objects/props/nature/grasses/grass-tall.fbx" id="5_aqyvb"]
 [ext_resource type="Texture2D" uid="uid://dj4ufvqfbiqwq" path="res://assets/textures/hex/4.png" id="5_t2gek"]
 [ext_resource type="Resource" uid="uid://2t4aosur46iy" path="res://res/data/prop_settings/tree_prop.tres" id="6_1otyp"]
-[ext_resource type="Resource" uid="uid://b6mpddyapgkrf" path="res://res/data/prop_settings/mushroom.tres" id="7_gj57k"]
-[ext_resource type="Resource" uid="uid://cy6mvys3o82oc" path="res://res/data/prop_settings/pebbles.tres" id="7_k7xks"]
+[ext_resource type="PackedScene" uid="uid://cco5av4mndm2n" path="res://assets/models/objects/props/nature/rocks/pebbles.fbx" id="6_4ijvq"]
+[ext_resource type="PackedScene" uid="uid://bfj5wl3jd0lb4" path="res://assets/models/objects/props/nature/rocks/rock1.fbx" id="6_gcjj1"]
 [ext_resource type="Texture2D" uid="uid://d10jj1fbpr722" path="res://assets/textures/hex/9.png" id="8_75ac4"]
-[ext_resource type="PackedScene" uid="uid://dq38svchx4x6u" path="res://src/game/game_entity/entity/props/nature/grass.tscn" id="8_jgtb4"]
 [ext_resource type="Texture2D" uid="uid://bv6ldat55hhmn" path="res://assets/textures/hex/8.png" id="9_1myf1"]
+[ext_resource type="PackedScene" uid="uid://bp06acteouiyo" path="res://assets/models/objects/props/nature/small-plants/flower.fbx" id="9_adc71"]
 [ext_resource type="Texture2D" uid="uid://dq4k3mne5m1eh" path="res://assets/textures/hex/7.png" id="9_qq4q1"]
-[ext_resource type="PackedScene" uid="uid://dv21udkqkq718" path="res://src/game/game_entity/entity/props/nature/rock1.tscn" id="10_iq8s0"]
-[ext_resource type="PackedScene" uid="uid://bc0yupryeox7" path="res://src/game/game_entity/entity/props/nature/rock2.tscn" id="11_qs8y3"]
+[ext_resource type="PackedScene" uid="uid://ns1tf7xd4d1x" path="res://assets/models/objects/props/nature/small-plants/flower2.fbx" id="10_h61l7"]
+[ext_resource type="PackedScene" uid="uid://dtbst4ckfjfw2" path="res://assets/models/objects/props/nature/trees/tree1.fbx" id="10_wj10u"]
+[ext_resource type="PackedScene" uid="uid://bvlukku31baub" path="res://assets/models/objects/props/nature/small-plants/flower3.fbx" id="11_5pdl5"]
 [ext_resource type="Texture2D" uid="uid://cultpcvwh3ikf" path="res://assets/textures/hex/6.png" id="11_sqeh6"]
 [ext_resource type="Texture2D" uid="uid://cp4qrvmtl6gvx" path="res://assets/textures/hex/2.png" id="12_b62aa"]
+[ext_resource type="PackedScene" uid="uid://du0oy7fh0sery" path="res://assets/models/objects/props/nature/trees/Bush.fbx" id="13_duf6b"]
+[ext_resource type="PackedScene" uid="uid://c71i6awfo7g5w" path="res://assets/models/objects/props/nature/trees/oak1.fbx" id="14_bnb57"]
+[ext_resource type="PackedScene" uid="uid://tqes35wjliha" path="res://assets/models/objects/props/nature/trees/oak2.fbx" id="15_u4rq2"]
+[ext_resource type="PackedScene" uid="uid://d2uesjqtrgffm" path="res://assets/models/objects/props/nature/trees/oak3.fbx" id="16_bj1br"]
 [ext_resource type="Texture2D" uid="uid://d10xvcl3tlvde" path="res://assets/textures/hex/11.png" id="16_iiye7"]
 [ext_resource type="Texture2D" uid="uid://mh008ibchvnt" path="res://assets/textures/hex/17.png" id="17_21j3p"]
+[ext_resource type="PackedScene" uid="uid://csk3tf6rawyha" path="res://assets/models/objects/props/nature/trees/spruce.fbx" id="17_cygn3"]
+[ext_resource type="PackedScene" uid="uid://1ui6jrbgthvs" path="res://assets/models/objects/props/nature/trees/trunk.fbx" id="18_gy2ur"]
 [ext_resource type="Texture2D" uid="uid://du2govhtklon1" path="res://assets/textures/hex/16.png" id="18_pgt1s"]
+[ext_resource type="PackedScene" uid="uid://6g0nsmyoc5aw" path="res://assets/models/objects/props/nature/small-plants/mushroom.fbx" id="19_2qafn"]
 [ext_resource type="Texture2D" uid="uid://57cw6287hs8l" path="res://assets/textures/hex/5.png" id="19_g3svm"]
+[ext_resource type="PackedScene" uid="uid://bp4we8bimaesi" path="res://assets/models/objects/props/nature/rocks/rock2.fbx" id="19_sa046"]
 [ext_resource type="Texture2D" uid="uid://drcljhdn5qrnk" path="res://assets/textures/hex/15.png" id="20_i0ho8"]
+[ext_resource type="PackedScene" uid="uid://c26llfrmirwv3" path="res://assets/models/objects/props/nature/rocks/rock3.fbx" id="20_j1n1l"]
+[ext_resource type="PackedScene" uid="uid://8xysx4qcbpgg" path="res://assets/models/objects/props/nature/trees/dead-tree.fbx" id="22_fex8a"]
 [ext_resource type="Texture2D" uid="uid://bv3ylgsf1ac5w" path="res://assets/textures/hex/10.png" id="23_81f4x"]
-
-[sub_resource type="Resource" id="Resource_iu6ae"]
-script = ExtResource("2_v7yhy")
-PropScene = ExtResource("1_oyuk6")
-Chance = 30.0
-AmountRange = Vector2i(1, 1)
-
-[sub_resource type="Resource" id="Resource_jqqq5"]
-script = ExtResource("2_v7yhy")
-PropScene = ExtResource("3_klp6g")
-Chance = 10.0
-AmountRange = Vector2i(1, 1)
+[ext_resource type="PackedScene" uid="uid://cro3j6xt1n6yq" path="res://assets/models/objects/props/nature/rocks/rock4.fbx" id="28_4tthn"]
+[ext_resource type="PackedScene" uid="uid://8rsppyd3r4tg" path="res://assets/models/objects/props/nature/rocks/rock6-snowy.fbx" id="30_ivaqd"]
+[ext_resource type="PackedScene" uid="uid://rtfmo6epyarq" path="res://assets/models/objects/props/nature/rocks/rock7-snowy.fbx" id="31_odep1"]
+[ext_resource type="PackedScene" uid="uid://dgkjckq4ffr6x" path="res://assets/models/objects/props/nature/rocks/rock8-snowy.fbx" id="32_842mr"]
+[ext_resource type="PackedScene" uid="uid://dig07umr2ilgr" path="res://assets/models/objects/props/nature/trees/fallen-log.fbx" id="35_nmff7"]
+[ext_resource type="PackedScene" uid="uid://uhd58f58awvb" path="res://assets/models/objects/props/nature/trees/palm.fbx" id="37_v081h"]
+[ext_resource type="PackedScene" uid="uid://dswkv8t15idje" path="res://assets/models/objects/props/nature/trees/spruce-snowy.fbx" id="39_qq8io"]
 
 [sub_resource type="Resource" id="Resource_1rvj2"]
 script = ExtResource("1_u5vua")
@@ -45,7 +50,28 @@ Color = Color(0.196078, 0.364706, 0.858824, 1)
 MoveCost = 0
 Elevation = -10
 IsWater = true
-Props = [SubResource("Resource_iu6ae"), SubResource("Resource_jqqq5")]
+Props = []
+
+[sub_resource type="Resource" id="Resource_q4co1"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("1_vvq26")
+Chance = 40.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_rgvh7"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("4_g7ajo")
+Chance = 25.0
+AmountRange = Vector2i(1, 2)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_lp2n6"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("5_aqyvb")
+Chance = 35.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_xu22u"]
 script = ExtResource("1_u5vua")
@@ -54,7 +80,14 @@ Color = Color(0.247059, 0.670588, 1, 1)
 MoveCost = 1
 Elevation = -4
 IsWater = true
-Props = []
+Props = [SubResource("Resource_q4co1"), SubResource("Resource_rgvh7"), SubResource("Resource_lp2n6")]
+
+[sub_resource type="Resource" id="Resource_46e6t"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("6_4ijvq")
+Chance = 40.0
+AmountRange = Vector2i(1, 2)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_ugp0j"]
 script = ExtResource("1_u5vua")
@@ -63,20 +96,43 @@ Color = Color(0.941176, 0.901961, 0.54902, 1)
 MoveCost = 1
 Elevation = 1
 IsWater = false
-Props = []
+Props = [SubResource("Resource_46e6t")]
 Texture = ExtResource("5_t2gek")
 
-[sub_resource type="Resource" id="Resource_xunho"]
+[sub_resource type="Resource" id="Resource_k00gx"]
 script = ExtResource("2_v7yhy")
-PropScene = ExtResource("5_keg8l")
-Chance = 30.0
-AmountRange = Vector2i(1, 2)
+PropScene = ExtResource("1_vvq26")
+Chance = 100.0
+AmountRange = Vector2i(2, 4)
+ScaleRange = Vector2(0.9, 1.1)
 
-[sub_resource type="Resource" id="Resource_xvfg7"]
+[sub_resource type="Resource" id="Resource_tmsqv"]
 script = ExtResource("2_v7yhy")
-PropScene = ExtResource("8_jgtb4")
-Chance = 0.0
-AmountRange = Vector2i(50, 60)
+PropScene = ExtResource("4_g7ajo")
+Chance = 40.0
+AmountRange = Vector2i(2, 3)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_0ppqk"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("15_u4rq2")
+Chance = 20.0
+AmountRange = Vector2i(2, 3)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_n7dhu"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("14_bnb57")
+Chance = 10.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_3t304"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("10_wj10u")
+Chance = 10.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_rxka0"]
 script = ExtResource("1_u5vua")
@@ -85,14 +141,64 @@ Color = Color(0.364991, 0.746193, 0, 1)
 MoveCost = 1
 Elevation = 2
 IsWater = false
-Props = [ExtResource("5_e5o4k"), SubResource("Resource_xunho"), SubResource("Resource_xvfg7")]
+Props = [SubResource("Resource_k00gx"), SubResource("Resource_tmsqv"), SubResource("Resource_0ppqk"), SubResource("Resource_n7dhu"), SubResource("Resource_3t304")]
 Texture = ExtResource("9_1myf1")
 
-[sub_resource type="Resource" id="Resource_88oxo"]
+[sub_resource type="Resource" id="Resource_v5m6q"]
 script = ExtResource("2_v7yhy")
-PropScene = ExtResource("5_keg8l")
+PropScene = ExtResource("1_vvq26")
+Chance = 40.0
+AmountRange = Vector2i(2, 3)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_yhtmh"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("9_adc71")
 Chance = 20.0
+AmountRange = Vector2i(5, 10)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_5rylq"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("10_h61l7")
+Chance = 15.0
+AmountRange = Vector2i(5, 7)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_flklk"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("11_5pdl5")
+Chance = 10.0
+AmountRange = Vector2i(5, 10)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_oquvx"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("10_wj10u")
+Chance = 20.0
+AmountRange = Vector2i(2, 4)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_xq18r"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("16_bj1br")
+Chance = 20.0
+AmountRange = Vector2i(2, 5)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_qfr1r"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("14_bnb57")
+Chance = 10.0
 AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_jlg4s"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("15_u4rq2")
+Chance = 10.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_3xyhb"]
 script = ExtResource("1_u5vua")
@@ -101,14 +207,64 @@ Color = Color(0, 0.733333, 0, 1)
 MoveCost = 1
 Elevation = 2
 IsWater = false
-Props = [ExtResource("5_e5o4k"), SubResource("Resource_88oxo")]
+Props = [SubResource("Resource_v5m6q"), SubResource("Resource_yhtmh"), SubResource("Resource_5rylq"), SubResource("Resource_flklk"), SubResource("Resource_oquvx"), SubResource("Resource_xq18r"), SubResource("Resource_qfr1r"), SubResource("Resource_jlg4s")]
 Texture = ExtResource("9_qq4q1")
 
-[sub_resource type="Resource" id="Resource_tdygp"]
+[sub_resource type="Resource" id="Resource_tokh0"]
 script = ExtResource("2_v7yhy")
-PropScene = ExtResource("5_keg8l")
-Chance = 70.0
-AmountRange = Vector2i(5, 10)
+PropScene = ExtResource("13_duf6b")
+Chance = 45.0
+AmountRange = Vector2i(3, 5)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_ej65k"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("14_bnb57")
+Chance = 40.0
+AmountRange = Vector2i(3, 5)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_y8aia"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("15_u4rq2")
+Chance = 40.0
+AmountRange = Vector2i(3, 5)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_m7agp"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("16_bj1br")
+Chance = 35.0
+AmountRange = Vector2i(3, 5)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_wml84"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("17_cygn3")
+Chance = 35.0
+AmountRange = Vector2i(2, 4)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_4cjl5"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("18_gy2ur")
+Chance = 30.0
+AmountRange = Vector2i(1, 2)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_k0mvx"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("19_2qafn")
+Chance = 50.0
+AmountRange = Vector2i(3, 7)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_l68xw"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("10_wj10u")
+Chance = 20.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(2, 2.5)
 
 [sub_resource type="Resource" id="Resource_q0ljf"]
 script = ExtResource("1_u5vua")
@@ -117,7 +273,7 @@ Color = Color(0.101961, 0.478431, 0.101961, 1)
 MoveCost = 1
 Elevation = 3
 IsWater = false
-Props = [SubResource("Resource_tdygp"), ExtResource("7_gj57k")]
+Props = [SubResource("Resource_tokh0"), SubResource("Resource_ej65k"), SubResource("Resource_y8aia"), SubResource("Resource_m7agp"), SubResource("Resource_wml84"), SubResource("Resource_4cjl5"), SubResource("Resource_k0mvx"), ExtResource("6_1otyp"), SubResource("Resource_l68xw")]
 Texture = ExtResource("11_sqeh6")
 
 [sub_resource type="Resource" id="Resource_tsa4e"]
@@ -127,8 +283,22 @@ Color = Color(0.133333, 0.545098, 0.4, 1)
 MoveCost = 1
 Elevation = 3
 IsWater = false
-Props = [ExtResource("6_1otyp"), ExtResource("7_gj57k")]
+Props = []
 Texture = ExtResource("8_75ac4")
+
+[sub_resource type="Resource" id="Resource_o1ubg"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("22_fex8a")
+Chance = 70.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_onwom"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("13_duf6b")
+Chance = 40.0
+AmountRange = Vector2i(1, 3)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_1ldl1"]
 script = ExtResource("1_u5vua")
@@ -137,26 +307,22 @@ Color = Color(0.419608, 0.556863, 0.137255, 1)
 MoveCost = 1
 Elevation = 4
 IsWater = false
-Props = [ExtResource("7_k7xks"), ExtResource("5_e5o4k")]
+Props = [SubResource("Resource_o1ubg"), SubResource("Resource_onwom")]
 Texture = ExtResource("16_iiye7")
 
-[sub_resource type="Resource" id="Resource_ux7n1"]
+[sub_resource type="Resource" id="Resource_fe2oi"]
 script = ExtResource("2_v7yhy")
-PropScene = ExtResource("10_iq8s0")
-Chance = 20.0
+PropScene = ExtResource("6_gcjj1")
+Chance = 50.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_vssjp"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("19_sa046")
+Chance = 40.0
 AmountRange = Vector2i(1, 2)
-
-[sub_resource type="Resource" id="Resource_s7k0t"]
-script = ExtResource("2_v7yhy")
-PropScene = ExtResource("11_qs8y3")
-Chance = 0.0
-AmountRange = Vector2i(1, 1)
-
-[sub_resource type="Resource" id="Resource_bgdrk"]
-script = ExtResource("2_v7yhy")
-PropScene = ExtResource("3_klp6g")
-Chance = 0.0
-AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_w7vtf"]
 script = ExtResource("1_u5vua")
@@ -165,26 +331,22 @@ Color = Color(0.466667, 0.466667, 0.466667, 1)
 MoveCost = 1
 Elevation = 8
 IsWater = false
-Props = [ExtResource("7_k7xks"), SubResource("Resource_ux7n1"), SubResource("Resource_s7k0t"), SubResource("Resource_bgdrk")]
+Props = [SubResource("Resource_fe2oi"), SubResource("Resource_vssjp")]
 Texture = ExtResource("19_g3svm")
 
-[sub_resource type="Resource" id="Resource_ixmmq"]
+[sub_resource type="Resource" id="Resource_vjc5o"]
 script = ExtResource("2_v7yhy")
-PropScene = ExtResource("3_klp6g")
-Chance = 10.0
-AmountRange = Vector2i(2, 3)
-
-[sub_resource type="Resource" id="Resource_vp8lv"]
-script = ExtResource("2_v7yhy")
-PropScene = ExtResource("11_qs8y3")
-Chance = 10.0
+PropScene = ExtResource("20_j1n1l")
+Chance = 70.0
 AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
 
-[sub_resource type="Resource" id="Resource_1372c"]
+[sub_resource type="Resource" id="Resource_f408i"]
 script = ExtResource("2_v7yhy")
-PropScene = ExtResource("10_iq8s0")
-Chance = 10.0
+PropScene = ExtResource("28_4tthn")
+Chance = 30.0
 AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_cbl07"]
 script = ExtResource("1_u5vua")
@@ -193,8 +355,29 @@ Color = Color(0.619608, 0.619608, 0.619608, 1)
 MoveCost = 1
 Elevation = 12
 IsWater = false
-Props = [ExtResource("7_k7xks"), SubResource("Resource_ixmmq"), SubResource("Resource_vp8lv"), SubResource("Resource_1372c")]
+Props = [SubResource("Resource_vjc5o"), SubResource("Resource_f408i")]
 Texture = ExtResource("20_i0ho8")
+
+[sub_resource type="Resource" id="Resource_s02pl"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("30_ivaqd")
+Chance = 50.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_hy7ri"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("31_odep1")
+Chance = 30.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_edrwe"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("32_842mr")
+Chance = 20.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_4ldwo"]
 script = ExtResource("1_u5vua")
@@ -203,7 +386,7 @@ Color = Color(0.94902, 0.94902, 0.94902, 1)
 MoveCost = 1
 Elevation = 15
 IsWater = false
-Props = []
+Props = [SubResource("Resource_s02pl"), SubResource("Resource_hy7ri"), SubResource("Resource_edrwe")]
 Texture = ExtResource("18_pgt1s")
 
 [sub_resource type="Resource" id="Resource_0jc6q"]
@@ -216,6 +399,34 @@ IsWater = false
 Props = []
 Texture = ExtResource("17_21j3p")
 
+[sub_resource type="Resource" id="Resource_lf82a"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("35_nmff7")
+Chance = 10.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_ceqv4"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("1_vvq26")
+Chance = 40.0
+AmountRange = Vector2i(2, 3)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_yoslu"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("5_aqyvb")
+Chance = 35.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_d52ji"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("4_g7ajo")
+Chance = 25.0
+AmountRange = Vector2i(1, 2)
+ScaleRange = Vector2(0.9, 1.1)
+
 [sub_resource type="Resource" id="Resource_wi0pj"]
 script = ExtResource("1_u5vua")
 Name = "Swamp"
@@ -223,8 +434,15 @@ Color = Color(0.247059, 0.670588, 0.666667, 1)
 MoveCost = 1
 Elevation = 1
 IsWater = false
-Props = []
+Props = [SubResource("Resource_lf82a"), SubResource("Resource_ceqv4"), SubResource("Resource_yoslu"), SubResource("Resource_d52ji")]
 Texture = ExtResource("23_81f4x")
+
+[sub_resource type="Resource" id="Resource_5hiy3"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("37_v081h")
+Chance = 30.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_j0sq1"]
 script = ExtResource("1_u5vua")
@@ -233,8 +451,15 @@ Color = Color(0.839216, 0.752941, 0.278431, 1)
 MoveCost = 1
 Elevation = 2
 IsWater = false
-Props = []
+Props = [SubResource("Resource_5hiy3")]
 Texture = ExtResource("12_b62aa")
+
+[sub_resource type="Resource" id="Resource_x0pox"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("37_v081h")
+Chance = 60.0
+AmountRange = Vector2i(1, 2)
+ScaleRange = Vector2(0.9, 1.1)
 
 [sub_resource type="Resource" id="Resource_fojg2"]
 script = ExtResource("1_u5vua")
@@ -243,7 +468,7 @@ Color = Color(0.803922, 0.521569, 0.247059, 1)
 MoveCost = 1
 Elevation = 2
 IsWater = false
-Props = []
+Props = [SubResource("Resource_x0pox")]
 
 [sub_resource type="Resource" id="Resource_fknnf"]
 script = ExtResource("1_u5vua")
@@ -254,6 +479,20 @@ Elevation = 2
 IsWater = false
 Props = []
 
+[sub_resource type="Resource" id="Resource_p53os"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("17_cygn3")
+Chance = 50.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_u25kp"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("39_qq8io")
+Chance = 40.0
+AmountRange = Vector2i(1, 2)
+ScaleRange = Vector2(0.9, 1.1)
+
 [sub_resource type="Resource" id="Resource_8asf4"]
 script = ExtResource("1_u5vua")
 Name = "Snowy Forest"
@@ -261,7 +500,7 @@ Color = Color(0.529412, 0.866667, 0.921569, 1)
 MoveCost = 1
 Elevation = 3
 IsWater = false
-Props = []
+Props = [SubResource("Resource_p53os"), SubResource("Resource_u25kp")]
 
 [sub_resource type="Resource" id="Resource_12w6j"]
 script = ExtResource("1_u5vua")

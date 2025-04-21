@@ -78,4 +78,12 @@ public partial class GameInstance : Node {
   public static void QuitGame() {
     Instance!.GetTree().Quit();
   }
+
+  public IController? GetPlayerController() {
+    if (GetGameState() is IPlayerManagmentGameState playerManagment) {
+      return playerManagment.PlayerArray[0].GetController();
+    }
+
+    return null;
+  }
 }

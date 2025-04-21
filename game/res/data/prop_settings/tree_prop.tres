@@ -1,10 +1,10 @@
 [gd_resource type="Resource" script_class="PropSetting" load_steps=3 format=3 uid="uid://2t4aosur46iy"]
 
-[ext_resource type="PackedScene" uid="uid://bgsc8xna5omfc" path="res://src/game/game_entity/entity/props/nature/tree/tree.tscn" id="1_vkcih"]
+[ext_resource type="PackedScene" uid="uid://dtbst4ckfjfw2" path="res://assets/models/objects/props/nature/trees/tree1.fbx" id="1_fe238"]
 [ext_resource type="Script" path="res://src/core/map/PropSetting.cs" id="2_4s78b"]
 
 [resource]
 script = ExtResource("2_4s78b")
-PropScene = ExtResource("1_vkcih")
+PropScene = ExtResource("1_fe238")
 Chance = 70.0
-AmountRange = Vector2i(1, 5)
+AmountRange = Vector2i(3, 8)

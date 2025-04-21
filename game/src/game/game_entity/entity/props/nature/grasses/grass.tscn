@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=4 uid="uid://cib2yqwn1opgy"]
+
+[ext_resource type="PackedScene" uid="uid://cnvfeiooydoe5" path="res://assets/models/objects/props/nature/grasses/grass.fbx" id="1_eflbk"]
+[ext_resource type="Texture2D" uid="uid://bqwdl5he7o47e" path="res://assets/models/objects/props/nature/grasses/grass_0.png" id="2_1p0nt"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5vao"]
+resource_name = "HoB-grass-texture"
+transparency = 4
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 1, 1, 1)
+albedo_texture = ExtResource("2_1p0nt")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 0.0
+texture_repeat = false
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ru0ac"]
+_surfaces = [{
+"aabb": AABB(-0.00323598, -0.00131385, -0.00198557, 0.00638309, 0.00496973, 0.0061987),
+"format": 34359742465,
+"index_count": 42,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAAQAVAAIABAAWAAUABwAXAAgACgAYAAsADQAZAA4AEAAaABEAEwAbABQA"),
+"name": "HoB-grass-texture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 28,
+"vertex_data": PackedByteArray("P8MuuwAAAAD9LpCuP8Muu6abRDv9LpCuP8MuOwAAAAD9LpCuKpkfO3tW+DlkT4q6yz9OO1bOJzstVIA6WY36uiaST7rkNec6a2BFuXY1rLo40j874e+3urBVkTpPDoo7x6B/upPbXTraH/e6Co4QO5dlDLrgYpw6M2rsOjjDwjoEDl0717k5u4fZOzlUPtG5dGPYuqtogrq/QhE7fIEsu8+J7DpxhS47qzDMOkeCRDp949q61+GWujC5XjqyFvi6HCw/uYiXbztMhL+6XHwLO/vHZLoc1v46ZUGNOrmkaTpPIAK7dsETOyuWVDsBYw662VHtuTtpnbqPVi87P8MuO6abRDv9LpCuFUCduvq9qTq57Hg7HIoPu3c8VjsbFh26xhJUu5s4EDuVaek6TiIXOs+ZaDsZXqC6hvpKO3tu/TpCtBs7H9o9OsHwljoP74Y7")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_qtq7n"]
+resource_name = "HoB-grass-texture_197"
+_surfaces = [{
+"aabb": AABB(-0.00323598, -0.00131385, -0.00198557, 0.00638309, 0.00496973, 0.0061987),
+"attribute_data": PackedByteArray("/////wAAAAAAAIA/FBQU/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/AAAA/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/Gxsb/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/AgIC/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/BAQE/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/NjY2/wAAAAAAAAAA/////wAAgD8AAIA//////wAAAAAAAIA/AwMD/wAAAAAAAAAA/////wAAgD8AAIA/AAAA/wAAgD8AAAAAAAAA/wAAAAAAAAAAAgIC/wAAgD8AAAAA/////wAAgD8AAIA/Gxsb/wAAAAAAAAAAERER/wAAgD8AAAAA/////wAAgD8AAIA/AgIC/wAAAAAAAAAABAQE/wAAgD8AAAAA/////wAAgD8AAIA/BAQE/wAAAAAAAAAAAAAA/wAAgD8AAAAA/////wAAgD8AAIA/NjY2/wAAAAAAAAAAAAAA/wAAgD8AAAAA/////wAAgD8AAIA/AwMD/wAAAAAAAAAAJSUl/wAAgD8AAAAA/////wAAgD8AAIA/"),
+"format": 34359742495,
+"index_count": 42,
+"index_data": PackedByteArray("AAABAAIAAwAEAAUABgAHAAgACQAKAAsADAANAA4ADwAQABEAEgATABQAAQAVAAIAFgAXABgAGQAaABsAHAAdAB4AHwAgACEAIgAjACQAJQAmACcA"),
+"material": SubResource("StandardMaterial3D_s5vao"),
+"name": "HoB-grass-texture",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 40,
+"vertex_data": PackedByteArray("P8MuuwAAAAD9LpCuP8Muu6abRDv9LpCuP8MuOwAAAAD9LpCuKpkfO3tW+DlkT4q6yz9OO1bOJzstVIA6WY36uiaST7rkNec6a2BFuXY1rLo40j874e+3urBVkTpPDoo7x6B/upPbXTraH/e6Co4QO5dlDLrgYpw6M2rsOjjDwjoEDl0717k5u4fZOzlUPtG5dGPYuqtogrq/QhE7fIEsu8+J7DpxhS47qzDMOkeCRDp949q61+GWujC5XjqyFvi6HCw/uYiXbztMhL+6XHwLO/vHZLoc1v46ZUGNOrmkaTpPIAK7dsETOyuWVDsBYw662VHtuTtpnbqPVi87P8MuO6abRDv9LpCuyz9OO1bOJzstVIA6FUCduvq9qTq57Hg7WY36uiaST7rkNec64e+3urBVkTpPDoo7HIoPu3c8VjsbFh26x6B/upPbXTraH/e6M2rsOjjDwjoEDl07xhJUu5s4EDuVaek617k5u4fZOzlUPtG5fIEsu8+J7DpxhS47TiIXOs+ZaDsZXqC6qzDMOkeCRDp949q6HCw/uYiXbztMhL+6hvpKO3tu/TpCtBs7XHwLO/vHZLoc1v46dsETOyuWVDsBYw66H9o9OsHwljoP74Y72VHtuTtpnbqPVi87/3//f////7//f/9/////v/9//3////+/ijKZ2AI+ZLaKMpnYAj5ktooymdgCPmS279Php6Ijgfnv0+GnoiOB+e/T4aeiI4H5a8fA6HMMF9Rrx8DocwwX1GvHwOhzDBfUVLxRjLzmw+hUvFGMvObD6FS8UYy85sPoT0Tvi32vhrNPRO+Lfa+Gs09E74t9r4azKSuLsVlo1a8pK4uxWWjVrykri7FZaNWv/3//f////7+KMpnYAj5ktooymdgCPmS2ijKZ2AI+ZLbv0+GnoiOB+e/T4aeiI4H579Php6Ijgflrx8DocwwX1GvHwOhzDBfUa8fA6HMMF9RUvFGMvObD6FS8UYy85sPoVLxRjLzmw+hPRO+Lfa+Gs09E74t9r4azT0Tvi32vhrMpK4uxWWjVrykri7FZaNWvKSuLsVlo1a8=")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_ru0ac")
+
+[node name="Grass" type="Node3D"]
+
+[node name="grass" parent="." instance=ExtResource("1_eflbk")]
+
+[node name="HoB-grass-texture_197" parent="grass" index="0"]
+mesh = SubResource("ArrayMesh_qtq7n")
+
+[editable path="grass"]
