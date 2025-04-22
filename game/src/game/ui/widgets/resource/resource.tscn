@@ -1,8 +1,11 @@
-[gd_scene format=3 uid="uid://c1khqhm51l55f"]
+[gd_scene load_steps=3 format=3 uid="uid://c1khqhm51l55f"]
+
+[ext_resource type="PackedScene" uid="uid://rvgnlg0cmgl2" path="res://src/game/ui/widgets/panel_background/panel_background.tscn" id="1_0rrl2"]
+[ext_resource type="Texture2D" uid="uid://bh8b1baqmgh7n" path="res://assets/textures/icons/dumpling.svg" id="1_urjjc"]
 
 [node name="MarginContainer" type="MarginContainer"]
 
-[node name="Panel" type="Panel" parent="."]
+[node name="Panel" parent="." instance=ExtResource("1_0rrl2")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -12,14 +15,12 @@ theme_type_variation = &"MarginSmall"
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-text = "Primary:"
-fit_content = true
-scroll_active = false
-autowrap_mode = 0
+texture = ExtResource("1_urjjc")
+expand_mode = 3
 
 [node name="Label2" type="Label" parent="MarginContainer/HBoxContainer"]
 layout_mode = 2
+theme_type_variation = &"HeaderMedium"
 text = "0"

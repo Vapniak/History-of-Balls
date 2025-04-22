@@ -1,10 +1,9 @@
 namespace HOB;
 
-using System.Linq;
+using System;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
-using Godot.Collections;
 using HOB.GameEntity;
 
 public partial class HOBHUD : HUD {
@@ -12,6 +11,7 @@ public partial class HOBHUD : HUD {
   [Signal] public delegate void EndTurnPressedEventHandler();
 
   [Export] private ShaderMaterial VignetteShaderMaterial { get; set; } = default!;
+  [Export] private Material PanelBackgroundMaterial { get; set; } = default!;
 
   [Export] public TimeScaleButtonWidget TimeScaleButtonWidget { get; set; } = default!;
   [Export] private Label? TurnChangedNotificationLabel { get; set; }
@@ -20,7 +20,7 @@ public partial class HOBHUD : HUD {
   [Export] private EntityProductionPanelWidget ProductionPanel { get; set; } = default!;
   [Export] private CommandPanelWidget CommandPanel { get; set; } = default!;
 
-  [Export] private Label ObjectivesLabel { get; set; } = default!;
+  [Export] private Control ObjectivesListParent { get; set; } = default!;
   [Export] private Button? EndTurnButton { get; set; }
   [Export] private Label? RoundLabel { get; set; }
   [Export] private Label? TurnLabel { get; set; }
@@ -29,10 +29,10 @@ public partial class HOBHUD : HUD {
   [Export] private Label? CountryNameLabel { get; set; }
 
   [ExportGroup("Resources")]
-  [Export] private RichTextLabel? PrimaryResourceNameLabel { get; set; }
-  [Export] private Label? PrimaryResourceValueLabel { get; set; }
-  [Export] private RichTextLabel? SecondaryResourceNameLabel { get; set; }
-  [Export] private Label? SecondaryResourceValueLabel { get; set; }
+  [Export] private TextureRect PrimaryResourceIcon { get; set; } = default!;
+  [Export] private Label PrimaryResourceValueLabel { get; set; } = default!;
+  [Export] private TextureRect SecondaryResourceIcon { get; set; } = default!;
+  [Export] private Label SecondaryResourceValueLabel { get; set; } = default!;
 
   private Entity? CurrentEntity { get; set; }
 
@@ -61,18 +61,28 @@ public partial class HOBHUD : HUD {
       }
     };
 
-    ObjectivesLabel.Text = GetPlayerController().GetGameMode().MissionData.ObjectivesText;
+    //ObjectivesLabel.Text = GetPlayerController().GetGameMode().MissionData.ObjectivesText;
+    var objectivesText = GetPlayerController().GetGameMode().MissionData.ObjectivesText;
+    var objectives = objectivesText.Split("\n");
+    foreach (var objective in objectives) {
+      var widget = LabelButtonWidget.CreateWidget().Configure((button) => {
+        button.Text = objective;
+        button.Disabled = true;
+      });
+
+      ObjectivesListParent.AddChild(widget);
+    }
 
 
     CommandPanel.CommandSelected += (command) => EmitSignal(SignalName.CommandSelected, command);
 
     var playerState = GetPlayerController().GetPlayerState<HOBPlayerState>();
-
-    var control = GetChild<Control>(0);
-    var theme = control.Theme as HOBTheme;
+    var theme = GetChild<Control>(0).Theme as HOBTheme;
     theme.PrimaryColor = playerState.Country.Color;
     theme.AccentColor = Colors.White;
     theme.GenerateTheme();
+
+    PanelBackgroundMaterial.Set("shader_parameter/tint", playerState.Country.Color);
 
 
     if (playerState.AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
@@ -91,12 +101,10 @@ public partial class HOBHUD : HUD {
     }
 
 
-    PrimaryResourceNameLabel.Clear();
-    PrimaryResourceNameLabel.AddImage(playerState.Country.PrimaryResource.Icon, 32, 32);
+    PrimaryResourceIcon.Texture = playerState.Country.PrimaryResource.Icon;
     //PrimaryResourceNameLabel.AddText($" {playerState.Country.PrimaryResource.Name}: ");
 
-    SecondaryResourceNameLabel.Clear();
-    SecondaryResourceNameLabel.AddImage(playerState.Country.SecondaryResource.Icon, 32, 32);
+    SecondaryResourceIcon.Texture = playerState.Country.SecondaryResource.Icon;
     //SecondaryResourceNameLabel.AddText($" {playerState.Country.SecondaryResource.Name}: ");
 
     FlagWidget.SetFlag(GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Flag);

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://rvgnlg0cmgl2"]
+
+[ext_resource type="Material" uid="uid://dl2gnkq5n62w3" path="res://src/game/ui/widgets/panel_background/background_mask.tres" id="1_s8xkg"]
+
+[node name="PanelBackground" type="Panel"]
+material = ExtResource("1_s8xkg")

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=3 format=3 uid="uid://740skhhkry2"]
+
+[ext_resource type="Texture2D" uid="uid://d0pucaqx4fqsj" path="res://assets/textures/resources/Olive-Oil.png" id="1_7evvf"]
+[ext_resource type="Script" path="res://src/core/resource_type/ResourceType.cs" id="1_805n6"]
+
+[resource]
+script = ExtResource("1_805n6")
+Name = "Olive oil"
+Icon = ExtResource("1_7evvf")

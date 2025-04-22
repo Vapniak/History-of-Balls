@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=3 format=3 uid="uid://bo0u2v0hk3jtt"]
+
+[ext_resource type="Texture2D" uid="uid://d0o631y3g5ad0" path="res://assets/textures/materials/Rice.png" id="1_4ijxq"]
+[ext_resource type="Script" path="res://src/core/resource_type/ResourceType.cs" id="1_sguos"]
+
+[resource]
+script = ExtResource("1_sguos")
+Name = "Rice"
+Icon = ExtResource("1_4ijxq")

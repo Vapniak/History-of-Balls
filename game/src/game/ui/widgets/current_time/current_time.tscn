@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bmlv80etq4l1b"]
+[gd_scene load_steps=3 format=3 uid="uid://bmlv80etq4l1b"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/current_time/CurrentTimeWidget.cs" id="1_hhw62"]
+[ext_resource type="PackedScene" uid="uid://rvgnlg0cmgl2" path="res://src/game/ui/widgets/panel_background/panel_background.tscn" id="2_bsufk"]
 
 [node name="CurrentTime" type="MarginContainer" node_paths=PackedStringArray("CurrentTimeLabel")]
 anchors_preset = 8
@@ -17,7 +18,7 @@ grow_vertical = 2
 script = ExtResource("1_hhw62")
 CurrentTimeLabel = NodePath("MarginContainer/Label")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PanelBackground" parent="." instance=ExtResource("2_bsufk")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

@@ -1,16 +1,18 @@
-[gd_scene load_steps=18 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=20 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/core/game_mode/hud/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/game/ui/widgets/flag/flag.tscn" id="2_3sw0n"]
 [ext_resource type="Theme" uid="uid://co1goe3oj7slf" path="res://res/hob_theme.tres" id="3_253o5"]
 [ext_resource type="PackedScene" uid="uid://c82pepvsx7i4" path="res://src/game/ui/widgets/command_panel/command_panel.tscn" id="3_a41a7"]
 [ext_resource type="PackedScene" uid="uid://dm85iu1q2xpt5" path="res://src/game/ui/widgets/entity_production_panel/entity_production_panel.tscn" id="4_77ne6"]
+[ext_resource type="PackedScene" uid="uid://rvgnlg0cmgl2" path="res://src/game/ui/widgets/panel_background/panel_background.tscn" id="4_itkrj"]
 [ext_resource type="PackedScene" uid="uid://drssf88xstodq" path="res://src/game/ui/widgets/entity_panel/entity_panel.tscn" id="4_yxp0t"]
 [ext_resource type="PackedScene" uid="uid://bucr6se6rejrr" path="res://src/game/ui/widgets/button/label_button/label_button.tscn" id="7_6kx04"]
 [ext_resource type="Script" path="res://src/game/ui/widgets/entity_list/EntityList.cs" id="8_4jikb"]
 [ext_resource type="PackedScene" uid="uid://c1khqhm51l55f" path="res://src/game/ui/widgets/resource/resource.tscn" id="8_gh8ww"]
 [ext_resource type="Texture2D" uid="uid://dull10wr3ubj3" path="res://assets/textures/icons/arrow-right-solid (2).svg" id="9_wlwqb"]
 [ext_resource type="Shader" path="res://src/core/shaders/vignette.gdshader" id="11_8agjb"]
+[ext_resource type="Material" uid="uid://dl2gnkq5n62w3" path="res://src/game/ui/widgets/panel_background/background_mask.tres" id="11_fxpao"]
 [ext_resource type="PackedScene" uid="uid://bmlv80etq4l1b" path="res://src/game/ui/widgets/current_time/current_time.tscn" id="12_2ykvv"]
 [ext_resource type="PackedScene" uid="uid://c3lvr615cvoaa" path="res://src/game/ui/widgets/time_played/time_played.tscn" id="13_7vy0t"]
 [ext_resource type="PackedScene" uid="uid://cyidgmoevposj" path="res://src/game/ui/widgets/time_scale/time_scale.tscn" id="13_q7q03"]
@@ -28,41 +30,60 @@ action = &"end_turn"
 [sub_resource type="Shortcut" id="Shortcut_2o4se"]
 events = [SubResource("InputEventAction_55cjs")]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TimeScaleButtonWidget", "TurnChangedNotificationLabel", "EntityPanel", "ProductionPanel", "CommandPanel", "ObjectivesLabel", "EndTurnButton", "RoundLabel", "TurnLabel", "FlagWidget", "CountryNameLabel", "PrimaryResourceNameLabel", "PrimaryResourceValueLabel", "SecondaryResourceNameLabel", "SecondaryResourceValueLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("TimeScaleButtonWidget", "TurnChangedNotificationLabel", "EntityPanel", "ProductionPanel", "CommandPanel", "ObjectivesListParent", "EndTurnButton", "RoundLabel", "TurnLabel", "FlagWidget", "CountryNameLabel", "PrimaryResourceIcon", "PrimaryResourceValueLabel", "SecondaryResourceIcon", "SecondaryResourceValueLabel")]
 layer = 0
 script = ExtResource("1_ep1kh")
 VignetteShaderMaterial = SubResource("ShaderMaterial_ef3ti")
+PanelBackgroundMaterial = ExtResource("11_fxpao")
 TimeScaleButtonWidget = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimeScale")
 TurnChangedNotificationLabel = NodePath("Control/VBoxContainer/MarginContainer/MarginContainer4/TurnLabel")
 EntityPanel = NodePath("Control/VBoxContainer/MarginContainer/MarginContainer4/StatPanel")
 ProductionPanel = NodePath("Control/VBoxContainer/MarginContainer/MarginContainer4/EntityProductionPanel")
 CommandPanel = NodePath("Control/VBoxContainer/MarginContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/CommandPanel")
-ObjectivesLabel = NodePath("Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer/MarginContainer/VBoxContainer/ObjectivesLabel")
+ObjectivesListParent = NodePath("Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer")
 EndTurnButton = NodePath("Control/VBoxContainer/MarginContainer/MarginContainer4/Button/Button")
-RoundLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/Label")
+RoundLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/MarginContainer/Label")
 TurnLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/Label2")
-FlagWidget = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Flag")
-CountryNameLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer/Label")
-PrimaryResourceNameLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer/MarginContainer/HBoxContainer/RichTextLabel")
-PrimaryResourceValueLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer/MarginContainer/HBoxContainer/Label2")
-SecondaryResourceNameLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/RichTextLabel")
-SecondaryResourceValueLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Label2")
+FlagWidget = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer/MarginContainer/HBoxContainer/Flag")
+CountryNameLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer/MarginContainer/HBoxContainer/Label")
+PrimaryResourceIcon = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer/MarginContainer/HBoxContainer/TextureRect")
+PrimaryResourceValueLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer/MarginContainer/HBoxContainer/Label2")
+SecondaryResourceIcon = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/TextureRect")
+SecondaryResourceValueLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Label2")
 
-[node name="Control" type="MarginContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("3_253o5")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
-layout_mode = 2
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+mouse_filter = 2
 theme_override_constants/separation = 0
 
 [node name="PanelContainer2" type="MarginContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelBackground" parent="Control/VBoxContainer/PanelContainer2/VBoxContainer" instance=ExtResource("4_itkrj")]
+layout_mode = 2
+size_flags_vertical = 3
+theme_type_variation = &"TopBarPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="BoxContainer3" type="BoxContainer" parent="Control/VBoxContainer/PanelContainer2"]
 layout_mode = 2
@@ -74,46 +95,85 @@ layout_mode = 2
 theme_type_variation = &"MarginSmall"
 
 [node name="Panel" type="Panel" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer"]
 layout_mode = 2
-theme_type_variation = &"MarginSmall"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Resources" type="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Panel" type="Panel" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+theme_type_variation = &"RoundedPanel"
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/Resources"]
+[node name="Panel" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer" instance=ExtResource("4_itkrj")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/Resources/VBoxContainer2"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Flag" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer" instance=ExtResource("2_3sw0n")]
+[node name="Flag" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer/MarginContainer/HBoxContainer" instance=ExtResource("2_3sw0n")]
 custom_minimum_size = Vector2(48, 30)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/Resources/VBoxContainer2/HBoxContainer"]
+[node name="Label" type="Label" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 text = "Team Name"
+
+[node name="BoxContainer2" type="BoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+vertical = true
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer" instance=ExtResource("8_gh8ww")]
+layout_mode = 2
+
+[node name="MarginContainer2" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer" instance=ExtResource("8_gh8ww")]
+layout_mode = 2
 
 [node name="VBoxContainer" type="BoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"HeaderSmall"
+
+[node name="Panel2" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer" instance=ExtResource("4_itkrj")]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_type_variation = &"HeaderMedium"
 text = "ROUND 0"
 horizontal_alignment = 1
 
@@ -125,56 +185,40 @@ text = "PLAYER TURN"
 
 [node name="VBoxContainer2" type="BoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 0
+size_flags_horizontal = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="TimeScale" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer" instance=ExtResource("13_q7q03")]
-layout_mode = 2
+size_flags_horizontal = 10
 
 [node name="TimePlayed" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer" instance=ExtResource("13_7vy0t")]
 layout_mode = 2
-size_flags_horizontal = 8
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="VSeparator" type="VSeparator" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2"]
-layout_mode = 2
-
-[node name="CurrentTime" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("12_2ykvv")]
-layout_mode = 2
-size_flags_horizontal = 8
-
-[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3"]
-layout_mode = 2
-theme_type_variation = &"MarginSmall"
-
-[node name="BoxContainer2" type="BoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2"]
-layout_mode = 2
-vertical = true
-
-[node name="VBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2"]
-layout_mode = 2
-
-[node name="MarginContainer" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer" instance=ExtResource("8_gh8ww")]
-layout_mode = 2
-
-[node name="Label2" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer/MarginContainer/HBoxContainer" index="1"]
+[node name="Label" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimePlayed/MarginContainer" index="0"]
 theme_type_variation = &"HeaderMedium"
 
-[node name="MarginContainer2" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer" instance=ExtResource("8_gh8ww")]
+[node name="TimeScale" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer" instance=ExtResource("13_q7q03")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
-[node name="RichTextLabel" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" index="0"]
-text = "Secondary:"
+[node name="RichTextLabel" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimeScale/MarginContainer" index="0"]
+theme_type_variation = &"RichTextLabelMedium"
 
-[node name="Label2" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer" index="1"]
+[node name="CurrentTime" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2" instance=ExtResource("12_2ykvv")]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="Label" parent="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/CurrentTime/MarginContainer" index="0"]
 theme_type_variation = &"HeaderMedium"
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 theme_type_variation = &"MarginLarge"
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
@@ -201,7 +245,7 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
 
-[node name="Panel" type="Panel" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer"]
+[node name="PanelBackground" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer" instance=ExtResource("4_itkrj")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer"]
@@ -213,14 +257,14 @@ layout_mode = 2
 
 [node name="Label2" type="Label" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_type_variation = &"HeaderSmall"
-text = "OBJECTIVES:"
+theme_type_variation = &"HeaderMedium"
+text = "OBJECTIVES"
 
-[node name="ObjectivesLabel" type="Label" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
-text = "- CAPTURE ALL CITIES"
-uppercase = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
 
 [node name="Button" parent="Control/VBoxContainer/MarginContainer/MarginContainer4" instance=ExtResource("7_6kx04")]
 layout_mode = 2
@@ -230,6 +274,7 @@ size_flags_vertical = 8
 [node name="Button" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/Button" index="0"]
 custom_minimum_size = Vector2(128, 128)
 theme_type_variation = &"EndTurnButton"
+theme_override_colors/icon_normal_color = Color(1, 1, 1, 0.752941)
 theme_override_constants/icon_max_width = 128
 shortcut = SubResource("Shortcut_2o4se")
 icon = ExtResource("9_wlwqb")
@@ -243,7 +288,6 @@ visible = false
 text = "->"
 
 [node name="EntityProductionPanel" parent="Control/VBoxContainer/MarginContainer/MarginContainer4" instance=ExtResource("4_77ne6")]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 4
@@ -304,13 +348,18 @@ text = "UNIT 123"
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 material = SubResource("ShaderMaterial_ef3ti")
-layout_mode = 2
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
 mouse_filter = 2
 
 [connection signal="pressed" from="Control/VBoxContainer/MarginContainer/MarginContainer4/Button/Button" to="." method="OnEndTurnPressed"]
 
-[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer"]
-[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer2/BoxContainer2/VBoxContainer/MarginContainer2"]
+[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer"]
+[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer2"]
+[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimePlayed"]
+[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/HBoxContainer/TimeScale"]
+[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer2/CurrentTime"]
 [editable path="Control/VBoxContainer/MarginContainer/MarginContainer4/Button"]
 [editable path="Control/VBoxContainer/MarginContainer/MarginContainer4/StatPanel"]
 [editable path="Control/VBoxContainer/MarginContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/StatEntries/HBoxContainer"]

@@ -4,7 +4,10 @@ using System;
 using Godot;
 using WidgetSystem;
 
-public abstract partial class BaseButtonWidget<T> : HOBWidget, IWidgetConfig<BaseButtonWidget<T>, T> where T : BaseButton {
+public abstract partial class BaseButtonWidget<TSelf, T> : HOBWidget, IWidgetConfig<BaseButtonWidget<TSelf, T>, T> where T : BaseButton {
   public abstract T Button { get; protected set; }
-  public abstract BaseButtonWidget<T> Configure(Action<T> config);
+  public BaseButtonWidget<TSelf, T> Configure(Action<T> config) {
+    config.Invoke(Button);
+    return this;
+  }
 }

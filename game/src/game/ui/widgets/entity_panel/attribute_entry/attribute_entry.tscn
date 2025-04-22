@@ -13,6 +13,18 @@ EntryNameLabel = NodePath("Label")
 EntryValueLabel = NodePath("Label2")
 IconTexture = NodePath("TextureRect")
 
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HeaderSmall"
+text = "MP: "
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderSmall"
+text = "0"
+
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
@@ -20,13 +32,3 @@ size_flags_horizontal = 0
 texture = ExtResource("2_4ml3y")
 expand_mode = 1
 stretch_mode = 4
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "MP: "
-
-[node name="Label2" type="Label" parent="."]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "0"

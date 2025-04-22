@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dl2gnkq5n62w3"]
+
+[ext_resource type="Shader" path="res://src/game/ui/hud/background_mask.gdshader" id="1_xetdy"]
+[ext_resource type="Texture2D" uid="uid://fkt6aeujwoq4" path="res://assets/textures/HoB-UI-background-gray.png" id="2_4k6ts"]
+
+[resource]
+shader = ExtResource("1_xetdy")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/background_texture = ExtResource("2_4k6ts")

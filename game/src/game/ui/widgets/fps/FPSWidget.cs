@@ -12,6 +12,6 @@ public partial class FPSWidget : HOBWidget, IWidgetFactory<FPSWidget> {
   public override void _Process(double delta) {
     base._Process(delta);
 
-    Label.Text = ((int)Engine.GetFramesPerSecond()).ToString();
+    Label.Text = ((int)Engine.GetFramesPerSecond()).ToString() + " fps";
   }
 }

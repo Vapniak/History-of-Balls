@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://drssf88xstodq"]
+[gd_scene load_steps=5 format=3 uid="uid://drssf88xstodq"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/entity_panel/EntityPanelWidget.cs" id="1_sgk3d"]
 [ext_resource type="PackedScene" uid="uid://5dufraf2q3i" path="res://src/game/ui/widgets/entity_name/entity_name.tscn" id="2_l8clb"]
 [ext_resource type="PackedScene" uid="uid://bqwbd74lsjxd3" path="res://src/game/ui/widgets/entity_panel/attribute_entry/attribute_entry.tscn" id="2_l52df"]
+[ext_resource type="PackedScene" uid="uid://rvgnlg0cmgl2" path="res://src/game/ui/widgets/panel_background/panel_background.tscn" id="2_s2b0r"]
 
 [node name="StatPanel" type="MarginContainer" node_paths=PackedStringArray("EntityNameWidget", "EntriesList")]
 custom_minimum_size = Vector2(150, 0)
@@ -14,7 +15,7 @@ script = ExtResource("1_sgk3d")
 EntityNameWidget = NodePath("MarginContainer/VBoxContainer/EntityName")
 EntriesList = NodePath("MarginContainer/VBoxContainer/StatEntries")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PanelBackground" parent="." instance=ExtResource("2_s2b0r")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=13 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/main_menu/MainMenuWidget.cs" id="1_pi010"]
 [ext_resource type="Texture2D" uid="uid://btjul3v867rxh" path="res://assets/textures/menu/HoB-menu-background-m-t.png" id="2_64xfh"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://cyc3yfkoriiec" path="res://assets/textures/menu/HoB-menu-leaves-r-t.png" id="8_id7dy"]
 [ext_resource type="Texture2D" uid="uid://diuewmtyjbtp" path="res://assets/textures/menu/HoB-menu-logo-m-t.png" id="9_eetrs"]
 [ext_resource type="PackedScene" uid="uid://bucr6se6rejrr" path="res://src/game/ui/widgets/button/label_button/label_button.tscn" id="10_14ap1"]
+[ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="11_8pnrv"]
+[ext_resource type="Script" path="res://src/game/ui/LinkButton.cs" id="12_vitou"]
 
 [node name="MainMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -123,6 +125,14 @@ layout_mode = 2
 theme_type_variation = &"RichTextLabelSmall"
 text = "TUTORIAL"
 
+[node name="Button" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("11_8pnrv")]
+layout_mode = 2
+
+[node name="Button" parent="Control/MarginContainer/VBoxContainer/Button" index="0"]
+text = "EDITOR"
+script = ExtResource("12_vitou")
+Uri = "https://github.com/Luki20091/Hex-map-editor"
+
 [node name="Button8" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
@@ -138,4 +148,5 @@ text = "QUIT"
 [editable path="Control/MarginContainer/VBoxContainer/Button5"]
 [editable path="Control/MarginContainer/VBoxContainer/Button6"]
 [editable path="Control/MarginContainer/VBoxContainer/Button7"]
+[editable path="Control/MarginContainer/VBoxContainer/Button"]
 [editable path="Control/MarginContainer/VBoxContainer/Button8"]

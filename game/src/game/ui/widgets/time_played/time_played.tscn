@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c3lvr615cvoaa"]
+[gd_scene load_steps=3 format=3 uid="uid://c3lvr615cvoaa"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/time_played/TimePlayedWidget.cs" id="1_8f6v4"]
+[ext_resource type="PackedScene" uid="uid://rvgnlg0cmgl2" path="res://src/game/ui/widgets/panel_background/panel_background.tscn" id="2_67bb0"]
 
 [node name="TimePlayed" type="MarginContainer" node_paths=PackedStringArray("TimePlayedLabel")]
 anchors_preset = 8
@@ -17,7 +18,7 @@ grow_vertical = 2
 script = ExtResource("1_8f6v4")
 TimePlayedLabel = NodePath("MarginContainer/Label")
 
-[node name="Panel" type="Panel" parent="."]
+[node name="PanelBackground" parent="." instance=ExtResource("2_67bb0")]
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]

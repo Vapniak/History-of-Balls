@@ -288,12 +288,5 @@ public partial class SoundManager : Node {
 
     button.Pressed += handlePressed;
     //button.MouseEntered += handleHover;
-
-    button.TreeExiting += () => {
-      if (weakButton?.GetRef().As<Node>() is Button validButton) {
-        validButton.Pressed -= handlePressed;
-        //validButton.MouseEntered -= handleHover;
-      }
-    };
   }
 }

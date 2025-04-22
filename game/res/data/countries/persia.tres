@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://src/core/country/Country.cs" id="1_8s2mg"]
 [ext_resource type="Texture2D" uid="uid://dxo53o5yaxnyg" path="res://assets/textures/flags/Persia.png" id="1_t13h1"]
-[ext_resource type="Resource" uid="uid://bxlwj2isc0xej" path="res://res/data/resource_types/dumpling.tres" id="2_wubrm"]
-[ext_resource type="Resource" uid="uid://c0gi1dmpjjefo" path="res://res/data/resource_types/flour.tres" id="3_taukf"]
+[ext_resource type="Resource" uid="uid://bg7mucodkxtgc" path="res://res/data/resource_types/pilaf.tres" id="2_2hja8"]
+[ext_resource type="Resource" uid="uid://bo0u2v0hk3jtt" path="res://res/data/resource_types/rice.tres" id="3_0k0ky"]
 
 [resource]
 script = ExtResource("1_8s2mg")
 Name = "Persia"
 Color = Color(1, 0.344168, 0.300589, 1)
 Flag = ExtResource("1_t13h1")
-PrimaryResource = ExtResource("2_wubrm")
-SecondaryResource = ExtResource("3_taukf")
+PrimaryResource = ExtResource("2_2hja8")
+SecondaryResource = ExtResource("3_0k0ky")

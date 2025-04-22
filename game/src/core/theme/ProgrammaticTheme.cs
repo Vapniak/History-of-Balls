@@ -1,10 +1,6 @@
-namespace HOB;
-
 using Godot;
 using Godot.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization.Formatters;
 
 [Tool, GlobalClass]
 public abstract partial class ProgrammaticTheme : Theme {

@@ -26,7 +26,7 @@ size_flags_vertical = 4
 [node name="Label" type="Label" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
+theme_type_variation = &"HeaderMedium"
 text = "Entity"
 
 [node name="EntityIcon" parent="HBoxContainer" instance=ExtResource("2_n2lgf")]

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=3 format=3 uid="uid://bg7mucodkxtgc"]
+
+[ext_resource type="Texture2D" uid="uid://dghgv0r716b8e" path="res://assets/textures/resources/Pilaf.png" id="1_5by51"]
+[ext_resource type="Script" path="res://src/core/resource_type/ResourceType.cs" id="1_63qd2"]
+
+[resource]
+script = ExtResource("1_63qd2")
+Name = "Pilaf"
+Icon = ExtResource("1_5by51")
