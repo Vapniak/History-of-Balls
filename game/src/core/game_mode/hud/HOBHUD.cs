@@ -10,11 +10,14 @@ public partial class HOBHUD : HUD {
   [Signal] public delegate void CommandSelectedEventHandler(HOBAbility.Instance abilityInstance);
   [Signal] public delegate void EndTurnPressedEventHandler();
 
+  [Export] public Button PauseButton { get; private set; } = default!;
+
   [Export] private ShaderMaterial VignetteShaderMaterial { get; set; } = default!;
   [Export] private Material PanelBackgroundMaterial { get; set; } = default!;
 
   [Export] public TimeScaleButtonWidget TimeScaleButtonWidget { get; set; } = default!;
   [Export] private Label? TurnChangedNotificationLabel { get; set; }
+  [Export] private TextureRect CountryBallRender { get; set; } = default!;
 
   [Export] private EntityPanelWidget EntityPanel { get; set; } = default!;
   [Export] private EntityProductionPanelWidget ProductionPanel { get; set; } = default!;
@@ -68,22 +71,19 @@ public partial class HOBHUD : HUD {
       var widget = LabelButtonWidget.CreateWidget().Configure((button) => {
         button.Text = objective;
         button.Disabled = true;
+        button.Alignment = HorizontalAlignment.Left;
       });
 
       ObjectivesListParent.AddChild(widget);
     }
 
-
     CommandPanel.CommandSelected += (command) => EmitSignal(SignalName.CommandSelected, command);
 
     var playerState = GetPlayerController().GetPlayerState<HOBPlayerState>();
-    var theme = GetChild<Control>(0).Theme as HOBTheme;
-    theme.PrimaryColor = playerState.Country.Color;
-    theme.AccentColor = Colors.White;
-    theme.GenerateTheme();
+    GetChild<Control>(0).Theme = playerState.Theme;
 
     PanelBackgroundMaterial.Set("shader_parameter/tint", playerState.Country.Color);
-
+    CountryBallRender.Texture = playerState.Country.CountryBallRender;
 
     if (playerState.AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
       // UpdatePrimaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.PrimaryResource).GetValueOrDefault().ToString());
@@ -151,6 +151,7 @@ public partial class HOBHUD : HUD {
   private void OnEndTurnPressed() {
     EmitSignal(SignalName.EndTurnPressed);
   }
+
   public new HOBPlayerController GetPlayerController() {
     return GetPlayerController<HOBPlayerController>()!;
   }

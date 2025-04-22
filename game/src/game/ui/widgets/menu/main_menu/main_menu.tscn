@@ -115,14 +115,12 @@ text = "CAMPAIGN"
 layout_mode = 2
 
 [node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button6/MarginContainer" index="0"]
-theme_type_variation = &"RichTextLabelSmall"
 text = "SETTINGS"
 
 [node name="Button7" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2
 
 [node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button7/MarginContainer" index="0"]
-theme_type_variation = &"RichTextLabelSmall"
 text = "TUTORIAL"
 
 [node name="Button" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("11_8pnrv")]
@@ -137,7 +135,6 @@ Uri = "https://github.com/Luki20091/Hex-map-editor"
 layout_mode = 2
 
 [node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button8/MarginContainer" index="0"]
-theme_type_variation = &"RichTextLabelSmall"
 text = "QUIT"
 
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button5/Button" to="." method="OnSelectMissionPressed"]

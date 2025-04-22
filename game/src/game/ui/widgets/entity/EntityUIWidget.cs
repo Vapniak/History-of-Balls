@@ -123,8 +123,16 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
   private void OnOwnerControllerChanged() {
     ShowCommandIcons();
 
+
     if (Entity == null) {
       return;
+    }
+
+    if (Entity.TryGetOwner(out var owner)) {
+      Theme = owner.GetPlayerState().Theme;
+    }
+    else {
+      Theme = ThemeDB.GetProjectTheme();
     }
   }
 
@@ -139,6 +147,10 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
 
   private void HideCommandIcons() {
     CommandIconsParent.Hide();
+  }
+
+  private void SetThemeBasedOnColor() {
+
   }
 
   static EntityUIWidget IWidgetFactory<EntityUIWidget>.CreateWidget() {

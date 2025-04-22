@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Country" load_steps=5 format=3 uid="uid://do2ww3kn7ft3w"]
+[gd_resource type="Resource" script_class="Country" load_steps=6 format=3 uid="uid://do2ww3kn7ft3w"]
 
 [ext_resource type="Script" path="res://src/core/country/Country.cs" id="1_8s2mg"]
+[ext_resource type="Texture2D" uid="uid://cd5kl1a3m3h47" path="res://assets/textures/HoB-renders/HoB-persia-render.png" id="1_hag3v"]
 [ext_resource type="Texture2D" uid="uid://dxo53o5yaxnyg" path="res://assets/textures/flags/Persia.png" id="1_t13h1"]
 [ext_resource type="Resource" uid="uid://bg7mucodkxtgc" path="res://res/data/resource_types/pilaf.tres" id="2_2hja8"]
 [ext_resource type="Resource" uid="uid://bo0u2v0hk3jtt" path="res://res/data/resource_types/rice.tres" id="3_0k0ky"]
@@ -10,5 +11,6 @@ script = ExtResource("1_8s2mg")
 Name = "Persia"
 Color = Color(1, 0.344168, 0.300589, 1)
 Flag = ExtResource("1_t13h1")
+CountryBallRender = ExtResource("1_hag3v")
 PrimaryResource = ExtResource("2_2hja8")
 SecondaryResource = ExtResource("3_0k0ky")

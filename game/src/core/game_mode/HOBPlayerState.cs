@@ -14,6 +14,8 @@ public partial class HOBPlayerState : PlayerState, IMatchPlayerState {
   public Array<ProductionConfig> ProducedEntities { get; set; }
   public Array<EntityData> Entities { get; set; }
 
+  public Theme Theme { get; private set; } = default!;
+
   public HOBPlayerState(PlayerAttributeSet playerAttributeSet, Array<ProductionConfig> producedEntities, Array<EntityData> entities, Country country) : base() {
     ProducedEntities = producedEntities;
     Entities = entities;
@@ -26,6 +28,15 @@ public partial class HOBPlayerState : PlayerState, IMatchPlayerState {
 
       AbilitySystem.AttributeSystem.AddAttributeSet(playerAttributeSet);
     };
+  }
+
+  public override void _Ready() {
+    var theme = ThemeDB.GetProjectTheme().Duplicate() as HOBTheme;
+    theme.PrimaryColor = Country.Color;
+    theme.AccentColor = Colors.White;
+    theme.GenerateTheme();
+
+    Theme = theme;
   }
 
   public bool IsCurrentTurn() => GetController<IMatchController>().IsCurrentTurn();

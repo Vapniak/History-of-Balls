@@ -53,7 +53,7 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["border_width_"] = BorderWidth(BaseBorderWidth),
       ["border_blend"] = true,
       ["border_color"] = PrimaryColor,
-      ["shadow_color"] = PrimaryBase,
+      ["shadow_color"] = new Color(PrimaryColor, 0.1f),
       ["shadow_size"] = BaseBorderWidth * 2,
     });
 
@@ -99,16 +99,14 @@ public partial class HOBTheme : ProgrammaticTheme {
 
     var sizes = new[] { "Small", "Medium", "Large", "ExtraLarge" };
 
-    for (var i = 1; i <= sizes.Length; i++) {
-      var size = sizes[i - 1];
-      DefineVariantStyle("Margin" + size, "MarginContainer", new() {
-        ["margins_"] = Margin(BaseMargin * i)
-      });
-
+    for (var i = 0; i < sizes.Length; i++) {
+      var size = sizes[i];
+      var scale = i + 1;
       var font = DefaultFont;
-      var scale = i;
 
-
+      DefineVariantStyle("Margin" + size, "MarginContainer", new() {
+        ["margins_"] = Margin(BaseMargin * scale)
+      });
 
       DefineVariantStyle("Spacing" + size, "BoxContainer", new Style() {
         ["separation"] = Separation * scale,
@@ -117,7 +115,7 @@ public partial class HOBTheme : ProgrammaticTheme {
 
       if (size == "Small") {
         //font = BoldFont;
-        scale -= 1;
+        scale = -1;
         font = SmallFont;
       }
       DefineVariantStyle("Header" + size, "Label", new() {

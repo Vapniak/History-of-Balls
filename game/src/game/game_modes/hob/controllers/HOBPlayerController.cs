@@ -40,6 +40,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     HighlightSystem = new(HighlightColors ?? new(), GameBoard);
 
     GetHUD().EndTurnPressed += TryEndTurn;
+    GetHUD().PauseButton.Pressed += () => {
+      if (!GetTree().Paused) {
+        GetGameMode().Pause();
+      }
+    };
 
     SelectedEntityChanged += OnSelectedEntityChanged;
     SelectedCommandChanged += OnSelectedCommandChanged;

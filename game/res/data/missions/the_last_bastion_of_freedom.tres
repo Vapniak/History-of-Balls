@@ -31,7 +31,7 @@
 
 [sub_resource type="Resource" id="Resource_tphyi"]
 script = ExtResource("1_wnw16")
-RoundsToSurvive = 30
+RoundsToSurvive = 25
 
 [sub_resource type="Resource" id="Resource_u4t3u"]
 script = ExtResource("3_81nn0")
@@ -136,8 +136,8 @@ OwnedEntities = SubResource("Resource_0nite")
 script = ExtResource("6_aasjh")
 MissionName = "The Last Bastion of Freedom"
 Description = ""
-ObjectivesText = "⚔️ Hold your position for 30 rounds
-🔥 Repel successive waves of the Persian army"
+ObjectivesText = "Hold your position for 25 rounds ⚔️ 
+Repel waves of the Persian army  🔥 "
 Map = ExtResource("1_gk1xd")
 PlayerSpawnDatas = [SubResource("Resource_r28ec"), SubResource("Resource_tjfg2")]
 GameModeConfig = SubResource("Resource_tphyi")

@@ -1,12 +1,16 @@
 namespace HOB;
 
 using Godot;
-using HOB.GameEntity;
 using System;
 using WidgetSystem;
 
 [GlobalClass]
-public partial class ProductionEntryWidget : LabelButtonWidget, IWidgetFactory<ProductionEntryWidget> {
+public partial class ProductionEntryWidget : ButtonWidget, IWidgetFactory<ProductionEntryWidget> {
+  [Export] private Label EntityName { get; set; } = default!;
+  [Export] private EntityIconWidget EntityIcon { get; set; } = default!;
+  [Export] private Label RoundsToProduceLabel { get; set; } = default!;
+  [Export] private RichTextLabel CostLabel { get; set; } = default!;
+
   private IMatchController? _boundController;
   private EntityProductionAbility.Instance? _boundAbility;
   private ProductionConfig? _boundProductionConfig;
@@ -30,16 +34,17 @@ public partial class ProductionEntryWidget : LabelButtonWidget, IWidgetFactory<P
     var ei = ability.OwnerAbilitySystem.MakeOutgoingInstance(productionConfig.CostEffect, 0, playerController.GetPlayerState().AbilitySystem);
 
     var aggregators = ei.GetAggregators();
+    CostLabel.Text = "";
     while (aggregators.MoveNext()) {
-      costText += $"\n    {aggregators.Current.aggregator.SumMods() * -1} {aggregators.Current.attribute.AttributeName}";
+      CostLabel.AppendText($"{aggregators.Current.aggregator.SumMods() * -1} {aggregators.Current.attribute.AttributeName}\n");
     }
 
-    var text = string.Format($"\nCost: {costText}\nRounds to Produce: {productionConfig.ProductionTime}");
 
-    Label.Text = "";
-    Label.AddImage(productionConfig.Entity.Icon, 24, 24, Colors.White, InlineAlignment.TopTo, key: "img");
-    Label.AddText($"{productionConfig.Entity.EntityName}");
-    Label.AddText(text);
+    EntityName.Text = productionConfig.Entity.EntityName;
+    EntityIcon.SetIcon(productionConfig.Entity.Icon);
+
+    RoundsToProduceLabel.Text = productionConfig.ProductionTime.ToString();
+
   }
 
   public override void _PhysicsProcess(double delta) {
@@ -54,14 +59,14 @@ public partial class ProductionEntryWidget : LabelButtonWidget, IWidgetFactory<P
       });
       Button.Disabled = !canActivate;
 
-      if (!canActivate) {
-        Label.AddThemeColorOverride("default_color", Colors.Gray);
-        Label.UpdateImage("img", RichTextLabel.ImageUpdateMask.Color, _boundProductionConfig.Entity.Icon, color: Colors.Gray);
-      }
-      else {
-        Label.UpdateImage("img", RichTextLabel.ImageUpdateMask.Color, _boundProductionConfig.Entity.Icon, color: Colors.White);
-        Label.RemoveThemeColorOverride("default_color");
-      }
+      // if (!canActivate) {
+      //   Label.AddThemeColorOverride("default_color", Colors.Gray);
+      //   Label.UpdateImage("img", RichTextLabel.ImageUpdateMask.Color, _boundProductionConfig.Entity.Icon, color: Colors.Gray);
+      // }
+      // else {
+      //   Label.UpdateImage("img", RichTextLabel.ImageUpdateMask.Color, _boundProductionConfig.Entity.Icon, color: Colors.White);
+      //   Label.RemoveThemeColorOverride("default_color");
+      // }
     }
   }
 }

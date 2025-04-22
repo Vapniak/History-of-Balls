@@ -16,13 +16,11 @@ IconTexture = NodePath("TextureRect")
 [node name="Label" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_type_variation = &"HeaderSmall"
 text = "MP: "
 
 [node name="Label2" type="Label" parent="."]
 layout_mode = 2
 size_flags_horizontal = 4
-theme_type_variation = &"HeaderSmall"
 text = "0"
 
 [node name="TextureRect" type="TextureRect" parent="."]

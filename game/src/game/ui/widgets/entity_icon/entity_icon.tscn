@@ -4,9 +4,15 @@
 [ext_resource type="Texture2D" uid="uid://bhrnb4qh1p6dx" path="res://assets/textures/icons/ranged.svg" id="2_w57ic"]
 
 [node name="EntityIcon" type="MarginContainer" node_paths=PackedStringArray("IconRect")]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -540.0
+offset_top = -16.0
+offset_right = 540.0
+offset_bottom = 16.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_i17be")
@@ -17,4 +23,4 @@ custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 texture = ExtResource("2_w57ic")
 expand_mode = 3
-stretch_mode = 4
+stretch_mode = 5
