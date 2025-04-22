@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://c1khqhm51l55f"]
+
+[node name="MarginContainer" type="MarginContainer"]
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"MarginSmall"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Primary:"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Label2" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"

@@ -119,7 +119,7 @@ public abstract partial class ProgrammaticTheme : Theme {
     return newStyle;
   }
 
-  private void GenerateTheme() {
+  public void GenerateTheme() {
     Reset();
     Clear();
     DefineTheme();

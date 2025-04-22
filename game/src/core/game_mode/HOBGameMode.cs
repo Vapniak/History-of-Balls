@@ -148,9 +148,7 @@ public partial class HOBGameMode : GameMode {
           return;
         }
 
-        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities.ProducableEntities, playerData.OwnedEntities.Entities) {
-          Country = playerData.Country
-        };
+        var state = new HOBPlayerState(PlayerAttributeSet, playerData.ProducableEntities.ProducableEntities, playerData.OwnedEntities.Entities, playerData.Country);
 
         if (playerData.PlayerType == PlayerType.Player) {
           controller = PlayerControllerScene.Instantiate<Controller>();

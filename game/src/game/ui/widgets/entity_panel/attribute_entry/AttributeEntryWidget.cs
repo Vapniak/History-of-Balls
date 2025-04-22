@@ -25,6 +25,8 @@ public partial class AttributeEntryWidget : HOBWidget, IWidgetFactory<AttributeE
     BoundAttribute = attribute;
 
     SetEntryName(attribute.AttributeName);
+
+
     SetIcon(GameAssetsRegistry.Instance.GetIconFor(attribute));
     OnAttributeValueChanged(BoundAttribute, 0, 0);
 

@@ -68,6 +68,12 @@ public partial class HOBHUD : HUD {
 
     var playerState = GetPlayerController().GetPlayerState<HOBPlayerState>();
 
+    var control = GetChild<Control>(0);
+    var theme = control.Theme as HOBTheme;
+    theme.PrimaryColor = playerState.Country.Color;
+    theme.AccentColor = Colors.White;
+    theme.GenerateTheme();
+
 
     if (playerState.AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var attributeSet)) {
       // UpdatePrimaryResourceValue(playerState.AbilitySystem.GetAttributeCurrentValue(attributeSet.PrimaryResource).GetValueOrDefault().ToString());
@@ -86,12 +92,12 @@ public partial class HOBHUD : HUD {
 
 
     PrimaryResourceNameLabel.Clear();
-    PrimaryResourceNameLabel.AddImage(playerState.Country.PrimaryResource.Icon, 16, 16);
-    PrimaryResourceNameLabel.AddText($" {playerState.Country.PrimaryResource.Name}: ");
+    PrimaryResourceNameLabel.AddImage(playerState.Country.PrimaryResource.Icon, 32, 32);
+    //PrimaryResourceNameLabel.AddText($" {playerState.Country.PrimaryResource.Name}: ");
 
     SecondaryResourceNameLabel.Clear();
-    SecondaryResourceNameLabel.AddImage(playerState.Country.SecondaryResource.Icon, 16, 16);
-    SecondaryResourceNameLabel.AddText($" {playerState.Country.SecondaryResource.Name}: ");
+    SecondaryResourceNameLabel.AddImage(playerState.Country.SecondaryResource.Icon, 32, 32);
+    //SecondaryResourceNameLabel.AddText($" {playerState.Country.SecondaryResource.Name}: ");
 
     FlagWidget.SetFlag(GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Flag);
     CountryNameLabel.Text = GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Name;

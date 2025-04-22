@@ -8,16 +8,16 @@ using HOB.GameEntity;
 
 [GlobalClass]
 public partial class HOBPlayerState : PlayerState, IMatchPlayerState {
-  public Country? Country { get; set; }
+  public Country Country { get; private set; }
   public HOBGameplayAbilitySystem AbilitySystem { get; set; }
 
   public Array<ProductionConfig> ProducedEntities { get; set; }
   public Array<EntityData> Entities { get; set; }
 
-  public HOBPlayerState(PlayerAttributeSet playerAttributeSet, Array<ProductionConfig> producedEntities, Array<EntityData> entities) : base() {
+  public HOBPlayerState(PlayerAttributeSet playerAttributeSet, Array<ProductionConfig> producedEntities, Array<EntityData> entities, Country country) : base() {
     ProducedEntities = producedEntities;
     Entities = entities;
-
+    Country = country;
     AbilitySystem = new();
 
     TreeEntered += () => {

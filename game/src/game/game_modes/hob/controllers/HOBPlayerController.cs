@@ -55,6 +55,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     };
 
     GetHUD().TimeScaleButtonWidget.Button.Pressed += ToggleTimeScale;
+
+    if (GetPlayerState().AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var set)) {
+      GameAssetsRegistry.Instance.AttributeIcons.Add(new(set.PrimaryResource, GetPlayerState().Country.PrimaryResource.Icon));
+      GameAssetsRegistry.Instance.AttributeIcons.Add(new(set.SecondaryResource, GetPlayerState().Country.SecondaryResource.Icon));
+    }
+
   }
 
   public override void _Notification(int what) {
