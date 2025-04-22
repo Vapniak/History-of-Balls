@@ -21,3 +21,5 @@ size_flags_vertical = 4
 
 [node name="MissionWidget" parent="VBoxContainer" instance=ExtResource("2_nno2l")]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4

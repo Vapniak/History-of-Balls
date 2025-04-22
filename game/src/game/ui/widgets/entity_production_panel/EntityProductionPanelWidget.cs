@@ -2,11 +2,13 @@ namespace HOB;
 
 using Godot;
 using HOB.GameEntity;
-using WidgetSystem;
 
 public partial class EntityProductionPanelWidget : HOBWidget {
-  [Export] private Control? EntitiesList { get; set; }
-  private EntityProductionAbilityResource.Instance? _ability;
+  [Export] private Control EntitiesList { get; set; } = default!;
+  [Export] private Label CurrentProductionLabel { get; set; } = default!;
+  [Export] private Label RoundsLeftLabel { get; set; } = default!;
+
+  private EntityProductionAbility.Instance? BoundAbility { get; set; }
   private HOBPlayerController _playerController = default!;
 
   public override void _Ready() {
@@ -19,12 +21,7 @@ public partial class EntityProductionPanelWidget : HOBWidget {
     playerController.SelectedEntityChanged += () => {
       var entity = playerController.SelectedEntity;
 
-      if (entity != null) {
-        ShowProducedEntities(entity);
-      }
-      else {
-        ClearEntities();
-      }
+      BindTo(entity);
     };
   }
 
@@ -34,20 +31,46 @@ public partial class EntityProductionPanelWidget : HOBWidget {
       return;
     }
 
-    _ability = null;
     foreach (var child in EntitiesList.GetChildren()) {
       child.Free();
     }
   }
 
-  public void ShowProducedEntities(Entity entity) {
+  private void BindTo(Entity? entity) {
     ClearEntities();
 
-    var ability = entity.AbilitySystem.GetGrantedAbility<EntityProductionAbilityResource.Instance>();
+    if (BoundAbility != null) {
+      BoundAbility.RoundsLeftChanged -= updateLabels;
+    }
 
-    if (ability == null) {
+    if (entity == null) {
+      BoundAbility = null;
       return;
     }
+
+    BoundAbility = entity.AbilitySystem.GetGrantedAbility<EntityProductionAbility.Instance>();
+
+    if (BoundAbility == null) {
+      return;
+    }
+
+    void updateLabels(int roundsLeft) {
+      if (BoundAbility.CurrentProduction != null && roundsLeft > 0) {
+        RoundsLeftLabel.Text = "Rounds Left: " + roundsLeft;
+        CurrentProductionLabel.Text = "Producing: " + BoundAbility.CurrentProduction.Entity.EntityName;
+
+        RoundsLeftLabel.Show();
+        CurrentProductionLabel.Show();
+      }
+      else {
+        RoundsLeftLabel.Hide();
+        CurrentProductionLabel.Hide();
+      }
+    }
+
+    updateLabels(BoundAbility.RoundsLeft);
+    BoundAbility.RoundsLeftChanged += updateLabels;
+
 
     if (!entity.TryGetOwner(out var owner)) {
       return;
@@ -57,17 +80,15 @@ public partial class EntityProductionPanelWidget : HOBWidget {
 
     foreach (var config in playerState.ProducedEntities) {
       var widget = ProductionEntryWidget.CreateWidget();
-      widget.BindTo(_playerController, ability, config);
-      EntitiesList?.AddChild(widget);
+      widget.BindTo(_playerController, BoundAbility, config);
+      EntitiesList.AddChild(widget);
     }
 
-    if (GetEntriesCount() > 0) {
+    if (EntitiesList.GetChildCount() > 0) {
       Show();
     }
     else {
       Hide();
     }
   }
-
-  public int GetEntriesCount() => EntitiesList?.GetChildCount() ?? 0;
 }

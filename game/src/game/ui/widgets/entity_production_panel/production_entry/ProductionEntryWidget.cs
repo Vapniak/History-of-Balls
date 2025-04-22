@@ -8,7 +8,7 @@ using WidgetSystem;
 [GlobalClass]
 public partial class ProductionEntryWidget : LabelButtonWidget, IWidgetFactory<ProductionEntryWidget> {
   private IMatchController? _boundController;
-  private EntityProductionAbilityResource.Instance? _boundAbility;
+  private EntityProductionAbility.Instance? _boundAbility;
   private ProductionConfig? _boundProductionConfig;
 
 
@@ -20,7 +20,7 @@ public partial class ProductionEntryWidget : LabelButtonWidget, IWidgetFactory<P
     return ResourceLoader.Load<PackedScene>("uid://csmsivxcvng13").Instantiate<ProductionEntryWidget>();
   }
 
-  public void BindTo(IMatchController playerController, EntityProductionAbilityResource.Instance ability, ProductionConfig productionConfig) {
+  public void BindTo(IMatchController playerController, EntityProductionAbility.Instance ability, ProductionConfig productionConfig) {
     _boundController = playerController;
     _boundAbility = ability;
     _boundProductionConfig = productionConfig;

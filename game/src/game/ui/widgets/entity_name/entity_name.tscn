@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://5dufraf2q3i"]
+
+[ext_resource type="Script" path="res://src/game/ui/widgets/entity_name/EntityNameWidget.cs" id="1_ig578"]
+[ext_resource type="PackedScene" uid="uid://bbasg6roqlht7" path="res://src/game/ui/widgets/entity_icon/entity_icon.tscn" id="2_n2lgf"]
+
+[node name="EntityName" type="MarginContainer" node_paths=PackedStringArray("NameLabel", "EntityIconWidget")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -53.5
+offset_top = -16.5
+offset_right = 53.5
+offset_bottom = 16.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ig578")
+NameLabel = NodePath("HBoxContainer/Label")
+EntityIconWidget = NodePath("HBoxContainer/EntityIcon")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"HeaderSmall"
+text = "Entity"
+
+[node name="EntityIcon" parent="HBoxContainer" instance=ExtResource("2_n2lgf")]
+layout_mode = 2
+size_flags_horizontal = 8

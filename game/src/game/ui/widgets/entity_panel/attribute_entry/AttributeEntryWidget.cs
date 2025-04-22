@@ -45,7 +45,7 @@ public partial class AttributeEntryWidget : HOBWidget, IWidgetFactory<AttributeE
   }
 
   private void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
-    if (BoundEntity == null) {
+    if (BoundEntity == null || attribute != BoundAttribute) {
       return;
     }
 

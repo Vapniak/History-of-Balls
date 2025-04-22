@@ -10,12 +10,9 @@ using WidgetSystem;
 
 [GlobalClass]
 public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> {
-  [Export] private TextureRect? IconTextureRect { get; set; }
-  [Export] private Label EntityNameLabel { get; set; } = default!;
-  [Export] private Control? TeamColorContainer { get; set; }
+  [Export] private EntityNameWidget EntityNameWidget { get; set; } = default!;
   [Export] private Control? CommandIconsContainer { get; set; }
   [Export] private Control CommandIconsParent { get; set; } = default!;
-  [Export] private PanelContainer? IconTextureContainer { get; set; }
   [Export] private StyleBox? UnitIconPanelStyleBox { get; set; }
   [Export] private StyleBox? StructureIconPanelStyleBox { get; set; }
 
@@ -31,7 +28,7 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
 
     Entity = entity;
 
-    EntityNameLabel.Text = entity.EntityName;
+    EntityNameWidget.BindTo(entity);
 
     OnOwnerControllerChanged();
 
@@ -81,10 +78,6 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
       }
     };
 
-    var icon = Entity.Icon;
-    if (icon != null) {
-      SetIcon(icon);
-    }
 
     if (entity.AbilitySystem == null) {
       GD.PushError("Entity must have an AbilitySystem");
@@ -98,53 +91,40 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
     }
   }
 
-  private void SetTeamColor(Color color) {
-    IconTextureRect?.SetSelfModulate(color);
+  // private void SetTeamColor(Color color) {
+  //   IconTextureRect?.SetSelfModulate(color);
 
-    if (IconTextureRect != null) {
-      //IconTextureRect.SelfModulate = color.Luminance > 0.5f ? Colors.Black : Colors.White;
-    }
-  }
+  //   if (IconTextureRect != null) {
+  //     //IconTextureRect.SelfModulate = color.Luminance > 0.5f ? Colors.Black : Colors.White;
+  //   }
+  // }
 
-  private void SetIcon(Texture2D? texture) {
-    if (IconTextureRect == null) {
-      return;
-    }
+  // private void SetIcon(Texture2D? texture) {
+  //   if (IconTextureRect == null) {
+  //     return;
+  //   }
 
-    IconTextureRect.Visible = texture != null;
-    IconTextureRect.Texture = texture;
+  //   IconTextureRect.Visible = texture != null;
+  //   IconTextureRect.Texture = texture;
 
-    if (IconTextureContainer == null || Entity?.AbilitySystem?.OwnedTags == null) {
-      return;
-    }
+  //   if (IconTextureContainer == null || Entity?.AbilitySystem?.OwnedTags == null) {
+  //     return;
+  //   }
 
-    var styleBox = Entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))
-        ? StructureIconPanelStyleBox
-        : UnitIconPanelStyleBox;
+  //   var styleBox = Entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))
+  //       ? StructureIconPanelStyleBox
+  //       : UnitIconPanelStyleBox;
 
-    if (styleBox != null) {
-      IconTextureContainer.AddThemeStyleboxOverride("panel", styleBox);
-    }
-  }
+  //   if (styleBox != null) {
+  //     IconTextureContainer.AddThemeStyleboxOverride("panel", styleBox);
+  //   }
+  // }
 
   private void OnOwnerControllerChanged() {
     ShowCommandIcons();
 
     if (Entity == null) {
       return;
-    }
-
-    if (Entity.TryGetOwner(out var owner)) {
-      // if (owner is PlayerController) {
-      //   SetTeamColor(Colors.Green);
-      // }
-      // else {
-      //   SetTeamColor(Colors.Red);
-      // }
-      SetTeamColor(owner.GetPlayerState().Country.Color);
-    }
-    else {
-      SetTeamColor(Colors.White);
     }
   }
 

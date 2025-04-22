@@ -149,7 +149,7 @@ public partial class AIController : Controller, IMatchController {
     return ability switch {
       MoveAbility.Instance moveAbility => EvaluateMoveAbility(entity, moveAbility),
       AttackAbility.Instance attackAbility => EvaluateAttackAbility(entity, attackAbility),
-      EntityProductionAbilityResource.Instance produceAbility => EvaluateProduceAbility(entity, produceAbility),
+      EntityProductionAbility.Instance produceAbility => EvaluateProduceAbility(entity, produceAbility),
       _ => (0, null)
     };
   }
@@ -207,7 +207,7 @@ public partial class AIController : Controller, IMatchController {
         : (0, null);
   }
 
-  private (float Score, GameplayEventData? Data) EvaluateProduceAbility(Entity entity, EntityProductionAbilityResource.Instance ability) {
+  private (float Score, GameplayEventData? Data) EvaluateProduceAbility(Entity entity, EntityProductionAbility.Instance ability) {
     var bestScore = 0f;
     ProductionConfig? bestProduction = null;
 
@@ -294,7 +294,7 @@ public partial class AIController : Controller, IMatchController {
     return 0;
   }
 
-  private float CalculateProductionScore(Entity producer, EntityProductionAbilityResource.Instance ability, ProductionConfig production) {
+  private float CalculateProductionScore(Entity producer, EntityProductionAbility.Instance ability, ProductionConfig production) {
     var unitTypeTag = TagManager.GetTag(HOBTags.EntityTypeUnit);
     var forces = EntityManagment.GetOwnedEntites(this);
 

@@ -5,3 +5,6 @@
 
 [node name="MissionWidget" instance=ExtResource("1_q532n")]
 script = ExtResource("1_mkx4f")
+
+[node name="Button" parent="." index="0"]
+text = "MISSIONdsadasdaasdads"

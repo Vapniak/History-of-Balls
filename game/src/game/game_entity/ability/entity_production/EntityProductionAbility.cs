@@ -1,5 +1,7 @@
 namespace HOB;
 
+using System;
+using System.ComponentModel;
 using System.Linq;
 using GameplayAbilitySystem;
 using GameplayFramework;
@@ -7,13 +9,24 @@ using GameplayTags;
 using Godot;
 
 [GlobalClass]
-public partial class EntityProductionAbilityResource : HOBAbility {
+public partial class EntityProductionAbility : HOBAbility {
   public override GameplayAbility.Instance CreateInstance(GameplayAbilitySystem abilitySystem) {
     return new Instance(this, abilitySystem);
   }
 
   public new partial class Instance : EntityInstance {
-    private int _turnsLeft;
+    public event Action<int>? RoundsLeftChanged;
+    public ProductionConfig? CurrentProduction { get; private set; }
+
+    public int RoundsLeft {
+      get => _roundsLeft; private set {
+        if (_roundsLeft != value) {
+          RoundsLeftChanged?.Invoke(value);
+        }
+        _roundsLeft = value;
+      }
+    }
+    private int _roundsLeft;
 
     public Instance(HOBAbility abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
@@ -42,8 +55,8 @@ public partial class EntityProductionAbilityResource : HOBAbility {
         //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
         //   _ = text.Animate();
         // }
-
-        _turnsLeft = (int)productionConfig.ProductionTime;
+        CurrentProduction = productionConfig;
+        RoundsLeft = (int)productionConfig.ProductionTime;
 
         var tween = CreateTween();
         tween.SetLoops();
@@ -54,8 +67,8 @@ public partial class EntityProductionAbilityResource : HOBAbility {
         var taskData = new WaitForGameplayEventTask(this, TagManager.GetTag(HOBTags.EventTurnStarted));
         taskData.EventRecieved += (data) => {
           if (OwnerEntity.TryGetOwner(out var owner) && OwnerEntity.IsCurrentTurn()) {
-            _turnsLeft--;
-            if (_turnsLeft <= 0) {
+            RoundsLeft--;
+            if (RoundsLeft <= 0) {
               if (!OwnerEntity.EntityManagment.GetEntitiesOnCell(OwnerEntity.Cell).Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) && OwnerEntity.EntityManagment.TryAddEntityOnCell(productionConfig.Entity, OwnerEntity.Cell, owner)) {
                 taskData.Complete();
 
@@ -66,7 +79,7 @@ public partial class EntityProductionAbilityResource : HOBAbility {
                 //   text.GlobalPosition = OwnerEntity.GetPosition() + Vector3.Up * 2;
                 //   _ = text.Animate();
                 // }
-
+                CurrentProduction = null;
                 tween.Kill();
 
                 ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueSparkles), new() { Position = OwnerEntity.Cell.GetRealPosition() });

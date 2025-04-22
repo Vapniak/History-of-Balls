@@ -107,7 +107,7 @@ layout_mode = 2
 
 [node name="RichTextLabel" parent="Control/MarginContainer/VBoxContainer/Button5/MarginContainer" index="0"]
 theme_type_variation = &"RichTextLabelSmall"
-text = "SELECT CAMPAIN"
+text = "SELECT CAMPAIGNS"
 
 [node name="Button6" parent="Control/MarginContainer/VBoxContainer" instance=ExtResource("10_14ap1")]
 layout_mode = 2

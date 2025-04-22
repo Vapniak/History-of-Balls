@@ -1,17 +1,15 @@
 namespace HOB;
 
-using GameplayAbilitySystem;
 using Godot;
 using HOB.GameEntity;
-using System.Collections.Generic;
+using System;
 using System.Linq;
-using WidgetSystem;
 
 [GlobalClass]
 public partial class EntityPanelWidget : HOBWidget {
-  [Export] private Label NameLabel { get; set; } = default!;
+  [Export] private EntityNameWidget EntityNameWidget { get; set; } = default!;
+
   [Export] private Control? EntriesList { get; set; }
-  [Export] private EntityIconWidget IconWidget { get; set; } = default!;
   private Entity? CurrentEntity { get; set; }
 
   public void Initialize(HOBPlayerController playerController) {
@@ -32,15 +30,12 @@ public partial class EntityPanelWidget : HOBWidget {
   private void BindToEntity(Entity entity) {
     Unbind();
 
-    IconWidget.SetIcon(entity.Icon);
-    if (entity.TryGetOwner(out var owner)) {
-      IconWidget.Modulate = owner!.GetPlayerState().Country.Color;
-    }
-    NameLabel.Text = entity.EntityName;
+    EntityNameWidget.BindTo(entity);
 
     CurrentEntity = entity;
 
     ClearEntries();
+
     foreach (var attribute in entity.AbilitySystem.AttributeSystem.GetAllAttributes().OrderBy(a => a.AttributeName)) {
       var widget = AttributeEntryWidget.CreateWidget();
       widget.BindTo(entity, attribute);
