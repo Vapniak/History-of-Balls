@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://csmsivxcvng13"]
+[gd_scene load_steps=5 format=3 uid="uid://csmsivxcvng13"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/entity_production_panel/production_entry/ProductionEntryWidget.cs" id="1_bjgtu"]
 [ext_resource type="PackedScene" uid="uid://bbasg6roqlht7" path="res://src/game/ui/widgets/entity_icon/entity_icon.tscn" id="2_d6d6t"]
 [ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="2_hn5p8"]
+[ext_resource type="Material" uid="uid://dl2gnkq5n62w3" path="res://src/game/ui/widgets/panel_background/background_mask.tres" id="3_ack4q"]
 
 [node name="Control" type="MarginContainer" node_paths=PackedStringArray("EntityName", "EntityIcon", "RoundsToProduceLabel", "CostLabel", "Button")]
 anchors_preset = 8
@@ -25,6 +26,9 @@ Button = NodePath("Button/Button")
 
 [node name="Button" parent="." instance=ExtResource("2_hn5p8")]
 layout_mode = 2
+
+[node name="Button" parent="Button" index="0"]
+material = ExtResource("3_ack4q")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

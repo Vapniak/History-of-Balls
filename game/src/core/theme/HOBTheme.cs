@@ -18,214 +18,307 @@ public partial class HOBTheme : ProgrammaticTheme {
 
   public Color PrimaryBase => PrimaryColor.Darkened(0.9f);
   public Color AccentBase => AccentColor.Darkened(.9f);
-
+  public Color ShadowColor => new(0, 0, 0, 0.2f);
   public int BaseMargin => BaseSpacing;
 
   public override void DefineTheme() {
-    // var baseButton = new Style {
-    //   ["font_color"] = Colors.White,
-    //   ["hover"] = StyleboxFlat(new Style {
-    //     ["bg_color"] = new Color(0.2f, 0.2f, 0.2f),
-    //     ["border_width"] = BorderWidth(2),
-    //     ["border_color"] = Colors.Gray
-    //   })
-    // };
-
-    // DefineStyle("Button", baseButton);
-
-    // // Primary button variant
-    // var primaryButton = Inherit(baseButton, new Style {
-    //   ["normal"] = StyleboxFlat(new Style {
-    //     ["bg_color"] = new Color(0.1f, 0.3f, 0.6f),
-    //     ["border_width"] = BorderWidth(2),
-    //     ["border_color"] = new Color(0.2f, 0.4f, 0.8f)
-    //   })
-    // });
-
-    // DefineVariantStyle("PrimaryButton", "Button", primaryButton);
-
-    var baseStyleBox = StyleboxFlat(new() {
-      ["bg_color"] = AccentBase,
+    // ======================
+    // Utility Functions
+    // ======================
+    Style createBaseStyleBox(Color bgColor, Color borderColor, float shadowOpacity = 0.1f) => StyleboxFlat(new() {
+      ["bg_color"] = bgColor,
       ["content_margins_"] = ContentMargins(BaseMargin),
       ["corner_radius_"] = CornerRadius(BaseCornerRadius),
-      // ["border_color"] = PrimaryTransparent,
-      // ["border_width_"] = BorderWidth(BaseBorderWidth),
       ["border_width_"] = BorderWidth(BaseBorderWidth),
+      ["border_color"] = borderColor,
       ["border_blend"] = true,
-      ["border_color"] = PrimaryColor,
-      ["shadow_color"] = new Color(PrimaryColor, 0.1f),
-      ["shadow_size"] = BaseBorderWidth * 2,
+      ["shadow_color"] = new Color(0, 0, 0, shadowOpacity),
+      ["shadow_size"] = BaseBorderWidth * 3,
+      ["shadow_offset"] = new Vector2(BaseBorderWidth, BaseBorderWidth),
+      ["anti_aliasing"] = true
     });
 
-    var fullRoundedStyle = StyleboxFlat(new() { ["corner_radius_"] = CornerRadius(9999), ["border_width"] = BaseBorderWidth * 10, ["content_marigns_"] = ContentMargins(BaseMargin * 2) });
+    Style createRoundedStyle(Color bgColor, Color borderColor) => Inherit(createBaseStyleBox(bgColor, borderColor), StyleboxFlat(new() {
+      ["corner_radius_"] = CornerRadius(9999),
+      ["content_margins_"] = ContentMargins((int)(BaseMargin * 1.5f))
+    }));
+
+    // ======================
+    // Panel Styles
+    // ======================
+    var panelStyle = createBaseStyleBox(BaseColor, PrimaryColor.Darkened(0.3f), 0.15f);
 
     DefineStyle("Panel", new Style() {
-      ["panel"] = baseStyleBox,
+      ["panel"] = panelStyle
+    });
+
+    DefineVariantStyle("BackgroundTransparency", "Panel", new() {
+      ["panel"] = Inherit(panelStyle, new Style() {
+        ["bg_color"] = AccentBase with { A = 0.5f },
+        ["corner_radius_"] = CornerRadius(0),
+      })
     });
 
     DefineVariantStyle("BorderedPanel", "Panel", new() {
-      ["panel"] = Inherit(baseStyleBox, StyleboxFlat(new() {
-        ["border_width_"] = BorderWidth(BaseBorderWidth),
-        ["border_blend"] = true,
-        ["border_color"] = PrimaryColor,
-      })),
-    });
-
-    DefineVariantStyle("RoundedPanel", "Panel", new() {
-      ["panel"] = Inherit(baseStyleBox, fullRoundedStyle),
-    });
-
-    DefineVariantStyle("TopBarPanel", "Panel", new() {
-      ["panel"] = Inherit(baseStyleBox, StyleboxFlat(new() {
-        ["corner_radius_"] = CornerRadius(0),
-        ["border_width_"] = BorderWidth(0, 0, 0, BaseBorderWidth),
+      ["panel"] = Inherit(panelStyle, StyleboxFlat(new() {
+        ["border_width_"] = BorderWidth(BaseBorderWidth * 2),
+        ["border_color"] = PrimaryColor
       }))
     });
 
-    DefineStyle("TabContainer", new() {
-      ["panel"] = baseStyleBox,
+    DefineVariantStyle("RoundedPanel", "Panel", new() {
+      ["panel"] = createRoundedStyle(BaseColor, PrimaryColor)
     });
 
-    DefineStyle("PopupPanel", new() {
-      ["panel"] = baseStyleBox,
+    DefineVariantStyle("TopBarPanel", "Panel", new() {
+      ["panel"] = Inherit(panelStyle, StyleboxFlat(new() {
+        ["corner_radius_"] = CornerRadius(0),
+        ["border_width_"] = BorderWidth(0, 0, 0, BaseBorderWidth * 2),
+        ["shadow_size"] = 0 // No shadow for top bar
+      }))
     });
 
-    DefineStyle("PopupMenu", new() {
-      ["panel"] = baseStyleBox,
-      // ["embedded_border"] = StyleboxEmpty(new()),
-      // ["embedded_unfocused_border"] = StyleboxEmpty(new()),
-    });
-
-
-    var sizes = new[] { "Small", "Medium", "Large", "ExtraLarge" };
-
-    for (var i = 0; i < sizes.Length; i++) {
-      var size = sizes[i];
-      var scale = i + 1;
-      var font = DefaultFont;
-
-      DefineVariantStyle("Margin" + size, "MarginContainer", new() {
-        ["margins_"] = Margin(BaseMargin * scale)
-      });
-
-      DefineVariantStyle("Spacing" + size, "BoxContainer", new Style() {
-        ["separation"] = Separation * scale,
-      });
-
-
-      if (size == "Small") {
-        //font = BoldFont;
-        scale = -1;
-        font = SmallFont;
-      }
-      DefineVariantStyle("Header" + size, "Label", new() {
-        ["font_color"] = FontColor,
-        ["font_size"] = DefaultFontSize + 8 * scale,
-        ["font"] = font,
-      });
-      DefineVariantStyle("RichTextLabel" + size, "RichTextLabel", new() {
-        ["normal_font_size"] = DefaultFontSize + 8 * scale,
-        ["normal_font"] = font,
-        ["default_color"] = FontColor,
-      });
-    }
-
+    // ======================
+    // Container Styles
+    // ======================
     var separationStyle = new Style() {
       ["separation"] = Separation,
     };
-    DefineStyle("BoxContainer", separationStyle);
 
+    DefineStyle("BoxContainer", separationStyle);
     DefineStyle("HBoxContainer", separationStyle);
     DefineStyle("VBoxContainer", separationStyle);
+    DefineStyle("FlowContainer", new() {
+      ["h_separation"] = Separation * 2,
+      ["v_separation"] = Separation * 2,
+    });
 
+    // ======================
+    // Button Styles
+    // ======================
+    var buttonNormal = createBaseStyleBox(PrimaryBase, PrimaryColor, 0.2f);
+    var buttonHover = Inherit(buttonNormal, StyleboxFlat(new() {
+      ["bg_color"] = PrimaryBase.Lightened(0.1f),
+      ["border_color"] = PrimaryColor.Lightened(0.2f),
+      ["shadow_color"] = new Color(PrimaryColor, 0.25f)
+    }));
 
-    var borderedStyle = Inherit(baseStyleBox, StyleboxFlat(new() {
-      ["border_width_"] = BorderWidth(BaseBorderWidth),
-      ["border_blend"] = true,
-      ["border_color"] = PrimaryColor,
-      ["content_margins_"] = ContentMargins(BaseMargin),
-      ["anti_aliasing"] = false,
-      // ["shadow_color"] = PrimaryColor.Darkened(.1f),
-      // ["shadow_offset"] = new Vector2(BaseBorderWidth, BaseBorderWidth),
-      // ["shadow_size"] = BaseBorderWidth,
+    var buttonPressed = Inherit(buttonNormal, StyleboxFlat(new() {
+      ["bg_color"] = AccentBase,
+      ["border_color"] = PrimaryColor.Lightened(0.3f),
+      ["shadow_size"] = BaseBorderWidth,
+      ["shadow_offset"] = new Vector2(0, BaseBorderWidth)
+    }));
+
+    var buttonDisabled = Inherit(buttonNormal, StyleboxFlat(new() {
+      ["bg_color"] = PrimaryBase.Lightened(.1f),
+      ["border_color"] = new Color(PrimaryColor, 0.3f),
+      ["shadow_size"] = 0
+    }));
+
+    var buttonFocus = Inherit(buttonNormal, StyleboxFlat(new() {
+      ["border_color"] = FontColor,
+      ["draw_center"] = false
+    }));
+
+    var buttonHoverPressed = Merge(buttonPressed, buttonHover, StyleboxFlat(new() {
+      ["border_color"] = PrimaryColor.Lightened(0.4f)
     }));
 
     var buttonStyle = new Style() {
-      ["normal"] = borderedStyle,
-      ["hover"] = Inherit(borderedStyle, StyleboxFlat(new() {
-        ["bg_color"] = AccentBase.Lightened(.1f),
-        ["border_color"] = PrimaryColor.Lightened(.2f),
-        //["shadow_color"] = PrimaryColor.Lightened(.1f),
-      })),
-      ["focus"] = Inherit(borderedStyle, StyleboxFlat(new() {
-        ["border_color"] = new Color(FontColor, .5f),
-        //["shadow_size"] = Vector2.Zero,
-        ["draw_center"] = false,
-      })),
-      ["disabled"] = Inherit(borderedStyle, StyleboxFlat(new() {
-        ["bg_color"] = AccentBase.Lightened(.2f),
-        //["shadow_color"] = AccentBase.Lightened(.1f),
-        ["border_width_"] = BorderWidth(0),
-      })),
-      ["pressed"] = Inherit(borderedStyle, StyleboxFlat(new() {
-        ["border_color"] = AccentColor,
-        //["shadow_color"] = AccentColor.Darkened(.1f),
-      })),
+      ["normal"] = buttonNormal,
+      ["hover"] = buttonHover,
+      ["focus"] = buttonFocus,
+      ["disabled"] = buttonDisabled,
+      ["pressed"] = buttonPressed,
+      ["hover_pressed"] = buttonHoverPressed,
+      ["font_color"] = FontColor,
+      ["font_hover_color"] = FontColor.Lightened(0.2f),
+      ["font_focus_color"] = FontColor,
+      ["font_pressed_color"] = FontColor,
+      ["font_disabled_color"] = new Color(FontColor, 0.5f),
       ["icon_max_width"] = 24,
     };
 
-    buttonStyle["hover_pressed"] = Merge(buttonStyle["pressed"].As<Style>(), buttonStyle["hover"].As<Style>(), StyleboxFlat(new() {
-      ["border_color"] = AccentColor.Lightened(.2f),
-      //["shadow_color"] = AccentColor.Lightened(.1f),
-    }
-    ));
-
     DefineStyle("Button", buttonStyle);
 
-
-    DefineVariantStyle("EndTurnButton", "Button", new Style() {
-      ["normal"] = Inherit(buttonStyle["normal"].As<Style>(), fullRoundedStyle),
-
-      ["hover"] = Inherit(buttonStyle["hover"].As<Style>(), fullRoundedStyle),
-
-      ["focus"] = Inherit(buttonStyle["focus"].As<Style>(), fullRoundedStyle),
-
-      ["disabled"] = Inherit(buttonStyle["disabled"].As<Style>(), fullRoundedStyle),
-
-      ["pressed"] = Inherit(buttonStyle["pressed"].As<Style>(), fullRoundedStyle),
-
-      ["hover_pressed"] = Inherit(buttonStyle["hover_pressed"].As<Style>(), fullRoundedStyle),
-
-    });
-
-    DefineStyle("ProgressBar", new Style() {
-      ["fill"] = Inherit(baseStyleBox, StyleboxFlat(new() {
-        ["bg_color"] = PrimaryBase,
-        ["border_width_"] = BorderWidth(BaseBorderWidth),
-        ["border_color"] = PrimaryColor,
+    var roundedButtonNormal = createRoundedStyle(PrimaryBase, PrimaryColor);
+    DefineVariantStyle("EndTurnButton", "Button", Inherit(buttonStyle, new Style() {
+      ["normal"] = roundedButtonNormal,
+      ["hover"] = Inherit(roundedButtonNormal, StyleboxFlat(new() {
+        ["bg_color"] = PrimaryBase.Lightened(0.1f),
+        ["shadow_color"] = new Color(PrimaryColor, 0.3f)
       })),
-      ["background"] = baseStyleBox,
+      ["hover_pressed"] = Inherit(buttonHoverPressed, roundedButtonNormal),
+      ["disabled"] = Inherit(buttonDisabled, roundedButtonNormal),
+      ["focus"] = Inherit(buttonFocus, roundedButtonNormal),
+      ["pressed"] = Inherit(roundedButtonNormal, StyleboxFlat(new() {
+        ["bg_color"] = AccentBase,
+        ["shadow_offset"] = new Vector2(0, BaseBorderWidth)
+      })),
+    }));
+
+    DefineVariantStyle("AccentButton", "Button", new Style() {
+      ["normal"] = createBaseStyleBox(AccentBase, AccentColor, 0.2f),
+      ["hover"] = Inherit(buttonHover, StyleboxFlat(new() {
+        ["bg_color"] = AccentBase.Lightened(0.1f),
+        ["border_color"] = AccentColor.Lightened(0.2f),
+        ["shadow_color"] = new Color(AccentColor, 0.25f)
+      })),
+      ["pressed"] = Inherit(buttonPressed, StyleboxFlat(new() {
+        ["bg_color"] = AccentColor,
+        ["border_color"] = AccentColor.Lightened(0.3f)
+      }))
     });
 
-    var separatorStyle = StyleboxLine(new() {
-      ["color"] = PrimaryColor,
-      ["thickness"] = BaseBorderWidth,
+    // ======================
+    // Progress Bar
+    // ======================
+    DefineStyle("ProgressBar", new Style() {
+      ["fill"] = Inherit(createBaseStyleBox(PrimaryColor, PrimaryColor.Lightened(0.2f)), StyleboxFlat(new() {
+        ["border_width_"] = BorderWidth(0),
+        //["corner_radius_"] = CornerRadius(BaseCornerRadius / 2)
+      })),
+      ["background"] = createBaseStyleBox(AccentBase, PrimaryColor),
+      ["font_color"] = FontColor,
+      ["font_size"] = DefaultFontSize - 2
     });
+
+    // ======================
+    // Separators
+    // ======================
+    var separatorStyle = StyleboxLine(new() {
+      ["color"] = PrimaryColor with { A = 0.5f },
+      ["thickness"] = BaseBorderWidth,
+      //["grow_"] = Grow(1)
+    });
+
     DefineStyle("HSeparator", new() {
-      ["separation"] = Separation,
-      ["separator"] = separatorStyle,
+      ["separation"] = Separation * 2,
+      ["separator"] = separatorStyle
     });
 
     DefineStyle("VSeparator", new() {
-      ["separation"] = Separation,
+      ["separation"] = Separation * 2,
       ["separator"] = Inherit(separatorStyle, new Style() {
         ["vertical"] = true
       })
     });
 
-    DefineStyle("FlowContainer", new() {
-      ["h_separation"] = Separation,
-      ["v_separation"] = Separation,
+    // ======================
+    // Typography
+    // ======================
+    var sizes = new[] { "Small", "Medium", "Large", "ExtraLarge" };
+
+    for (var i = 0; i < sizes.Length; i++) {
+      var size = sizes[i];
+      var scale = i + 1;
+      var font = i == 0 ? SmallFont : DefaultFont;
+
+      // Margin Containers
+      DefineVariantStyle("Margin" + size, "MarginContainer", new() {
+        ["margins_"] = Margin(BaseMargin * scale)
+      });
+
+      // Spacing Containers
+      DefineVariantStyle("Spacing" + size, "BoxContainer", new Style() {
+        ["separation"] = Separation * scale,
+      });
+
+      // Text Styles
+      DefineVariantStyle("Header" + size, "Label", new() {
+        ["font_color"] = FontColor,
+        ["font_size"] = DefaultFontSize + 8 * scale,
+        ["font"] = font,
+        // ["shadow_color"] = ShadowColor,
+        // ["shadow_offset"] = new Vector2(BaseBorderWidth, BaseBorderWidth)
+      });
+
+      DefineVariantStyle("RichTextLabel" + size, "RichTextLabel", new() {
+        ["normal_font_size"] = DefaultFontSize + 8 * scale,
+        ["normal_font"] = font,
+        //["bold_font"] = BoldFont,
+        ["default_color"] = FontColor,
+        // ["shadow_color"] = ShadowColor,
+        // ["shadow_offset_x"] = BaseBorderWidth / 2,
+        // ["shadow_offset_y"] = BaseBorderWidth / 2,
+      });
+    }
+
+    // Base Label Style
+    DefineStyle("Label", new() {
+      ["font_color"] = FontColor,
+      // ["shadow_color"] = ShadowColor,
+      // ["shadow_offset"] = new Vector2(BaseBorderWidth / 2, BaseBorderWidth / 2)
+    });
+
+    // ======================
+    // Special Controls
+    // ======================
+
+    // // ======================
+    // // TabContainer Styles
+    // // ======================
+    // DefineStyle("TabContainer", new() {
+    //   ["panel"] = createBaseStyleBox(BaseColor.Darkened(0.1f), PrimaryColor.Darkened(0.3f), 0.15f),
+
+    //   // Tab bar background (set to empty to blend with main panel)
+    //   ["tabbar_background"] = StyleboxEmpty(),
+
+    //   // Tab styling
+    //   ["tab_unselected"] = StyleboxFlat(new() {
+    //     ["bg_color"] = BaseColor.Darkened(0.2f),
+    //     ["border_width_"] = BorderWidth(1, 1, 0, 1), // Border only on sides and top
+    //     ["border_color"] = PrimaryColor.Darkened(0.4f),
+    //     ["corner_radius_"] = CornerRadius(BaseCornerRadius, BaseCornerRadius, 0, 0),
+    //     ["content_margins_"] = ContentMargins(BaseMargin * 2, BaseMargin, BaseMargin * 2, BaseMargin),
+    //     ["shadow_size"] = 0 // No shadow for unselected tabs
+    //   }),
+
+    //   ["tab_selected"] =
+    //   //Inherit(GetStyle("TabContainer")["tab_unselected"].As<Style>(),
+    //   StyleboxFlat(new() {
+    //     ["bg_color"] = BaseColor, // Matches panel background
+    //     ["border_color"] = PrimaryColor,
+    //     ["border_width_"] = BorderWidth(BaseBorderWidth, BaseBorderWidth, 0, BaseBorderWidth),
+    //     ["shadow_size"] = BaseBorderWidth,
+    //     ["shadow_color"] = new Color(PrimaryColor, 0.1f)
+    //   }),
+
+    //   ["tab_disabled"] = StyleboxFlat(new() {
+    //     ["bg_color"] = new Color(BaseColor.Darkened(0.2f), 0.5f),
+    //     ["border_color"] = new Color(PrimaryColor.Darkened(0.4f), 0.3f)
+    //   }),
+
+    //   ["tab_hover"] = StyleboxFlat(new() {
+    //     ["bg_color"] = BaseColor.Darkened(0.15f),
+    //     ["border_color"] = PrimaryColor.Darkened(0.2f)
+    //   }),
+
+    //   ["font"] = DefaultFont,
+    //   ["font_size"] = DefaultFontSize,
+    //   ["font_color"] = new Color(FontColor, 0.8f),
+    //   ["font_selected_color"] = FontColor,
+    //   ["font_hover_color"] = FontColor.Lightened(0.1f),
+    //   ["font_disabled_color"] = new Color(FontColor, 0.4f),
+
+    //   ["hseparation"] = -BaseBorderWidth,
+    //   ["top_margin"] = BaseMargin * 2
+    // });
+
+
+    DefineStyle("PopupPanel", new() {
+      ["panel"] = Inherit(panelStyle, StyleboxFlat(new Style() {
+        ["shadow_size"] = BaseBorderWidth * 4,
+        ["shadow_color"] = new Color(0, 0, 0, 0.3f)
+      }))
+    });
+
+    DefineStyle("PopupMenu", new() {
+      ["panel"] = panelStyle,
+      ["hover"] = createBaseStyleBox(PrimaryBase with { A = 0.7f },
+        PrimaryColor with { A = 0.5f }),
+      ["separator"] = separatorStyle
     });
   }
 }

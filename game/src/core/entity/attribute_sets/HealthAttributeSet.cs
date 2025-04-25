@@ -35,8 +35,12 @@ public partial class HealthAttributeSet : GameplayAttributeSet {
       if (data.Target.GetOwner() is Entity entity) {
         // TODO: fixme only add is shown
         var magnitude = data.EvaluatedData.Magnitude;
+        var color = Colors.Red;
+        if (magnitude >= 0) {
+          color = Colors.Green;
+        }
         var text = FloatingText3D.Create();
-        text.Label?.PushColor(Colors.Red);
+        text.Label?.PushColor(color);
         text.Label?.AppendText($"{magnitude} Health");
         GameInstance.GetWorld().AddChild(text);
         text.GlobalPosition = entity.GlobalPosition + Vector3.Up * 2;

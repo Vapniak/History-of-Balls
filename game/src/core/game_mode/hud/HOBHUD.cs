@@ -68,11 +68,8 @@ public partial class HOBHUD : HUD {
     var objectivesText = GetPlayerController().GetGameMode().MissionData.ObjectivesText;
     var objectives = objectivesText.Split("\n");
     foreach (var objective in objectives) {
-      var widget = LabelButtonWidget.CreateWidget().Configure((button) => {
-        button.Text = objective;
-        button.Disabled = true;
-        button.Alignment = HorizontalAlignment.Left;
-      });
+      var widget = ObjectiveWidget.CreateWidget();
+      widget.Label.AppendText(objective);
 
       ObjectivesListParent.AddChild(widget);
     }
@@ -144,7 +141,10 @@ public partial class HOBHUD : HUD {
 
   private void OnRoundChanged(int roundNumber) {
     if (GetPlayerController().GetGameMode() is SurviveGameMode surviveGameMode) {
-      RoundLabel.Text = $"ROUND {roundNumber} / {surviveGameMode.RoundsToSurvive}";
+      RoundLabel.Text = $"{roundNumber} / {surviveGameMode.RoundsToSurvive}";
+    }
+    else {
+      RoundLabel.Text = roundNumber.ToString();
     }
   }
 

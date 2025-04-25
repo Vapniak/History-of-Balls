@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Country" load_steps=6 format=3 uid="uid://dlyqo7rtbq0iv"]
 
-[ext_resource type="Texture2D" uid="uid://fftvsqkgvs0x" path="res://assets/textures/HoB-renders/HoB-greece-render.png" id="1_pxwkw"]
+[ext_resource type="Texture2D" uid="uid://cx5ibstr2v6tn" path="res://assets/textures/HoB-renders/HoB-greece-render-2.png" id="1_jk0y8"]
 [ext_resource type="Texture2D" uid="uid://b51t1aisjv4u5" path="res://assets/textures/flags/Greece.png" id="1_w64ew"]
 [ext_resource type="Resource" uid="uid://740skhhkry2" path="res://res/data/resource_types/olive_oil.tres" id="2_hk384"]
 [ext_resource type="Resource" uid="uid://0d7fmg6uf4d3" path="res://res/data/resource_types/olives.tres" id="3_vxojt"]
@@ -11,6 +11,6 @@ script = ExtResource("4_iprnd")
 Name = "Greece"
 Color = Color(0, 0.494118, 0.909804, 1)
 Flag = ExtResource("1_w64ew")
-CountryBallRender = ExtResource("1_pxwkw")
+CountryBallRender = ExtResource("1_jk0y8")
 PrimaryResource = ExtResource("2_hk384")
 SecondaryResource = ExtResource("3_vxojt")

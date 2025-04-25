@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System.Threading.Tasks;
 using GameplayFramework;
 using Godot;
 
@@ -50,6 +51,10 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     zoomDelta = Mathf.Clamp(zoomDelta, -1, 1);
     _targetZoom = Mathf.Clamp(_targetZoom + (zoomDelta * _zoomSpeed), 0, 1);
   }
+  public void SetZoom(float targetZoom) {
+    targetZoom = Mathf.Clamp(0, 1, targetZoom);
+    _targetZoom = targetZoom;
+  }
 
   public void HandleDirectionalMovement(double delta, Vector2 horizontalDirection) {
     if (_isMovingToPosition) {
@@ -73,11 +78,12 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     );
   }
 
-  public void MoveToPosition(Vector3 position, double duration, Tween.TransitionType transitionType) {
+  public async Task MoveToPosition(Vector3 position, double duration, Tween.TransitionType transitionType) {
     _moveTween = CreateTween().SetSpeedScale(1f / (float)Engine.TimeScale);
     _moveTween.TweenProperty(this, "global_position", position, duration).SetTrans(transitionType);
     _isMovingToPosition = true;
     _moveTween.Finished += () => _isMovingToPosition = false;
+    await ToSignal(_moveTween, Tween.SignalName.Finished);
   }
 
   public void CancelMoveToPosition() {

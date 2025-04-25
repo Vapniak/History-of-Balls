@@ -2,6 +2,7 @@ namespace HOB;
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using GameplayAbilitySystem;
 using GameplayFramework;
 using GameplayTags;
@@ -31,13 +32,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private bool _isPanning;
   private Vector2 _lastMousePosition;
 
-  private HighlightSystem? HighlightSystem { get; set; }
+  private HighlightSystem? Highlight { get; set; }
   private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
 
   public override void _Ready() {
     base._Ready();
 
-    HighlightSystem = new(HighlightColors ?? new(), GameBoard);
+    Highlight = new(this, HighlightColors ?? new(), GameBoard);
+    AddChild(Highlight);
 
     GetHUD().EndTurnPressed += TryEndTurn;
     GetHUD().PauseButton.Pressed += () => {
@@ -139,8 +141,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   public void OnGameStarted() {
-    CallDeferred(MethodName.SelectEntity, EntityManagment.GetOwnedEntites(this).FirstOrDefault());
-    CallDeferred(MethodName.FocusOnSelectedEntity);
+    SelectEntity(EntityManagment.GetOwnedEntites(this).FirstOrDefault());
+    _ = FocusOnSelectedEntity();
 
     _gameStarted = true;
   }
@@ -215,9 +217,10 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
   }
 
-  private void FocusOnSelectedEntity() {
+  private async Task FocusOnSelectedEntity() {
     if (SelectedEntity != null) {
-      Character.MoveToPosition(SelectedEntity.GetPosition(), 1, Tween.TransitionType.Cubic);
+      await Character.MoveToPosition(SelectedEntity.GetPosition(), 1, Tween.TransitionType.Cubic);
+      Character.SetZoom(1);
     }
   }
   private void HandleMovement(float delta) {
@@ -291,7 +294,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private void OnSelectionStateEntered() {
     if (SelectedEntity != null) {
       SelectedEntity.TreeExiting += OnSelectedEntityDied;
-      SelectedEntity.CellChanged += OnSelectedEntityCellChanged;
       SelectedEntity.AbilitySystem.GameplayAbilityActivated += OnAbilityActivated;
       SelectedEntity.AbilitySystem.GameplayAbilityEnded += OnAbilityEnded;
     }
@@ -302,7 +304,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     if (SelectedEntity != null) {
       SelectedEntity.TreeExiting -= OnSelectedEntityDied;
-      SelectedEntity.CellChanged -= OnSelectedEntityCellChanged;
       SelectedEntity.AbilitySystem.GameplayAbilityActivated -= OnAbilityActivated;
       SelectedEntity.AbilitySystem.GameplayAbilityEnded -= OnAbilityEnded;
     }
@@ -312,7 +313,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnSelectionIdleStateUnhandledInput(InputEvent @event) {
     if (@event.IsActionPressed(GameInputs.Focus)) {
-      FocusOnSelectedEntity();
+      _ = FocusOnSelectedEntity();
     }
 
     CheckCommandInput(@event);
@@ -344,23 +345,29 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void OnSelectionIdleStateEntered() {
-    SelectedCommandChanged += UpdateSelectedCommandHighlights;
     if (SelectedEntity != null && SelectedCommand == null) {
       var grantedAbilities = SelectedEntity.AbilitySystem.GetGrantedAbilities();
 
-      var ability = grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is MoveAbility.Instance);
-      ability ??= grantedAbilities.FirstOrDefault(s => s.CanActivateAbility(new() { Activator = this }) && s is AttackAbility.Instance);
+      bool checkAbility(GameplayAbility.Instance ability) {
+        if (ability is HOBAbility.EntityInstance entityAbility) {
+          if (entityAbility.OwnerEntity.TryGetOwner(out var owner) && owner == this) {
+            return entityAbility.CheckCooldown();
+          }
+        }
+
+        return true;
+      }
+      var ability = grantedAbilities.FirstOrDefault(s => checkAbility(s) && s is MoveAbility.Instance);
+      ability ??= grantedAbilities.FirstOrDefault(s => checkAbility(s) && s is AttackAbility.Instance);
 
       if (ability != null) {
         SelectedCommand = (HOBAbility.Instance)ability;
       }
     }
-
-    UpdateSelectedCommandHighlights();
   }
 
   private void OnSelectionIdleStateExited() {
-    SelectedCommandChanged -= UpdateSelectedCommandHighlights;
+
   }
 
   private void OnCommandStateEntered() {
@@ -375,31 +382,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   public new IMatchPlayerState GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
 
-  private void OnSelectedEntityCellChanged() {
-    HighlightSystem?.ClearAllHighlights();
-
-    HighlightSystem?.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
-
-    HighlightSystem?.UpdateHighlights();
-  }
-
   private void OnSelectedEntityDied() {
     SelectEntity(null);
-    HighlightSystem?.ClearAllHighlights();
-    HighlightSystem?.UpdateHighlights();
   }
 
   private void OnSelectedEntityChanged() {
-    HighlightSystem?.ClearAllHighlights();
-
-    if (SelectedEntity != null) {
-      HighlightSystem?.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
-    }
-    else {
+    if (SelectedEntity == null) {
       SelectedCommand = null;
     }
-
-    HighlightSystem?.UpdateHighlights();
   }
 
   private void OnSelectedCommandChanged() {
@@ -416,26 +406,5 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private void OnAbilityEnded(GameplayAbility.Instance abilityInstance) {
     StateChart?.SendEvent("command_finished");
-  }
-
-  private void UpdateSelectedCommandHighlights() {
-    HighlightSystem?.ClearAllHighlights();
-
-    if (SelectedEntity != null) {
-      HighlightSystem?.SetHighlight(HighlightType.Selection, SelectedEntity.Cell);
-    }
-
-    if (SelectedCommand is MoveAbility.Instance moveAbility) {
-      foreach (var cell in moveAbility.GetReachableCells()) {
-        HighlightSystem?.SetHighlight(HighlightType.Movement, cell);
-      }
-    }
-    else if (SelectedCommand is AttackAbility.Instance attackAbility) {
-      foreach (var cell in attackAbility.GetAttackableEntities().cellsInRange) {
-        HighlightSystem?.SetHighlight(HighlightType.Attack, cell);
-      }
-    }
-
-    HighlightSystem?.UpdateHighlights();
   }
 }

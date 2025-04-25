@@ -1,14 +1,19 @@
 namespace HOB;
 
 using Godot;
-using System;
+using Godot.Collections;
 using System.Linq;
-using WidgetSystem;
 
 [GlobalClass]
-public partial class TimeScaleButtonWidget : LabelButtonWidget {
+public partial class TimeScaleButtonWidget : ButtonWidget {
+  [Export] private Array<Texture2D> SpeedTextures { get; set; } = new();
   public override void _Process(double delta) {
-    Configure(label => label.Text =
-      string.Concat(Enumerable.Repeat(">", (int)Engine.TimeScale)));
+    var index = (int)Engine.TimeScale - 1;
+    var icon = SpeedTextures.ElementAtOrDefault(index);
+    if (icon != null) {
+      Button.Icon = icon;
+    }
+    //    Configure(label => label.Text =
+    //string.Concat(Enumerable.Repeat(">", (int)Engine.TimeScale)));
   }
 }

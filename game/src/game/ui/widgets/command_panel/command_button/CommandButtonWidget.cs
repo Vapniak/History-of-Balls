@@ -10,12 +10,6 @@ public partial class CommandButtonWidget : ButtonWidget, IWidgetFactory<CommandB
   }
 
   public void BindAbility(HOBAbility.Instance ability) {
-    ((Button)Button).Icon = ability.AbilityResource.Icon;
-  }
-
-  public override GodotObject _MakeCustomTooltip(string forText) {
-    return TooltipWidget.CreateWidget().Configure(label => {
-      label.AppendText(forText);
-    });
+    Button.Icon = ability.AbilityResource.Icon;
   }
 }

@@ -103,8 +103,8 @@ public abstract partial class ProgrammaticTheme : Theme {
     return newStyle;
   }
 
-  public Style StyleboxEmpty(Style style) {
-    var newStyle = new Style(style);
+  public Style StyleboxEmpty() {
+    var newStyle = new Style();
     newStyle["type"] = "stylebox_empty";
     return newStyle;
   }

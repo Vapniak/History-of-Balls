@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://cyidgmoevposj"]
+[gd_scene load_steps=7 format=3 uid="uid://cyidgmoevposj"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/time_scale/TimeScaleButtonWidget.cs" id="1_o14s0"]
-[ext_resource type="PackedScene" uid="uid://bucr6se6rejrr" path="res://src/game/ui/widgets/button/label_button/label_button.tscn" id="2_amjb2"]
+[ext_resource type="Texture2D" uid="uid://cicitpelfutwp" path="res://assets/textures/icons/speed-1.svg" id="2_p4p5f"]
+[ext_resource type="Texture2D" uid="uid://frrwlst0o5kb" path="res://assets/textures/icons/speed-2.svg" id="3_x8lxa"]
+[ext_resource type="Texture2D" uid="uid://dy1y3bwar1q03" path="res://assets/textures/icons/speed-3.svg" id="4_61qkt"]
 
 [sub_resource type="InputEventAction" id="InputEventAction_waene"]
 action = &"speed_multi"
@@ -9,11 +11,20 @@ action = &"speed_multi"
 [sub_resource type="Shortcut" id="Shortcut_mh8y5"]
 events = [SubResource("InputEventAction_waene")]
 
-[node name="TimeScale" instance=ExtResource("2_amjb2")]
+[node name="TimeScale" type="MarginContainer" node_paths=PackedStringArray("Button")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("1_o14s0")
+SpeedTextures = [ExtResource("2_p4p5f"), ExtResource("3_x8lxa"), ExtResource("4_61qkt")]
+Button = NodePath("Button")
 
-[node name="Button" parent="." index="0"]
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+mouse_default_cursor_shape = 2
 shortcut = SubResource("Shortcut_mh8y5")
-
-[node name="RichTextLabel" parent="MarginContainer" index="0"]
-text = ">"
+icon = ExtResource("2_p4p5f")
+icon_alignment = 1
+expand_icon = true
