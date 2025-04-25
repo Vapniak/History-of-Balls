@@ -47,11 +47,10 @@ size_flags_horizontal = 0
 layout_mode = 2
 size_flags_vertical = 3
 tab_alignment = 1
-current_tab = 2
+current_tab = 0
 clip_tabs = false
 
 [node name="Video" type="MarginContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -138,6 +137,7 @@ layout_mode = 2
 metadata/_tab_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Sound"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -160,97 +160,146 @@ value = 30.0
 rounded = true
 
 [node name="Input" type="MarginContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="GridContainer" type="GridContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input"]
-custom_minimum_size = Vector2(200, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input"]
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/h_separation = 100
-columns = 2
 
-[node name="Label" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "WSAD"
 
-[node name="Label2" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label2" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "Move"
 
-[node name="Label3" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HSeparator" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "MMB (Hold)"
 
-[node name="Label4" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label4" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 text = "Pan Camera"
 
-[node name="Label5" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HSeparator2" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label5" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "LMB"
 
-[node name="Label9" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label9" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
-size_flags_horizontal = 3
 text = "Select"
 
-[node name="Label10" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HSeparator3" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label10" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "RMB"
 
-[node name="Label6" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label6" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 text = "Use Selected Command"
 
-[node name="Label7" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HSeparator4" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer5" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label7" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SCROLL UP/DOWN"
 
-[node name="Label8" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label8" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 text = "Zoom In/Out"
 
-[node name="Label11" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HSeparator6" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer6" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label11" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "F"
 
-[node name="Label12" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label12" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer6"]
 layout_mode = 2
 text = "Focus On Selection"
 
-[node name="Label13" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HSeparator7" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label13" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Q/E
 Arrow Left/Right"
 
-[node name="Label14" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label14" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
 text = "Rotate Camera Left/Right"
 
-[node name="Label15" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HSeparator8" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label15" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer8"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SHIFT"
 
-[node name="Label16" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label16" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer8"]
 layout_mode = 2
 text = "Time Speed Change"
 
-[node name="Label17" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="HSeparator5" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer9" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label17" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer9"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "SPACE"
 
-[node name="Label18" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/GridContainer"]
+[node name="Label18" type="Label" parent="Screen/MarginContainer/VBoxContainer/TabContainer/Input/VBoxContainer/HBoxContainer9"]
 layout_mode = 2
 text = "End Turn"
 

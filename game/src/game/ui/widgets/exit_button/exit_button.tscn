@@ -3,9 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="1_5tgpa"]
 
 [node name="ExitButton" instance=ExtResource("1_5tgpa")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 33.0
+offset_bottom = 41.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [node name="Button" parent="." index="0"]
+theme_type_variation = &"AccentButton"
 text = "X"
-flat = true
 
 [connection signal="pressed" from="Button" to="." method="PopWidget"]
