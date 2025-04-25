@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://knv3bilnx05e"]
+[gd_scene load_steps=23 format=3 uid="uid://knv3bilnx05e"]
 
 [ext_resource type="Script" path="res://src/core/game_mode/hud/HOBHUD.cs" id="1_ep1kh"]
 [ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/game/ui/widgets/flag/flag.tscn" id="2_3sw0n"]
@@ -16,6 +16,7 @@
 [ext_resource type="Material" uid="uid://dl2gnkq5n62w3" path="res://src/game/ui/widgets/panel_background/background_mask.tres" id="11_fxpao"]
 [ext_resource type="Texture2D" uid="uid://e33ivpeot532" path="res://assets/textures/icons/pause.svg" id="11_w01wk"]
 [ext_resource type="PackedScene" uid="uid://c3lvr615cvoaa" path="res://src/game/ui/widgets/time_played/time_played.tscn" id="13_7vy0t"]
+[ext_resource type="Texture2D" uid="uid://crrsukmy3b1id" path="res://assets/textures/icons/shield.svg" id="13_j1sdc"]
 [ext_resource type="PackedScene" uid="uid://cyidgmoevposj" path="res://src/game/ui/widgets/time_scale/time_scale.tscn" id="13_q7q03"]
 [ext_resource type="Texture2D" uid="uid://b2oa0u5la8xl6" path="res://assets/textures/icons/next-turn.svg" id="15_j4lta"]
 
@@ -32,7 +33,7 @@ action = &"end_turn"
 [sub_resource type="Shortcut" id="Shortcut_2o4se"]
 events = [SubResource("InputEventAction_55cjs")]
 
-[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("PauseButton", "TimeScaleButtonWidget", "TurnChangedNotificationLabel", "CountryBallRender", "EntityPanel", "ProductionPanel", "CommandPanel", "ObjectivesListParent", "EndTurnButton", "RoundLabel", "TurnLabel", "FlagWidget", "CountryNameLabel", "PrimaryResourceIcon", "PrimaryResourceValueLabel", "SecondaryResourceIcon", "SecondaryResourceValueLabel")]
+[node name="HUD" type="CanvasLayer" node_paths=PackedStringArray("PauseButton", "TimeScaleButtonWidget", "TurnChangedNotificationLabel", "CountryBallRender", "EntityPanel", "ProductionPanel", "CommandPanel", "ObjectivesListParent", "EndTurnButton", "RoundLabel", "TurnLabel", "FlagWidget", "CountryNameLabel", "PrimaryResourceWidget", "SecondaryResourceWidget")]
 layer = 0
 script = ExtResource("1_ep1kh")
 PauseButton = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer2/Button/Button")
@@ -50,10 +51,8 @@ RoundLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/Margi
 TurnLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/VBoxContainer/Label2")
 FlagWidget = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer/MarginContainer/HBoxContainer/Flag")
 CountryNameLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/MarginContainer/MarginContainer/HBoxContainer/Label")
-PrimaryResourceIcon = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer/MarginContainer/HBoxContainer/TextureRect")
-PrimaryResourceValueLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer/MarginContainer/HBoxContainer/Label2")
-SecondaryResourceIcon = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/TextureRect")
-SecondaryResourceValueLabel = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer2/MarginContainer/HBoxContainer/Label2")
+PrimaryResourceWidget = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer")
+SecondaryResourceWidget = NodePath("Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer2")
 
 [node name="Control" type="MarginContainer" parent="."]
 material = ExtResource("11_fxpao")
@@ -287,8 +286,20 @@ theme_type_variation = &"MarginSmall"
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Label2" type="Label" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("13_j1sdc")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="Control/VBoxContainer/MarginContainer/MarginContainer4/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_type_variation = &"HeaderMedium"
 text = "OBJECTIVES"
 
@@ -384,8 +395,6 @@ mouse_filter = 2
 
 [connection signal="pressed" from="Control/VBoxContainer/MarginContainer/MarginContainer4/NextTurn/Button" to="." method="OnEndTurnPressed"]
 
-[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer"]
-[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer/BoxContainer2/VBoxContainer/MarginContainer2"]
 [editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer2/TimePlayed"]
 [editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer2/TimeScale"]
 [editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer2/Button"]

@@ -13,13 +13,14 @@ using RaycastSystem;
 
 [GlobalClass, Tool]
 public partial class TerrainManager : Node3D {
-  [Export] private Material TerrainMaterial { get; set; }
-  [Export] private Material WaterMaterial { get; set; }
+  [Export] private Material TerrainMaterial { get; set; } = default!;
+  [Export] private Material WaterMaterial { get; set; } = default!;
 
-  private Image TerrainData { get; set; }
-  private Image HighlightData { get; set; }
-  private Texture2DArray HexTextures { get; set; }
-  private Image TextureLookup { get; set; }
+  private Image TerrainData { get; set; } = default!;
+  private Image HighlightData { get; set; } = default!;
+  private ImageTexture HighlightDataTexture { get; set; } = default!;
+  private Texture2DArray HexTextures { get; set; } = default!;
+  private Image TextureLookup { get; set; } = default!;
 
 
   private Vector2I ChunkCount { get; set; }
@@ -107,6 +108,7 @@ public partial class TerrainManager : Node3D {
 
     UpdateTerrainTextureData();
 
+    HighlightDataTexture = ImageTexture.CreateFromImage(HighlightData);
     UpdateHighlights();
 
     TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
@@ -166,8 +168,8 @@ public partial class TerrainManager : Node3D {
   }
 
   private void UpdateHighlightTextureData() {
-    var texture = ImageTexture.CreateFromImage(HighlightData);
-    TerrainMaterial.Set("shader_parameter/highlight_data_texture", texture);
+    HighlightDataTexture.Update(HighlightData);
+    TerrainMaterial.Set("shader_parameter/highlight_data_texture", HighlightDataTexture);
   }
 
 

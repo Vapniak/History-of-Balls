@@ -8,10 +8,16 @@ using WidgetSystem;
 
 [GlobalClass]
 public partial class SelectMissionWidget : HOBWidget, IWidgetFactory<SelectMissionWidget> {
-  [Export] private Array<MissionData> Missions { get; set; } = default!;
   [Export] private Control MissionList { get; set; } = default!;
+
+  private Array<MissionData> Missions { get; set; } = default!;
+
   public static SelectMissionWidget CreateWidget() {
     return ResourceLoader.Load<PackedScene>("uid://dyib3loosl782").Instantiate<SelectMissionWidget>();
+  }
+
+  public void BindTo(Array<MissionData> missions) {
+    Missions = missions;
   }
 
   public override void _Ready() {

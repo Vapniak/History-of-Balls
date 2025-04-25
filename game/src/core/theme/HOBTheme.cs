@@ -52,19 +52,27 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["panel"] = panelStyle
     });
 
+    DefineVariantStyle("Card", "PanelContainer", new Style() {
+      ["panel"] = Inherit(panelStyle, new Style() {
+        ["content_margins_"] = ContentMargins(BaseBorderWidth),
+      }),
+    });
+
     DefineVariantStyle("BackgroundTransparency", "Panel", new() {
       ["panel"] = Inherit(panelStyle, new Style() {
         ["bg_color"] = AccentBase with { A = 0.5f },
         ["corner_radius_"] = CornerRadius(0),
+        ["border_width_"] = BorderWidth(0),
       })
     });
 
-    DefineVariantStyle("BorderedPanel", "Panel", new() {
-      ["panel"] = Inherit(panelStyle, StyleboxFlat(new() {
-        ["border_width_"] = BorderWidth(BaseBorderWidth * 2),
-        ["border_color"] = PrimaryColor
+    DefineVariantStyle("ScreenPanel", "Panel", new() {
+      ["panel"] = Inherit(createBaseStyleBox(AccentBase, PrimaryColor.Darkened(0.3f)), StyleboxFlat(new() {
+        ["corner_radius_"] = CornerRadius(0),
+        ["border_width_"] = BorderWidth(0),
       }))
     });
+
 
     DefineVariantStyle("RoundedPanel", "Panel", new() {
       ["panel"] = createRoundedStyle(BaseColor, PrimaryColor)
@@ -136,7 +144,7 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["font_hover_color"] = FontColor.Lightened(0.2f),
       ["font_focus_color"] = FontColor,
       ["font_pressed_color"] = FontColor,
-      ["font_disabled_color"] = new Color(FontColor, 0.5f),
+      ["font_disabled_color"] = FontColor.Darkened(0.5f),
       ["icon_max_width"] = 24,
     };
 
@@ -308,6 +316,7 @@ public partial class HOBTheme : ProgrammaticTheme {
 
 
     DefineStyle("PopupPanel", new() {
+      //["panel"] = StyleboxEmpty(),
       ["panel"] = Inherit(panelStyle, StyleboxFlat(new Style() {
         ["shadow_size"] = BaseBorderWidth * 4,
         ["shadow_color"] = new Color(0, 0, 0, 0.3f)

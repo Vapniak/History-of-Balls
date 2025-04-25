@@ -1,6 +1,7 @@
 namespace HOB;
 
 using System;
+using System.Drawing;
 using System.Linq;
 using GameplayAbilitySystem;
 using Godot;
@@ -14,8 +15,15 @@ public partial class GameAssetsRegistry : Node {
   [Export] public Array<AttributeIcon> AttributeIcons { get; private set; } = new();
   [Export] public Array<EntityIcon> EntityIcons { get; private set; } = new();
 
+  [ExportGroup("Cursors")]
+  [Export] public Texture2D? DefaultCursor { get; private set; }
+  [Export] public Texture2D? PointingHandCursor { get; private set; }
+
   public override void _EnterTree() {
     Instance = this;
+
+    Input.SetCustomMouseCursor(DefaultCursor);
+    Input.SetCustomMouseCursor(PointingHandCursor, Input.CursorShape.PointingHand);
   }
 
   public Texture2D? GetIconFor(GameplayAttribute attribute) {

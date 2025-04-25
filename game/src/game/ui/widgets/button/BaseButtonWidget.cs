@@ -1,12 +1,16 @@
 namespace HOB;
 
 using System;
+using System.ComponentModel;
 using Godot;
 using WidgetSystem;
 
+[Tool]
 public abstract partial class BaseButtonWidget<TSelf, T> : HOBWidget, IWidgetConfig<BaseButtonWidget<TSelf, T>, T> where T : BaseButton {
   [Signal] public delegate void StateFontColorChangedEventHandler(Color color);
 
+  [Export] private Control? ControlToModulate { get; set; }
+  [Export] private bool ModulateOnButtonStateChange { get; set; } = true;
   public abstract T Button { get; protected set; }
 
   private bool _lastDisabled;
@@ -19,6 +23,12 @@ public abstract partial class BaseButtonWidget<TSelf, T> : HOBWidget, IWidgetCon
 
   public override void _EnterTree() {
     base._EnterTree();
+
+    ControlToModulate ??= this;
+
+    if (Engine.IsEditorHint()) {
+      return;
+    }
 
     if (!IsInstanceValid(Button)) {
       return;
@@ -34,6 +44,10 @@ public abstract partial class BaseButtonWidget<TSelf, T> : HOBWidget, IWidgetCon
 
   public override void _Process(double delta) {
     base._Process(delta);
+
+    if (Engine.IsEditorHint()) {
+      return;
+    }
 
     if (IsInstanceValid(Button) && _lastDisabled != Button.Disabled) {
       UpdateColors();
@@ -59,8 +73,13 @@ public abstract partial class BaseButtonWidget<TSelf, T> : HOBWidget, IWidgetCon
 
     foreach (var child in GetChildren()) {
       if (child != Button && child is Control control) {
-        control.Modulate = color;
+        ControlToModulate = control;
+        break;
       }
+    }
+
+    if (ModulateOnButtonStateChange && ControlToModulate != null) {
+      ControlToModulate.Modulate = color;
     }
 
     EmitSignal(SignalName.StateFontColorChanged, color);

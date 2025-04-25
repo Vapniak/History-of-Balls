@@ -32,10 +32,9 @@ public partial class HOBHUD : HUD {
   [Export] private Label? CountryNameLabel { get; set; }
 
   [ExportGroup("Resources")]
-  [Export] private TextureRect PrimaryResourceIcon { get; set; } = default!;
-  [Export] private Label PrimaryResourceValueLabel { get; set; } = default!;
-  [Export] private TextureRect SecondaryResourceIcon { get; set; } = default!;
-  [Export] private Label SecondaryResourceValueLabel { get; set; } = default!;
+  [Export] private ResourceWidget PrimaryResourceWidget { get; set; } = default!;
+  [Export] private ResourceWidget SecondaryResourceWidget { get; set; } = default!;
+
 
   private Entity? CurrentEntity { get; set; }
 
@@ -98,10 +97,12 @@ public partial class HOBHUD : HUD {
     }
 
 
-    PrimaryResourceIcon.Texture = playerState.Country.PrimaryResource.Icon;
+    PrimaryResourceWidget.Icon.Texture = playerState.Country.PrimaryResource.Icon;
     //PrimaryResourceNameLabel.AddText($" {playerState.Country.PrimaryResource.Name}: ");
+    PrimaryResourceWidget.TooltipText = playerState.Country.PrimaryResource.Name + "(Primary Resource)";
 
-    SecondaryResourceIcon.Texture = playerState.Country.SecondaryResource.Icon;
+    SecondaryResourceWidget.Icon.Texture = playerState.Country.SecondaryResource.Icon;
+    SecondaryResourceWidget.TooltipText = playerState.Country.SecondaryResource.Name + "(Secondary Resource)";
     //SecondaryResourceNameLabel.AddText($" {playerState.Country.SecondaryResource.Name}: ");
 
     FlagWidget.SetFlag(GetPlayerController().GetPlayerState<IMatchPlayerState>().Country?.Flag);
@@ -109,11 +110,11 @@ public partial class HOBHUD : HUD {
   }
 
   private void UpdatePrimaryResourceValue(float value) {
-    PrimaryResourceValueLabel.Text = value.ToString();
+    PrimaryResourceWidget.ValueLabel.Text = value.ToString();
   }
 
   private void UpdateSecondaryResourceValue(float value) {
-    SecondaryResourceValueLabel.Text = value.ToString();
+    SecondaryResourceWidget.ValueLabel.Text = value.ToString();
   }
 
   private void OnMatchEvent(Tag tag) {

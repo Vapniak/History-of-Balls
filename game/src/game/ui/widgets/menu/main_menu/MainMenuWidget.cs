@@ -10,7 +10,7 @@ public partial class MainMenuWidget : HOBWidget, IWidgetFactory<MainMenuWidget> 
 
   private void OnSelectMissionPressed() {
     //_ = GameInstance.GetGameMode<MainMenuGameMode>()?.StartGame();
-    WidgetManager.PushWidget<SelectMissionWidget>();
+    WidgetManager.PushWidget<SelectCampaignWidget>();
   }
   private void OnSettingsPressed() {
     WidgetManager.PushWidget<SettingsMenu>();

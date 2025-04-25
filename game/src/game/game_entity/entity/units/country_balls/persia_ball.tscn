@@ -1,17 +1,19 @@
-[gd_scene load_steps=5 format=3 uid="uid://cro8sewdt76r0"]
+[gd_scene load_steps=6 format=3 uid="uid://cro8sewdt76r0"]
 
 [ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://src/game/game_entity/entity/units/base_country_ball.tscn" id="1_dm57s"]
+[ext_resource type="Material" uid="uid://ctwra02sa5c2n" path="res://res/materials/outline_mat.tres" id="2_u8jr6"]
 [ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="3_si413"]
 [ext_resource type="Texture2D" uid="uid://dxo53o5yaxnyg" path="res://assets/textures/flags/Persia.png" id="4_vtgfu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_yi62g"]
 render_priority = 0
+next_pass = ExtResource("2_u8jr6")
 shader = ExtResource("3_si413")
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 1.0
 shader_parameter/color = Color(1, 1, 1, 1)
 shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
-shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0)
 shader_parameter/base_texture = ExtResource("4_vtgfu")
 shader_parameter/uv_scale = Vector2(1, 1)
 shader_parameter/uv_offset = Vector2(-0.25, 0)

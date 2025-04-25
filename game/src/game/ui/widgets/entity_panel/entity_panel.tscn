@@ -31,7 +31,7 @@ layout_mode = 2
 
 [node name="StatEntries" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 0
+size_flags_vertical = 3
 theme_override_constants/separation = 5
 
 [node name="HBoxContainer" parent="MarginContainer/VBoxContainer/StatEntries" instance=ExtResource("2_l52df")]

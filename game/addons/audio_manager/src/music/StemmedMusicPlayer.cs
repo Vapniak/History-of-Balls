@@ -118,7 +118,7 @@ public partial class StemmedMusicStreamPlayer : Node {
       return;
     }
 
-    var crossfadeTime = 5.0f;
+    var crossfadeTime = 0;
     var timeToLoop = streamLength - crossfadeTime;
 
     if (timeToLoop <= 0) {

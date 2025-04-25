@@ -50,25 +50,25 @@ public partial class EntityProductionPanelWidget : HOBWidget {
 
     BoundAbility = entity.AbilitySystem.GetGrantedAbility<EntityProductionAbility.Instance>();
 
-    if (BoundAbility == null) {
-      return;
-    }
-
     void updateLabels(int roundsLeft) {
-      if (BoundAbility.CurrentProduction != null && roundsLeft > 0) {
+      if (BoundAbility?.CurrentProduction != null && roundsLeft > 0) {
         RoundsLeftLabel.Text = "Rounds Left: " + roundsLeft;
         CurrentProductionLabel.Text = "Producing: " + BoundAbility.CurrentProduction.Entity.EntityName;
 
-        RoundsLeftLabel.Show();
-        CurrentProductionLabel.Show();
+        RoundsLeftLabel.GetParent<Control>().Show();
+        CurrentProductionLabel.GetParent<Control>().Show();
       }
       else {
-        RoundsLeftLabel.Hide();
-        CurrentProductionLabel.Hide();
+        RoundsLeftLabel.GetParent<Control>().Hide();
+        CurrentProductionLabel.GetParent<Control>().Hide();
       }
     }
 
-    updateLabels(BoundAbility.RoundsLeft);
+    updateLabels(BoundAbility?.RoundsLeft ?? 0);
+
+    if (BoundAbility == null) {
+      return;
+    }
     BoundAbility.RoundsLeftChanged += updateLabels;
 
 

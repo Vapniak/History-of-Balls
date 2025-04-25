@@ -1,0 +1,30 @@
+[gd_resource type="Resource" script_class="Campaign" load_steps=8 format=3 uid="uid://swns745w5okh"]
+
+[ext_resource type="Script" path="res://src/core/campaign/Campaign.cs" id="1_ecqa5"]
+[ext_resource type="Texture2D" uid="uid://ljtppges825p" path="res://assets/textures/HoB-renders/HoB-cards-renders/card1-render1.png" id="1_nywdt"]
+[ext_resource type="Resource" uid="uid://ywxo6fkvhdd2" path="res://res/data/missions/the_last_bastion_of_freedom.tres" id="1_y76os"]
+[ext_resource type="Script" path="res://src/core/campaign/CampaignTrait.cs" id="2_yk05b"]
+
+[sub_resource type="Resource" id="Resource_t6ymb"]
+script = ExtResource("2_yk05b")
+Name = "Myths & Legends"
+Percent = 50.0
+
+[sub_resource type="Resource" id="Resource_tw1ol"]
+script = ExtResource("2_yk05b")
+Name = "Light Humor"
+Percent = 20.0
+
+[sub_resource type="Resource" id="Resource_3h3rw"]
+script = ExtResource("2_yk05b")
+Name = "Heroic Strategy"
+Percent = 30.0
+
+[resource]
+script = ExtResource("1_ecqa5")
+Number = "I"
+Name = "Bygone Ages"
+Traits = [SubResource("Resource_t6ymb"), SubResource("Resource_tw1ol"), SubResource("Resource_3h3rw")]
+Missions = Array[Object]([ExtResource("1_y76os")])
+Locked = false
+Image = ExtResource("1_nywdt")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c3rkwsfswilpg"]
+[gd_scene load_steps=37 format=3 uid="uid://c3rkwsfswilpg"]
 
 [ext_resource type="Script" path="res://src/core/game_assets_registry/GameAssetsRegistry.cs" id="1_atajw"]
 [ext_resource type="Resource" uid="uid://bhrwmcxg7mw28" path="res://res/data/attributes/health.tres" id="2_7g2dx"]
@@ -18,6 +18,8 @@
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="9_0s3ed"]
 [ext_resource type="Texture2D" uid="uid://c7lexjg7kj31h" path="res://assets/textures/icons/village.svg" id="9_xkjhw"]
 [ext_resource type="Texture2D" uid="uid://bifk8suk2tv7f" path="res://assets/textures/icons/range.svg" id="10_rm8qa"]
+[ext_resource type="Texture2D" uid="uid://c5qbnpk1dvf00" path="res://assets/textures/cursors/static-mouse.svg" id="19_qykb2"]
+[ext_resource type="Texture2D" uid="uid://m1qtvsntblpw" path="res://assets/textures/cursors/hover-mouse.svg" id="20_pm5v8"]
 
 [sub_resource type="Resource" id="Resource_0c2d8"]
 script = ExtResource("4_r2324")
@@ -101,3 +103,5 @@ Icon = ExtResource("9_xkjhw")
 script = ExtResource("1_atajw")
 AttributeIcons = [SubResource("Resource_0c2d8"), SubResource("Resource_fr8aj"), SubResource("Resource_ndhgi"), SubResource("Resource_f5e2b")]
 EntityIcons = [SubResource("Resource_vb055"), SubResource("Resource_ookro"), SubResource("Resource_l3lgd"), SubResource("Resource_sx71d"), SubResource("Resource_h7kek"), SubResource("Resource_r15xb")]
+DefaultCursor = ExtResource("19_qykb2")
+PointingHandCursor = ExtResource("20_pm5v8")

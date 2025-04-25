@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://c1khqhm51l55f"]
+[gd_scene load_steps=4 format=3 uid="uid://c1khqhm51l55f"]
 
 [ext_resource type="PackedScene" uid="uid://rvgnlg0cmgl2" path="res://src/game/ui/widgets/panel_background/panel_background.tscn" id="1_0rrl2"]
+[ext_resource type="Script" path="res://src/game/ui/widgets/resource/ResourceWidget.cs" id="1_34jd0"]
 [ext_resource type="Texture2D" uid="uid://bh8b1baqmgh7n" path="res://assets/textures/icons/dumpling.svg" id="1_urjjc"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("ValueLabel", "Icon")]
+script = ExtResource("1_34jd0")
+ValueLabel = NodePath("MarginContainer/HBoxContainer/Label2")
+Icon = NodePath("MarginContainer/HBoxContainer/TextureRect")
 
 [node name="Panel" parent="." instance=ExtResource("1_0rrl2")]
 layout_mode = 2

@@ -20,6 +20,7 @@ Label = NodePath("MarginContainer2/MarginContainer/RichTextLabel")
 layout_mode = 2
 
 [node name="Panel" type="Panel" parent="MarginContainer2"]
+visible = false
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]

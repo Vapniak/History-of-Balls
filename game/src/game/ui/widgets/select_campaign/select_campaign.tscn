@@ -1,0 +1,46 @@
+[gd_scene load_steps=10 format=3 uid="uid://bd8hg7vew7ukx"]
+
+[ext_resource type="Script" path="res://src/game/ui/widgets/select_campaign/SelectCampaignWidget.cs" id="1_1vdic"]
+[ext_resource type="PackedScene" uid="uid://qi00mc4b42ok" path="res://src/game/ui/widgets/screen/screen.tscn" id="1_x6kla"]
+[ext_resource type="Resource" uid="uid://swns745w5okh" path="res://res/data/campaigns/bygone_ages.tres" id="2_yjool"]
+[ext_resource type="Resource" uid="uid://kcodxq6ybx3a" path="res://res/data/campaigns/world_war_ii.tres" id="3_scgkg"]
+[ext_resource type="PackedScene" uid="uid://v7gus1sjddy3" path="res://src/game/ui/widgets/select_campaign/campaign/campaign.tscn" id="4_bof75"]
+[ext_resource type="Shader" path="res://src/game/ui/hud/background_mask.gdshader" id="4_rcogh"]
+[ext_resource type="Resource" uid="uid://drj5np6jx7mr0" path="res://res/data/campaigns/modernity.tres" id="4_vb8uf"]
+[ext_resource type="Texture2D" uid="uid://fkt6aeujwoq4" path="res://assets/textures/HoB-UI-background-gray.png" id="5_s85kb"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8iswe"]
+shader = ExtResource("4_rcogh")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/background_texture = ExtResource("5_s85kb")
+
+[node name="SelectCampaign" type="MarginContainer" node_paths=PackedStringArray("CampaignsParent")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1vdic")
+Campaigns = Array[Object]([ExtResource("2_yjool"), ExtResource("3_scgkg"), ExtResource("4_vb8uf")])
+CampaignsParent = NodePath("MarginContainer/HBoxContainer")
+
+[node name="Screen" parent="." instance=ExtResource("1_x6kla")]
+layout_mode = 2
+
+[node name="Panel" parent="Screen" index="0"]
+material = SubResource("ShaderMaterial_8iswe")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_type_variation = &"MarginExtraLarge"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Campaign" parent="MarginContainer/HBoxContainer" instance=ExtResource("4_bof75")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[editable path="Screen"]

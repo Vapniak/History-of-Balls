@@ -35,7 +35,7 @@ _tabsLabel = NodePath("PanelContainer/VBoxContainer/HBoxContainer/MarginContaine
 
 [node name="Panel" type="Panel" parent="."]
 layout_mode = 2
-theme_type_variation = &"BackgroundPanel"
+theme_type_variation = &"ScreenPanel"
 
 [node name="PanelContainer" type="MarginContainer" parent="."]
 layout_mode = 2

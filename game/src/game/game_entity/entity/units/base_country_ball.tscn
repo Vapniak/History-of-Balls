@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://c6gjek7mpianb"]
+[gd_scene load_steps=16 format=3 uid="uid://c6gjek7mpianb"]
 
 [ext_resource type="PackedScene" uid="uid://bjdaxvy0hctrs" path="res://assets/models/objects/generic/sphere/sphere5.fbx" id="1_vfhnc"]
+[ext_resource type="Material" uid="uid://ctwra02sa5c2n" path="res://res/materials/outline_mat.tres" id="2_ewq28"]
 [ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="2_pcdo2"]
 [ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="3_7fu58"]
 [ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="4_3rv5i"]
@@ -9,6 +10,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3supn"]
 render_priority = 0
+next_pass = ExtResource("2_ewq28")
 shader = ExtResource("2_pcdo2")
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 1.0
