@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SettingWindowMode" load_steps=3 format=3 uid="uid://bnnvcotoxq7qb"]
+
+[ext_resource type="Script" path="res://src/core/settings/setting_window_mode.gd" id="1_cma6a"]
+[ext_resource type="Resource" uid="uid://dc7aacwpipijb" path="res://res/game_settings/display_size.tres" id="1_jpcfi"]
+
+[resource]
+resource_name = "window_mode"
+script = ExtResource("1_cma6a")
+display_size = ExtResource("1_jpcfi")
+read_only_properties = PackedStringArray()
+default = 0
+section = "display"
+key = "window_mode"
+value_type = 2
+value_hint = 2
+value_hint_string = "Fullscreen,Borderless Window,Windowed"

@@ -35,7 +35,7 @@ Streams = Array[AudioStream]([ExtResource("5_j281e")])
 [sub_resource type="Resource" id="Resource_4r6co"]
 script = ExtResource("3_rsmby")
 Label = "sound"
-Bus = "Sound"
+Bus = "SFX"
 Events = Array[Object]([SubResource("Resource_k1arh"), SubResource("Resource_n6l6i"), SubResource("Resource_7h0bu")])
 
 [sub_resource type="Resource" id="Resource_aypc5"]
@@ -49,7 +49,7 @@ Streams = Array[AudioStream]([ExtResource("5_wu4nb")])
 [sub_resource type="Resource" id="Resource_4ihg7"]
 script = ExtResource("3_rsmby")
 Label = "ui"
-Bus = "Sound"
+Bus = "SFX"
 Events = Array[Object]([SubResource("Resource_aypc5")])
 
 [node name="SoundManager" type="Node"]

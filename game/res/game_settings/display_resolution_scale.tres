@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SettingResolutionScale" load_steps=2 format=3 uid="uid://dhms1kd3px14n"]
+
+[ext_resource type="Script" path="res://src/core/settings/setting_resolution_scaling.gd" id="1_y12qt"]
+
+[resource]
+resource_name = "resolution_scale"
+script = ExtResource("1_y12qt")
+read_only_properties = PackedStringArray()
+default = 1.0
+section = "display"
+key = "resolution_scale"
+value_type = 3
+value_hint = 1
+value_hint_string = "0.5,2.0,0.1"

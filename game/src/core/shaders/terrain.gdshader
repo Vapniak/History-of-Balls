@@ -53,7 +53,7 @@ vec4 overlay(vec4 base, vec4 blend, float opacity) {
 
 // TODO: when colors are simmilar highlight is not visible
 vec3 apply_highlight(vec3 base_color, vec3 highlight_color, HexCellData data){
-	vec3 highlighted_color = mix(base_color, highlight_color.rgb, smoothstep_range(data, .75, .84));
+	vec3 highlighted_color = mix(base_color, highlight_color.rgb, smoothstep_range(data, .75, grid_overlay_color_range));
 	return mix(highlighted_color, highlight_color + vec3(0.2), smoothstep_range(data, .7, .75));
 }
 

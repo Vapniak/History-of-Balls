@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="settingAudioVolume" load_steps=2 format=3 uid="uid://b5t7koxjgw8qk"]
+
+[ext_resource type="Script" path="res://addons/ggs/templates/audio/setting_audio_volume.gd" id="1_3f2bv"]
+
+[resource]
+resource_name = "sfx"
+script = ExtResource("1_3f2bv")
+audio_bus = "SFX"
+read_only_properties = PackedStringArray("value_type", "value_hint", "value_hint_string")
+default = 80.0
+section = "audio"
+key = "sfx"
+value_type = 3
+value_hint = 1
+value_hint_string = "0,100"

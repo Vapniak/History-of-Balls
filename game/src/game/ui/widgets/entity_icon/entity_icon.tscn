@@ -21,6 +21,7 @@ IconRect = NodePath("TextureRect")
 [node name="TextureRect" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("2_w57ic")
 expand_mode = 3
 stretch_mode = 5

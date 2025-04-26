@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="settingDisplaySize" load_steps=2 format=3 uid="uid://dc7aacwpipijb"]
+
+[ext_resource type="Script" path="res://addons/ggs/templates/display/setting_display_size.gd" id="1_a0t4w"]
+
+[resource]
+resource_name = "size"
+script = ExtResource("1_a0t4w")
+sizes = Array[Vector2]([Vector2(1920, 1080), Vector2(1280, 720)])
+read_only_properties = PackedStringArray("value_type", "value_hint", "value_hint_string")
+default = 0
+section = "display"
+key = "size"
+value_type = 2
+value_hint = 2
+value_hint_string = "1920 x 1080,1280 x 720"

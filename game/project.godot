@@ -40,12 +40,12 @@ buses/default_bus_layout="res://res/default_bus_layout.tres"
 
 RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
 GameInstance="*res://src/game/game_instance.tscn"
-SettingsManager="*res://src/game/ui/widgets/menu/settings_menu/SettingsManager.cs"
 GameplayCueManager="*res://addons/gameplay_ability_system/src/cues/gameplay_cue_manager.tscn"
 MusicManager="*res://addons/audio_manager/src/music/music_manager.tscn"
 SoundManager="*res://addons/audio_manager/src/sound/sound_manager.tscn"
 WidgetManager="*res://addons/widget_system/src/widget_manager.tscn"
 GameAssetsRegistry="*res://src/core/game_assets_registry/game_assets_registry.tscn"
+GGS="*res://addons/ggs/plugin/singleton/ggs.tscn"
 
 [debug_draw_3d]
 
@@ -73,7 +73,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/GPUTrail/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/widget_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/GPUTrail/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/ggs/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/widget_system/plugin.cfg")
 
 [file_customization]
 
@@ -185,11 +185,13 @@ common/physics_interpolation=true
 [rendering]
 
 anti_aliasing/screen_space_roughness_limiter/enabled=false
+scaling_3d/mode=2
 scaling_3d/fsr_sharpness=1.0
-anti_aliasing/quality/msaa_2d=1
-anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/msaa_2d=2
+anti_aliasing/quality/msaa_3d=2
 mesh_lod/lod_change/threshold_pixels=2.0
 environment/defaults/default_environment="res://res/default_env.tres"
+renderer/rendering_method.compatibility="gl_compatibility"
 
 [shader_globals]
 

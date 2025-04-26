@@ -228,7 +228,7 @@ fov = 90.0
 stream = SubResource("AudioStreamWAV_sj46q")
 volume_db = -5.0
 autoplay = true
-bus = &"Sound"
+bus = &"SFX"
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 visible = false
