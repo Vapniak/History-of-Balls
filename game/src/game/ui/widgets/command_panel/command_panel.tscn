@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://c82pepvsx7i4"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/command_panel/CommandPanelWidget.cs" id="1_74ul0"]
-[ext_resource type="PackedScene" uid="uid://s6oh5eah6obb" path="res://src/game/ui/widgets/command_panel/command_button/command_button.tscn" id="2_r1lpu"]
+[ext_resource type="PackedScene" uid="uid://s6oh5eah6obb" path="res://src/game/ui/widgets/command_panel/command_widget/command_button.tscn" id="2_r1lpu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yk8uw"]
 

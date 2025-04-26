@@ -3,6 +3,7 @@ namespace HOB;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AudioManager;
 using GameplayAbilitySystem;
 using GameplayFramework;
 using GameplayTags;
@@ -50,6 +51,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     SelectedEntityChanged += OnSelectedEntityChanged;
     SelectedCommandChanged += OnSelectedCommandChanged;
+    HoveredCellChanged += OnHoveredCellChanged;
 
     Character.CenterPositionOn(GameBoard.GetAabb());
 
@@ -173,7 +175,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     var viewport = GetViewport();
 
-    if (HoveredCell == null || _isPanning || (viewport.GuiGetHoveredControl() != null && viewport.GuiGetHoveredControl().GetParent() is Control)) {
+    if (HoveredCell == null || _isPanning || (viewport.GuiGetHoveredControl() != null && viewport.GuiGetHoveredControl().GetParent() is Control control && control.Visible)) {
       GameBoard.SetMouseHighlight(false);
     }
     else {
@@ -390,8 +392,21 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (SelectedEntity == null) {
       SelectedCommand = null;
     }
+    else {
+      SoundManager.Instance.Play("ui", "click");
+    }
   }
 
+
+  private void OnHoveredCellChanged() {
+    if (HoveredCell == null) {
+      return;
+    }
+
+    if (EntityManagment.GetEntitiesOnCell(HoveredCell).Length > 0) {
+      SoundManager.Instance.Play("ui", "hover");
+    }
+  }
   private void OnSelectedCommandChanged() {
 
   }

@@ -62,6 +62,8 @@ public partial class HOBGameMode : GameMode {
     if (MissionData?.Map != null) {
       GameBoard.Init(MissionData);
     }
+
+    SoundManager.Instance.Play("sound", "intro_map");
   }
 
   public void Pause() {
@@ -103,7 +105,6 @@ public partial class HOBGameMode : GameMode {
 
   protected virtual void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
-    SoundManager.Instance.Play("sound", "intro_map");
     MusicManager.Instance.Play("music", "medival", autoLoop: true, crossfadeTime: 0);
   }
 

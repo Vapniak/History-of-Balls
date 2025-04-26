@@ -2,6 +2,7 @@ namespace HOB;
 
 using GameplayAbilitySystem;
 using GameplayFramework;
+using Godot;
 
 public partial class HOBAbility {
   public new abstract partial class Instance : GameplayAbility.Instance {
@@ -17,6 +18,8 @@ public partial class HOBAbility {
     protected void RemoveBlockTurn() {
       GameInstance.GetGameMode<HOBGameMode>().GetTurnManagment().RemoveBlockTurn();
     }
-  }
 
+
+    public virtual bool ConfigureTooltipLabel(RichTextLabel label) { return false; }
+  }
 }

@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://s6oh5eah6obb"]
+
+[ext_resource type="Material" uid="uid://dl2gnkq5n62w3" path="res://src/game/ui/widgets/panel_background/background_mask.tres" id="1_8e3f3"]
+[ext_resource type="Script" path="res://src/game/ui/widgets/command_panel/command_widget/CommandWidget.cs" id="1_h4y76"]
+[ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="2_170ow"]
+[ext_resource type="Script" path="res://src/game/ui/widgets/command_panel/command_widget/command_button/CommandButtonWidget.cs" id="3_08eym"]
+
+[node name="CommandButton" type="MarginContainer" node_paths=PackedStringArray("ButtonWidget")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+focus_mode = 2
+script = ExtResource("1_h4y76")
+ButtonWidget = NodePath("MarginContainer")
+
+[node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("Button")]
+layout_mode = 2
+script = ExtResource("3_08eym")
+Button = NodePath("Button")
+
+[node name="Button" type="Button" parent="MarginContainer"]
+material = ExtResource("1_8e3f3")
+layout_mode = 2
+mouse_filter = 1
+mouse_default_cursor_shape = 2
+icon = ExtResource("2_170ow")
+icon_alignment = 1

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MapSettings" load_steps=112 format=3 uid="uid://den26mhc6fsde"]
+[gd_resource type="Resource" script_class="MapSettings" load_steps=117 format=3 uid="uid://den26mhc6fsde"]
 
 [ext_resource type="Texture2D" uid="uid://bsckj4hyxgprg" path="res://assets/textures/hex/0.png" id="1_ilqha"]
 [ext_resource type="Script" path="res://src/core/map/CellSetting.cs" id="1_u5vua"]
@@ -38,6 +38,7 @@
 [ext_resource type="PackedScene" uid="uid://8xysx4qcbpgg" path="res://assets/models/objects/props/nature/trees/dead-tree.fbx" id="22_fex8a"]
 [ext_resource type="Texture2D" uid="uid://bv3ylgsf1ac5w" path="res://assets/textures/hex/10.png" id="23_81f4x"]
 [ext_resource type="PackedScene" uid="uid://1aj1adq2tajg" path="res://assets/models/objects/props/nature/trees/dead-tree2.fbx" id="23_ryv26"]
+[ext_resource type="PackedScene" uid="uid://b4rpudbegjqm0" path="res://assets/models/objects/props/nature/trees/jungle-tree.fbx" id="26_37lxm"]
 [ext_resource type="PackedScene" uid="uid://cro3j6xt1n6yq" path="res://assets/models/objects/props/nature/rocks/rock4.fbx" id="28_4tthn"]
 [ext_resource type="PackedScene" uid="uid://8rsppyd3r4tg" path="res://assets/models/objects/props/nature/rocks/rock6-snowy.fbx" id="30_ivaqd"]
 [ext_resource type="PackedScene" uid="uid://rtfmo6epyarq" path="res://assets/models/objects/props/nature/rocks/rock7-snowy.fbx" id="31_odep1"]
@@ -316,6 +317,34 @@ Chance = 50.0
 AmountRange = Vector2i(10, 20)
 ScaleRange = Vector2(0.9, 1.1)
 
+[sub_resource type="Resource" id="Resource_m1nw1"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("26_37lxm")
+Chance = 70.0
+AmountRange = Vector2i(4, 12)
+ScaleRange = Vector2(0.7, 1.4)
+
+[sub_resource type="Resource" id="Resource_qqx1n"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("13_duf6b")
+Chance = 30.0
+AmountRange = Vector2i(1, 3)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_7u3e0"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("26_37lxm")
+Chance = 100.0
+AmountRange = Vector2i(1, 2)
+ScaleRange = Vector2(0.9, 1.1)
+
+[sub_resource type="Resource" id="Resource_5w2p2"]
+script = ExtResource("2_v7yhy")
+PropScene = ExtResource("35_nmff7")
+Chance = 10.0
+AmountRange = Vector2i(1, 1)
+ScaleRange = Vector2(0.9, 1.1)
+
 [sub_resource type="Resource" id="Resource_tsa4e"]
 script = ExtResource("1_u5vua")
 Name = "Jungle"
@@ -323,7 +352,7 @@ Color = Color(0.133333, 0.545098, 0.4, 1)
 MoveCost = 1
 Elevation = 3
 IsWater = false
-Props = [SubResource("Resource_26xcq"), SubResource("Resource_2rb77"), SubResource("Resource_0soky")]
+Props = [SubResource("Resource_26xcq"), SubResource("Resource_2rb77"), SubResource("Resource_0soky"), SubResource("Resource_m1nw1"), SubResource("Resource_qqx1n"), SubResource("Resource_7u3e0"), SubResource("Resource_5w2p2")]
 Texture = ExtResource("8_75ac4")
 
 [sub_resource type="Resource" id="Resource_o1ubg"]

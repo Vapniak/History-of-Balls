@@ -45,7 +45,6 @@ public partial class Entity : Node3D, ITurnAware {
     Body = body;
     Cell = cell;
 
-
     Scale = Vector3.One * Mathf.Epsilon;
     Position = Cell.GetRealPosition();
 

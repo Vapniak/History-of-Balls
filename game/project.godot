@@ -191,7 +191,8 @@ anti_aliasing/quality/msaa_2d=2
 anti_aliasing/quality/msaa_3d=2
 mesh_lod/lod_change/threshold_pixels=2.0
 environment/defaults/default_environment="res://res/default_env.tres"
-renderer/rendering_method.compatibility="gl_compatibility"
+renderer/rendering_method.compatibility="forward_plus"
+scaling_3d/mode.compatibility=1
 
 [shader_globals]
 

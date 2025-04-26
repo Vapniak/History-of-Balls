@@ -5,7 +5,6 @@ using System.ComponentModel;
 using Godot;
 using WidgetSystem;
 
-[Tool]
 public abstract partial class BaseButtonWidget<TSelf, T> : HOBWidget, IWidgetConfig<BaseButtonWidget<TSelf, T>, T> where T : BaseButton {
   [Signal] public delegate void StateFontColorChangedEventHandler(Color color);
 

@@ -9,7 +9,7 @@ public partial class CommandPanelWidget : Control {
   [Signal] public delegate void CommandSelectedEventHandler(HOBAbility.Instance abilityInstance);
   [Export] private Control CommandList { get; set; } = default!;
 
-  private Dictionary<HOBAbility.Instance, CommandButtonWidget> Commands { get; set; } = new();
+  private Dictionary<HOBAbility.Instance, CommandWidget> Commands { get; set; } = new();
 
   private Entity? CurrentEntity { get; set; }
 
@@ -67,7 +67,7 @@ public partial class CommandPanelWidget : Control {
     }
 
     if (Commands.TryGetValue(command, out var button)) {
-      button.Button.ButtonPressed = true;
+      button.ButtonWidget.Button.ButtonPressed = true;
       button.GrabFocus();
     }
   }
@@ -80,10 +80,10 @@ public partial class CommandPanelWidget : Control {
     Commands.Clear();
   }
   private void AddCommand(HOBAbility.Instance ability) {
-    var buttonWidget = CommandButtonWidget.CreateWidget();
-    buttonWidget.BindAbility(ability);
+    var buttonWidget = CommandWidget.CreateWidget();
+    buttonWidget.BindTo(ability);
     var button = buttonWidget;
-    button.Button.Pressed += () => EmitSignal(SignalName.CommandSelected, ability);
+    button.ButtonWidget.Button.Pressed += () => EmitSignal(SignalName.CommandSelected, ability);
 
     CommandList.AddChild(buttonWidget);
     Commands.Add(ability, buttonWidget);

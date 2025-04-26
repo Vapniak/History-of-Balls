@@ -15,7 +15,7 @@ public abstract partial class AttackAbility : HOBAbility {
   [Export] public GameplayEffectResource? DamageEffect { get; private set; }
   [Export] public GameplayEffectResource? BlockMovementEffect { get; private set; }
 
-  public new partial class Instance : EntityInstance {
+  public new abstract partial class Instance : EntityInstance {
     public Instance(HOBAbility abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
     }

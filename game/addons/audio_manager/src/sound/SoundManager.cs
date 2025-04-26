@@ -267,12 +267,12 @@ public partial class SoundManager : Node {
   }
 
   private void OnNodeAdded(Node node) {
-    if (node is Button button) {
+    if (node is BaseButton button) {
       ConnectButtonSignals(button);
     }
   }
 
-  private void ConnectButtonSignals(Button button) {
+  private void ConnectButtonSignals(BaseButton button) {
     var weakButton = WeakRef(button);
 
     void handlePressed() {
@@ -281,12 +281,13 @@ public partial class SoundManager : Node {
       }
     }
 
-    // void handleHover() {
-    //   if (weakButton.GetRef().As<Node>() is Button validButton)
-    //     Play("UI", "hover");
-    // }
+    void handleHover() {
+      if (weakButton?.GetRef().As<Node>() is Button validButton) {
+        Play("ui", "hover");
+      }
+    }
 
     button.Pressed += handlePressed;
-    //button.MouseEntered += handleHover;
+    button.MouseEntered += handleHover;
   }
 }

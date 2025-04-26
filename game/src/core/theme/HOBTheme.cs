@@ -182,12 +182,14 @@ public partial class HOBTheme : ProgrammaticTheme {
     // ======================
     // Progress Bar
     // ======================
+
+    var progressBarBackground = createBaseStyleBox(AccentBase, AccentBase);
     DefineStyle("ProgressBar", new Style() {
       ["fill"] = Inherit(createBaseStyleBox(PrimaryColor, PrimaryColor.Lightened(0.2f)), StyleboxFlat(new() {
         ["border_width_"] = BorderWidth(0),
         //["corner_radius_"] = CornerRadius(BaseCornerRadius / 2)
       })),
-      ["background"] = createBaseStyleBox(AccentBase, PrimaryColor),
+      ["background"] = progressBarBackground,
       ["font_color"] = FontColor,
       ["font_size"] = DefaultFontSize - 2
     });
@@ -329,5 +331,103 @@ public partial class HOBTheme : ProgrammaticTheme {
         PrimaryColor with { A = 0.5f }),
       ["separator"] = separatorStyle
     });
+
+    // ======================
+    // Slider Styles
+    // ======================
+    var sliderTrackStyle = StyleboxFlat(new() {
+      ["bg_color"] = AccentBase,
+      ["corner_radius_"] = CornerRadius(BaseCornerRadius),
+      ["border_width_"] = BorderWidth(BaseBorderWidth),
+      ["border_color"] = PrimaryColor.Darkened(0.3f),
+      ["content_margins_"] = ContentMargins(0, BaseMargin / 2, 0, BaseMargin / 2)
+    });
+
+    var sliderTrackHighlightStyle = StyleboxFlat(new() {
+      ["bg_color"] = PrimaryBase.Lightened(0.1f),
+      ["corner_radius_"] = CornerRadius(BaseCornerRadius),
+      ["border_width_"] = BorderWidth(BaseBorderWidth),
+      ["border_color"] = PrimaryColor,
+      ["content_margins_"] = ContentMargins(0, BaseMargin / 2, 0, BaseMargin / 2)
+    });
+
+    var sliderGrabberStyle = StyleboxFlat(new() {
+      ["bg_color"] = PrimaryColor,
+      ["corner_radius_"] = CornerRadius(9999),
+      ["border_width_"] = BorderWidth(BaseBorderWidth),
+      ["border_color"] = PrimaryColor.Lightened(0.2f),
+      ["shadow_color"] = new Color(0, 0, 0, 0.2f),
+      ["shadow_size"] = BaseBorderWidth,
+      ["shadow_offset"] = new Vector2(0, BaseBorderWidth / 2)
+    });
+
+    var sliderGrabberHoverStyle = Inherit(sliderGrabberStyle, StyleboxFlat(new() {
+      ["bg_color"] = PrimaryColor.Lightened(0.1f),
+      ["shadow_color"] = new Color(PrimaryColor, 0.2f)
+    }));
+
+    DefineStyle("HSlider", new Style() {
+      ["slider"] = sliderTrackStyle,
+      ["grabber_area"] = StyleboxEmpty(),
+      ["grabber"] = sliderGrabberStyle,
+      ["grabber_highlight"] = sliderGrabberHoverStyle
+    });
+
+    DefineStyle("VSlider", new Style() {
+      ["slider"] = sliderTrackStyle,
+      ["grabber_area"] = StyleboxEmpty(),
+      ["grabber"] = sliderGrabberStyle,
+      ["grabber_highlight"] = sliderGrabberHoverStyle
+    });
+
+    // DefineStyle("Slider", new Style() {
+    //   ["slider"] = sliderTrackStyle,
+    //   ["grabber_area"] = StyleboxEmpty(),
+    //   ["grabber"] = sliderGrabberStyle,
+    //   ["grabber_highlight"] = sliderGrabberHoverStyle
+    // });
+
+    // Progress bar variant for sliders
+    DefineVariantStyle("ProgressSlider", "HSlider", new Style() {
+      ["slider"] = Inherit(sliderTrackStyle, StyleboxFlat(new() {
+        ["border_width_"] = BorderWidth(0)
+      })),
+      ["grabber_area_highlight"] = sliderTrackHighlightStyle
+    });
+
+    // Tintable slider variant
+    DefineVariantStyle("AccentSlider", "HSlider", new Style() {
+      ["slider"] = Inherit(sliderTrackStyle, StyleboxFlat(new() {
+        ["bg_color"] = AccentBase,
+        ["border_color"] = AccentColor.Darkened(0.3f)
+      })),
+      ["grabber_area_highlight"] = Inherit(sliderTrackHighlightStyle, StyleboxFlat(new() {
+        ["bg_color"] = AccentBase.Lightened(0.1f),
+        ["border_color"] = AccentColor
+      })),
+      ["grabber"] = Inherit(sliderGrabberStyle, StyleboxFlat(new() {
+        ["bg_color"] = AccentColor,
+        ["border_color"] = AccentColor.Lightened(0.2f)
+      })),
+      ["grabber_highlight"] = Inherit(sliderGrabberHoverStyle, StyleboxFlat(new() {
+        ["bg_color"] = AccentColor.Lightened(0.1f),
+        ["shadow_color"] = new Color(AccentColor, 0.2f)
+      }))
+    });
+
+    // // Range slider styling
+    // DefineStyle("RangeSlider", new Style() {
+    //   ["slider"] = sliderTrackStyle,
+    //   ["grabber_area"] = StyleboxEmpty(),
+    //   ["grabber_start"] = Inherit(sliderGrabberStyle, StyleboxFlat(new() {
+    //     ["bg_color"] = PrimaryColor.Darkened(0.1f)
+    //   })),
+    //   ["grabber_end"] = sliderGrabberStyle,
+    //   ["grabber_start_highlight"] = Inherit(sliderGrabberHoverStyle, StyleboxFlat(new() {
+    //     ["bg_color"] = PrimaryColor.Darkened(0.05f)
+    //   })),
+    //   ["grabber_end_highlight"] = sliderGrabberHoverStyle,
+    //   ["range_texture"] = sliderTrackHighlightStyle
+    // });
   }
 }

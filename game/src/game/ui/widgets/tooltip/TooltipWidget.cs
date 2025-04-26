@@ -5,7 +5,7 @@ using System;
 using WidgetSystem;
 
 public partial class TooltipWidget : HOBWidget, IWidgetFactory<TooltipWidget>, IWidgetConfig<TooltipWidget, RichTextLabel> {
-  [Export] private RichTextLabel Label { get; set; } = default!;
+  [Export] public RichTextLabel Label { get; private set; } = default!;
 
 
   public static TooltipWidget CreateWidget() {
