@@ -61,7 +61,6 @@ public partial class Entity : Node3D, ITurnAware {
       AddChild(AbilitySystem);
       AbilitySystem.Owner = this;
 
-      AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;
       if (tags != null) {
         AbilitySystem.OwnedTags.AddTags(tags);
       }
@@ -129,15 +128,6 @@ public partial class Entity : Node3D, ITurnAware {
     tween.Finished += QueueFree;
   }
 
-  public void OnAttributeValueChanged(GameplayAttribute attribute, float oldValue, float newValue) {
-    if (AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var healthAttributeSet)) {
-      if (attribute == healthAttributeSet?.HealthAttribute) {
-        if (newValue <= 0f) {
-          Die();
-        }
-      }
-    }
-  }
 
   public bool IsCurrentTurn() => TryGetOwner(out var owner) && owner != null && owner.IsCurrentTurn();
 }

@@ -24,7 +24,16 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public event Action<Entity>? EntityRemoved;
   public event Action<Tag>? MatchEvent;
 
-  private List<Entity> Entities => GetGameState().Entities;
+  private List<Entity> Entities {
+    get {
+      var gameState = GetGameState();
+      if (gameState == null) {
+        GD.PrintErr("GameState is null! Cannot access Entities.");
+        return new List<Entity>();
+      }
+      return gameState.Entities ?? new List<Entity>();
+    }
+  }
 
   private GameGrid Grid => GetGameState().GameBoard.Grid;
 
@@ -95,6 +104,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
   private void AddEntity(Entity entity) {
     entity.TreeExited += () => {
+      GD.Print($"Entity {entity.Name} is being removed from the scene.");
       RemoveEntity(entity);
     };
 
@@ -108,8 +118,15 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   private void RemoveEntity(Entity entity) {
+    if (Entities == null || entity == null) {
+      GD.PrintErr("Invalid RemoveEntity call!");
+      return;
+    }
+
     if (!entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeProp))) {
-      Entities.Remove(entity);
+      if (!Entities.Remove(entity)) {
+        GD.PrintErr($"Entity {entity.Name} not found in Entities list!");
+      }
     }
     EntityRemoved?.Invoke(entity);
   }

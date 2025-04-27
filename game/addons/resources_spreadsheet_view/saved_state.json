@@ -132,6 +132,72 @@
         "visibility": 0
       }
     },
+    "res://src/game/game_entity/entity/structures/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/structures::Abilities/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects::EffectDefinition/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://src/game_entities/entites/": {
       "metadata/_custom_type_script": {
         "visibility": 0
@@ -575,7 +641,13 @@
     "res://src/maps::CellSettings/",
     "::Settings/",
     "::Settings::CellSettings/",
-    "res://"
+    "res://",
+    "res://src/game/game_entity/entity/structures/",
+    "res://src/game/game_entity/entity/structures::Abilities/",
+    "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects/",
+    "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects::EffectDefinition/",
+    "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/",
+    "res://src/game/game_entity/entity/units/"
   ],
   "table_functions": {
     "filter": [

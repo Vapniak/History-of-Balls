@@ -45,6 +45,11 @@ public partial class HealthAttributeSet : GameplayAttributeSet {
         GameInstance.GetWorld().AddChild(text);
         text.GlobalPosition = entity.GlobalPosition + Vector3.Up * 2;
         _ = text.Animate();
+
+        if (data.Target.AttributeSystem.GetAttributeCurrentValue(HealthAttribute) <= 0) {
+          entity.Die();
+          // TODO: add the killer playerstate boins
+        }
       }
     }
   }

@@ -58,41 +58,50 @@ public sealed partial class World : Node {
       _loadingScreen.SetProgressBarValue(0);
     }
 
-    var loadState = ResourceLoader.LoadThreadedRequest(levelPath);
-
-    if (loadState != Error.Ok) {
-      GD.PrintErr($"Failed to start loading level: {levelPath}");
+    var loadError = ResourceLoader.LoadThreadedRequest(levelPath);
+    if (loadError != Error.Ok) {
+      GD.PrintErr($"Failed to start loading level: {levelPath} (Error: {loadError})");
       _loadingScreen?.QueueFree();
       _loadingScreen = null;
       return;
     }
 
-    var arr = new Godot.Collections.Array();
-    var status = ResourceLoader.LoadThreadedGetStatus(levelPath, arr);
+    var progressArray = new Godot.Collections.Array { 0f };
+    var status = ResourceLoader.ThreadLoadStatus.InProgress;
+
     while (status == ResourceLoader.ThreadLoadStatus.InProgress) {
-      _loadingScreen?.SetProgressBarValue(arr[0].As<float>());
+      status = ResourceLoader.LoadThreadedGetStatus(levelPath, progressArray);
+      var progress = progressArray[0].As<float>();
+
+      if (progress > 0f) {
+        _loadingScreen?.SetProgressBarValue(progress);
+      }
+      else {
+        _loadingScreen?.SetProgressBarValue(0.01f);
+      }
 
       await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
-      status = ResourceLoader.LoadThreadedGetStatus(levelPath);
     }
 
     if (status == ResourceLoader.ThreadLoadStatus.Loaded) {
-      _loadingScreen?.SetProgressBarValue(1);
+      _loadingScreen?.SetProgressBarValue(1f);
+      if (_loadingScreen != null) {
+        await ToSignal(_loadingScreen, LoadingScreen.SignalName.FullReached);
+      }
 
-      await Task.Delay(1000);
-
-      if (ResourceLoader.LoadThreadedGet(levelPath) is PackedScene levelScene) {
+      var levelResource = ResourceLoader.LoadThreadedGet(levelPath);
+      if (levelResource is PackedScene levelScene) {
         var level = levelScene.Instantiate<Level>();
         SwitchLevel(level, config);
       }
       else {
-        GD.PrintErr($"Failed to instantiate level from: {levelPath}");
+        GD.PrintErr($"Loaded resource is not a PackedScene: {levelPath}");
         _loadingScreen?.QueueFree();
         _loadingScreen = null;
       }
     }
     else {
-      GD.PrintErr($"Failed to load level: {levelPath}");
+      GD.PrintErr($"Failed to load level (Status: {status}): {levelPath}");
       _loadingScreen?.QueueFree();
       _loadingScreen = null;
     }

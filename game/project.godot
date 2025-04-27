@@ -32,6 +32,8 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 boot_splash/use_filter=false
 config/icon="res://assets/textures/HoB-logo.svg"
+run/disable_stdout.debug=false
+run/disable_stdout.release=true
 
 [audio]
 
@@ -52,6 +54,7 @@ GGS="*res://addons/ggs/plugin/singleton/ggs.tscn"
 
 file_logging/enable_file_logging=true
 file_logging/log_path="user://logs/hob.log"
+settings/stdout/verbose_stdout=true
 
 [debug_draw_3d]
 
@@ -79,7 +82,7 @@ movie_writer/disable_vsync=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/GPUTrail/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/ggs/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/widget_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/GPUTrail/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/ggs/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/resources_spreadsheet_view/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/widget_system/plugin.cfg")
 
 [file_customization]
 
@@ -182,6 +185,10 @@ rotate_right={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194321,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
+
+[internationalization]
+
+locale/translation_add_builtin_strings_to_pot=true
 
 [layer_names]
 

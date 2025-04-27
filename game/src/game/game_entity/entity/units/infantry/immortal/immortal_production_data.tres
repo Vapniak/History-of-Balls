@@ -8,4 +8,4 @@
 script = ExtResource("6_l15bx")
 Entity = ExtResource("5_wfv7e")
 CostEffect = ExtResource("1_i2gcp")
-ProductionTime = 2
+ProductionTime = 3

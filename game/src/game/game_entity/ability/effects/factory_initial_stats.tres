@@ -11,7 +11,7 @@
 
 [sub_resource type="Resource" id="Resource_miv4p"]
 script = ExtResource("2_x3kcn")
-Magnitude = 2.0
+Magnitude = 3.0
 
 [sub_resource type="Resource" id="Resource_hk8o4"]
 script = ExtResource("3_s5y0q")
