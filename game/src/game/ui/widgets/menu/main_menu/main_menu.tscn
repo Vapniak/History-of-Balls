@@ -1,13 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=7 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/main_menu/MainMenuWidget.cs" id="1_pi010"]
-[ext_resource type="Texture2D" uid="uid://btjul3v867rxh" path="res://assets/textures/menu/HoB-menu-background-m-t.png" id="2_64xfh"]
-[ext_resource type="Texture2D" uid="uid://by8xwhttontt" path="res://assets/textures/menu/HoB-menu-cb-l-b.png" id="3_v210e"]
-[ext_resource type="Texture2D" uid="uid://dq36k5hdhds0r" path="res://assets/textures/menu/HoB-menu-cb-r-b.png" id="4_8aht1"]
-[ext_resource type="Texture2D" uid="uid://b6vj8yrcwwxph" path="res://assets/textures/menu/HoB-menu-grass-behind-m-b.png" id="5_43juo"]
-[ext_resource type="Texture2D" uid="uid://7e3se6mx4q0g" path="res://assets/textures/menu/HoB-menu-grass-m-b.png" id="6_dcrhd"]
-[ext_resource type="Texture2D" uid="uid://bum4ub8a6a0qj" path="res://assets/textures/menu/HoB-menu-leaves-l-t.png" id="7_p70vy"]
-[ext_resource type="Texture2D" uid="uid://cyc3yfkoriiec" path="res://assets/textures/menu/HoB-menu-leaves-r-t.png" id="8_id7dy"]
+[ext_resource type="PackedScene" uid="uid://bho6xt1rgxa7c" path="res://src/game/ui/hob_bg.tscn" id="2_kjbb2"]
 [ext_resource type="Texture2D" uid="uid://diuewmtyjbtp" path="res://assets/textures/menu/HoB-menu-logo-m-t.png" id="9_eetrs"]
 [ext_resource type="PackedScene" uid="uid://bucr6se6rejrr" path="res://src/game/ui/widgets/button/label_button/label_button.tscn" id="10_14ap1"]
 [ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="11_8pnrv"]
@@ -22,58 +16,8 @@ grow_vertical = 2
 focus_mode = 2
 script = ExtResource("1_pi010")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" parent="." instance=ExtResource("2_kjbb2")]
 layout_mode = 2
-
-[node name="TextureRect8" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("2_64xfh")
-expand_mode = 1
-
-[node name="TextureRect7" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("5_43juo")
-expand_mode = 1
-
-[node name="TextureRect2" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("3_v210e")
-expand_mode = 1
-
-[node name="TextureRect" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("4_8aht1")
-expand_mode = 1
-
-[node name="TextureRect6" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("6_dcrhd")
-expand_mode = 1
-
-[node name="TextureRect5" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("7_p70vy")
-expand_mode = 1
-
-[node name="TextureRect4" type="TextureRect" parent="MarginContainer"]
-layout_mode = 2
-texture = ExtResource("8_id7dy")
-expand_mode = 1
-
-[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-theme_override_constants/margin_top = 100
-
-[node name="Label" type="Label" parent="MarginContainer/MarginContainer2"]
-visible = false
-layout_mode = 2
-size_flags_horizontal = 4
-theme_type_variation = &"HeaderLarge"
-theme_override_font_sizes/font_size = 128
-text = "HISTORY OF BALLS"
-horizontal_alignment = 1
-uppercase = true
 
 [node name="TextureRect3" type="TextureRect" parent="."]
 layout_mode = 2

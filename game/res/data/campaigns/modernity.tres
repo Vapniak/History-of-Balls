@@ -6,18 +6,18 @@
 
 [sub_resource type="Resource" id="Resource_votb8"]
 script = ExtResource("1_bp6aq")
-Name = "Fast-Paced Combat"
-Percent = 45.0
+Name = "Humor"
+Percent = 40.0
 
 [sub_resource type="Resource" id="Resource_n56d6"]
 script = ExtResource("1_bp6aq")
-Name = "Survival Mechanics"
-Percent = 25.0
+Name = "Tactics"
+Percent = 40.0
 
 [sub_resource type="Resource" id="Resource_0wsvq"]
 script = ExtResource("1_bp6aq")
-Name = "Modern Tactics"
-Percent = 30.0
+Name = "Action"
+Percent = 20.0
 
 [resource]
 script = ExtResource("1_teede")

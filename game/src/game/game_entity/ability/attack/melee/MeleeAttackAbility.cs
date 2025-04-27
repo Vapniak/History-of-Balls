@@ -80,13 +80,5 @@ public partial class MeleeAttackAbility : AttackAbility {
     }
 
     public override uint GetRange() => 1;
-    public override bool ConfigureTooltipLabel(RichTextLabel label) {
-      label.AppendText("Attacks enemy.");
-      if (OwnerEntity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnitInfantry))) {
-        label.AppendText(" If enemy dies, the cooldown resets.");
-      }
-
-      return true;
-    }
   }
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bd8hg7vew7ukx"]
+[gd_scene load_steps=11 format=3 uid="uid://bd8hg7vew7ukx"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/select_campaign/SelectCampaignWidget.cs" id="1_1vdic"]
 [ext_resource type="PackedScene" uid="uid://qi00mc4b42ok" path="res://src/game/ui/widgets/screen/screen.tscn" id="1_x6kla"]
@@ -8,6 +8,7 @@
 [ext_resource type="Shader" path="res://src/game/ui/hud/background_mask.gdshader" id="4_rcogh"]
 [ext_resource type="Resource" uid="uid://drj5np6jx7mr0" path="res://res/data/campaigns/modernity.tres" id="4_vb8uf"]
 [ext_resource type="Texture2D" uid="uid://fkt6aeujwoq4" path="res://assets/textures/HoB-UI-background-gray.png" id="5_s85kb"]
+[ext_resource type="PackedScene" uid="uid://bho6xt1rgxa7c" path="res://src/game/ui/hob_bg.tscn" id="8_wvo5n"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8iswe"]
 shader = ExtResource("4_rcogh")
@@ -28,7 +29,11 @@ CampaignsParent = NodePath("MarginContainer/HBoxContainer")
 layout_mode = 2
 
 [node name="Panel" parent="Screen" index="0"]
+visible = false
 material = SubResource("ShaderMaterial_8iswe")
+
+[node name="MarginContainer" parent="Screen" instance=ExtResource("8_wvo5n")]
+layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

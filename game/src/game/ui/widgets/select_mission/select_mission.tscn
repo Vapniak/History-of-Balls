@@ -1,24 +1,37 @@
-[gd_scene load_steps=7 format=3 uid="uid://dyib3loosl782"]
+[gd_scene load_steps=13 format=3 uid="uid://dyib3loosl782"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/select_mission/SelectMissionWidget.cs" id="1_1d1dh"]
 [ext_resource type="PackedScene" uid="uid://bpnm84svvttf3" path="res://src/game/ui/widgets/select_mission/mission_widget/mission_widget.tscn" id="2_nno2l"]
 [ext_resource type="PackedScene" uid="uid://qi00mc4b42ok" path="res://src/game/ui/widgets/screen/screen.tscn" id="2_y7bx7"]
 [ext_resource type="Shader" path="res://src/game/ui/hud/background_mask.gdshader" id="3_f5p34"]
 [ext_resource type="Texture2D" uid="uid://fkt6aeujwoq4" path="res://assets/textures/HoB-UI-background-gray.png" id="4_wy3pr"]
+[ext_resource type="PackedScene" uid="uid://2cvrfbj6u5ju" path="res://src/game/ui/widgets/exit_button/exit_button.tscn" id="6_p56du"]
+[ext_resource type="PackedScene" uid="uid://c68alou7ol1t8" path="res://src/game/ui/widgets/flag/flag.tscn" id="7_7nixt"]
+[ext_resource type="Texture2D" uid="uid://b51t1aisjv4u5" path="res://assets/textures/flags/Greece.png" id="8_2hajv"]
+[ext_resource type="Texture2D" uid="uid://ck0ed3ljsd13m" path="res://assets/textures/icons/attack.svg" id="9_h4syf"]
+[ext_resource type="Texture2D" uid="uid://dxo53o5yaxnyg" path="res://assets/textures/flags/Persia.png" id="10_ycn2p"]
+[ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="11_5qm84"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eevad"]
 shader = ExtResource("3_f5p34")
 shader_parameter/tint = Color(1, 1, 1, 1)
 shader_parameter/background_texture = ExtResource("4_wy3pr")
 
-[node name="SelectMission" type="MarginContainer" node_paths=PackedStringArray("MissionList")]
+[node name="SelectMission" type="MarginContainer" node_paths=PackedStringArray("MissionList", "MissionName", "Flag1", "Country1", "Flag2", "Country2", "DescriptionLabel", "StartButton")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1d1dh")
-MissionList = NodePath("VBoxContainer")
+MissionList = NodePath("SplitContainer/MarginContainer/BoxContainer/VBoxContainer")
+MissionName = NodePath("SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/RichTextLabel")
+Flag1 = NodePath("SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer/Flag")
+Country1 = NodePath("SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer/Label")
+Flag2 = NodePath("SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer/Flag2")
+Country2 = NodePath("SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer/Label2")
+DescriptionLabel = NodePath("SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/Label3")
+StartButton = NodePath("SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/Button")
 
 [node name="Screen" parent="." instance=ExtResource("2_y7bx7")]
 layout_mode = 2
@@ -26,14 +39,100 @@ layout_mode = 2
 [node name="Panel" parent="Screen" index="0"]
 material = SubResource("ShaderMaterial_eevad")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="SplitContainer" type="SplitContainer" parent="."]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+dragger_visibility = 1
 
-[node name="MissionWidget" parent="VBoxContainer" instance=ExtResource("2_nno2l")]
+[node name="MarginContainer" type="MarginContainer" parent="SplitContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_horizontal = 3
+theme_type_variation = &"MarginExtraLarge"
+
+[node name="BoxContainer" type="BoxContainer" parent="SplitContainer/MarginContainer"]
+layout_mode = 2
+vertical = true
+
+[node name="VBoxContainer" type="BoxContainer" parent="SplitContainer/MarginContainer/BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme_type_variation = &"SpacingExtraLarge"
+
+[node name="MissionWidget" parent="SplitContainer/MarginContainer/BoxContainer/VBoxContainer" instance=ExtResource("2_nno2l")]
+layout_mode = 2
+
+[node name="ExitButton" parent="SplitContainer/MarginContainer/BoxContainer" instance=ExtResource("6_p56du")]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="SplitContainer"]
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="SplitContainer/MarginContainer2"]
+layout_mode = 2
+theme_type_variation = &"BackgroundTransparency"
+
+[node name="MarginContainer" type="MarginContainer" parent="SplitContainer/MarginContainer2"]
+layout_mode = 2
+theme_type_variation = &"MarginExtraLarge"
+
+[node name="HBoxContainer" type="BoxContainer" parent="SplitContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+theme_type_variation = &"SpacingExtraLarge"
+vertical = true
+
+[node name="RichTextLabel" type="Label" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderExtraLarge"
+text = "Battle of Thermopylae"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Flag" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer" instance=ExtResource("7_7nixt")]
+layout_mode = 2
+
+[node name="Texture" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer/Flag/PanelContainer" index="0"]
+texture = ExtResource("8_2hajv")
+
+[node name="Label" type="Label" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_type_variation = &"HeaderMedium"
+text = "Greece"
+
+[node name="TextureRect" type="TextureRect" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_h4syf")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="Label2" type="Label" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_type_variation = &"HeaderMedium"
+text = "Persia"
+
+[node name="Flag2" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer" instance=ExtResource("7_7nixt")]
+layout_mode = 2
+
+[node name="Texture" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer/Flag2/PanelContainer" index="0"]
+texture = ExtResource("10_ycn2p")
+
+[node name="Label3" type="Label" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "You lead a small yet elite contingent of Greek hoplites in battle against the legions of Persia in 480 BC."
+autowrap_mode = 3
+
+[node name="Button" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer" instance=ExtResource("11_5qm84")]
+layout_mode = 2
+
+[node name="Button" parent="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/Button" index="0"]
+text = "START"
 
 [editable path="Screen"]
+[editable path="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer/Flag"]
+[editable path="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/HBoxContainer/Flag2"]
+[editable path="SplitContainer/MarginContainer2/MarginContainer/HBoxContainer/Button"]

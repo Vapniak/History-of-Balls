@@ -8,8 +8,8 @@ public partial class SliderLabel : Label {
   [Export] public Slider Slider { get; private set; } = default!;
 
   public override void _Ready() {
-    Text = Slider.Value.ToString();
+    Text = string.Format("{0:0.0}", Slider.Value);
 
-    Slider.ValueChanged += (value) => Text = value.ToString();
+    Slider.ValueChanged += (value) => Text = string.Format("{0:0.0}", Slider.Value);
   }
 }

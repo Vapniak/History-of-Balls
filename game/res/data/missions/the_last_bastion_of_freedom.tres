@@ -135,7 +135,7 @@ OwnedEntities = SubResource("Resource_0nite")
 [resource]
 script = ExtResource("28_lavgk")
 MissionName = "The Last Bastion of Freedom"
-Description = ""
+Description = "You lead a small yet elite contingent of Greek hoplites in battle against the legions of Persia in 480 BC."
 ObjectivesText = "Hold your position for 25 rounds ⚔️ 
 Repel waves of the Persian army  🔥 "
 Map = ExtResource("1_gk1xd")

@@ -5,6 +5,8 @@ using System.ComponentModel;
 using Godot;
 using WidgetSystem;
 
+[Tool
+]
 public abstract partial class BaseButtonWidget<TSelf, T> : HOBWidget, IWidgetConfig<BaseButtonWidget<TSelf, T>, T> where T : BaseButton {
   [Signal] public delegate void StateFontColorChangedEventHandler(Color color);
 
@@ -43,10 +45,6 @@ public abstract partial class BaseButtonWidget<TSelf, T> : HOBWidget, IWidgetCon
 
   public override void _Process(double delta) {
     base._Process(delta);
-
-    if (Engine.IsEditorHint()) {
-      return;
-    }
 
     if (IsInstanceValid(Button) && _lastDisabled != Button.Disabled) {
       UpdateColors();

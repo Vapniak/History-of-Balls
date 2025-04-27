@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://bho6xt1rgxa7c"]
+
+[ext_resource type="Texture2D" uid="uid://btjul3v867rxh" path="res://assets/textures/menu/HoB-menu-background-m-t.png" id="1_6rd0k"]
+[ext_resource type="Texture2D" uid="uid://b6vj8yrcwwxph" path="res://assets/textures/menu/HoB-menu-grass-behind-m-b.png" id="2_jfqpv"]
+[ext_resource type="Texture2D" uid="uid://by8xwhttontt" path="res://assets/textures/menu/HoB-menu-cb-l-b.png" id="3_4nxpg"]
+[ext_resource type="Texture2D" uid="uid://dq36k5hdhds0r" path="res://assets/textures/menu/HoB-menu-cb-r-b.png" id="4_bvicy"]
+[ext_resource type="Texture2D" uid="uid://7e3se6mx4q0g" path="res://assets/textures/menu/HoB-menu-grass-m-b.png" id="5_8tlv0"]
+[ext_resource type="Texture2D" uid="uid://bum4ub8a6a0qj" path="res://assets/textures/menu/HoB-menu-leaves-l-t.png" id="6_bw75g"]
+[ext_resource type="Texture2D" uid="uid://cyc3yfkoriiec" path="res://assets/textures/menu/HoB-menu-leaves-r-t.png" id="7_sgubg"]
+
+[node name="MarginContainer" type="MarginContainer"]
+
+[node name="TextureRect8" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("1_6rd0k")
+expand_mode = 1
+
+[node name="TextureRect7" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("2_jfqpv")
+expand_mode = 1
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("3_4nxpg")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("4_bvicy")
+expand_mode = 1
+
+[node name="TextureRect6" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("5_8tlv0")
+expand_mode = 1
+
+[node name="TextureRect5" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("6_bw75g")
+expand_mode = 1
+
+[node name="TextureRect4" type="TextureRect" parent="."]
+layout_mode = 2
+texture = ExtResource("7_sgubg")
+expand_mode = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_top = 100
+
+[node name="Label" type="Label" parent="MarginContainer2"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderLarge"
+theme_override_font_sizes/font_size = 128
+text = "HISTORY OF BALLS"
+horizontal_alignment = 1
+uppercase = true

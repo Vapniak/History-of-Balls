@@ -11,3 +11,4 @@ func _init() -> void:
 
 func apply(value) -> void:
 	GGS.get_viewport().scaling_3d_scale = value
+	GGS.setting_applied.emit(key, value)

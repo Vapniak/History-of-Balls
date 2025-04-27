@@ -14,6 +14,11 @@ public partial class AttributeEntryWidget : HOBWidget, IWidgetFactory<AttributeE
   private Entity? BoundEntity { get; set; }
   private GameplayAttribute? BoundAttribute { get; set; }
 
+  public override void _Ready() {
+    base._Ready();
+
+  }
+
   public void BindTo(Entity entity, GameplayAttribute attribute) {
     if (entity.AbilitySystem.AttributeSystem.TryGetAttributeSet<HealthAttributeSet>(out var set)) {
       if (attribute == set.MaxHealthAttribute) {
@@ -26,8 +31,8 @@ public partial class AttributeEntryWidget : HOBWidget, IWidgetFactory<AttributeE
 
     SetEntryName(attribute.AttributeName);
 
+    SetIcon(GameAssetsRegistry.Instance.GetIconFor(BoundAttribute), (entity.OwnerController.GetPlayerState().Theme as HOBTheme)?.PrimaryColor);
 
-    SetIcon(GameAssetsRegistry.Instance.GetIconFor(attribute));
     OnAttributeValueChanged(BoundAttribute, 0, 0);
 
     entity.AbilitySystem.AttributeSystem.AttributeValueChanged += OnAttributeValueChanged;

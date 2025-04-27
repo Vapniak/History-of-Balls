@@ -18,6 +18,7 @@ func _init() -> void:
 	section = "display"
 
 func apply(value: int) -> void:
+	var size_index = GGS.get_value(display_size)
 	match value:
 		WindowMode.FULLSCREEN:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
@@ -29,6 +30,7 @@ func apply(value: int) -> void:
 		WindowMode.WINDOWED:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
-	var size_index = GGS.get_value(display_size)
-	var resolution = display_size.sizes[size_index]
-	DisplayServer.window_set_size(resolution)
+
+	display_size.apply(size_index)
+
+	GGS.setting_applied.emit(key, value)

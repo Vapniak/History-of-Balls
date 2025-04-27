@@ -3,26 +3,39 @@
 [ext_resource type="Script" path="res://src/game/ui/widgets/entity_panel/attribute_entry/AttributeEntryWidget.cs" id="1_lf57m"]
 [ext_resource type="Texture2D" uid="uid://fccrv3p77lu" path="res://assets/textures/icons/health.svg" id="2_4ml3y"]
 
-[node name="StatPanelEntry" type="HBoxContainer" node_paths=PackedStringArray("EntryNameLabel", "EntryValueLabel", "IconTexture")]
+[node name="StatPanelEntry" type="MarginContainer" node_paths=PackedStringArray("EntryNameLabel", "EntryValueLabel", "IconTexture")]
 offset_right = 136.0
-offset_bottom = 23.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 script = ExtResource("1_lf57m")
-EntryNameLabel = NodePath("Label")
-EntryValueLabel = NodePath("Label2")
-IconTexture = NodePath("TextureRect")
+EntryNameLabel = NodePath("VBoxContainer/HBoxContainer/Label")
+EntryValueLabel = NodePath("VBoxContainer/HBoxContainer/Label2")
+IconTexture = NodePath("VBoxContainer/HBoxContainer/TextureRect")
 
-[node name="Label" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "MP:"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(10, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = "MP: "
+size_flags_vertical = 8
+theme_override_constants/separation = 10
 
-[node name="Label2" type="Label" parent="."]
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
 text = "0"
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture = ExtResource("2_4ml3y")

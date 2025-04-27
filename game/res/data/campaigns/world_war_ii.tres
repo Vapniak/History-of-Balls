@@ -6,18 +6,18 @@
 
 [sub_resource type="Resource" id="Resource_wr2kq"]
 script = ExtResource("1_rppxt")
-Name = "Tactical Precision"
-Percent = 35.0
+Name = "Humor"
+Percent = 20.0
 
 [sub_resource type="Resource" id="Resource_arwr6"]
 script = ExtResource("1_rppxt")
-Name = "Historical Realism"
-Percent = 40.0
+Name = "Tactics"
+Percent = 30.0
 
 [sub_resource type="Resource" id="Resource_8cbi7"]
 script = ExtResource("1_rppxt")
-Name = "Hard Decisions"
-Percent = 25.0
+Name = "Action"
+Percent = 50.0
 
 [resource]
 script = ExtResource("1_vlvnr")

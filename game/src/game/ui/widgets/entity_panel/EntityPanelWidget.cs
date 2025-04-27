@@ -31,6 +31,7 @@ public partial class EntityPanelWidget : HOBWidget {
     Unbind();
 
     EntityNameWidget.BindTo(entity);
+    Theme = entity.OwnerController?.GetPlayerState().Theme;
 
     CurrentEntity = entity;
 

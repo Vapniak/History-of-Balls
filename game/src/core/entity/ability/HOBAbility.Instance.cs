@@ -18,8 +18,5 @@ public partial class HOBAbility {
     protected void RemoveBlockTurn() {
       GameInstance.GetGameMode<HOBGameMode>().GetTurnManagment().RemoveBlockTurn();
     }
-
-
-    public virtual bool ConfigureTooltipLabel(RichTextLabel label) { return false; }
   }
 }

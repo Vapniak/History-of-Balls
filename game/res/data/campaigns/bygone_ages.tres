@@ -7,18 +7,18 @@
 
 [sub_resource type="Resource" id="Resource_t6ymb"]
 script = ExtResource("2_yk05b")
-Name = "Myths & Legends"
-Percent = 50.0
+Name = "Humor"
+Percent = 60.0
 
 [sub_resource type="Resource" id="Resource_tw1ol"]
 script = ExtResource("2_yk05b")
-Name = "Light Humor"
-Percent = 20.0
+Name = "Tactics"
+Percent = 30.0
 
 [sub_resource type="Resource" id="Resource_3h3rw"]
 script = ExtResource("2_yk05b")
-Name = "Heroic Strategy"
-Percent = 30.0
+Name = "Action"
+Percent = 10.0
 
 [resource]
 script = ExtResource("1_ecqa5")

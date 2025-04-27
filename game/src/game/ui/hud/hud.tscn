@@ -22,9 +22,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ef3ti"]
 shader = ExtResource("11_8agjb")
-shader_parameter/alpha = 0.155
-shader_parameter/inner_radius = 0.5
-shader_parameter/outer_radius = 1.485
+shader_parameter/alpha = 0.655
+shader_parameter/inner_radius = 0.475
+shader_parameter/outer_radius = 2.005
 shader_parameter/color = Color(0, 0, 0, 1)
 
 [sub_resource type="InputEventAction" id="InputEventAction_55cjs"]
@@ -330,7 +330,7 @@ size_flags_vertical = 8
 material = ExtResource("11_fxpao")
 custom_minimum_size = Vector2(128, 128)
 theme_type_variation = &"EndTurnButton"
-theme_override_constants/icon_max_width = 128
+theme_override_constants/icon_max_width = 64
 shortcut = SubResource("Shortcut_2o4se")
 icon = ExtResource("15_j4lta")
 icon_alignment = 1

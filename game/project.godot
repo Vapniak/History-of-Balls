@@ -26,6 +26,7 @@ resources_spreadsheet_view/freeze_first_column=false
 config/name="History of Balls"
 config/version="1.0.0vBeta"
 run/main_scene="res://src/game/main.tscn"
+config/use_custom_user_dir=true
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -46,6 +47,11 @@ SoundManager="*res://addons/audio_manager/src/sound/sound_manager.tscn"
 WidgetManager="*res://addons/widget_system/src/widget_manager.tscn"
 GameAssetsRegistry="*res://src/core/game_assets_registry/game_assets_registry.tscn"
 GGS="*res://addons/ggs/plugin/singleton/ggs.tscn"
+
+[debug]
+
+file_logging/enable_file_logging=true
+file_logging/log_path="user://logs/hob.log"
 
 [debug_draw_3d]
 
@@ -89,6 +95,31 @@ folder_colors={
 theme/custom="res://res/hob_theme.tres"
 theme/default_font_hinting=2
 theme/default_font_generate_mipmaps=true
+
+[importer_defaults]
+
+texture={
+"compress/channel_pack": 0,
+"compress/hdr_compression": 1,
+"compress/high_quality": false,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d/compress_to": 1,
+"editor/convert_colors_with_editor_theme": false,
+"editor/scale_with_editor_scale": false,
+"mipmaps/generate": true,
+"mipmaps/limit": -1,
+"process/fix_alpha_border": true,
+"process/hdr_as_srgb": false,
+"process/hdr_clamp_exposure": false,
+"process/normal_map_invert_y": false,
+"process/premult_alpha": false,
+"process/size_limit": 0,
+"roughness/mode": 0,
+"roughness/src_normal": "",
+"svg/scale": 1.0
+}
 
 [input]
 
@@ -184,9 +215,11 @@ common/physics_interpolation=true
 
 [rendering]
 
-anti_aliasing/screen_space_roughness_limiter/enabled=false
+textures/canvas_textures/default_texture_filter=2
+textures/lossless_compression/force_png=true
+textures/default_filters/use_nearest_mipmap_filter=true
 scaling_3d/mode=2
-scaling_3d/fsr_sharpness=1.0
+scaling_3d/fsr_sharpness=0.5
 anti_aliasing/quality/msaa_2d=2
 anti_aliasing/quality/msaa_3d=2
 mesh_lod/lod_change/threshold_pixels=2.0

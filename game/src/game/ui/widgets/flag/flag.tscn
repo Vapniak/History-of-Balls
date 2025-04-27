@@ -24,6 +24,7 @@ layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_3oykg")
 
 [node name="Texture" type="TextureRect" parent="PanelContainer"]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("1_84y06")
 expand_mode = 3
