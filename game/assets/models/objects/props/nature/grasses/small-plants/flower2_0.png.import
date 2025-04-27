@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://illhegwekkku"
-path.s3tc="res://.godot/imported/flower2_0.png-5ece2127d34d5f7e5e297dfe51e7f013.s3tc.ctex"
+path.s3tc="res://.godot/imported/flower2_0.png-86567abc63d38f77ef6fcba4efeda7ad.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -14,8 +14,8 @@ generator_parameters={
 
 [deps]
 
-source_file="res://assets/models/objects/props/nature/small-plants/flower2_0.png"
-dest_files=["res://.godot/imported/flower2_0.png-5ece2127d34d5f7e5e297dfe51e7f013.s3tc.ctex"]
+source_file="res://assets/models/objects/props/nature/grasses/small-plants/flower2_0.png"
+dest_files=["res://.godot/imported/flower2_0.png-86567abc63d38f77ef6fcba4efeda7ad.s3tc.ctex"]
 
 [params]
 

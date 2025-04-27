@@ -135,9 +135,14 @@ OwnedEntities = SubResource("Resource_0nite")
 [resource]
 script = ExtResource("28_lavgk")
 MissionName = "The Last Bastion of Freedom"
-Description = "You lead a small yet elite contingent of Greek hoplites in battle against the legions of Persia in 480 BC."
+Description = "480 B.C. – The Persian King Xerxes marches to conquer Hellas with an innumerable host. Standing in his path is a narrow pass—Thermopylae—and 300 unyielding Spartans led by King Leonidas. Supported by a handful of allies, they are the last line of defense for a free Greece.
+
+Your task, as Leonidas, is to hold the pass as long as possible. The enemy has overwhelming numbers, but you have the terrain, discipline, and courage on your side. Use the choke point of the Hot Gates to negate the Persian horde’s advantage. Every minute you delay them is another breath of hope for Greece!
+
+\"The Persians come like a storm, but you are the unbreakable rock. Let your shield be your wall, your spear your wrath, and your defiance their doom. History will remember this day—will you make it legend?\""
 ObjectivesText = "Hold your position for 25 rounds ⚔️ 
 Repel waves of the Persian army  🔥 "
+Locked = false
 Map = ExtResource("1_gk1xd")
 PlayerSpawnDatas = [SubResource("Resource_r28ec"), SubResource("Resource_tjfg2")]
 GameModeConfig = SubResource("Resource_tphyi")

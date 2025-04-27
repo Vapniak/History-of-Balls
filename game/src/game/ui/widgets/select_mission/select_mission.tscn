@@ -57,8 +57,12 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 2
 theme_type_variation = &"SpacingExtraLarge"
+vertical = true
 
 [node name="MissionWidget" parent="SplitContainer/MarginContainer/BoxContainer/VBoxContainer" instance=ExtResource("2_nno2l")]
+layout_mode = 2
+
+[node name="MissionWidget2" parent="SplitContainer/MarginContainer/BoxContainer/VBoxContainer" instance=ExtResource("2_nno2l")]
 layout_mode = 2
 
 [node name="ExitButton" parent="SplitContainer/MarginContainer/BoxContainer" instance=ExtResource("6_p56du")]

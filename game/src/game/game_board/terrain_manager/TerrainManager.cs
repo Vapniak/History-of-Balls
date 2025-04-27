@@ -76,7 +76,7 @@ public partial class TerrainManager : Node3D {
     var settings = grid.MapData.Settings.CellSettings;
 
     var textureSize = new Vector2I(1080, 1080);
-    var empty = Image.CreateEmpty(textureSize.X, textureSize.Y, false, Image.Format.Rgb8);
+    var empty = Image.CreateEmpty(textureSize.X, textureSize.Y, true, Image.Format.Rgb8);
     empty.Fill(Colors.White);
     var textures = new Array<Image>();
     foreach (var setting in settings) {

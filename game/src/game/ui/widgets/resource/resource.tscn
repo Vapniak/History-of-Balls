@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://rvgnlg0cmgl2" path="res://src/game/ui/widgets/panel_background/panel_background.tscn" id="1_0rrl2"]
 [ext_resource type="Script" path="res://src/game/ui/widgets/resource/ResourceWidget.cs" id="1_34jd0"]
-[ext_resource type="Texture2D" uid="uid://bh8b1baqmgh7n" path="res://assets/textures/icons/dumpling.svg" id="1_urjjc"]
+[ext_resource type="Texture2D" uid="uid://d0pucaqx4fqsj" path="res://assets/textures/resources/Olive-Oil.png" id="3_c37l7"]
 
 [node name="MarginContainer" type="MarginContainer" node_paths=PackedStringArray("ValueLabel", "Icon")]
 script = ExtResource("1_34jd0")
@@ -20,8 +20,9 @@ theme_type_variation = &"MarginSmall"
 layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer"]
+texture_filter = 2
 layout_mode = 2
-texture = ExtResource("1_urjjc")
+texture = ExtResource("3_c37l7")
 expand_mode = 3
 
 [node name="Label2" type="Label" parent="MarginContainer/HBoxContainer"]

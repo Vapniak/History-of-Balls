@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bvlukku31baub"
-path="res://.godot/imported/flower3.fbx-98a1f0cbb63d66c43c2f266af52df341.scn"
+path="res://.godot/imported/flower3.fbx-d30efdb512c73c7ab0943f1c834996d7.scn"
 
 [deps]
 
-source_file="res://assets/models/objects/props/nature/small-plants/flower3.fbx"
-dest_files=["res://.godot/imported/flower3.fbx-98a1f0cbb63d66c43c2f266af52df341.scn"]
+source_file="res://assets/models/objects/props/nature/grasses/small-plants/flower3.fbx"
+dest_files=["res://.godot/imported/flower3.fbx-d30efdb512c73c7ab0943f1c834996d7.scn"]
 
 [params]
 

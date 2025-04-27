@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bp06acteouiyo"
-path="res://.godot/imported/flower.fbx-d8cb2dea76d4852f8a9c8e525a6e76b3.scn"
+uid="uid://ns1tf7xd4d1x"
+path="res://.godot/imported/flower2.fbx-8b8cc033434daeb8c3c7e66f925b3846.scn"
 
 [deps]
 
-source_file="res://assets/models/objects/props/nature/small-plants/flower.fbx"
-dest_files=["res://.godot/imported/flower.fbx-d8cb2dea76d4852f8a9c8e525a6e76b3.scn"]
+source_file="res://assets/models/objects/props/nature/grasses/small-plants/flower2.fbx"
+dest_files=["res://.godot/imported/flower2.fbx-8b8cc033434daeb8c3c7e66f925b3846.scn"]
 
 [params]
 
@@ -36,17 +36,6 @@ _subresources={
 "Material.005": {
 "use_external/enabled": true,
 "use_external/path": "res://res/materials/objects_mat.tres"
-}
-},
-"meshes": {
-"Cube_008": {
-"generate/lightmap_uv": 0,
-"generate/lods": 0,
-"generate/shadow_meshes": 0,
-"lods/normal_merge_angle": 60.0,
-"lods/normal_split_angle": 25.0,
-"save_to_file/enabled": false,
-"save_to_file/path": "res://test.res"
 }
 }
 }

@@ -54,8 +54,8 @@ public partial class SelectMissionWidget : HOBWidget, IWidgetFactory<SelectMissi
       missionWidget.ButtonWidget.Button.Toggled += (_) => SelectMission(missionData);
       missionWidget.BindTo(missionData);
       MissionList.AddChild(missionWidget);
-      missionWidget.ButtonWidget.Button.ButtonPressed = true;
       if (Missions.First() == missionData) {
+        missionWidget.ButtonWidget.Button.ButtonPressed = true;
       }
     }
   }
