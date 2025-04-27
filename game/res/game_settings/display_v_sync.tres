@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SettingVSync" load_steps=2 format=3 uid="uid://dtvrcmafmkvuq"]
+
+[ext_resource type="Script" path="res://src/core/settings/setting_vsync.gd" id="1_h16wf"]
+
+[resource]
+resource_name = "vsync"
+script = ExtResource("1_h16wf")
+read_only_properties = PackedStringArray("value_type", "value_hint", "value_hint_string")
+default = 1
+section = "display"
+key = "vsync"
+value_type = 2
+value_hint = 2
+value_hint_string = "Disabled,Enabled,Adaptive,Mailbox"

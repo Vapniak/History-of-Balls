@@ -18,12 +18,14 @@ public partial class GameAssetsRegistry : Node {
   [ExportGroup("Cursors")]
   [Export] public Texture2D? DefaultCursor { get; private set; }
   [Export] public Texture2D? PointingHandCursor { get; private set; }
+  [Export] public Texture2D? MoveCursor { get; private set; }
 
   public override void _EnterTree() {
     Instance = this;
 
     Input.SetCustomMouseCursor(DefaultCursor);
     Input.SetCustomMouseCursor(PointingHandCursor, Input.CursorShape.PointingHand);
+    Input.SetCustomMouseCursor(MoveCursor, Input.CursorShape.Drag);
   }
 
   public Texture2D? GetIconFor(GameplayAttribute attribute) {

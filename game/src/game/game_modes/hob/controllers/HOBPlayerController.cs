@@ -63,7 +63,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       SelectedCommand = command;
     };
 
-    GetHUD().TimeScaleButtonWidget.Button.Pressed += ToggleTimeScale;
+    GetHUD().TimeScaleButtonWidget.Button.Pressed += () => ToggleTimeScale();
 
     if (GetPlayerState().AbilitySystem.AttributeSystem.TryGetAttributeSet<PlayerAttributeSet>(out var set)) {
       GameAssetsRegistry.Instance.AttributeIcons.Add(new(set.PrimaryResource, GetPlayerState().Country.PrimaryResource.Icon));
@@ -92,6 +92,15 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   public override void _UnhandledInput(InputEvent @event) {
+
+    if (@event.IsActionPressed(GameInputs.GameSpeedUp)) {
+      ToggleTimeScale();
+    }
+
+    if (@event.IsActionPressed(GameInputs.GameSpeedDown)) {
+      ToggleTimeScale(false);
+    }
+
     if (!_gameStarted) {
       return;
     }
@@ -149,8 +158,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     _gameStarted = true;
   }
 
-  private void ToggleTimeScale() {
-    Engine.TimeScale += 1;
+  private void ToggleTimeScale(bool up = true) {
+    Engine.TimeScale += up ? 1 : -1;
     Engine.TimeScale = Mathf.Wrap(Engine.TimeScale, 1, 4);
   }
 
@@ -230,6 +239,14 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     if (!_gameStarted) {
       return;
     }
+
+    if (Input.IsActionPressed(GameInputs.Slow)) {
+      Character.SetMoveSpeedMulti(0.5f);
+    }
+
+    // if (Input.IsActionPressed(GameInputs.GameSpeedUp)) {
+    //   Character.SetMoveSpeedMulti(2f);
+    // }
 
     if (!_isPanning) {
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);

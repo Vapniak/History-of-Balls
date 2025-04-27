@@ -35,8 +35,9 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   public float Zoom { get; private set; } = 1f;
 
-  public float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom);
+  public float MoveSpeed => Mathf.Lerp(_moveSpeedMinZoom, _moveSpeedMaxZoom, Zoom) * _moveSpeedMulti;
 
+  private float _moveSpeedMulti = 1;
   private float _zoomVelocity;
   private Vector3 _cameraVelocity;
   private Vector3 _panVelocity;
@@ -150,7 +151,10 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
     _prevPosition = CameraParent.GlobalPosition;
     _prevRotation = Rotation;
+    _moveSpeedMulti = 1;
   }
+
+  public void SetMoveSpeedMulti(float value) => _moveSpeedMulti = value;
 
   public T GetCharacter<T>() where T : Node => this as T;
 

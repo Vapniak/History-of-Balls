@@ -1,31 +1,23 @@
-[gd_scene load_steps=17 format=3 uid="uid://bxauf3xyrcdj"]
+[gd_scene load_steps=19 format=3 uid="uid://bxauf3xyrcdj"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/settings_menu/SettingsMenu.cs" id="1_w17c0"]
 [ext_resource type="Texture2D" uid="uid://bt5xecr7ql1ag" path="res://assets/textures/HoB-menu-background.png" id="2_aemso"]
 [ext_resource type="PackedScene" uid="uid://qi00mc4b42ok" path="res://src/game/ui/widgets/screen/screen.tscn" id="2_onouc"]
 [ext_resource type="PackedScene" uid="uid://2cvrfbj6u5ju" path="res://src/game/ui/widgets/exit_button/exit_button.tscn" id="3_xeh68"]
+[ext_resource type="PackedScene" uid="uid://dow1q5nk48vss" path="res://src/game/ui/widgets/menu/settings_menu/screen/settings_screen.tscn" id="5_162sd"]
 [ext_resource type="PackedScene" uid="uid://b7m6l0lvojrsj" path="res://addons/ggs/components/option_list/component_option_list.tscn" id="5_fmtkh"]
-[ext_resource type="Script" path="res://src/core/settings/display.gd" id="5_laxbl"]
 [ext_resource type="PackedScene" uid="uid://ds06mwhee8ygm" path="res://addons/ggs/components/slider/component_slider.tscn" id="5_ynr6w"]
-[ext_resource type="Script" path="res://src/core/settings/setting_vsync.gd" id="6_5pdjf"]
+[ext_resource type="PackedScene" uid="uid://bia8drn81byma" path="res://src/game/ui/widgets/menu/settings_menu/screen/settings_section.tscn" id="6_1dkil"]
 [ext_resource type="Resource" uid="uid://cm7w5u65u802a" path="res://res/game_settings/audio_master.tres" id="6_hdx2j"]
 [ext_resource type="Resource" uid="uid://dtre6spi46ff8" path="res://res/game_settings/audio_music.tres" id="7_i6o75"]
+[ext_resource type="PackedScene" uid="uid://b7vf6elxpqnns" path="res://src/game/ui/widgets/menu/settings_menu/screen/settings_section_entry.tscn" id="7_s4wif"]
 [ext_resource type="Resource" uid="uid://bnnvcotoxq7qb" path="res://res/game_settings/display_window_mode.tres" id="8_22jht"]
 [ext_resource type="Resource" uid="uid://b5t7koxjgw8qk" path="res://res/game_settings/audio_sfx.tres" id="8_n1ess"]
 [ext_resource type="Resource" uid="uid://dc7aacwpipijb" path="res://res/game_settings/display_size.tres" id="9_iuomc"]
+[ext_resource type="Resource" uid="uid://dtvrcmafmkvuq" path="res://res/game_settings/display_v_sync.tres" id="9_pweoh"]
 [ext_resource type="Script" path="res://src/core/settings/SliderLabel.cs" id="10_qei6c"]
 [ext_resource type="Resource" uid="uid://dhms1kd3px14n" path="res://res/game_settings/display_resolution_scale.tres" id="11_2aftl"]
-
-[sub_resource type="Resource" id="Resource_xhtq0"]
-resource_name = "vsync"
-script = ExtResource("6_5pdjf")
-read_only_properties = PackedStringArray("value_type", "value_hint", "value_hint_string")
-default = 1
-section = "display"
-key = "vsync"
-value_type = 2
-value_hint = 2
-value_hint_string = "Disabled,Enabled,Adaptive,Mailbox"
+[ext_resource type="Script" path="res://src/game/ui/widgets/menu/settings_menu/InputMenu.cs" id="18_x56td"]
 
 [node name="SettingsMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -35,6 +27,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_w17c0")
+
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Input_HBoxContainer_Sections#Sectopn" parent="." instance=ExtResource("6_1dkil")]
+layout_mode = 2
+
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections#Sectopn" parent="." instance=ExtResource("6_1dkil")]
+layout_mode = 2
 
 [node name="Screen" parent="." instance=ExtResource("2_onouc")]
 layout_mode = 2
@@ -65,46 +63,27 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="TabContainer" type="ScrollContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer"]
+[node name="TabContainer" type="TabContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+tab_alignment = 1
+current_tab = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer"]
-custom_minimum_size = Vector2(1000, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 3
-
-[node name="Display" type="MarginContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer" node_paths=PackedStringArray("mode_option")]
-layout_mode = 2
-script = ExtResource("5_laxbl")
-mode_option = NodePath("VBoxContainer/HBoxContainer14/OptionList/Btn")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display"]
+[node name="Display" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("5_162sd")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"HeaderMedium"
-text = "Display"
-
-[node name="HSeparator" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer"]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="0" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
-[node name="HBoxContainer13" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer"]
-layout_mode = 2
+[node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry" index="0"]
+text = "V-Sync"
 
-[node name="Label" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer13"]
+[node name="OptionList" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry" instance=ExtResource("5_fmtkh")]
 layout_mode = 2
-size_flags_horizontal = 3
-text = "V-SYNC"
-
-[node name="OptionList" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer13" instance=ExtResource("5_fmtkh")]
-layout_mode = 2
-setting = SubResource("Resource_xhtq0")
+setting = ExtResource("9_pweoh")
 apply_on_changed = true
 
-[node name="Btn" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer13/OptionList" index="0"]
+[node name="Btn" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry/OptionList" index="0"]
 item_count = 4
 popup/item_0/text = "Disabled"
 popup/item_1/text = "Enabled"
@@ -114,56 +93,50 @@ popup/item_2/id = 2
 popup/item_3/text = "Mailbox"
 popup/item_3/id = 3
 
-[node name="HBoxContainer14" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer"]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="1" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer14"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Window Mode"
-
-[node name="OptionList" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer14" instance=ExtResource("5_fmtkh")]
-layout_mode = 2
-setting = ExtResource("8_22jht")
-apply_on_changed = true
-
-[node name="Btn" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer14/OptionList" index="0"]
-item_count = 3
-popup/item_0/text = "Fullscreen"
-popup/item_1/text = "Borderless Window"
-popup/item_1/id = 1
-popup/item_2/text = "Windowed"
-popup/item_2/id = 2
-
-[node name="HBoxContainer15" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer15"]
-layout_mode = 2
-size_flags_horizontal = 3
+[node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3" index="0"]
 text = "Size"
 
-[node name="OptionList" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer15" instance=ExtResource("5_fmtkh")]
+[node name="OptionList" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3" instance=ExtResource("5_fmtkh")]
 layout_mode = 2
 _use_ids = true
 setting = ExtResource("9_iuomc")
 apply_on_changed = true
 
-[node name="Btn" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer15/OptionList" index="0"]
+[node name="Btn" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3/OptionList" index="0"]
 item_count = 2
 popup/item_0/text = "1920x1080"
 popup/item_1/text = "1280x720"
 popup/item_1/id = 1
 
-[node name="HBoxContainer16" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer"]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="2" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer16"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Resolution Scaling"
+[node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2" index="0"]
+text = "Window Mode"
 
-[node name="SliderLabel" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer16" node_paths=PackedStringArray("Slider")]
+[node name="OptionList" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2" instance=ExtResource("5_fmtkh")]
+layout_mode = 2
+setting = ExtResource("8_22jht")
+apply_on_changed = true
+
+[node name="Btn" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2/OptionList" index="0"]
+item_count = 3
+popup/item_0/text = "Fullscreen"
+popup/item_1/text = "Borderless"
+popup/item_1/id = 1
+popup/item_2/text = "Windowed"
+popup/item_2/id = 2
+
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry4" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="3" instance=ExtResource("7_s4wif")]
+layout_mode = 2
+
+[node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry4" index="0"]
+text = "Resolution Scale"
+
+[node name="SliderLabel" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry4" node_paths=PackedStringArray("Slider")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.1
@@ -171,221 +144,56 @@ text = "1"
 script = ExtResource("10_qei6c")
 Slider = NodePath("../Slider/Slider")
 
-[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer16" instance=ExtResource("5_ynr6w")]
+[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry4" instance=ExtResource("5_ynr6w")]
 layout_mode = 2
 setting = ExtResource("11_2aftl")
 apply_on_changed = true
 
-[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer16/Slider" index="0"]
-min_value = 0.5
-max_value = 2.0
-step = 0.1
-value = 1.0
-
-[node name="Label2" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
+[node name="Audio" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer" instance=ExtResource("5_162sd")]
+visible = false
 layout_mode = 2
-theme_type_variation = &"HeaderMedium"
-text = "Audio"
+script = null
+metadata/_tab_index = 1
 
-[node name="HSeparator2" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Audio_HBoxContainer_Sections_Sectopn_Entries#Entry" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Audio/HBoxContainer/ScrollContainer/Sections" index="0" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="SoundLabel" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Master"
-vertical_alignment = 1
-
-[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5_ynr6w")]
+[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Audio/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Audio_HBoxContainer_Sections_Sectopn_Entries#Entry" instance=ExtResource("5_ynr6w")]
 layout_mode = 2
 setting = ExtResource("6_hdx2j")
 apply_on_changed = true
 
-[node name="HBoxContainer11" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Audio_HBoxContainer_Sections_Sectopn_Entries#Entry3" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Audio/HBoxContainer/ScrollContainer/Sections" index="1" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
-[node name="SoundLabel" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer11"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-text = "Music"
-vertical_alignment = 1
-
-[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer11" instance=ExtResource("5_ynr6w")]
-layout_mode = 2
-setting = ExtResource("7_i6o75")
-apply_on_changed = true
-
-[node name="HBoxContainer12" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="SoundLabel" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer12"]
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-size_flags_horizontal = 2
-text = "SFX"
-vertical_alignment = 1
-
-[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer12" instance=ExtResource("5_ynr6w")]
+[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Audio/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Audio_HBoxContainer_Sections_Sectopn_Entries#Entry3" instance=ExtResource("5_ynr6w")]
 layout_mode = 2
 setting = ExtResource("8_n1ess")
 apply_on_changed = true
 
-[node name="Label3" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-theme_type_variation = &"HeaderMedium"
-text = "Input"
-
-[node name="HSeparator3" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Audio_HBoxContainer_Sections_Sectopn_Entries#Entry2" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Audio/HBoxContainer/ScrollContainer/Sections" index="2" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
+[node name="Slider" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Audio/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Audio_HBoxContainer_Sections_Sectopn_Entries#Entry2" instance=ExtResource("5_ynr6w")]
 layout_mode = 2
+setting = ExtResource("7_i6o75")
+apply_on_changed = true
 
-[node name="Label" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "WSAD"
-
-[node name="Label2" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "Move"
-
-[node name="HSeparator4" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
+[node name="Input" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer" node_paths=PackedStringArray("ControlsEntries") instance=ExtResource("5_162sd")]
 visible = false
 layout_mode = 2
-
-[node name="HBoxContainer3" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label3" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "MMB (Hold)"
-
-[node name="Label4" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-text = "Pan Camera"
-
-[node name="HSeparator5" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="HBoxContainer4" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label5" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "LMB"
-
-[node name="Label9" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-text = "Select"
-
-[node name="HSeparator6" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="HBoxContainer5" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label10" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer5"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "RMB"
-
-[node name="Label6" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer5"]
-layout_mode = 2
-text = "Use Selected Command"
-
-[node name="HSeparator7" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="HBoxContainer6" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label7" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer6"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "SCROLL UP/DOWN"
-
-[node name="Label8" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer6"]
-layout_mode = 2
-text = "Zoom In/Out"
-
-[node name="HSeparator8" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="HBoxContainer7" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label11" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer7"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "F"
-
-[node name="Label12" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer7"]
-layout_mode = 2
-text = "Focus On Selection"
-
-[node name="HSeparator9" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="HBoxContainer8" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label13" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer8"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Q/E
-Arrow Left/Right"
-
-[node name="Label14" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer8"]
-layout_mode = 2
-text = "Rotate Camera Left/Right"
-
-[node name="HSeparator10" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="HBoxContainer9" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label15" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer9"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "SHIFT"
-
-[node name="Label16" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer9"]
-layout_mode = 2
-text = "Time Speed Change"
-
-[node name="HSeparator11" type="HSeparator" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[node name="HBoxContainer10" type="HBoxContainer" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="Label17" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer10"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "SPACE"
-
-[node name="Label18" type="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/HBoxContainer10"]
-layout_mode = 2
-text = "End Turn"
+script = ExtResource("18_x56td")
+ControlsEntries = NodePath("HBoxContainer/ScrollContainer/Sections")
+metadata/_tab_index = 2
 
 [editable path="Screen"]
-[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer13/OptionList"]
-[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer14/OptionList"]
-[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer15/OptionList"]
-[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/VBoxContainer/Display/VBoxContainer/HBoxContainer16/Slider"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry/OptionList"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3/OptionList"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2/OptionList"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry4"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Audio"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Input"]

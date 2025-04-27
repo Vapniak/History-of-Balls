@@ -32,6 +32,9 @@ public partial class Splash : Control {
 
   // TODO: minigame to skip video
   public override void _Input(InputEvent @event) {
+#if DEBUG
+    _canSkip = true;
+#endif
     if (_canSkip && @event is InputEventMouseButton mouseButton && mouseButton.Pressed) {
       GoToMainMenu();
     }
