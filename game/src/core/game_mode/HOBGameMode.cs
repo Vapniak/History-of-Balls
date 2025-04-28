@@ -1,17 +1,12 @@
 namespace HOB;
 
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using AudioManager;
 using GameplayFramework;
-using GameplayTags;
 using Godot;
-using Godot.Collections;
 using GodotStateCharts;
 using HexGridMap;
-using HOB.GameEntity;
 using WidgetSystem;
 
 [GlobalClass]
@@ -39,13 +34,6 @@ public partial class HOBGameMode : GameMode {
     base._EnterTree();
 
     MusicManager.Instance.Stop(1);
-    GetGameState().GameBoard = GameInstance.GetWorld().GetCurrentLevel().GetChildByType<GameBoard>();
-
-    StateChart = StateChart.Of(StateChartNode!);
-
-    PlayerManagmentComponent!.PlayerSpawned += (playerState) => MatchComponent!.OnPlayerSpawned(playerState as IMatchPlayerState);
-
-    GameBoard.GridCreated += () => CallDeferred(MethodName.OnGridCreated);
   }
 
   public override void _ExitTree() {
@@ -58,6 +46,14 @@ public partial class HOBGameMode : GameMode {
 
   public override void _Ready() {
     base._Ready();
+
+    GetGameState().GameBoard = GameInstance.GetWorld().GetCurrentLevel().GetChildByType<GameBoard>();
+
+    StateChart = StateChart.Of(StateChartNode!);
+
+    PlayerManagmentComponent!.PlayerSpawned += (playerState) => MatchComponent!.OnPlayerSpawned(playerState as IMatchPlayerState);
+
+    GameBoard.GridCreated += () => CallDeferred(MethodName.OnGridCreated);
 
     if (MissionData?.Map != null) {
       GameBoard.Init(MissionData);
@@ -105,7 +101,7 @@ public partial class HOBGameMode : GameMode {
 
   protected virtual void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
-    MusicManager.Instance.Play("music", "medival", autoLoop: true, crossfadeTime: 0);
+    MusicManager.Instance.Play("music", "medival", autoLoop: true);
   }
 
   protected virtual void OnInMatchStateExited() {

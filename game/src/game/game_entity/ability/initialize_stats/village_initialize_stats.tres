@@ -1,0 +1,43 @@
+[gd_resource type="Resource" script_class="InitializeStatsAbility" load_steps=13 format=3 uid="uid://gys5w38r4awo"]
+
+[ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://res/data/attributes/income.tres" id="1_y6osm"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_fqve2"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_rkpci"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_xje00"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="5_2y6yx"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="6_ydkba"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="7_xtsrg"]
+
+[sub_resource type="Resource" id="Resource_7jklb"]
+script = ExtResource("2_fqve2")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_64e2a"]
+script = ExtResource("3_rkpci")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_7jklb")
+
+[sub_resource type="Resource" id="Resource_7ntdi"]
+script = ExtResource("4_xje00")
+Attribute = ExtResource("1_y6osm")
+Modifiers = [SubResource("Resource_64e2a")]
+
+[sub_resource type="Resource" id="Resource_eb8or"]
+script = ExtResource("5_2y6yx")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_7ntdi")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_05xw3"]
+script = ExtResource("6_ydkba")
+EffectDefinition = SubResource("Resource_eb8or")
+
+[resource]
+script = ExtResource("7_xtsrg")
+InitializeStatsEffects = SubResource("Resource_05xw3")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null

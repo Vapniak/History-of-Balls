@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SettingScalingMode" load_steps=2 format=3 uid="uid://8g6mkkwql7e3"]
+
+[ext_resource type="Script" path="res://src/core/settings/setting_scaling_mode.gd" id="1_kjxgh"]
+
+[resource]
+resource_name = "scaling_mode"
+script = ExtResource("1_kjxgh")
+read_only_properties = PackedStringArray()
+default = 2
+section = "display"
+key = "scaling_mode"
+value_type = 2
+value_hint = 2
+value_hint_string = "Bilinear,FSR 1.0,FSR 2.0"

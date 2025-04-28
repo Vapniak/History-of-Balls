@@ -58,6 +58,8 @@ public sealed partial class World : Node {
       _loadingScreen.SetProgressBarValue(0);
     }
 
+    await Task.Delay(500);
+
     var loadError = ResourceLoader.LoadThreadedRequest(levelPath);
     if (loadError != Error.Ok) {
       GD.PrintErr($"Failed to start loading level: {levelPath} (Error: {loadError})");
@@ -79,13 +81,11 @@ public sealed partial class World : Node {
       else {
         _loadingScreen?.SetProgressBarValue(0.01f);
       }
-
-      await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
     }
 
     if (status == ResourceLoader.ThreadLoadStatus.Loaded) {
       _loadingScreen?.SetProgressBarValue(1f);
-      if (_loadingScreen != null) {
+      if (_loadingScreen != null && !Mathf.IsEqualApprox(_loadingScreen.GetProgressBarValue(), 1f)) {
         await ToSignal(_loadingScreen, LoadingScreen.SignalName.FullReached);
       }
 

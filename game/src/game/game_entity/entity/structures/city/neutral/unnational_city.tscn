@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://du2tlu6jq51pu"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_ualjv"]
+[ext_resource type="PackedScene" uid="uid://dk7k4k638ve8q" path="res://assets/models/objects/countries/unnational/unnational-city.fbx" id="2_qoinx"]
+
+[node name="UnnationalCity" type="Node3D"]
+script = ExtResource("1_ualjv")
+
+[node name="unnational-city" parent="." instance=ExtResource("2_qoinx")]

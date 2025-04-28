@@ -68,8 +68,6 @@ public partial class AttributeEntryWidget : HOBWidget, IWidgetFactory<AttributeE
   }
   private void SetEntryName(string name) {
     EntryNameLabel.Text = name;
-    EntryNameLabel.ResetSize();
-    ResetSize();
   }
 
   private void SetIcon(Texture2D? icon, Color? color = null) {
@@ -84,8 +82,6 @@ public partial class AttributeEntryWidget : HOBWidget, IWidgetFactory<AttributeE
 
   private void SetEntryValue(string value) {
     EntryValueLabel.Text = value.ToString();
-    EntryValueLabel.ResetSize();
-    ResetSize();
   }
 
   public static AttributeEntryWidget CreateWidget() {

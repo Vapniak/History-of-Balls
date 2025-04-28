@@ -282,7 +282,7 @@ public partial class SoundManager : Node {
     }
 
     void handleHover() {
-      if (weakButton?.GetRef().As<Node>() is Button validButton) {
+      if (weakButton?.GetRef().As<Node>() is Button validButton && !validButton.Disabled) {
         Play("ui", "hover");
       }
     }

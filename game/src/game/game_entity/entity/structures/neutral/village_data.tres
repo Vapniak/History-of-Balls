@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://doidx5bt2arat"]
+
+[ext_resource type="PackedScene" uid="uid://58211gsdw151" path="res://src/game/game_entity/entity/structures/neutral/village.tscn" id="3_7h7y5"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="4_55sog"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="5_aor2c"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="5_gg7wk"]
+
+[sub_resource type="Resource" id="Resource_du6rs"]
+script = ExtResource("4_55sog")
+FullName = "Entity.Type.Structure.Village"
+
+[sub_resource type="Resource" id="Resource_1lt35"]
+script = ExtResource("5_gg7wk")
+Tags = [SubResource("Resource_du6rs")]
+
+[resource]
+script = ExtResource("5_aor2c")
+EntityName = "Village"
+Abilities = []
+Tags = SubResource("Resource_1lt35")
+Body = ExtResource("3_7h7y5")

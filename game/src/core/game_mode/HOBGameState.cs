@@ -14,5 +14,5 @@ public partial class HOBGameState : GameState, IMatchGameState {
   public int CurrentPlayerIndex { get; set; }
   public int CurrentRound { get; set; }
   public GameBoard GameBoard { get; set; }
-  public List<Entity> Entities { get; set; }
+  public List<Entity> Entities { get; set; } = new();
 }

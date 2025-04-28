@@ -46,7 +46,6 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   public override void _Ready() {
     base._Ready();
 
-    GetGameState().Entities = new();
     GetGameState().CurrentPlayerIndex = -1;
   }
 
@@ -103,7 +102,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
 
   private void AddEntity(Entity entity) {
-    entity.TreeExited += () => {
+    entity.TreeExiting += () => {
       GD.Print($"Entity {entity.Name} is being removed from the scene.");
       RemoveEntity(entity);
     };
@@ -119,7 +118,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
 
   private void RemoveEntity(Entity entity) {
     if (Entities == null || entity == null) {
-      GD.PrintErr("Invalid RemoveEntity call!");
+      GD.PushWarning("Invalid RemoveEntity call!");
       return;
     }
 

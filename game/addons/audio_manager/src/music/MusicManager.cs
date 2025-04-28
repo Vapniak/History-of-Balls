@@ -35,7 +35,7 @@ public partial class MusicManager : Node {
     }
   }
 
-  public bool Play(string bankLabel, string trackName, float crossfadeTime = 5.0f, bool autoLoop = false) {
+  public bool Play(string bankLabel, string trackName, bool autoLoop = false) {
     if (!_musicTable.TryGetValue(bankLabel, out var bank)) {
       GD.PushError($"Tried to play the music track [{trackName}] from an unknown bank [{bankLabel}].");
       return false;
@@ -63,12 +63,12 @@ public partial class MusicManager : Node {
     var player = StemmedMusicStreamPlayer.Create(bankLabel, trackName, bus, _volume, autoLoop);
 
     if (_musicStreams.Count > 0) {
-      Stop(crossfadeTime);
+      Stop(0);
     }
 
     _musicStreams.Add(player);
     AddChild(player);
-    player.StartStems(track.Stems, crossfadeTime);
+    player.StartStems(track.Stems, 0);
     player.Stopped += () => OnPlayerStopped(player);
 
     if (autoLoop) {
@@ -114,7 +114,7 @@ public partial class MusicManager : Node {
     player.QueueFree();
   }
 
-  private void OnAutoLoopCompleted(string bankLabel, string trackName, float crossfadeTime) {
-    Play(bankLabel, trackName, crossfadeTime, true);
+  private void OnAutoLoopCompleted(string bankLabel, string trackName) {
+    Play(bankLabel, trackName, true);
   }
 }

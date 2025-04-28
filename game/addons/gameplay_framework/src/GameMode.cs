@@ -13,7 +13,7 @@ public partial class GameMode : Node, IGameMode {
     GameState = CreateGameState();
   }
 
-  public virtual IGameState GetGameState() => GameState!;
+  public virtual IGameState GetGameState() => GameState ?? CreateGameState();
 
   protected virtual IGameState CreateGameState() {
     return new GameState();

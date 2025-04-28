@@ -16,7 +16,7 @@ public partial class Splash : Control {
   public override void _Ready() {
     _videoStreamPlayer.Finished += () => {
       if (_videoStreamPlayer.Stream == _firstVideo) {
-        MusicManager.Instance.Play("music", "intro", 1);
+        MusicManager.Instance.Play("music", "intro");
         _videoStreamPlayer.Stream = _secondVideo;
         _canSkip = true;
         _videoStreamPlayer.Play();
@@ -37,17 +37,17 @@ public partial class Splash : Control {
 #endif
     if (_canSkip && @event is InputEventMouseButton mouseButton && mouseButton.Pressed) {
       GoToMainMenu();
+      MusicManager.Instance.Stop(1);
     }
   }
   public void PlayIntro() {
     _videoStreamPlayer.Stream = _firstVideo;
 
-    MusicManager.Instance.Play("music", "splash", 1);
+    MusicManager.Instance.Play("music", "splash");
     _videoStreamPlayer.Play();
   }
   private void GoToMainMenu() {
     _videoStreamPlayer.Paused = true;
-    MusicManager.Instance.Stop(1);
     _ = GameInstance.GetWorld().OpenLevel("main_menu_level");
   }
 }

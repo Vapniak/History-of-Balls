@@ -9,7 +9,7 @@ public partial class StemmedMusicStreamPlayer : Node {
   public delegate void StoppedEventHandler();
 
   [Signal]
-  public delegate void AutoLoopCompletedEventHandler(string bankLabel, string trackName, float crossfadeTime);
+  public delegate void AutoLoopCompletedEventHandler(string bankLabel, string trackName);
 
   public bool IsStopping { get; private set; }
   public string BankLabel { get; private set; } = "";
@@ -76,7 +76,7 @@ public partial class StemmedMusicStreamPlayer : Node {
       return;
     }
 
-    stem.SetEnabled(enabled, fadeTime);
+    // stem.SetEnabled(enabled, fadeTime);
   }
 
   public void SetStemVolume(string name, float volume) {
@@ -118,9 +118,7 @@ public partial class StemmedMusicStreamPlayer : Node {
       return;
     }
 
-    var crossfadeTime = 0;
-    var timeToLoop = streamLength - crossfadeTime;
-
+    var timeToLoop = streamLength;
     if (timeToLoop <= 0) {
       timeToLoop = 0.1f;
     }
@@ -128,7 +126,7 @@ public partial class StemmedMusicStreamPlayer : Node {
     var timer = GetTree().CreateTimer(timeToLoop);
     timer.Timeout += () => {
       if (!IsStopping) {
-        EmitSignal(SignalName.AutoLoopCompleted, BankLabel, TrackName, crossfadeTime);
+        EmitSignal(SignalName.AutoLoopCompleted, BankLabel, TrackName);
       }
     };
   }
@@ -155,15 +153,14 @@ public partial class StemPlayer : AudioStreamPlayer {
     IsEnabled = stem.Enabled;
     Stream = stem.Stream;
     Volume = stem.Volume;
-    VolumeDb = -80.0f;
   }
 
   public new void Play(float fadeInTime) {
     Play();
 
-    if (IsEnabled) {
-      CreateVolumeTransition(-80.0f, Volume, fadeInTime);
-    }
+    // if (IsEnabled) {
+    //   CreateVolumeTransition(-80.0f, Volume, fadeInTime);
+    // }
   }
 
   public void Stop(float fadeOutTime) {
@@ -176,16 +173,16 @@ public partial class StemPlayer : AudioStreamPlayer {
     }
   }
 
-  public void SetEnabled(bool pEnabled, float pFadeTime) {
-    IsEnabled = pEnabled;
+  // public void SetEnabled(bool pEnabled, float pFadeTime) {
+  //   IsEnabled = pEnabled;
 
-    if (pEnabled) {
-      CreateVolumeTransition(VolumeDb, Volume, pFadeTime);
-    }
-    else {
-      CreateVolumeTransition(VolumeDb, -80.0f, pFadeTime);
-    }
-  }
+  //   if (pEnabled) {
+  //     CreateVolumeTransition(VolumeDb, Volume, pFadeTime);
+  //   }
+  //   else {
+  //     CreateVolumeTransition(VolumeDb, -80.0f, pFadeTime);
+  //   }
+  // }
 
   public void SetVolume(float pVolume) {
     Volume = pVolume;

@@ -240,13 +240,17 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       return;
     }
 
-    if (Input.IsActionPressed(GameInputs.Slow)) {
+    if (Input.IsActionJustPressed(GameInputs.ToggleHud)) {
+      GetHUD().Visible = !GetHUD().Visible;
+    }
+
+    if (Input.IsActionPressed(GameInputs.SlowMoveSpeed)) {
       Character.SetMoveSpeedMulti(0.5f);
     }
 
-    // if (Input.IsActionPressed(GameInputs.GameSpeedUp)) {
-    //   Character.SetMoveSpeedMulti(2f);
-    // }
+    if (Input.IsActionPressed(GameInputs.FastMoveSpeed)) {
+      Character.SetMoveSpeedMulti(2f);
+    }
 
     if (!_isPanning) {
       Input.SetDefaultCursorShape(Input.CursorShape.Arrow);
@@ -422,6 +426,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     if (EntityManagment.GetEntitiesOnCell(HoveredCell).Length > 0) {
       SoundManager.Instance.Play("ui", "hover");
+      //Input.SetDefaultCursorShape(Input.CursorShape.PointingHand);
     }
   }
   private void OnSelectedCommandChanged() {
