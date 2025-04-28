@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://cgdgf05lm6ewr" path="res://assets/textures/icons/lock.svg" id="7_vvpac"]
 [ext_resource type="Texture2D" uid="uid://cmva4q4l6snc0" path="res://assets/textures/HoB-renders/HoB-cards-renders/card2-render1.png" id="8_fp6f4"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7cr5t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gswoo"]
 shader = ExtResource("3_fmvax")
 shader_parameter/tint = Color(1, 1, 1, 1)
 shader_parameter/background_texture = ExtResource("4_36qj5")
@@ -18,36 +18,35 @@ shader_parameter/background_texture = ExtResource("4_36qj5")
 offset_right = 525.0
 offset_bottom = 843.0
 script = ExtResource("1_woy3c")
-CampaignNumberLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Label")
-CampaignNameLabel = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Label2")
-TraitsParent = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer")
+CampaignNumberLabel = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Label")
+CampaignNameLabel = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Label2")
+TraitsParent = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer")
 LockIcon = NodePath("MarginContainer/MarginContainer/TextureRect")
-Image = NodePath("MarginContainer/PanelContainer/MarginContainer/HBoxContainer/TextureRect")
+Image = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/TextureRect")
 Locked = ExtResource("7_vvpac")
 Unlocked = ExtResource("3_f5xeu")
 HoveredControl = NodePath("MarginContainer")
 Button = NodePath("MarginContainer/Button/Button")
-ControlToModulate = NodePath("MarginContainer/PanelContainer")
+ControlToModulate = NodePath(".")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_type_variation = &"MarginSmall"
 
-[node name="Button" parent="MarginContainer" node_paths=PackedStringArray("ControlToModulate") instance=ExtResource("2_fddko")]
+[node name="Button" parent="MarginContainer" instance=ExtResource("2_fddko")]
 layout_mode = 2
-ControlToModulate = NodePath("../PanelContainer")
 
 [node name="Button" parent="MarginContainer/Button" index="0"]
 flat = true
 
 [node name="PanelContainer" type="PanelContainer" parent="MarginContainer"]
 clip_children = 2
-material = SubResource("ShaderMaterial_7cr5t")
+material = SubResource("ShaderMaterial_gswoo")
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"Card"
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="MarginContainer/PanelContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"MarginSmall"
@@ -55,39 +54,39 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer2"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"MarginLarge"
 
-[node name="HBoxContainer" type="BoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="BoxContainer" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer"]
 layout_mode = 2
 mouse_filter = 2
 theme_type_variation = &"SpacingExtraLarge"
 vertical = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label" type="Label" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"HeaderExtraLarge"
 text = "I"
 horizontal_alignment = 1
 
-[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
+[node name="Label2" type="Label" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme_type_variation = &"HeaderMedium"
 text = "BYGONE AGES"
 horizontal_alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
@@ -96,27 +95,28 @@ theme_override_constants/margin_left = 0
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 
-[node name="BoxContainer" type="BoxContainer" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
+[node name="BoxContainer" type="BoxContainer" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 mouse_filter = 2
 
-[node name="CampaignTrait" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer" instance=ExtResource("5_2jjvq")]
+[node name="CampaignTrait" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer" instance=ExtResource("5_2jjvq")]
 layout_mode = 2
 
-[node name="VSeparator2" type="VSeparator" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer"]
 layout_mode = 2
 
-[node name="CampaignTrait2" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer" instance=ExtResource("5_2jjvq")]
+[node name="CampaignTrait2" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer" instance=ExtResource("5_2jjvq")]
 layout_mode = 2
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer"]
 layout_mode = 2
 
-[node name="CampaignTrait3" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer" instance=ExtResource("5_2jjvq")]
+[node name="CampaignTrait3" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer" instance=ExtResource("5_2jjvq")]
 layout_mode = 2
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer/HBoxContainer"]
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/PanelContainer/MarginContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(300, 300)
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://2sgu6n06dr18"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_y7iwv"]
+[ext_resource type="PackedScene" uid="uid://cvq7r7vt283ca" path="res://assets/models/objects/countries/neutral/neutral-village.fbx" id="2_nlgby"]
+
+[node name="UnnationalVillage" type="Node3D"]
+script = ExtResource("1_y7iwv")
+
+[node name="neutral-village" parent="." instance=ExtResource("2_nlgby")]

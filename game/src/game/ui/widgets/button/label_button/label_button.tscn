@@ -3,9 +3,10 @@
 [ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="1_3ehsd"]
 [ext_resource type="Script" path="res://src/game/ui/widgets/button/label_button/LabelButtonWidget.cs" id="1_cjsoy"]
 
-[node name="Button" node_paths=PackedStringArray("Label") instance=ExtResource("1_3ehsd")]
+[node name="Button" node_paths=PackedStringArray("Label", "ControlToModulate") instance=ExtResource("1_3ehsd")]
 script = ExtResource("1_cjsoy")
 Label = NodePath("MarginContainer/RichTextLabel")
+ControlToModulate = NodePath("MarginContainer")
 
 [node name="MarginContainer" type="MarginContainer" parent="." index="1"]
 layout_mode = 2

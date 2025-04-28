@@ -11,6 +11,7 @@ public partial class MissionWidget : HOBWidget, IWidgetFactory<MissionWidget> {
   [Export] public Texture2D LockedIcon { get; private set; } = default!;
   [Export] public Texture2D UnlockedIcon { get; private set; } = default!;
   [Export] private Label MissionNameLabel { get; set; } = default!;
+  [Export] private Label ComingSoonLabel { get; set; } = default!;
   public static MissionWidget CreateWidget() {
     return ResourceLoader.Load<PackedScene>("uid://bpnm84svvttf3").Instantiate<MissionWidget>();
   }
@@ -21,5 +22,6 @@ public partial class MissionWidget : HOBWidget, IWidgetFactory<MissionWidget> {
 
     ButtonWidget.Button.Disabled = mission.Locked;
     Icon.Texture = mission.Locked ? LockedIcon : UnlockedIcon;
+    ComingSoonLabel.Visible = mission.Locked;
   }
 }

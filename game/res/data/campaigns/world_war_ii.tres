@@ -25,5 +25,5 @@ Number = "II"
 Name = "World War II"
 Traits = [SubResource("Resource_wr2kq"), SubResource("Resource_arwr6"), SubResource("Resource_8cbi7")]
 Missions = Array[Object]([])
-Locked = true
+Locked = false
 Image = ExtResource("1_bk06b")

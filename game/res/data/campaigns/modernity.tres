@@ -25,5 +25,5 @@ Number = "III"
 Name = "Modernity"
 Traits = [SubResource("Resource_votb8"), SubResource("Resource_n56d6"), SubResource("Resource_0wsvq")]
 Missions = []
-Locked = true
+Locked = false
 Image = ExtResource("1_ty68h")

@@ -7,7 +7,7 @@
 
 [sub_resource type="ButtonGroup" id="ButtonGroup_hr6n1"]
 
-[node name="MissionWidget" type="MarginContainer" node_paths=PackedStringArray("ButtonWidget", "Icon", "MissionNameLabel")]
+[node name="MissionWidget" type="MarginContainer" node_paths=PackedStringArray("ButtonWidget", "Icon", "MissionNameLabel", "ComingSoonLabel")]
 offset_right = 20.0
 offset_bottom = 20.0
 size_flags_horizontal = 3
@@ -18,6 +18,7 @@ Icon = NodePath("MarginContainer/HBoxContainer2/HBoxContainer/TextureRect")
 LockedIcon = ExtResource("3_v4ygy")
 UnlockedIcon = ExtResource("3_5jqb7")
 MissionNameLabel = NodePath("MarginContainer/HBoxContainer2/HBoxContainer/RichTextLabel")
+ComingSoonLabel = NodePath("MarginContainer/HBoxContainer2/HBoxContainer/Label")
 
 [node name="Button2" parent="." node_paths=PackedStringArray("ControlToModulate") instance=ExtResource("1_q532n")]
 layout_mode = 2
@@ -29,6 +30,7 @@ button_group = SubResource("ButtonGroup_hr6n1")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
+size_flags_vertical = 4
 mouse_filter = 2
 theme_type_variation = &"MarginExtraLarge"
 
@@ -47,6 +49,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_type_variation = &"HeaderMedium"
 text = "Battle of Thermopylae"
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer2/HBoxContainer"]
+layout_mode = 2
+text = "(COMING SOON)"
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer2/HBoxContainer"]
 layout_mode = 2

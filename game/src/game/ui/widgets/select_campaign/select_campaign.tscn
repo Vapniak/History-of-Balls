@@ -49,3 +49,5 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [editable path="Screen"]
+[editable path="MarginContainer/HBoxContainer/Campaign"]
+[editable path="MarginContainer/HBoxContainer/Campaign/MarginContainer/Button"]

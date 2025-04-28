@@ -27,10 +27,10 @@
 [ext_resource type="Resource" uid="uid://dx5mu6akcbsf8" path="res://src/game/game_entity/entity/units/infantry/immortal/immortal_data.tres" id="23_wfabn"]
 [ext_resource type="Resource" uid="uid://blrqjygc1t1es" path="res://src/game/game_entity/entity/units/ranged/persian_archer/persian_archer_data.tres" id="24_xshd4"]
 [ext_resource type="Resource" uid="uid://dliu5ux78ireg" path="res://src/game/game_entity/entity/units/cavalry/persian_cavalry/persian_cavalry_data.tres" id="25_dait8"]
-[ext_resource type="Resource" uid="uid://b17bmrdycgkbc" path="res://src/game/game_entity/entity/structures/neutral/unnational/unnational_village_data.tres" id="28_221sv"]
+[ext_resource type="Resource" uid="uid://b17bmrdycgkbc" path="res://src/game/game_entity/entity/structures/neutral/unnational/netural_village_data.tres" id="28_221sv"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="28_lavgk"]
-[ext_resource type="Resource" uid="uid://hbji56iodutd" path="res://src/game/game_entity/entity/structures/factory/neutral/unnational_factory_data.tres" id="29_u2k2x"]
-[ext_resource type="Resource" uid="uid://dhhj54c2erlm7" path="res://src/game/game_entity/entity/structures/city/neutral/unnational_city_data.tres" id="30_3huwa"]
+[ext_resource type="Resource" uid="uid://hbji56iodutd" path="res://src/game/game_entity/entity/structures/factory/neutral/neutral_factory_data.tres" id="29_u2k2x"]
+[ext_resource type="Resource" uid="uid://dhhj54c2erlm7" path="res://src/game/game_entity/entity/structures/city/neutral/neutral_city_data.tres" id="30_3huwa"]
 
 [sub_resource type="Resource" id="Resource_tphyi"]
 script = ExtResource("1_wnw16")
@@ -163,7 +163,7 @@ Description = "480 B.C. – The Persian King Xerxes marches to conquer Hellas wi
 Your task, as Leonidas, is to hold the pass as long as possible. The enemy has overwhelming numbers, but you have the terrain, discipline, and courage on your side. Use the choke point of the Hot Gates to negate the Persian horde’s advantage. Every minute you delay them is another breath of hope for Greece!
 
 \"The Persians come like a storm, but you are the unbreakable rock. Let your shield be your wall, your spear your wrath, and your defiance their doom. History will remember this day—will you make it legend?\""
-ObjectivesText = "Hold your position for 20 rounds ⚔️ 
+ObjectivesText = "Hold your position for 20 rounds ⚔️
 Repel waves of the Persian army  🔥 "
 Locked = false
 Map = ExtResource("1_gk1xd")
