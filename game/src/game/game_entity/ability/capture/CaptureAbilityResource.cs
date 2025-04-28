@@ -1,6 +1,7 @@
 namespace HOB;
 
 using GameplayAbilitySystem;
+using GameplayFramework;
 using GameplayTags;
 using Godot;
 using HOB.GameEntity;
@@ -65,7 +66,7 @@ public partial class CaptureAbilityResource : HOBAbility {
             AddBlockTurn();
             capturedEntity.Die();
             await ToSignal(capturedEntity, SignalName.TreeExited);
-            var entityManagment = newOwner.GetGameMode().GetEntityManagment();
+            var entityManagment = newOwner.GetGameMode<HOBGameMode>().GetEntityManagment();
             if (entityManagment.TryAddEntityOnCell(newEntityData, capturedEntity.Cell, newOwner)) {
               ExecuteGameplayCue(TagManager.GetTag(HOBTags.GameplayCueSparkles), new() { Position = OwnerEntity.Cell.GetRealPosition() });
               Task.Complete();

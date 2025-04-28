@@ -24,7 +24,7 @@ resources_spreadsheet_view/freeze_first_column=false
 [application]
 
 config/name="History of Balls"
-config/version="1.0.0vBeta"
+config/version="vBeta-1.0.1"
 run/main_scene="res://src/game/main.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
@@ -43,12 +43,12 @@ buses/default_bus_layout="res://res/default_bus_layout.tres"
 
 RaycastSystem="*res://addons/raycast_system/src/globals/RaycastSystem.cs"
 GameplayCueManager="*res://addons/gameplay_ability_system/src/cues/gameplay_cue_manager.tscn"
-MusicManager="*res://addons/audio_manager/src/music/music_manager.tscn"
-SoundManager="*res://addons/audio_manager/src/sound/sound_manager.tscn"
 WidgetManager="*res://addons/widget_system/src/widget_manager.tscn"
 GameAssetsRegistry="*res://src/core/game_assets_registry/game_assets_registry.tscn"
 GGS="*res://addons/ggs/plugin/singleton/ggs.tscn"
 GameInstance="*res://src/game/game_instance.tscn"
+MusicManager="*res://addons/audio_manager/src/music/music_manager.tscn"
+SoundManager="*res://addons/audio_manager/src/sound/sound_manager.tscn"
 
 [debug]
 

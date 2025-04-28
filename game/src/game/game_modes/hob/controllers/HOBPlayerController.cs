@@ -26,7 +26,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   private StateChart? StateChart { get; set; }
 
-  private GameBoard GameBoard => GetGameState().GameBoard;
+  private GameBoard GameBoard => this.GetGameState<IMatchGameState>().GameBoard;
   private PlayerCharacter Character => GetCharacter<PlayerCharacter>();
 
   private bool _gameStarted;
@@ -132,7 +132,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     @event.Dispose();
   }
 
-  public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
   public override HOBHUD GetHUD() => base.GetHUD() as HOBHUD;
 
   public override void _Process(double delta) {
@@ -433,7 +432,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   }
 
-  public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
+  public HOBGameMode GetGameMode() => this.GetGameMode<HOBGameMode>();
 
   private void OnAbilityActivated(GameplayAbility.Instance abilityInstance) {
     if (abilityInstance is MoveAbility.Instance or AttackAbility.Instance) {

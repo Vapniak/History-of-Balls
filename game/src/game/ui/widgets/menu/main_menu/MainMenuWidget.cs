@@ -8,10 +8,18 @@ using WidgetSystem;
 [GlobalClass]
 public partial class MainMenuWidget : HOBWidget, IWidgetFactory<MainMenuWidget> {
 
+  private SelectCampaignWidget SelectCampaignWidget;
+
+  public override void _EnterTree() {
+    base._EnterTree();
+
+    SelectCampaignWidget = SelectCampaignWidget.CreateWidget();
+  }
   private void OnSelectMissionPressed() {
     //_ = GameInstance.GetGameMode<MainMenuGameMode>()?.StartGame();
-    WidgetManager.PushWidget<SelectCampaignWidget>();
+    WidgetManager.PushWidget(SelectCampaignWidget);
   }
+
   private void OnSettingsPressed() {
     WidgetManager.PushWidget<SettingsMenu>();
   }

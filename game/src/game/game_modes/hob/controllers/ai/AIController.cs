@@ -17,10 +17,8 @@ public partial class AIController : Controller, IMatchController {
   public Country? Country { get; set; }
   public AIProfile Profile { get; set; } = new();
 
-  private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
-  private HOBGameMode GameMode => GetGameMode();
-
-  public override IMatchGameState GetGameState() => base.GetGameState() as IMatchGameState;
+  private IEntityManagment EntityManagment => GameMode.GetEntityManagment();
+  private HOBGameMode GameMode => this.GetGameMode<HOBGameMode>();
 
   public async Task StartDecisionMaking() {
     await ProcessEntityActions();
@@ -342,8 +340,7 @@ public partial class AIController : Controller, IMatchController {
   public void OwnTurnEnded() { }
   public void OnGameStarted() { }
   private void EndTurn() {
-    GetGameMode().GetTurnManagment().TryEndTurn(this);
+    GameMode.GetTurnManagment().TryEndTurn(this);
   }
   IMatchPlayerState IMatchController.GetPlayerState() => base.GetPlayerState() as IMatchPlayerState;
-  public new HOBGameMode GetGameMode() => base.GetGameMode() as HOBGameMode;
 }

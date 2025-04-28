@@ -4,6 +4,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class WidgetManager : Node {
   private static WidgetManager _instance = default!;
@@ -55,6 +56,13 @@ public partial class WidgetManager : Node {
     var widget = T.CreateWidget();
 
     PushWidget(widget, configure, hidePrevious);
+  }
+
+  public async Task PushWidgetAsync<T>(Action<T>? configure = null, bool hidePrevious = true) where T : Widget, IAsyncWidgetFactory<T> {
+    var widget = await T.CreateWidget();
+
+    // TODO: show loading indicator
+    PushWidget(widget);
   }
 
   public void PopWidget(bool showPrevious = true) {

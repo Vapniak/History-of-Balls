@@ -119,14 +119,14 @@ public partial class HOBHUD : HUD {
 
   private void OnMatchEvent(Tag tag) {
     if (tag == TagManager.GetTag(HOBTags.EventTurnStarted)) {
-      OnTurnChanged(GetPlayerController().GetGameState().CurrentPlayerIndex);
-      OnRoundChanged(GetPlayerController().GetGameState().CurrentRound);
+      OnTurnChanged(GetPlayerController().GetGameState<IMatchGameState>().CurrentPlayerIndex);
+      OnRoundChanged(GetPlayerController().GetGameState<IMatchGameState>().CurrentRound);
     }
   }
 
   private void OnTurnChanged(int playerIndex) {
     EndTurnButton.Disabled = !GetPlayerController<IMatchController>().IsCurrentTurn();
-    var player = GetPlayerController<IMatchController>().GetGameState().PlayerArray[playerIndex] as HOBPlayerState;
+    var player = GetPlayerController<IMatchController>().GetGameState<IMatchGameState>().PlayerArray[playerIndex] as HOBPlayerState;
 
     TurnChangedNotificationLabel.Text = player.PlayerName + " TURN";
     TurnLabel.Text = $"{player.PlayerName} TURN";

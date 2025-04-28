@@ -33,16 +33,16 @@ public partial class GameInstance : Node {
   public static IGameState GetGameState() {
     return GetGameMode().GetGameState();
   }
-  public static T? GetGameState<T>() where T : class, IGameState {
-    return GetGameState() as T;
+  public static T? GetGameState<T>() where T : IGameState {
+    return (T)GetGameState();
   }
 
   public static IGameMode GetGameMode() {
     return GetWorld().GetGameMode();
   }
 
-  public static T? GetGameMode<T>() where T : GameMode {
-    return GetGameMode() as T;
+  public static T? GetGameMode<T>() where T : IGameMode {
+    return (T)GetGameMode();
   }
 
   public static void CreateWorld(string? startLevelName = null) {
@@ -86,4 +86,15 @@ public partial class GameInstance : Node {
 
     return null;
   }
+}
+
+public static class Extensions {
+  public static IGameMode GetGameMode(this IGameplayFrameworkClass obj) => GameInstance.GetGameMode();
+  public static IGameState GetGameState(this IGameplayFrameworkClass obj) => GameInstance.GetGameState();
+
+
+  public static T? GetGameMode<T>(this IGameplayFrameworkClass obj) where T : IGameMode
+   => GameInstance.GetGameMode<T>();
+  public static T? GetGameState<T>(this IGameplayFrameworkClass obj) where T : IGameState
+   => GameInstance.GetGameState<T>();
 }
