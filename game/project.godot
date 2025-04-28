@@ -76,9 +76,10 @@ project/assembly_name="History of Balls"
 
 [editor]
 
-movie_writer/mjpeg_quality=1.0
+movie_writer/mjpeg_quality=0.1
 movie_writer/movie_file="/home/vapniak/development/projects/History-of-Balls/game/test.avi"
 movie_writer/disable_vsync=true
+movie_writer/fps=10
 export/convert_text_resources_to_binary=false
 
 [editor_plugins]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://bho6xt1rgxa7c"]
+[gd_scene load_steps=9 format=3 uid="uid://bho6xt1rgxa7c"]
 
 [ext_resource type="Texture2D" uid="uid://btjul3v867rxh" path="res://assets/textures/menu/HoB-menu-background-m-t.png" id="1_6rd0k"]
+[ext_resource type="Material" uid="uid://ucrt8tddmasb" path="res://res/materials/wind_2d.tres" id="2_btgpl"]
 [ext_resource type="Texture2D" uid="uid://b6vj8yrcwwxph" path="res://assets/textures/menu/HoB-menu-grass-behind-m-b.png" id="2_jfqpv"]
 [ext_resource type="Texture2D" uid="uid://by8xwhttontt" path="res://assets/textures/menu/HoB-menu-cb-l-b.png" id="3_4nxpg"]
 [ext_resource type="Texture2D" uid="uid://dq36k5hdhds0r" path="res://assets/textures/menu/HoB-menu-cb-r-b.png" id="4_bvicy"]
@@ -9,6 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://cyc3yfkoriiec" path="res://assets/textures/menu/HoB-menu-leaves-r-t.png" id="7_sgubg"]
 
 [node name="MarginContainer" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TextureRect8" type="TextureRect" parent="."]
 layout_mode = 2
@@ -16,6 +22,7 @@ texture = ExtResource("1_6rd0k")
 expand_mode = 1
 
 [node name="TextureRect7" type="TextureRect" parent="."]
+material = ExtResource("2_btgpl")
 layout_mode = 2
 texture = ExtResource("2_jfqpv")
 expand_mode = 1
@@ -31,16 +38,19 @@ texture = ExtResource("4_bvicy")
 expand_mode = 1
 
 [node name="TextureRect6" type="TextureRect" parent="."]
+material = ExtResource("2_btgpl")
 layout_mode = 2
 texture = ExtResource("5_8tlv0")
 expand_mode = 1
 
 [node name="TextureRect5" type="TextureRect" parent="."]
+material = ExtResource("2_btgpl")
 layout_mode = 2
 texture = ExtResource("6_bw75g")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="."]
+material = ExtResource("2_btgpl")
 layout_mode = 2
 texture = ExtResource("7_sgubg")
 expand_mode = 1
