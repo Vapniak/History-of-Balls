@@ -7,6 +7,7 @@ using Godot;
 /// <summary>
 /// Main game manager.
 /// </summary>
+
 public partial class GameInstance : Node {
   [Export(PropertyHint.Dir)] public string? LevelsDirectoryPath { get; private set; }
   public static GameInstance? Instance { get; private set; }
@@ -89,12 +90,12 @@ public partial class GameInstance : Node {
 }
 
 public static class Extensions {
-  public static IGameMode GetGameMode(this IGameplayFrameworkClass obj) => GameInstance.GetGameMode();
-  public static IGameState GetGameState(this IGameplayFrameworkClass obj) => GameInstance.GetGameState();
+  public static IGameMode GetGameMode(this IGameplayFrameworkInterface obj) => GameInstance.GetGameMode();
+  public static IGameState GetGameState(this IGameplayFrameworkInterface obj) => GameInstance.GetGameState();
 
 
-  public static T? GetGameMode<T>(this IGameplayFrameworkClass obj) where T : IGameMode
+  public static T? GetGameMode<T>(this IGameplayFrameworkInterface obj) where T : IGameMode
    => GameInstance.GetGameMode<T>();
-  public static T? GetGameState<T>(this IGameplayFrameworkClass obj) where T : IGameState
+  public static T? GetGameState<T>(this IGameplayFrameworkInterface obj) where T : IGameState
    => GameInstance.GetGameState<T>();
 }

@@ -17,10 +17,10 @@ public partial class EntityData : Resource {
 
   public Texture2D? Icon => GameAssetsRegistry.Instance.GetIconFor(this);
 
-  public Entity? CreateEntity(GameCell cell, IEntityManagment entityManagment, IMatchController? owner) {
+  public Entity? CreateEntity(GameCell cell, IEntityManagment entityManagment, IMatchController? owner, Vector3 rotation) {
     var body = Body?.InstantiateOrNull<EntityBody>();
     if (body != null) {
-      return new(EntityName, cell, entityManagment, AttributeSetsContainer, Abilities, Tags, body, owner);
+      return new(EntityName, cell, entityManagment, AttributeSetsContainer, Abilities, Tags, body, owner, rotation);
     }
     else {
       Debug.Assert(false, "Body is null");

@@ -1,33 +1,33 @@
-[gd_scene load_steps=4 format=3 uid="uid://omhtmi8gorif"]
+[gd_scene load_steps=5 format=3 uid="uid://omhtmi8gorif"]
 
 [ext_resource type="Script" path="res://src/core/entity/EntityUi3D.cs" id="1_0pq8w"]
 [ext_resource type="PackedScene" uid="uid://c0wn2cfx3bg73" path="res://src/game/ui/widgets/entity/entity_ui.tscn" id="2_smlom"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_1jaee"]
-viewport_path = NodePath("SubViewport")
+[sub_resource type="Curve" id="Curve_1c61x"]
+max_value = 40.0
+_data = [Vector2(0, 1.69714), 0.0, 69.4293, 0, 0, Vector2(1, 40), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[node name="Sprite3D" type="Sprite3D" node_paths=PackedStringArray("EntityUI")]
-transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
-cast_shadow = 0
-extra_cull_margin = 2.0
-visibility_range_end = 40.0
-visibility_range_end_margin = 35.0
-visibility_range_fade_mode = 1
-pixel_size = 0.005
-billboard = 1
-double_sided = false
-no_depth_test = true
-fixed_size = true
-alpha_cut = 2
-render_priority = -10
-texture = SubResource("ViewportTexture_1jaee")
+[sub_resource type="ViewportTexture" id="ViewportTexture_whd6p"]
+viewport_path = NodePath("Sprite3D2/SubViewport")
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("EntityUI", "Sprite3D")]
 script = ExtResource("1_0pq8w")
-EntityUI = NodePath("SubViewport/MarginContainer")
+EntityUI = NodePath("Sprite3D2/SubViewport/MarginContainer2")
+Sprite3D = NodePath("Sprite3D2")
+CameraDistanceBias = 100.0
+SizeCurve = SubResource("Curve_1c61x")
 
-[node name="SubViewport" type="SubViewport" parent="."]
+[node name="Sprite3D2" type="Sprite3D" parent="."]
+pixel_size = 0.0008
+billboard = 1
+no_depth_test = true
+texture = SubResource("ViewportTexture_whd6p")
+
+[node name="SubViewport" type="SubViewport" parent="Sprite3D2"]
 transparent_bg = true
 handle_input_locally = false
+canvas_item_default_texture_filter = 2
 size = Vector2i(1920, 1080)
-render_target_update_mode = 4
 
-[node name="MarginContainer" parent="SubViewport" instance=ExtResource("2_smlom")]
+[node name="MarginContainer2" parent="Sprite3D2/SubViewport" instance=ExtResource("2_smlom")]

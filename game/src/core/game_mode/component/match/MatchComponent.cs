@@ -72,7 +72,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     return _gameStarted && GetGameState().CurrentPlayerIndex == controller.GetPlayerState().PlayerIndex;
   }
 
-  public void AddEntityOnClosestAvailableCell(EntityData data, OffsetCoord coord, IMatchController? owner) {
+  public void AddEntityOnClosestAvailableCell(EntityData data, OffsetCoord coord, IMatchController? owner, Vector3 rotation = new()) {
     GameCell? closestCell = null;
     var minDistance = int.MaxValue;
 
@@ -86,14 +86,14 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     }
 
     if (closestCell != null) {
-      TryAddEntityOnCell(data, closestCell, owner);
+      TryAddEntityOnCell(data, closestCell, owner, rotation);
     }
   }
 
-  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController? owner) {
-    var entity = data.CreateEntity(cell, this, owner);
+  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController? owner, Vector3 rotation = new()) {
+    var entity = data.CreateEntity(cell, this, owner, rotation);
     if (entity != null) {
-      AddEntity(entity);
+      SpawnEntity(entity);
       return true;
     }
 
@@ -101,10 +101,10 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
 
-  private void AddEntity(Entity entity) {
+  private void SpawnEntity(Entity entity) {
     entity.TreeExiting += () => {
       GD.Print($"Entity {entity.Name} is being removed from the scene.");
-      RemoveEntity(entity);
+      CleanUpEntity(entity);
     };
 
     entity.Ready += () => {
@@ -116,7 +116,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     AddChild(entity);
   }
 
-  private void RemoveEntity(Entity entity) {
+  private void CleanUpEntity(Entity entity) {
     if (Entities == null || entity == null) {
       GD.PushWarning("Invalid RemoveEntity call!");
       return;

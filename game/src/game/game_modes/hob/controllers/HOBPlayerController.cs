@@ -16,7 +16,7 @@ using RaycastSystem;
 [GlobalClass]
 public partial class HOBPlayerController : PlayerController, IMatchController {
   [Export] private Node? StateChartNode { get; set; }
-  [Export] private Array<HighlightColorMap>? HighlightColors { get; set; }
+
   [Export] private Material? TransparentMaterial { get; set; }
 
   [Notify] public Entity? SelectedEntity { get => _selectedEntity.Get(); private set => _selectedEntity.Set(value); }
@@ -34,12 +34,12 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   private Vector2 _lastMousePosition;
 
   private HighlightSystem? Highlight { get; set; }
-  private IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
+  public IEntityManagment EntityManagment => GetGameMode().GetEntityManagment();
 
   public override void _Ready() {
     base._Ready();
 
-    Highlight = new(this, HighlightColors ?? new(), GameBoard);
+    Highlight = new(this, GameBoard);
     AddChild(Highlight);
 
     GetHUD().EndTurnPressed += TryEndTurn;

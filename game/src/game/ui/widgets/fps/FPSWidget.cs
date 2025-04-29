@@ -12,6 +12,12 @@ public partial class FPSWidget : HOBWidget, IWidgetFactory<FPSWidget> {
   public override void _Process(double delta) {
     base._Process(delta);
 
-    Label.Text = ((int)Engine.GetFramesPerSecond()).ToString() + " fps";
+    if (ProjectSettings.GetSetting("display/show_fps", true).As<bool>()) {
+      Visible = true;
+      Label.Text = ((int)Engine.GetFramesPerSecond()).ToString() + " fps";
+    }
+    else {
+      Visible = false;
+    }
   }
 }

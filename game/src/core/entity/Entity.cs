@@ -36,7 +36,8 @@ public partial class Entity : Node3D, ITurnAware {
     Array<GameplayAbility>? abilities,
     TagContainer? tags,
     EntityBody body,
-    IMatchController? owner
+    IMatchController? owner,
+    Vector3 rotation
     ) {
     EntityManagment = entityManagment;
     EntityName = name;
@@ -47,6 +48,7 @@ public partial class Entity : Node3D, ITurnAware {
 
     Scale = Vector3.One * Mathf.Epsilon;
     Position = Cell.GetRealPosition();
+    Rotation = rotation;
 
     Ready += () => {
       var tween = CreateTween();
@@ -99,7 +101,7 @@ public partial class Entity : Node3D, ITurnAware {
   }
 
   public async Task TurnAt(Vector3 targetPosition, float duration) {
-    var targetRotation = Basis.LookingAt(GetPosition().DirectionTo(targetPosition) * new Vector3(1, 0, 1)).GetRotationQuaternion();
+    var targetRotation = Basis.LookingAt((Position - targetPosition) * new Vector3(1, 0, 1)).GetRotationQuaternion();
 
     var tween = CreateTween();
     tween.TweenProperty(Body, "quaternion", targetRotation, duration).SetTrans(Tween.TransitionType.Cubic).SetEase(Tween.EaseType.InOut);

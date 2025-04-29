@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bxauf3xyrcdj"]
+[gd_scene load_steps=22 format=3 uid="uid://bxauf3xyrcdj"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/settings_menu/SettingsMenu.cs" id="1_w17c0"]
 [ext_resource type="Texture2D" uid="uid://bt5xecr7ql1ag" path="res://assets/textures/HoB-menu-background.png" id="2_aemso"]
@@ -15,8 +15,10 @@
 [ext_resource type="Resource" uid="uid://b5t7koxjgw8qk" path="res://res/game_settings/audio_sfx.tres" id="8_n1ess"]
 [ext_resource type="Resource" uid="uid://dc7aacwpipijb" path="res://res/game_settings/display_size.tres" id="9_iuomc"]
 [ext_resource type="Resource" uid="uid://dtvrcmafmkvuq" path="res://res/game_settings/display_v_sync.tres" id="9_pweoh"]
+[ext_resource type="PackedScene" uid="uid://cha8xesfthpfk" path="res://addons/ggs/components/switch/component_switch.tscn" id="10_atals"]
 [ext_resource type="Script" path="res://src/core/settings/SliderLabel.cs" id="10_qei6c"]
 [ext_resource type="Resource" uid="uid://dhms1kd3px14n" path="res://res/game_settings/display_resolution_scale.tres" id="11_2aftl"]
+[ext_resource type="Resource" uid="uid://repitr1wx0tr" path="res://res/game_settings/display_show_fps.tres" id="11_p3j5m"]
 [ext_resource type="Resource" uid="uid://8g6mkkwql7e3" path="res://res/game_settings/display_scaling_mode.tres" id="14_8in6h"]
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/settings_menu/InputMenu.cs" id="18_x56td"]
 
@@ -94,7 +96,21 @@ popup/item_2/id = 2
 popup/item_3/text = "Mailbox"
 popup/item_3/id = 3
 
-[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="1" instance=ExtResource("7_s4wif")]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry6" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="1" instance=ExtResource("7_s4wif")]
+layout_mode = 2
+
+[node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry6" index="0"]
+text = "Show FPS"
+
+[node name="Switch" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry6" instance=ExtResource("10_atals")]
+layout_mode = 2
+setting = ExtResource("11_p3j5m")
+apply_on_changed = true
+
+[node name="Btn" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry6/Switch" index="0"]
+flat = true
+
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="2" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
 [node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3" index="0"]
@@ -112,7 +128,7 @@ popup/item_0/text = "1920x1080"
 popup/item_1/text = "1280x720"
 popup/item_1/id = 1
 
-[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="2" instance=ExtResource("7_s4wif")]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="3" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
 [node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2" index="0"]
@@ -131,7 +147,7 @@ popup/item_1/id = 1
 popup/item_2/text = "Windowed"
 popup/item_2/id = 2
 
-[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry4" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="3" instance=ExtResource("7_s4wif")]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry4" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="4" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
 [node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry4" index="0"]
@@ -156,7 +172,7 @@ max_value = 2.0
 step = 0.1
 value = 1.0
 
-[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry5" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="4" instance=ExtResource("7_s4wif")]
+[node name="Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry5" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections" index="5" instance=ExtResource("7_s4wif")]
 layout_mode = 2
 
 [node name="Label" parent="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry5" index="0"]
@@ -225,6 +241,8 @@ metadata/_tab_index = 2
 [editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display"]
 [editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry"]
 [editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry/OptionList"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry6"]
+[editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry6/Switch"]
 [editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3"]
 [editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry3/OptionList"]
 [editable path="Screen/MarginContainer/VBoxContainer/MarginContainer/TabContainer/Display/HBoxContainer/ScrollContainer/Sections/Screen_MarginContainer_VBoxContainer_MarginContainer_TabContainer_Display_HBoxContainer_Sections_Sectopn_Entries#Entry2"]

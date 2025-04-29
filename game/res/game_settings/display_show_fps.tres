@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="SettingShowFPS" load_steps=2 format=3 uid="uid://repitr1wx0tr"]
+
+[ext_resource type="Script" path="res://src/core/settings/setting_show_fps.gd" id="1_rttsk"]
+
+[resource]
+resource_name = "show_fps"
+script = ExtResource("1_rttsk")
+read_only_properties = PackedStringArray("value_type", "value_hint", "value_hint_string")
+default = false
+section = "display"
+key = "show_fps"
+value_type = 1
+value_hint = 2
+value_hint_string = ""

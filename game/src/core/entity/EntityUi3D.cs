@@ -6,8 +6,12 @@ using HOB;
 using HOB.GameEntity;
 using System;
 
-public partial class EntityUi3D : Sprite3D {
+public partial class EntityUi3D : Node3D {
   [Export] public EntityUIWidget EntityUI { get; private set; } = default!;
+  [Export] private Sprite3D Sprite3D { get; set; } = default!;
+
+  [Export] private float CameraDistanceBias { get; set; }
+  [Export] private Curve SizeCurve { get; set; }
 
   private static readonly string _ui3dUID = "uid://omhtmi8gorif";
 
@@ -31,5 +35,10 @@ public partial class EntityUi3D : Sprite3D {
     if (Entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))) {
       Position += Vector3.Up * 2;
     }
+  }
+
+  public override void _PhysicsProcess(double delta) {
+    var size = SizeCurve.Sample(Mathf.Clamp(GetViewport().GetCamera3D().GlobalPosition.DistanceTo(GlobalPosition) / CameraDistanceBias, 0, 1)) / 1000f;
+    Sprite3D.PixelSize = size;
   }
 }

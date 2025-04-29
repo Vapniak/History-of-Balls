@@ -178,7 +178,6 @@ sub_emitter_mode = 2
 sub_emitter_amount_at_end = 1
 
 [node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera", "CameraParent", "WindPlayer")]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 script = ExtResource("1_ggdef")
 Camera = NodePath("Camera3D")
 CameraParent = NodePath("Camera3D")

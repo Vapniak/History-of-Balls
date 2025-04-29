@@ -8,6 +8,8 @@ public partial class HOBTheme : ProgrammaticTheme {
   [Export] public Color BaseColor { get; set; }
   [Export] public Color PrimaryColor { get; set; }
   [Export] public Color AccentColor { get; set; }
+  [Export] public Color MoveAbilityColor { get; set; }
+  [Export] public Color AttackAbilityColor { get; set; }
 
   [Export] public int BaseSpacing { get; private set; }
   [Export] public int Separation { get; private set; }
@@ -32,9 +34,9 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["border_width_"] = BorderWidth(BaseBorderWidth),
       ["border_color"] = borderColor,
       ["border_blend"] = true,
-      ["shadow_color"] = new Color(0, 0, 0, shadowOpacity),
-      ["shadow_size"] = BaseBorderWidth * 3,
-      ["shadow_offset"] = new Vector2(BaseBorderWidth, BaseBorderWidth),
+      // ["shadow_color"] = new Color(0, 0, 0, shadowOpacity),
+      // ["shadow_size"] = BaseBorderWidth * 3,
+      // ["shadow_offset"] = new Vector2(BaseBorderWidth, BaseBorderWidth),
       ["anti_aliasing"] = true
     });
 
@@ -82,7 +84,7 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["panel"] = Inherit(panelStyle, StyleboxFlat(new() {
         ["corner_radius_"] = CornerRadius(0),
         ["border_width_"] = BorderWidth(0, 0, 0, BaseBorderWidth * 2),
-        ["shadow_size"] = 0 // No shadow for top bar
+        //["shadow_size"] = 0 // No shadow for top bar
       }))
     });
 
@@ -108,20 +110,20 @@ public partial class HOBTheme : ProgrammaticTheme {
     var buttonHover = Inherit(buttonNormal, StyleboxFlat(new() {
       ["bg_color"] = PrimaryBase.Lightened(0.1f),
       ["border_color"] = PrimaryColor.Lightened(0.2f),
-      ["shadow_color"] = new Color(PrimaryColor, 0.25f)
+      //["shadow_color"] = new Color(PrimaryColor, 0.25f)
     }));
 
     var buttonPressed = Inherit(buttonNormal, StyleboxFlat(new() {
       ["bg_color"] = AccentBase,
       ["border_color"] = PrimaryColor.Lightened(0.3f),
-      ["shadow_size"] = BaseBorderWidth,
-      ["shadow_offset"] = new Vector2(0, BaseBorderWidth)
+      // ["shadow_size"] = BaseBorderWidth,
+      // ["shadow_offset"] = new Vector2(0, BaseBorderWidth)
     }));
 
     var buttonDisabled = Inherit(buttonNormal, StyleboxFlat(new() {
       ["bg_color"] = PrimaryBase.Lightened(.1f),
       ["border_color"] = new Color(PrimaryColor, 0.3f),
-      ["shadow_size"] = 0
+      // ["shadow_size"] = 0
     }));
 
     var buttonFocus = Inherit(buttonNormal, StyleboxFlat(new() {
@@ -155,14 +157,14 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["normal"] = roundedButtonNormal,
       ["hover"] = Inherit(roundedButtonNormal, StyleboxFlat(new() {
         ["bg_color"] = PrimaryBase.Lightened(0.1f),
-        ["shadow_color"] = new Color(PrimaryColor, 0.3f)
+        //["shadow_color"] = new Color(PrimaryColor, 0.3f)
       })),
       ["hover_pressed"] = Inherit(buttonHoverPressed, roundedButtonNormal),
       ["disabled"] = Inherit(buttonDisabled, roundedButtonNormal),
       ["focus"] = Inherit(buttonFocus, roundedButtonNormal),
       ["pressed"] = Inherit(roundedButtonNormal, StyleboxFlat(new() {
         ["bg_color"] = AccentBase,
-        ["shadow_offset"] = new Vector2(0, BaseBorderWidth)
+        //["shadow_offset"] = new Vector2(0, BaseBorderWidth)
       })),
     }));
 
@@ -171,7 +173,7 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["hover"] = Inherit(buttonHover, StyleboxFlat(new() {
         ["bg_color"] = AccentBase.Lightened(0.1f),
         ["border_color"] = AccentColor.Lightened(0.2f),
-        ["shadow_color"] = new Color(AccentColor, 0.25f)
+        //["shadow_color"] = new Color(AccentColor, 0.25f)
       })),
       ["pressed"] = Inherit(buttonPressed, StyleboxFlat(new() {
         ["bg_color"] = AccentColor,
@@ -320,8 +322,8 @@ public partial class HOBTheme : ProgrammaticTheme {
     DefineStyle("PopupPanel", new() {
       //["panel"] = StyleboxEmpty(),
       ["panel"] = Inherit(panelStyle, StyleboxFlat(new Style() {
-        ["shadow_size"] = BaseBorderWidth * 4,
-        ["shadow_color"] = new Color(0, 0, 0, 0.3f)
+        //["shadow_size"] = BaseBorderWidth * 4,
+        //["shadow_color"] = new Color(0, 0, 0, 0.3f)
       }))
     });
 
@@ -356,14 +358,14 @@ public partial class HOBTheme : ProgrammaticTheme {
       ["corner_radius_"] = CornerRadius(9999),
       ["border_width_"] = BorderWidth(BaseBorderWidth),
       ["border_color"] = PrimaryColor.Lightened(0.2f),
-      ["shadow_color"] = new Color(0, 0, 0, 0.2f),
-      ["shadow_size"] = BaseBorderWidth,
-      ["shadow_offset"] = new Vector2(0, BaseBorderWidth / 2)
+      // ["shadow_color"] = new Color(0, 0, 0, 0.2f),
+      // ["shadow_size"] = BaseBorderWidth,
+      // ["shadow_offset"] = new Vector2(0, BaseBorderWidth / 2)
     });
 
     var sliderGrabberHoverStyle = Inherit(sliderGrabberStyle, StyleboxFlat(new() {
       ["bg_color"] = PrimaryColor.Lightened(0.1f),
-      ["shadow_color"] = new Color(PrimaryColor, 0.2f)
+      //["shadow_color"] = new Color(PrimaryColor, 0.2f)
     }));
 
     DefineStyle("HSlider", new Style() {
@@ -411,7 +413,7 @@ public partial class HOBTheme : ProgrammaticTheme {
       })),
       ["grabber_highlight"] = Inherit(sliderGrabberHoverStyle, StyleboxFlat(new() {
         ["bg_color"] = AccentColor.Lightened(0.1f),
-        ["shadow_color"] = new Color(AccentColor, 0.2f)
+        //["shadow_color"] = new Color(AccentColor, 0.2f)
       }))
     });
 

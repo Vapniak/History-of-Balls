@@ -16,8 +16,12 @@ uniform float scale_variation;
 uniform float edge_smoothness;
 
 
-uniform sampler2D highlight_data_texture : source_color, repeat_disable;
+uniform sampler2D highlight_data_texture : source_color, repeat_disable, hint_default_transparent;
 uniform sampler2D terrain_data_texture : source_color, repeat_disable;
+
+uniform float highlight_opacity : hint_range(0.0, 1.0) = 0.5;
+uniform float mouse_highlight_opacity : hint_range(0.0, 1.0) = 0.3;
+uniform float highlight_intensity : hint_range(0.0, 2.0) = 1.2;
 
 uniform float grid_overlay_color_range: hint_range(0.0, 1.0, 0.01);
 uniform ivec2 grid_size;
@@ -51,10 +55,25 @@ vec4 overlay(vec4 base, vec4 blend, float opacity) {
     return vec4(result, base.a);
 }
 
-// TODO: when colors are simmilar highlight is not visible
-vec3 apply_highlight(vec3 base_color, vec3 highlight_color, HexCellData data){
-	vec3 highlighted_color = mix(base_color, highlight_color.rgb, smoothstep_range(data, .75, grid_overlay_color_range));
-	return mix(highlighted_color, highlight_color + vec3(0.2), smoothstep_range(data, .7, .75));
+vec4 apply_highlight(vec4 terrain_color, vec4 highlight_color, HexCellData data, bool is_mouse_highlight) {
+    float highlight_strength = smoothstep_range(data, grid_overlay_color_range - .1, grid_overlay_color_range);
+    
+    float alpha = is_mouse_highlight ? mouse_highlight_opacity : highlight_opacity * highlight_color.a;
+    
+    vec3 blended_color;
+    
+    if (length(highlight_color.rgb) > 0.1) {
+        blended_color = terrain_color.rgb + (highlight_color.rgb * highlight_intensity * alpha * highlight_strength);
+    } 
+    else {
+        blended_color = mix(
+            terrain_color.rgb,
+            vec3(1.0),
+            alpha * highlight_strength * 0.7
+        );
+    }
+    
+    return vec4(blended_color, terrain_color.a);
 }
 
 void vertex() {
@@ -123,17 +142,9 @@ void fragment() {
 	vec4 highlight_color = texelFetch(highlight_data_texture, data.offsetCoord, 0);
 
 	//highlight_color.rgb = highlight_color.rgb + 0.1f;
-
-	if(mouse_hex_data.offsetCoord == data.offsetCoord && show_mouse_highlight){
-		if (highlight_color.a > 0.) {
-    		ALBEDO = apply_highlight(ALBEDO, highlight_color.rgb + 0.1, data);
-		}
-		else {
-			ALBEDO = apply_highlight(ALBEDO, ALBEDO + 0.1, data);
-		}
-	}
-	else if (highlight_color.a > 0.) {
-  		ALBEDO = apply_highlight(ALBEDO, highlight_color.rgb, data);
-	}
-
+	
+	ALBEDO = apply_highlight(vec4(ALBEDO, 1.), highlight_color, data, mouse_hex_data.offsetCoord == data.offsetCoord && show_mouse_highlight).rgb;
+	
+	METALLIC = 0.0;
+    ROUGHNESS = 1.0;
 }

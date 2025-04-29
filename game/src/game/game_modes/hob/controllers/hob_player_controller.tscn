@@ -1,53 +1,19 @@
-[gd_scene load_steps=16 format=3 uid="uid://dfgh62iuf4b5x"]
+[gd_scene load_steps=8 format=3 uid="uid://dfgh62iuf4b5x"]
 
 [ext_resource type="Script" path="res://src/game/game_modes/hob/controllers/HOBPlayerController.cs" id="1_cr46l"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="2_60ve5"]
-[ext_resource type="Script" path="res://src/game/game_board/highlight_system/HighlightColorMap.cs" id="2_fw0pk"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/parallel_state.gd" id="3_6hkg8"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="3_luned"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="4_fs40q"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="5_4cy8h"]
 [ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="7_h50uw"]
 
-[sub_resource type="Resource" id="Resource_y723d"]
-script = ExtResource("2_fw0pk")
-Type = 1
-Color = Color(1, 1, 1, 1)
-
-[sub_resource type="Resource" id="Resource_y0vyf"]
-script = ExtResource("2_fw0pk")
-Type = 2
-Color = Color(0, 1, 0, 1)
-
-[sub_resource type="Resource" id="Resource_h7pul"]
-script = ExtResource("2_fw0pk")
-Type = 4
-Color = Color(0.31321, 0.522067, 1, 1)
-
-[sub_resource type="Resource" id="Resource_4uwvg"]
-script = ExtResource("2_fw0pk")
-Type = 3
-Color = Color(1, 0, 0, 1)
-
-[sub_resource type="Resource" id="Resource_4n1at"]
-script = ExtResource("2_fw0pk")
-Type = 5
-Color = Color(0.53084, 1, 0.798386, 1)
-
-[sub_resource type="Resource" id="Resource_8v71p"]
-script = ExtResource("2_fw0pk")
-Type = 7
-Color = Color(1, 0.52549, 0, 1)
-
-[sub_resource type="Resource" id="Resource_b47yr"]
-script = ExtResource("2_fw0pk")
-Type = 6
-Color = Color(0.962499, 6.73831e-07, 0.49583, 1)
-
 [node name="HOBPlayerController" type="Node3D" node_paths=PackedStringArray("StateChartNode")]
 script = ExtResource("1_cr46l")
 StateChartNode = NodePath("StateChart")
-HighlightColors = Array[Object]([SubResource("Resource_y723d"), SubResource("Resource_y0vyf"), SubResource("Resource_h7pul"), SubResource("Resource_4uwvg"), SubResource("Resource_4n1at"), SubResource("Resource_8v71p"), SubResource("Resource_b47yr")])
+MoveColor = Color(0.303481, 0.768475, 0.408162, 1)
+AttackColor = Color(1, 0.473003, 0.450878, 1)
+SelectionColor = Color(1, 1, 1, 1)
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_60ve5")

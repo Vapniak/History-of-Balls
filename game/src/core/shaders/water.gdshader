@@ -129,7 +129,7 @@ void fragment() {
 	// Calculate Fresnel
 	float fresnel = fresnel(2.0, NORMAL, VIEW);
 
-	//vec4 surface_color = mix(color, deep_water, fresnel);
+	vec4 surface_color = mix(color, deep_water, fresnel);
 
 	float fin = 0.0;
 	if (sum > 0.0 && sum < 0.4) fin = 0.1;

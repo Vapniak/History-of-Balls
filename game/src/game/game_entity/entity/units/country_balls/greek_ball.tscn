@@ -24,11 +24,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.161644)
 [node name="BaseCountryBall" parent="." instance=ExtResource("1_7c3a6")]
 
 [node name="Sphere_001" parent="BaseCountryBall/sphere5" index="0"]
-transform = Transform3D(31.8685, -0.784794, -0.333267, 0.474872, 3.97828, 39.3467, -1.09047, -21.2028, 7.39496, -2.98023e-08, 0.00977831, -0.288002)
 surface_material_override/0 = SubResource("ShaderMaterial_mcvlo")
-
-[node name="Sphere_002" parent="BaseCountryBall/sphere5/Sphere_001" index="0"]
-transform = Transform3D(0.33738, 0.0184635, -0.00801771, -0.0330069, 0.190006, -0.0197165, 0.0047232, 0.00895397, 0.434924, 0.000271453, 0.00973424, 0.00303482)
 
 [editable path="BaseCountryBall"]
 [editable path="BaseCountryBall/sphere5"]

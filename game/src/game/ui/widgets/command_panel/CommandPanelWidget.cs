@@ -67,8 +67,8 @@ public partial class CommandPanelWidget : Control {
     }
 
     if (Commands.TryGetValue(command, out var button)) {
-      button.ButtonWidget.Button.ButtonPressed = true;
-      button.GrabFocus();
+      button.ButtonWidget.Button.EmitSignal(Button.SignalName.Pressed);
+      button.ButtonWidget.Button.GrabFocus();
     }
   }
 

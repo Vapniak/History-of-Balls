@@ -172,7 +172,7 @@ public partial class HOBGameMode : GameMode {
           if (entitySpawn?.EntityData != null && entitySpawn.SpawnAt != null) {
             foreach (var coord in entitySpawn.SpawnAt) {
               await Task.Delay(50);
-              MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new OffsetCoord(coord.X, coord.Y), controller == null ? null : controller as IMatchController);
+              MatchComponent.AddEntityOnClosestAvailableCell(entitySpawn.EntityData, new OffsetCoord(coord.X, coord.Y), controller == null ? null : controller as IMatchController, new Vector3(0, Mathf.Pi, 0));
               pitch += 0.1f;
             }
           }

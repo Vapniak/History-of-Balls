@@ -1,18 +1,19 @@
 [gd_scene load_steps=5 format=3 uid="uid://oabxjhe8u25j"]
 
-[ext_resource type="Script" path="res://addons/gameplay_framework/src/globals/GameInstance.cs" id="1_ld3ae"]
+[ext_resource type="Script" path="res://src/core/game_instance/HOBGameInstance.cs" id="1_p1tac"]
 [ext_resource type="PackedScene" uid="uid://hnn3v40nxtxw" path="res://src/game/ui/widgets/current_version/current_version.tscn" id="3_m3yl0"]
 [ext_resource type="Texture2D" uid="uid://ddhnps6feb471" path="res://assets/textures/boomballer-ident-logo.svg" id="3_upo7v"]
 [ext_resource type="PackedScene" uid="uid://c5d5h1jxh7gwp" path="res://src/game/ui/widgets/fps/fps.tscn" id="4_twqu5"]
 
 [node name="GameInstance" type="Node"]
-script = ExtResource("1_ld3ae")
+script = ExtResource("1_p1tac")
 LevelsDirectoryPath = "res://src/game/levels"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 128
 
 [node name="PanelContainer" type="MarginContainer" parent="CanvasLayer"]
+modulate = Color(1, 1, 1, 0.5)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

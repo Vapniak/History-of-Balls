@@ -10,12 +10,7 @@ using WidgetSystem;
 
 [GlobalClass]
 public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> {
-  [Export] private EntityNameWidget EntityNameWidget { get; set; } = default!;
-  [Export] private Control? CommandIconsContainer { get; set; }
-  [Export] private Control CommandIconsParent { get; set; } = default!;
-  [Export] private StyleBox? UnitIconPanelStyleBox { get; set; }
-  [Export] private StyleBox? StructureIconPanelStyleBox { get; set; }
-
+  [Export] public Control EntriesContainer { get; private set; } = default!;
   private Entity? Entity { get; set; }
 
   private Dictionary<HOBAbility.Instance, TextureRect> AbilityToIcon { get; set; } = new();
@@ -28,55 +23,65 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
 
     Entity = entity;
 
-    EntityNameWidget.BindTo(entity);
+    //EntityNameWidget.BindTo(entity);
+    var widget = EntityNameWidget.CreateWidget();
+    widget.BindTo(entity);
+    if (entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructure))) {
+
+    }
+    else {
+      widget.NameLabel.Hide();
+    }
+
+    EntriesContainer.AddChild(widget);
 
     OnOwnerControllerChanged();
 
     Entity.OwnerControllerChanged += OnOwnerControllerChanged;
 
-    if (CommandIconsContainer == null) {
-      Debug.Assert(false, "Icons container cannot be null");
-      return;
-    }
+    // if (CommandIconsContainer == null) {
+    //   Debug.Assert(false, "Icons container cannot be null");
+    //   return;
+    // }
 
-    foreach (var child in CommandIconsContainer.GetChildren()) {
-      child.Free();
-    }
+    // foreach (var child in CommandIconsContainer.GetChildren()) {
+    //   child.Free();
+    // }
 
-    HideCommandIcons();
+    // HideCommandIcons();
 
-    Entity.AbilitySystem.GameplayAbilityGranted += (ability) => {
-      if (ability is HOBAbility.Instance hob) {
-        if (!hob.AbilityResource.ShowInUI) {
-          return;
-        }
+    // Entity.AbilitySystem.GameplayAbilityGranted += (ability) => {
+    //   if (ability is HOBAbility.Instance hob) {
+    //     if (!hob.AbilityResource.ShowInUI) {
+    //       return;
+    //     }
 
-        var icon = new TextureRect() {
-          Texture = hob.AbilityResource.Icon,
-          ExpandMode = TextureRect.ExpandModeEnum.FitWidth,
-        };
+    //     var icon = new TextureRect() {
+    //       Texture = hob.AbilityResource.Icon,
+    //       ExpandMode = TextureRect.ExpandModeEnum.FitWidth,
+    //     };
 
-        if (AbilityToIcon.TryAdd(hob, icon)) {
-          if (ability.CanActivateAbility(null)) {
-            icon.SelfModulate = Colors.Green;
-          }
-          CommandIconsContainer.AddChild(icon);
-          CommandIconsContainer.MoveChild(icon, hob.AbilityResource.UIOrder);
+    //     if (AbilityToIcon.TryAdd(hob, icon)) {
+    //       if (ability.CanActivateAbility(null)) {
+    //         icon.SelfModulate = Colors.Green;
+    //       }
+    //       CommandIconsContainer.AddChild(icon);
+    //       CommandIconsContainer.MoveChild(icon, hob.AbilityResource.UIOrder);
 
-          ShowCommandIcons();
-        }
-      }
-    };
+    //       ShowCommandIcons();
+    //     }
+    //   }
+    // };
 
-    Entity.AbilitySystem.GameplayAbilityRevoked += (ability) => {
-      if (ability is HOBAbility.Instance hob) {
-        if (AbilityToIcon.TryGetValue(hob, out var icon)) {
-          icon.Free();
-          AbilityToIcon.Remove(hob);
-          ShowCommandIcons();
-        }
-      }
-    };
+    // Entity.AbilitySystem.GameplayAbilityRevoked += (ability) => {
+    //   if (ability is HOBAbility.Instance hob) {
+    //     if (AbilityToIcon.TryGetValue(hob, out var icon)) {
+    //       icon.Free();
+    //       AbilityToIcon.Remove(hob);
+    //       ShowCommandIcons();
+    //     }
+    //   }
+    // };
 
 
     if (entity.AbilitySystem == null) {
@@ -85,11 +90,11 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
     }
   }
 
-  public override void _PhysicsProcess(double delta) {
-    foreach (var (ability, icon) in AbilityToIcon) {
-      icon.SelfModulate = ability.CanActivateAbility(new() { Activator = Entity.OwnerController }) ? Colors.Green : Colors.Red;
-    }
-  }
+  // public override void _PhysicsProcess(double delta) {
+  //   foreach (var (ability, icon) in AbilityToIcon) {
+  //     icon.SelfModulate = ability.CanActivateAbility(new() { Activator = Entity.OwnerController }) ? Colors.Green : Colors.Red;
+  //   }
+  // }
 
   // private void SetTeamColor(Color color) {
   //   IconTextureRect?.SetSelfModulate(color);
@@ -121,7 +126,7 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
   // }
 
   private void OnOwnerControllerChanged() {
-    ShowCommandIcons();
+    //ShowCommandIcons();
 
 
     if (Entity == null) {
@@ -136,18 +141,18 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
     }
   }
 
-  private void ShowCommandIcons() {
-    if (CommandIconsContainer?.GetChildCount() > 0 && Entity != null && Entity.TryGetOwner(out var owner) && owner is PlayerController) {
-      CommandIconsParent.Show();
-    }
-    else {
-      HideCommandIcons();
-    }
-  }
+  // private void ShowCommandIcons() {
+  //   if (CommandIconsContainer?.GetChildCount() > 0 && Entity != null && Entity.TryGetOwner(out var owner) && owner is PlayerController) {
+  //     CommandIconsParent.Show();
+  //   }
+  //   else {
+  //     HideCommandIcons();
+  //   }
+  // }
 
-  private void HideCommandIcons() {
-    CommandIconsParent.Hide();
-  }
+  // private void HideCommandIcons() {
+  //   CommandIconsParent.Hide();
+  // }
 
   private void SetThemeBasedOnColor() {
 

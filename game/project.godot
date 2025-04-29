@@ -69,6 +69,7 @@ window/stretch/mode="canvas_items"
 window/size/width=1920
 window/size/height=1080
 mouse_cursor/version=""
+show_fps=false
 
 [dotnet]
 
@@ -221,16 +222,18 @@ locale/translation_add_builtin_strings_to_pot=true
 
 [physics]
 
-common/physics_interpolation=true
+2d/run_on_separate_thread=true
+3d/run_on_separate_thread=true
+common/physics_ticks_per_second=30
 
 [rendering]
 
 textures/canvas_textures/default_texture_filter=2
+textures/default_filters/anisotropic_filtering_level=3
 scaling_3d/mode=2
 scaling_3d/fsr_sharpness=0.0
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/msaa_3d=1
-mesh_lod/lod_change/threshold_pixels=2.0
 environment/defaults/default_environment="res://res/default_env.tres"
 
 [shader_globals]
@@ -245,7 +248,7 @@ fresnel_smoothness={
 }
 outline_width={
 "type": "float",
-"value": 4.0
+"value": 5.0
 }
 outline_color={
 "type": "color",
