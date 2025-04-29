@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3jgu6w6rgj8u"
-path.s3tc="res://.godot/imported/smoke_03.png-571a8b197e6eb6164eec890af2844637.s3tc.ctex"
+uid="uid://icrjdvvl5pmi"
+path.s3tc="res://.godot/imported/clouds-1.png-3b20479f70078f2dbe54f08a9df2d535.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/textures/particle/PNG (Transparent)/smoke_03.png"
-dest_files=["res://.godot/imported/smoke_03.png-571a8b197e6eb6164eec890af2844637.s3tc.ctex"]
+source_file="res://assets/textures/particle/PNG (Transparent)/clouds-1.png"
+dest_files=["res://.godot/imported/clouds-1.png-3b20479f70078f2dbe54f08a9df2d535.s3tc.ctex"]
 
 [params]
 

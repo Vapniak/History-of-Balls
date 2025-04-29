@@ -11,7 +11,6 @@ public partial class SelectCampaignWidget : HOBWidget, IWidgetFactory<SelectCamp
   [Export] private Control CampaignsParent { get; set; } = default!;
   public static SelectCampaignWidget CreateWidget() {
     return ResourceLoader.Load<PackedScene>("uid://bd8hg7vew7ukx").Instantiate<SelectCampaignWidget>();
-    ;
   }
 
   // static async Task<SelectCampaignWidget> IAsyncWidgetFactory<SelectCampaignWidget>.CreateWidget() {

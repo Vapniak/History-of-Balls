@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("2_alsic")
 Name = "Poland"
-Color = Color(0, 0, 0, 0)
+Color = Color(1, 1, 1, 1)
 Flag = ExtResource("1_fdboa")
 PrimaryResource = ExtResource("2_swefu")
 SecondaryResource = ExtResource("3_lp4fh")

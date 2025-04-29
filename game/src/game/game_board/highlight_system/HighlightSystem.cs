@@ -45,22 +45,19 @@ public partial class HOBPlayerController {
         state = new HighlightState {
           CurrentColor = targetColor,
           TargetColor = targetColor,
-          TransitionProgress = 1.0f
         };
         _highlightStates[cell] = state;
       }
       else {
         if (state.TargetColor != targetColor) {
           state.TargetColor = targetColor;
-          state.TransitionProgress = 0.0f;
         }
       }
     }
 
     private void ClearAllHighlights() {
       foreach (var state in _highlightStates.Values) {
-        state.TargetColor = Colors.Transparent;
-        state.TransitionProgress = 0.0f;
+        state.TargetColor = state.CurrentColor with { A = 0f };
       }
     }
 
@@ -68,18 +65,14 @@ public partial class HOBPlayerController {
       List<GameCell> toRemove = new();
 
       foreach (var (cell, state) in _highlightStates) {
-        if (state.TransitionProgress < 1.0f) {
-          state.TransitionProgress = Mathf.Min(
-              state.TransitionProgress + (deltaTime * state.TransitionSpeed),
-              1.0f);
-
+        if (state.TargetColor.A < 0.1f &&
+                state.CurrentColor.A < 0.1f) {
+          toRemove.Add(cell);
+        }
+        else {
           state.CurrentColor = state.CurrentColor.Lerp(
               state.TargetColor,
-              state.TransitionProgress);
-        }
-        else if (state.TargetColor == Colors.Transparent &&
-                state.CurrentColor == Colors.Transparent) {
-          toRemove.Add(cell);
+              deltaTime * state.TransitionSpeed);
         }
       }
 

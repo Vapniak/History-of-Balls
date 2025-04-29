@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Country" load_steps=5 format=3 uid="uid://c67l2q4ibmr7m"]
+
+[ext_resource type="Texture2D" uid="uid://dghyjw145krjg" path="res://assets/textures/flags/Nazi-Germany.png" id="1_imssu"]
+[ext_resource type="Resource" uid="uid://jnj6cdambqkn" path="res://res/data/resource_types/beer.tres" id="2_4q4sa"]
+[ext_resource type="Script" path="res://src/core/country/Country.cs" id="2_cpxx4"]
+[ext_resource type="Resource" uid="uid://c1bkecgwivq8r" path="res://res/data/resource_types/barley.tres" id="3_2da7w"]
+
+[resource]
+script = ExtResource("2_cpxx4")
+Name = "Germany"
+Color = Color(1, 0, 0, 1)
+Flag = ExtResource("1_imssu")
+PrimaryResource = ExtResource("2_4q4sa")
+SecondaryResource = ExtResource("3_2da7w")

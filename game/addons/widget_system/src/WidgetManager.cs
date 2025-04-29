@@ -35,21 +35,11 @@ public partial class WidgetManager : Node {
   }
 
   public void PushWidget<T>(T widget, Action<T>? configure = null, bool hidePrevious = true) where T : Widget {
-    if (hidePrevious && IsInstanceValid(CurrentWidget) && CurrentWidget != null) {
-      CurrentWidget.Hide();
-      CurrentWidget.ProcessMode = ProcessModeEnum.Disabled;
+    if (hidePrevious) {
+      HideCurrentWidget();
     }
 
-    _widgetStack.Push(widget);
-
-    widget.ProcessMode = ProcessModeEnum.Inherit;
-    WidgetLayer.AddChild(widget);
-
-    configure?.Invoke(widget);
-
-    widget.Show();
-    widget.CallDeferred(Control.MethodName.GrabFocus);
-    WidgetPushed?.Invoke(widget);
+    AddWidget(widget, configure);
   }
 
   public void PushWidget<T>(Action<T>? configure = null, bool hidePrevious = true) where T : Widget, IWidgetFactory<T> {
@@ -59,10 +49,14 @@ public partial class WidgetManager : Node {
   }
 
   public async Task PushWidgetAsync<T>(Action<T>? configure = null, bool hidePrevious = true) where T : Widget, IAsyncWidgetFactory<T> {
+    if (hidePrevious) {
+      HideCurrentWidget();
+    }
+    // TODO: show loading indicator
+
     var widget = await T.CreateWidget();
 
-    // TODO: show loading indicator
-    PushWidget(widget);
+    AddWidget(widget, configure);
   }
 
   public void PopWidget(bool showPrevious = true) {
@@ -110,5 +104,25 @@ public partial class WidgetManager : Node {
         GetViewport().SetInputAsHandled();
       }
     }
+  }
+
+  private void HideCurrentWidget() {
+    if (IsInstanceValid(CurrentWidget) && CurrentWidget != null) {
+      CurrentWidget.Hide();
+      CurrentWidget.ProcessMode = ProcessModeEnum.Disabled;
+    }
+  }
+
+  private void AddWidget<T>(T widget, Action<T>? configure = null) where T : Widget {
+    _widgetStack.Push(widget);
+
+    widget.ProcessMode = ProcessModeEnum.Inherit;
+    WidgetLayer.AddChild(widget);
+
+    configure?.Invoke(widget);
+
+    widget.Show();
+    widget.CallDeferred(Control.MethodName.GrabFocus);
+    WidgetPushed?.Invoke(widget);
   }
 }

@@ -56,15 +56,16 @@ vec4 overlay(vec4 base, vec4 blend, float opacity) {
 }
 
 vec4 apply_highlight(vec4 terrain_color, vec4 highlight_color, HexCellData data, bool is_mouse_highlight) {
-    float highlight_strength = smoothstep_range(data, grid_overlay_color_range - .1, grid_overlay_color_range);
-    
+    float highlight_strength = smoothstep_range(data, grid_overlay_color_range - .15, grid_overlay_color_range - 0.05);
+	// + smoothstep_range(data, grid_overlay_color_range - 0.2, grid_overlay_color_range - .05);
+
     float alpha = is_mouse_highlight ? mouse_highlight_opacity : highlight_opacity * highlight_color.a;
-    
+
     vec3 blended_color;
-    
+
     if (length(highlight_color.rgb) > 0.1) {
         blended_color = terrain_color.rgb + (highlight_color.rgb * highlight_intensity * alpha * highlight_strength);
-    } 
+    }
     else {
         blended_color = mix(
             terrain_color.rgb,
@@ -72,7 +73,7 @@ vec4 apply_highlight(vec4 terrain_color, vec4 highlight_color, HexCellData data,
             alpha * highlight_strength * 0.7
         );
     }
-    
+
     return vec4(blended_color, terrain_color.a);
 }
 
@@ -142,9 +143,9 @@ void fragment() {
 	vec4 highlight_color = texelFetch(highlight_data_texture, data.offsetCoord, 0);
 
 	//highlight_color.rgb = highlight_color.rgb + 0.1f;
-	
+
 	ALBEDO = apply_highlight(vec4(ALBEDO, 1.), highlight_color, data, mouse_hex_data.offsetCoord == data.offsetCoord && show_mouse_highlight).rgb;
-	
+
 	METALLIC = 0.0;
     ROUGHNESS = 1.0;
 }

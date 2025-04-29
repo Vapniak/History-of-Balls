@@ -1,0 +1,75 @@
+[gd_resource type="Resource" script_class="MissionData" load_steps=21 format=3 uid="uid://c1nfphhwjy6v2"]
+
+[ext_resource type="Script" path="res://src/game/game_modes/hob/survive/SurviveGameModeConfig.cs" id="1_fdtap"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_wkre3"]
+[ext_resource type="JSON" path="res://res/data/maps/defense_of_westerplatte/ObronaWesterplatte.json" id="2_30g5h"]
+[ext_resource type="Resource" uid="uid://den26mhc6fsde" path="res://res/data/maps/default_map_settings.tres" id="3_4jy82"]
+[ext_resource type="Script" path="res://src/core/map/MapData.cs" id="4_yxefq"]
+[ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/germany.tres" id="5_3dm5c"]
+[ext_resource type="Resource" uid="uid://cuv1436xdiogj" path="res://res/data/countries/poland.tres" id="5_ciusv"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/MatchPlayerSpawnData.cs" id="5_y5p4v"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="6_10d1s"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/ProducedEntitiesData.cs" id="7_f3700"]
+[ext_resource type="Script" path="res://src/game/game_modes/hob/controllers/ai/AIProfile.cs" id="9_d0q2t"]
+
+[sub_resource type="Resource" id="Resource_qayrr"]
+script = ExtResource("1_fdtap")
+RoundsToSurvive = 10
+
+[sub_resource type="Resource" id="Resource_f3fxt"]
+script = ExtResource("4_yxefq")
+MapFile = ExtResource("2_30g5h")
+Generate = false
+Title = "ObronaWesterplatte"
+Cols = 40
+Rows = 30
+Settings = ExtResource("3_4jy82")
+
+[sub_resource type="Resource" id="Resource_fcolf"]
+script = ExtResource("6_10d1s")
+Entities = null
+
+[sub_resource type="Resource" id="Resource_qp0ed"]
+script = ExtResource("7_f3700")
+ProducableEntities = null
+
+[sub_resource type="Resource" id="Resource_hj76v"]
+script = ExtResource("5_y5p4v")
+PlayerType = 0
+Country = ExtResource("5_3dm5c")
+ProducableEntities = SubResource("Resource_qp0ed")
+SpawnedEntities = []
+OwnedEntities = SubResource("Resource_fcolf")
+
+[sub_resource type="Resource" id="Resource_rwho4"]
+script = ExtResource("9_d0q2t")
+ProfileName = "AI Profile"
+Agressiveness = 0.2
+Expansiveness = 0.7
+
+[sub_resource type="Resource" id="Resource_7f8du"]
+script = ExtResource("6_10d1s")
+Entities = null
+
+[sub_resource type="Resource" id="Resource_17i7y"]
+script = ExtResource("7_f3700")
+ProducableEntities = null
+
+[sub_resource type="Resource" id="Resource_qnbri"]
+script = ExtResource("5_y5p4v")
+PlayerType = 1
+AIProfile = SubResource("Resource_rwho4")
+Country = ExtResource("5_ciusv")
+ProducableEntities = SubResource("Resource_17i7y")
+SpawnedEntities = []
+OwnedEntities = SubResource("Resource_7f8du")
+
+[resource]
+script = ExtResource("1_wkre3")
+MissionName = "Defense of Westerplatte "
+Description = "A small Polish garrison held off the first Wehrmacht attacks in 1939"
+ObjectivesText = ""
+Locked = false
+Map = SubResource("Resource_f3fxt")
+PlayerSpawnDatas = [SubResource("Resource_hj76v"), SubResource("Resource_qnbri")]
+GameModeConfig = SubResource("Resource_qayrr")

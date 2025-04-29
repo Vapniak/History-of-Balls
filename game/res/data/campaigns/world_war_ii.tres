@@ -1,8 +1,42 @@
-[gd_resource type="Resource" script_class="Campaign" load_steps=7 format=3 uid="uid://kcodxq6ybx3a"]
+[gd_resource type="Resource" script_class="Campaign" load_steps=13 format=3 uid="uid://kcodxq6ybx3a"]
 
 [ext_resource type="Texture2D" uid="uid://cmva4q4l6snc0" path="res://assets/textures/HoB-renders/HoB-cards-renders/card2-render1.png" id="1_bk06b"]
 [ext_resource type="Script" path="res://src/core/campaign/CampaignTrait.cs" id="1_rppxt"]
 [ext_resource type="Script" path="res://src/core/campaign/Campaign.cs" id="1_vlvnr"]
+[ext_resource type="Resource" uid="uid://c1nfphhwjy6v2" path="res://res/data/missions/defense_of_westerplatte.tres" id="2_v4yww"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="3_a6ynl"]
+
+[sub_resource type="Resource" id="Resource_treuk"]
+script = ExtResource("3_a6ynl")
+MissionName = "Defense of Warsaw "
+Description = ""
+ObjectivesText = ""
+Locked = true
+PlayerSpawnDatas = []
+
+[sub_resource type="Resource" id="Resource_od0bk"]
+script = ExtResource("3_a6ynl")
+MissionName = "Siege of Moscow "
+Description = ""
+ObjectivesText = ""
+Locked = true
+PlayerSpawnDatas = []
+
+[sub_resource type="Resource" id="Resource_g2nrv"]
+script = ExtResource("3_a6ynl")
+MissionName = "Sicilian Landing"
+Description = ""
+ObjectivesText = ""
+Locked = true
+PlayerSpawnDatas = []
+
+[sub_resource type="Resource" id="Resource_pudsn"]
+script = ExtResource("3_a6ynl")
+MissionName = "Normandy Landing"
+Description = ""
+ObjectivesText = ""
+Locked = true
+PlayerSpawnDatas = []
 
 [sub_resource type="Resource" id="Resource_wr2kq"]
 script = ExtResource("1_rppxt")
@@ -24,6 +58,6 @@ script = ExtResource("1_vlvnr")
 Number = "II"
 Name = "World War II"
 Traits = [SubResource("Resource_wr2kq"), SubResource("Resource_arwr6"), SubResource("Resource_8cbi7")]
-Missions = Array[Object]([])
+Missions = Array[Object]([ExtResource("2_v4yww"), SubResource("Resource_treuk"), SubResource("Resource_od0bk"), SubResource("Resource_g2nrv"), SubResource("Resource_pudsn")])
 Locked = false
 Image = ExtResource("1_bk06b")

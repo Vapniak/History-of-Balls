@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=3 format=3 uid="uid://c1bkecgwivq8r"]
+
+[ext_resource type="Texture2D" uid="uid://76gvqf3j13yn" path="res://assets/textures/materials/Barley.png" id="1_rf4cd"]
+[ext_resource type="Script" path="res://src/core/resource_type/ResourceType.cs" id="2_s2gws"]
+
+[resource]
+script = ExtResource("2_s2gws")
+Name = "Barley"
+Icon = ExtResource("1_rf4cd")

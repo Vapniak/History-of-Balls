@@ -9,7 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://bum4ub8a6a0qj" path="res://assets/textures/menu/HoB-menu-leaves-l-t.png" id="6_bw75g"]
 [ext_resource type="Texture2D" uid="uid://cyc3yfkoriiec" path="res://assets/textures/menu/HoB-menu-leaves-r-t.png" id="7_sgubg"]
 
-[node name="MarginContainer" type="MarginContainer"]
+[node name="MarginContainer" type="Control"]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -17,46 +18,73 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TextureRect8" type="TextureRect" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_6rd0k")
 expand_mode = 1
 
 [node name="TextureRect7" type="TextureRect" parent="."]
 material = ExtResource("2_btgpl")
 layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
 texture = ExtResource("2_jfqpv")
 expand_mode = 1
 
 [node name="TextureRect2" type="TextureRect" parent="."]
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1920.0
+offset_bottom = 1080.0
+grow_horizontal = 0
 texture = ExtResource("3_4nxpg")
 expand_mode = 1
 
 [node name="TextureRect" type="TextureRect" parent="."]
 layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
 texture = ExtResource("4_bvicy")
 expand_mode = 1
 
 [node name="TextureRect6" type="TextureRect" parent="."]
 material = ExtResource("2_btgpl")
 layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
 texture = ExtResource("5_8tlv0")
 expand_mode = 1
 
 [node name="TextureRect5" type="TextureRect" parent="."]
 material = ExtResource("2_btgpl")
 layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 1080.0
 texture = ExtResource("6_bw75g")
 expand_mode = 1
 
 [node name="TextureRect4" type="TextureRect" parent="."]
 material = ExtResource("2_btgpl")
-layout_mode = 2
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1920.0
+offset_bottom = 1080.0
+grow_horizontal = 0
 texture = ExtResource("7_sgubg")
 expand_mode = 1
 
 [node name="MarginContainer2" type="MarginContainer" parent="."]
 layout_mode = 2
+offset_right = 1920.0
+offset_bottom = 100.0
 size_flags_vertical = 0
 theme_override_constants/margin_top = 100
 

@@ -17,6 +17,8 @@ shader_parameter/background_texture = ExtResource("4_36qj5")
 [node name="Campaign" type="MarginContainer" node_paths=PackedStringArray("CampaignNumberLabel", "CampaignNameLabel", "TraitsParent", "LockIcon", "Image", "HoveredControl", "Button", "ControlToModulate")]
 offset_right = 525.0
 offset_bottom = 843.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_woy3c")
 CampaignNumberLabel = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Label")
 CampaignNameLabel = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Label2")

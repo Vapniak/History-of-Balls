@@ -1,8 +1,17 @@
-[gd_resource type="Resource" script_class="Campaign" load_steps=7 format=3 uid="uid://drj5np6jx7mr0"]
+[gd_resource type="Resource" script_class="Campaign" load_steps=9 format=3 uid="uid://drj5np6jx7mr0"]
 
 [ext_resource type="Script" path="res://src/core/campaign/CampaignTrait.cs" id="1_bp6aq"]
 [ext_resource type="Script" path="res://src/core/campaign/Campaign.cs" id="1_teede"]
 [ext_resource type="Texture2D" uid="uid://33685dmlg00d" path="res://assets/textures/HoB-renders/HoB-cards-renders/card3-render1.png" id="1_ty68h"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="2_8hj83"]
+
+[sub_resource type="Resource" id="Resource_mn83q"]
+script = ExtResource("2_8hj83")
+MissionName = "Defense of the Great Wall"
+Description = ""
+ObjectivesText = ""
+Locked = true
+PlayerSpawnDatas = []
 
 [sub_resource type="Resource" id="Resource_votb8"]
 script = ExtResource("1_bp6aq")
@@ -24,6 +33,6 @@ script = ExtResource("1_teede")
 Number = "III"
 Name = "Modernity"
 Traits = [SubResource("Resource_votb8"), SubResource("Resource_n56d6"), SubResource("Resource_0wsvq")]
-Missions = []
+Missions = [SubResource("Resource_mn83q"), null]
 Locked = false
 Image = ExtResource("1_ty68h")
