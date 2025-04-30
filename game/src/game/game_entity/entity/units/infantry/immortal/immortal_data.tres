@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=37 format=3 uid="uid://dx5mu6akcbsf8"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://dx5mu6akcbsf8"]
 
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_1i1ny"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_gjkeb"]
@@ -16,8 +16,7 @@
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="14_vbv46"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_ej1lb"]
 [ext_resource type="PackedScene" uid="uid://b8s2rs2pckkg8" path="res://src/game/game_entity/entity/units/infantry/immortal/immortal_body.tscn" id="16_o5rs1"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="17_nc7mr"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="18_32k7d"]
+[ext_resource type="Resource" uid="uid://c36at6bgy0ijj" path="res://src/game/game_entity/entity/units/infantry/infantry_tags.tres" id="17_ftsw2"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="19_xpkgj"]
 
 [sub_resource type="Resource" id="Resource_xu708"]
@@ -96,18 +95,10 @@ ActivateOnGranted = false
 RemoveOnEnd = false
 AbilityTriggers = null
 
-[sub_resource type="Resource" id="Resource_3o5bo"]
-script = ExtResource("17_nc7mr")
-FullName = "Entity.Type.Unit.Infantry"
-
-[sub_resource type="Resource" id="Resource_uu8k6"]
-script = ExtResource("18_32k7d")
-Tags = [SubResource("Resource_3o5bo")]
-
 [resource]
 script = ExtResource("19_xpkgj")
 EntityName = "Immortal"
 AttributeSetsContainer = ExtResource("15_ej1lb")
 Abilities = Array[Object]([SubResource("Resource_cw2tc"), ExtResource("12_5nfgb"), ExtResource("13_dbnev"), ExtResource("14_vbv46")])
-Tags = SubResource("Resource_uu8k6")
+Tags = ExtResource("17_ftsw2")
 Body = ExtResource("16_o5rs1")

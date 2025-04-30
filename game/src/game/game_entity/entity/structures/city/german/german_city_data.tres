@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=5 format=3 uid="uid://bcnj2opvvtf0l"]
+
+[ext_resource type="PackedScene" uid="uid://d4keu01jow404" path="res://src/game/game_entity/entity/structures/city/german/german_city.tscn" id="1_6r1ic"]
+[ext_resource type="Resource" uid="uid://ciww6h4ocgdbp" path="res://src/game/game_entity/ability/entity_production/entity_production_ability.tres" id="1_7ry3l"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_v3lcj"]
+[ext_resource type="Resource" uid="uid://bl5pcqmu056kt" path="res://src/game/game_entity/entity/structures/city/city_tags.tres" id="3_lpn7p"]
+
+[resource]
+script = ExtResource("1_v3lcj")
+EntityName = "German City"
+Abilities = Array[Object]([ExtResource("1_7ry3l")])
+Tags = ExtResource("3_lpn7p")
+Body = ExtResource("1_6r1ic")

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxdsvdr54bmnf"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_qs8qq"]
+[ext_resource type="PackedScene" uid="uid://evtp02lnmcfw" path="res://assets/models/objects/countries/poland/poland-village.fbx" id="2_uf0dt"]
+
+[node name="PolandVillage" type="Node3D"]
+script = ExtResource("1_qs8qq")
+
+[node name="poland-village" parent="." instance=ExtResource("2_uf0dt")]

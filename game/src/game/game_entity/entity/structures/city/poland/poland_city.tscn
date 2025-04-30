@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://d33jk3ud0gv6i"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_eja02"]
+[ext_resource type="PackedScene" uid="uid://tw6j32xuj8qf" path="res://assets/models/objects/countries/poland/poland-city.fbx" id="2_nu5sk"]
+[ext_resource type="PackedScene" uid="uid://douqqdvfbmfb3" path="res://src/game/vfx/glory/glory_circle.tscn" id="3_p0e4r"]
+
+[node name="PolandCity" type="Node3D"]
+script = ExtResource("1_eja02")
+
+[node name="poland-city" parent="." instance=ExtResource("2_nu5sk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -0.430974)
+
+[node name="Node3D" parent="." instance=ExtResource("3_p0e4r")]

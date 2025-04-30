@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4keu01jow404"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_6riea"]
+[ext_resource type="PackedScene" uid="uid://b7orijs3xebe5" path="res://assets/models/objects/countries/germany/germany-city.fbx" id="2_fyby5"]
+[ext_resource type="PackedScene" uid="uid://douqqdvfbmfb3" path="res://src/game/vfx/glory/glory_circle.tscn" id="3_ix5h3"]
+
+[node name="GermanCity" type="Node3D"]
+script = ExtResource("1_6riea")
+
+[node name="germany-city" parent="." instance=ExtResource("2_fyby5")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Node3D" parent="." instance=ExtResource("3_ix5h3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)

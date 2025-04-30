@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=37 format=3 uid="uid://befewbyboktsi"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://befewbyboktsi"]
 
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_0gmck"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_sq1s6"]
@@ -16,8 +16,7 @@
 [ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game/game_entity/ability/attack/throw/throw_attack_ability.tres" id="14_y540g"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_qhnlr"]
 [ext_resource type="PackedScene" uid="uid://cfpw2nk3wsd8q" path="res://src/game/game_entity/entity/units/ranged/peltast/peltast_body.tscn" id="16_n8n10"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="17_3uuwb"]
-[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="18_kasqp"]
+[ext_resource type="Resource" uid="uid://c04dwjixvc642" path="res://src/game/game_entity/entity/units/ranged/ranged_tags.tres" id="17_sw7jn"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="19_gunju"]
 
 [sub_resource type="Resource" id="Resource_kq1ka"]
@@ -96,18 +95,10 @@ ActivateOnGranted = false
 RemoveOnEnd = false
 AbilityTriggers = null
 
-[sub_resource type="Resource" id="Resource_oucqj"]
-script = ExtResource("17_3uuwb")
-FullName = "Entity.Type.Unit.Ranged"
-
-[sub_resource type="Resource" id="Resource_lscwp"]
-script = ExtResource("18_kasqp")
-Tags = [SubResource("Resource_oucqj")]
-
 [resource]
 script = ExtResource("19_gunju")
 EntityName = "Peltast"
 AttributeSetsContainer = ExtResource("15_qhnlr")
 Abilities = Array[Object]([SubResource("Resource_6sbge"), ExtResource("12_7mbu6"), ExtResource("13_l33oo"), ExtResource("14_y540g")])
-Tags = SubResource("Resource_lscwp")
+Tags = ExtResource("17_sw7jn")
 Body = ExtResource("16_n8n10")

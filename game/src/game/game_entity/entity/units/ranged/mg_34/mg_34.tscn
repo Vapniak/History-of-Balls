@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://k4vgst504hfv"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_y5n7i"]
+[ext_resource type="PackedScene" uid="uid://cdeepd8kvb2ao" path="res://src/game/game_entity/entity/units/country_balls/nazi_german_ball.tscn" id="2_xw6xw"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_g57nu"]
+[ext_resource type="PackedScene" uid="uid://1tmjmqy5kbi2" path="res://assets/models/objects/elements/germany/germany-Mg-34-Bipod.fbx" id="4_cn5wx"]
+
+[node name="Mg34" type="Node3D"]
+script = ExtResource("1_y5n7i")
+
+[node name="NaziGermanBall" parent="." instance=ExtResource("2_xw6xw")]
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_g57nu")
+
+[node name="germany-Mg-34-Bipod" parent="FollowParent3D" instance=ExtResource("4_cn5wx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.683521, 0, -0.236256)

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://bk7t7q772f2c3"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_7ywlg"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_pnwrb"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="1_r3grm"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="2_fytqx"]
+[ext_resource type="PackedScene" uid="uid://gpn3s2w4tyl1" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_solider.tscn" id="2_tflif"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="3_aqvlg"]
+[ext_resource type="Resource" uid="uid://c36at6bgy0ijj" path="res://src/game/game_entity/entity/units/infantry/infantry_tags.tres" id="3_ki8bf"]
+
+[sub_resource type="Resource" id="Resource_vsj7e"]
+script = ExtResource("1_7ywlg")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_pnwrb")
+EntityName = "WP Infantry Soldier"
+AttributeSetsContainer = ExtResource("1_r3grm")
+Abilities = Array[Object]([SubResource("Resource_vsj7e"), ExtResource("2_fytqx"), ExtResource("3_aqvlg")])
+Tags = ExtResource("3_ki8bf")
+Body = ExtResource("2_tflif")

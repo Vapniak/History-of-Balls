@@ -22,6 +22,7 @@ SizeCurve = SubResource("Curve_1c61x")
 pixel_size = 0.0008
 billboard = 1
 no_depth_test = true
+render_priority = 1
 texture = SubResource("ViewportTexture_whd6p")
 
 [node name="SubViewport" type="SubViewport" parent="Sprite3D2"]

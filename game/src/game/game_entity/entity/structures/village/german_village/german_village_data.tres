@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://bibqlif20lqwa"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_fvoav"]
+[ext_resource type="Resource" uid="uid://gys5w38r4awo" path="res://src/game/game_entity/ability/initialize_stats/village_initialize_stats.tres" id="1_rvqr2"]
+[ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game/game_entity/ability/income/income_ability.tres" id="2_fc8uj"]
+[ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/core/entity/attribute_sets/village_attribute_sets.tres" id="3_wr6x4"]
+[ext_resource type="PackedScene" uid="uid://nlwoem8rpfx5" path="res://src/game/game_entity/entity/structures/village/german_village/german_village.tscn" id="4_brmro"]
+[ext_resource type="Resource" uid="uid://bk4sncpcpoir3" path="res://src/game/game_entity/entity/structures/village/village_tags.tres" id="5_wxnco"]
+
+[resource]
+script = ExtResource("1_fvoav")
+EntityName = "German Village"
+AttributeSetsContainer = ExtResource("3_wr6x4")
+Abilities = Array[Object]([ExtResource("1_rvqr2"), ExtResource("2_fc8uj")])
+Tags = ExtResource("5_wxnco")
+Body = ExtResource("4_brmro")

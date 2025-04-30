@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://gpn3s2w4tyl1"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_ljyc1"]
+[ext_resource type="PackedScene" uid="uid://js814k2u826w" path="res://src/game/game_entity/entity/units/country_balls/poland_ball.tscn" id="2_mg2hd"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_rmhxp"]
+[ext_resource type="PackedScene" uid="uid://df3b68yrcrx5y" path="res://assets/models/objects/elements/poland/poland-Mauser-Rifle.fbx" id="4_6jcg1"]
+
+[node name="WpInfantrySolider" type="Node3D"]
+script = ExtResource("1_ljyc1")
+
+[node name="PolandBall" parent="." instance=ExtResource("2_mg2hd")]
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_rmhxp")
+
+[node name="poland-Mauser-Rifle" parent="FollowParent3D" instance=ExtResource("4_6jcg1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.957353, 0.410043, 0)

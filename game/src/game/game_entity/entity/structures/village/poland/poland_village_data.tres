@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://c5m55srxuo4oc"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_bukje"]
+[ext_resource type="Resource" uid="uid://gys5w38r4awo" path="res://src/game/game_entity/ability/initialize_stats/village_initialize_stats.tres" id="1_g0y8s"]
+[ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game/game_entity/ability/income/income_ability.tres" id="2_0fr43"]
+[ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/core/entity/attribute_sets/village_attribute_sets.tres" id="3_w0xdo"]
+[ext_resource type="PackedScene" uid="uid://cxdsvdr54bmnf" path="res://src/game/game_entity/entity/structures/village/poland/poland_village.tscn" id="4_vblyn"]
+[ext_resource type="Resource" uid="uid://bk4sncpcpoir3" path="res://src/game/game_entity/entity/structures/village/village_tags.tres" id="5_g1jo3"]
+
+[resource]
+script = ExtResource("1_bukje")
+EntityName = "Poland Village"
+AttributeSetsContainer = ExtResource("3_w0xdo")
+Abilities = Array[Object]([ExtResource("1_g0y8s"), ExtResource("2_0fr43")])
+Tags = ExtResource("5_g1jo3")
+Body = ExtResource("4_vblyn")

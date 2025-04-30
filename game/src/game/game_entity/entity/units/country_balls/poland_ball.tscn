@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://js814k2u826w"]
+
+[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://src/game/game_entity/entity/units/base_country_ball.tscn" id="1_ai8ys"]
+[ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="2_jna4b"]
+[ext_resource type="Texture2D" uid="uid://7w5wyjms26k2" path="res://assets/textures/flags/Poland.png" id="3_066os"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s7rdq"]
+render_priority = 0
+shader = ExtResource("2_jna4b")
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/base_texture = ExtResource("3_066os")
+shader_parameter/uv_scale = Vector2(1, -1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[node name="PolandBall" type="Node3D"]
+
+[node name="BaseCountryBall" parent="." instance=ExtResource("1_ai8ys")]
+
+[node name="Sphere_001" parent="BaseCountryBall/sphere5" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_s7rdq")
+
+[editable path="BaseCountryBall"]
+[editable path="BaseCountryBall/sphere5"]

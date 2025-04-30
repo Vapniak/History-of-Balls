@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://de0x5rlm6ybya"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_dxai3"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_gbusm"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="2_solt7"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="3_evcsm"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="4_oon7s"]
+[ext_resource type="PackedScene" uid="uid://k4vgst504hfv" path="res://src/game/game_entity/entity/units/ranged/mg_34/mg_34.tscn" id="5_gvjyd"]
+[ext_resource type="Resource" uid="uid://c04dwjixvc642" path="res://src/game/game_entity/entity/units/ranged/ranged_tags.tres" id="6_qrqe5"]
+
+[sub_resource type="Resource" id="Resource_xi5ua"]
+script = ExtResource("1_gbusm")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_dxai3")
+EntityName = "MG 34"
+AttributeSetsContainer = ExtResource("4_oon7s")
+Abilities = Array[Object]([SubResource("Resource_xi5ua"), ExtResource("2_solt7"), ExtResource("3_evcsm")])
+Tags = ExtResource("6_qrqe5")
+Body = ExtResource("5_gvjyd")

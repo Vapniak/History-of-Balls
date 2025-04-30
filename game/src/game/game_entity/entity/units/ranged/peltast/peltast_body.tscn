@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_dm6nx"]
 [ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game/game_entity/entity/units/country_balls/greek_ball.tscn" id="2_357p0"]
-[ext_resource type="PackedScene" uid="uid://duf3ury7qwfo6" path="res://assets/models/elements/greece/greece-Peltast.fbx" id="5_ommay"]
+[ext_resource type="PackedScene" uid="uid://duf3ury7qwfo6" path="res://assets/models/objects/elements/greece/greece-Peltast.fbx" id="5_ommay"]
 [ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="5_v1ihn"]
 [ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="6_t2tgd"]
 [ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="7_no1gc"]

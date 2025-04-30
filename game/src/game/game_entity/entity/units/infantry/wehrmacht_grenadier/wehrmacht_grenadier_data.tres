@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://dab1pl6ojk677"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_b5myy"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="1_d5bii"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_tu230"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="2_ia4d5"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="3_h4rvi"]
+[ext_resource type="PackedScene" uid="uid://2i361hfv2kuw" path="res://src/game/game_entity/entity/units/infantry/wehrmacht_grenadier/wehrmacht_grenadier.tscn" id="5_0ktkv"]
+[ext_resource type="Resource" uid="uid://c36at6bgy0ijj" path="res://src/game/game_entity/entity/units/infantry/infantry_tags.tres" id="6_npf0b"]
+
+[sub_resource type="Resource" id="Resource_ivnmd"]
+script = ExtResource("1_tu230")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_b5myy")
+EntityName = "Wehrmacht Grenadier"
+AttributeSetsContainer = ExtResource("1_d5bii")
+Abilities = Array[Object]([SubResource("Resource_ivnmd"), ExtResource("2_ia4d5"), ExtResource("3_h4rvi")])
+Tags = ExtResource("6_npf0b")
+Body = ExtResource("5_0ktkv")

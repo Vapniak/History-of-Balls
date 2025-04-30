@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=21 format=3 uid="uid://c1nfphhwjy6v2"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=39 format=3 uid="uid://c1nfphhwjy6v2"]
 
 [ext_resource type="Script" path="res://src/game/game_modes/hob/survive/SurviveGameModeConfig.cs" id="1_fdtap"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_wkre3"]
@@ -10,7 +10,16 @@
 [ext_resource type="Script" path="res://src/core/campaign/mission/MatchPlayerSpawnData.cs" id="5_y5p4v"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="6_10d1s"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/ProducedEntitiesData.cs" id="7_f3700"]
+[ext_resource type="Resource" uid="uid://bcnj2opvvtf0l" path="res://src/game/game_entity/entity/structures/city/german/german_city_data.tres" id="8_yk0ji"]
 [ext_resource type="Script" path="res://src/game/game_modes/hob/controllers/ai/AIProfile.cs" id="9_d0q2t"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/EntitySpawnData.cs" id="9_dxpyx"]
+[ext_resource type="Resource" uid="uid://cgempirhlo2vh" path="res://src/game/game_entity/entity/structures/factory/german/german_factory.tres" id="10_vyi70"]
+[ext_resource type="Resource" uid="uid://bibqlif20lqwa" path="res://src/game/game_entity/entity/structures/village/german_village/german_village_data.tres" id="11_1onfu"]
+[ext_resource type="Resource" uid="uid://cqvp1g0kf7acg" path="res://src/game/game_entity/entity/structures/city/poland/poland_city_data.tres" id="15_sax3u"]
+[ext_resource type="Resource" uid="uid://b4c1qimoax8lt" path="res://src/game/game_entity/entity/structures/factory/poland/poland_factory.tres" id="16_fhidn"]
+[ext_resource type="Resource" uid="uid://c5m55srxuo4oc" path="res://src/game/game_entity/entity/structures/village/poland/poland_village_data.tres" id="17_g8rwo"]
+[ext_resource type="Resource" uid="uid://hbji56iodutd" path="res://src/game/game_entity/entity/structures/factory/neutral/neutral_factory_data.tres" id="18_7fx3j"]
+[ext_resource type="Resource" uid="uid://b17bmrdycgkbc" path="res://src/game/game_entity/entity/structures/village/neutral/netural_village_data.tres" id="19_kr47c"]
 
 [sub_resource type="Resource" id="Resource_qayrr"]
 script = ExtResource("1_fdtap")
@@ -27,18 +36,33 @@ Settings = ExtResource("3_4jy82")
 
 [sub_resource type="Resource" id="Resource_fcolf"]
 script = ExtResource("6_10d1s")
-Entities = null
+Entities = []
 
 [sub_resource type="Resource" id="Resource_qp0ed"]
 script = ExtResource("7_f3700")
-ProducableEntities = null
+ProducableEntities = []
+
+[sub_resource type="Resource" id="Resource_6etmh"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("8_yk0ji")
+SpawnAt = Array[Vector2i]([Vector2i(39, 29)])
+
+[sub_resource type="Resource" id="Resource_lj5cr"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("10_vyi70")
+SpawnAt = null
+
+[sub_resource type="Resource" id="Resource_8relt"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("11_1onfu")
+SpawnAt = null
 
 [sub_resource type="Resource" id="Resource_hj76v"]
 script = ExtResource("5_y5p4v")
 PlayerType = 0
 Country = ExtResource("5_3dm5c")
 ProducableEntities = SubResource("Resource_qp0ed")
-SpawnedEntities = []
+SpawnedEntities = [SubResource("Resource_6etmh"), SubResource("Resource_lj5cr"), SubResource("Resource_8relt")]
 OwnedEntities = SubResource("Resource_fcolf")
 
 [sub_resource type="Resource" id="Resource_rwho4"]
@@ -49,11 +73,26 @@ Expansiveness = 0.7
 
 [sub_resource type="Resource" id="Resource_7f8du"]
 script = ExtResource("6_10d1s")
-Entities = null
+Entities = []
 
 [sub_resource type="Resource" id="Resource_17i7y"]
 script = ExtResource("7_f3700")
-ProducableEntities = null
+ProducableEntities = []
+
+[sub_resource type="Resource" id="Resource_v1ir4"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("15_sax3u")
+SpawnAt = Array[Vector2i]([Vector2i(23, 19), Vector2i(12, 11)])
+
+[sub_resource type="Resource" id="Resource_lhsvf"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("16_fhidn")
+SpawnAt = Array[Vector2i]([Vector2i(11, 3), Vector2i(9, 10), Vector2i(18, 10), Vector2i(20, 13), Vector2i(28, 24), Vector2i(30, 15)])
+
+[sub_resource type="Resource" id="Resource_s6ele"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("17_g8rwo")
+SpawnAt = Array[Vector2i]([Vector2i(12, 9), Vector2i(14, 11), Vector2i(12, 14), Vector2i(20, 16), Vector2i(25, 20)])
 
 [sub_resource type="Resource" id="Resource_qnbri"]
 script = ExtResource("5_y5p4v")
@@ -61,8 +100,23 @@ PlayerType = 1
 AIProfile = SubResource("Resource_rwho4")
 Country = ExtResource("5_ciusv")
 ProducableEntities = SubResource("Resource_17i7y")
-SpawnedEntities = []
+SpawnedEntities = [SubResource("Resource_v1ir4"), SubResource("Resource_lhsvf"), SubResource("Resource_s6ele")]
 OwnedEntities = SubResource("Resource_7f8du")
+
+[sub_resource type="Resource" id="Resource_npkk0"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("18_7fx3j")
+SpawnAt = Array[Vector2i]([Vector2i(32, 25), Vector2i(31, 22), Vector2i(33, 22)])
+
+[sub_resource type="Resource" id="Resource_m4hfu"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("19_kr47c")
+SpawnAt = Array[Vector2i]([Vector2i(30, 26), Vector2i(35, 22), Vector2i(33, 19)])
+
+[sub_resource type="Resource" id="Resource_213cf"]
+script = ExtResource("5_y5p4v")
+PlayerType = 2
+SpawnedEntities = Array[Object]([SubResource("Resource_npkk0"), SubResource("Resource_m4hfu")])
 
 [resource]
 script = ExtResource("1_wkre3")
@@ -71,5 +125,5 @@ Description = "A small Polish garrison held off the first Wehrmacht attacks in 1
 ObjectivesText = ""
 Locked = false
 Map = SubResource("Resource_f3fxt")
-PlayerSpawnDatas = [SubResource("Resource_hj76v"), SubResource("Resource_qnbri")]
+PlayerSpawnDatas = [SubResource("Resource_hj76v"), SubResource("Resource_qnbri"), SubResource("Resource_213cf")]
 GameModeConfig = SubResource("Resource_qayrr")

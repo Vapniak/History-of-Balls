@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TagContainer" load_steps=4 format=3 uid="uid://bfy341j87lym6"]
+
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_kr4kr"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_mjdiu"]
+
+[sub_resource type="Resource" id="Resource_5p1at"]
+script = ExtResource("1_kr4kr")
+FullName = "Entity.Type.Unit.Cavalry"
+
+[resource]
+script = ExtResource("2_mjdiu")
+Tags = [SubResource("Resource_5p1at")]

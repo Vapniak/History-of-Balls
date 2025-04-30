@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://2i361hfv2kuw"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_4e18s"]
+[ext_resource type="PackedScene" uid="uid://cdeepd8kvb2ao" path="res://src/game/game_entity/entity/units/country_balls/nazi_german_ball.tscn" id="2_ioud4"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_lw64k"]
+[ext_resource type="PackedScene" uid="uid://bm0f44mj8tyq4" path="res://assets/models/objects/elements/germany/germany-Kar98k-Rifle.fbx" id="4_tyh08"]
+
+[node name="WehrmachtGrenadier" type="Node3D"]
+script = ExtResource("1_4e18s")
+
+[node name="NaziGermanBall" parent="." instance=ExtResource("2_ioud4")]
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_lw64k")
+
+[node name="germany-Kar98k-Rifle" parent="FollowParent3D" instance=ExtResource("4_tyh08")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.751288, 0.426509, 0)

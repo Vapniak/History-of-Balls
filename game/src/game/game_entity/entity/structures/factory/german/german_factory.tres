@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://cgempirhlo2vh"]
+
+[ext_resource type="PackedScene" uid="uid://dvsmgrcogtsy8" path="res://src/game/game_entity/entity/structures/factory/german/german_factory.tscn" id="1_i3mo5"]
+[ext_resource type="Resource" uid="uid://cwih8oemud71l" path="res://src/game/game_entity/ability/effects/factory_initial_stats.tres" id="1_q0c1m"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_uupqr"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="2_n1k2g"]
+[ext_resource type="Resource" uid="uid://c7cg52qdriymg" path="res://src/game/game_entity/ability/process_resources/process_resources_ability.tres" id="3_0gywc"]
+[ext_resource type="Resource" uid="uid://dvtc84pr4gkdb" path="res://src/core/entity/attribute_sets/factory_attribute_sets.tres" id="3_8c432"]
+[ext_resource type="Resource" uid="uid://badfiehij68ta" path="res://src/game/game_entity/entity/structures/factory/factory_tags.tres" id="5_5h5n7"]
+
+[sub_resource type="Resource" id="Resource_lyxpo"]
+script = ExtResource("2_n1k2g")
+InitializeStatsEffects = ExtResource("1_q0c1m")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_uupqr")
+EntityName = "German Factory"
+AttributeSetsContainer = ExtResource("3_8c432")
+Abilities = Array[Object]([SubResource("Resource_lyxpo"), ExtResource("3_0gywc")])
+Tags = ExtResource("5_5h5n7")
+Body = ExtResource("1_i3mo5")

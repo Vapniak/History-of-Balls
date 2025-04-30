@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TagContainer" load_steps=4 format=3 uid="uid://c04dwjixvc642"]
+
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_0se5r"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_1hoaf"]
+
+[sub_resource type="Resource" id="Resource_oucqj"]
+script = ExtResource("1_0se5r")
+FullName = "Entity.Type.Unit.Ranged"
+
+[resource]
+script = ExtResource("2_1hoaf")
+Tags = [SubResource("Resource_oucqj")]

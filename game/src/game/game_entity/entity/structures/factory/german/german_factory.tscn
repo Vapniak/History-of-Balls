@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dvsmgrcogtsy8"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_yjl6n"]
+[ext_resource type="PackedScene" uid="uid://dn6veqerg6yyr" path="res://assets/models/objects/countries/germany/germany-industry.fbx" id="2_1p6nt"]
+
+[node name="GermanFactory" type="Node3D"]
+script = ExtResource("1_yjl6n")
+
+[node name="germany-industry" parent="." instance=ExtResource("2_1p6nt")]

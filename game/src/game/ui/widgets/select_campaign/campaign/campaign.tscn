@@ -23,7 +23,7 @@ script = ExtResource("1_woy3c")
 CampaignNumberLabel = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Label")
 CampaignNameLabel = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/VBoxContainer/Label2")
 TraitsParent = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer")
-LockIcon = NodePath("MarginContainer/MarginContainer/TextureRect")
+LockIcon = NodePath("MarginContainer/MarginContainer/HBoxContainer/TextureRect")
 Image = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/TextureRect")
 Locked = ExtResource("7_vvpac")
 Unlocked = ExtResource("3_f5xeu")
@@ -132,7 +132,12 @@ size_flags_vertical = 8
 mouse_filter = 2
 theme_type_variation = &"MarginMedium"
 
-[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer"]
+[node name="HBoxContainer" type="BoxContainer" parent="MarginContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -141,5 +146,10 @@ mouse_filter = 2
 texture = ExtResource("7_vvpac")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="Label" type="Label" parent="MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "1/5"
 
 [editable path="MarginContainer/Button"]

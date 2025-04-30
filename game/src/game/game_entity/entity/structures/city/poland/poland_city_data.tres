@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=5 format=3 uid="uid://cqvp1g0kf7acg"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_08ya3"]
+[ext_resource type="Resource" uid="uid://ciww6h4ocgdbp" path="res://src/game/game_entity/ability/entity_production/entity_production_ability.tres" id="1_btgsg"]
+[ext_resource type="PackedScene" uid="uid://d33jk3ud0gv6i" path="res://src/game/game_entity/entity/structures/city/poland/poland_city.tscn" id="2_vnk6s"]
+[ext_resource type="Resource" uid="uid://bl5pcqmu056kt" path="res://src/game/game_entity/entity/structures/city/city_tags.tres" id="3_yw1rj"]
+
+[resource]
+script = ExtResource("1_08ya3")
+EntityName = "Poland City"
+Abilities = Array[Object]([ExtResource("1_btgsg")])
+Tags = ExtResource("3_yw1rj")
+Body = ExtResource("2_vnk6s")

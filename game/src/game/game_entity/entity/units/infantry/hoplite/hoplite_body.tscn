@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_keevr"]
 [ext_resource type="PackedScene" uid="uid://bqyau6o140ie3" path="res://src/game/game_entity/entity/units/country_balls/greek_ball.tscn" id="1_xega4"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_16rxj"]
-[ext_resource type="PackedScene" uid="uid://bmgbj3u21bypl" path="res://assets/models/elements/greece/greece-Hoplite.fbx" id="4_mmtlc"]
+[ext_resource type="PackedScene" uid="uid://bmgbj3u21bypl" path="res://assets/models/objects/elements/greece/greece-Hoplite.fbx" id="4_mmtlc"]
 
 [node name="HopliteBody" type="Node3D"]
 script = ExtResource("1_keevr")

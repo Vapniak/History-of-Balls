@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://3tjr86r46xhp"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_fs6nq"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_kuwsa"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="2_vpmkm"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="3_8qein"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="4_s2mge"]
+[ext_resource type="PackedScene" uid="uid://csr08kub6ohwa" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30.tscn" id="5_adl5i"]
+[ext_resource type="Resource" uid="uid://c04dwjixvc642" path="res://src/game/game_entity/entity/units/ranged/ranged_tags.tres" id="6_hxxmj"]
+
+[sub_resource type="Resource" id="Resource_pe3mm"]
+script = ExtResource("1_fs6nq")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_kuwsa")
+EntityName = "CKM Model 30"
+AttributeSetsContainer = ExtResource("4_s2mge")
+Abilities = Array[Object]([SubResource("Resource_pe3mm"), ExtResource("2_vpmkm"), ExtResource("3_8qein")])
+Tags = ExtResource("6_hxxmj")
+Body = ExtResource("5_adl5i")

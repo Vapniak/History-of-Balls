@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://b4c1qimoax8lt"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_x47pl"]
+[ext_resource type="Resource" uid="uid://cwih8oemud71l" path="res://src/game/game_entity/ability/effects/factory_initial_stats.tres" id="1_xoaa7"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="2_63yct"]
+[ext_resource type="Resource" uid="uid://c7cg52qdriymg" path="res://src/game/game_entity/ability/process_resources/process_resources_ability.tres" id="3_3whh2"]
+[ext_resource type="Resource" uid="uid://dvtc84pr4gkdb" path="res://src/core/entity/attribute_sets/factory_attribute_sets.tres" id="4_wu83e"]
+[ext_resource type="PackedScene" uid="uid://bvdafa1ta0vo5" path="res://src/game/game_entity/entity/structures/factory/poland/poland_factory.tscn" id="5_moqm8"]
+[ext_resource type="Resource" uid="uid://badfiehij68ta" path="res://src/game/game_entity/entity/structures/factory/factory_tags.tres" id="6_xf5k0"]
+
+[sub_resource type="Resource" id="Resource_03ud2"]
+script = ExtResource("2_63yct")
+InitializeStatsEffects = ExtResource("1_xoaa7")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_x47pl")
+EntityName = "Poland Factory"
+AttributeSetsContainer = ExtResource("4_wu83e")
+Abilities = Array[Object]([SubResource("Resource_03ud2"), ExtResource("3_3whh2")])
+Tags = ExtResource("6_xf5k0")
+Body = ExtResource("5_moqm8")

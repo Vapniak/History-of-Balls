@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://j06xhpqthnoq"]
+
+[ext_resource type="Resource" uid="uid://fw08t7fm0yoq" path="res://src/game/game_entity/ability/effects/infantry_cost_effect.tres" id="1_21y3n"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="1_uk6t5"]
+[ext_resource type="Resource" uid="uid://dab1pl6ojk677" path="res://src/game/game_entity/entity/units/infantry/wehrmacht_grenadier/wehrmacht_grenadier_data.tres" id="2_4yiba"]
+
+[resource]
+script = ExtResource("1_uk6t5")
+Entity = ExtResource("2_4yiba")
+CostEffect = ExtResource("1_21y3n")
+ProductionTime = 3

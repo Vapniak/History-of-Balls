@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_y6cb2"]
 [ext_resource type="PackedScene" uid="uid://cro8sewdt76r0" path="res://src/game/game_entity/entity/units/country_balls/persia_ball.tscn" id="2_q71nv"]
-[ext_resource type="PackedScene" uid="uid://dnjdj2ofvkww3" path="res://assets/models/elements/persia/persia-Persian-Cavalry.fbx" id="3_js7dj"]
+[ext_resource type="PackedScene" uid="uid://dnjdj2ofvkww3" path="res://assets/models/objects/elements/persia/persia-Persian-Cavalry.fbx" id="3_js7dj"]
 
 [node name="PersianCavalryBody" type="Node3D"]
 script = ExtResource("1_y6cb2")

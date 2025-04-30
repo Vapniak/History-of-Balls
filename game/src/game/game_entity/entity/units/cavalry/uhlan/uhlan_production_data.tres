@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://csk1y5ishfkot"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="1_8lt6j"]
+[ext_resource type="Resource" uid="uid://bmkx3bvod4wdy" path="res://src/game/game_entity/ability/effects/cavalry_cost_effect.tres" id="1_l2g4f"]
+[ext_resource type="Resource" uid="uid://b1iormtddabtt" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_data.tres" id="2_5tbij"]
+
+[resource]
+script = ExtResource("1_8lt6j")
+Entity = ExtResource("2_5tbij")
+CostEffect = ExtResource("1_l2g4f")
+ProductionTime = 4

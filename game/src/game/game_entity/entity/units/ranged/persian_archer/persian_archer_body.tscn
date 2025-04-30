@@ -4,9 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://cro8sewdt76r0" path="res://src/game/game_entity/entity/units/country_balls/persia_ball.tscn" id="2_352bc"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_kh6pq"]
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ThrowableAttribute.cs" id="4_8q8f1"]
-[ext_resource type="PackedScene" uid="uid://bulne3jer22mb" path="res://assets/models/elements/persia/persia-Persian-Archer-bow.fbx" id="4_kwtxr"]
+[ext_resource type="PackedScene" uid="uid://bulne3jer22mb" path="res://assets/models/objects/elements/persia/persia-Persian-Archer-bow.fbx" id="4_kwtxr"]
 [ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="5_ra235"]
-[ext_resource type="PackedScene" uid="uid://dvr32145hutia" path="res://assets/models/elements/persia/persia-Persian-Archer-arrow.fbx" id="6_gkk0o"]
+[ext_resource type="PackedScene" uid="uid://dvr32145hutia" path="res://assets/models/objects/elements/persia/persia-Persian-Archer-arrow.fbx" id="6_gkk0o"]
 [ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="6_jux2u"]
 [ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="7_6qrka"]
 

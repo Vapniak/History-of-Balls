@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://sek11tqnnxxa"]
+
+[ext_resource type="Resource" uid="uid://gys5w38r4awo" path="res://src/game/game_entity/ability/initialize_stats/village_initialize_stats.tres" id="1_enisa"]
+[ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game/game_entity/ability/income/income_ability.tres" id="2_aioq6"]
+[ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/core/entity/attribute_sets/village_attribute_sets.tres" id="3_ppea1"]
+[ext_resource type="PackedScene" uid="uid://c6e18v4hrynhg" path="res://src/game/game_entity/entity/structures/village/olive_production/olive_production_body.tscn" id="4_fjard"]
+[ext_resource type="Resource" uid="uid://bk4sncpcpoir3" path="res://src/game/game_entity/entity/structures/village/village_tags.tres" id="5_on6m3"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="6_pnd4y"]
+
+[resource]
+script = ExtResource("6_pnd4y")
+EntityName = "Olive Production"
+AttributeSetsContainer = ExtResource("3_ppea1")
+Abilities = Array[Object]([ExtResource("1_enisa"), ExtResource("2_aioq6")])
+Tags = ExtResource("5_on6m3")
+Body = ExtResource("4_fjard")

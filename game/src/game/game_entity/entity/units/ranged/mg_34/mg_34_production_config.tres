@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://cxd1ao3q8wfyn"]
+
+[ext_resource type="Resource" uid="uid://bdm113oircfrt" path="res://src/game/game_entity/ability/effects/ranged_cost_effect.tres" id="1_du5ee"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="1_fblf7"]
+[ext_resource type="Resource" uid="uid://de0x5rlm6ybya" path="res://src/game/game_entity/entity/units/ranged/mg_34/mg_34_data.tres" id="2_nrrdg"]
+
+[resource]
+script = ExtResource("1_fblf7")
+Entity = ExtResource("2_nrrdg")
+CostEffect = ExtResource("1_du5ee")
+ProductionTime = 2

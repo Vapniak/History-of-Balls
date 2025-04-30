@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://d3a8gfe2tbsyu"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=8 format=3 uid="uid://d3a8gfe2tbsyu"]
 
+[ext_resource type="Resource" uid="uid://c7cg52qdriymg" path="res://src/game/game_entity/ability/process_resources/process_resources_ability.tres" id="1_76ab1"]
 [ext_resource type="PackedScene" uid="uid://cj3qtxcdbw00m" path="res://src/game/game_entity/entity/structures/factory/factory.tscn" id="1_knki7"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_ujoy0"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="11_u6s3x"]
@@ -16,6 +17,6 @@ Tags = [SubResource("Resource_gto37")]
 [resource]
 script = ExtResource("1_ujoy0")
 EntityName = "Factory"
-Abilities = []
+Abilities = [ExtResource("1_76ab1")]
 Tags = SubResource("Resource_x8f5l")
 Body = ExtResource("1_knki7")
