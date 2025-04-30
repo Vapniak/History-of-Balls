@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="MissionData" load_steps=54 format=3 uid="uid://c1nfphhwjy6v2"]
 
-[ext_resource type="Script" path="res://src/game/game_modes/hob/survive/SurviveGameModeConfig.cs" id="1_fdtap"]
+[ext_resource type="Script" path="res://src/game/game_modes/hob/control/ControlGameModeConfig.cs" id="1_ex2mu"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_wkre3"]
 [ext_resource type="Resource" uid="uid://clhp4sujy27yq" path="res://res/data/maps/defense_of_westerplatte/westerplatte.tres" id="2_8a50m"]
 [ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/nazi_germany.tres" id="5_3mvhv"]
@@ -31,9 +31,8 @@
 [ext_resource type="Resource" uid="uid://csk1y5ishfkot" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_production_data.tres" id="25_xyaho"]
 [ext_resource type="Resource" uid="uid://hrhxakr2fcmr" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30_production_data.tres" id="26_hwe6x"]
 
-[sub_resource type="Resource" id="Resource_qayrr"]
-script = ExtResource("1_fdtap")
-RoundsToSurvive = 10
+[sub_resource type="Resource" id="Resource_hjtfb"]
+script = ExtResource("1_ex2mu")
 
 [sub_resource type="Resource" id="Resource_fcolf"]
 script = ExtResource("6_10d1s")
@@ -84,8 +83,8 @@ OwnedEntities = SubResource("Resource_fcolf")
 [sub_resource type="Resource" id="Resource_rwho4"]
 script = ExtResource("9_d0q2t")
 ProfileName = "AI Profile"
-Agressiveness = 0.2
-Expansiveness = 0.7
+Agressiveness = 0.3
+Expansiveness = 0.2
 
 [sub_resource type="Resource" id="Resource_7f8du"]
 script = ExtResource("6_10d1s")
@@ -158,4 +157,4 @@ MusicTrackName = "ii_world_war"
 Locked = false
 Map = ExtResource("2_8a50m")
 PlayerSpawnDatas = [SubResource("Resource_hj76v"), SubResource("Resource_qnbri"), SubResource("Resource_213cf")]
-GameModeConfig = SubResource("Resource_qayrr")
+GameModeConfig = SubResource("Resource_hjtfb")

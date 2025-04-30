@@ -5,9 +5,9 @@ using GameplayFramework;
 using Godot;
 
 public partial class HOBAbility {
-  public new abstract partial class Instance : GameplayAbility.Instance {
+  public new partial class Instance : GameplayAbility.Instance {
     public new HOBAbility AbilityResource { get; private set; }
-    protected Instance(HOBAbility abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
+    public Instance(HOBAbility abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
       AbilityResource = abilityResource;
     }
 

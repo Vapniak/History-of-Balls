@@ -12,6 +12,7 @@ public partial class CampaignWidget : ButtonWidget, IWidgetFactory<CampaignWidge
   [Export] public Control TraitsParent { get; private set; } = default!;
   [Export] public TextureRect LockIcon { get; private set; } = default!;
   [Export] public TextureRect Image { get; private set; } = default!;
+  [Export] public Label LockedNumberLabel { get; private set; } = default!;
 
   [Export] private Texture2D Locked { get; set; } = default!;
   [Export] private Texture2D Unlocked { get; set; } = default!;
@@ -53,8 +54,20 @@ public partial class CampaignWidget : ButtonWidget, IWidgetFactory<CampaignWidge
       }
     }
 
-    LockIcon.Texture = campaign.Locked ? Locked : Unlocked;
-    Button.Disabled = campaign.Locked;
+    var unlockedMissions = 0;
+    foreach (var mission in campaign.Missions) {
+      if (!mission.Locked) {
+        unlockedMissions++;
+      }
+    }
+
+    var locked = unlockedMissions == 0;
+
+    LockIcon.Texture = locked ? Locked : Unlocked;
+    Button.Disabled = locked;
+
+
+    LockedNumberLabel.Text = $"{unlockedMissions}/{campaign.Missions.Count}";
 
     Image.Texture = campaign.Image;
   }

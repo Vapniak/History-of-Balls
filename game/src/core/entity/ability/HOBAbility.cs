@@ -9,4 +9,6 @@ public abstract partial class HOBAbility : GameplayAbility {
   [Export] public Texture2D? Icon { get; protected set; }
   [Export] public bool ShowInUI { get; protected set; } = true;
   [Export] public int UIOrder { get; protected set; }
+
+  // public override GameplayAbility.Instance CreateInstance(GameplayAbilitySystem abilitySystem) => new Instance(this, abilitySystem);
 }

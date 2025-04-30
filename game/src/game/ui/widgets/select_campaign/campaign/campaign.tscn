@@ -14,7 +14,7 @@ shader = ExtResource("3_fmvax")
 shader_parameter/tint = Color(1, 1, 1, 1)
 shader_parameter/background_texture = ExtResource("4_36qj5")
 
-[node name="Campaign" type="MarginContainer" node_paths=PackedStringArray("CampaignNumberLabel", "CampaignNameLabel", "TraitsParent", "LockIcon", "Image", "HoveredControl", "Button", "ControlToModulate")]
+[node name="Campaign" type="MarginContainer" node_paths=PackedStringArray("CampaignNumberLabel", "CampaignNameLabel", "TraitsParent", "LockIcon", "Image", "LockedNumberLabel", "HoveredControl", "Button", "ControlToModulate")]
 offset_right = 525.0
 offset_bottom = 843.0
 size_flags_horizontal = 3
@@ -25,6 +25,7 @@ CampaignNameLabel = NodePath("MarginContainer/PanelContainer/MarginContainer2/HB
 TraitsParent = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/MarginContainer/HBoxContainer/MarginContainer/BoxContainer")
 LockIcon = NodePath("MarginContainer/MarginContainer/HBoxContainer/TextureRect")
 Image = NodePath("MarginContainer/PanelContainer/MarginContainer2/HBoxContainer/TextureRect")
+LockedNumberLabel = NodePath("MarginContainer/MarginContainer/HBoxContainer/Label")
 Locked = ExtResource("7_vvpac")
 Unlocked = ExtResource("3_f5xeu")
 HoveredControl = NodePath("MarginContainer")

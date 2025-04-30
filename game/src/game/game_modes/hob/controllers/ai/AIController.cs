@@ -232,7 +232,7 @@ public partial class AIController : Controller, IMatchController {
     var attackScore = .1f;
     uint desiredDistance = 0;
     var actualDistance = path.Count() - Array.IndexOf(path.ToArray(), cell) + 1;
-    // valueScore = 1f;
+    var valueScore = 1f;
 
     if (attackAbility != null && attackAbility.GetAttackableEntities(cell).entities.Contains(target)) {
       attackScore = CalculateDamageRatio(entity, attackAbility, target) * Profile.Agressiveness;
@@ -240,12 +240,12 @@ public partial class AIController : Controller, IMatchController {
       desiredDistance = attackRange;
     }
 
-    //valueScore = CalculateValueScore(target) * Profile.Expansiveness;
+    valueScore = CalculateValueScore(target) * Profile.Expansiveness;
 
-    // var threatScore = Calcu  lateThreatAvoidance(entity, cell);
+    //var threatScore = CalculateThreatAvoidance(entity, cell);
     distanceScore = 1f / Mathf.Max(Mathf.Abs(actualDistance - desiredDistance) + 1, 1);
 
-    return distanceScore * attackScore;
+    return distanceScore * attackScore * valueScore;
   }
 
   private float CalculateThreatAvoidance(Entity entity, GameCell cell) {
@@ -256,19 +256,19 @@ public partial class AIController : Controller, IMatchController {
         threatCount++;
       }
     }
-    return Mathf.Min(threatCount / 5f, 0.5f);
+    return Mathf.Min(Mathf.Max(threatCount / 5f, 1f), 0.5f);
   }
 
   private static float CalculateValueScore(Entity target) {
     var tags = target.AbilitySystem.OwnedTags;
     if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity))) {
-      return .5f;
-    }
-    else if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureVillage))) {
-      return 0.75f;
+      return 1f;
     }
     else if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureFactory))) {
-      return 1f;
+      return 0.75f;
+    }
+    else if (tags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureVillage))) {
+      return 0.5f;
     }
 
     return 0.1f;
