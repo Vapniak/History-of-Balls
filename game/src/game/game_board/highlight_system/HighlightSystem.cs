@@ -91,15 +91,19 @@ public partial class HOBPlayerController {
       foreach (var entity in Controller.EntityManagment.GetEntities()) {
         if (entity.TryGetOwner(out var owner)) {
           if (owner == Controller) {
-            var color = Colors.Transparent;
+            var showColor = false;
             foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
               if (ability.CanActivateAbility(null)) {
-                if (ability is AttackAbility.Instance) {
-                  color = color.Blend(Theme.AttackAbilityColor with { A = 0.5f });
+                if (ability is AttackAbility.Instance attack) {
+                  if (attack.GetAttackableEntities().entities.Length > 0) {
+                    showColor = true;
+                    break;
+                  }
                 }
 
                 if (ability is MoveAbility.Instance) {
-                  color = color.Blend(Theme.MoveAbilityColor with { A = 0.5f });
+                  showColor = true;
+                  break;
                 }
 
                 if (ability is EntityProductionAbility.Instance prod) {
@@ -108,14 +112,15 @@ public partial class HOBPlayerController {
                         Activator = owner,
                         TargetData = new() { Target = e }
                       }))) {
-                    color = color.Blend(owner.GetPlayerState().Country.Color with { A = 0.5f });
+                    showColor = true;
+                    break;
                   }
                 }
               }
             }
 
-            if (color != Colors.Transparent) {
-              SetHighlight(color, entity.Cell);
+            if (showColor) {
+              SetHighlight(owner.GetPlayerState().Country.Color, entity.Cell);
             }
           }
           else {

@@ -22,7 +22,21 @@ public partial class TimePlayedWidget : HOBWidget {
   private void UpdateTime() {
     if (GameInstance.GetGameState() is IMatchGameState matchGameState) {
       var time = TimeSpan.FromMilliseconds(matchGameState.GameTimeMSec);
-      TimePlayedLabel.Text = $"{time.Minutes:00}:{time.Seconds:00}";
+      TimePlayedLabel.Text = FormatTimeDynamic(time.TotalSeconds);
+    }
+  }
+
+  public static string FormatTimeDynamic(double totalSeconds) {
+    var time = TimeSpan.FromSeconds(totalSeconds);
+
+    if (time.TotalHours >= 1) {
+      return $"{(int)time.TotalHours}h {time.Minutes}m {time.Seconds}s";
+    }
+    else if (time.TotalMinutes >= 1) {
+      return $"{time.Minutes}m {time.Seconds}s";
+    }
+    else {
+      return $"{time.Seconds}s";
     }
   }
 }

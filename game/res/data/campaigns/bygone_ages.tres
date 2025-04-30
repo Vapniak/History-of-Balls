@@ -11,6 +11,7 @@ script = ExtResource("3_5hcyb")
 MissionName = "Battle of Asterix and Obelix"
 Description = ""
 ObjectivesText = ""
+MusicTrackName = ""
 Locked = true
 PlayerSpawnDatas = []
 
@@ -19,6 +20,7 @@ script = ExtResource("3_5hcyb")
 MissionName = "Battle of Poitiers"
 Description = ""
 ObjectivesText = ""
+MusicTrackName = ""
 Locked = true
 PlayerSpawnDatas = []
 
@@ -27,6 +29,7 @@ script = ExtResource("3_5hcyb")
 MissionName = "Battle of Grunwald"
 Description = ""
 ObjectivesText = ""
+MusicTrackName = ""
 Locked = true
 PlayerSpawnDatas = []
 
@@ -35,6 +38,7 @@ script = ExtResource("3_5hcyb")
 MissionName = "Siege of Orléans"
 Description = ""
 ObjectivesText = ""
+MusicTrackName = ""
 Locked = true
 PlayerSpawnDatas = []
 
@@ -59,5 +63,4 @@ Number = "I"
 Name = "Bygone Ages"
 Traits = [SubResource("Resource_t6ymb"), SubResource("Resource_tw1ol"), SubResource("Resource_3h3rw")]
 Missions = Array[Object]([ExtResource("1_y76os"), SubResource("Resource_7rtqm"), SubResource("Resource_n52kq"), SubResource("Resource_g0emu"), SubResource("Resource_x4857")])
-Locked = false
 Image = ExtResource("1_nywdt")

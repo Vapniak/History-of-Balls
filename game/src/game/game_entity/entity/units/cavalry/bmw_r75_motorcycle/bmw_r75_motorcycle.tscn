@@ -8,7 +8,7 @@
 script = ExtResource("1_a8lrs")
 
 [node name="germany-BMW" parent="." instance=ExtResource("2_3f54x")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.305938, -0.12089, 1.41803)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.466136, -0.12089, 1.41803)
 
 [node name="NaziGermanBall" parent="." instance=ExtResource("3_e0lge")]
-transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, 0.0990856, 0.59228, 0.362028)
+transform = Transform3D(0.8, 0, 0, 0, 0.8, 0, 0, 0, 0.8, -0.0155356, 0.59228, 0.362028)

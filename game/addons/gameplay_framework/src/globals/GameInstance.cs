@@ -80,12 +80,16 @@ public partial class GameInstance : Node {
     Instance!.GetTree().Quit();
   }
 
+  public T? GetPlayerController<T>() where T : IController {
+    return (T?)GetPlayerController();
+  }
+
   public IController? GetPlayerController() {
     if (GetGameState() is IPlayerManagmentGameState playerManagment) {
       return playerManagment.PlayerArray[0].GetController();
     }
 
-    return null;
+    return default;
   }
 }
 

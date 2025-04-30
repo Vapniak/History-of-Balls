@@ -1,5 +1,6 @@
 namespace HOB;
 
+using GameplayFramework;
 using GameplayTags;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,27 +15,15 @@ public partial class ControlGameMode : HOBGameMode {
 
 
   protected virtual IMatchController? CheckWinner() {
-    var alivePlayers = new List<IMatchController>();
-    var eliminatedPlayers = new List<IMatchController>();
+    var cities = GetEntityManagment().GetEntities().Count(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)));
 
-    foreach (var player in GetGameState().PlayerArray) {
-      var controller = player.GetController<IMatchController>();
-      var entities = GetEntityManagment().GetOwnedEntites(controller);
+    var playerCities = GetEntityManagment().GetOwnedEntites(GameInstance.Instance.GetPlayerController<IMatchController>()).Count(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)));
 
-      if (entities.Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)))) {
-        alivePlayers.Add(controller);
-      }
-      else {
-        eliminatedPlayers.Add(controller);
-      }
+    if (playerCities == cities) {
+      return GameInstance.Instance.GetPlayerController<IMatchController>();
     }
 
-    if (eliminatedPlayers.Count > 0) {
-      return alivePlayers.FirstOrDefault();
-    }
-    else {
-      return null;
-    }
+    return null;
   }
 
   private void OnMatchEvent(Tag eventTag) {

@@ -1,23 +1,23 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://3tjr86r46xhp"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=38 format=3 uid="uid://3tjr86r46xhp"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_fs6nq"]
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_k7mr2"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_kuwsa"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_pbk6f"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="2_vpmkm"]
-[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="3_8qein"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_rhi85"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_b3gua"]
-[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="4_s2mge"]
 [ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_4dkgd"]
 [ext_resource type="PackedScene" uid="uid://csr08kub6ohwa" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30.tscn" id="5_adl5i"]
 [ext_resource type="Resource" uid="uid://c04dwjixvc642" path="res://src/game/game_entity/entity/units/ranged/ranged_tags.tres" id="6_hxxmj"]
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_wppcj"]
-[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="7_xhldd"]
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="8_5ykf7"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_na4i6"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_ohp16"]
+[ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/core/entity/attribute_sets/attack_attribute_set.tres" id="13_gdh82"]
 [ext_resource type="Resource" uid="uid://i2kbndgd1vjx" path="res://src/game/game_entity/ability/attack/range/shoot_attack_ability.tres" id="14_ny16l"]
+[ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/core/entity/attribute_sets/health_attribute_set.tres" id="14_pm673"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/attributes/AttributeSetsContainer.cs" id="15_cn5bs"]
 
 [sub_resource type="Resource" id="Resource_1kjfc"]
 script = ExtResource("2_pbk6f")
@@ -47,20 +47,6 @@ script = ExtResource("4_b3gua")
 Attribute = ExtResource("6_wppcj")
 Modifiers = [SubResource("Resource_el2qf")]
 
-[sub_resource type="Resource" id="Resource_kpgor"]
-script = ExtResource("2_pbk6f")
-Magnitude = 1.0
-
-[sub_resource type="Resource" id="Resource_6r7b0"]
-script = ExtResource("3_rhi85")
-ModifierType = 2
-ModifierMagnitude = SubResource("Resource_kpgor")
-
-[sub_resource type="Resource" id="Resource_1jrer"]
-script = ExtResource("4_b3gua")
-Attribute = ExtResource("7_xhldd")
-Modifiers = [SubResource("Resource_6r7b0")]
-
 [sub_resource type="Resource" id="Resource_kh5c6"]
 script = ExtResource("2_pbk6f")
 Magnitude = 2.0
@@ -78,7 +64,7 @@ Modifiers = [SubResource("Resource_oem1p")]
 [sub_resource type="Resource" id="Resource_uotxx"]
 script = ExtResource("9_na4i6")
 DurationPolicy = 0
-AttributeModifiers = Array[Object]([SubResource("Resource_cie05"), ExtResource("5_4dkgd"), SubResource("Resource_4w42v"), SubResource("Resource_1jrer"), SubResource("Resource_bqjn0")])
+AttributeModifiers = Array[Object]([SubResource("Resource_cie05"), ExtResource("5_4dkgd"), SubResource("Resource_4w42v"), SubResource("Resource_bqjn0")])
 DurationMultiplier = 0.0
 
 [sub_resource type="Resource" id="Resource_y4wmb"]
@@ -95,10 +81,48 @@ ActivateOnGranted = false
 RemoveOnEnd = false
 AbilityTriggers = null
 
+[sub_resource type="Resource" id="Resource_btlkb"]
+script = ExtResource("2_pbk6f")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_ou88w"]
+script = ExtResource("3_rhi85")
+ModifierType = 1
+ModifierMagnitude = SubResource("Resource_btlkb")
+
+[sub_resource type="Resource" id="Resource_7goa8"]
+script = ExtResource("4_b3gua")
+Attribute = ExtResource("8_5ykf7")
+Modifiers = [SubResource("Resource_ou88w")]
+
+[sub_resource type="Resource" id="Resource_u4aoa"]
+script = ExtResource("9_na4i6")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_7goa8")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_n100v"]
+script = ExtResource("10_ohp16")
+EffectDefinition = SubResource("Resource_u4aoa")
+
+[sub_resource type="Resource" id="Resource_py6dh"]
+script = ExtResource("1_fs6nq")
+InitializeStatsEffects = SubResource("Resource_n100v")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[sub_resource type="Resource" id="Resource_amqch"]
+script = ExtResource("15_cn5bs")
+AttributeSets = Array[Object]([ExtResource("13_gdh82"), ExtResource("14_pm673")])
+
 [resource]
 script = ExtResource("1_kuwsa")
 EntityName = "CKM Model 30"
-AttributeSetsContainer = ExtResource("4_s2mge")
-Abilities = Array[Object]([SubResource("Resource_pe3mm"), ExtResource("2_vpmkm"), ExtResource("3_8qein"), ExtResource("14_ny16l")])
+AttributeSetsContainer = SubResource("Resource_amqch")
+Abilities = Array[Object]([SubResource("Resource_pe3mm"), ExtResource("2_vpmkm"), ExtResource("14_ny16l"), SubResource("Resource_py6dh")])
 Tags = ExtResource("6_hxxmj")
 Body = ExtResource("5_adl5i")

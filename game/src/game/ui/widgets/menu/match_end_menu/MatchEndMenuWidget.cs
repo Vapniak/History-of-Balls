@@ -17,7 +17,7 @@ public partial class MatchEndMenuWidget : HOBWidget, IWidgetFactory<MatchEndMenu
   public void OnGameEnd(IMatchController controller) {
     WinnerTextLabel.Text = "WINNER: " + controller.GetPlayerState().PlayerName;
     var time = TimeSpan.FromMilliseconds(controller.GetGameState().GameTimeMSec);
-    TimePlayedLabel.Text = $"TIME PLAYED: {time.Minutes:00}:{time.Seconds:00}";
+    TimePlayedLabel.Text = $"TIME PLAYED: {TimePlayedWidget.FormatTimeDynamic(time.TotalSeconds)}";
   }
 
   private void GoToMainMenu() {

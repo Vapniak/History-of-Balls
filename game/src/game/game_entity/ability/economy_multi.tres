@@ -1,0 +1,73 @@
+[gd_resource type="Resource" script_class="InitializeStatsAbility" load_steps=21 format=3 uid="uid://cquxajetigr6d"]
+
+[ext_resource type="Resource" uid="uid://8owi0mw7air3" path="res://res/data/attributes/produced_value.tres" id="1_fnq4t"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_bfcqc"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_6c0ot"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_ltgcd"]
+[ext_resource type="Resource" uid="uid://dqiisaqosnve4" path="res://res/data/attributes/processed_value.tres" id="5_rg4ac"]
+[ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://res/data/attributes/income.tres" id="6_0hqrm"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="6_v7g0j"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="7_vipaw"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="8_3nb1u"]
+
+[sub_resource type="Resource" id="Resource_ivw3t"]
+script = ExtResource("2_bfcqc")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_cqvg2"]
+script = ExtResource("3_6c0ot")
+ModifierType = 1
+ModifierMagnitude = SubResource("Resource_ivw3t")
+
+[sub_resource type="Resource" id="Resource_m8l1q"]
+script = ExtResource("4_ltgcd")
+Attribute = ExtResource("1_fnq4t")
+Modifiers = [SubResource("Resource_cqvg2")]
+
+[sub_resource type="Resource" id="Resource_5hxud"]
+script = ExtResource("2_bfcqc")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_230i6"]
+script = ExtResource("3_6c0ot")
+ModifierType = 1
+ModifierMagnitude = SubResource("Resource_5hxud")
+
+[sub_resource type="Resource" id="Resource_bv5si"]
+script = ExtResource("4_ltgcd")
+Attribute = ExtResource("5_rg4ac")
+Modifiers = [SubResource("Resource_230i6")]
+
+[sub_resource type="Resource" id="Resource_2hlo2"]
+script = ExtResource("2_bfcqc")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_ur031"]
+script = ExtResource("3_6c0ot")
+ModifierType = 1
+ModifierMagnitude = SubResource("Resource_2hlo2")
+
+[sub_resource type="Resource" id="Resource_1mj1l"]
+script = ExtResource("4_ltgcd")
+Attribute = ExtResource("6_0hqrm")
+Modifiers = [SubResource("Resource_ur031")]
+
+[sub_resource type="Resource" id="Resource_hdv3s"]
+script = ExtResource("6_v7g0j")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_m8l1q"), SubResource("Resource_bv5si"), SubResource("Resource_1mj1l")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_dpbgl"]
+script = ExtResource("7_vipaw")
+EffectDefinition = SubResource("Resource_hdv3s")
+
+[resource]
+script = ExtResource("8_3nb1u")
+InitializeStatsEffects = SubResource("Resource_dpbgl")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null

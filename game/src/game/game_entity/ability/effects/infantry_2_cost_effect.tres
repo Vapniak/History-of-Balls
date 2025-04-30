@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="GameplayEffectResource" load_steps=11 format=3 uid="uid://b8jmfywt3xy1x"]
+
+[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://res/data/attributes/primary_resource.tres" id="1_lk20h"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_1t8gq"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_8osnp"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_fbpc2"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="5_b8qoo"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="6_mjnd1"]
+
+[sub_resource type="Resource" id="Resource_igq4m"]
+script = ExtResource("2_1t8gq")
+Magnitude = -8.0
+
+[sub_resource type="Resource" id="Resource_mi0n6"]
+script = ExtResource("3_8osnp")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_igq4m")
+
+[sub_resource type="Resource" id="Resource_ac4ux"]
+script = ExtResource("4_fbpc2")
+Attribute = ExtResource("1_lk20h")
+Modifiers = [SubResource("Resource_mi0n6")]
+
+[sub_resource type="Resource" id="Resource_7sptr"]
+script = ExtResource("5_b8qoo")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_ac4ux")])
+DurationMultiplier = 0.0
+
+[resource]
+script = ExtResource("6_mjnd1")
+EffectDefinition = SubResource("Resource_7sptr")

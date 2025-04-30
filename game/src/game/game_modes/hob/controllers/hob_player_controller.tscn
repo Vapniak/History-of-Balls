@@ -11,9 +11,6 @@
 [node name="HOBPlayerController" type="Node3D" node_paths=PackedStringArray("StateChartNode")]
 script = ExtResource("1_cr46l")
 StateChartNode = NodePath("StateChart")
-MoveColor = Color(0.303481, 0.768475, 0.408162, 1)
-AttackColor = Color(1, 0.473003, 0.450878, 1)
-SelectionColor = Color(1, 1, 1, 1)
 
 [node name="StateChart" type="Node" parent="."]
 script = ExtResource("2_60ve5")

@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=54 format=3 uid="uid://c1nfphhwjy6v2"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=47 format=3 uid="uid://c1nfphhwjy6v2"]
 
 [ext_resource type="Script" path="res://src/game/game_modes/hob/control/ControlGameModeConfig.cs" id="1_ex2mu"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_wkre3"]
@@ -22,14 +22,11 @@
 [ext_resource type="Resource" uid="uid://cqvp1g0kf7acg" path="res://src/game/game_entity/entity/structures/city/poland/poland_city_data.tres" id="15_sax3u"]
 [ext_resource type="Resource" uid="uid://b4c1qimoax8lt" path="res://src/game/game_entity/entity/structures/factory/poland/poland_factory.tres" id="16_fhidn"]
 [ext_resource type="Resource" uid="uid://c5m55srxuo4oc" path="res://src/game/game_entity/entity/structures/village/poland/poland_village_data.tres" id="17_g8rwo"]
-[ext_resource type="Resource" uid="uid://hbji56iodutd" path="res://src/game/game_entity/entity/structures/factory/neutral/neutral_factory_data.tres" id="18_7fx3j"]
-[ext_resource type="Resource" uid="uid://b17bmrdycgkbc" path="res://src/game/game_entity/entity/structures/village/neutral/netural_village_data.tres" id="19_kr47c"]
 [ext_resource type="Resource" uid="uid://b1iormtddabtt" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_data.tres" id="21_u7h2g"]
 [ext_resource type="Resource" uid="uid://bk7t7q772f2c3" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_data.tres" id="22_5k78r"]
 [ext_resource type="Resource" uid="uid://3tjr86r46xhp" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30_data.tres" id="23_lxnx8"]
 [ext_resource type="Resource" uid="uid://b6wvm1hiukvor" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_production_data.tres" id="24_e5xtg"]
 [ext_resource type="Resource" uid="uid://csk1y5ishfkot" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_production_data.tres" id="25_xyaho"]
-[ext_resource type="Resource" uid="uid://hrhxakr2fcmr" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30_production_data.tres" id="26_hwe6x"]
 
 [sub_resource type="Resource" id="Resource_hjtfb"]
 script = ExtResource("1_ex2mu")
@@ -42,25 +39,10 @@ Entities = [ExtResource("8_yk0ji"), ExtResource("11_1onfu"), ExtResource("10_vyi
 script = ExtResource("7_f3700")
 ProducableEntities = [ExtResource("13_1s2o2"), ExtResource("14_xlsmi"), ExtResource("15_5xeta")]
 
-[sub_resource type="Resource" id="Resource_6etmh"]
-script = ExtResource("9_dxpyx")
-EntityData = ExtResource("8_yk0ji")
-SpawnAt = Array[Vector2i]([Vector2i(39, 29)])
-
-[sub_resource type="Resource" id="Resource_lj5cr"]
-script = ExtResource("9_dxpyx")
-EntityData = ExtResource("10_vyi70")
-SpawnAt = null
-
-[sub_resource type="Resource" id="Resource_8relt"]
-script = ExtResource("9_dxpyx")
-EntityData = ExtResource("11_1onfu")
-SpawnAt = null
-
 [sub_resource type="Resource" id="Resource_rmdru"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("10_jwg2v")
-SpawnAt = Array[Vector2i]([Vector2i(35, 29), Vector2i(36, 27), Vector2i(37, 28), Vector2i(38, 26)])
+SpawnAt = Array[Vector2i]([Vector2i(31, 27), Vector2i(34, 24), Vector2i(35, 23), Vector2i(36, 22)])
 
 [sub_resource type="Resource" id="Resource_wh1at"]
 script = ExtResource("9_dxpyx")
@@ -72,12 +54,22 @@ script = ExtResource("9_dxpyx")
 EntityData = ExtResource("9_k66yu")
 SpawnAt = Array[Vector2i]([Vector2i(33, 29), Vector2i(32, 28), Vector2i(34, 28), Vector2i(34, 26), Vector2i(36, 26), Vector2i(36, 25), Vector2i(38, 24), Vector2i(39, 24)])
 
+[sub_resource type="Resource" id="Resource_g5unb"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("11_1onfu")
+SpawnAt = Array[Vector2i]([Vector2i(38, 27)])
+
+[sub_resource type="Resource" id="Resource_w0pqr"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("10_vyi70")
+SpawnAt = Array[Vector2i]([Vector2i(36, 29)])
+
 [sub_resource type="Resource" id="Resource_hj76v"]
 script = ExtResource("5_y5p4v")
 PlayerType = 0
 Country = ExtResource("5_3mvhv")
 ProducableEntities = SubResource("Resource_qp0ed")
-SpawnedEntities = [SubResource("Resource_6etmh"), SubResource("Resource_lj5cr"), SubResource("Resource_8relt"), SubResource("Resource_rmdru"), SubResource("Resource_wh1at"), SubResource("Resource_n4p4t")]
+SpawnedEntities = [SubResource("Resource_rmdru"), SubResource("Resource_wh1at"), SubResource("Resource_n4p4t"), SubResource("Resource_g5unb"), SubResource("Resource_w0pqr")]
 OwnedEntities = SubResource("Resource_fcolf")
 
 [sub_resource type="Resource" id="Resource_rwho4"]
@@ -92,12 +84,12 @@ Entities = [ExtResource("15_sax3u"), ExtResource("16_fhidn"), ExtResource("17_g8
 
 [sub_resource type="Resource" id="Resource_17i7y"]
 script = ExtResource("7_f3700")
-ProducableEntities = [ExtResource("24_e5xtg"), ExtResource("25_xyaho"), ExtResource("26_hwe6x")]
+ProducableEntities = [ExtResource("24_e5xtg"), ExtResource("25_xyaho")]
 
 [sub_resource type="Resource" id="Resource_v1ir4"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("15_sax3u")
-SpawnAt = Array[Vector2i]([Vector2i(23, 19), Vector2i(12, 11)])
+SpawnAt = Array[Vector2i]([Vector2i(12, 11)])
 
 [sub_resource type="Resource" id="Resource_lhsvf"]
 script = ExtResource("9_dxpyx")
@@ -133,21 +125,6 @@ ProducableEntities = SubResource("Resource_17i7y")
 SpawnedEntities = [SubResource("Resource_v1ir4"), SubResource("Resource_lhsvf"), SubResource("Resource_s6ele"), SubResource("Resource_d886p"), SubResource("Resource_vqte2"), SubResource("Resource_fml8g")]
 OwnedEntities = SubResource("Resource_7f8du")
 
-[sub_resource type="Resource" id="Resource_npkk0"]
-script = ExtResource("9_dxpyx")
-EntityData = ExtResource("18_7fx3j")
-SpawnAt = Array[Vector2i]([Vector2i(32, 25), Vector2i(31, 22), Vector2i(33, 22)])
-
-[sub_resource type="Resource" id="Resource_m4hfu"]
-script = ExtResource("9_dxpyx")
-EntityData = ExtResource("19_kr47c")
-SpawnAt = Array[Vector2i]([Vector2i(30, 26), Vector2i(35, 22), Vector2i(33, 19)])
-
-[sub_resource type="Resource" id="Resource_213cf"]
-script = ExtResource("5_y5p4v")
-PlayerType = 2
-SpawnedEntities = Array[Object]([SubResource("Resource_npkk0"), SubResource("Resource_m4hfu")])
-
 [resource]
 script = ExtResource("1_wkre3")
 MissionName = "Defense of Westerplatte "
@@ -156,5 +133,5 @@ ObjectivesText = ""
 MusicTrackName = "ii_world_war"
 Locked = false
 Map = ExtResource("2_8a50m")
-PlayerSpawnDatas = [SubResource("Resource_hj76v"), SubResource("Resource_qnbri"), SubResource("Resource_213cf")]
+PlayerSpawnDatas = [SubResource("Resource_hj76v"), SubResource("Resource_qnbri")]
 GameModeConfig = SubResource("Resource_hjtfb")

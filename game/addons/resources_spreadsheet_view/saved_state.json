@@ -33,7 +33,29 @@
         "visibility": 0
       }
     },
+    "::SpawnedEntities/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
     "res://": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://res/data/missions/": {
       "metadata/_custom_type_script": {
         "visibility": 0
       },
@@ -647,7 +669,9 @@
     "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects/",
     "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects::EffectDefinition/",
     "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/",
-    "res://src/game/game_entity/entity/units/"
+    "res://src/game/game_entity/entity/units/",
+    "res://res/data/missions/",
+    "::SpawnedEntities/"
   ],
   "table_functions": {
     "filter": [

@@ -23,6 +23,7 @@ ambient_light_source = 3
 tonemap_mode = 2
 tonemap_exposure = 0.51
 tonemap_white = 3.33
+ssr_enabled = true
 glow_normalized = true
 glow_intensity = 1.0
 glow_strength = 0.33

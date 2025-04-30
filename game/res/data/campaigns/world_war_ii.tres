@@ -11,6 +11,7 @@ script = ExtResource("3_a6ynl")
 MissionName = "Defense of Warsaw "
 Description = ""
 ObjectivesText = ""
+MusicTrackName = ""
 Locked = true
 PlayerSpawnDatas = []
 
@@ -19,6 +20,7 @@ script = ExtResource("3_a6ynl")
 MissionName = "Siege of Moscow "
 Description = ""
 ObjectivesText = ""
+MusicTrackName = ""
 Locked = true
 PlayerSpawnDatas = []
 
@@ -27,6 +29,7 @@ script = ExtResource("3_a6ynl")
 MissionName = "Sicilian Landing"
 Description = ""
 ObjectivesText = ""
+MusicTrackName = ""
 Locked = true
 PlayerSpawnDatas = []
 
@@ -35,6 +38,7 @@ script = ExtResource("3_a6ynl")
 MissionName = "Normandy Landing"
 Description = ""
 ObjectivesText = ""
+MusicTrackName = ""
 Locked = true
 PlayerSpawnDatas = []
 
@@ -59,5 +63,4 @@ Number = "II"
 Name = "World War II"
 Traits = [SubResource("Resource_wr2kq"), SubResource("Resource_arwr6"), SubResource("Resource_8cbi7")]
 Missions = Array[Object]([ExtResource("2_v4yww"), SubResource("Resource_treuk"), SubResource("Resource_od0bk"), SubResource("Resource_g2nrv"), SubResource("Resource_pudsn")])
-Locked = false
 Image = ExtResource("1_bk06b")

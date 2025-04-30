@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="GameplayEffectResource" load_steps=11 format=3 uid="uid://cclfbrvulh2cm"]
+
+[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://res/data/attributes/primary_resource.tres" id="1_xqpqv"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_5dv4s"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_xixv0"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_rsa5v"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="5_5p1gs"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="6_oecdt"]
+
+[sub_resource type="Resource" id="Resource_npg70"]
+script = ExtResource("2_5dv4s")
+Magnitude = -8.0
+
+[sub_resource type="Resource" id="Resource_xwibk"]
+script = ExtResource("3_xixv0")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_npg70")
+
+[sub_resource type="Resource" id="Resource_66vpj"]
+script = ExtResource("4_rsa5v")
+Attribute = ExtResource("1_xqpqv")
+Modifiers = [SubResource("Resource_xwibk")]
+
+[sub_resource type="Resource" id="Resource_wib1n"]
+script = ExtResource("5_5p1gs")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_66vpj")])
+DurationMultiplier = 0.0
+
+[resource]
+script = ExtResource("6_oecdt")
+EffectDefinition = SubResource("Resource_wib1n")
