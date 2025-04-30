@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_avcmj"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="12_d8nvk"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="13_5snj2"]
-[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game/game_entity/ability/attack/throw/throw_attack_ability.tres" id="14_ckbgo"]
+[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game/game_entity/ability/attack/range/range_attack_ability.tres" id="14_ckbgo"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_ro6k4"]
 [ext_resource type="PackedScene" uid="uid://dv33chs1kmb5g" path="res://src/game/game_entity/entity/units/ranged/persian_archer/persian_archer_body.tscn" id="16_034c4"]
 [ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="17_6ude6"]

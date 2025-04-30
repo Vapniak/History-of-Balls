@@ -1,0 +1,57 @@
+[gd_scene load_steps=10 format=3 uid="uid://bx1qtx26x1m0q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hbdv5"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.757009, 0.75701, 0, 1)
+billboard_keep_scale = true
+
+[sub_resource type="Gradient" id="Gradient_0ro2j"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4ipqg"]
+gradient = SubResource("Gradient_0ro2j")
+
+[sub_resource type="Curve" id="Curve_r3wkk"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.810742, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0h0ki"]
+curve = SubResource("Curve_r3wkk")
+
+[sub_resource type="Curve" id="Curve_d8wjo"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.746803, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_h0hcg"]
+curve = SubResource("Curve_d8wjo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_o64ou"]
+lifetime_randomness = 0.8
+particle_flag_align_y = true
+direction = Vector3(0, 0, -1)
+spread = 26.739
+initial_velocity_min = 5.29
+initial_velocity_max = 21.16
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_h0hcg")
+color_ramp = SubResource("GradientTexture1D_4ipqg")
+emission_curve = SubResource("CurveTexture_0h0ki")
+
+[sub_resource type="BoxMesh" id="BoxMesh_sl4mx"]
+size = Vector3(-0.019, 0.188, 0.034)
+
+[node name="MuzzleFlash" type="Node3D"]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+material_override = SubResource("StandardMaterial3D_hbdv5")
+emitting = false
+amount = 32
+lifetime = 0.1
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_o64ou")
+draw_pass_1 = SubResource("BoxMesh_sl4mx")

@@ -165,6 +165,7 @@ Your task, as Leonidas, is to hold the pass as long as possible. The enemy has o
 \"The Persians come like a storm, but you are the unbreakable rock. Let your shield be your wall, your spear your wrath, and your defiance their doom. History will remember this day—will you make it legend?\""
 ObjectivesText = "Hold your position for 20 rounds ⚔️
 Repel waves of the Persian army  🔥 "
+MusicTrackName = "medival"
 Locked = false
 Map = ExtResource("1_gk1xd")
 PlayerSpawnDatas = [SubResource("Resource_r28ec"), SubResource("Resource_tjfg2"), SubResource("Resource_hejso")]

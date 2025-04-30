@@ -9,6 +9,7 @@ public partial class MissionData : Resource {
   [Export] public string MissionName { get; private set; } = "";
   [Export(PropertyHint.MultilineText)] public string Description { get; private set; } = "";
   [Export(PropertyHint.MultilineText)] public string ObjectivesText { get; private set; } = "";
+  [Export] public string MusicTrackName { get; private set; } = "";
 
   [Export] public bool Locked { get; private set; } = true;
   [Export] public MapData Map { get; private set; } = default!;

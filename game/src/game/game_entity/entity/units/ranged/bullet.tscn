@@ -1,0 +1,72 @@
+[gd_scene load_steps=14 format=3 uid="uid://sklmlufkihmq"]
+
+[ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="1_553nh"]
+[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail.gdshader" id="2_rquiv"]
+[ext_resource type="Shader" path="res://addons/GPUTrail/shaders/trail_draw_pass.gdshader" id="3_i0jvg"]
+[ext_resource type="Script" path="res://addons/GPUTrail/GPUTrail3D.gd" id="4_ucu36"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_83a7l"]
+render_priority = 0
+shader = ExtResource("1_553nh")
+shader_parameter/metallic = 0.899
+shader_parameter/roughness = 0.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0l8rt"]
+height = 1.457
+is_hemisphere = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_du1ab"]
+shader = ExtResource("2_rquiv")
+
+[sub_resource type="Gradient" id="Gradient_34uik"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_le7ie"]
+gradient = SubResource("Gradient_34uik")
+
+[sub_resource type="Curve" id="Curve_2d7xn"]
+bake_resolution = 16
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_n1tv5"]
+curve = SubResource("Curve_2d7xn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3bvh2"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_i0jvg")
+shader_parameter/uv_offset = Vector2(0, 0)
+shader_parameter/emmission_transform = Projection(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1)
+shader_parameter/flags = 40
+shader_parameter/color_ramp = SubResource("GradientTexture1D_le7ie")
+shader_parameter/curve = SubResource("CurveTexture_n1tv5")
+
+[sub_resource type="QuadMesh" id="QuadMesh_k11vm"]
+material = SubResource("ShaderMaterial_3bvh2")
+
+[node name="Bullet" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, -4.37114e-09, 0.1, 0, -0.1, -4.37114e-09, 0, 0, 0.0601465)
+material_override = SubResource("ShaderMaterial_83a7l")
+mesh = SubResource("SphereMesh_0l8rt")
+
+[node name="GPUTrail3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+amount = 100
+lifetime = 100.0
+explosiveness = 1.0
+fixed_fps = 165
+process_material = SubResource("ShaderMaterial_du1ab")
+draw_pass_1 = SubResource("QuadMesh_k11vm")
+script = ExtResource("4_ucu36")
+length_seconds = 0.606061
+color_ramp = SubResource("GradientTexture1D_le7ie")
+curve = SubResource("CurveTexture_n1tv5")
+_defaults_have_been_set = true

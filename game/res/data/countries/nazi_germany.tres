@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="Country" load_steps=6 format=3 uid="uid://c67l2q4ibmr7m"]
+
+[ext_resource type="Texture2D" uid="uid://d0w3y8radmgrv" path="res://assets/textures/HoB-renders/HoB-nazi-germany.png" id="1_aiwry"]
+[ext_resource type="Texture2D" uid="uid://dghyjw145krjg" path="res://assets/textures/flags/Nazi-Germany.png" id="2_58625"]
+[ext_resource type="Resource" uid="uid://jnj6cdambqkn" path="res://res/data/resource_types/beer.tres" id="3_qh5bt"]
+[ext_resource type="Resource" uid="uid://c1bkecgwivq8r" path="res://res/data/resource_types/barley.tres" id="4_xbj7l"]
+[ext_resource type="Script" path="res://src/core/country/Country.cs" id="5_154df"]
+
+[resource]
+script = ExtResource("5_154df")
+Name = "Nazi Germany"
+Color = Color(1, 0, 0, 1)
+Flag = ExtResource("2_58625")
+CountryBallRender = ExtResource("1_aiwry")
+PrimaryResource = ExtResource("3_qh5bt")
+SecondaryResource = ExtResource("4_xbj7l")

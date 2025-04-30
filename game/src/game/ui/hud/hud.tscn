@@ -23,7 +23,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ef3ti"]
 shader = ExtResource("11_8agjb")
 shader_parameter/alpha = 0.655
-shader_parameter/inner_radius = 0.475
+shader_parameter/inner_radius = 0.59
 shader_parameter/outer_radius = 2.005
 shader_parameter/color = Color(0, 0, 0, 1)
 

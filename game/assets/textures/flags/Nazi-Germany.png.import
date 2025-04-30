@@ -3,20 +3,19 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dghyjw145krjg"
-path.s3tc="res://.godot/imported/Nazi-Germany.png-08f9ab40e44346131555af7f380d1aa3.s3tc.ctex"
+path="res://.godot/imported/Nazi-Germany.png-08f9ab40e44346131555af7f380d1aa3.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
 
 source_file="res://assets/textures/flags/Nazi-Germany.png"
-dest_files=["res://.godot/imported/Nazi-Germany.png-08f9ab40e44346131555af7f380d1aa3.s3tc.ctex"]
+dest_files=["res://.godot/imported/Nazi-Germany.png-08f9ab40e44346131555af7f380d1aa3.ctex"]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1

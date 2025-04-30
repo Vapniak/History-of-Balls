@@ -101,7 +101,7 @@ public partial class HOBGameMode : GameMode {
 
   protected virtual void OnInMatchStateEntered() {
     MatchComponent.OnGameStarted();
-    MusicManager.Instance.Play("music", "medival", autoLoop: true);
+    MusicManager.Instance.Play("music", MissionData.MusicTrackName, autoLoop: true);
   }
 
   protected virtual void OnInMatchStateExited() {

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 [GlobalClass]
 public abstract partial class AttackAbility : HOBAbility {
@@ -23,7 +24,20 @@ public abstract partial class AttackAbility : HOBAbility {
     public override void ActivateAbility(GameplayEventData? eventData) {
       base.ActivateAbility(eventData);
 
-      AddBlockTurn();
+      if (eventData?.TargetData is AttackTargetData attackTargetData && CommitCooldown()) {
+        var effect = (AbilityResource as AttackAbility)?.BlockMovementEffect;
+        if (effect != null) {
+          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
+          OwnerAbilitySystem.ApplyGameplayEffectToSelf(ge);
+        }
+
+        _ = Attack(attackTargetData);
+
+        AddBlockTurn();
+        return;
+      }
+
+      EndAbility(true);
     }
 
     public override void EndAbility(bool wasCanceled = false) {
@@ -64,6 +78,7 @@ public abstract partial class AttackAbility : HOBAbility {
     public virtual bool IsCellVisible(GameCell from, GameCell to) => true;
 
     public virtual bool CanBeAttacked(Entity entity) {
+      //return true;
       return entity.TryGetOwner(out var enemyOwner) && OwnerEntity.TryGetOwner(out var owner) && enemyOwner != owner && entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit));
     }
 
@@ -75,6 +90,10 @@ public abstract partial class AttackAbility : HOBAbility {
         Debug.Assert(false, "Entity doesnt have attack attribute set");
         return 0;
       }
+    }
+
+    protected virtual async Task Attack(AttackTargetData targetData) {
+
     }
   }
 }

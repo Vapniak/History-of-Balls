@@ -1,15 +1,93 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://bk7t7q772f2c3"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://bk7t7q772f2c3"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_7ywlg"]
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_gtwc2"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_pnwrb"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="1_r3grm"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="2_fytqx"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_o28yo"]
 [ext_resource type="PackedScene" uid="uid://gpn3s2w4tyl1" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_solider.tscn" id="2_tflif"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="3_aqvlg"]
 [ext_resource type="Resource" uid="uid://c36at6bgy0ijj" path="res://src/game/game_entity/entity/units/infantry/infantry_tags.tres" id="3_ki8bf"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_mlri1"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_8fjrp"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_la37f"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_e1lmi"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="7_7key3"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="8_34yfs"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_hp2w2"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_incvi"]
+[ext_resource type="Resource" uid="uid://i2kbndgd1vjx" path="res://src/game/game_entity/ability/attack/range/shoot_attack_ability.tres" id="14_2hhxw"]
+
+[sub_resource type="Resource" id="Resource_knmly"]
+script = ExtResource("2_o28yo")
+Magnitude = 25.0
+
+[sub_resource type="Resource" id="Resource_n13pm"]
+script = ExtResource("3_mlri1")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_knmly")
+
+[sub_resource type="Resource" id="Resource_y5s4b"]
+script = ExtResource("4_8fjrp")
+Attribute = ExtResource("1_gtwc2")
+Modifiers = [SubResource("Resource_n13pm")]
+
+[sub_resource type="Resource" id="Resource_7250b"]
+script = ExtResource("2_o28yo")
+Magnitude = 7.0
+
+[sub_resource type="Resource" id="Resource_hshxg"]
+script = ExtResource("3_mlri1")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_7250b")
+
+[sub_resource type="Resource" id="Resource_7nmpv"]
+script = ExtResource("4_8fjrp")
+Attribute = ExtResource("6_e1lmi")
+Modifiers = [SubResource("Resource_hshxg")]
+
+[sub_resource type="Resource" id="Resource_fpepb"]
+script = ExtResource("2_o28yo")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_k2wcf"]
+script = ExtResource("3_mlri1")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_fpepb")
+
+[sub_resource type="Resource" id="Resource_naoug"]
+script = ExtResource("4_8fjrp")
+Attribute = ExtResource("7_7key3")
+Modifiers = [SubResource("Resource_k2wcf")]
+
+[sub_resource type="Resource" id="Resource_xfoha"]
+script = ExtResource("2_o28yo")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_8kef7"]
+script = ExtResource("3_mlri1")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_xfoha")
+
+[sub_resource type="Resource" id="Resource_hmthq"]
+script = ExtResource("4_8fjrp")
+Attribute = ExtResource("8_34yfs")
+Modifiers = [SubResource("Resource_8kef7")]
+
+[sub_resource type="Resource" id="Resource_t0s2t"]
+script = ExtResource("9_hp2w2")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_y5s4b"), ExtResource("5_la37f"), SubResource("Resource_7nmpv"), SubResource("Resource_naoug"), SubResource("Resource_hmthq")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_ghj0h"]
+script = ExtResource("10_incvi")
+EffectDefinition = SubResource("Resource_t0s2t")
 
 [sub_resource type="Resource" id="Resource_vsj7e"]
 script = ExtResource("1_7ywlg")
+InitializeStatsEffects = SubResource("Resource_ghj0h")
 ShowInUI = true
 UIOrder = 0
 AbilityName = "Ability"
@@ -21,6 +99,6 @@ AbilityTriggers = null
 script = ExtResource("1_pnwrb")
 EntityName = "WP Infantry Soldier"
 AttributeSetsContainer = ExtResource("1_r3grm")
-Abilities = Array[Object]([SubResource("Resource_vsj7e"), ExtResource("2_fytqx"), ExtResource("3_aqvlg")])
+Abilities = Array[Object]([SubResource("Resource_vsj7e"), ExtResource("2_fytqx"), ExtResource("3_aqvlg"), ExtResource("14_2hhxw")])
 Tags = ExtResource("3_ki8bf")
 Body = ExtResource("2_tflif")

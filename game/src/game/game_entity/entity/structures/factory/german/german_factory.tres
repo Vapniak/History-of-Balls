@@ -20,7 +20,7 @@ AbilityTriggers = null
 
 [resource]
 script = ExtResource("1_uupqr")
-EntityName = "German Factory"
+EntityName = "Workers Housing"
 AttributeSetsContainer = ExtResource("3_8c432")
 Abilities = Array[Object]([SubResource("Resource_lyxpo"), ExtResource("3_0gywc")])
 Tags = ExtResource("5_5h5n7")

@@ -41,17 +41,17 @@ PlayerSpawnDatas = []
 [sub_resource type="Resource" id="Resource_wr2kq"]
 script = ExtResource("1_rppxt")
 Name = "Humor"
-Percent = 20.0
+Percent = 40.0
 
 [sub_resource type="Resource" id="Resource_arwr6"]
 script = ExtResource("1_rppxt")
 Name = "Tactics"
-Percent = 30.0
+Percent = 40.0
 
 [sub_resource type="Resource" id="Resource_8cbi7"]
 script = ExtResource("1_rppxt")
 Name = "Action"
-Percent = 50.0
+Percent = 20.0
 
 [resource]
 script = ExtResource("1_vlvnr")

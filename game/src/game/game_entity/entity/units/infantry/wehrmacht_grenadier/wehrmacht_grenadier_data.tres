@@ -1,15 +1,93 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=9 format=3 uid="uid://dab1pl6ojk677"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://dab1pl6ojk677"]
 
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_7jlr2"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_b5myy"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="1_d5bii"]
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_tu230"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="2_ia4d5"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_iyf7v"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_g5ocb"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="3_h4rvi"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_1r1j3"]
 [ext_resource type="PackedScene" uid="uid://2i361hfv2kuw" path="res://src/game/game_entity/entity/units/infantry/wehrmacht_grenadier/wehrmacht_grenadier.tscn" id="5_0ktkv"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_8fkk5"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_g8jif"]
 [ext_resource type="Resource" uid="uid://c36at6bgy0ijj" path="res://src/game/game_entity/entity/units/infantry/infantry_tags.tres" id="6_npf0b"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="7_5qyoy"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="8_kjeav"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_f8b5a"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_3yo7t"]
+[ext_resource type="Resource" uid="uid://i2kbndgd1vjx" path="res://src/game/game_entity/ability/attack/range/shoot_attack_ability.tres" id="14_vgnla"]
+
+[sub_resource type="Resource" id="Resource_0ygxp"]
+script = ExtResource("2_iyf7v")
+Magnitude = 25.0
+
+[sub_resource type="Resource" id="Resource_wwr34"]
+script = ExtResource("3_g5ocb")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_0ygxp")
+
+[sub_resource type="Resource" id="Resource_wle17"]
+script = ExtResource("4_1r1j3")
+Attribute = ExtResource("1_7jlr2")
+Modifiers = [SubResource("Resource_wwr34")]
+
+[sub_resource type="Resource" id="Resource_g4rrr"]
+script = ExtResource("2_iyf7v")
+Magnitude = 8.0
+
+[sub_resource type="Resource" id="Resource_urq25"]
+script = ExtResource("3_g5ocb")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_g4rrr")
+
+[sub_resource type="Resource" id="Resource_jqbrw"]
+script = ExtResource("4_1r1j3")
+Attribute = ExtResource("6_g8jif")
+Modifiers = [SubResource("Resource_urq25")]
+
+[sub_resource type="Resource" id="Resource_ttvh3"]
+script = ExtResource("2_iyf7v")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_dinu6"]
+script = ExtResource("3_g5ocb")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_ttvh3")
+
+[sub_resource type="Resource" id="Resource_kbyyg"]
+script = ExtResource("4_1r1j3")
+Attribute = ExtResource("7_5qyoy")
+Modifiers = [SubResource("Resource_dinu6")]
+
+[sub_resource type="Resource" id="Resource_wwk1e"]
+script = ExtResource("2_iyf7v")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_80lqp"]
+script = ExtResource("3_g5ocb")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_wwk1e")
+
+[sub_resource type="Resource" id="Resource_wpaum"]
+script = ExtResource("4_1r1j3")
+Attribute = ExtResource("8_kjeav")
+Modifiers = [SubResource("Resource_80lqp")]
+
+[sub_resource type="Resource" id="Resource_s4nl0"]
+script = ExtResource("9_f8b5a")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_wle17"), ExtResource("5_8fkk5"), SubResource("Resource_jqbrw"), SubResource("Resource_kbyyg"), SubResource("Resource_wpaum")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_u3rek"]
+script = ExtResource("10_3yo7t")
+EffectDefinition = SubResource("Resource_s4nl0")
 
 [sub_resource type="Resource" id="Resource_ivnmd"]
 script = ExtResource("1_tu230")
+InitializeStatsEffects = SubResource("Resource_u3rek")
 ShowInUI = true
 UIOrder = 0
 AbilityName = "Ability"
@@ -21,6 +99,6 @@ AbilityTriggers = null
 script = ExtResource("1_b5myy")
 EntityName = "Wehrmacht Grenadier"
 AttributeSetsContainer = ExtResource("1_d5bii")
-Abilities = Array[Object]([SubResource("Resource_ivnmd"), ExtResource("2_ia4d5"), ExtResource("3_h4rvi")])
+Abilities = Array[Object]([SubResource("Resource_ivnmd"), ExtResource("2_ia4d5"), ExtResource("3_h4rvi"), ExtResource("14_vgnla")])
 Tags = ExtResource("6_npf0b")
 Body = ExtResource("5_0ktkv")

@@ -9,7 +9,7 @@
 
 [resource]
 script = ExtResource("1_fvoav")
-EntityName = "German Village"
+EntityName = "Riverside Housing"
 AttributeSetsContainer = ExtResource("3_wr6x4")
 Abilities = Array[Object]([ExtResource("1_rvqr2"), ExtResource("2_fc8uj")])
 Tags = ExtResource("5_wxnco")

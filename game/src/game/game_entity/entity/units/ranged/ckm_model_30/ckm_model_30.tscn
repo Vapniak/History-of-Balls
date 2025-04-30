@@ -1,22 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://csr08kub6ohwa"]
+[gd_scene load_steps=8 format=3 uid="uid://csr08kub6ohwa"]
 
-[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_58a2y"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_05ubq"]
 [ext_resource type="PackedScene" uid="uid://js814k2u826w" path="res://src/game/game_entity/entity/units/country_balls/poland_ball.tscn" id="2_egu48"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_f576w"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ShootingAttribute.cs" id="4_n3ygl"]
 [ext_resource type="PackedScene" uid="uid://3bl43wn6gtk0" path="res://assets/models/objects/elements/poland/poland-Mg-Shield.fbx" id="4_tboaf"]
+[ext_resource type="PackedScene" uid="uid://sklmlufkihmq" path="res://src/game/game_entity/entity/units/ranged/bullet.tscn" id="5_7whbb"]
+[ext_resource type="PackedScene" uid="uid://bx1qtx26x1m0q" path="res://src/game/vfx/muzzle_flash/muzzle_flash.tscn" id="7_kohat"]
 
-[node name="CkmModel30" type="Node3D"]
+[node name="CkmModel30" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.195691, 0)
-script = ExtResource("1_58a2y")
+script = ExtResource("1_05ubq")
+UnitAttribute = NodePath("FollowParent3D/ShootingAttribute")
 
 [node name="PolandBall" parent="." instance=ExtResource("2_egu48")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.433126)
 
 [node name="FollowParent3D" type="Node3D" parent="."]
-transform = Transform3D(0.999997, 0, -1.02005e-18, 0, 1, 0, 1.02005e-18, 0, 0.999997, 0, -0.195691, 0)
+transform = Transform3D(0.999997, 0, 0, 0, 1, 0, 0, 0, 0.999997, 0, -0.195691, 0)
 top_level = true
 script = ExtResource("3_f576w")
 lerp_speed = 40.0
 
-[node name="poland-Mg-Shield" parent="FollowParent3D" instance=ExtResource("4_tboaf")]
+[node name="ShootingAttribute" type="Node3D" parent="FollowParent3D" node_paths=PackedStringArray("ShootPoint")]
+script = ExtResource("4_n3ygl")
+ShootPoint = NodePath("poland-Mg-Shield/Marker3D")
+Projectile = ExtResource("5_7whbb")
+
+[node name="poland-Mg-Shield" parent="FollowParent3D/ShootingAttribute" instance=ExtResource("4_tboaf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0372753, -0.748457)
+
+[node name="Marker3D" type="Marker3D" parent="FollowParent3D/ShootingAttribute/poland-Mg-Shield"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.757308, -0.810883)
+
+[node name="MuzzleFlash" parent="FollowParent3D/ShootingAttribute/poland-Mg-Shield/Marker3D" instance=ExtResource("7_kohat")]
+
+[connection signal="Acted" from="FollowParent3D/ShootingAttribute" to="FollowParent3D/ShootingAttribute/poland-Mg-Shield/Marker3D/MuzzleFlash/GPUParticles3D" method="set_emitting" binds= [true]]
+
+[editable path="FollowParent3D/ShootingAttribute/poland-Mg-Shield/Marker3D/MuzzleFlash"]

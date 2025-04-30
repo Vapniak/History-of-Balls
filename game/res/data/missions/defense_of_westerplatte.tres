@@ -1,11 +1,9 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=39 format=3 uid="uid://c1nfphhwjy6v2"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=54 format=3 uid="uid://c1nfphhwjy6v2"]
 
 [ext_resource type="Script" path="res://src/game/game_modes/hob/survive/SurviveGameModeConfig.cs" id="1_fdtap"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_wkre3"]
-[ext_resource type="JSON" path="res://res/data/maps/defense_of_westerplatte/ObronaWesterplatte.json" id="2_30g5h"]
-[ext_resource type="Resource" uid="uid://den26mhc6fsde" path="res://res/data/maps/default_map_settings.tres" id="3_4jy82"]
-[ext_resource type="Script" path="res://src/core/map/MapData.cs" id="4_yxefq"]
-[ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/germany.tres" id="5_3dm5c"]
+[ext_resource type="Resource" uid="uid://clhp4sujy27yq" path="res://res/data/maps/defense_of_westerplatte/westerplatte.tres" id="2_8a50m"]
+[ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/nazi_germany.tres" id="5_3mvhv"]
 [ext_resource type="Resource" uid="uid://cuv1436xdiogj" path="res://res/data/countries/poland.tres" id="5_ciusv"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MatchPlayerSpawnData.cs" id="5_y5p4v"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="6_10d1s"]
@@ -13,34 +11,37 @@
 [ext_resource type="Resource" uid="uid://bcnj2opvvtf0l" path="res://src/game/game_entity/entity/structures/city/german/german_city_data.tres" id="8_yk0ji"]
 [ext_resource type="Script" path="res://src/game/game_modes/hob/controllers/ai/AIProfile.cs" id="9_d0q2t"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/EntitySpawnData.cs" id="9_dxpyx"]
+[ext_resource type="Resource" uid="uid://dab1pl6ojk677" path="res://src/game/game_entity/entity/units/infantry/wehrmacht_grenadier/wehrmacht_grenadier_data.tres" id="9_k66yu"]
+[ext_resource type="Resource" uid="uid://dseiexrmboams" path="res://src/game/game_entity/entity/units/cavalry/bmw_r75_motorcycle/bmw_r75_motorcycle.tres" id="10_jwg2v"]
 [ext_resource type="Resource" uid="uid://cgempirhlo2vh" path="res://src/game/game_entity/entity/structures/factory/german/german_factory.tres" id="10_vyi70"]
 [ext_resource type="Resource" uid="uid://bibqlif20lqwa" path="res://src/game/game_entity/entity/structures/village/german_village/german_village_data.tres" id="11_1onfu"]
+[ext_resource type="Resource" uid="uid://de0x5rlm6ybya" path="res://src/game/game_entity/entity/units/ranged/mg_34/mg_34_data.tres" id="11_pgrml"]
+[ext_resource type="Resource" uid="uid://6fd8ofp8jyan" path="res://src/game/game_entity/entity/units/cavalry/bmw_r75_motorcycle/bmw_r75_motorcycle_production_data.tres" id="13_1s2o2"]
+[ext_resource type="Resource" uid="uid://cxd1ao3q8wfyn" path="res://src/game/game_entity/entity/units/ranged/mg_34/mg_34_production_config.tres" id="14_xlsmi"]
+[ext_resource type="Resource" uid="uid://j06xhpqthnoq" path="res://src/game/game_entity/entity/units/infantry/wehrmacht_grenadier/wehrmacht_grenadier_production_data.tres" id="15_5xeta"]
 [ext_resource type="Resource" uid="uid://cqvp1g0kf7acg" path="res://src/game/game_entity/entity/structures/city/poland/poland_city_data.tres" id="15_sax3u"]
 [ext_resource type="Resource" uid="uid://b4c1qimoax8lt" path="res://src/game/game_entity/entity/structures/factory/poland/poland_factory.tres" id="16_fhidn"]
 [ext_resource type="Resource" uid="uid://c5m55srxuo4oc" path="res://src/game/game_entity/entity/structures/village/poland/poland_village_data.tres" id="17_g8rwo"]
 [ext_resource type="Resource" uid="uid://hbji56iodutd" path="res://src/game/game_entity/entity/structures/factory/neutral/neutral_factory_data.tres" id="18_7fx3j"]
 [ext_resource type="Resource" uid="uid://b17bmrdycgkbc" path="res://src/game/game_entity/entity/structures/village/neutral/netural_village_data.tres" id="19_kr47c"]
+[ext_resource type="Resource" uid="uid://b1iormtddabtt" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_data.tres" id="21_u7h2g"]
+[ext_resource type="Resource" uid="uid://bk7t7q772f2c3" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_data.tres" id="22_5k78r"]
+[ext_resource type="Resource" uid="uid://3tjr86r46xhp" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30_data.tres" id="23_lxnx8"]
+[ext_resource type="Resource" uid="uid://b6wvm1hiukvor" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_production_data.tres" id="24_e5xtg"]
+[ext_resource type="Resource" uid="uid://csk1y5ishfkot" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_production_data.tres" id="25_xyaho"]
+[ext_resource type="Resource" uid="uid://hrhxakr2fcmr" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30_production_data.tres" id="26_hwe6x"]
 
 [sub_resource type="Resource" id="Resource_qayrr"]
 script = ExtResource("1_fdtap")
 RoundsToSurvive = 10
 
-[sub_resource type="Resource" id="Resource_f3fxt"]
-script = ExtResource("4_yxefq")
-MapFile = ExtResource("2_30g5h")
-Generate = false
-Title = "ObronaWesterplatte"
-Cols = 40
-Rows = 30
-Settings = ExtResource("3_4jy82")
-
 [sub_resource type="Resource" id="Resource_fcolf"]
 script = ExtResource("6_10d1s")
-Entities = []
+Entities = [ExtResource("8_yk0ji"), ExtResource("11_1onfu"), ExtResource("10_vyi70"), ExtResource("9_k66yu"), ExtResource("10_jwg2v"), ExtResource("11_pgrml")]
 
 [sub_resource type="Resource" id="Resource_qp0ed"]
 script = ExtResource("7_f3700")
-ProducableEntities = []
+ProducableEntities = [ExtResource("13_1s2o2"), ExtResource("14_xlsmi"), ExtResource("15_5xeta")]
 
 [sub_resource type="Resource" id="Resource_6etmh"]
 script = ExtResource("9_dxpyx")
@@ -57,12 +58,27 @@ script = ExtResource("9_dxpyx")
 EntityData = ExtResource("11_1onfu")
 SpawnAt = null
 
+[sub_resource type="Resource" id="Resource_rmdru"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("10_jwg2v")
+SpawnAt = Array[Vector2i]([Vector2i(35, 29), Vector2i(36, 27), Vector2i(37, 28), Vector2i(38, 26)])
+
+[sub_resource type="Resource" id="Resource_wh1at"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("11_pgrml")
+SpawnAt = Array[Vector2i]([Vector2i(33, 28), Vector2i(34, 27), Vector2i(35, 27), Vector2i(35, 26), Vector2i(37, 25), Vector2i(39, 25), Vector2i(38, 25)])
+
+[sub_resource type="Resource" id="Resource_n4p4t"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("9_k66yu")
+SpawnAt = Array[Vector2i]([Vector2i(33, 29), Vector2i(32, 28), Vector2i(34, 28), Vector2i(34, 26), Vector2i(36, 26), Vector2i(36, 25), Vector2i(38, 24), Vector2i(39, 24)])
+
 [sub_resource type="Resource" id="Resource_hj76v"]
 script = ExtResource("5_y5p4v")
 PlayerType = 0
-Country = ExtResource("5_3dm5c")
+Country = ExtResource("5_3mvhv")
 ProducableEntities = SubResource("Resource_qp0ed")
-SpawnedEntities = [SubResource("Resource_6etmh"), SubResource("Resource_lj5cr"), SubResource("Resource_8relt")]
+SpawnedEntities = [SubResource("Resource_6etmh"), SubResource("Resource_lj5cr"), SubResource("Resource_8relt"), SubResource("Resource_rmdru"), SubResource("Resource_wh1at"), SubResource("Resource_n4p4t")]
 OwnedEntities = SubResource("Resource_fcolf")
 
 [sub_resource type="Resource" id="Resource_rwho4"]
@@ -73,11 +89,11 @@ Expansiveness = 0.7
 
 [sub_resource type="Resource" id="Resource_7f8du"]
 script = ExtResource("6_10d1s")
-Entities = []
+Entities = [ExtResource("15_sax3u"), ExtResource("16_fhidn"), ExtResource("17_g8rwo"), ExtResource("21_u7h2g"), ExtResource("22_5k78r"), ExtResource("23_lxnx8")]
 
 [sub_resource type="Resource" id="Resource_17i7y"]
 script = ExtResource("7_f3700")
-ProducableEntities = []
+ProducableEntities = [ExtResource("24_e5xtg"), ExtResource("25_xyaho"), ExtResource("26_hwe6x")]
 
 [sub_resource type="Resource" id="Resource_v1ir4"]
 script = ExtResource("9_dxpyx")
@@ -94,13 +110,28 @@ script = ExtResource("9_dxpyx")
 EntityData = ExtResource("17_g8rwo")
 SpawnAt = Array[Vector2i]([Vector2i(12, 9), Vector2i(14, 11), Vector2i(12, 14), Vector2i(20, 16), Vector2i(25, 20)])
 
+[sub_resource type="Resource" id="Resource_d886p"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("22_5k78r")
+SpawnAt = Array[Vector2i]([Vector2i(24, 22), Vector2i(26, 21), Vector2i(27, 19), Vector2i(23, 18), Vector2i(21, 20)])
+
+[sub_resource type="Resource" id="Resource_vqte2"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("21_u7h2g")
+SpawnAt = Array[Vector2i]([Vector2i(20, 18), Vector2i(22, 16)])
+
+[sub_resource type="Resource" id="Resource_fml8g"]
+script = ExtResource("9_dxpyx")
+EntityData = ExtResource("23_lxnx8")
+SpawnAt = Array[Vector2i]([Vector2i(14, 15), Vector2i(15, 13), Vector2i(14, 10)])
+
 [sub_resource type="Resource" id="Resource_qnbri"]
 script = ExtResource("5_y5p4v")
 PlayerType = 1
 AIProfile = SubResource("Resource_rwho4")
 Country = ExtResource("5_ciusv")
 ProducableEntities = SubResource("Resource_17i7y")
-SpawnedEntities = [SubResource("Resource_v1ir4"), SubResource("Resource_lhsvf"), SubResource("Resource_s6ele")]
+SpawnedEntities = [SubResource("Resource_v1ir4"), SubResource("Resource_lhsvf"), SubResource("Resource_s6ele"), SubResource("Resource_d886p"), SubResource("Resource_vqte2"), SubResource("Resource_fml8g")]
 OwnedEntities = SubResource("Resource_7f8du")
 
 [sub_resource type="Resource" id="Resource_npkk0"]
@@ -123,7 +154,8 @@ script = ExtResource("1_wkre3")
 MissionName = "Defense of Westerplatte "
 Description = "A small Polish garrison held off the first Wehrmacht attacks in 1939"
 ObjectivesText = ""
+MusicTrackName = "ii_world_war"
 Locked = false
-Map = SubResource("Resource_f3fxt")
+Map = ExtResource("2_8a50m")
 PlayerSpawnDatas = [SubResource("Resource_hj76v"), SubResource("Resource_qnbri"), SubResource("Resource_213cf")]
 GameModeConfig = SubResource("Resource_qayrr")

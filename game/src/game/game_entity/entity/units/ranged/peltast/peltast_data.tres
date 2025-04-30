@@ -13,7 +13,7 @@
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_f5oqh"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="12_7mbu6"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="13_l33oo"]
-[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game/game_entity/ability/attack/throw/throw_attack_ability.tres" id="14_y540g"]
+[ext_resource type="Resource" uid="uid://uj3aqjlp7vjg" path="res://src/game/game_entity/ability/attack/range/range_attack_ability.tres" id="14_gebyv"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_qhnlr"]
 [ext_resource type="PackedScene" uid="uid://cfpw2nk3wsd8q" path="res://src/game/game_entity/entity/units/ranged/peltast/peltast_body.tscn" id="16_n8n10"]
 [ext_resource type="Resource" uid="uid://c04dwjixvc642" path="res://src/game/game_entity/entity/units/ranged/ranged_tags.tres" id="17_sw7jn"]
@@ -99,6 +99,6 @@ AbilityTriggers = null
 script = ExtResource("19_gunju")
 EntityName = "Peltast"
 AttributeSetsContainer = ExtResource("15_qhnlr")
-Abilities = Array[Object]([SubResource("Resource_6sbge"), ExtResource("12_7mbu6"), ExtResource("13_l33oo"), ExtResource("14_y540g")])
+Abilities = Array[Object]([SubResource("Resource_6sbge"), ExtResource("12_7mbu6"), ExtResource("13_l33oo"), ExtResource("14_gebyv")])
 Tags = ExtResource("17_sw7jn")
 Body = ExtResource("16_n8n10")

@@ -75,7 +75,12 @@ public partial class Entity : Node3D, ITurnAware {
 
       if (abilities != null) {
         foreach (var ability in abilities) {
-          AbilitySystem.CallDeferred(nameof(AbilitySystem.GrantAbility), ability.CreateInstance(AbilitySystem));
+          if (ability != null) {
+            AbilitySystem.CallDeferred(nameof(AbilitySystem.GrantAbility), ability.CreateInstance(AbilitySystem));
+          }
+          else {
+            GD.Print("Null ability on: ", EntityName);
+          }
         }
       }
 

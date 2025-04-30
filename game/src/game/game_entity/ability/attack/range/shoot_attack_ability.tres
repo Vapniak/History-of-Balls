@@ -1,0 +1,41 @@
+[gd_resource type="Resource" script_class="RangeAttackAbility" load_steps=12 format=3 uid="uid://i2kbndgd1vjx"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/ability/attack/range/RangeAttackAbility.cs" id="1_jl5dn"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/Tag.cs" id="1_m8wbq"]
+[ext_resource type="Script" path="res://addons/gameplay_tags/src/TagContainer.cs" id="2_45w81"]
+[ext_resource type="Resource" uid="uid://q8icnxg3tyi2" path="res://src/game/game_entity/ability/effects/block_movement_effect.tres" id="3_1hevy"]
+[ext_resource type="Resource" uid="uid://biyibaycosom4" path="res://src/game/game_entity/ability/effects/attack_cooldown_effect.tres" id="3_64crt"]
+[ext_resource type="Resource" uid="uid://hdsgocp7wlts" path="res://src/game/game_entity/ability/effects/damage.tres" id="4_sdy2g"]
+[ext_resource type="Texture2D" uid="uid://bhrnb4qh1p6dx" path="res://assets/textures/icons/ranged.svg" id="5_ho2xm"]
+
+[sub_resource type="Resource" id="Resource_mn78k"]
+script = ExtResource("1_m8wbq")
+FullName = "Ability.Attack"
+
+[sub_resource type="Resource" id="Resource_iqo8i"]
+script = ExtResource("2_45w81")
+Tags = [SubResource("Resource_mn78k")]
+
+[sub_resource type="Resource" id="Resource_eq2db"]
+script = ExtResource("1_m8wbq")
+FullName = "State.CurrentTurn"
+
+[sub_resource type="Resource" id="Resource_aa6o2"]
+script = ExtResource("2_45w81")
+Tags = [SubResource("Resource_eq2db")]
+
+[resource]
+script = ExtResource("1_jl5dn")
+MinAttackRange = 0
+DamageEffect = ExtResource("4_sdy2g")
+BlockMovementEffect = ExtResource("3_1hevy")
+Icon = ExtResource("5_ho2xm")
+ShowInUI = true
+UIOrder = 1
+AbilityName = "Shoot Attack"
+CooldownGameplayEffect = ExtResource("3_64crt")
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+AbilityTags = SubResource("Resource_iqo8i")
+ActivationRequiredTags = SubResource("Resource_aa6o2")

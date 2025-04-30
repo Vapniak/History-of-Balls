@@ -28,9 +28,9 @@ public partial class HOBPlayerController {
     }
 
     public override void _PhysicsProcess(double delta) {
-      UpdateHighlightLogic();
-
       UpdateTransitions((float)delta);
+
+      UpdateHighlightLogic();
 
       DisplayHighlights();
     }
@@ -88,6 +88,46 @@ public partial class HOBPlayerController {
         return;
       }
 
+      foreach (var entity in Controller.EntityManagment.GetEntities()) {
+        if (entity.TryGetOwner(out var owner)) {
+          if (owner == Controller) {
+            var color = Colors.Transparent;
+            foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
+              if (ability.CanActivateAbility(null)) {
+                if (ability is AttackAbility.Instance) {
+                  color = color.Blend(Theme.AttackAbilityColor with { A = 0.5f });
+                }
+
+                if (ability is MoveAbility.Instance) {
+                  color = color.Blend(Theme.MoveAbilityColor with { A = 0.5f });
+                }
+
+                if (ability is EntityProductionAbility.Instance prod) {
+                  if (owner.GetPlayerState().ProducedEntities.Any(e =>
+                      prod.CanActivateAbility(new() {
+                        Activator = owner,
+                        TargetData = new() { Target = e }
+                      }))) {
+                    color = color.Blend(owner.GetPlayerState().Country.Color with { A = 0.5f });
+                  }
+                }
+              }
+            }
+
+            if (color != Colors.Transparent) {
+              SetHighlight(color, entity.Cell);
+            }
+          }
+          else {
+            SetHighlight(owner!.GetPlayerState().Country.Color, entity.Cell);
+          }
+        }
+      }
+
+      if (SelectedEntity != null) {
+        SetHighlight(Theme.FontColor, SelectedEntity.Cell);
+      }
+
       if (SelectedCommand != null) {
         var darken = !SelectedCommand.CanActivateAbility(new() { Activator = Controller });
 
@@ -101,44 +141,6 @@ public partial class HOBPlayerController {
             SetHighlight(Theme.AttackAbilityColor, cell, darken);
           }
         }
-      }
-
-      foreach (var entity in Controller.EntityManagment.GetEntities()) {
-        if (entity.TryGetOwner(out var owner)) {
-          if (owner == Controller) {
-            var canUseAbility = false;
-            foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
-              if (ability.CanActivateAbility(null)) {
-                if (ability is AttackAbility.Instance or MoveAbility.Instance) {
-                  canUseAbility = true;
-                  break;
-                }
-
-                if (ability is EntityProductionAbility.Instance prod) {
-                  if (owner.GetPlayerState().ProducedEntities.Any(e =>
-                      prod.CanActivateAbility(new() {
-                        Activator = owner,
-                        TargetData = new() { Target = e }
-                      }))) {
-                    canUseAbility = true;
-                    break;
-                  }
-                }
-              }
-            }
-
-            if (canUseAbility) {
-              SetHighlight(owner.GetPlayerState().Country.Color, entity.Cell);
-            }
-          }
-          else {
-            SetHighlight(owner!.GetPlayerState().Country.Color, entity.Cell);
-          }
-        }
-      }
-
-      if (SelectedEntity != null) {
-        SetHighlight(Theme.FontColor, SelectedEntity.Cell);
       }
     }
 

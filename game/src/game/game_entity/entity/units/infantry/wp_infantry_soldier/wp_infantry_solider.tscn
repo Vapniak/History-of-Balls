@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://gpn3s2w4tyl1"]
+[gd_scene load_steps=8 format=3 uid="uid://gpn3s2w4tyl1"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_ljyc1"]
 [ext_resource type="PackedScene" uid="uid://js814k2u826w" path="res://src/game/game_entity/entity/units/country_balls/poland_ball.tscn" id="2_mg2hd"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_rmhxp"]
 [ext_resource type="PackedScene" uid="uid://df3b68yrcrx5y" path="res://assets/models/objects/elements/poland/poland-Mauser-Rifle.fbx" id="4_6jcg1"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ShootingAttribute.cs" id="4_pyhkg"]
+[ext_resource type="PackedScene" uid="uid://sklmlufkihmq" path="res://src/game/game_entity/entity/units/ranged/bullet.tscn" id="5_msqnm"]
+[ext_resource type="PackedScene" uid="uid://bx1qtx26x1m0q" path="res://src/game/vfx/muzzle_flash/muzzle_flash.tscn" id="7_qsfrn"]
 
-[node name="WpInfantrySolider" type="Node3D"]
+[node name="WpInfantrySolider" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
 script = ExtResource("1_ljyc1")
+UnitAttribute = NodePath("FollowParent3D/ShootingAttribute")
 
 [node name="PolandBall" parent="." instance=ExtResource("2_mg2hd")]
 
@@ -14,5 +18,21 @@ script = ExtResource("1_ljyc1")
 top_level = true
 script = ExtResource("3_rmhxp")
 
-[node name="poland-Mauser-Rifle" parent="FollowParent3D" instance=ExtResource("4_6jcg1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.957353, 0.410043, 0)
+[node name="ShootingAttribute" type="Node3D" parent="FollowParent3D" node_paths=PackedStringArray("ShootPoint")]
+transform = Transform3D(0.999544, 0.00386439, 0.0299588, -4.65307e-10, 0.991783, -0.12793, -0.0302071, 0.127872, 0.991331, 0.840821, 0.50848, 0)
+script = ExtResource("4_pyhkg")
+ShootPoint = NodePath("poland-Mauser-Rifle/Marker3D")
+Projectile = ExtResource("5_msqnm")
+
+[node name="poland-Mauser-Rifle" parent="FollowParent3D/ShootingAttribute" instance=ExtResource("4_6jcg1")]
+transform = Transform3D(1, 0, 0, 0, 0.0453629, 0.998971, 0, -0.998971, 0.0453629, 0, 0.00953531, 0.422132)
+
+[node name="Marker3D" type="Marker3D" parent="FollowParent3D/ShootingAttribute/poland-Mauser-Rifle"]
+transform = Transform3D(1, -2.04891e-08, 3.25963e-09, -1.49012e-08, 1, 4.47035e-08, 2.32831e-09, 7.45058e-08, 1, -0.000556409, 1.44567, -0.0442558)
+
+[node name="MuzzleFlash" parent="FollowParent3D/ShootingAttribute/poland-Mauser-Rifle/Marker3D" instance=ExtResource("7_qsfrn")]
+transform = Transform3D(0.999216, -0.0307288, -0.0249735, -0.0203935, 0.141247, -0.989764, 0.0339417, 0.989497, 0.14051, 0, 0, 0)
+
+[connection signal="Acted" from="FollowParent3D/ShootingAttribute" to="FollowParent3D/ShootingAttribute/poland-Mauser-Rifle/Marker3D/MuzzleFlash/GPUParticles3D" method="set_emitting" binds= [true]]
+
+[editable path="FollowParent3D/ShootingAttribute/poland-Mauser-Rifle/Marker3D/MuzzleFlash"]

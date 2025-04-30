@@ -1,12 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://2i361hfv2kuw"]
+[gd_scene load_steps=8 format=3 uid="uid://2i361hfv2kuw"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_4e18s"]
 [ext_resource type="PackedScene" uid="uid://cdeepd8kvb2ao" path="res://src/game/game_entity/entity/units/country_balls/nazi_german_ball.tscn" id="2_ioud4"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_lw64k"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ShootingAttribute.cs" id="4_4ay13"]
 [ext_resource type="PackedScene" uid="uid://bm0f44mj8tyq4" path="res://assets/models/objects/elements/germany/germany-Kar98k-Rifle.fbx" id="4_tyh08"]
+[ext_resource type="PackedScene" uid="uid://sklmlufkihmq" path="res://src/game/game_entity/entity/units/ranged/bullet.tscn" id="5_4bf2l"]
+[ext_resource type="PackedScene" uid="uid://bx1qtx26x1m0q" path="res://src/game/vfx/muzzle_flash/muzzle_flash.tscn" id="7_yc032"]
 
-[node name="WehrmachtGrenadier" type="Node3D"]
+[node name="WehrmachtGrenadier" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
 script = ExtResource("1_4e18s")
+UnitAttribute = NodePath("FollowParent3D/ShootingAttribute")
 
 [node name="NaziGermanBall" parent="." instance=ExtResource("2_ioud4")]
 
@@ -14,5 +18,20 @@ script = ExtResource("1_4e18s")
 top_level = true
 script = ExtResource("3_lw64k")
 
-[node name="germany-Kar98k-Rifle" parent="FollowParent3D" instance=ExtResource("4_tyh08")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.751288, 0.426509, 0)
+[node name="ShootingAttribute" type="Node3D" parent="FollowParent3D" node_paths=PackedStringArray("ShootPoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.681947, 0.451017, 0)
+script = ExtResource("4_4ay13")
+ShootPoint = NodePath("germany-Kar98k-Rifle/Marker3D")
+Projectile = ExtResource("5_4bf2l")
+
+[node name="germany-Kar98k-Rifle" parent="FollowParent3D/ShootingAttribute" instance=ExtResource("4_tyh08")]
+transform = Transform3D(1, 1.49012e-08, 0, -3.37129e-09, 0.0684331, 0.997655, -1.45148e-08, -0.997655, 0.0684331, 0.107208, -0.0373529, -0.0426589)
+
+[node name="Marker3D" type="Marker3D" parent="FollowParent3D/ShootingAttribute/germany-Kar98k-Rifle"]
+transform = Transform3D(1, -4.35668e-09, 1.42501e-08, -1.42501e-08, 0.292372, -0.956305, 4.35668e-09, 0.956305, 0.292372, -0.00164211, 1.42976, -0.0413125)
+
+[node name="MuzzleFlash" parent="FollowParent3D/ShootingAttribute/germany-Kar98k-Rifle/Marker3D" instance=ExtResource("7_yc032")]
+
+[connection signal="Acted" from="FollowParent3D/ShootingAttribute" to="FollowParent3D/ShootingAttribute/germany-Kar98k-Rifle/Marker3D/MuzzleFlash/GPUParticles3D" method="set_emitting" binds= [true]]
+
+[editable path="FollowParent3D/ShootingAttribute/germany-Kar98k-Rifle/Marker3D/MuzzleFlash"]

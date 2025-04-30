@@ -7,7 +7,7 @@
 
 [resource]
 script = ExtResource("1_08ya3")
-EntityName = "Poland City"
+EntityName = "Westerplatte Bunker"
 Abilities = Array[Object]([ExtResource("1_btgsg")])
 Tags = ExtResource("3_yw1rj")
 Body = ExtResource("2_vnk6s")

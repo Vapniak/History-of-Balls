@@ -17,28 +17,13 @@ public partial class MeleeAttackAbility : AttackAbility {
     public Instance(HOBAbility abilityResource, GameplayAbilitySystem abilitySystem) : base(abilityResource, abilitySystem) {
 
     }
-    public override void ActivateAbility(GameplayEventData? eventData) {
-      base.ActivateAbility(eventData);
-
-      if (eventData?.TargetData is AttackTargetData attackTargetData && CommitCooldown()) {
-        var effect = (AbilityResource as AttackAbility)?.BlockMovementEffect;
-        if (effect != null) {
-          var ge = OwnerAbilitySystem.MakeOutgoingInstance(effect, 0);
-          OwnerAbilitySystem.ApplyGameplayEffectToSelf(ge);
-        }
-
-        _ = Attack(attackTargetData.TargetAbilitySystem.GetOwner<Entity>());
-        return;
-      }
-
-      EndAbility(true);
-    }
 
     public override bool IsCellVisible(GameCell from, GameCell to) {
       return base.IsCellVisible(from, to) && from.GetEdgeTypeTo(to) == GameCell.EdgeType.Flat;
     }
 
-    private async Task Attack(Entity entity) {
+    protected override async Task Attack(AttackTargetData targetData) {
+      var entity = targetData.TargetAbilitySystem.GetOwner<Entity>();
       await OwnerEntity.TurnAt(entity.Cell.GetRealPosition(), 0.1f);
 
       var firstTween = CreateTween();

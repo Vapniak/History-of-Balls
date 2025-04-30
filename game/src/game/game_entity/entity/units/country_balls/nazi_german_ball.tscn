@@ -14,7 +14,7 @@ shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
 shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
 shader_parameter/base_texture = ExtResource("3_hi83h")
 shader_parameter/uv_scale = Vector2(1, 1)
-shader_parameter/uv_offset = Vector2(-0.25, 0)
+shader_parameter/uv_offset = Vector2(-0.15, 0)
 
 [node name="NaziGermanBall" type="Node3D"]
 

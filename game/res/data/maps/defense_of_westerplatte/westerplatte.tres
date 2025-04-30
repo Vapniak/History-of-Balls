@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MapData" load_steps=4 format=3 uid="uid://clhp4sujy27yq"]
+
+[ext_resource type="JSON" path="res://res/data/maps/defense_of_westerplatte/ObronaWesterplatte.json" id="1_kuo4y"]
+[ext_resource type="Resource" uid="uid://den26mhc6fsde" path="res://res/data/maps/default_map_settings.tres" id="2_bvusw"]
+[ext_resource type="Script" path="res://src/core/map/MapData.cs" id="3_fwf65"]
+
+[resource]
+script = ExtResource("3_fwf65")
+MapFile = ExtResource("1_kuo4y")
+Generate = false
+Title = "ObronaWesterplatte"
+Cols = 40
+Rows = 30
+Settings = ExtResource("2_bvusw")
