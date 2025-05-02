@@ -1,9 +1,10 @@
-[gd_scene load_steps=33 format=4 uid="uid://bxvvk6td13ake"]
+[gd_scene load_steps=34 format=4 uid="uid://bxvvk6td13ake"]
 
 [ext_resource type="Script" path="res://src/game/player/PlayerCharacter.cs" id="1_ggdef"]
 [ext_resource type="Shader" path="res://src/core/shaders/post_process_outline.gdshader" id="2_bqmck"]
 [ext_resource type="RibbonTrailMesh" uid="uid://w2xv54d0lfdp" path="res://res/meshes/wind_ribbon.tres" id="3_w31k8"]
 [ext_resource type="Texture2D" uid="uid://jwv27m6sh4ix" path="res://assets/textures/particle/PNG (Transparent)/smoke_08.png" id="4_b4ask"]
+[ext_resource type="PackedScene" uid="uid://f07dkk04tnyy" path="res://src/game/vfx/clouds/cloud.tscn" id="5_p45p7"]
 
 [sub_resource type="Curve" id="Curve_t3eex"]
 _data = [Vector2(0.183333, 0.424051), 0.0, -0.682045, 0, 1, Vector2(0.364286, 0.300633), 0.0, 0.0, 0, 0, Vector2(1, 1), 1.10013, 0.0, 1, 0]
@@ -204,6 +205,7 @@ mesh = SubResource("QuadMesh_bpb6w")
 skeleton = NodePath("")
 
 [node name="SpiralWindParticles" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.7465, 41, -30.0154)
 amount = 1
 lifetime = 4.0
 trail_enabled = true
@@ -249,3 +251,24 @@ sub_emitter = NodePath("../GPUParticles3D")
 lifetime = 7.0
 randomness = 1.0
 process_material = SubResource("ParticleProcessMaterial_q3jtm")
+
+[node name="Clouds" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="Cloud" parent="Clouds" instance=ExtResource("5_p45p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 40, 25.772)
+
+[node name="Cloud4" parent="Clouds" instance=ExtResource("5_p45p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.6801, 20, 25.772)
+
+[node name="Cloud5" parent="Clouds" instance=ExtResource("5_p45p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9946, 20, -35.8521)
+
+[node name="Cloud6" parent="Clouds" instance=ExtResource("5_p45p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20, -44.7414)
+
+[node name="Cloud2" parent="Clouds" instance=ExtResource("5_p45p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 43.285, 20, 25.5413)
+
+[node name="Cloud3" parent="Clouds" instance=ExtResource("5_p45p7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.8495, 20, 2.6707)

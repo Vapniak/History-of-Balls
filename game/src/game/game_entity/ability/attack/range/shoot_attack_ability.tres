@@ -6,7 +6,7 @@
 [ext_resource type="Resource" uid="uid://q8icnxg3tyi2" path="res://src/game/game_entity/ability/effects/block_movement_effect.tres" id="3_1hevy"]
 [ext_resource type="Resource" uid="uid://biyibaycosom4" path="res://src/game/game_entity/ability/effects/attack_cooldown_effect.tres" id="3_64crt"]
 [ext_resource type="Resource" uid="uid://hdsgocp7wlts" path="res://src/game/game_entity/ability/effects/damage.tres" id="4_sdy2g"]
-[ext_resource type="Texture2D" uid="uid://dwwuxfj06npoe" path="res://assets/textures/icons/crosshairs-solid.svg" id="6_seh2i"]
+[ext_resource type="Texture2D" uid="uid://b2th1awqp5rqw" path="res://assets/textures/icons/attack2.svg" id="6_y1ty6"]
 
 [sub_resource type="Resource" id="Resource_mn78k"]
 script = ExtResource("1_m8wbq")
@@ -29,7 +29,7 @@ script = ExtResource("1_jl5dn")
 MinAttackRange = 0
 DamageEffect = ExtResource("4_sdy2g")
 BlockMovementEffect = ExtResource("3_1hevy")
-Icon = ExtResource("6_seh2i")
+Icon = ExtResource("6_y1ty6")
 ShowInUI = true
 UIOrder = 1
 AbilityName = "Shoot Attack"

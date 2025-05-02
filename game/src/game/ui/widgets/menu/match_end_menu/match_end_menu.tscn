@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cnww5rxeofin3"]
+[gd_scene load_steps=3 format=3 uid="uid://cnww5rxeofin3"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/match_end_menu/MatchEndMenuWidget.cs" id="1_1fco0"]
 [ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="2_wk1ho"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_kerhc"]
-font_size = 32
 
 [node name="MatchEndMenu" type="Control" node_paths=PackedStringArray("WinnerTextLabel", "TimePlayedLabel")]
 layout_mode = 3
@@ -14,7 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1fco0")
-WinnerTextLabel = NodePath("MarginContainer/VBoxContainer/Label2")
+WinnerTextLabel = NodePath("Label2")
 TimePlayedLabel = NodePath("MarginContainer/VBoxContainer/Label3")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
@@ -35,18 +32,6 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-text = "MATCH ENDED"
-label_settings = SubResource("LabelSettings_kerhc")
-
-[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-theme_override_font_sizes/font_size = 22
-text = "YOU WON"
-
 [node name="Label3" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
@@ -58,6 +43,16 @@ layout_mode = 2
 
 [node name="Button" parent="MarginContainer/VBoxContainer/Button2" index="0"]
 text = "GO TO MAIN MENU"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 2
+offset_left = 836.0
+offset_top = 270.0
+offset_right = 1083.0
+offset_bottom = 328.0
+size_flags_horizontal = 4
+theme_type_variation = &"HeaderExtraLarge"
+text = "YOU WON"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Button2/Button" to="." method="GoToMainMenu"]
 

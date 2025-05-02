@@ -10,7 +10,7 @@
 
 [resource]
 script = ExtResource("1_fvoav")
-EntityName = "Riverside Housing"
+EntityName = "German Houses"
 AttributeSetsContainer = ExtResource("3_wr6x4")
 Abilities = Array[Object]([ExtResource("1_rvqr2"), ExtResource("2_fc8uj"), ExtResource("3_al3kx")])
 Tags = ExtResource("5_wxnco")

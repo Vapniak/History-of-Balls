@@ -128,8 +128,13 @@ OwnedEntities = SubResource("Resource_7f8du")
 [resource]
 script = ExtResource("1_wkre3")
 MissionName = "Defense of Westerplatte "
-Description = "A small Polish garrison held off the first Wehrmacht attacks in 1939"
-ObjectivesText = ""
+Description = "September 1, 1939 – At dawn, the German battleship Schleswig-Holstein opens fire. The target: a small but heavily fortified Polish military depot at Westerplatte. The campaign that will change the fate of Europe begins here.
+
+As a commander of the German forces, your objective is to seize Westerplatte swiftly and crush Polish resistance. Though outnumbered, the defenders know every inch of this terrain and fight with unshakable resolve. Strike with surprise, use your firepower advantage, and launch coordinated assaults to break their morale. Every hour of delay carries political and military cost.
+
+\"This is no ordinary assault—it is the opening move of a new era of war. Your actions here will echo as a symbol of German strength and inevitability. Let the artillery speak, let the infantry breach their walls, and let your command be etched into history. Westerplatte must fall—the only question is: how fast?\""
+ObjectivesText = "Neutralize enemy fortifications 🎯
+Capture the Westerplatte bunker ⚔️"
 MusicTrackName = "ii_world_war"
 Locked = false
 Map = ExtResource("2_8a50m")

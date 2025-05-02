@@ -100,7 +100,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
       _rotationTween = CreateTween().SetSpeedScale(1f / (float)Engine.TimeScale);
 
       _rotationTween.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Back);
-      _rotationTween.TweenProperty(this, "rotation:y", Mathf.DegToRad(right ? 90 : -90), .5).AsRelative();
+      _rotationTween.TweenProperty(Camera, "rotation:y", Mathf.DegToRad(right ? 90 : -90), .5).AsRelative();
     }
   }
 
@@ -142,7 +142,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     UpdateCamera((float)delta);
     GlobalTranslate(Transform.Basis * Velocity * (float)delta);
 
-    var rotationSpeed = (Rotation - _prevRotation).Length() / (float)delta;
+    var rotationSpeed = (Camera.Rotation - _prevRotation).Length() / (float)delta;
     var speed = (CameraParent.GlobalPosition - _prevPosition).Length() / (float)delta;
     speed += rotationSpeed;
     var targetVol = Mathf.Clamp(Mathf.Remap(speed, 0, MoveSpeed, WindMinVolume, WindMaxVolume),
@@ -150,7 +150,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
     WindPlayer.VolumeDb = (float)Mathf.Lerp(WindPlayer.VolumeDb, targetVol, delta * _zoomLerpSpeed);
 
     _prevPosition = CameraParent.GlobalPosition;
-    _prevRotation = Rotation;
+    _prevRotation = Camera.Rotation;
     _moveSpeedMulti = 1;
   }
 
