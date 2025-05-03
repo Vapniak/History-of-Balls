@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://cyoewxna1egxf"]
+
+[ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game/game_modes/hob/controllers/hob_player_controller.tscn" id="1_qjlg4"]
+[ext_resource type="Script" path="res://src/game/game_modes/hob/controllers/tutorial/TutorialPlayerController.cs" id="2_ibtd1"]
+
+[node name="HOBPlayerController" instance=ExtResource("1_qjlg4")]
+script = ExtResource("2_ibtd1")

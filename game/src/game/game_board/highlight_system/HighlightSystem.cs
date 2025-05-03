@@ -88,43 +88,46 @@ public partial class HOBPlayerController {
         return;
       }
 
-      foreach (var entity in Controller.EntityManagment.GetEntities()) {
-        if (entity.TryGetOwner(out var owner)) {
-          if (owner == Controller) {
-            var showColor = false;
-            foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
-              if (ability.CanActivateAbility(null)) {
-                if (ability is AttackAbility.Instance attack) {
-                  if (attack.GetAttackableEntities().entities.Length > 0) {
+      if (SelectedCommand == null) {
+
+        foreach (var entity in Controller.EntityManagment.GetEntities()) {
+          if (entity.TryGetOwner(out var owner)) {
+            if (owner == Controller) {
+              var showColor = false;
+              foreach (var ability in entity.AbilitySystem.GetGrantedAbilities()) {
+                if (ability.CanActivateAbility(null)) {
+                  if (ability is AttackAbility.Instance attack) {
+                    if (attack.GetAttackableEntities().entities.Length > 0) {
+                      showColor = true;
+                      break;
+                    }
+                  }
+
+                  if (ability is MoveAbility.Instance) {
                     showColor = true;
                     break;
                   }
-                }
 
-                if (ability is MoveAbility.Instance) {
-                  showColor = true;
-                  break;
-                }
-
-                if (ability is EntityProductionAbility.Instance prod) {
-                  if (owner.GetPlayerState().ProducedEntities.Any(e =>
-                      prod.CanActivateAbility(new() {
-                        Activator = owner,
-                        TargetData = new() { Target = e }
-                      }))) {
-                    showColor = true;
-                    break;
+                  if (ability is EntityProductionAbility.Instance prod) {
+                    if (owner.GetPlayerState().ProducedEntities.Any(e =>
+                        prod.CanActivateAbility(new() {
+                          Activator = owner,
+                          TargetData = new() { Target = e }
+                        }))) {
+                      showColor = true;
+                      break;
+                    }
                   }
                 }
               }
-            }
 
-            if (showColor) {
-              SetHighlight(owner.GetPlayerState().Country.Color, entity.Cell);
+              if (showColor) {
+                SetHighlight(owner.GetPlayerState().Country.Color, entity.Cell);
+              }
             }
-          }
-          else {
-            SetHighlight(owner!.GetPlayerState().Country.Color, entity.Cell);
+            else {
+              SetHighlight(owner!.GetPlayerState().Country.Color, entity.Cell);
+            }
           }
         }
       }

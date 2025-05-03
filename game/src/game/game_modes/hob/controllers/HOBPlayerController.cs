@@ -17,8 +17,6 @@ using RaycastSystem;
 public partial class HOBPlayerController : PlayerController, IMatchController {
   [Export] private Node? StateChartNode { get; set; }
 
-  [Export] private Material? TransparentMaterial { get; set; }
-
   [Notify] public Entity? SelectedEntity { get => _selectedEntity.Get(); private set => _selectedEntity.Set(value); }
   [Notify] public GameCell? HoveredCell { get => _hoveredCell.Get(); private set => _hoveredCell.Set(value); }
 
@@ -92,7 +90,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   public override void _UnhandledInput(InputEvent @event) {
-
     if (@event.IsActionPressed(GameInputs.GameSpeedUp)) {
       ToggleTimeScale();
     }

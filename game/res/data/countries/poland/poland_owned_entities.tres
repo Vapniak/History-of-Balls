@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="OwnedEntitiesData" load_steps=8 format=3 uid="uid://cssxs4swcnahj"]
+
+[ext_resource type="Resource" uid="uid://cqvp1g0kf7acg" path="res://src/game/game_entity/entity/structures/city/poland/poland_city_data.tres" id="1_ov7p8"]
+[ext_resource type="Resource" uid="uid://b4c1qimoax8lt" path="res://src/game/game_entity/entity/structures/factory/poland/poland_factory.tres" id="2_2pd8r"]
+[ext_resource type="Resource" uid="uid://c5m55srxuo4oc" path="res://src/game/game_entity/entity/structures/village/poland/poland_village_data.tres" id="3_fyk2v"]
+[ext_resource type="Resource" uid="uid://b1iormtddabtt" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_data.tres" id="4_rjbwu"]
+[ext_resource type="Resource" uid="uid://bk7t7q772f2c3" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_data.tres" id="5_tcgjq"]
+[ext_resource type="Resource" uid="uid://3tjr86r46xhp" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30_data.tres" id="6_yuign"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="7_mww08"]
+
+[resource]
+script = ExtResource("7_mww08")
+Entities = [ExtResource("1_ov7p8"), ExtResource("2_2pd8r"), ExtResource("3_fyk2v"), ExtResource("4_rjbwu"), ExtResource("5_tcgjq"), ExtResource("6_yuign")]

@@ -1,0 +1,110 @@
+[gd_resource type="Resource" script_class="MissionData" load_steps=37 format=3 uid="uid://8f3qv1pehljr"]
+
+[ext_resource type="Script" path="res://src/game/game_modes/hob/tutorial/TutorialGameModeConfig.cs" id="1_f7q63"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_vdtww"]
+[ext_resource type="Resource" uid="uid://d0th7vuwnv2mo" path="res://res/data/maps/tutorial/tutorial.tres" id="2_3mkjb"]
+[ext_resource type="Resource" uid="uid://cuv1436xdiogj" path="res://res/data/countries/poland/poland.tres" id="3_58s32"]
+[ext_resource type="Resource" uid="uid://cssxs4swcnahj" path="res://res/data/countries/poland/poland_owned_entities.tres" id="4_ykuis"]
+[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://res/data/attributes/primary_resource.tres" id="5_xgdgy"]
+[ext_resource type="Resource" uid="uid://bk7t7q772f2c3" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_data.tres" id="6_0tc3a"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="6_6qqpr"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="7_i784o"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/EntitySpawnData.cs" id="7_xsbyw"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="8_42vfa"]
+[ext_resource type="Resource" uid="uid://cqvp1g0kf7acg" path="res://src/game/game_entity/entity/structures/city/poland/poland_city_data.tres" id="8_s2mro"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_vulnd"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_cg217"]
+[ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/nazi_germany.tres" id="10_gyfo0"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="11_jsoo6"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="12_42pq4"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/ProducedEntitiesData.cs" id="12_no8eh"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/MatchPlayerSpawnData.cs" id="12_y67ca"]
+[ext_resource type="Resource" uid="uid://dab1pl6ojk677" path="res://src/game/game_entity/entity/units/infantry/wehrmacht_grenadier/wehrmacht_grenadier_data.tres" id="13_47v12"]
+[ext_resource type="Resource" uid="uid://bcnj2opvvtf0l" path="res://src/game/game_entity/entity/structures/city/german/german_city_data.tres" id="14_vgkui"]
+
+[sub_resource type="Resource" id="Resource_e1h6s"]
+script = ExtResource("1_f7q63")
+
+[sub_resource type="Resource" id="Resource_igq4m"]
+script = ExtResource("6_6qqpr")
+Magnitude = -1.0
+
+[sub_resource type="Resource" id="Resource_mi0n6"]
+script = ExtResource("7_i784o")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_igq4m")
+
+[sub_resource type="Resource" id="Resource_ac4ux"]
+script = ExtResource("8_42vfa")
+Attribute = ExtResource("5_xgdgy")
+Modifiers = [SubResource("Resource_mi0n6")]
+
+[sub_resource type="Resource" id="Resource_7sptr"]
+script = ExtResource("9_vulnd")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_ac4ux")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_0yq80"]
+script = ExtResource("10_cg217")
+EffectDefinition = SubResource("Resource_7sptr")
+
+[sub_resource type="Resource" id="Resource_uy1js"]
+script = ExtResource("12_42pq4")
+Entity = ExtResource("6_0tc3a")
+CostEffect = SubResource("Resource_0yq80")
+ProductionTime = 1
+
+[sub_resource type="Resource" id="Resource_muud0"]
+script = ExtResource("12_no8eh")
+ProducableEntities = [SubResource("Resource_uy1js")]
+
+[sub_resource type="Resource" id="Resource_561r2"]
+script = ExtResource("7_xsbyw")
+EntityData = ExtResource("8_s2mro")
+SpawnAt = Array[Vector2i]([Vector2i(1, 1)])
+
+[sub_resource type="Resource" id="Resource_38280"]
+script = ExtResource("12_y67ca")
+PlayerType = 0
+Country = ExtResource("3_58s32")
+ProducableEntities = SubResource("Resource_muud0")
+SpawnedEntities = [SubResource("Resource_561r2")]
+OwnedEntities = ExtResource("4_ykuis")
+
+[sub_resource type="Resource" id="Resource_bdtn7"]
+script = ExtResource("11_jsoo6")
+Entities = []
+
+[sub_resource type="Resource" id="Resource_acd6y"]
+script = ExtResource("12_no8eh")
+ProducableEntities = []
+
+[sub_resource type="Resource" id="Resource_u6vvu"]
+script = ExtResource("7_xsbyw")
+EntityData = ExtResource("13_47v12")
+SpawnAt = Array[Vector2i]([Vector2i(5, 3)])
+
+[sub_resource type="Resource" id="Resource_aa2iu"]
+script = ExtResource("7_xsbyw")
+EntityData = ExtResource("14_vgkui")
+SpawnAt = Array[Vector2i]([Vector2i(6, 4)])
+
+[sub_resource type="Resource" id="Resource_7c6h7"]
+script = ExtResource("12_y67ca")
+PlayerType = 2
+Country = ExtResource("10_gyfo0")
+ProducableEntities = SubResource("Resource_acd6y")
+SpawnedEntities = Array[Object]([SubResource("Resource_u6vvu"), SubResource("Resource_aa2iu")])
+OwnedEntities = SubResource("Resource_bdtn7")
+
+[resource]
+script = ExtResource("1_vdtww")
+MissionName = "Tutorial"
+Description = ""
+ObjectivesText = ""
+MusicTrackName = "ii_world_war"
+Locked = false
+Map = ExtResource("2_3mkjb")
+PlayerSpawnDatas = [SubResource("Resource_38280"), SubResource("Resource_7c6h7")]
+GameModeConfig = SubResource("Resource_e1h6s")

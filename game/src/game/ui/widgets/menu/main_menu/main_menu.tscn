@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://d4knun30ujmci"]
+[gd_scene load_steps=8 format=3 uid="uid://d4knun30ujmci"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/main_menu/MainMenuWidget.cs" id="1_pi010"]
+[ext_resource type="Resource" uid="uid://8f3qv1pehljr" path="res://res/data/missions/tutorial_mission.tres" id="2_deq7k"]
 [ext_resource type="PackedScene" uid="uid://bho6xt1rgxa7c" path="res://src/game/ui/hob_bg.tscn" id="2_kjbb2"]
 [ext_resource type="Texture2D" uid="uid://diuewmtyjbtp" path="res://assets/textures/menu/HoB-menu-logo-m-t.png" id="9_eetrs"]
 [ext_resource type="PackedScene" uid="uid://bucr6se6rejrr" path="res://src/game/ui/widgets/button/label_button/label_button.tscn" id="10_14ap1"]
@@ -15,6 +16,7 @@ grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 script = ExtResource("1_pi010")
+TutorialMission = ExtResource("2_deq7k")
 
 [node name="MarginContainer" parent="." instance=ExtResource("2_kjbb2")]
 layout_mode = 2

@@ -31,7 +31,7 @@ public partial class AttributeEntryWidget : HOBWidget, IWidgetFactory<AttributeE
 
     SetEntryName(attribute.AttributeName);
 
-    SetIcon(GameAssetsRegistry.Instance.GetIconFor(BoundAttribute), (entity.OwnerController.GetPlayerState().Theme as HOBTheme)?.PrimaryColor);
+    SetIcon(GameAssetsRegistry.Instance.GetIconFor(BoundAttribute), (entity.OwnerController?.GetPlayerState().Theme as HOBTheme)?.PrimaryColor);
 
     OnAttributeValueChanged(BoundAttribute, 0, 0);
 

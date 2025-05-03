@@ -79,7 +79,10 @@ public abstract partial class AttackAbility : HOBAbility {
 
     public virtual bool CanBeAttacked(Entity entity) {
       //return true;
-      return entity.TryGetOwner(out var enemyOwner) && OwnerEntity.TryGetOwner(out var owner) && enemyOwner != owner && entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit));
+      return
+      (!entity.TryGetOwner(out var enemyOwner)
+      || (OwnerEntity.TryGetOwner(out var owner) && enemyOwner != owner))
+      && entity.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit));
     }
 
     public virtual uint GetRange() {

@@ -167,34 +167,34 @@ public partial class MapData : Resource {
     return Cells;
   }
 
-  private void SaveMapData(string path) {
-    if (Cells == null || Cells.Count == 0) {
-      GD.PrintErr("Brak danych do zapisania!");
-      return;
-    }
+  // private void SaveMapData(string path) {
+  //   if (Cells == null || Cells.Count == 0) {
+  //     GD.PrintErr("Brak danych do zapisania!");
+  //     return;
+  //   }
 
-    var data = new Dictionary {
-            { "title", Title },
-            //{ "description", Description },
-            { "cols", Cols },
-            { "rows", Rows },
-            { "cells", new Array() }
-        };
+  //   var data = new Dictionary {
+  //           { "title", Title },
+  //           //{ "description", Description },
+  //           { "cols", Cols },
+  //           { "rows", Rows },
+  //           { "cells", new Array() }
+  //       };
 
-    foreach (var cell in Cells) {
-      var cellData = new Dictionary {
-                { "col", cell.Col },
-                { "row", cell.Row },
-                { "id", cell.Id },
-                { "objectId", cell.ObjectId }
-            };
-      ((Array)data["cells"]).Add(cellData);
-    }
+  //   foreach (var cell in Cells) {
+  //     var cellData = new Dictionary {
+  //               { "col", cell.Col },
+  //               { "row", cell.Row },
+  //               { "id", cell.Id },
+  //               { "objectId", cell.ObjectId }
+  //           };
+  //     ((Array)data["cells"]).Add(cellData);
+  //   }
 
-    var jsonString = Json.Stringify(data, "\t");
-    File.WriteAllText(path, jsonString);
-    GD.Print("Mapa zapisana do pliku: " + path);
-  }
+  //   var jsonString = Json.Stringify(data, "\t");
+  //   File.WriteAllText(path, jsonString);
+  //   GD.Print("Mapa zapisana do pliku: " + path);
+  // }
 
   public Cell GetCell(int col, int row) {
     return Cells.FirstOrDefault(cell => cell.Col == col && cell.Row == row);

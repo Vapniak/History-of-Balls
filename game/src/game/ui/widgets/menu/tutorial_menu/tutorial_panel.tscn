@@ -74,11 +74,12 @@ text = "NEXT"
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8k5p0")
-current_tab = 0
+current_tab = 1
 clip_tabs = false
 tabs_visible = false
 
 [node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -98,7 +99,6 @@ and make tactical decisions to achieve victory by meeting the win conditions."
 fit_content = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 

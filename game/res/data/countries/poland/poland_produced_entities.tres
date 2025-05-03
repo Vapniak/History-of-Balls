@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ProducedEntitiesData" load_steps=4 format=3 uid="uid://5e3b5qp7awhe"]
+
+[ext_resource type="Resource" uid="uid://b6wvm1hiukvor" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_production_data.tres" id="1_4cudy"]
+[ext_resource type="Resource" uid="uid://csk1y5ishfkot" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_production_data.tres" id="2_nburf"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/ProducedEntitiesData.cs" id="3_m4t3v"]
+
+[resource]
+script = ExtResource("3_m4t3v")
+ProducableEntities = [ExtResource("1_4cudy"), ExtResource("2_nburf")]

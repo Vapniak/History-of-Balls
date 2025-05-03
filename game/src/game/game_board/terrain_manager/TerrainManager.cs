@@ -46,6 +46,14 @@ public partial class TerrainManager : Node3D {
     var cols = grid.MapData.Cols;
     var rows = grid.MapData.Rows;
 
+    if (ChunkSize.X > cols) {
+      ChunkSize = new(cols, ChunkSize.Y);
+    }
+
+    if (ChunkSize.Y > rows) {
+      ChunkSize = new(ChunkSize.X, rows);
+    }
+
     while (cols % ChunkSize.X != 0 || rows % ChunkSize.Y != 0) {
       if (cols % ChunkSize.X != 0) {
         ChunkSize = new(ChunkSize.X + 1, ChunkSize.Y);

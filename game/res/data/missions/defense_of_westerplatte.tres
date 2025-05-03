@@ -1,10 +1,9 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=47 format=3 uid="uid://c1nfphhwjy6v2"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=45 format=3 uid="uid://c1nfphhwjy6v2"]
 
 [ext_resource type="Script" path="res://src/game/game_modes/hob/control/ControlGameModeConfig.cs" id="1_ex2mu"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_wkre3"]
 [ext_resource type="Resource" uid="uid://clhp4sujy27yq" path="res://res/data/maps/defense_of_westerplatte/westerplatte.tres" id="2_8a50m"]
 [ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/nazi_germany.tres" id="5_3mvhv"]
-[ext_resource type="Resource" uid="uid://cuv1436xdiogj" path="res://res/data/countries/poland.tres" id="5_ciusv"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MatchPlayerSpawnData.cs" id="5_y5p4v"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="6_10d1s"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/ProducedEntitiesData.cs" id="7_f3700"]
@@ -22,11 +21,12 @@
 [ext_resource type="Resource" uid="uid://cqvp1g0kf7acg" path="res://src/game/game_entity/entity/structures/city/poland/poland_city_data.tres" id="15_sax3u"]
 [ext_resource type="Resource" uid="uid://b4c1qimoax8lt" path="res://src/game/game_entity/entity/structures/factory/poland/poland_factory.tres" id="16_fhidn"]
 [ext_resource type="Resource" uid="uid://c5m55srxuo4oc" path="res://src/game/game_entity/entity/structures/village/poland/poland_village_data.tres" id="17_g8rwo"]
+[ext_resource type="Resource" uid="uid://cuv1436xdiogj" path="res://res/data/countries/poland/poland.tres" id="18_7afc7"]
+[ext_resource type="Resource" uid="uid://cssxs4swcnahj" path="res://res/data/countries/poland/poland_owned_entities.tres" id="19_wi1vi"]
+[ext_resource type="Resource" uid="uid://5e3b5qp7awhe" path="res://res/data/countries/poland/poland_produced_entities.tres" id="20_36wo2"]
 [ext_resource type="Resource" uid="uid://b1iormtddabtt" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_data.tres" id="21_u7h2g"]
 [ext_resource type="Resource" uid="uid://bk7t7q772f2c3" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_data.tres" id="22_5k78r"]
 [ext_resource type="Resource" uid="uid://3tjr86r46xhp" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30_data.tres" id="23_lxnx8"]
-[ext_resource type="Resource" uid="uid://b6wvm1hiukvor" path="res://src/game/game_entity/entity/units/infantry/wp_infantry_soldier/wp_infantry_soldier_production_data.tres" id="24_e5xtg"]
-[ext_resource type="Resource" uid="uid://csk1y5ishfkot" path="res://src/game/game_entity/entity/units/cavalry/uhlan/uhlan_production_data.tres" id="25_xyaho"]
 
 [sub_resource type="Resource" id="Resource_hjtfb"]
 script = ExtResource("1_ex2mu")
@@ -78,14 +78,6 @@ ProfileName = "AI Profile"
 Agressiveness = 0.3
 Expansiveness = 0.2
 
-[sub_resource type="Resource" id="Resource_7f8du"]
-script = ExtResource("6_10d1s")
-Entities = [ExtResource("15_sax3u"), ExtResource("16_fhidn"), ExtResource("17_g8rwo"), ExtResource("21_u7h2g"), ExtResource("22_5k78r"), ExtResource("23_lxnx8")]
-
-[sub_resource type="Resource" id="Resource_17i7y"]
-script = ExtResource("7_f3700")
-ProducableEntities = [ExtResource("24_e5xtg"), ExtResource("25_xyaho")]
-
 [sub_resource type="Resource" id="Resource_v1ir4"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("15_sax3u")
@@ -120,10 +112,10 @@ SpawnAt = Array[Vector2i]([Vector2i(14, 15), Vector2i(15, 13), Vector2i(14, 10),
 script = ExtResource("5_y5p4v")
 PlayerType = 1
 AIProfile = SubResource("Resource_rwho4")
-Country = ExtResource("5_ciusv")
-ProducableEntities = SubResource("Resource_17i7y")
+Country = ExtResource("18_7afc7")
+ProducableEntities = ExtResource("20_36wo2")
 SpawnedEntities = [SubResource("Resource_v1ir4"), SubResource("Resource_lhsvf"), SubResource("Resource_s6ele"), SubResource("Resource_d886p"), SubResource("Resource_vqte2"), SubResource("Resource_fml8g")]
-OwnedEntities = SubResource("Resource_7f8du")
+OwnedEntities = ExtResource("19_wi1vi")
 
 [resource]
 script = ExtResource("1_wkre3")

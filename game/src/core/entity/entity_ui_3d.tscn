@@ -11,10 +11,11 @@ point_count = 2
 [sub_resource type="ViewportTexture" id="ViewportTexture_whd6p"]
 viewport_path = NodePath("Sprite3D2/SubViewport")
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("EntityUI", "Sprite3D")]
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("EntityUI", "Sprite3D", "SubViewport")]
 script = ExtResource("1_0pq8w")
 EntityUI = NodePath("Sprite3D2/SubViewport/MarginContainer2")
 Sprite3D = NodePath("Sprite3D2")
+SubViewport = NodePath("Sprite3D2/SubViewport")
 CameraDistanceBias = 100.0
 SizeCurve = SubResource("Curve_1c61x")
 
@@ -28,7 +29,6 @@ texture = SubResource("ViewportTexture_whd6p")
 [node name="SubViewport" type="SubViewport" parent="Sprite3D2"]
 transparent_bg = true
 handle_input_locally = false
-canvas_item_default_texture_filter = 2
-size = Vector2i(1920, 1080)
+render_target_update_mode = 1
 
 [node name="MarginContainer2" parent="Sprite3D2/SubViewport" instance=ExtResource("2_smlom")]

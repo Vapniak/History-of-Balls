@@ -10,6 +10,8 @@ using WidgetSystem;
 
 [GlobalClass]
 public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> {
+  [Signal] public delegate void UpdateViewportEventHandler();
+
   [Export] public Control EntriesContainer { get; private set; } = default!;
   private Entity? Entity { get; set; }
 
@@ -88,6 +90,8 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
       GD.PushError("Entity must have an AbilitySystem");
       return;
     }
+
+    EmitSignal(SignalName.UpdateViewport);
   }
 
   // public override void _PhysicsProcess(double delta) {
@@ -139,6 +143,9 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
     else {
       Theme = ThemeDB.GetProjectTheme();
     }
+
+
+    EmitSignal(SignalName.UpdateViewport);
   }
 
   // private void ShowCommandIcons() {
@@ -153,10 +160,6 @@ public partial class EntityUIWidget : HOBWidget, IWidgetFactory<EntityUIWidget> 
   // private void HideCommandIcons() {
   //   CommandIconsParent.Hide();
   // }
-
-  private void SetThemeBasedOnColor() {
-
-  }
 
   static EntityUIWidget IWidgetFactory<EntityUIWidget>.CreateWidget() {
     return ResourceLoader.Load<PackedScene>("uid://c0wn2cfx3bg73").Instantiate<EntityUIWidget>();

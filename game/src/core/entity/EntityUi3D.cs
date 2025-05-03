@@ -9,7 +9,7 @@ using System;
 public partial class EntityUi3D : Node3D {
   [Export] public EntityUIWidget EntityUI { get; private set; } = default!;
   [Export] private Sprite3D Sprite3D { get; set; } = default!;
-
+  [Export] private SubViewport SubViewport { get; set; } = default!;
   [Export] private float CameraDistanceBias { get; set; }
   [Export] private Curve SizeCurve { get; set; }
 
@@ -28,7 +28,10 @@ public partial class EntityUi3D : Node3D {
     //GD.Print(Entity.EntityName, aabb.Size);
     //Position = Vector3.Up * aabb.End.Y;
     //DebugDraw3D.DrawAabb(aabb, duration: 60);
-
+    SubViewport.Size = (Vector2I)EntityUI.Size.Ceil();
+    GD.Print((Vector2I)EntityUI.Size.Ceil());
+    EntityUI.UpdateViewport += () => SubViewport.RenderTargetUpdateMode = SubViewport.UpdateMode.Once;
+    EntityUI.Resized += () => SubViewport.Size = (Vector2I)EntityUI.Size.Ceil();
     Position = Vector3.Up * 2f;
 
 

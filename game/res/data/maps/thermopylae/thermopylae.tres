@@ -1,8 +1,595 @@
-[gd_resource type="Resource" script_class="MapData" load_steps=4 format=3 uid="uid://cmcaxks27ftru"]
+[gd_resource type="Resource" script_class="MapData" load_steps=148 format=3 uid="uid://cmcaxks27ftru"]
 
 [ext_resource type="JSON" path="res://res/data/maps/thermopylae/Termopile2.json" id="1_h3euw"]
 [ext_resource type="Script" path="res://src/core/map/MapData.cs" id="2_8ycqk"]
 [ext_resource type="Resource" uid="uid://den26mhc6fsde" path="res://res/data/maps/default_map_settings.tres" id="2_nyphv"]
+[ext_resource type="Script" path="res://src/core/map/ObjectSetting.cs" id="2_xlpau"]
+[ext_resource type="Script" path="res://src/core/map/NationSettings.cs" id="3_jp48w"]
+[ext_resource type="Script" path="res://src/core/map/NationsSettings.cs" id="4_p8tw1"]
+
+[sub_resource type="Resource" id="Resource_ybgex"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_77ly7"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_rk16p"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_fpguj"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_qjlku"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_jmado"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_g2odv"]
+script = ExtResource("3_jp48w")
+Name = "Unnational"
+ObjectSettings = [SubResource("Resource_ybgex"), SubResource("Resource_77ly7"), SubResource("Resource_rk16p"), SubResource("Resource_fpguj"), SubResource("Resource_qjlku"), SubResource("Resource_jmado")]
+
+[sub_resource type="Resource" id="Resource_bae22"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_v08pa"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_7c7id"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_h3h2f"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_ujb3d"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_dwwbl"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_7mmqn"]
+script = ExtResource("3_jp48w")
+Name = "UN"
+ObjectSettings = [SubResource("Resource_bae22"), SubResource("Resource_v08pa"), SubResource("Resource_7c7id"), SubResource("Resource_h3h2f"), SubResource("Resource_ujb3d"), SubResource("Resource_dwwbl")]
+
+[sub_resource type="Resource" id="Resource_isk7o"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_j3h2d"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_2wd15"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_ifsd7"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_h35nx"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_ptuvi"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_26i22"]
+script = ExtResource("3_jp48w")
+Name = "Poland"
+ObjectSettings = [SubResource("Resource_isk7o"), SubResource("Resource_j3h2d"), SubResource("Resource_2wd15"), SubResource("Resource_ifsd7"), SubResource("Resource_h35nx"), SubResource("Resource_ptuvi")]
+
+[sub_resource type="Resource" id="Resource_05cae"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_87mep"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_iq5iw"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_eqw1o"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_gg2ce"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_rb005"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_mu44l"]
+script = ExtResource("3_jp48w")
+Name = "Germany"
+ObjectSettings = [SubResource("Resource_05cae"), SubResource("Resource_87mep"), SubResource("Resource_iq5iw"), SubResource("Resource_eqw1o"), SubResource("Resource_gg2ce"), SubResource("Resource_rb005")]
+
+[sub_resource type="Resource" id="Resource_aecey"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_ibrmo"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_omylv"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_h1kt5"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_fhby5"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_b6yo2"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_x7hpl"]
+script = ExtResource("3_jp48w")
+Name = "Nazi-Germany"
+ObjectSettings = [SubResource("Resource_aecey"), SubResource("Resource_ibrmo"), SubResource("Resource_omylv"), SubResource("Resource_h1kt5"), SubResource("Resource_fhby5"), SubResource("Resource_b6yo2")]
+
+[sub_resource type="Resource" id="Resource_evlyb"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_nbn4g"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_1lf3w"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_6tcsd"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_diird"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_5flim"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_jnsql"]
+script = ExtResource("3_jp48w")
+Name = "England"
+ObjectSettings = [SubResource("Resource_evlyb"), SubResource("Resource_nbn4g"), SubResource("Resource_1lf3w"), SubResource("Resource_6tcsd"), SubResource("Resource_diird"), SubResource("Resource_5flim")]
+
+[sub_resource type="Resource" id="Resource_ogmw3"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_b6n65"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_q518c"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_ec8d1"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_vcky1"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_ivx2i"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_oojx7"]
+script = ExtResource("3_jp48w")
+Name = "Royal-England"
+ObjectSettings = [SubResource("Resource_ogmw3"), SubResource("Resource_b6n65"), SubResource("Resource_q518c"), SubResource("Resource_ec8d1"), SubResource("Resource_vcky1"), SubResource("Resource_ivx2i")]
+
+[sub_resource type="Resource" id="Resource_k2uau"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_hxaia"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_ar4n1"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_xb8ni"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_3j30c"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_tpo2i"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_36vdt"]
+script = ExtResource("3_jp48w")
+Name = "UK"
+ObjectSettings = [SubResource("Resource_k2uau"), SubResource("Resource_hxaia"), SubResource("Resource_ar4n1"), SubResource("Resource_xb8ni"), SubResource("Resource_3j30c"), SubResource("Resource_tpo2i")]
+
+[sub_resource type="Resource" id="Resource_pvohf"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_mqomd"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_epu03"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_sq8ep"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_fifto"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_fje3l"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_477to"]
+script = ExtResource("3_jp48w")
+Name = "France"
+ObjectSettings = [SubResource("Resource_pvohf"), SubResource("Resource_mqomd"), SubResource("Resource_epu03"), SubResource("Resource_sq8ep"), SubResource("Resource_fifto"), SubResource("Resource_fje3l")]
+
+[sub_resource type="Resource" id="Resource_1tcrd"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_efmwj"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_mhby8"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_5gru8"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_lo75o"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_w8urx"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_mf3ln"]
+script = ExtResource("3_jp48w")
+Name = "Gallic"
+ObjectSettings = [SubResource("Resource_1tcrd"), SubResource("Resource_efmwj"), SubResource("Resource_mhby8"), SubResource("Resource_5gru8"), SubResource("Resource_lo75o"), SubResource("Resource_w8urx")]
+
+[sub_resource type="Resource" id="Resource_eekh5"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_snpnr"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_gmabu"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_mewea"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_ekopx"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_38s3e"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_qkq2c"]
+script = ExtResource("3_jp48w")
+Name = "Greece"
+ObjectSettings = [SubResource("Resource_eekh5"), SubResource("Resource_snpnr"), SubResource("Resource_gmabu"), SubResource("Resource_mewea"), SubResource("Resource_ekopx"), SubResource("Resource_38s3e")]
+
+[sub_resource type="Resource" id="Resource_h0qpy"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_x6320"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_o0u4h"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_oli6g"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_5r14v"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_67jpy"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_o85kh"]
+script = ExtResource("3_jp48w")
+Name = "Italy"
+ObjectSettings = [SubResource("Resource_h0qpy"), SubResource("Resource_x6320"), SubResource("Resource_o0u4h"), SubResource("Resource_oli6g"), SubResource("Resource_5r14v"), SubResource("Resource_67jpy")]
+
+[sub_resource type="Resource" id="Resource_2jy2a"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_skwlt"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_dru14"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_un8i5"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_e0oll"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_st44o"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_rvjyj"]
+script = ExtResource("3_jp48w")
+Name = "Teutonic"
+ObjectSettings = [SubResource("Resource_2jy2a"), SubResource("Resource_skwlt"), SubResource("Resource_dru14"), SubResource("Resource_un8i5"), SubResource("Resource_e0oll"), SubResource("Resource_st44o")]
+
+[sub_resource type="Resource" id="Resource_l5lx4"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_guaes"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_560mv"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_exrg0"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_vbenj"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_0pptm"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_fvg7r"]
+script = ExtResource("3_jp48w")
+Name = "Rome"
+ObjectSettings = [SubResource("Resource_l5lx4"), SubResource("Resource_guaes"), SubResource("Resource_560mv"), SubResource("Resource_exrg0"), SubResource("Resource_vbenj"), SubResource("Resource_0pptm")]
+
+[sub_resource type="Resource" id="Resource_rb2h0"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_2n1py"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_ylifh"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_jjan1"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_yfrgb"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_om8lt"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_shdne"]
+script = ExtResource("3_jp48w")
+Name = "USA"
+ObjectSettings = [SubResource("Resource_rb2h0"), SubResource("Resource_2n1py"), SubResource("Resource_ylifh"), SubResource("Resource_jjan1"), SubResource("Resource_yfrgb"), SubResource("Resource_om8lt")]
+
+[sub_resource type="Resource" id="Resource_r16hu"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_djbtw"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_ej1st"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_0lqq3"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_pof6j"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_0wtnw"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_8md54"]
+script = ExtResource("3_jp48w")
+Name = "Mexico"
+ObjectSettings = [SubResource("Resource_r16hu"), SubResource("Resource_djbtw"), SubResource("Resource_ej1st"), SubResource("Resource_0lqq3"), SubResource("Resource_pof6j"), SubResource("Resource_0wtnw")]
+
+[sub_resource type="Resource" id="Resource_gwg73"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_o683x"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_s0gqd"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_4padp"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_4ud0o"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_4b0to"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_t5hrs"]
+script = ExtResource("3_jp48w")
+Name = "China"
+ObjectSettings = [SubResource("Resource_gwg73"), SubResource("Resource_o683x"), SubResource("Resource_s0gqd"), SubResource("Resource_4padp"), SubResource("Resource_4ud0o"), SubResource("Resource_4b0to")]
+
+[sub_resource type="Resource" id="Resource_0t6dt"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_ngb3s"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_jv2xi"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_osxwk"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_md4mw"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_31ifu"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_cj3d4"]
+script = ExtResource("3_jp48w")
+Name = "Arabia"
+ObjectSettings = [SubResource("Resource_0t6dt"), SubResource("Resource_ngb3s"), SubResource("Resource_jv2xi"), SubResource("Resource_osxwk"), SubResource("Resource_md4mw"), SubResource("Resource_31ifu")]
+
+[sub_resource type="Resource" id="Resource_007ok"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_si7je"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_t5r7p"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_d166t"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_hux26"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_5ju8b"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_rsgwp"]
+script = ExtResource("3_jp48w")
+Name = "Persia"
+ObjectSettings = [SubResource("Resource_007ok"), SubResource("Resource_si7je"), SubResource("Resource_t5r7p"), SubResource("Resource_d166t"), SubResource("Resource_hux26"), SubResource("Resource_5ju8b")]
+
+[sub_resource type="Resource" id="Resource_52bm8"]
+script = ExtResource("2_xlpau")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_ici57"]
+script = ExtResource("2_xlpau")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_xjkbb"]
+script = ExtResource("2_xlpau")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_5w5ti"]
+script = ExtResource("2_xlpau")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_483j1"]
+script = ExtResource("2_xlpau")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_nv1mf"]
+script = ExtResource("2_xlpau")
+Name = "Fast"
+
+[sub_resource type="Resource" id="Resource_r8835"]
+script = ExtResource("3_jp48w")
+Name = "ZSRR"
+ObjectSettings = [SubResource("Resource_52bm8"), SubResource("Resource_ici57"), SubResource("Resource_xjkbb"), SubResource("Resource_5w5ti"), SubResource("Resource_483j1"), SubResource("Resource_nv1mf")]
+
+[sub_resource type="Resource" id="Resource_iotqt"]
+script = ExtResource("4_p8tw1")
+Settings = [SubResource("Resource_g2odv"), SubResource("Resource_7mmqn"), SubResource("Resource_26i22"), SubResource("Resource_mu44l"), SubResource("Resource_x7hpl"), SubResource("Resource_jnsql"), SubResource("Resource_oojx7"), SubResource("Resource_36vdt"), SubResource("Resource_477to"), SubResource("Resource_mf3ln"), SubResource("Resource_qkq2c"), SubResource("Resource_o85kh"), SubResource("Resource_rvjyj"), SubResource("Resource_fvg7r"), SubResource("Resource_shdne"), SubResource("Resource_8md54"), SubResource("Resource_t5hrs"), SubResource("Resource_cj3d4"), SubResource("Resource_rsgwp"), SubResource("Resource_r8835")]
 
 [resource]
 script = ExtResource("2_8ycqk")
@@ -12,3 +599,4 @@ Title = "Thermopylae"
 Cols = 30
 Rows = 20
 Settings = ExtResource("2_nyphv")
+NationsSettings = SubResource("Resource_iotqt")

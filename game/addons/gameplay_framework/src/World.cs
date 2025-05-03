@@ -117,8 +117,10 @@ public sealed partial class World : Node {
 
     CurrentLevel.TreeEntered += async () => {
       EmitSignal(SignalName.LevelLoaded, level);
+      GD.Print("Loading level");
       await CurrentLevel.Load(config);
     };
+
     AddChild(CurrentLevel);
   }
 }

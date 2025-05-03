@@ -27,7 +27,7 @@ public partial class Level : Node {
       return;
     }
 
-    if (IsInstanceValid(GameMode)) {
+    if (IsInstanceValid(GameMode) && GameMode != null) {
       EmitSignal(SignalName.GameModeChanged, GameMode, newGameMode);
       GameMode.QueueFree();
     }
@@ -57,8 +57,11 @@ public partial class Level : Node {
 
   // TODO: level streaming, so you can add multiple levels but keep the same game mode
   public virtual async Task UnLoad() {
+    var task = new TaskCompletionSource();
+    TreeExited += () => task.TrySetResult();
+
     QueueFree();
 
-    await ToSignal(this, SignalName.TreeExited);
+    await task.Task;
   }
 }

@@ -1,0 +1,556 @@
+{
+  "title": "Tutorial",
+  "description": "Small battle map for tutorial",
+  "cols": 8,
+  "rows": 6,
+  "cellDefinitions": [
+    {
+      "id": 0,
+      "name": "Ocean",
+      "color": "#325ddb"
+    },
+    {
+      "id": 1,
+      "name": "Water",
+      "color": "#3fabff"
+    },
+    {
+      "id": 4,
+      "name": "Sands",
+      "color": "#F0E68C"
+    },
+    {
+      "id": 8,
+      "name": "Grassland",
+      "color": "#7FFF00"
+    },
+    {
+      "id": 7,
+      "name": "Meadow",
+      "color": "#00bb00"
+    },
+    {
+      "id": 6,
+      "name": "Forest",
+      "color": "#1a7a1a"
+    },
+    {
+      "id": 9,
+      "name": "Jungle",
+      "color": "#228B66"
+    },
+    {
+      "id": 11,
+      "name": "Highlands",
+      "color": "#6B8E23"
+    },
+    {
+      "id": 5,
+      "name": "Mountains",
+      "color": "#777777"
+    },
+    {
+      "id": 15,
+      "name": "High Mountains",
+      "color": "#9e9e9e"
+    },
+    {
+      "id": 16,
+      "name": "Snowy Mountains",
+      "color": "#f2f2f2"
+    },
+    {
+      "id": 17,
+      "name": "Volcanic  Mountains",
+      "color": "#8c4343"
+    },
+    {
+      "id": 10,
+      "name": "Swamp",
+      "color": "#3fabaa"
+    },
+    {
+      "id": 2,
+      "name": "Desert",
+      "color": "#d6c047"
+    },
+    {
+      "id": 3,
+      "name": "Cactus Desert",
+      "color": "#CD853F"
+    },
+    {
+      "id": 12,
+      "name": "Snowfield",
+      "color": "#FFFFFF"
+    },
+    {
+      "id": 13,
+      "name": "Snowy Forest",
+      "color": "#87ddEB"
+    },
+    {
+      "id": 14,
+      "name": "Glacier",
+      "color": "#4682B4"
+    }
+  ],
+  "nationDefinitions": [
+    {
+      "id": 1,
+      "name": "Unnational"
+    },
+    {
+      "id": 2,
+      "name": "UN"
+    },
+    {
+      "id": 3,
+      "name": "Poland"
+    },
+    {
+      "id": 4,
+      "name": "Germany"
+    },
+    {
+      "id": 5,
+      "name": "Nazi-Germany"
+    },
+    {
+      "id": 6,
+      "name": "England"
+    },
+    {
+      "id": 7,
+      "name": "Royal-England"
+    },
+    {
+      "id": 8,
+      "name": "UK"
+    },
+    {
+      "id": 9,
+      "name": "France"
+    },
+    {
+      "id": 10,
+      "name": "Gallic"
+    },
+    {
+      "id": 11,
+      "name": "Greece"
+    },
+    {
+      "id": 12,
+      "name": "Italy"
+    },
+    {
+      "id": 13,
+      "name": "Teutonic"
+    },
+    {
+      "id": 14,
+      "name": "Rome"
+    },
+    {
+      "id": 15,
+      "name": "USA"
+    },
+    {
+      "id": 16,
+      "name": "Mexico"
+    },
+    {
+      "id": 17,
+      "name": "China"
+    },
+    {
+      "id": 18,
+      "name": "Arabia"
+    },
+    {
+      "id": 19,
+      "name": "Persia"
+    },
+    {
+      "id": 20,
+      "name": "ZSRR"
+    },
+    {
+      "id": 21,
+      "name": "Zombie"
+    }
+  ],
+  "objectDefinitions": [
+    {
+      "id": 1,
+      "name": "City"
+    },
+    {
+      "id": 2,
+      "name": "Industry"
+    },
+    {
+      "id": 3,
+      "name": "Village"
+    },
+    {
+      "id": 4,
+      "name": "Infantry"
+    },
+    {
+      "id": 5,
+      "name": "Ranged"
+    },
+    {
+      "id": 6,
+      "name": "Cavalry"
+    }
+  ],
+  "teams": [
+    {
+      "countries": []
+    },
+    {
+      "countries": []
+    }
+  ],
+  "cells": [
+    {
+      "col": 0,
+      "row": 0,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 1,
+      "row": 0,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 2,
+      "row": 0,
+      "id": 1,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 3,
+      "row": 0,
+      "id": 1,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 4,
+      "row": 0,
+      "id": 2,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 5,
+      "row": 0,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 6,
+      "row": 0,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 7,
+      "row": 0,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 0,
+      "row": 1,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 1,
+      "row": 1,
+      "id": 3,
+      "objectId": 1,
+      "nationId": 1
+    },
+    {
+      "col": 2,
+      "row": 1,
+      "id": 2,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 3,
+      "row": 1,
+      "id": 2,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 4,
+      "row": 1,
+      "id": 2,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 5,
+      "row": 1,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 6,
+      "row": 1,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 7,
+      "row": 1,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 0,
+      "row": 2,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 1,
+      "row": 2,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 2,
+      "row": 2,
+      "id": 3,
+      "objectId": 4,
+      "nationId": 1
+    },
+    {
+      "col": 3,
+      "row": 2,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 4,
+      "row": 2,
+      "id": 2,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 5,
+      "row": 2,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 6,
+      "row": 2,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 7,
+      "row": 2,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 0,
+      "row": 3,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 1,
+      "row": 3,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 2,
+      "row": 3,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 3,
+      "row": 3,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 4,
+      "row": 3,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 5,
+      "row": 3,
+      "id": 3,
+      "objectId": 4,
+      "nationId": 1
+    },
+    {
+      "col": 6,
+      "row": 3,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 7,
+      "row": 3,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 0,
+      "row": 4,
+      "id": 7,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 1,
+      "row": 4,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 2,
+      "row": 4,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 3,
+      "row": 4,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 4,
+      "row": 4,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 5,
+      "row": 4,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 6,
+      "row": 4,
+      "id": 4,
+      "objectId": 1,
+      "nationId": 1
+    },
+    {
+      "col": 7,
+      "row": 4,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 0,
+      "row": 5,
+      "id": 8,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 1,
+      "row": 5,
+      "id": 7,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 2,
+      "row": 5,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 3,
+      "row": 5,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 4,
+      "row": 5,
+      "id": 3,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 5,
+      "row": 5,
+      "id": 4,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 6,
+      "row": 5,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    },
+    {
+      "col": 7,
+      "row": 5,
+      "id": 5,
+      "objectId": 0,
+      "nationId": 0
+    }
+  ]
+}

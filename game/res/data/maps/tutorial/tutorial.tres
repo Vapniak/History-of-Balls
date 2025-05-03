@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MapData" load_steps=4 format=3 uid="uid://d0th7vuwnv2mo"]
+
+[ext_resource type="JSON" path="res://res/data/maps/tutorial/Tutorial.json" id="1_vah74"]
+[ext_resource type="Resource" uid="uid://den26mhc6fsde" path="res://res/data/maps/default_map_settings.tres" id="5_2mrxi"]
+[ext_resource type="Script" path="res://src/core/map/MapData.cs" id="6_fq870"]
+
+[resource]
+script = ExtResource("6_fq870")
+MapFile = ExtResource("1_vah74")
+Generate = false
+Title = "Tutorial"
+Cols = 8
+Rows = 6
+Settings = ExtResource("5_2mrxi")
