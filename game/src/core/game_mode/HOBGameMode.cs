@@ -180,6 +180,7 @@ public partial class HOBGameMode : GameMode {
       }
     }
 
+
     StateChart.CallDeferred(StateChart.MethodName.SendEvent, "match_start");
   }
 

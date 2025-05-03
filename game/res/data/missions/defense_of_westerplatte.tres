@@ -42,17 +42,17 @@ ProducableEntities = [ExtResource("13_1s2o2"), ExtResource("14_xlsmi"), ExtResou
 [sub_resource type="Resource" id="Resource_rmdru"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("10_jwg2v")
-SpawnAt = Array[Vector2i]([Vector2i(31, 27), Vector2i(34, 24), Vector2i(35, 23), Vector2i(36, 22)])
+SpawnAt = Array[Vector2i]([Vector2i(31, 27), Vector2i(36, 22)])
 
 [sub_resource type="Resource" id="Resource_wh1at"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("11_pgrml")
-SpawnAt = Array[Vector2i]([Vector2i(33, 28), Vector2i(34, 27), Vector2i(35, 27), Vector2i(35, 26), Vector2i(37, 25), Vector2i(39, 25), Vector2i(38, 25)])
+SpawnAt = Array[Vector2i]([Vector2i(33, 28), Vector2i(34, 27), Vector2i(35, 26), Vector2i(37, 25), Vector2i(39, 25)])
 
 [sub_resource type="Resource" id="Resource_n4p4t"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("9_k66yu")
-SpawnAt = Array[Vector2i]([Vector2i(33, 29), Vector2i(32, 28), Vector2i(34, 28), Vector2i(34, 26), Vector2i(36, 26), Vector2i(36, 25), Vector2i(38, 24), Vector2i(39, 24)])
+SpawnAt = Array[Vector2i]([Vector2i(33, 29), Vector2i(32, 28), Vector2i(34, 28), Vector2i(36, 26), Vector2i(36, 25), Vector2i(38, 24), Vector2i(39, 24)])
 
 [sub_resource type="Resource" id="Resource_g5unb"]
 script = ExtResource("9_dxpyx")
@@ -114,7 +114,7 @@ SpawnAt = Array[Vector2i]([Vector2i(20, 18), Vector2i(22, 16)])
 [sub_resource type="Resource" id="Resource_fml8g"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("23_lxnx8")
-SpawnAt = Array[Vector2i]([Vector2i(14, 15), Vector2i(15, 13), Vector2i(14, 10)])
+SpawnAt = Array[Vector2i]([Vector2i(14, 15), Vector2i(15, 13), Vector2i(14, 10), Vector2i(11, 15), Vector2i(27, 21)])
 
 [sub_resource type="Resource" id="Resource_qnbri"]
 script = ExtResource("5_y5p4v")

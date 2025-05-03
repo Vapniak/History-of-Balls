@@ -178,10 +178,11 @@ gravity = Vector3(0, 0, 0)
 sub_emitter_mode = 2
 sub_emitter_amount_at_end = 1
 
-[node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera", "CameraParent", "WindPlayer")]
+[node name="PlayerCharacter" type="Node3D" node_paths=PackedStringArray("Camera", "CameraParent", "Body", "WindPlayer")]
 script = ExtResource("1_ggdef")
-Camera = NodePath("Camera3D")
-CameraParent = NodePath("Camera3D")
+Camera = NodePath("Body/CameraParent/Camera3D")
+CameraParent = NodePath("Body/CameraParent")
+Body = NodePath("Body")
 EdgeMarginPixels = 10
 _acceleration = 15.0
 _moveSpeedMinZoom = 80.0
@@ -195,6 +196,14 @@ _minZoomOffset = Vector3(0, 50, 30)
 _maxZoomOffset = Vector3(0, 5, 6)
 _distanceCurve = SubResource("Curve_t3eex")
 _panSpeedMulti = 0.001
+
+[node name="Body" type="Node3D" parent="."]
+
+[node name="CameraParent" type="Node3D" parent="Body"]
+
+[node name="Camera3D" type="Camera3D" parent="Body/CameraParent"]
+current = true
+fov = 90.0
 
 [node name="OutlinePostProcess" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.120215)
@@ -220,10 +229,6 @@ trail_enabled = true
 trail_lifetime = 1.0
 process_material = SubResource("ParticleProcessMaterial_fst37")
 draw_pass_1 = ExtResource("3_w31k8")
-
-[node name="Camera3D" type="Camera3D" parent="."]
-current = true
-fov = 90.0
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamWAV_sj46q")

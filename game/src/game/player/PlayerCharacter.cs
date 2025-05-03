@@ -7,6 +7,8 @@ using Godot;
 public partial class PlayerCharacter : Node3D, IPlayerControllable {
   [Export] public Camera3D Camera { get; private set; } = default!;
   [Export] public Node3D CameraParent { get; private set; } = default!;
+
+  [Export] public Node3D Body { get; private set; } = default!;
   [Export] public int EdgeMarginPixels { get; private set; } = 50;
   [Export] private float _acceleration = 10f;
   [Export] private float _moveSpeedMinZoom = 400f, _moveSpeedMaxZoom = 100f;
@@ -100,7 +102,7 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
       _rotationTween = CreateTween().SetSpeedScale(1f / (float)Engine.TimeScale);
 
       _rotationTween.SetEase(Tween.EaseType.InOut).SetTrans(Tween.TransitionType.Back);
-      _rotationTween.TweenProperty(Camera, "rotation:y", Mathf.DegToRad(right ? 90 : -90), .5).AsRelative();
+      _rotationTween.TweenProperty(Body, "rotation:y", Mathf.DegToRad(right ? 90 : -90), .5).AsRelative();
     }
   }
 
@@ -140,17 +142,17 @@ public partial class PlayerCharacter : Node3D, IPlayerControllable {
 
   public void Update(double delta) {
     UpdateCamera((float)delta);
-    GlobalTranslate(Transform.Basis * Velocity * (float)delta);
+    GlobalTranslate(Body.Transform.Basis * Velocity * (float)delta);
 
-    var rotationSpeed = (Camera.Rotation - _prevRotation).Length() / (float)delta;
-    var speed = (CameraParent.GlobalPosition - _prevPosition).Length() / (float)delta;
+    var rotationSpeed = (Camera.GlobalRotation - _prevRotation).Length() / (float)delta;
+    var speed = (Body.GlobalPosition - _prevPosition).Length() / (float)delta;
     speed += rotationSpeed;
     var targetVol = Mathf.Clamp(Mathf.Remap(speed, 0, MoveSpeed, WindMinVolume, WindMaxVolume),
     WindMinVolume, WindMaxVolume);
     WindPlayer.VolumeDb = (float)Mathf.Lerp(WindPlayer.VolumeDb, targetVol, delta * _zoomLerpSpeed);
 
-    _prevPosition = CameraParent.GlobalPosition;
-    _prevRotation = Camera.Rotation;
+    _prevPosition = Body.GlobalPosition;
+    _prevRotation = Camera.GlobalRotation;
     _moveSpeedMulti = 1;
   }
 

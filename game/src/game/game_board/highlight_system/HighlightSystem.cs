@@ -12,7 +12,7 @@ public partial class HOBPlayerController {
       public Color CurrentColor;
       public Color TargetColor;
       public float TransitionProgress;
-      public float TransitionSpeed = 15f;
+      public float TransitionSpeed = 10f;
     }
 
     private readonly GameBoard _gameBoard;

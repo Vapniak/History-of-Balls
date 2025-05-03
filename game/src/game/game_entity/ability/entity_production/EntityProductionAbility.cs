@@ -69,7 +69,7 @@ public partial class EntityProductionAbility : HOBAbility {
           if (OwnerEntity.TryGetOwner(out var owner) && OwnerEntity.IsCurrentTurn()) {
             RoundsLeft--;
             if (RoundsLeft <= 0) {
-              if (!OwnerEntity.EntityManagment.GetEntitiesOnCell(OwnerEntity.Cell).Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) && OwnerEntity.EntityManagment.TryAddEntityOnCell(productionConfig.Entity, OwnerEntity.Cell, owner)) {
+              if (!OwnerEntity.EntityManagment.GetEntitiesOnCell(OwnerEntity.Cell).Any(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit))) && OwnerEntity.EntityManagment.TryAddEntityOnCell(productionConfig.Entity, OwnerEntity.Cell, owner, OwnerEntity.Rotation)) {
                 taskData.Complete();
 
                 // if (owner is PlayerController) {

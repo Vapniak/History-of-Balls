@@ -68,10 +68,10 @@ uniform vec2 uv_scale = vec2(1,1);
 uniform vec2 uv_offset = vec2(0,0);
 group_uniforms;
 
-
-void vertex() {
-	UV = UV * uv_scale.xy + uv_offset.xy;
-}
+//
+//void vertex() {
+	//UV = UV * uv_scale.xy + uv_offset.xy;
+//}
 
 void fragment() {
 	ALBEDO = color.rgb * texture(base_texture, UV).rgb;

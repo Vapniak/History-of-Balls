@@ -1,20 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://f07dkk04tnyy"]
+[gd_scene load_steps=8 format=3 uid="uid://f07dkk04tnyy"]
 
-[ext_resource type="Texture2D" uid="uid://icrjdvvl5pmi" path="res://assets/textures/particle/PNG (Transparent)/clouds-1.png" id="1_h0ybk"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hv8qc"]
-transparency = 4
-shading_mode = 0
-vertex_color_use_as_albedo = true
-albedo_texture = ExtResource("1_h0ybk")
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-proximity_fade_distance = 20.0
-distance_fade_mode = 1
-distance_fade_max_distance = 20.0
+[ext_resource type="Material" uid="uid://bvpbelxp51ogh" path="res://src/game/vfx/clouds/cloud_mat.tres" id="1_6lj2t"]
 
 [sub_resource type="Curve" id="Curve_sewxw"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.198511, 1), 0.0, 0.0, 0, 0, Vector2(0.975186, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -51,7 +37,7 @@ size = Vector2(5, 5)
 [node name="Cloud" type="Node3D"]
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-material_override = SubResource("StandardMaterial3D_hv8qc")
+material_override = ExtResource("1_6lj2t")
 extra_cull_margin = 16384.0
 amount = 30
 lifetime = 30.0

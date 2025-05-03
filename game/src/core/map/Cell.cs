@@ -8,4 +8,5 @@ public partial class Cell : RefCounted {
   [Export] public int Row;
   [Export] public int Id;
   [Export] public int ObjectId;
+  [Export] public int NationId;
 }

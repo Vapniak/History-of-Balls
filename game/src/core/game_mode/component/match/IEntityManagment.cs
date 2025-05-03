@@ -9,7 +9,7 @@ public interface IEntityManagment {
   public event Action<Entity> EntityAdded;
   public event Action<Entity> EntityRemoved;
 
-  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController owner, Vector3 rotation = new());
+  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController owner, Vector3 rotation);
   public Entity[] GetOwnedEntitiesOnCell(IMatchController owner, GameCell cell);
   public Entity[] GetOwnedEntites(IMatchController owner);
   public Entity[] GetNotOwnedEntities();

@@ -1,8 +1,624 @@
-[gd_resource type="Resource" script_class="MapData" load_steps=4 format=3 uid="uid://clhp4sujy27yq"]
+[gd_resource type="Resource" script_class="MapData" load_steps=155 format=3 uid="uid://clhp4sujy27yq"]
 
 [ext_resource type="JSON" path="res://res/data/maps/defense_of_westerplatte/ObronaWesterplatte.json" id="1_kuo4y"]
 [ext_resource type="Resource" uid="uid://den26mhc6fsde" path="res://res/data/maps/default_map_settings.tres" id="2_bvusw"]
+[ext_resource type="Script" path="res://src/core/map/ObjectSetting.cs" id="2_kve38"]
+[ext_resource type="Script" path="res://src/core/map/NationSettings.cs" id="3_dap70"]
 [ext_resource type="Script" path="res://src/core/map/MapData.cs" id="3_fwf65"]
+[ext_resource type="Script" path="res://src/core/map/NationsSettings.cs" id="4_dka6c"]
+
+[sub_resource type="Resource" id="Resource_a5tba"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_8t5lm"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_kfrm7"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_ghf57"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_3spvf"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_kyaio"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_tr4pu"]
+script = ExtResource("3_dap70")
+Name = "Unnational"
+ObjectSettings = [SubResource("Resource_a5tba"), SubResource("Resource_8t5lm"), SubResource("Resource_kfrm7"), SubResource("Resource_ghf57"), SubResource("Resource_3spvf"), SubResource("Resource_kyaio")]
+
+[sub_resource type="Resource" id="Resource_oph4p"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_igqi4"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_fhyxl"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_iunx8"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_xix7t"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_f01k4"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_xg07b"]
+script = ExtResource("3_dap70")
+Name = "UN"
+ObjectSettings = [SubResource("Resource_oph4p"), SubResource("Resource_igqi4"), SubResource("Resource_fhyxl"), SubResource("Resource_iunx8"), SubResource("Resource_xix7t"), SubResource("Resource_f01k4")]
+
+[sub_resource type="Resource" id="Resource_187eo"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_gcbc6"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_30fbk"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_dm6ga"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_mtq7t"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_5jjic"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_87vb7"]
+script = ExtResource("3_dap70")
+Name = "Poland"
+ObjectSettings = [SubResource("Resource_187eo"), SubResource("Resource_gcbc6"), SubResource("Resource_30fbk"), SubResource("Resource_dm6ga"), SubResource("Resource_mtq7t"), SubResource("Resource_5jjic")]
+
+[sub_resource type="Resource" id="Resource_soeqw"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_sf5uh"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_ugo1j"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_2ngp1"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_ajimd"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_53sd0"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_1gwrs"]
+script = ExtResource("3_dap70")
+Name = "Germany"
+ObjectSettings = [SubResource("Resource_soeqw"), SubResource("Resource_sf5uh"), SubResource("Resource_ugo1j"), SubResource("Resource_2ngp1"), SubResource("Resource_ajimd"), SubResource("Resource_53sd0")]
+
+[sub_resource type="Resource" id="Resource_60lbr"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_aty63"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_25bx5"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_71t6s"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_r7s38"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_elt7w"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_77okq"]
+script = ExtResource("3_dap70")
+Name = "Nazi-Germany"
+ObjectSettings = [SubResource("Resource_60lbr"), SubResource("Resource_aty63"), SubResource("Resource_25bx5"), SubResource("Resource_71t6s"), SubResource("Resource_r7s38"), SubResource("Resource_elt7w")]
+
+[sub_resource type="Resource" id="Resource_do7td"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_x7all"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_8w4av"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_pu1iu"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_7ksc7"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_mfdnb"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_waeua"]
+script = ExtResource("3_dap70")
+Name = "England"
+ObjectSettings = [SubResource("Resource_do7td"), SubResource("Resource_x7all"), SubResource("Resource_8w4av"), SubResource("Resource_pu1iu"), SubResource("Resource_7ksc7"), SubResource("Resource_mfdnb")]
+
+[sub_resource type="Resource" id="Resource_x5inl"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_0sqo0"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_6vw7g"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_ijbc4"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_56sbm"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_vixuk"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_3idxh"]
+script = ExtResource("3_dap70")
+Name = "Royal-England"
+ObjectSettings = [SubResource("Resource_x5inl"), SubResource("Resource_0sqo0"), SubResource("Resource_6vw7g"), SubResource("Resource_ijbc4"), SubResource("Resource_56sbm"), SubResource("Resource_vixuk")]
+
+[sub_resource type="Resource" id="Resource_2jukk"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_tvydm"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_ki55y"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_40gfm"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_kjf42"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_vcyr5"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_2yseo"]
+script = ExtResource("3_dap70")
+Name = "UK"
+ObjectSettings = [SubResource("Resource_2jukk"), SubResource("Resource_tvydm"), SubResource("Resource_ki55y"), SubResource("Resource_40gfm"), SubResource("Resource_kjf42"), SubResource("Resource_vcyr5")]
+
+[sub_resource type="Resource" id="Resource_wydl0"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_chkpe"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_vlpgp"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_lyt0c"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_5ddy7"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_7ssyo"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_sht4c"]
+script = ExtResource("3_dap70")
+Name = "France"
+ObjectSettings = [SubResource("Resource_wydl0"), SubResource("Resource_chkpe"), SubResource("Resource_vlpgp"), SubResource("Resource_lyt0c"), SubResource("Resource_5ddy7"), SubResource("Resource_7ssyo")]
+
+[sub_resource type="Resource" id="Resource_yn8yp"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_frg5a"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_xp5vl"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_w47dt"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_e1pld"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_x44pp"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_7q0b4"]
+script = ExtResource("3_dap70")
+Name = "Gallic"
+ObjectSettings = [SubResource("Resource_yn8yp"), SubResource("Resource_frg5a"), SubResource("Resource_xp5vl"), SubResource("Resource_w47dt"), SubResource("Resource_e1pld"), SubResource("Resource_x44pp")]
+
+[sub_resource type="Resource" id="Resource_4s7tp"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_k13o4"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_00heh"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_itvli"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_0noyc"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_ydcoh"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_8h4rp"]
+script = ExtResource("3_dap70")
+Name = "Greece"
+ObjectSettings = [SubResource("Resource_4s7tp"), SubResource("Resource_k13o4"), SubResource("Resource_00heh"), SubResource("Resource_itvli"), SubResource("Resource_0noyc"), SubResource("Resource_ydcoh")]
+
+[sub_resource type="Resource" id="Resource_c1tau"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_2on47"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_k2k3j"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_vpi3m"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_xqguc"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_4eu1w"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_kyjym"]
+script = ExtResource("3_dap70")
+Name = "Italy"
+ObjectSettings = [SubResource("Resource_c1tau"), SubResource("Resource_2on47"), SubResource("Resource_k2k3j"), SubResource("Resource_vpi3m"), SubResource("Resource_xqguc"), SubResource("Resource_4eu1w")]
+
+[sub_resource type="Resource" id="Resource_aftyt"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_ubrta"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_0sc1q"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_10rx7"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_7fe0n"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_u8x4e"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_ec7rc"]
+script = ExtResource("3_dap70")
+Name = "Teutonic"
+ObjectSettings = [SubResource("Resource_aftyt"), SubResource("Resource_ubrta"), SubResource("Resource_0sc1q"), SubResource("Resource_10rx7"), SubResource("Resource_7fe0n"), SubResource("Resource_u8x4e")]
+
+[sub_resource type="Resource" id="Resource_6rtsl"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_yu1qd"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_kuwrx"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_osbnj"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_owwdd"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_0jb1x"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_ovj5k"]
+script = ExtResource("3_dap70")
+Name = "Rome"
+ObjectSettings = [SubResource("Resource_6rtsl"), SubResource("Resource_yu1qd"), SubResource("Resource_kuwrx"), SubResource("Resource_osbnj"), SubResource("Resource_owwdd"), SubResource("Resource_0jb1x")]
+
+[sub_resource type="Resource" id="Resource_7ykk0"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_lrglh"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_fxi5o"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_d7i7d"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_e58ym"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_mhyef"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_vyb48"]
+script = ExtResource("3_dap70")
+Name = "USA"
+ObjectSettings = [SubResource("Resource_7ykk0"), SubResource("Resource_lrglh"), SubResource("Resource_fxi5o"), SubResource("Resource_d7i7d"), SubResource("Resource_e58ym"), SubResource("Resource_mhyef")]
+
+[sub_resource type="Resource" id="Resource_cq4vi"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_ojctq"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_lr5nb"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_vu6yu"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_uwx25"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_c3ud2"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_htg03"]
+script = ExtResource("3_dap70")
+Name = "Mexico"
+ObjectSettings = [SubResource("Resource_cq4vi"), SubResource("Resource_ojctq"), SubResource("Resource_lr5nb"), SubResource("Resource_vu6yu"), SubResource("Resource_uwx25"), SubResource("Resource_c3ud2")]
+
+[sub_resource type="Resource" id="Resource_ivl3q"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_y2i7e"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_lp3j2"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_puepr"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_nxgnb"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_33fpp"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_lrew0"]
+script = ExtResource("3_dap70")
+Name = "China"
+ObjectSettings = [SubResource("Resource_ivl3q"), SubResource("Resource_y2i7e"), SubResource("Resource_lp3j2"), SubResource("Resource_puepr"), SubResource("Resource_nxgnb"), SubResource("Resource_33fpp")]
+
+[sub_resource type="Resource" id="Resource_02f4m"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_wje7v"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_wif3n"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_r0fx2"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_ajngh"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_60i7g"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_0vhru"]
+script = ExtResource("3_dap70")
+Name = "Arabia"
+ObjectSettings = [SubResource("Resource_02f4m"), SubResource("Resource_wje7v"), SubResource("Resource_wif3n"), SubResource("Resource_r0fx2"), SubResource("Resource_ajngh"), SubResource("Resource_60i7g")]
+
+[sub_resource type="Resource" id="Resource_d48mx"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_v3yoo"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_2sb4x"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_gu35y"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_imw82"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_dauig"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_1yiob"]
+script = ExtResource("3_dap70")
+Name = "Persia"
+ObjectSettings = [SubResource("Resource_d48mx"), SubResource("Resource_v3yoo"), SubResource("Resource_2sb4x"), SubResource("Resource_gu35y"), SubResource("Resource_imw82"), SubResource("Resource_dauig")]
+
+[sub_resource type="Resource" id="Resource_uf723"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_hupfa"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_1upkb"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_cr5gf"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_mgce0"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_afd3m"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_l16kd"]
+script = ExtResource("3_dap70")
+Name = "ZSRR"
+ObjectSettings = [SubResource("Resource_uf723"), SubResource("Resource_hupfa"), SubResource("Resource_1upkb"), SubResource("Resource_cr5gf"), SubResource("Resource_mgce0"), SubResource("Resource_afd3m")]
+
+[sub_resource type="Resource" id="Resource_t3mv1"]
+script = ExtResource("2_kve38")
+Name = "City"
+
+[sub_resource type="Resource" id="Resource_a06se"]
+script = ExtResource("2_kve38")
+Name = "Industry"
+
+[sub_resource type="Resource" id="Resource_uavnn"]
+script = ExtResource("2_kve38")
+Name = "Village"
+
+[sub_resource type="Resource" id="Resource_wwu2d"]
+script = ExtResource("2_kve38")
+Name = "Infantry"
+
+[sub_resource type="Resource" id="Resource_x12lw"]
+script = ExtResource("2_kve38")
+Name = "Ranged"
+
+[sub_resource type="Resource" id="Resource_nnqbg"]
+script = ExtResource("2_kve38")
+Name = "Cavalry"
+
+[sub_resource type="Resource" id="Resource_kgu1u"]
+script = ExtResource("3_dap70")
+Name = "Zombie"
+ObjectSettings = [SubResource("Resource_t3mv1"), SubResource("Resource_a06se"), SubResource("Resource_uavnn"), SubResource("Resource_wwu2d"), SubResource("Resource_x12lw"), SubResource("Resource_nnqbg")]
+
+[sub_resource type="Resource" id="Resource_4x4gf"]
+script = ExtResource("4_dka6c")
+Settings = [SubResource("Resource_tr4pu"), SubResource("Resource_xg07b"), SubResource("Resource_87vb7"), SubResource("Resource_1gwrs"), SubResource("Resource_77okq"), SubResource("Resource_waeua"), SubResource("Resource_3idxh"), SubResource("Resource_2yseo"), SubResource("Resource_sht4c"), SubResource("Resource_7q0b4"), SubResource("Resource_8h4rp"), SubResource("Resource_kyjym"), SubResource("Resource_ec7rc"), SubResource("Resource_ovj5k"), SubResource("Resource_vyb48"), SubResource("Resource_htg03"), SubResource("Resource_lrew0"), SubResource("Resource_0vhru"), SubResource("Resource_1yiob"), SubResource("Resource_l16kd"), SubResource("Resource_kgu1u")]
 
 [resource]
 script = ExtResource("3_fwf65")
@@ -12,3 +628,4 @@ Title = "ObronaWesterplatte"
 Cols = 40
 Rows = 30
 Settings = ExtResource("2_bvusw")
+NationsSettings = SubResource("Resource_4x4gf")

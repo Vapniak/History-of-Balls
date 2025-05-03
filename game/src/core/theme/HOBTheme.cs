@@ -1,5 +1,6 @@
 namespace HOB;
 
+using System.Windows.Markup;
 using Godot;
 
 [GlobalClass, Tool]
@@ -60,12 +61,14 @@ public partial class HOBTheme : ProgrammaticTheme {
       }),
     });
 
+    var backgroundTransparencyPanel = Inherit(panelStyle, new Style() {
+      ["bg_color"] = AccentBase with { A = 0.5f },
+      ["corner_radius_"] = CornerRadius(0),
+      ["border_width_"] = BorderWidth(0),
+    });
+
     DefineVariantStyle("BackgroundTransparency", "Panel", new() {
-      ["panel"] = Inherit(panelStyle, new Style() {
-        ["bg_color"] = AccentBase with { A = 0.5f },
-        ["corner_radius_"] = CornerRadius(0),
-        ["border_width_"] = BorderWidth(0),
-      })
+      ["panel"] = backgroundTransparencyPanel,
     });
 
     DefineVariantStyle("ScreenPanel", "Panel", new() {
@@ -271,52 +274,55 @@ public partial class HOBTheme : ProgrammaticTheme {
     // // ======================
     // // TabContainer Styles
     // // ======================
-    // DefineStyle("TabContainer", new() {
-    //   ["panel"] = createBaseStyleBox(BaseColor.Darkened(0.1f), PrimaryColor.Darkened(0.3f), 0.15f),
 
-    //   // Tab bar background (set to empty to blend with main panel)
-    //   ["tabbar_background"] = StyleboxEmpty(),
+    var baseTab = StyleboxFlat(new() {
+      ["corner_radius_"] = CornerRadius(BaseCornerRadius, BaseCornerRadius, 0, 0),
+      ["border_width_"] = BorderWidth(0, 0, 0, BaseBorderWidth),
+    });
+    DefineStyle("TabContainer", new() {
+      ["panel"] = Inherit(backgroundTransparencyPanel, StyleboxFlat(new() {
 
-    //   // Tab styling
-    //   ["tab_unselected"] = StyleboxFlat(new() {
-    //     ["bg_color"] = BaseColor.Darkened(0.2f),
-    //     ["border_width_"] = BorderWidth(1, 1, 0, 1), // Border only on sides and top
-    //     ["border_color"] = PrimaryColor.Darkened(0.4f),
-    //     ["corner_radius_"] = CornerRadius(BaseCornerRadius, BaseCornerRadius, 0, 0),
-    //     ["content_margins_"] = ContentMargins(BaseMargin * 2, BaseMargin, BaseMargin * 2, BaseMargin),
-    //     ["shadow_size"] = 0 // No shadow for unselected tabs
-    //   }),
+      })),
 
-    //   ["tab_selected"] =
-    //   //Inherit(GetStyle("TabContainer")["tab_unselected"].As<Style>(),
-    //   StyleboxFlat(new() {
-    //     ["bg_color"] = BaseColor, // Matches panel background
-    //     ["border_color"] = PrimaryColor,
-    //     ["border_width_"] = BorderWidth(BaseBorderWidth, BaseBorderWidth, 0, BaseBorderWidth),
-    //     ["shadow_size"] = BaseBorderWidth,
-    //     ["shadow_color"] = new Color(PrimaryColor, 0.1f)
-    //   }),
+      ["tabbar_background"] = Inherit(StyleboxFlat(new() {
+        ["bg_color"] = Colors.Transparent,
+        ["border_color"] = PrimaryColor.Darkened(0.3f)
+      })),
 
-    //   ["tab_disabled"] = StyleboxFlat(new() {
-    //     ["bg_color"] = new Color(BaseColor.Darkened(0.2f), 0.5f),
-    //     ["border_color"] = new Color(PrimaryColor.Darkened(0.4f), 0.3f)
-    //   }),
+      ["tab_unselected"] = Inherit(buttonNormal, baseTab
+      , StyleboxFlat(new() {
+        //["corner_radius_"] = CornerRadius(BaseCornerRadius, BaseCornerRadius, 0, 0),
+        //["content_margins_"] = ContentMargins(BaseMargin * 2, BaseMargin, BaseMargin * 2, BaseMargin),
+        ["shadow_size"] = 0
+      })),
 
-    //   ["tab_hover"] = StyleboxFlat(new() {
-    //     ["bg_color"] = BaseColor.Darkened(0.15f),
-    //     ["border_color"] = PrimaryColor.Darkened(0.2f)
-    //   }),
+      ["tab_selected"] = Inherit(buttonPressed, baseTab, StyleboxFlat(new() {
+        //["corner_radius_"] = CornerRadius(BaseCornerRadius, BaseCornerRadius, 0, 0),
+        //["content_margins_"] = ContentMargins(BaseMargin * 2, BaseMargin, BaseMargin * 2, BaseMargin),
+        ["bg_color"] = BaseColor,
+        ["border_width_"] = BorderWidth(BaseBorderWidth),
+        ["border_color"] = PrimaryColor
+      })),
 
-    //   ["font"] = DefaultFont,
-    //   ["font_size"] = DefaultFontSize,
-    //   ["font_color"] = new Color(FontColor, 0.8f),
-    //   ["font_selected_color"] = FontColor,
-    //   ["font_hover_color"] = FontColor.Lightened(0.1f),
-    //   ["font_disabled_color"] = new Color(FontColor, 0.4f),
+      ["tab_disabled"] = Inherit(buttonDisabled, baseTab, StyleboxFlat(new() {
+        //["corner_radius_"] = CornerRadius(BaseCornerRadius, BaseCornerRadius, 0, 0)
+      })),
 
-    //   ["hseparation"] = -BaseBorderWidth,
-    //   ["top_margin"] = BaseMargin * 2
-    // });
+      ["tab_hovered"] = Inherit(buttonHover, baseTab, StyleboxFlat(new() {
+        //["corner_radius_"] = CornerRadius(BaseCornerRadius, BaseCornerRadius, 0, 0)
+      })),
+
+      ["tab_focus"] = Inherit(buttonFocus, baseTab, StyleboxFlat(new() {
+
+      })),
+
+      // Font settings matching your theme
+      ["font"] = DefaultFont,
+      ["font_size"] = DefaultFontSize,
+      ["font_selected_color"] = FontColor,
+      ["font_hovered_color"] = FontColor.Lightened(0.1f),
+      ["font_disabled_color"] = FontColor.Darkened(0.5f),
+    });
 
 
     DefineStyle("PopupPanel", new() {
@@ -330,7 +336,7 @@ public partial class HOBTheme : ProgrammaticTheme {
     DefineStyle("PopupMenu", new() {
       ["panel"] = panelStyle,
       ["hover"] = createBaseStyleBox(PrimaryBase with { A = 0.7f },
-        PrimaryColor with { A = 0.5f }),
+      PrimaryColor with { A = 0.5f }),
       ["separator"] = separatorStyle
     });
 

@@ -3,6 +3,7 @@ namespace HOB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AudioManager;
 using GameplayFramework;
 using GameplayTags;
 using Godot;
@@ -72,7 +73,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     return _gameStarted && GetGameState().CurrentPlayerIndex == controller.GetPlayerState().PlayerIndex;
   }
 
-  public void AddEntityOnClosestAvailableCell(EntityData data, OffsetCoord coord, IMatchController? owner, Vector3 rotation = new()) {
+  public void AddEntityOnClosestAvailableCell(EntityData data, OffsetCoord coord, IMatchController? owner, Vector3 rotation) {
     GameCell? closestCell = null;
     var minDistance = int.MaxValue;
 
@@ -90,7 +91,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
     }
   }
 
-  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController? owner, Vector3 rotation = new()) {
+  public bool TryAddEntityOnCell(EntityData data, GameCell cell, IMatchController? owner, Vector3 rotation) {
     var entity = data.CreateEntity(cell, this, owner, rotation);
     if (entity != null) {
       SpawnEntity(entity);
@@ -186,6 +187,7 @@ public partial class MatchComponent : GameModeComponent, IMatchEvents, IEntityMa
   }
 
   private void OnTurnEnded() {
+    SoundManager.Instance.Play("sound", "next_turn");
     _lastPlayer?.OwnTurnEnded();
     MatchEvent?.Invoke(TagManager.GetTag(HOBTags.EventTurnEnded));
   }

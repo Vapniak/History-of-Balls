@@ -283,7 +283,8 @@ public partial class SoundManager : Node {
 
     void handleHover() {
       if (weakButton?.GetRef().As<Node>() is Button validButton && !validButton.Disabled) {
-        Play("ui", "hover");
+        var pitch = GD.RandRange(1, 1.5);
+        PlayVaried("ui", "hover", (float)pitch);
       }
     }
 

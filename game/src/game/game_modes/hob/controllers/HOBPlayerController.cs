@@ -424,7 +424,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
     }
 
     if (EntityManagment.GetEntitiesOnCell(HoveredCell).Length > 0) {
-      SoundManager.Instance.Play("ui", "hover");
+      var pitch = GD.RandRange(2, 2.5);
+      //SoundManager.Instance.PlayVaried("ui", "hover", (float)pitch);
       //Input.SetDefaultCursorShape(Input.CursorShape.PointingHand);
     }
   }

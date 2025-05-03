@@ -4,22 +4,25 @@ using Godot;
 using Godot.Collections;
 using System.Linq;
 using System.IO;
+using System.Collections.Generic;
 
 [GlobalClass, Tool]
 public partial class MapData : Resource {
-  [Export] private Json MapFile { get; set; }
+  [Export] private Json? MapFile { get; set; }
   [Export]
   private bool Generate {
     get => false;
     set => ParseMap();
   }
-  [Export] public string Title { get; set; }
+  [Export] public string Title { get; set; } = "";
   [Export] public int Cols { get; set; }
   [Export] public int Rows { get; set; }
-  [Export] public MapSettings Settings { get; set; }
 
-  private Dictionary _mapData;
-  private Array<Cell> Cells { get; set; }
+  [Export] public MapSettings? Settings { get; private set; }
+  [Export] public NationsSettings? NationsSettings { get; private set; }
+
+  private Dictionary? _mapData;
+  private Array<Cell>? Cells { get; set; }
 
   private void ParseMap() {
     if (MapFile == null || MapFile.Data.VariantType == Variant.Type.Nil) {
@@ -33,6 +36,7 @@ public partial class MapData : Resource {
     Rows = data.ContainsKey("rows") ? data["rows"].AsInt32() : 0;
 
     Settings ??= new MapSettings();
+    NationsSettings ??= new();
 
     if (data.ContainsKey("cellDefinitions") && data["cellDefinitions"].VariantType != Variant.Type.Nil) {
       var cellSettings = new Array<CellSetting>();
@@ -52,6 +56,29 @@ public partial class MapData : Resource {
       if (Settings.CellSettings == null) {
         Settings.CellSettings = cellSettings;
       }
+    }
+
+    if (data.ContainsKey("nationDefinitions")) {
+      var nationSettings = new NationsSettings();
+
+      foreach (var item in data["nationDefinitions"].AsGodotArray()) {
+        var nationDef = item.AsGodotDictionary();
+        var nation = new NationSettings(nationDef["name"].ToString());
+        if (data.ContainsKey("objectDefinitions")) {
+          foreach (var objectDef in data["objectDefinitions"].AsGodotArray()) {
+            var @object = objectDef.AsGodotDictionary();
+            var obj = new ObjectSetting() {
+              Name = @object["name"].ToString(),
+            };
+
+            nation.ObjectSettings.Add(obj);
+          }
+        }
+
+        nationSettings.Settings.Add(nation);
+      }
+
+      NationsSettings = nationSettings;
     }
   }
 
@@ -114,12 +141,14 @@ public partial class MapData : Resource {
       var col = hex["col"].AsInt32();
       var row = hex["row"].AsInt32();
       var objectId = hex.ContainsKey("objectId") ? hex["objectId"].AsInt32() : 0;
+      var nationId = hex["nationId"].AsInt32();
 
       var cell = new Cell() {
         Col = col,
         Row = row,
         Id = cellId,
-        ObjectId = objectId
+        ObjectId = objectId,
+        NationId = nationId,
       };
 
       if (cellSettingsDict.ContainsKey(cellId)) {
