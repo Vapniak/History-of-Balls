@@ -1,9 +1,6 @@
 namespace HOB;
 
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using Godot;
 using Godot.Collections;
 
@@ -21,6 +18,12 @@ public static class NodeExtensions {
     }
 
     return null;
+  }
+
+  public static void QueueFreeAllChildren(this Node parent) {
+    foreach (var child in parent.GetChildren()) {
+      child.QueueFree();
+    }
   }
 
   public static Array<T> GetChildrenByType<[MustBeVariant] T>(this Node parent) where T : Node {

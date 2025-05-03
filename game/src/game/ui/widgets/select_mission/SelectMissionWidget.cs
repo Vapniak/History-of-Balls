@@ -46,7 +46,7 @@ public partial class SelectMissionWidget : HOBWidget, IWidgetFactory<SelectMissi
         return;
       }
 
-      GameInstance.GetGameMode<MainMenuGameMode>()?.StartMission(SelectedMission);
+      HOBGameInstance.StartMission(SelectedMission);
     };
 
     foreach (var missionData in Missions) {

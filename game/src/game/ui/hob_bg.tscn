@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://bho6xt1rgxa7c"]
+[gd_scene load_steps=10 format=3 uid="uid://bho6xt1rgxa7c"]
 
 [ext_resource type="Texture2D" uid="uid://btjul3v867rxh" path="res://assets/textures/menu/HoB-menu-background-m-t.png" id="1_6rd0k"]
 [ext_resource type="Material" uid="uid://ucrt8tddmasb" path="res://res/materials/wind_2d.tres" id="2_btgpl"]
+[ext_resource type="Script" path="res://src/core/reactive_music/reactive_music.gd" id="2_ioc23"]
 [ext_resource type="Texture2D" uid="uid://b6vj8yrcwwxph" path="res://assets/textures/menu/HoB-menu-grass-behind-m-b.png" id="2_jfqpv"]
 [ext_resource type="Texture2D" uid="uid://by8xwhttontt" path="res://assets/textures/menu/HoB-menu-cb-l-b.png" id="3_4nxpg"]
 [ext_resource type="Texture2D" uid="uid://dq36k5hdhds0r" path="res://assets/textures/menu/HoB-menu-cb-r-b.png" id="4_bvicy"]
@@ -26,6 +27,10 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_6rd0k")
 expand_mode = 1
+script = ExtResource("2_ioc23")
+brightness_effect_enabled = true
+shake_effect_enabled = true
+shake_scale_factor = 20.0
 
 [node name="TextureRect7" type="TextureRect" parent="."]
 material = ExtResource("2_btgpl")

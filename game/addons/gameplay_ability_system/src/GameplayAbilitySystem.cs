@@ -44,7 +44,8 @@ public partial class GameplayAbilitySystem : Node {
     Tick(new TimeTickContext((float)delta));
   }
 
-  public void GrantAbility(GameplayAbility.Instance abilityInstance) {
+  public void GrantAbility(GameplayAbility ability) {
+    var abilityInstance = ability.CreateInstance(this);
     abilityInstance.Activated += () => EmitSignal(SignalName.GameplayAbilityActivated, abilityInstance);
     abilityInstance.Ended += () => {
       EmitSignal(SignalName.GameplayAbilityEnded, abilityInstance);

@@ -1,5 +1,6 @@
 namespace HOB;
 
+using GameplayFramework;
 using Godot;
 using System;
 using System.Threading.Tasks;
@@ -9,6 +10,6 @@ public partial class TutorialGameMode : ControlGameMode {
   public override void _Ready() {
     base._Ready();
 
-    WidgetManager.Instance.PushWidget<TutorialMenuWidget>();
+    WidgetManager.Instance.PopAllWidgets();
   }
 }

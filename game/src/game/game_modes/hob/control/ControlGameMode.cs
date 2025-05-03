@@ -17,9 +17,13 @@ public partial class ControlGameMode : HOBGameMode {
   protected virtual IMatchController? CheckWinner() {
     var cities = GetEntityManagment().GetEntities().Count(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)));
 
-    var playerCities = GetEntityManagment().GetOwnedEntites(GameInstance.Instance.GetPlayerController<IMatchController>()).Count(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)));
+    var pc = GameInstance.Instance?.GetPlayerController<IMatchController>();
 
-    if (playerCities == cities) {
+    var enemyEntities = GetEntityManagment().GetEnemyEntities(pc).Count(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeUnit)));
+
+    var playerCities = GetEntityManagment().GetOwnedEntites(pc).Count(e => e.AbilitySystem.OwnedTags.HasTag(TagManager.GetTag(HOBTags.EntityTypeStructureCity)));
+
+    if (playerCities == cities && enemyEntities == 0) {
       return GameInstance.Instance.GetPlayerController<IMatchController>();
     }
 

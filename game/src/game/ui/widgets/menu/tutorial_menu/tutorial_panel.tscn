@@ -1,7 +1,8 @@
-[gd_scene load_steps=22 format=3 uid="uid://stlrfv5fg27j"]
+[gd_scene load_steps=24 format=3 uid="uid://stlrfv5fg27j"]
 
 [ext_resource type="Script" path="res://src/game/ui/widgets/menu/tutorial_menu/TutorialMenuWidget.cs" id="1_2rcc4"]
 [ext_resource type="Texture2D" uid="uid://bdmfbhjnv4n04" path="res://assets/textures/tutorial/HoB-tutorial-1.png" id="2_komtc"]
+[ext_resource type="Resource" uid="uid://8f3qv1pehljr" path="res://res/data/missions/tutorial_mission.tres" id="2_l5mwe"]
 [ext_resource type="PackedScene" uid="uid://2cvrfbj6u5ju" path="res://src/game/ui/widgets/exit_button/exit_button.tscn" id="2_mnxut"]
 [ext_resource type="Texture2D" uid="uid://c68o87bhxmkqu" path="res://assets/textures/tutorial/HoB-tutorial-2.png" id="3_mj15i"]
 [ext_resource type="Texture2D" uid="uid://bjidw5gg8i4uk" path="res://assets/textures/tutorial/HoB-tutorial-3.png" id="4_er8mv"]
@@ -20,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://1ox2qx6iske1" path="res://assets/textures/tutorial/HoB-tutorial-16.png" id="17_mvbor"]
 [ext_resource type="Texture2D" uid="uid://cnvf651462r4l" path="res://assets/textures/tutorial/HoB-tutorial-17.png" id="18_bxpwl"]
 [ext_resource type="Texture2D" uid="uid://bt5xecr7ql1ag" path="res://assets/textures/HoB-menu-background.png" id="19_g3a30"]
+[ext_resource type="PackedScene" uid="uid://bk6q3ldtarrus" path="res://src/game/ui/widgets/button/button.tscn" id="22_egoe7"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_8k5p0"]
 
@@ -30,6 +32,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2rcc4")
+TutorialMission = ExtResource("2_l5mwe")
 _tabContainer = NodePath("PanelContainer/VBoxContainer/TabContainer")
 _tabsLabel = NodePath("PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/Label")
 
@@ -53,6 +56,7 @@ layout_mode = 2
 size_flags_horizontal = 2
 
 [node name="MarginContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 8
 
@@ -71,15 +75,15 @@ size_flags_horizontal = 4
 text = "NEXT"
 
 [node name="TabContainer" type="TabContainer" parent="PanelContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_8k5p0")
-current_tab = 1
+current_tab = 0
 clip_tabs = false
 tabs_visible = false
 
 [node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -92,13 +96,13 @@ theme_type_variation = &"HeaderLarge"
 bbcode_enabled = true
 text = "Welcome to History of Balls! 
 We’ll guide you through how to play. 
-Your goal is to capture all the cities on the map. 
 
 Manage your units, explore the terrain, 
 and make tactical decisions to achieve victory by meeting the win conditions."
 fit_content = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -528,5 +532,29 @@ texture = ExtResource("19_g3a30")
 expand_mode = 1
 stretch_mode = 4
 
+[node name="BoxContainer" type="BoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+vertical = true
+
+[node name="Label" type="Label" parent="BoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Welcome to History of Balls! 
+We’ll guide you through how to play. 
+
+Manage your units, explore the terrain, 
+and make tactical decisions to achieve victory by meeting the win conditions."
+
+[node name="Button" parent="BoxContainer" instance=ExtResource("22_egoe7")]
+layout_mode = 2
+
+[node name="Button" parent="BoxContainer/Button" index="0"]
+text = "START"
+
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/Button" to="." method="PreviousTab"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/MarginContainer/Button2" to="." method="NextTab"]
+[connection signal="pressed" from="BoxContainer/Button/Button" to="." method="StartTutorialMission"]
+
+[editable path="BoxContainer/Button"]

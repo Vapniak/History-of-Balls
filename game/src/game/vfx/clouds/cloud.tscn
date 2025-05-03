@@ -3,14 +3,14 @@
 [ext_resource type="Material" uid="uid://bvpbelxp51ogh" path="res://src/game/vfx/clouds/cloud_mat.tres" id="1_6lj2t"]
 
 [sub_resource type="Curve" id="Curve_sewxw"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.198511, 1), 0.0, 0.0, 0, 0, Vector2(0.975186, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.198511, 1), 0.0, 0.0, 0, 0, Vector2(0.98583, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_barv0"]
 curve = SubResource("Curve_sewxw")
 
 [sub_resource type="Curve" id="Curve_0xb21"]
-_data = [Vector2(0, 0.519431), 0.0, 0.0, 0, 0, Vector2(0.25062, 1), 0.0, 0.0, 0, 0, Vector2(0.883375, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.932227), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.519431), 0.0, 0.0, 0, 0, Vector2(0.25062, 1), 0.0, 0.0, 0, 0, Vector2(0.98583, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.932227), 0.0, 0.0, 0, 0]
 point_count = 4
 
 [sub_resource type="CurveTexture" id="CurveTexture_bsgrt"]

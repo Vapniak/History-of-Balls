@@ -23,7 +23,7 @@ public partial class HOBHUD : HUD {
   [Export] private EntityProductionPanelWidget ProductionPanel { get; set; } = default!;
   [Export] private CommandPanelWidget CommandPanel { get; set; } = default!;
 
-  [Export] private Control ObjectivesListParent { get; set; } = default!;
+  [Export] public Control ObjectivesListParent { get; set; } = default!;
   [Export] private Button? EndTurnButton { get; set; }
   [Export] private Label? RoundLabel { get; set; }
   [Export] private Label? TurnLabel { get; set; }
@@ -37,7 +37,6 @@ public partial class HOBHUD : HUD {
 
 
   private Entity? CurrentEntity { get; set; }
-
 
   public override void _Ready() {
     base._Ready();

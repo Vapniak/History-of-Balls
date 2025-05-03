@@ -147,7 +147,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
   }
 
-  public void OnGameStarted() {
+  public virtual void OnGameStarted() {
     SelectEntity(EntityManagment.GetOwnedEntites(this).FirstOrDefault());
     _ = FocusOnSelectedEntity();
 

@@ -1,7 +1,49 @@
-[gd_scene load_steps=3 format=3 uid="uid://cyoewxna1egxf"]
+[gd_scene load_steps=16 format=3 uid="uid://cyoewxna1egxf"]
 
 [ext_resource type="PackedScene" uid="uid://dfgh62iuf4b5x" path="res://src/game/game_modes/hob/controllers/hob_player_controller.tscn" id="1_qjlg4"]
 [ext_resource type="Script" path="res://src/game/game_modes/hob/controllers/tutorial/TutorialPlayerController.cs" id="2_ibtd1"]
+[ext_resource type="Resource" uid="uid://05wrl3vmj4c5" path="res://res/data/attributes/primary_resource.tres" id="3_r1i3v"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="4_0o2fe"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="5_o4hr7"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="6_3nlgo"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="7_mklvj"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="8_rq2jd"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="9_04mub"]
+
+[sub_resource type="Resource" id="Resource_ch8s3"]
+script = ExtResource("4_0o2fe")
+Magnitude = 1.0
+
+[sub_resource type="Resource" id="Resource_3s2kd"]
+script = ExtResource("5_o4hr7")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_ch8s3")
+
+[sub_resource type="Resource" id="Resource_53uij"]
+script = ExtResource("6_3nlgo")
+Attribute = ExtResource("3_r1i3v")
+Modifiers = [SubResource("Resource_3s2kd")]
+
+[sub_resource type="Resource" id="Resource_jf8ii"]
+script = ExtResource("7_mklvj")
+DurationPolicy = 0
+AttributeModifiers = [SubResource("Resource_53uij")]
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_a8bo1"]
+script = ExtResource("8_rq2jd")
+EffectDefinition = SubResource("Resource_jf8ii")
+
+[sub_resource type="Resource" id="Resource_1ci0c"]
+script = ExtResource("9_04mub")
+InitializeStatsEffects = SubResource("Resource_a8bo1")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
 
 [node name="HOBPlayerController" instance=ExtResource("1_qjlg4")]
 script = ExtResource("2_ibtd1")
+InitializeStatsPlayerState = SubResource("Resource_1ci0c")

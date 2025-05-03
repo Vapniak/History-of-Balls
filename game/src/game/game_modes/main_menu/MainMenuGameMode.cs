@@ -4,11 +4,9 @@ using Godot;
 using GameplayFramework;
 using AudioManager;
 using WidgetSystem;
-using System.Threading.Tasks;
 
 [GlobalClass]
 public partial class MainMenuGameMode : GameMode {
-  [Export] private PackedScene _loadingScreenScene = default!;
   [Export] private SurviveGameModeConfig Config;
 
   protected override GameState CreateGameState() => new MainMenuGameState();
@@ -21,10 +19,6 @@ public partial class MainMenuGameMode : GameMode {
 
   public override void _ExitTree() {
     WidgetManager.Instance.PopAllWidgets();
-  }
-
-  public void StartMission(MissionData missionData) {
-    _ = GameInstance.GetWorld().OpenLevelThreaded("mission_level", _loadingScreenScene, missionData.GetGameModeConfig());
   }
 
   // public async Task StartGame() {
