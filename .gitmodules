@@ -1,0 +1,4 @@
+
+[submodule "game/addons/GPUTrail"]
+	path = game/addons/GPUTrail
+	url = https://github.com/celyk/GPUTrail.git
