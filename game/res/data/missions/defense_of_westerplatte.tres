@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/game/game_modes/hob/control/ControlGameModeConfig.cs" id="1_ex2mu"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_wkre3"]
 [ext_resource type="Resource" uid="uid://clhp4sujy27yq" path="res://res/data/maps/defense_of_westerplatte/westerplatte.tres" id="2_8a50m"]
-[ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/nazi_germany.tres" id="5_3mvhv"]
+[ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/german_reich.tres" id="5_3mvhv"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/MatchPlayerSpawnData.cs" id="5_y5p4v"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="6_10d1s"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/ProducedEntitiesData.cs" id="7_f3700"]
@@ -81,7 +81,7 @@ Expansiveness = 0.2
 [sub_resource type="Resource" id="Resource_v1ir4"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("15_sax3u")
-SpawnAt = Array[Vector2i]([Vector2i(12, 11)])
+SpawnAt = Array[Vector2i]([Vector2i(12, 11), Vector2i(23, 19)])
 
 [sub_resource type="Resource" id="Resource_lhsvf"]
 script = ExtResource("9_dxpyx")
@@ -126,7 +126,7 @@ As a commander of the German forces, your objective is to seize Westerplatte swi
 
 \"This is no ordinary assault—it is the opening move of a new era of war. Your actions here will echo as a symbol of German strength and inevitability. Let the artillery speak, let the infantry breach their walls, and let your command be etched into history. Westerplatte must fall—the only question is: how fast?\""
 ObjectivesText = "Neutralize enemy fortifications and units 🎯
-Capture the Westerplatte bunker ⚔️"
+Capture the Immense Westerplatte bunker ⚔️"
 MusicTrackName = "ii_world_war"
 Locked = false
 Map = ExtResource("2_8a50m")

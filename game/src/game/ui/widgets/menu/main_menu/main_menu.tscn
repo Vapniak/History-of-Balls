@@ -104,7 +104,6 @@ text = "QUIT"
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button7/Button" to="." method="OnTutorialPressed"]
 [connection signal="pressed" from="Control/MarginContainer/VBoxContainer/Button8/Button" to="." method="OnQuitButtonPressed"]
 
-[editable path="MarginContainer"]
 [editable path="Control/MarginContainer/VBoxContainer/Button5"]
 [editable path="Control/MarginContainer/VBoxContainer/Button6"]
 [editable path="Control/MarginContainer/VBoxContainer/Button9"]

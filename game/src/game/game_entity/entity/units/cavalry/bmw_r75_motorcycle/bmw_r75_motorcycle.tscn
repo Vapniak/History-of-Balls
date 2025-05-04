@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_a8lrs"]
 [ext_resource type="PackedScene" uid="uid://c2uhexdok58ac" path="res://assets/models/objects/elements/germany/germany-BMW.fbx" id="2_3f54x"]
-[ext_resource type="PackedScene" uid="uid://cdeepd8kvb2ao" path="res://src/game/game_entity/entity/units/country_balls/nazi_german_ball.tscn" id="3_e0lge"]
+[ext_resource type="PackedScene" uid="uid://cdeepd8kvb2ao" path="res://src/game/game_entity/entity/units/country_balls/german_reich_ball.tscn" id="3_e0lge"]
 
 [node name="BmwR75Motorcycle" type="Node3D"]
 script = ExtResource("1_a8lrs")

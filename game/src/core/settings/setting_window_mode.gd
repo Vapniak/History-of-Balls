@@ -21,7 +21,7 @@ func apply(value: int) -> void:
 	var size_index = GGS.get_value(display_size)
 	match value:
 		WindowMode.FULLSCREEN:
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 
 		WindowMode.BORDERLESS_WINDOW:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

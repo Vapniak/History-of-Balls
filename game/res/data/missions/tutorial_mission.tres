@@ -14,7 +14,7 @@
 [ext_resource type="Resource" uid="uid://cqvp1g0kf7acg" path="res://src/game/game_entity/entity/structures/city/poland/poland_city_data.tres" id="8_s2mro"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_vulnd"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_cg217"]
-[ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/nazi_germany.tres" id="10_gyfo0"]
+[ext_resource type="Resource" uid="uid://c67l2q4ibmr7m" path="res://res/data/countries/german_reich.tres" id="10_gyfo0"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="11_jsoo6"]
 [ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="12_42pq4"]
 [ext_resource type="Script" path="res://src/core/campaign/mission/ProducedEntitiesData.cs" id="12_no8eh"]
