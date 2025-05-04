@@ -68,7 +68,26 @@ event = &"command_finished"
 delay_in_seconds = "0.0"
 
 [node name="Movement" type="Node" parent="StateChart/Root"]
+script = ExtResource("3_luned")
+initial_state = NodePath("Normal")
+
+[node name="Normal" type="Node" parent="StateChart/Root/Movement"]
 script = ExtResource("4_fs40q")
+
+[node name="ToOrbit" type="Node" parent="StateChart/Root/Movement/Normal"]
+script = ExtResource("5_4cy8h")
+to = NodePath("../../Orbit")
+event = &"orbit"
+delay_in_seconds = "0.0"
+
+[node name="Orbit" type="Node" parent="StateChart/Root/Movement"]
+script = ExtResource("4_fs40q")
+
+[node name="ToNormal" type="Node" parent="StateChart/Root/Movement/Orbit"]
+script = ExtResource("5_4cy8h")
+to = NodePath("../../Normal")
+event = &"normal"
+delay_in_seconds = "0.0"
 
 [node name="StateChartDebugger" parent="." instance=ExtResource("7_h50uw")]
 visible = false
@@ -91,4 +110,10 @@ initial_node_to_watch = NodePath("..")
 [connection signal="state_unhandled_input" from="StateChart/Root/States/Selection/Idle" to="." method="OnSelectionIdleStateUnhandledInput"]
 [connection signal="state_entered" from="StateChart/Root/States/Selection/Command" to="." method="OnCommandStateEntered"]
 [connection signal="state_exited" from="StateChart/Root/States/Selection/Command" to="." method="OnCommandStateExited"]
-[connection signal="state_physics_processing" from="StateChart/Root/Movement" to="." method="HandleMovement"]
+[connection signal="state_processing" from="StateChart/Root/Movement" to="." method="MovementUpdate"]
+[connection signal="state_processing" from="StateChart/Root/Movement/Normal" to="." method="NormalMovementProcess"]
+[connection signal="state_unhandled_input" from="StateChart/Root/Movement/Normal" to="." method="NormalUnhandledInput"]
+[connection signal="state_entered" from="StateChart/Root/Movement/Orbit" to="." method="OrbitStateEntered"]
+[connection signal="state_exited" from="StateChart/Root/Movement/Orbit" to="." method="OrbitStateExited"]
+[connection signal="state_processing" from="StateChart/Root/Movement/Orbit" to="." method="OrbitStateProcess"]
+[connection signal="state_unhandled_input" from="StateChart/Root/Movement/Orbit" to="." method="OrbitStateUnhandledInput"]

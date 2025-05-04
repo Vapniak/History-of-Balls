@@ -1,9 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://bwhksvkei510f"]
+[gd_scene load_steps=5 format=3 uid="uid://bwhksvkei510f"]
 
 [ext_resource type="PackedScene" uid="uid://k0w7kdfh2ctc" path="res://src/core/game_mode/hob_game_mode.tscn" id="1_if8xb"]
 [ext_resource type="Script" path="res://src/game/game_modes/hob/tutorial/TutorialGameMode.cs" id="2_fqctj"]
 [ext_resource type="PackedScene" uid="uid://cyoewxna1egxf" path="res://src/game/game_modes/hob/controllers/tutorial/tutorial_player_controller.tscn" id="3_7wv1n"]
+[ext_resource type="PackedScene" uid="uid://d040fj7g63tid" path="res://src/game/ui/hud/tutorial/tutorial_hud.tscn" id="4_efefu"]
 
 [node name="TutorialGameMode" instance=ExtResource("1_if8xb")]
 script = ExtResource("2_fqctj")
 PlayerControllerScene = ExtResource("3_7wv1n")
+HUDScene = ExtResource("4_efefu")

@@ -157,8 +157,8 @@ public partial class AIController : Controller, IMatchController {
     var bestScore = 0f;
     GameCell? bestCell = null;
 
-    var enemies = GetPotentialEnemies(entity)
-        .OrderBy(e => ability.FindPathTo(e.Cell).Length)
+    var enemies = GetPotentialEnemies()
+        .OrderBy(e => e.Cell.Coord.Distance(entity.Cell.Coord))
         .Take(maxEnemiesToConsider);
 
     foreach (var enemy in enemies) {
@@ -250,7 +250,7 @@ public partial class AIController : Controller, IMatchController {
 
   private float CalculateThreatAvoidance(Entity entity, GameCell cell) {
     var threatCount = 0;
-    foreach (var enemy in GetPotentialEnemies(entity)) {
+    foreach (var enemy in GetPotentialEnemies()) {
       var enemyAttack = enemy.AbilitySystem.GetGrantedAbility<AttackAbility.Instance>();
       if (enemyAttack != null && enemyAttack.GetAttackableEntities().cellsInRange.Contains(cell)) {
         threatCount++;
@@ -331,7 +331,7 @@ public partial class AIController : Controller, IMatchController {
     return score;
   }
 
-  private IEnumerable<Entity> GetPotentialEnemies(Entity entity) =>
+  private IEnumerable<Entity> GetPotentialEnemies() =>
       EntityManagment.GetEnemyEntities(this)
           .Union(EntityManagment.GetNotOwnedEntities());
   public void OwnTurnStarted() {

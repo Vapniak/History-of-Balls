@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://d040fj7g63tid"]
+
+[ext_resource type="PackedScene" uid="uid://knv3bilnx05e" path="res://src/game/ui/hud/hud.tscn" id="1_e1r1b"]
+
+[node name="HUD" instance=ExtResource("1_e1r1b")]
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/MarginContainer/MarginContainer4" index="5"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "LMB - SELECT UNIT
+RMB - USE COMMAND"
+
+[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer2/TimePlayed"]
+[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer2/TimeScale"]
+[editable path="Control/VBoxContainer/PanelContainer2/BoxContainer3/MarginContainer/MarginContainer/HBoxContainer/HBoxContainer2/Button"]
+[editable path="Control/VBoxContainer/MarginContainer/MarginContainer4/NextTurn"]
+[editable path="Control/VBoxContainer/MarginContainer/MarginContainer4/StatPanel"]
+[editable path="Control/VBoxContainer/MarginContainer/MarginContainer4/StatPanel/MarginContainer/VBoxContainer/StatEntries/HBoxContainer"]

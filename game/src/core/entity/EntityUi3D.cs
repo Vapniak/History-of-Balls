@@ -1,5 +1,6 @@
 namespace HOB;
 
+using GameplayFramework;
 using GameplayTags;
 using Godot;
 using HOB;
@@ -43,5 +44,9 @@ public partial class EntityUi3D : Node3D {
   public override void _PhysicsProcess(double delta) {
     var size = SizeCurve.Sample(Mathf.Clamp(GetViewport().GetCamera3D().GlobalPosition.DistanceTo(GlobalPosition) / CameraDistanceBias, 0, 1)) / 1000f;
     Sprite3D.PixelSize = size;
+    var hud = GameInstance.Instance?.GetPlayerController<PlayerController>()?.GetHUD();
+    if (hud != null) {
+      Visible = hud.Visible;
+    }
   }
 }
