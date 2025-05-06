@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=3 format=3 uid="uid://bstap6nixx4se"]
+
+[ext_resource type="Texture2D" uid="uid://dam52pc5f1v6" path="res://assets/textures/materials/Rice-Dough.png" id="1_iuphx"]
+[ext_resource type="Script" path="res://src/core/resource_type/ResourceType.cs" id="2_i5wum"]
+
+[resource]
+script = ExtResource("2_i5wum")
+Name = "Rice dough"
+Icon = ExtResource("1_iuphx")

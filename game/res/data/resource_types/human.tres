@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=3 format=3 uid="uid://dy5vtel3bmas"]
+
+[ext_resource type="Texture2D" uid="uid://csb6x74v3g7do" path="res://assets/textures/materials/Human.png" id="1_ayl25"]
+[ext_resource type="Script" path="res://src/core/resource_type/ResourceType.cs" id="1_ed6og"]
+
+[resource]
+script = ExtResource("1_ed6og")
+Name = "Human"
+Icon = ExtResource("1_ayl25")

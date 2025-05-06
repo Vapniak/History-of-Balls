@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://c0rsi625qrx8w"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_hs4pn"]
+[ext_resource type="Resource" uid="uid://gys5w38r4awo" path="res://src/game/game_entity/ability/initialize_stats/village_initialize_stats.tres" id="1_s2v0n"]
+[ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game/game_entity/ability/income/income_ability.tres" id="2_chxom"]
+[ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/core/entity/attribute_sets/village_attribute_sets.tres" id="3_r1773"]
+[ext_resource type="PackedScene" uid="uid://dld2wgc5xpw1x" path="res://src/game/game_entity/entity/structures/village/zombie_village/zombie_village.tscn" id="4_jrvnc"]
+[ext_resource type="Resource" uid="uid://bk4sncpcpoir3" path="res://src/game/game_entity/entity/structures/village/village_tags.tres" id="5_4hvr7"]
+
+[resource]
+script = ExtResource("1_hs4pn")
+EntityName = "Zombie Village"
+AttributeSetsContainer = ExtResource("3_r1773")
+Abilities = Array[Object]([ExtResource("1_s2v0n"), ExtResource("2_chxom")])
+Tags = ExtResource("5_4hvr7")
+Body = ExtResource("4_jrvnc")

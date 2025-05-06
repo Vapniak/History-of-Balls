@@ -150,7 +150,7 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     var viewport = GetViewport();
 
-    if (HoveredCell == null || _isPanning || (viewport.GuiGetHoveredControl() != null && viewport.GuiGetHoveredControl().GetParent() is Control control && control.Visible)) {
+    if (HoveredCell == null || _isPanning || _isOrbiting || (viewport.GuiGetHoveredControl() != null && viewport.GuiGetHoveredControl().GetParent() is Control control && control.Visible)) {
       GameBoard.SetMouseHighlight(false);
     }
     else {

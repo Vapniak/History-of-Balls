@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=5 format=3 uid="uid://bfgbaqc2fepo7"]
+
+[ext_resource type="Resource" uid="uid://ciww6h4ocgdbp" path="res://src/game/game_entity/ability/entity_production/entity_production_ability.tres" id="1_4rx7a"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_m1swb"]
+[ext_resource type="PackedScene" uid="uid://dkxk7ft0t45kj" path="res://src/game/game_entity/entity/structures/city/china_city/china_city.tscn" id="2_jomyr"]
+[ext_resource type="Resource" uid="uid://bl5pcqmu056kt" path="res://src/game/game_entity/entity/structures/city/city_tags.tres" id="3_gxonl"]
+
+[resource]
+script = ExtResource("1_m1swb")
+EntityName = "China City"
+Abilities = Array[Object]([ExtResource("1_4rx7a")])
+Tags = ExtResource("3_gxonl")
+Body = ExtResource("2_jomyr")

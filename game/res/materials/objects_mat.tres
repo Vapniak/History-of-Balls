@@ -6,7 +6,7 @@
 
 [resource]
 resource_local_to_scene = true
-render_priority = 4
+render_priority = 1
 shader = ExtResource("1_6s75r")
 shader_parameter/metallic = 0.0
 shader_parameter/roughness = 1.0

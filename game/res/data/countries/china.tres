@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Country" load_steps=5 format=3 uid="uid://b3qsmgargjva7"]
+
+[ext_resource type="Texture2D" uid="uid://b6kr4yc183544" path="res://assets/textures/flags/China.png" id="1_xqig1"]
+[ext_resource type="Resource" uid="uid://8ruyvfcxdkfu" path="res://res/data/resource_types/dim_sum_dumplings.tres" id="2_20tqo"]
+[ext_resource type="Resource" uid="uid://bstap6nixx4se" path="res://res/data/resource_types/rice_dough.tres" id="3_e6wsd"]
+[ext_resource type="Script" path="res://src/core/country/Country.cs" id="4_2hfhc"]
+
+[resource]
+script = ExtResource("4_2hfhc")
+Name = "China"
+Color = Color(0.972549, 0, 0, 1)
+Flag = ExtResource("1_xqig1")
+PrimaryResource = ExtResource("2_20tqo")
+SecondaryResource = ExtResource("3_e6wsd")

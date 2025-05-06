@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://duysn4kqemwc2"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_7ud8d"]
+[ext_resource type="PackedScene" uid="uid://dsukfho5yi72f" path="res://assets/models/objects/countries/zombie/zombie-city.fbx" id="2_pp6b0"]
+[ext_resource type="PackedScene" uid="uid://douqqdvfbmfb3" path="res://src/game/vfx/glory/glory_circle.tscn" id="3_km0qm"]
+
+[node name="ZombieCity" type="Node3D"]
+script = ExtResource("1_7ud8d")
+
+[node name="zombie-city" parent="." instance=ExtResource("2_pp6b0")]
+transform = Transform3D(-0.0243623, 0, 0.999703, 0, 1, 0, -0.999703, 0, -0.0243623, -0.0737301, 0, 0.560591)
+
+[node name="Node3D" parent="." instance=ExtResource("3_km0qm")]

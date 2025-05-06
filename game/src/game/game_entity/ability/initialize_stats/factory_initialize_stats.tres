@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="InitializeStatsAbility" load_steps=3 format=3 uid="uid://in1l2y5n1ynq"]
+
+[ext_resource type="Resource" uid="uid://cwih8oemud71l" path="res://src/game/game_entity/ability/effects/factory_initial_stats.tres" id="1_3m6yb"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="2_0xgib"]
+
+[resource]
+script = ExtResource("2_0xgib")
+InitializeStatsEffects = ExtResource("1_3m6yb")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null

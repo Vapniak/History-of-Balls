@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://daolpk2rlbaay"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_6pq8c"]
+[ext_resource type="Resource" uid="uid://c7cg52qdriymg" path="res://src/game/game_entity/ability/process_resources/process_resources_ability.tres" id="1_24kdx"]
+[ext_resource type="Resource" uid="uid://in1l2y5n1ynq" path="res://src/game/game_entity/ability/initialize_stats/factory_initialize_stats.tres" id="2_ikas3"]
+[ext_resource type="Resource" uid="uid://dvtc84pr4gkdb" path="res://src/core/entity/attribute_sets/factory_attribute_sets.tres" id="3_upj2k"]
+[ext_resource type="PackedScene" uid="uid://cupsrt3t8u66" path="res://src/game/game_entity/entity/structures/factory/china_factory/china_factory.tscn" id="4_p24h3"]
+[ext_resource type="Resource" uid="uid://badfiehij68ta" path="res://src/game/game_entity/entity/structures/factory/factory_tags.tres" id="5_c8g5y"]
+
+[resource]
+script = ExtResource("1_6pq8c")
+EntityName = "China Factory"
+AttributeSetsContainer = ExtResource("3_upj2k")
+Abilities = Array[Object]([ExtResource("1_24kdx"), ExtResource("2_ikas3")])
+Tags = ExtResource("5_c8g5y")
+Body = ExtResource("4_p24h3")

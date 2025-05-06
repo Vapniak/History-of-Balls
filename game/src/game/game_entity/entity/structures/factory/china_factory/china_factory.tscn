@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cupsrt3t8u66"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_yvuq4"]
+[ext_resource type="PackedScene" uid="uid://nj2gs574arw3" path="res://assets/models/objects/countries/china/china-industry.fbx" id="2_6vm6l"]
+
+[node name="ChinaFactory" type="Node3D"]
+script = ExtResource("1_yvuq4")
+
+[node name="china-industry" parent="." instance=ExtResource("2_6vm6l")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.0410837, 0, -0.2)

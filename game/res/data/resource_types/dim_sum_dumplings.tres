@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=3 format=3 uid="uid://8ruyvfcxdkfu"]
+
+[ext_resource type="Texture2D" uid="uid://bk5whj88ev0be" path="res://assets/textures/resources/Dim-Sum.png" id="2_n2kst"]
+[ext_resource type="Script" path="res://src/core/resource_type/ResourceType.cs" id="3_qqqrt"]
+
+[resource]
+script = ExtResource("3_qqqrt")
+Name = "Dim sum dumplings"
+Icon = ExtResource("2_n2kst")

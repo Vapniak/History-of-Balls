@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dld2wgc5xpw1x"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_h6hp6"]
+[ext_resource type="PackedScene" uid="uid://dhlgd3wbt78nq" path="res://assets/models/objects/countries/zombie/zombie-village.fbx" id="2_nn5j7"]
+
+[node name="ZombieVillage" type="Node3D"]
+script = ExtResource("1_h6hp6")
+
+[node name="zombie-village" parent="." instance=ExtResource("2_nn5j7")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)

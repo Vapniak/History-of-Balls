@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Country" load_steps=5 format=3 uid="uid://17nod6fspn22"]
+
+[ext_resource type="Script" path="res://src/core/country/Country.cs" id="1_kjx0x"]
+[ext_resource type="Texture2D" uid="uid://ddyujh8pdd8ib" path="res://assets/textures/flags/Zombie.png" id="1_oqedi"]
+[ext_resource type="Resource" uid="uid://d3nwrem4pfith" path="res://res/data/resource_types/liver_tartare.tres" id="2_ay5p8"]
+[ext_resource type="Resource" uid="uid://dy5vtel3bmas" path="res://res/data/resource_types/human.tres" id="3_toq4f"]
+
+[resource]
+script = ExtResource("1_kjx0x")
+Name = "Zombie"
+Color = Color(0, 1, 0, 1)
+Flag = ExtResource("1_oqedi")
+PrimaryResource = ExtResource("2_ay5p8")
+SecondaryResource = ExtResource("3_toq4f")

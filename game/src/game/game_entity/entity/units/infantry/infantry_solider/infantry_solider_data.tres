@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=10 format=3 uid="uid://bso3uogf8erwv"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_6e8kt"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_penra"]
+[ext_resource type="Resource" uid="uid://i2kbndgd1vjx" path="res://src/game/game_entity/ability/attack/range/shoot_attack_ability.tres" id="2_4pgyb"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="3_f6jj3"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="4_76xyb"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="5_m1u0s"]
+[ext_resource type="PackedScene" uid="uid://dlm0qkmvvyuo" path="res://src/game/game_entity/entity/units/infantry/infantry_solider/infantry_solider.tscn" id="6_clogj"]
+[ext_resource type="Resource" uid="uid://c36at6bgy0ijj" path="res://src/game/game_entity/entity/units/infantry/infantry_tags.tres" id="7_a8uuo"]
+
+[sub_resource type="Resource" id="Resource_0fkj2"]
+script = ExtResource("1_6e8kt")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_penra")
+EntityName = "Infantry Soldier"
+AttributeSetsContainer = ExtResource("5_m1u0s")
+Abilities = Array[Object]([SubResource("Resource_0fkj2"), ExtResource("2_4pgyb"), ExtResource("3_f6jj3"), ExtResource("4_76xyb")])
+Tags = ExtResource("7_a8uuo")
+Body = ExtResource("6_clogj")

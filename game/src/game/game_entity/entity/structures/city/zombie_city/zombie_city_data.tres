@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=5 format=3 uid="uid://dbs4m8l5q61gv"]
+
+[ext_resource type="Resource" uid="uid://ciww6h4ocgdbp" path="res://src/game/game_entity/ability/entity_production/entity_production_ability.tres" id="1_j2rpn"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_vxeab"]
+[ext_resource type="PackedScene" uid="uid://duysn4kqemwc2" path="res://src/game/game_entity/entity/structures/city/zombie_city/zombie_city.tscn" id="2_k6u4j"]
+[ext_resource type="Resource" uid="uid://bl5pcqmu056kt" path="res://src/game/game_entity/entity/structures/city/city_tags.tres" id="3_etnor"]
+
+[resource]
+script = ExtResource("1_vxeab")
+EntityName = "Zombie City"
+Abilities = Array[Object]([ExtResource("1_j2rpn")])
+Tags = ExtResource("3_etnor")
+Body = ExtResource("2_k6u4j")

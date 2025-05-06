@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://ceapk7b4jkhog"]
+
+[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://src/game/game_entity/entity/units/base_country_ball.tscn" id="1_yykoq"]
+[ext_resource type="Material" uid="uid://ctwra02sa5c2n" path="res://res/materials/outline_mat.tres" id="2_q43lr"]
+[ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="2_xsr6w"]
+[ext_resource type="Texture2D" uid="uid://b6kr4yc183544" path="res://assets/textures/flags/China.png" id="3_67222"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yn8af"]
+render_priority = 0
+next_pass = ExtResource("2_q43lr")
+shader = ExtResource("2_xsr6w")
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/base_texture = ExtResource("3_67222")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[node name="ChinaBall" type="Node3D"]
+
+[node name="BaseCountryBall" parent="." instance=ExtResource("1_yykoq")]
+
+[node name="Sphere_001" parent="BaseCountryBall/sphere5" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_yn8af")
+
+[editable path="BaseCountryBall"]
+[editable path="BaseCountryBall/sphere5"]

@@ -5,11 +5,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Godot.Collections;
+using System.Collections.Generic;
 using HexGridMap;
 using HOB.GameEntity;
 using RaycastSystem;
-
 
 [GlobalClass, Tool]
 public partial class TerrainManager : Node3D {
@@ -22,14 +21,13 @@ public partial class TerrainManager : Node3D {
   private Texture2DArray HexTextures { get; set; } = default!;
   private Image TextureLookup { get; set; } = default!;
 
-
   private Vector2I ChunkCount { get; set; }
   private Vector2I ChunkSize { get; set; }
-
   private Chunk[] Chunks { get; set; }
-
   private GameGrid Grid { get; set; }
 
+  private System.Collections.Generic.Dictionary<PropSetting, List<(Mesh Mesh, Material Material, Transform3D Transform)>> _multiMeshCache = new();
+  private System.Collections.Generic.Dictionary<Chunk, System.Collections.Generic.Dictionary<(Mesh Mesh, Material Material), List<Transform3D>>> _chunkMeshGroups = new();
 
   public override void _PhysicsProcess(double delta) {
     var position = RaycastSystem.RaycastOnMousePosition(GetWorld3D(), GetViewport(), GameLayers.Physics3D.Mask.World)?.Position;
@@ -42,7 +40,6 @@ public partial class TerrainManager : Node3D {
     Grid = grid;
 
     ChunkSize = new(16, 16);
-    // TODO: add chunk buffering loading and unloading when player moves
     var cols = grid.MapData.Cols;
     var rows = grid.MapData.Rows;
 
@@ -73,26 +70,39 @@ public partial class TerrainManager : Node3D {
       AddChild(chunk);
     }
 
+    InitializeImageData(cols, rows);
+    InitializeTextures(grid);
+    UpdateTerrainTextureData();
+
+    HighlightDataTexture = ImageTexture.CreateFromImage(HighlightData);
+    UpdateHighlights();
+
+    TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
+    TerrainMaterial.Set("shader_parameter/hex_textures", HexTextures);
+
+    PlaceProps(mission);
+    FinalizeChunkMultiMeshes();
+  }
+
+  private void InitializeImageData(int cols, int rows) {
     TerrainData = Image.CreateEmpty(cols, rows, false, Image.Format.Rgba8);
     HighlightData = Image.CreateEmpty(cols, rows, false, Image.Format.Rgba8);
     TextureLookup = Image.CreateEmpty(cols, rows, false, Image.Format.R8);
+
     TextureLookup.Fill(Color.Color8(0, 0, 0, 0));
-
-
     TerrainData.Fill(Colors.Transparent);
+  }
 
+  private void InitializeTextures(GameGrid grid) {
     var settings = grid.MapData.Settings.CellSettings;
-
     var textureSize = new Vector2I(1080, 1080);
     var empty = Image.CreateEmpty(textureSize.X, textureSize.Y, true, Image.Format.Rgb8);
     empty.Fill(Colors.White);
-    var textures = new Array<Image>();
+
+    var textures = new Godot.Collections.Array<Image>();
     foreach (var setting in settings) {
       if (setting.Texture != null) {
         var img = setting.Texture.GetImage();
-        if (img.GetSize() != textureSize) {
-          // img.Resize(textureSize.X, textureSize.Y);
-        }
         textures.Add(img);
       }
       else {
@@ -114,21 +124,9 @@ public partial class TerrainManager : Node3D {
       SetTerrainPixel(new(hex.OffsetCoord.Col, hex.OffsetCoord.Row), setting.Color);
     }
 
-    UpdateTerrainTextureData();
-
-    HighlightDataTexture = ImageTexture.CreateFromImage(HighlightData);
-    UpdateHighlights();
-
-    TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
-
     var lookupTexture = ImageTexture.CreateFromImage(TextureLookup);
     TerrainMaterial.Set("shader_parameter/hex_texture_lookup", lookupTexture);
-
-    TerrainMaterial.Set("shader_parameter/hex_textures", HexTextures);
-
-    PlaceProps(mission);
   }
-
 
   public void SetMouseHighlight(bool value) {
     TerrainMaterial.Set("shader_parameter/show_mouse_highlight", value);
@@ -153,19 +151,22 @@ public partial class TerrainManager : Node3D {
     var localY = coord.Row - chunkY * ChunkSize.Y;
     return (Chunks[chunkX + (chunkY * ChunkCount.X)], new(localX, localY));
   }
+
   public void AddCellToChunk(GameCell cell) {
     var (chunk, localCoord) = OffsetToChunk(cell.OffsetCoord);
-
     chunk.AddCell(localCoord.Col + localCoord.Row * ChunkSize.X, Grid.GetCellIndex(cell));
   }
+
   private void SetHighlighPixel(OffsetCoord offset, Color color) {
-    if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
+    if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X &&
+        offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
       HighlightData.SetPixel(offset.Col, offset.Row, color);
     }
   }
 
   private void SetTerrainPixel(OffsetCoord offset, Color color) {
-    if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X && offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
+    if (offset.Col >= 0 && offset.Col < HighlightData.GetSize().X &&
+        offset.Row >= 0 && offset.Row < HighlightData.GetSize().Y) {
       TerrainData.SetPixel(offset.Col, offset.Row, color);
     }
   }
@@ -180,13 +181,105 @@ public partial class TerrainManager : Node3D {
     TerrainMaterial.Set("shader_parameter/highlight_data_texture", HighlightDataTexture);
   }
 
-
-  public void PlaceProps(MissionData mission) {
+  private void PlaceProps(MissionData mission) {
     var rng = new RandomNumberGenerator();
     var settingsGroups = GroupCellsByPropSettings();
-    var meshGroups = new System.Collections.Generic.Dictionary<(Mesh Mesh, Material Material), List<Transform3D>>();
+    var occupiedCells = GetOccupiedCells(mission);
 
-    var occupiedCells = new List<OffsetCoord>();
+    InitializeChunkMeshGroups();
+
+    foreach (var kvp in settingsGroups) {
+      var propSetting = kvp.Key;
+      var cells = kvp.Value;
+      var meshDataList = GetCachedMultiMeshData(propSetting);
+
+      foreach (var cell in cells) {
+        if (occupiedCells.Contains(cell.OffsetCoord) || rng.Randf() * 100 > propSetting.Chance) {
+          continue;
+        }
+
+        var (chunk, _) = OffsetToChunk(cell.OffsetCoord);
+        if (!_chunkMeshGroups.TryGetValue(chunk, out var chunkMeshGroups)) {
+          continue;
+        }
+
+        PlacePropsInCell(cell, propSetting, meshDataList, chunkMeshGroups, rng);
+      }
+    }
+  }
+
+  private void InitializeChunkMeshGroups() {
+    foreach (var chunk in Chunks) {
+      _chunkMeshGroups[chunk] = new System.Collections.Generic.Dictionary<(Mesh Mesh, Material Material), List<Transform3D>>();
+    }
+  }
+
+  private void PlacePropsInCell(GameCell cell, PropSetting propSetting,
+      List<(Mesh Mesh, Material Material, Transform3D Transform)> meshDataList,
+      System.Collections.Generic.Dictionary<(Mesh Mesh, Material Material), List<Transform3D>> chunkMeshGroups,
+      RandomNumberGenerator rng) {
+    for (var i = 0; i < rng.RandiRange(propSetting.AmountRange.X, propSetting.AmountRange.Y); i++) {
+      var worldPos = cell.GetRealPosition() +
+               new Vector3(
+                   (float)rng.RandfRange(-1f, 1f),
+                   0,
+                   (float)rng.RandfRange(-1f, 1f)
+               );
+
+      var scale = Vector3.One * rng.RandfRange(propSetting.ScaleRange.X, propSetting.ScaleRange.Y);
+      var rotation = rng.RandfRange(Mathf.DegToRad(0), Mathf.DegToRad(360));
+
+      foreach (var (mesh, material, initialTransform) in meshDataList) {
+        if (!chunkMeshGroups.TryGetValue((mesh, material), out var transforms)) {
+          transforms = new List<Transform3D>();
+          chunkMeshGroups[(mesh, material)] = transforms;
+        }
+
+        var finalTransform = Transform3D.Identity
+                  .Rotated(Vector3.Up, rotation)
+                  .Scaled(scale)
+                  .Translated(worldPos)
+                  * initialTransform;
+
+        transforms.Add(finalTransform);
+      }
+    }
+  }
+
+  private void FinalizeChunkMultiMeshes() {
+    foreach (var chunk in Chunks) {
+      if (!_chunkMeshGroups.TryGetValue(chunk, out var meshGroups)) {
+        continue;
+      }
+
+      foreach (var kvp in meshGroups) {
+        if (kvp.Value.Count == 0) {
+          continue;
+        }
+
+        var multimesh = new MultiMesh {
+          Mesh = kvp.Key.Mesh,
+          TransformFormat = MultiMesh.TransformFormatEnum.Transform3D,
+          InstanceCount = kvp.Value.Count
+        };
+
+        if (kvp.Key.Material != null) {
+          multimesh.Mesh.SurfaceSetMaterial(0, kvp.Key.Material);
+        }
+
+        for (var i = 0; i < kvp.Value.Count; i++) {
+          multimesh.SetInstanceTransform(i, kvp.Value[i]);
+        }
+
+        chunk.AddChild(new MultiMeshInstance3D { Multimesh = multimesh });
+      }
+    }
+
+    _chunkMeshGroups.Clear();
+  }
+
+  private HashSet<OffsetCoord> GetOccupiedCells(MissionData mission) {
+    var occupiedCells = new HashSet<OffsetCoord>();
 
     foreach (var playerData in mission.PlayerSpawnDatas) {
       foreach (var entity in playerData.SpawnedEntities) {
@@ -196,74 +289,8 @@ public partial class TerrainManager : Node3D {
       }
     }
 
-
-    foreach (var kvp in settingsGroups) {
-      var propSetting = kvp.Key;
-      var cells = kvp.Value;
-      var meshDataList = GetCachedMultiMeshData(propSetting);
-
-
-      foreach (var cell in cells) {
-        if (occupiedCells.Contains(cell.OffsetCoord) || rng.Randf() * 100 > propSetting.Chance) {
-          continue;
-        }
-
-
-        for (var i = 0; i < rng.RandiRange(propSetting.AmountRange.X, propSetting.AmountRange.Y); i++) {
-          var worldPos = cell.GetRealPosition() +
-                   new Vector3(
-                       (float)rng.RandfRange(-1f, 1f),
-                       0,
-                       (float)rng.RandfRange(-1f, 1f)
-                   );
-
-          var scale = Vector3.One * rng.RandfRange(propSetting.ScaleRange.X, propSetting.ScaleRange.Y);
-
-          var rotation = rng.RandfRange(Mathf.DegToRad(0), Mathf.DegToRad(360));
-
-          foreach (var (mesh, material, initialTransform) in meshDataList) {
-            if (!meshGroups.TryGetValue((mesh, material), out var transforms)) {
-              transforms = new List<Transform3D>(cells.Count);
-              meshGroups[(mesh, material)] = transforms;
-            }
-
-            var finalTransform = Transform3D.Identity
-                      .Rotated(Vector3.Up, rotation)
-                      .Scaled(scale)
-                      .Translated(worldPos)
-                      * initialTransform;
-
-            transforms.Add(finalTransform);
-          }
-        }
-      }
-    }
-
-    foreach (var kvp in meshGroups) {
-      if (kvp.Value.Count == 0) {
-        continue;
-      }
-
-      var multimesh = new MultiMesh {
-        Mesh = kvp.Key.Mesh,
-        TransformFormat = MultiMesh.TransformFormatEnum.Transform3D,
-        InstanceCount = kvp.Value.Count
-      };
-
-      if (kvp.Key.Material != null) {
-        multimesh.Mesh.SurfaceSetMaterial(0, kvp.Key.Material);
-      }
-
-      for (var i = 0; i < kvp.Value.Count; i++) {
-        multimesh.SetInstanceTransform(i, kvp.Value[i]);
-      }
-
-      AddChild(new MultiMeshInstance3D { Multimesh = multimesh });
-    }
+    return occupiedCells;
   }
-
-  private System.Collections.Generic.Dictionary<PropSetting, List<(Mesh Mesh, Material Material, Transform3D Transform)>> _multiMeshCache
-      = new();
 
   private List<(Mesh Mesh, Material Material, Transform3D Transform)> GetCachedMultiMeshData(PropSetting setting) {
     if (_multiMeshCache.TryGetValue(setting, out var cached)) {
@@ -275,7 +302,6 @@ public partial class TerrainManager : Node3D {
     var result = new List<(Mesh, Material, Transform3D)>();
 
     foreach (var meshInstance in meshInstances) {
-
       var transform = CalculateFullTransform(meshInstance, scene);
       result.Add((
           meshInstance.Mesh,
@@ -311,11 +337,11 @@ public partial class TerrainManager : Node3D {
     var transform = node.Transform;
     var current = node.GetParent();
 
-    while (current != null) {
+    while (current != null && current != root) {
       if (current is Node3D node3d) {
         transform = node3d.Transform * transform;
       }
-      current = current.GetParent<Node3D>();
+      current = current.GetParent();
     }
 
     return transform;

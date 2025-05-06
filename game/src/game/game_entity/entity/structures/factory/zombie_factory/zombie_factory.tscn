@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxmlkfjbn6kvb"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_dv0iq"]
+[ext_resource type="PackedScene" uid="uid://delgx3q1fllo5" path="res://assets/models/objects/countries/zombie/zombie-industry.fbx" id="2_yokii"]
+
+[node name="ZombieFactory" type="Node3D"]
+script = ExtResource("1_dv0iq")
+
+[node name="zombie-industry" parent="." instance=ExtResource("2_yokii")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.526938)

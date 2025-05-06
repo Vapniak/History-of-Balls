@@ -76,10 +76,10 @@ void fragment() {
 
     // Compute fade effect only if enabled
     float fade = 1.0;
-    //if (enable_fade) {
-        //float dist = length((CAMERA_MATRIX * WORLD_MATRIX * vec4(VERTEX, 1.0)).xyz);
-        //fade = clamp(1.0 - (dist - fade_start_distance) / fade_length, 0.0, 1.0);
-    //}
+    if (enable_fade) {
+        float dist = length((MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz);
+        fade = clamp(1.0 - (dist - fade_start_distance) / fade_length, 0.0, 1.0);
+    }
 
     // Apply fading to alpha
     ALPHA = albedo.a * albedo_tex.a * fade;

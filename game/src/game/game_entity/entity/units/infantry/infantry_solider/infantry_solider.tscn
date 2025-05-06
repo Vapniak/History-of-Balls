@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://dlm0qkmvvyuo"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_mgiv0"]
+[ext_resource type="PackedScene" uid="uid://ceapk7b4jkhog" path="res://src/game/game_entity/entity/units/country_balls/china_ball.tscn" id="2_xx2lj"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_7smka"]
+[ext_resource type="PackedScene" uid="uid://bjhu3vyy7l5ww" path="res://assets/models/objects/elements/china/china-Assault-Rifle.fbx" id="4_67kyx"]
+
+[node name="InfantrySolider" type="Node3D"]
+script = ExtResource("1_mgiv0")
+
+[node name="ChinaBall" parent="." instance=ExtResource("2_xx2lj")]
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_7smka")
+
+[node name="china-Assault-Rifle" parent="FollowParent3D" instance=ExtResource("4_67kyx")]
+transform = Transform3D(1, 0, 0, 0, 0.168696, 0.985668, 0, -0.985668, 0.168696, 0.780289, 0.4, 0)

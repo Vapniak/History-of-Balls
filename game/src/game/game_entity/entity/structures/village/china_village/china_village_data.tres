@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=7 format=3 uid="uid://csff8u115kni6"]
+
+[ext_resource type="Resource" uid="uid://gys5w38r4awo" path="res://src/game/game_entity/ability/initialize_stats/village_initialize_stats.tres" id="1_nsgta"]
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_qa18m"]
+[ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game/game_entity/ability/income/income_ability.tres" id="2_p55mh"]
+[ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/core/entity/attribute_sets/village_attribute_sets.tres" id="3_iiobr"]
+[ext_resource type="PackedScene" uid="uid://hmj5l1ktw2do" path="res://src/game/game_entity/entity/structures/village/china_village/china_village.tscn" id="4_5yhd0"]
+[ext_resource type="Resource" uid="uid://bk4sncpcpoir3" path="res://src/game/game_entity/entity/structures/village/village_tags.tres" id="5_d31mb"]
+
+[resource]
+script = ExtResource("1_qa18m")
+EntityName = "China Village"
+AttributeSetsContainer = ExtResource("3_iiobr")
+Abilities = Array[Object]([ExtResource("1_nsgta"), ExtResource("2_p55mh")])
+Tags = ExtResource("5_d31mb")
+Body = ExtResource("4_5yhd0")

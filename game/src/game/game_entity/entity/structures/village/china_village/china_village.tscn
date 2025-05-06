@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://hmj5l1ktw2do"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_47rdc"]
+[ext_resource type="PackedScene" uid="uid://3se5ixgeuyn3" path="res://assets/models/objects/countries/china/china-village.fbx" id="2_klsj0"]
+
+[node name="ChinaVillage" type="Node3D"]
+script = ExtResource("1_47rdc")
+
+[node name="china-village" parent="." instance=ExtResource("2_klsj0")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.027935, 0, 0.0361083)

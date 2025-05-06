@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourceType" load_steps=3 format=3 uid="uid://d3nwrem4pfith"]
+
+[ext_resource type="Texture2D" uid="uid://sqw77ron0hes" path="res://assets/textures/resources/Liver-Tartare.png" id="1_h3yum"]
+[ext_resource type="Script" path="res://src/core/resource_type/ResourceType.cs" id="2_bbm56"]
+
+[resource]
+script = ExtResource("2_bbm56")
+Name = "Liver Tartare"
+Icon = ExtResource("1_h3yum")

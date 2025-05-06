@@ -6,6 +6,7 @@ using Godot;
 // Movement
 public partial class HOBPlayerController {
   private bool _isPanning;
+  private bool _isOrbiting;
   private Vector2 _lastMousePosition;
 
   private bool _exitingOrbit = false;
@@ -121,12 +122,22 @@ public partial class HOBPlayerController {
     Input.MouseMode = Input.MouseModeEnum.Captured;
 
     Character.StartOrbit(SelectedEntity);
+    _isOrbiting = true;
   }
 
   private void OrbitStateUnhandledInput(InputEvent @event) {
     if (!_exitingOrbit && @event.IsActionReleased(GameInputs.Orbit)) {
       //StateChart?.SendEvent("normal");
       _ = ResetOrbitCamera();
+    }
+
+    if (Character.AllowZoom) {
+      if (@event.IsActionPressed(GameInputs.ZoomIn)) {
+        Character.AdjustZoom(1);
+      }
+      else if (@event.IsActionPressed(GameInputs.ZoomOut)) {
+        Character.AdjustZoom(-1);
+      }
     }
 
     if (@event is InputEventMouseMotion mouseMotion) {
@@ -141,6 +152,7 @@ public partial class HOBPlayerController {
 
   private void OrbitStateExited() {
     Input.MouseMode = Input.MouseModeEnum.Visible;
+    _isOrbiting = false;
   }
 
   private async Task ResetOrbitCamera() {
