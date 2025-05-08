@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="Country" load_steps=5 format=3 uid="uid://cuv1436xdiogj"]
+[gd_resource type="Resource" script_class="Country" load_steps=6 format=3 uid="uid://cuv1436xdiogj"]
 
 [ext_resource type="Texture2D" uid="uid://7w5wyjms26k2" path="res://assets/textures/flags/Poland.png" id="1_fdboa"]
+[ext_resource type="Texture2D" uid="uid://duwyvohmt0jg" path="res://assets/textures/HoB-renders/HoB-poland-render.png" id="1_fr1ky"]
 [ext_resource type="Script" path="res://src/core/country/Country.cs" id="2_alsic"]
 [ext_resource type="Resource" uid="uid://bxlwj2isc0xej" path="res://res/data/resource_types/dumpling.tres" id="2_swefu"]
 [ext_resource type="Resource" uid="uid://c0gi1dmpjjefo" path="res://res/data/resource_types/filling.tres" id="3_lp4fh"]
@@ -10,5 +11,6 @@ script = ExtResource("2_alsic")
 Name = "Poland"
 Color = Color(1, 1, 1, 1)
 Flag = ExtResource("1_fdboa")
+CountryBallRender = ExtResource("1_fr1ky")
 PrimaryResource = ExtResource("2_swefu")
 SecondaryResource = ExtResource("3_lp4fh")

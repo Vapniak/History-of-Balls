@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ckns1o2swu70r"
-path="res://.godot/imported/12.png-bca990973488024e9e9c8fc4c4c205f2.ctex"
+uid="uid://duwyvohmt0jg"
+path="res://.godot/imported/HoB-poland-render.png-3ae282e73df050144e0a17e07ac90b37.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/textures/hex/12.png"
-dest_files=["res://.godot/imported/12.png-bca990973488024e9e9c8fc4c4c205f2.ctex"]
+source_file="res://assets/textures/HoB-renders/HoB-poland-render.png"
+dest_files=["res://.godot/imported/HoB-poland-render.png-3ae282e73df050144e0a17e07ac90b37.ctex"]
 
 [params]
 
