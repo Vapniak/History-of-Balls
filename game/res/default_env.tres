@@ -1,6 +1,4 @@
-[gd_resource type="Environment" load_steps=6 format=3 uid="uid://dr3jtxdu2f3kr"]
-
-[ext_resource type="Texture2D" uid="uid://eqhuxcvx7g2r" path="res://assets/textures/AllSkyFree_Sky_ClearBlueSky_Equirect.png" id="1_odf7j"]
+[gd_resource type="Environment" load_steps=5 format=3 uid="uid://dr3jtxdu2f3kr"]
 
 [sub_resource type="Gradient" id="Gradient_1jpds"]
 offsets = PackedFloat32Array(0, 0.131833, 0.858521, 1)
@@ -10,7 +8,6 @@ colors = PackedColorArray(0, 0, 0, 1, 0.144, 0.1496, 0.2, 1, 1, 0.9525, 0.81, 1,
 gradient = SubResource("Gradient_1jpds")
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_nwfpu"]
-panorama = ExtResource("1_odf7j")
 energy_multiplier = 2.0
 
 [sub_resource type="Sky" id="Sky_6483f"]

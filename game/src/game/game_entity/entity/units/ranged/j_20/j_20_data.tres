@@ -1,0 +1,104 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://tfvl8pf6bhew"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_ivard"]
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_u1m1o"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_we2l6"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_3gxdm"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_ia10b"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_igjh0"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="6_6xdvs"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="7_f2o3c"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="8_s308h"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_w6y04"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_a7q1n"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_5vd13"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="12_s0gke"]
+[ext_resource type="Resource" uid="uid://i2kbndgd1vjx" path="res://src/game/game_entity/ability/attack/range/shoot_attack_ability.tres" id="13_0qe7x"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="14_iqnvu"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_nv250"]
+[ext_resource type="PackedScene" uid="uid://bnok1c0fewj2g" path="res://src/game/game_entity/entity/units/ranged/j_20/j20.tscn" id="16_emkd0"]
+[ext_resource type="Resource" uid="uid://c04dwjixvc642" path="res://src/game/game_entity/entity/units/ranged/ranged_tags.tres" id="17_sons8"]
+
+[sub_resource type="Resource" id="Resource_7sequ"]
+script = ExtResource("2_we2l6")
+Magnitude = 0.0
+
+[sub_resource type="Resource" id="Resource_k56t2"]
+script = ExtResource("3_3gxdm")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_7sequ")
+
+[sub_resource type="Resource" id="Resource_badnv"]
+script = ExtResource("4_ia10b")
+Attribute = ExtResource("1_u1m1o")
+Modifiers = [SubResource("Resource_k56t2")]
+
+[sub_resource type="Resource" id="Resource_nctlm"]
+script = ExtResource("2_we2l6")
+Magnitude = 0.0
+
+[sub_resource type="Resource" id="Resource_vuoo1"]
+script = ExtResource("3_3gxdm")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_nctlm")
+
+[sub_resource type="Resource" id="Resource_jlokk"]
+script = ExtResource("4_ia10b")
+Attribute = ExtResource("6_6xdvs")
+Modifiers = [SubResource("Resource_vuoo1")]
+
+[sub_resource type="Resource" id="Resource_6bbtb"]
+script = ExtResource("2_we2l6")
+Magnitude = 0.0
+
+[sub_resource type="Resource" id="Resource_t2v3w"]
+script = ExtResource("3_3gxdm")
+ModifierType = 2
+ModifierMagnitude = SubResource("Resource_6bbtb")
+
+[sub_resource type="Resource" id="Resource_a0wen"]
+script = ExtResource("4_ia10b")
+Attribute = ExtResource("7_f2o3c")
+Modifiers = [SubResource("Resource_t2v3w")]
+
+[sub_resource type="Resource" id="Resource_gqw05"]
+script = ExtResource("2_we2l6")
+Magnitude = 0.0
+
+[sub_resource type="Resource" id="Resource_cp7l5"]
+script = ExtResource("3_3gxdm")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_gqw05")
+
+[sub_resource type="Resource" id="Resource_q1y53"]
+script = ExtResource("4_ia10b")
+Attribute = ExtResource("8_s308h")
+Modifiers = [SubResource("Resource_cp7l5")]
+
+[sub_resource type="Resource" id="Resource_vlo6l"]
+script = ExtResource("9_w6y04")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_badnv"), ExtResource("5_igjh0"), SubResource("Resource_jlokk"), SubResource("Resource_a0wen"), SubResource("Resource_q1y53")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_n6msq"]
+script = ExtResource("10_a7q1n")
+EffectDefinition = SubResource("Resource_vlo6l")
+
+[sub_resource type="Resource" id="Resource_rkdjg"]
+script = ExtResource("11_5vd13")
+InitializeStatsEffects = SubResource("Resource_n6msq")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_ivard")
+EntityName = "J-20"
+AttributeSetsContainer = ExtResource("15_nv250")
+Abilities = Array[Object]([SubResource("Resource_rkdjg"), ExtResource("12_s0gke"), ExtResource("13_0qe7x"), ExtResource("14_iqnvu")])
+Tags = ExtResource("17_sons8")
+Body = ExtResource("16_emkd0")

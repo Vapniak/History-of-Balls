@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://muo6aa7px3eg"]
+[gd_scene load_steps=2 format=3 uid="uid://muo6aa7px3eg"]
 
 [ext_resource type="Script" path="res://src/game/Main.cs" id="1_she4k"]
-[ext_resource type="PackedScene" uid="uid://bp06acteouiyo" path="res://assets/models/objects/props/nature/grasses/small-plants/flower.fbx" id="2_k7k22"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_she4k")
-
-[node name="flower" parent="." instance=ExtResource("2_k7k22")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0611197, 0, 0.0043968)
