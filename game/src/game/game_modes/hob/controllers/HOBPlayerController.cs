@@ -125,8 +125,13 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void ToggleTimeScale(bool up = true) {
-    Engine.TimeScale += up ? 1 : -1;
-    Engine.TimeScale = Mathf.Wrap(Engine.TimeScale, 1, 4);
+    if (OS.HasFeature("movie")) {
+      Engine.TimeScale = Engine.TimeScale == 0.25 ? 1 : 0.25;
+    }
+    else {
+      Engine.TimeScale += up ? 1 : -1;
+      Engine.TimeScale = Mathf.Wrap(Engine.TimeScale, 1, 4);
+    }
   }
 
   private void CheckHover() {

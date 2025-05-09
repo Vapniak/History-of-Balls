@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=3 uid="uid://cw8h084hp142s"]
+[gd_scene load_steps=6 format=3 uid="uid://cw8h084hp142s"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_1mxsp"]
 [ext_resource type="PackedScene" uid="uid://cj61m4b53gsq3" path="res://assets/models/objects/elements/china/china-ZTQ-15-Tank.fbx" id="2_csdt7"]
 [ext_resource type="PackedScene" uid="uid://ceapk7b4jkhog" path="res://src/game/game_entity/entity/units/country_balls/china_ball.tscn" id="3_gfk37"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ShootingAttribute.cs" id="4_ixoql"]
+[ext_resource type="PackedScene" uid="uid://sklmlufkihmq" path="res://src/game/game_entity/entity/units/ranged/bullet.tscn" id="5_2ruh2"]
 
 [node name="Ztq15" type="Node3D"]
 script = ExtResource("1_1mxsp")
@@ -11,3 +13,9 @@ script = ExtResource("1_1mxsp")
 
 [node name="ChinaBall" parent="." instance=ExtResource("3_gfk37")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.510277, 0.302649)
+
+[node name="ShootingAttribute" type="Node3D" parent="." node_paths=PackedStringArray("ShootPoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.605261, -1.0083)
+script = ExtResource("4_ixoql")
+ShootPoint = NodePath(".")
+Projectile = ExtResource("5_2ruh2")

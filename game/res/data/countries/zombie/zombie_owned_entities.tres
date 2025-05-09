@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="OwnedEntitiesData" load_steps=5 format=3 uid="uid://71k7h2a1616a"]
+
+[ext_resource type="Resource" uid="uid://dbs4m8l5q61gv" path="res://src/game/game_entity/entity/structures/city/zombie_city/zombie_city_data.tres" id="1_6dt1o"]
+[ext_resource type="Resource" uid="uid://bhwicx2el1kxe" path="res://src/game/game_entity/entity/structures/factory/zombie_factory/zombie_factory_data.tres" id="2_nijxw"]
+[ext_resource type="Resource" uid="uid://c0rsi625qrx8w" path="res://src/game/game_entity/entity/structures/village/zombie_village/zombie_village_data.tres" id="3_4hb4x"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="4_7n5qa"]
+
+[resource]
+script = ExtResource("4_7n5qa")
+Entities = [ExtResource("1_6dt1o"), ExtResource("2_nijxw"), ExtResource("3_4hb4x")]

@@ -71,21 +71,24 @@ delay_in_seconds = "0.0"
 script = ExtResource("3_luned")
 initial_state = NodePath("Normal")
 
-[node name="Normal" type="Node" parent="StateChart/Root/Movement"]
-script = ExtResource("4_fs40q")
-
-[node name="ToOrbit" type="Node" parent="StateChart/Root/Movement/Normal"]
+[node name="ToOrbit" type="Node" parent="StateChart/Root/Movement"]
 script = ExtResource("5_4cy8h")
-to = NodePath("../../Orbit")
+to = NodePath("../Orbit")
 event = &"orbit"
 delay_in_seconds = "0.0"
+
+[node name="Normal" type="Node" parent="StateChart/Root/Movement"]
+script = ExtResource("4_fs40q")
 
 [node name="Orbit" type="Node" parent="StateChart/Root/Movement"]
 script = ExtResource("4_fs40q")
 
-[node name="ToNormal" type="Node" parent="StateChart/Root/Movement/Orbit"]
+[node name="Free" type="Node" parent="StateChart/Root/Movement"]
+script = ExtResource("4_fs40q")
+
+[node name="ToNormal" type="Node" parent="StateChart/Root/Movement"]
 script = ExtResource("5_4cy8h")
-to = NodePath("../../Normal")
+to = NodePath("../Normal")
 event = &"normal"
 delay_in_seconds = "0.0"
 

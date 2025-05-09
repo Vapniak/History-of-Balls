@@ -21,7 +21,7 @@
 
 [sub_resource type="Resource" id="Resource_ptt0h"]
 script = ExtResource("2_tluex")
-Magnitude = 0.0
+Magnitude = 5.0
 
 [sub_resource type="Resource" id="Resource_wi4ml"]
 script = ExtResource("3_0cq26")
@@ -49,7 +49,7 @@ Modifiers = [SubResource("Resource_nmc6p")]
 
 [sub_resource type="Resource" id="Resource_cf4oy"]
 script = ExtResource("2_tluex")
-Magnitude = 0.0
+Magnitude = 2.0
 
 [sub_resource type="Resource" id="Resource_g0ivo"]
 script = ExtResource("3_0cq26")
@@ -63,7 +63,7 @@ Modifiers = [SubResource("Resource_g0ivo")]
 
 [sub_resource type="Resource" id="Resource_ovbfa"]
 script = ExtResource("2_tluex")
-Magnitude = 0.0
+Magnitude = 5.0
 
 [sub_resource type="Resource" id="Resource_maxww"]
 script = ExtResource("3_0cq26")

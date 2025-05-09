@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://b1d5lwkesjoyb"]
+
+[ext_resource type="Resource" uid="uid://bdm113oircfrt" path="res://src/game/game_entity/ability/effects/ranged_cost_effect.tres" id="1_s8x4o"]
+[ext_resource type="Resource" uid="uid://btk8fpakbwdr7" path="res://src/game/game_entity/entity/units/ranged/shadows_of_the_plague/shadows_of_the_plague.tres" id="2_qbgtk"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="3_d038r"]
+
+[resource]
+script = ExtResource("3_d038r")
+Entity = ExtResource("2_qbgtk")
+CostEffect = ExtResource("1_s8x4o")
+ProductionTime = 2

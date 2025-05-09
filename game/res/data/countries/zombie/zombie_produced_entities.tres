@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProducedEntitiesData" load_steps=5 format=3 uid="uid://dehah1l0yjvrt"]
+
+[ext_resource type="Resource" uid="uid://develo852ci14" path="res://src/game/game_entity/entity/units/infantry/bloody_marionettes/bloody_marionettes_production_data.tres" id="1_dtobp"]
+[ext_resource type="Resource" uid="uid://b1d5lwkesjoyb" path="res://src/game/game_entity/entity/units/ranged/shadows_of_the_plague/shadows_of_the_plague_production_data.tres" id="2_lxxtq"]
+[ext_resource type="Resource" uid="uid://b66d1ohgnj5lh" path="res://src/game/game_entity/entity/units/cavalry/rotten_spectres/rotten_spectres_production_data.tres" id="3_m43j6"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/ProducedEntitiesData.cs" id="4_3w3ga"]
+
+[resource]
+script = ExtResource("4_3w3ga")
+ProducableEntities = [ExtResource("1_dtobp"), ExtResource("2_lxxtq"), ExtResource("3_m43j6")]

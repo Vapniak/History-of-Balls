@@ -21,7 +21,7 @@
 
 [sub_resource type="Resource" id="Resource_7sequ"]
 script = ExtResource("2_we2l6")
-Magnitude = 0.0
+Magnitude = 5.0
 
 [sub_resource type="Resource" id="Resource_k56t2"]
 script = ExtResource("3_3gxdm")
@@ -35,7 +35,7 @@ Modifiers = [SubResource("Resource_k56t2")]
 
 [sub_resource type="Resource" id="Resource_nctlm"]
 script = ExtResource("2_we2l6")
-Magnitude = 0.0
+Magnitude = 5.0
 
 [sub_resource type="Resource" id="Resource_vuoo1"]
 script = ExtResource("3_3gxdm")

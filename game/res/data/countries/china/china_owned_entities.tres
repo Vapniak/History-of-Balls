@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="OwnedEntitiesData" load_steps=5 format=3 uid="uid://b0wkuafvd27xp"]
+
+[ext_resource type="Resource" uid="uid://bfgbaqc2fepo7" path="res://src/game/game_entity/entity/structures/city/china_city/china_city_data.tres" id="1_t6r60"]
+[ext_resource type="Resource" uid="uid://daolpk2rlbaay" path="res://src/game/game_entity/entity/structures/factory/china_factory/china_factory_data.tres" id="2_2c4li"]
+[ext_resource type="Resource" uid="uid://csff8u115kni6" path="res://src/game/game_entity/entity/structures/village/china_village/china_village_data.tres" id="3_lwnya"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/OwnedEntitiesData.cs" id="4_cm0h0"]
+
+[resource]
+script = ExtResource("4_cm0h0")
+Entities = [ExtResource("1_t6r60"), ExtResource("2_2c4li"), ExtResource("3_lwnya")]

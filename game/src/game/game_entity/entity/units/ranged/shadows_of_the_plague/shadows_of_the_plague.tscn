@@ -1,9 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqsgyxe50jj3y"]
+[gd_scene load_steps=7 format=3 uid="uid://dqsgyxe50jj3y"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_3swsa"]
 [ext_resource type="PackedScene" uid="uid://debdvrwgvac06" path="res://assets/models/objects/elements/zombie/zombie-venom.fbx" id="2_uoq3v"]
+[ext_resource type="PackedScene" uid="uid://ro6kxae6elkp" path="res://src/game/game_entity/entity/units/country_balls/zombie_ball.tscn" id="3_dod5j"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_suhod"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ShootingAttribute.cs" id="4_w50kn"]
+[ext_resource type="PackedScene" uid="uid://sklmlufkihmq" path="res://src/game/game_entity/entity/units/ranged/bullet.tscn" id="5_xkudi"]
 
-[node name="ShadowsOfThePlague" type="Node3D"]
+[node name="ShadowsOfThePlague" type="Node3D" node_paths=PackedStringArray("UnitAttribute")]
 script = ExtResource("1_3swsa")
+UnitAttribute = NodePath("FollowParent3D/ShootingAttribute")
 
-[node name="zombie-venom" parent="." instance=ExtResource("2_uoq3v")]
+[node name="ZombieBall" parent="." instance=ExtResource("3_dod5j")]
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_suhod")
+
+[node name="ShootingAttribute" type="Node3D" parent="FollowParent3D" node_paths=PackedStringArray("ShootPoint")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.66221)
+script = ExtResource("4_w50kn")
+ShootPoint = NodePath("Marker3D")
+Projectile = ExtResource("5_xkudi")
+
+[node name="zombie-venom" parent="FollowParent3D/ShootingAttribute" instance=ExtResource("2_uoq3v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.374623)
+
+[node name="Marker3D" type="Marker3D" parent="FollowParent3D/ShootingAttribute"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1375, -0.627239)

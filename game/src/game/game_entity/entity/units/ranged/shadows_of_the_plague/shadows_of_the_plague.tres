@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=31 format=3 uid="uid://btk8fpakbwdr7"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://btk8fpakbwdr7"]
 
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_6y7um"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_fqfm8"]
@@ -13,8 +13,11 @@
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_y6emc"]
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_b4wpt"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="12_fd1y4"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="12_wfkuu"]
 [ext_resource type="Resource" uid="uid://c04dwjixvc642" path="res://src/game/game_entity/entity/units/ranged/ranged_tags.tres" id="13_fpp5v"]
 [ext_resource type="PackedScene" uid="uid://dqsgyxe50jj3y" path="res://src/game/game_entity/entity/units/ranged/shadows_of_the_plague/shadows_of_the_plague.tscn" id="13_novv0"]
+[ext_resource type="Resource" uid="uid://i2kbndgd1vjx" path="res://src/game/game_entity/ability/attack/range/shoot_attack_ability.tres" id="13_otcbo"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="14_jy0p3"]
 
 [sub_resource type="Resource" id="Resource_pn40p"]
 script = ExtResource("2_ykr2g")
@@ -32,7 +35,7 @@ Modifiers = [SubResource("Resource_gsorx")]
 
 [sub_resource type="Resource" id="Resource_t5uq8"]
 script = ExtResource("2_ykr2g")
-Magnitude = 1.0
+Magnitude = 2.0
 
 [sub_resource type="Resource" id="Resource_fkq2a"]
 script = ExtResource("3_j2su5")
@@ -96,6 +99,6 @@ AbilityTriggers = null
 script = ExtResource("1_fqfm8")
 EntityName = "Shadows of the Plague"
 AttributeSetsContainer = ExtResource("12_fd1y4")
-Abilities = Array[Object]([SubResource("Resource_sds76")])
+Abilities = Array[Object]([SubResource("Resource_sds76"), ExtResource("12_wfkuu"), ExtResource("13_otcbo"), ExtResource("14_jy0p3")])
 Tags = ExtResource("13_fpp5v")
 Body = ExtResource("13_novv0")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ProductionConfig" load_steps=4 format=3 uid="uid://develo852ci14"]
+
+[ext_resource type="Resource" uid="uid://fw08t7fm0yoq" path="res://src/game/game_entity/ability/effects/infantry_cost_effect.tres" id="1_80mxp"]
+[ext_resource type="Resource" uid="uid://c44cuggfxyfcq" path="res://src/game/game_entity/entity/units/infantry/bloody_marionettes/bloody_marionettes_data.tres" id="2_beinu"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="3_g7xih"]
+
+[resource]
+script = ExtResource("3_g7xih")
+Entity = ExtResource("2_beinu")
+CostEffect = ExtResource("1_80mxp")
+ProductionTime = 3

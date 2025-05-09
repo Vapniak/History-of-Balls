@@ -8,7 +8,7 @@
 [resource]
 script = ExtResource("1_kjx0x")
 Name = "Zombie"
-Color = Color(0, 1, 0, 1)
+Color = Color(0.152941, 0.392157, 0.196078, 1)
 Flag = ExtResource("1_oqedi")
 PrimaryResource = ExtResource("2_ay5p8")
 SecondaryResource = ExtResource("3_toq4f")

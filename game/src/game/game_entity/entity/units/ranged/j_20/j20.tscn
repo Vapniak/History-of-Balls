@@ -1,14 +1,22 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnok1c0fewj2g"]
+[gd_scene load_steps=6 format=3 uid="uid://bnok1c0fewj2g"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_3mv7w"]
 [ext_resource type="PackedScene" uid="uid://dsviai4oa6mfi" path="res://assets/models/objects/elements/china/china-J-20.fbx" id="2_upoet"]
 [ext_resource type="PackedScene" uid="uid://ceapk7b4jkhog" path="res://src/game/game_entity/entity/units/country_balls/china_ball.tscn" id="3_i3020"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/attribute/ShootingAttribute.cs" id="3_km70q"]
+[ext_resource type="PackedScene" uid="uid://sklmlufkihmq" path="res://src/game/game_entity/entity/units/ranged/bullet.tscn" id="4_0spyg"]
 
 [node name="J20" type="Node3D"]
 script = ExtResource("1_3mv7w")
 
 [node name="china-J-20" parent="." instance=ExtResource("2_upoet")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 1, 0)
+
+[node name="ShootingAttribute" type="Node3D" parent="china-J-20" node_paths=PackedStringArray("ShootPoint")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0.0186939, -0.0624819)
+script = ExtResource("3_km70q")
+ShootPoint = NodePath(".")
+Projectile = ExtResource("4_0spyg")
 
 [node name="ChinaBall" parent="." instance=ExtResource("3_i3020")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1.1332, 0.0534154)

@@ -78,7 +78,7 @@ project/assembly_name="History of Balls"
 [editor]
 
 movie_writer/mjpeg_quality=0.1
-movie_writer/movie_file="/home/vapniak/development/projects/History-of-Balls/game/test.avi"
+movie_writer/movie_file="C:/Users/Oliwier/Desktop/test.avi"
 movie_writer/disable_vsync=true
 movie_writer/fps=10
 export/convert_text_resources_to_binary=false
@@ -254,7 +254,6 @@ scaling_3d/mode=2
 scaling_3d/fsr_sharpness=0.0
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/msaa_3d=1
-mesh_lod/lod_change/threshold_pixels=2.0
 environment/defaults/default_environment="res://res/default_env.tres"
 
 [shader_globals]

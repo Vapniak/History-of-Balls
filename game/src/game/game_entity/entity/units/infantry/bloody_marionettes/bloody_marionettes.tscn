@@ -1,9 +1,21 @@
-[gd_scene load_steps=3 format=3 uid="uid://bw4csr5ej5yww"]
+[gd_scene load_steps=5 format=3 uid="uid://bw4csr5ej5yww"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_skygf"]
 [ext_resource type="PackedScene" uid="uid://cbta4bqnllfak" path="res://assets/models/objects/elements/zombie/zombie-marionets.fbx" id="2_xa1ms"]
+[ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="3_3r247"]
+[ext_resource type="PackedScene" uid="uid://ro6kxae6elkp" path="res://src/game/game_entity/entity/units/country_balls/zombie_ball.tscn" id="3_785pf"]
 
 [node name="BloodyMarionettes" type="Node3D"]
 script = ExtResource("1_skygf")
 
-[node name="zombie-marionets" parent="." instance=ExtResource("2_xa1ms")]
+[node name="ZombieBall" parent="." instance=ExtResource("3_785pf")]
+
+[node name="FollowParent3D" type="Node3D" parent="."]
+top_level = true
+script = ExtResource("3_3r247")
+
+[node name="Node3D" type="Node3D" parent="FollowParent3D"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.417982, 0, -0.622324)
+
+[node name="zombie-marionets" parent="FollowParent3D/Node3D" instance=ExtResource("2_xa1ms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.64609, 0, 0)
