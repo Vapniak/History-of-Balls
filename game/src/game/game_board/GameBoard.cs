@@ -40,6 +40,12 @@ public partial class GameBoard : Node3D {
       TerrainManager?.AddCellToChunk(cell);
     }
 
+    foreach (var chunk in TerrainManager.Chunks) {
+      chunk.Generate();
+    }
+
+    TerrainManager?.PlaceProps(mission);
+
     EmitSignal(SignalName.GridCreated);
   }
 

@@ -15,10 +15,12 @@ GameModeScene = ExtResource("4_bwlsw")
 [node name="GameBoard" parent="." instance=ExtResource("5_xcsm4")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.57403, 0.528874, 0.625126, -0.382203, -0.50211, 0.775762, 0.724162, -0.684235, -0.0860885, 0, 0, 0.15345)
+transform = Transform3D(0.92388, -0.270598, 0.270598, -0.0954606, 0.521792, 0.847715, -0.370586, -0.809018, 0.456241, 0, 0, 0.15345)
 light_energy = 2.0
 shadow_enabled = true
 shadow_opacity = 0.8
-shadow_blur = 0.5
+shadow_blur = 0.8
 directional_shadow_mode = 1
 directional_shadow_blend_splits = true
+directional_shadow_max_distance = 150.0
+directional_shadow_pancake_size = 10.0

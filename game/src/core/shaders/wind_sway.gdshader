@@ -25,11 +25,6 @@ uniform float wind_speed : hint_range(0.0, 5.0) = 1.0;
 uniform float wind_frequency : hint_range(0.0, 10.0) = 2.0;
 uniform vec2 wind_direction = vec2(1.0, 0.0); // Global direction (XZ plane)
 
-// Distance fade settings
-uniform bool enable_fade = false;
-uniform float fade_start_distance : hint_range(0.0, 200.0) = 50.0;
-uniform float fade_length : hint_range(1.0, 50.0) = 20.0;
-
 void vertex() {
     if (enable_wind) {
         // Get vertex in world space
@@ -73,14 +68,4 @@ void fragment() {
     vec3 normal_map = texture(texture_normal, base_uv).rgb * 2.0 - 1.0;
     normal_map.xy *= normal_scale;
     NORMAL_MAP = normal_map;
-
-    // Compute fade effect only if enabled
-    float fade = 1.0;
-    if (enable_fade) {
-        float dist = length((MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz);
-        fade = clamp(1.0 - (dist - fade_start_distance) / fade_length, 0.0, 1.0);
-    }
-
-    // Apply fading to alpha
-    ALPHA = albedo.a * albedo_tex.a * fade;
 }

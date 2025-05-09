@@ -254,7 +254,7 @@ scaling_3d/mode=2
 scaling_3d/fsr_sharpness=0.0
 anti_aliasing/quality/msaa_2d=1
 anti_aliasing/quality/msaa_3d=1
-mesh_lod/lod_change/threshold_pixels=3.0
+mesh_lod/lod_change/threshold_pixels=2.0
 environment/defaults/default_environment="res://res/default_env.tres"
 
 [shader_globals]
