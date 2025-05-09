@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqsgyxe50jj3y"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_3swsa"]
+[ext_resource type="PackedScene" uid="uid://debdvrwgvac06" path="res://assets/models/objects/elements/zombie/zombie-venom.fbx" id="2_uoq3v"]
+
+[node name="ShadowsOfThePlague" type="Node3D"]
+script = ExtResource("1_3swsa")
+
+[node name="zombie-venom" parent="." instance=ExtResource("2_uoq3v")]

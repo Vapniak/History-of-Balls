@@ -18,29 +18,31 @@ public partial class Chunk : StaticBody3D {
       V5 = corner2;
     }
   }
-  public int Index { get; private set; }
 
+  public int Index { get; private set; }
   private Vector2I ChunkSize { get; set; }
   private int[] CellIndices { get; set; }
-
-
   private GameGrid Grid { get; set; }
 
   private HexMesh TerrainMesh { get; set; }
   private HexMesh WaterMesh { get; set; }
   private CollisionShape3D CollisionShape { get; set; }
 
-
   private Dictionary<GameCell, Array<HexDirection>> Connections { get; set; } = new();
 
-  private HexMesh BorderMesh { get; set; }
+
+  private Array<HexMesh> _borderMeshChunks = new();
+  private int _borderChunkSize = 30;
+  private Material _borderMaterial;
 
   private bool _refresh;
 
-  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial, Material waterMaterial, GameGrid grid) {
+  public Chunk(int index, Vector2I chunkSize, Material terrainMaterial,
+              Material waterMaterial, Material borderMaterial, GameGrid grid) {
     Index = index;
     ChunkSize = chunkSize;
     Grid = grid;
+    _borderMaterial = borderMaterial;
 
     CellIndices = new int[chunkSize.X * chunkSize.Y];
 
@@ -53,20 +55,16 @@ public partial class Chunk : StaticBody3D {
     };
 
     CollisionShape = new();
-
     AddChild(CollisionShape);
     CollisionShape.AddChild(TerrainMesh);
     AddChild(WaterMesh);
-
-    BorderMesh = new HexMesh {
-      MaterialOverride = terrainMaterial
-    };
-    TerrainMesh.AddChild(BorderMesh);
 
     Refresh();
 
     CollisionLayer = GameLayers.Physics3D.Mask.World;
   }
+
+  public Vector3 GetCenter() => TerrainMesh.GetAabb().GetCenter();
 
   public override void _PhysicsProcess(double delta) {
     if (_refresh) {
@@ -90,7 +88,7 @@ public partial class Chunk : StaticBody3D {
       Triangulate(index);
     }
 
-    GenerateHexBorderRectangle(30);
+    //GenerateHexBorderRectangle(30);
 
     TerrainMesh.End();
     WaterMesh.End();
@@ -175,8 +173,6 @@ public partial class Chunk : StaticBody3D {
     bridge.Y = Grid.GetCellRealPosition(neighbor).Y - Grid.GetCellRealPosition(cell).Y;
     var e2 = new EdgeVertices(e.V1 + bridge, e.V5 + bridge);
 
-
-
     var edgeType = Grid.GetEdgeType(cell, neighbor);
     if (edgeType == GameCell.EdgeType.Slope) {
       TriangulateEdgeTerraces(e, e2);
@@ -194,32 +190,31 @@ public partial class Chunk : StaticBody3D {
       var v5 = e.V5 + Grid.GetBridge(direction.Next());
       v5.Y = Grid.GetCellRealPosition(nextNeighbor).Y;
 
-
       if (Grid.GetSetting(cell).Elevation <= Grid.GetSetting(neighbor).Elevation) {
         if (Grid.GetSetting(cell).Elevation <= Grid.GetSetting(nextNeighbor).Elevation) {
           TriangulateCorner(
-            e.V5, cell,
-            e2.V5, neighbor,
-            v5, nextNeighbor);
+              e.V5, cell,
+              e2.V5, neighbor,
+              v5, nextNeighbor);
         }
         else {
           TriangulateCorner(
-            v5, nextNeighbor,
-            e.V5, cell,
-            e2.V5, neighbor);
+              v5, nextNeighbor,
+              e.V5, cell,
+              e2.V5, neighbor);
         }
       }
       else if (Grid.GetSetting(neighbor).Elevation <= Grid.GetSetting(nextNeighbor).Elevation) {
         TriangulateCorner(
-          e2.V5, neighbor,
-          v5, nextNeighbor,
-          e.V5, cell);
+            e2.V5, neighbor,
+            v5, nextNeighbor,
+            e.V5, cell);
       }
       else {
         TriangulateCorner(
-          v5, nextNeighbor,
-          e.V5, cell,
-          e2.V5, neighbor);
+            v5, nextNeighbor,
+            e.V5, cell,
+            e2.V5, neighbor);
       }
     }
   }
@@ -230,7 +225,6 @@ public partial class Chunk : StaticBody3D {
 
   private void TriangulateEdgeTerraces(EdgeVertices begin, EdgeVertices end) {
     var e2 = Grid.TerraceLerp(begin, end, 1);
-
     TriangulateEdgeStrip(begin, e2);
 
     for (var i = 2; i < Grid.GetLayout().TerraceSteps; i++) {
@@ -243,9 +237,9 @@ public partial class Chunk : StaticBody3D {
   }
 
   private void TriangulateCorner(
-    Vector3 bottom, GameCell bottomCell,
-    Vector3 left, GameCell leftCell,
-    Vector3 right, GameCell rightCell) {
+      Vector3 bottom, GameCell bottomCell,
+      Vector3 left, GameCell leftCell,
+      Vector3 right, GameCell rightCell) {
     var leftEdgeType = Grid.GetEdgeType(bottomCell, leftCell);
     var rightEdgeType = Grid.GetEdgeType(bottomCell, rightCell);
 
@@ -262,10 +256,9 @@ public partial class Chunk : StaticBody3D {
       // shore
     }
     else {
-
       // open water
     }
-    // for now make the water take whole hex
+
     TriangulateOpenWater(direction, pos, cell, neighbor);
   }
 
@@ -292,6 +285,7 @@ public partial class Chunk : StaticBody3D {
       }
     }
   }
+
   private void GenerateHexBorderRectangle(int borderLayers) {
     var originalCells = new System.Collections.Generic.HashSet<OffsetCoord>(
         CellIndices.Select(i => Grid.GetCell(i).OffsetCoord)
@@ -301,6 +295,12 @@ public partial class Chunk : StaticBody3D {
     if (originalCells.Count == 0) {
       return;
     }
+
+    // Clear existing border chunks
+    foreach (var chunk in _borderMeshChunks) {
+      chunk.QueueFree();
+    }
+    _borderMeshChunks.Clear();
 
     var minCol = originalCells.Min(oc => oc.Col);
     var maxCol = originalCells.Max(oc => oc.Col);
@@ -312,40 +312,72 @@ public partial class Chunk : StaticBody3D {
     var expandedMinRow = minRow - borderLayers;
     var expandedMaxRow = maxRow + borderLayers;
 
-    BorderMesh.Begin();
+    // Calculate how many chunks we'll need
+    int colChunks = (int)Mathf.Ceil((expandedMaxCol - expandedMinCol + 1) / (float)_borderChunkSize);
+    int rowChunks = (int)Mathf.Ceil((expandedMaxRow - expandedMinRow + 1) / (float)_borderChunkSize);
 
-    for (var col = expandedMinCol; col <= expandedMaxCol; col++) {
-      for (var row = expandedMinRow; row <= expandedMaxRow; row++) {
-        var offsetCoord = new OffsetCoord(col, row);
-        if (!originalCells.Contains(offsetCoord)) {
-          var cubeCoord = Grid.GetLayout().OffsetToCube(offsetCoord);
-          var point = Grid.GetLayout().CubeToPoint(cubeCoord);
-          var position = new Vector3(point.X, 0, point.Y);
+    // Create and populate chunks
+    for (int chunkX = 0; chunkX < colChunks; chunkX++) {
+      for (int chunkY = 0; chunkY < rowChunks; chunkY++) {
+        int startCol = expandedMinCol + chunkX * _borderChunkSize;
+        int endCol = Math.Min(startCol + _borderChunkSize - 1, expandedMaxCol);
+        int startRow = expandedMinRow + chunkY * _borderChunkSize;
+        int endRow = Math.Min(startRow + _borderChunkSize - 1, expandedMaxRow);
 
-          GenerateBorderHexagon(position);
+        // Skip chunks that don't contain any border cells
+        bool hasBorderCells = false;
+        for (int col = startCol; col <= endCol; col++) {
+          for (int row = startRow; row <= endRow; row++) {
+            var offsetCoord = new OffsetCoord(col, row);
+            if (!originalCells.Contains(offsetCoord)) {
+              hasBorderCells = true;
+              break;
+            }
+          }
+          if (hasBorderCells)
+            break;
         }
+
+        if (!hasBorderCells)
+          continue;
+
+        // Create a new mesh for this chunk
+        var borderChunk = new HexMesh {
+          MaterialOverride = _borderMaterial,
+          // VisibilityRangeEnd = 20,
+          // VisibilityRangeEndMargin = 30,
+          // VisibilityRangeFadeMode = GeometryInstance3D.VisibilityRangeFadeModeEnum.Self,
+        };
+
+        TerrainMesh.AddChild(borderChunk);
+        _borderMeshChunks.Add(borderChunk);
+
+        // Generate geometry for this chunk
+        borderChunk.Begin();
+
+        for (var col = startCol; col <= endCol; col++) {
+          for (var row = startRow; row <= endRow; row++) {
+            var offsetCoord = new OffsetCoord(col, row);
+            if (!originalCells.Contains(offsetCoord)) {
+              var cubeCoord = Grid.GetLayout().OffsetToCube(offsetCoord);
+              var point = Grid.GetLayout().CubeToPoint(cubeCoord);
+              var position = new Vector3(point.X, 0, point.Y);
+              GenerateBorderHexagon(position, borderChunk);
+            }
+          }
+        }
+
+        borderChunk.End();
       }
     }
-
-    BorderMesh.End();
   }
 
-  private void GenerateBorderHexagon(Vector3 center) {
+  private void GenerateBorderHexagon(Vector3 center, HexMesh targetMesh) {
     for (var d = HexDirection.First; d <= HexDirection.Sixth; d++) {
       var (firstCorner, secondCorner) = Grid.GetCorners(d);
       var e = new EdgeVertices(center + firstCorner, center + secondCorner);
-      TriangulateEdgeFan(center, e, BorderMesh);
+      TriangulateEdgeFan(center, e, targetMesh);
     }
-
-    // var wallHeight = -2f;
-    // for (var i = 0; i < 6; i++) {
-    //   var top1 = vertices[i];
-    //   var top2 = vertices[(i + 1) % 6];
-    //   var bottom1 = top1 with { Y = wallHeight };
-    //   var bottom2 = top2 with { Y = wallHeight };
-
-    //   _borderMesh.AddQuadAutoUV(top1, top2, bottom1, bottom2);
-    // }
   }
 
   private bool HasConnection(GameCell cell, HexDirection direction) {
@@ -354,6 +386,7 @@ public partial class Chunk : StaticBody3D {
     }
     return false;
   }
+
   private void MarkConnection(GameCell fromCell, GameCell toCell) {
     if (fromCell == null || toCell == null) {
       return;

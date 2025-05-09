@@ -65,7 +65,7 @@ public partial class TerrainManager : Node3D {
 
     Chunks = new Chunk[ChunkCount.X * ChunkCount.Y];
     for (var i = 0; i < Chunks.Length; i++) {
-      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, WaterMaterial, grid);
+      var chunk = new Chunk(i, ChunkSize, TerrainMaterial, WaterMaterial, TerrainMaterial, grid);
       Chunks[i] = chunk;
       AddChild(chunk);
     }
@@ -80,6 +80,8 @@ public partial class TerrainManager : Node3D {
     TerrainMaterial.Set("shader_parameter/grid_size", new Vector2I(grid.MapData.Cols, grid.MapData.Rows));
     TerrainMaterial.Set("shader_parameter/hex_textures", HexTextures);
 
+
+    // TODO: place props after the chunk has generated and add visibility ranges for them, they take most of the frame time
     PlaceProps(mission);
     FinalizeChunkMultiMeshes();
   }
@@ -271,8 +273,10 @@ public partial class TerrainManager : Node3D {
           multimesh.SetInstanceTransform(i, kvp.Value[i]);
         }
 
-        chunk.AddChild(new MultiMeshInstance3D { Multimesh = multimesh });
+
+        chunk.AddChild(new MultiMeshInstance3D { Multimesh = multimesh, Position = chunk.GetCenter() with { Y = 0 } });
       }
+      GD.Print("Center: " + chunk.GetCenter());
     }
 
     _chunkMeshGroups.Clear();

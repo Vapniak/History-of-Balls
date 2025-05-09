@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://bw4csr5ej5yww"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_skygf"]
+[ext_resource type="PackedScene" uid="uid://cbta4bqnllfak" path="res://assets/models/objects/elements/zombie/zombie-marionets.fbx" id="2_xa1ms"]
+
+[node name="BloodyMarionettes" type="Node3D"]
+script = ExtResource("1_skygf")
+
+[node name="zombie-marionets" parent="." instance=ExtResource("2_xa1ms")]

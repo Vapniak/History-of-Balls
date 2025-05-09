@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://ro6kxae6elkp"]
+
+[ext_resource type="PackedScene" uid="uid://c6gjek7mpianb" path="res://src/game/game_entity/entity/units/base_country_ball.tscn" id="1_66qsl"]
+[ext_resource type="Shader" path="res://src/core/shaders/cel_shading.gdshader" id="2_ibjvr"]
+[ext_resource type="Texture2D" uid="uid://ddyujh8pdd8ib" path="res://assets/textures/flags/Zombie.png" id="3_ki7uu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dokwl"]
+render_priority = 0
+shader = ExtResource("2_ibjvr")
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/specular = Color(0.3, 0.3, 0.3, 0.5)
+shader_parameter/fresnel = Color(0.2, 0.2, 0.2, 0.3)
+shader_parameter/base_texture = ExtResource("3_ki7uu")
+shader_parameter/uv_scale = Vector2(1, 1)
+shader_parameter/uv_offset = Vector2(0, 0)
+
+[node name="ZombieBall" type="Node3D"]
+
+[node name="BaseCountryBall" parent="." instance=ExtResource("1_66qsl")]
+
+[node name="Sphere_001" parent="BaseCountryBall/sphere5" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_dokwl")
+
+[editable path="BaseCountryBall"]
+[editable path="BaseCountryBall/sphere5"]

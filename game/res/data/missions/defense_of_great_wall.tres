@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=31 format=3 uid="uid://c1hgyrlyu8uf5"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=41 format=3 uid="uid://c1hgyrlyu8uf5"]
 
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_e0wnv"]
 [ext_resource type="Script" path="res://src/game/game_modes/hob/control/ControlGameModeConfig.cs" id="1_po167"]
@@ -13,49 +13,17 @@
 [ext_resource type="Script" path="res://src/core/campaign/mission/EntitySpawnData.cs" id="7_y8pgs"]
 [ext_resource type="Resource" uid="uid://daolpk2rlbaay" path="res://src/game/game_entity/entity/structures/factory/china_factory/china_factory_data.tres" id="8_jfeml"]
 [ext_resource type="Resource" uid="uid://csff8u115kni6" path="res://src/game/game_entity/entity/structures/village/china_village/china_village_data.tres" id="9_mljl7"]
+[ext_resource type="Resource" uid="uid://bso3uogf8erwv" path="res://src/game/game_entity/entity/units/infantry/infantry_solider/infantry_solider_data.tres" id="11_3t6ty"]
+[ext_resource type="Resource" uid="uid://bwd01vt71tx4t" path="res://src/game/game_entity/entity/units/cavalry/rotten_spectres/rotten_spectres_data.tres" id="11_bqbts"]
+[ext_resource type="Resource" uid="uid://bpiloh8t4bi1j" path="res://src/game/game_entity/entity/units/cavalry/ztq_15/ztg_15_data.tres" id="12_2rjjt"]
+[ext_resource type="Resource" uid="uid://btk8fpakbwdr7" path="res://src/game/game_entity/entity/units/ranged/shadows_of_the_plague/shadows_of_the_plague.tres" id="12_7n6au"]
+[ext_resource type="Resource" uid="uid://tfvl8pf6bhew" path="res://src/game/game_entity/entity/units/ranged/j_20/j_20_data.tres" id="13_swxjf"]
 [ext_resource type="Resource" uid="uid://dbs4m8l5q61gv" path="res://src/game/game_entity/entity/structures/city/zombie_city/zombie_city_data.tres" id="13_vh1ef"]
 [ext_resource type="Resource" uid="uid://bhwicx2el1kxe" path="res://src/game/game_entity/entity/structures/factory/zombie_factory/zombie_factory_data.tres" id="14_8ykwh"]
 [ext_resource type="Resource" uid="uid://c0rsi625qrx8w" path="res://src/game/game_entity/entity/structures/village/zombie_village/zombie_village_data.tres" id="15_kvgaj"]
 
 [sub_resource type="Resource" id="Resource_l0br1"]
 script = ExtResource("1_po167")
-
-[sub_resource type="Resource" id="Resource_wvoo6"]
-script = ExtResource("4_jlbus")
-Entities = []
-
-[sub_resource type="Resource" id="Resource_2dp7d"]
-script = ExtResource("5_hxkus")
-ProducableEntities = []
-
-[sub_resource type="Resource" id="Resource_8bllb"]
-script = ExtResource("7_y8pgs")
-EntityData = ExtResource("6_tbiu2")
-SpawnAt = Array[Vector2i]([Vector2i(28, 29)])
-
-[sub_resource type="Resource" id="Resource_aom64"]
-script = ExtResource("7_y8pgs")
-EntityData = ExtResource("8_jfeml")
-SpawnAt = Array[Vector2i]([Vector2i(31, 33)])
-
-[sub_resource type="Resource" id="Resource_qcsld"]
-script = ExtResource("7_y8pgs")
-EntityData = ExtResource("9_mljl7")
-SpawnAt = Array[Vector2i]([Vector2i(24, 35)])
-
-[sub_resource type="Resource" id="Resource_0ftva"]
-script = ExtResource("5_6fcsb")
-PlayerType = 0
-Country = ExtResource("3_odait")
-ProducableEntities = SubResource("Resource_2dp7d")
-SpawnedEntities = Array[Object]([SubResource("Resource_8bllb"), SubResource("Resource_aom64"), SubResource("Resource_qcsld")])
-OwnedEntities = SubResource("Resource_wvoo6")
-
-[sub_resource type="Resource" id="Resource_15lnf"]
-script = ExtResource("6_unr2l")
-ProfileName = "AI Profile"
-Agressiveness = 0.614
-Expansiveness = 0.39
 
 [sub_resource type="Resource" id="Resource_k0uxl"]
 script = ExtResource("4_jlbus")
@@ -80,14 +48,76 @@ script = ExtResource("7_y8pgs")
 EntityData = ExtResource("15_kvgaj")
 SpawnAt = Array[Vector2i]([Vector2i(13, 4)])
 
+[sub_resource type="Resource" id="Resource_llh18"]
+script = ExtResource("7_y8pgs")
+EntityData = ExtResource("12_7n6au")
+SpawnAt = Array[Vector2i]([Vector2i(4, 15)])
+
+[sub_resource type="Resource" id="Resource_w27d0"]
+script = ExtResource("7_y8pgs")
+EntityData = ExtResource("11_bqbts")
+SpawnAt = Array[Vector2i]([Vector2i(8, 19)])
+
 [sub_resource type="Resource" id="Resource_1xlih"]
 script = ExtResource("5_6fcsb")
-PlayerType = 1
-AIProfile = SubResource("Resource_15lnf")
+PlayerType = 0
 Country = ExtResource("7_nqunu")
 ProducableEntities = SubResource("Resource_t2vsh")
-SpawnedEntities = Array[Object]([SubResource("Resource_cl4bo"), SubResource("Resource_hv6xy"), SubResource("Resource_7m2dp")])
+SpawnedEntities = Array[Object]([SubResource("Resource_cl4bo"), SubResource("Resource_hv6xy"), SubResource("Resource_7m2dp"), SubResource("Resource_llh18"), SubResource("Resource_w27d0")])
 OwnedEntities = SubResource("Resource_k0uxl")
+
+[sub_resource type="Resource" id="Resource_sww6y"]
+script = ExtResource("6_unr2l")
+ProfileName = "AI Profile"
+Agressiveness = 0.147
+Expansiveness = 0.189
+
+[sub_resource type="Resource" id="Resource_wvoo6"]
+script = ExtResource("4_jlbus")
+Entities = []
+
+[sub_resource type="Resource" id="Resource_2dp7d"]
+script = ExtResource("5_hxkus")
+ProducableEntities = []
+
+[sub_resource type="Resource" id="Resource_8bllb"]
+script = ExtResource("7_y8pgs")
+EntityData = ExtResource("6_tbiu2")
+SpawnAt = Array[Vector2i]([Vector2i(28, 29)])
+
+[sub_resource type="Resource" id="Resource_aom64"]
+script = ExtResource("7_y8pgs")
+EntityData = ExtResource("8_jfeml")
+SpawnAt = Array[Vector2i]([Vector2i(31, 33)])
+
+[sub_resource type="Resource" id="Resource_qcsld"]
+script = ExtResource("7_y8pgs")
+EntityData = ExtResource("9_mljl7")
+SpawnAt = Array[Vector2i]([Vector2i(24, 35)])
+
+[sub_resource type="Resource" id="Resource_72eny"]
+script = ExtResource("7_y8pgs")
+EntityData = ExtResource("11_3t6ty")
+SpawnAt = Array[Vector2i]([Vector2i(25, 22)])
+
+[sub_resource type="Resource" id="Resource_3lu6t"]
+script = ExtResource("7_y8pgs")
+EntityData = ExtResource("12_2rjjt")
+SpawnAt = Array[Vector2i]([Vector2i(25, 27)])
+
+[sub_resource type="Resource" id="Resource_eifa2"]
+script = ExtResource("7_y8pgs")
+EntityData = ExtResource("13_swxjf")
+SpawnAt = Array[Vector2i]([Vector2i(26, 29)])
+
+[sub_resource type="Resource" id="Resource_0ftva"]
+script = ExtResource("5_6fcsb")
+PlayerType = 1
+AIProfile = SubResource("Resource_sww6y")
+Country = ExtResource("3_odait")
+ProducableEntities = SubResource("Resource_2dp7d")
+SpawnedEntities = Array[Object]([SubResource("Resource_8bllb"), SubResource("Resource_aom64"), SubResource("Resource_qcsld"), SubResource("Resource_72eny"), SubResource("Resource_3lu6t"), SubResource("Resource_eifa2")])
+OwnedEntities = SubResource("Resource_wvoo6")
 
 [resource]
 script = ExtResource("1_e0wnv")
@@ -95,7 +125,7 @@ MissionName = "Defense of the Great Wall"
 Description = ""
 ObjectivesText = ""
 MusicTrackName = "medival"
-Locked = true
+Locked = false
 Map = ExtResource("2_848g0")
-PlayerSpawnDatas = [SubResource("Resource_0ftva"), SubResource("Resource_1xlih")]
+PlayerSpawnDatas = [SubResource("Resource_1xlih"), SubResource("Resource_0ftva")]
 GameModeConfig = SubResource("Resource_l0br1")

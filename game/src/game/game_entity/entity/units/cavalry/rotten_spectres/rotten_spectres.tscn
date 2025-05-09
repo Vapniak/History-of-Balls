@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=3 uid="uid://cadx3qml4ra0v"]
+
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_gu6jg"]
+[ext_resource type="PackedScene" uid="uid://cixicjxc5bp5p" path="res://assets/models/objects/elements/zombie/zombie-bones.fbx" id="2_5hwku"]
+[ext_resource type="PackedScene" uid="uid://ro6kxae6elkp" path="res://src/game/game_entity/entity/units/country_balls/zombie_ball.tscn" id="3_m2ibs"]
+
+[node name="RottenSpectres" type="Node3D"]
+script = ExtResource("1_gu6jg")
+
+[node name="zombie-bones" parent="." instance=ExtResource("2_5hwku")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+
+[node name="ZombieBall" parent="." instance=ExtResource("3_m2ibs")]
+transform = Transform3D(0.6, 0, 0, 0, 0.599974, 0.00555007, 0, -0.00555007, 0.599974, 0, 0.209, 0.941674)

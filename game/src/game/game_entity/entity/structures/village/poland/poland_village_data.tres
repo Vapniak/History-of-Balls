@@ -1,58 +1,17 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=21 format=3 uid="uid://c5m55srxuo4oc"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=8 format=3 uid="uid://c5m55srxuo4oc"]
 
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_bukje"]
 [ext_resource type="Resource" uid="uid://gys5w38r4awo" path="res://src/game/game_entity/ability/initialize_stats/village_initialize_stats.tres" id="1_g0y8s"]
 [ext_resource type="Resource" uid="uid://dqymud443mvvm" path="res://src/game/game_entity/ability/income/income_ability.tres" id="2_0fr43"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="3_pv7vh"]
-[ext_resource type="Resource" uid="uid://mfnc077jsp32" path="res://res/data/attributes/income.tres" id="3_ro3b8"]
 [ext_resource type="Resource" uid="uid://8yb1jm4s5gbq" path="res://src/core/entity/attribute_sets/village_attribute_sets.tres" id="3_w0xdo"]
 [ext_resource type="PackedScene" uid="uid://cxdsvdr54bmnf" path="res://src/game/game_entity/entity/structures/village/poland/poland_village.tscn" id="4_vblyn"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="4_vihle"]
 [ext_resource type="Resource" uid="uid://bk4sncpcpoir3" path="res://src/game/game_entity/entity/structures/village/village_tags.tres" id="5_g1jo3"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="5_k8dcn"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="6_eama6"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="7_1bbjo"]
-[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="9_827ss"]
 [ext_resource type="Resource" uid="uid://cquxajetigr6d" path="res://src/game/game_entity/ability/economy_multi.tres" id="10_rnu1v"]
-
-[sub_resource type="Resource" id="Resource_2khg7"]
-script = ExtResource("4_vihle")
-Magnitude = 2.0
-
-[sub_resource type="Resource" id="Resource_rnqx8"]
-script = ExtResource("5_k8dcn")
-ModifierType = 0
-ModifierMagnitude = SubResource("Resource_2khg7")
-
-[sub_resource type="Resource" id="Resource_l0j7t"]
-script = ExtResource("6_eama6")
-Attribute = ExtResource("3_ro3b8")
-Modifiers = [SubResource("Resource_rnqx8")]
-
-[sub_resource type="Resource" id="Resource_xwave"]
-script = ExtResource("7_1bbjo")
-DurationPolicy = 0
-AttributeModifiers = Array[Object]([SubResource("Resource_l0j7t")])
-DurationMultiplier = 0.0
-
-[sub_resource type="Resource" id="Resource_lpmno"]
-script = ExtResource("3_pv7vh")
-EffectDefinition = SubResource("Resource_xwave")
-
-[sub_resource type="Resource" id="Resource_qhjv8"]
-script = ExtResource("9_827ss")
-InitializeStatsEffects = SubResource("Resource_lpmno")
-ShowInUI = true
-UIOrder = 0
-AbilityName = "Ability"
-ActivateOnGranted = false
-RemoveOnEnd = false
-AbilityTriggers = null
 
 [resource]
 script = ExtResource("1_bukje")
 EntityName = "Townhouses"
 AttributeSetsContainer = ExtResource("3_w0xdo")
-Abilities = Array[Object]([ExtResource("1_g0y8s"), ExtResource("2_0fr43"), SubResource("Resource_qhjv8"), ExtResource("10_rnu1v")])
+Abilities = Array[Object]([ExtResource("1_g0y8s"), ExtResource("2_0fr43"), ExtResource("10_rnu1v")])
 Tags = ExtResource("5_g1jo3")
 Body = ExtResource("4_vblyn")

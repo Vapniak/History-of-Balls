@@ -1,0 +1,104 @@
+[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://bwd01vt71tx4t"]
+
+[ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_m145h"]
+[ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_r1m83"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_cs8y4"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_6l4el"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_0mdgb"]
+[ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_l13lu"]
+[ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="6_ny318"]
+[ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="7_ul2ri"]
+[ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="8_2741n"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_7mq0h"]
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_p84v8"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_i0m6c"]
+[ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="12_totqw"]
+[ext_resource type="Resource" uid="uid://bflof1b7lyv80" path="res://src/game/game_entity/ability/attack/melee/cavalry_melee_attack_ability.tres" id="13_3rlrj"]
+[ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="14_on7li"]
+[ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="15_28s70"]
+[ext_resource type="PackedScene" uid="uid://cadx3qml4ra0v" path="res://src/game/game_entity/entity/units/cavalry/rotten_spectres/rotten_spectres.tscn" id="16_y1i0x"]
+[ext_resource type="Resource" uid="uid://bfy341j87lym6" path="res://src/game/game_entity/entity/units/cavalry/cavalry_tags.tres" id="17_blkvi"]
+
+[sub_resource type="Resource" id="Resource_r00aw"]
+script = ExtResource("2_cs8y4")
+Magnitude = 5.0
+
+[sub_resource type="Resource" id="Resource_y2qqy"]
+script = ExtResource("3_6l4el")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_r00aw")
+
+[sub_resource type="Resource" id="Resource_8jxuf"]
+script = ExtResource("4_0mdgb")
+Attribute = ExtResource("1_r1m83")
+Modifiers = [SubResource("Resource_y2qqy")]
+
+[sub_resource type="Resource" id="Resource_864t1"]
+script = ExtResource("2_cs8y4")
+Magnitude = 2.0
+
+[sub_resource type="Resource" id="Resource_h1vg1"]
+script = ExtResource("3_6l4el")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_864t1")
+
+[sub_resource type="Resource" id="Resource_jstd1"]
+script = ExtResource("4_0mdgb")
+Attribute = ExtResource("6_ny318")
+Modifiers = [SubResource("Resource_h1vg1")]
+
+[sub_resource type="Resource" id="Resource_q7a6f"]
+script = ExtResource("2_cs8y4")
+Magnitude = 0.0
+
+[sub_resource type="Resource" id="Resource_6boip"]
+script = ExtResource("3_6l4el")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_q7a6f")
+
+[sub_resource type="Resource" id="Resource_eqxos"]
+script = ExtResource("4_0mdgb")
+Attribute = ExtResource("7_ul2ri")
+Modifiers = [SubResource("Resource_6boip")]
+
+[sub_resource type="Resource" id="Resource_0n6e0"]
+script = ExtResource("2_cs8y4")
+Magnitude = 0.0
+
+[sub_resource type="Resource" id="Resource_b5mvw"]
+script = ExtResource("3_6l4el")
+ModifierType = 0
+ModifierMagnitude = SubResource("Resource_0n6e0")
+
+[sub_resource type="Resource" id="Resource_6gdf7"]
+script = ExtResource("4_0mdgb")
+Attribute = ExtResource("8_2741n")
+Modifiers = [SubResource("Resource_b5mvw")]
+
+[sub_resource type="Resource" id="Resource_cmy2k"]
+script = ExtResource("9_7mq0h")
+DurationPolicy = 0
+AttributeModifiers = Array[Object]([SubResource("Resource_8jxuf"), ExtResource("5_l13lu"), SubResource("Resource_jstd1"), SubResource("Resource_eqxos"), SubResource("Resource_6gdf7")])
+DurationMultiplier = 0.0
+
+[sub_resource type="Resource" id="Resource_rcirr"]
+script = ExtResource("10_p84v8")
+EffectDefinition = SubResource("Resource_cmy2k")
+
+[sub_resource type="Resource" id="Resource_ugmcu"]
+script = ExtResource("11_i0m6c")
+InitializeStatsEffects = SubResource("Resource_rcirr")
+ShowInUI = true
+UIOrder = 0
+AbilityName = "Ability"
+ActivateOnGranted = false
+RemoveOnEnd = false
+AbilityTriggers = null
+
+[resource]
+script = ExtResource("1_m145h")
+EntityName = "Rotten Spectres"
+AttributeSetsContainer = ExtResource("15_28s70")
+Abilities = Array[Object]([SubResource("Resource_ugmcu"), ExtResource("12_totqw"), ExtResource("13_3rlrj"), ExtResource("14_on7li")])
+Tags = ExtResource("17_blkvi")
+Body = ExtResource("16_y1i0x")
