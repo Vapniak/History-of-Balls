@@ -49,6 +49,7 @@ GGS="*res://addons/ggs/plugin/singleton/ggs.tscn"
 GameInstance="*res://src/game/game_instance.tscn"
 MusicManager="*res://addons/audio_manager/src/music/music_manager.tscn"
 SoundManager="*res://addons/audio_manager/src/sound/sound_manager.tscn"
+ConsoleAutoload="*res://addons/console/src/Console.tscn"
 
 [debug]
 
@@ -85,7 +86,7 @@ export/convert_text_resources_to_binary=false
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/GPUTrail/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/ggs/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/widget_system/plugin.cfg")
+enabled=PackedStringArray("res://addons/FollowParent/plugin.cfg", "res://addons/GPUTrail/plugin.cfg", "res://addons/audio_manager/plugin.cfg", "res://addons/collapsible_container/plugin.cfg", "res://addons/console/plugin.cfg", "res://addons/gameplay_ability_system/plugin.cfg", "res://addons/gameplay_framework/plugin.cfg", "res://addons/gameplay_tags/plugin.cfg", "res://addons/ggs/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hex_grid_map/plugin.cfg", "res://addons/raycast_system/plugin.cfg", "res://addons/theme_gen_save_sync/plugin.cfg", "res://addons/widget_system/plugin.cfg")
 
 [file_customization]
 

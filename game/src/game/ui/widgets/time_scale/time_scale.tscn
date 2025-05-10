@@ -17,6 +17,7 @@ Button = NodePath("Button")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2
+focus_mode = 1
 mouse_default_cursor_shape = 2
 icon = ExtResource("2_p4p5f")
 icon_alignment = 1

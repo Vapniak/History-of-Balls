@@ -118,8 +118,15 @@ OwnedEntities = ExtResource("16_e5fhy")
 [resource]
 script = ExtResource("1_e0wnv")
 MissionName = "Defense of the Great Wall"
-Description = ""
-ObjectivesText = ""
+Description = "Year 2056 – Somewhere in northern China, the world has already fallen. Civilization clings to survival by a thread. In the frozen mountains, behind a reinforced stretch of the Great Wall, the last human strongholds brace for annihilation.
+
+As commander of the infected horde, your mission is clear: smash through their defenses and drown the survivors in your endless tide. The humans have taken refuge in crumbling forts, wired fences, and hastily dug strongpoints—but hunger knows no walls.
+
+Move under cover of darkness. Encircle them. Break their will to fight. Every fallen soldier joins your ranks. Every breach brings humanity one step closer to extinction in this remote corner of the world.
+
+“This Wall was built to keep out invaders. This time, there is no army—only death incarnate. A wave is coming, and nothing can hold it back. Tonight, the Wall will fall.”"
+ObjectivesText = "Breakthrough the Great Wall 🏯
+Infect the Chinese bases 💀"
 MusicTrackName = "medival"
 Locked = false
 Map = ExtResource("2_848g0")

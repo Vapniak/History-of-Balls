@@ -12,9 +12,6 @@ public partial class CurrentVersionWidget : HOBWidget, IWidgetFactory<CurrentVer
   }
 
   public override void _Ready() {
-    if (OS.HasFeature("movie")) {
-      Hide();
-    }
     VersionLabel.Text = ProjectSettings.GetSetting("application/config/version", "1.0").AsString();
   }
 }

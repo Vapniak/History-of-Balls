@@ -126,13 +126,13 @@ OwnedEntities = SubResource("Resource_fcolf")
 [resource]
 script = ExtResource("1_wkre3")
 MissionName = "Defense of Westerplatte "
-Description = "September 1, 1939 – At dawn, the German battleship Schleswig-Holstein opens fire. The target: a small but heavily fortified Polish military depot at Westerplatte. The campaign that will change the fate of Europe begins here.
+Description = "1 September 1939 – Just before sunrise, the German battleship Schleswig-Holstein starts firing on the small but well-defended Polish post at Westerplatte. This is where the campaign that will change Europe’s future begins.
 
-As a commander of the German forces, your objective is to seize Westerplatte swiftly and crush Polish resistance. Though outnumbered, the defenders know every inch of this terrain and fight with unshakable resolve. Strike with surprise, use your firepower advantage, and launch coordinated assaults to break their morale. Every hour of delay carries political and military cost.
+You’re in charge of the Polish defenders. Your job is simple: stay where you are and stop the Germans from taking over. There aren’t many of you, but you know this place inside out and won’t give up. Use your knowledge of the ground, hit them with surprise counter-attacks, and keep your lines strong so everyone keeps fighting. Every minute you hold out is a win for Poland.
 
-\"This is no ordinary assault—it is the opening move of a new era of war. Your actions here will echo as a symbol of German strength and inevitability. Let the artillery speak, let the infantry breach their walls, and let your command be etched into history. Westerplatte must fall—the only question is: how fast?\""
-ObjectivesText = "Neutralize enemy fortifications and units 🎯
-Capture the Immense Westerplatte bunker ⚔️"
+“This isn’t just another battle—it’s the first step in a new kind of war. Your bravery will show everyone how determined Poland is. Let your guns answer theirs, make every bunker a solid wall, and make sure people remember Westerplatte’s heroism forever. Hold the line—how long you last is up to you.”"
+ObjectivesText = "Hold Westerplatte for 30 rounds 🎯
+Repel the German Reich assault ⚔️"
 MusicTrackName = "ii_world_war"
 Locked = false
 Map = ExtResource("2_8a50m")

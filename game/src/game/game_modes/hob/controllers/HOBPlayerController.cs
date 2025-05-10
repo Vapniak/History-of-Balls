@@ -84,6 +84,11 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
         GetGameMode().Pause();
       }
     }
+
+    if (Input.IsActionJustPressed(GameInputs.ToggleHud)) {
+      GetHUD().Visible = !GetHUD().Visible;
+      GetViewport().SetInputAsHandled();
+    }
   }
 
   public override void _UnhandledInput(InputEvent @event) {
@@ -97,10 +102,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
       ToggleTimeScale(false);
     }
 
-
-    if (Input.IsActionJustPressed(GameInputs.ToggleHud)) {
-      GetHUD().Visible = !GetHUD().Visible;
-    }
 
     @event.Dispose();
   }
@@ -125,13 +126,8 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
   }
 
   private void ToggleTimeScale(bool up = true) {
-    if (OS.HasFeature("movie")) {
-      Engine.TimeScale = Engine.TimeScale == 0.25 ? 1 : 0.25;
-    }
-    else {
-      Engine.TimeScale += up ? 1 : -1;
-      Engine.TimeScale = Mathf.Wrap(Engine.TimeScale, 1, 4);
-    }
+    Engine.TimeScale += up ? 1 : -1;
+    Engine.TimeScale = Mathf.Wrap(Engine.TimeScale, 1, 4);
   }
 
   private void CheckHover() {

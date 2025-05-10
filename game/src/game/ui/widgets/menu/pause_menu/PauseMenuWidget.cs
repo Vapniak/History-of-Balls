@@ -10,6 +10,7 @@ public partial class PauseMenuWidget : HOBWidget, IWidgetFactory<PauseMenuWidget
   public event Action? MainMenuEvent;
   public event Action? QuitEvent;
 
+
   private void OnResumePressed() {
     ResumeEvent?.Invoke();
     PopWidget();

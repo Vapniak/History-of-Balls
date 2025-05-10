@@ -7,8 +7,12 @@ using Godot;
 /// </summary>
 [GlobalClass]
 public partial class PlayerController : Controller {
+  // [ExportGroup("Mouse")]
+  // [Export] public Input.MouseModeEnum MouseMode { get; private set; } = Input.MouseModeEnum.Visible;
   private HUD? HUD { get; set; }
   private IPlayerControllable? Controllable { get; set; }
+
+
 
   public void SpawnHUD() {
     HUD ??= new();
