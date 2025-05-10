@@ -195,26 +195,13 @@ public partial class Console : Node {
       }
     };
 
-    Color labelColor;
-    switch (type) {
-      case PrintType.Default:
-      default:
-        labelColor = new Color("#efefef");
-        break;
-      case PrintType.Hint:
-        labelColor = new Color("#666666");
-        break;
-      case PrintType.Warning:
-        labelColor = new Color("#f39f24");
-        break;
-      case PrintType.Error:
-        labelColor = new Color("#f91545");
-        break;
-      case PrintType.Success:
-        labelColor = new Color("#00ff66");
-        break;
-    }
-
+    var labelColor = type switch {
+      PrintType.Hint => new Color("#666666"),
+      PrintType.Warning => new Color("#f39f24"),
+      PrintType.Error => new Color("#f91545"),
+      PrintType.Success => new Color("#00ff66"),
+      _ => new Color("#efefef"),
+    };
     newLabel.Modulate = labelColor;
 
     _historyContent.AddChild(newLabel);

@@ -34,6 +34,7 @@ boot_splash/use_filter=false
 config/icon="res://assets/textures/HoB-logo.svg"
 run/disable_stdout.debug=false
 run/disable_stdout.release=true
+devmode=false
 
 [audio]
 

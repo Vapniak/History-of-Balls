@@ -37,7 +37,6 @@ public class BuiltinCommands {
   private void DebugPrintInfo() {
     Console.Instance.Print("Versioning:");
     Console.Instance.Print($"Godot Version: {Engine.GetVersionInfo()["string"]}", Console.PrintType.Hint);
-    Console.Instance.Print("SofiaConsole Version: 1.2.0", Console.PrintType.Hint);
     Console.Instance.Print($"CPU Architecture: {Engine.GetArchitectureName()}", Console.PrintType.Hint);
     Console.Instance.Space();
     Console.Instance.Print("Operating System:");

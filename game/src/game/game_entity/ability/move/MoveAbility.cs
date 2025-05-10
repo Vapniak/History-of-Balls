@@ -27,6 +27,7 @@ public abstract partial class MoveAbility : HOBAbility {
 
     public override void ActivateAbility(GameplayEventData? eventData) {
       base.ActivateAbility(eventData);
+
       AddBlockTurn();
     }
 

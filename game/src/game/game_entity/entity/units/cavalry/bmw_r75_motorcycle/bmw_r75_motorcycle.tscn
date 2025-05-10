@@ -1,11 +1,11 @@
 [gd_scene load_steps=4 format=3 uid="uid://1u8brbve7yda"]
 
-[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_a8lrs"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_18yem"]
 [ext_resource type="PackedScene" uid="uid://c2uhexdok58ac" path="res://assets/models/objects/elements/germany/germany-BMW.fbx" id="2_3f54x"]
 [ext_resource type="PackedScene" uid="uid://cdeepd8kvb2ao" path="res://src/game/game_entity/entity/units/country_balls/german_reich_ball.tscn" id="3_e0lge"]
 
 [node name="BmwR75Motorcycle" type="Node3D"]
-script = ExtResource("1_a8lrs")
+script = ExtResource("1_18yem")
 
 [node name="germany-BMW" parent="." instance=ExtResource("2_3f54x")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.466136, -0.12089, 1.41803)

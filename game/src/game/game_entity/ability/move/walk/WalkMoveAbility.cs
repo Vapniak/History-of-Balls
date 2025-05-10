@@ -45,6 +45,12 @@ public partial class WalkMoveAbility : MoveAbility {
     }
 
     private async Task WalkByPath(GameCell[] path) {
+      {
+        if (OwnerEntity.Body is UnitBody unitBody) {
+          await unitBody.StopIdleAnim();
+        }
+      }
+
       var originalScale = OwnerEntity.Body.Scale;
       OwnerEntity.Cell = path.Last();
       foreach (var cell in path) {
@@ -146,6 +152,12 @@ public partial class WalkMoveAbility : MoveAbility {
         strucure.TryGetOwner(out var owner2);
         if (OwnerEntity.TryGetOwner(out var owner) && owner != null && owner2 != owner) {
           OwnerAbilitySystem.SendGameplayEvent(TagManager.GetTag(HOBTags.EventEntityCapture), new() { Activator = owner, TargetData = new() { Target = strucure } });
+        }
+      }
+
+      {
+        if (OwnerEntity.Body is UnitBody unitBody) {
+          unitBody.StartIdleAnim();
         }
       }
 

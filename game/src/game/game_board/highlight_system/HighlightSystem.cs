@@ -25,6 +25,19 @@ public partial class HOBPlayerController {
     public HighlightSystem(HOBPlayerController controller, GameBoard gameBoard) {
       _gameBoard = gameBoard;
       Controller = controller;
+
+      Controller.HoveredCellChanged += () => {
+        var cell = Controller.HoveredCell;
+
+        var viewport = GetViewport();
+        // || _isPanning || _isOrbiting ||
+        if (cell == null || ProjectSettings.GetSetting("application/devmode", false).AsBool() || (viewport.GuiGetHoveredControl() != null && viewport.GuiGetHoveredControl().GetParent() is Control control && control.Visible)) {
+          gameBoard.SetMouseHighlight(false);
+        }
+        else {
+          gameBoard.SetMouseHighlight(true);
+        }
+      };
     }
 
     public override void _PhysicsProcess(double delta) {
@@ -36,8 +49,9 @@ public partial class HOBPlayerController {
     }
 
     private void SetHighlight(Color targetColor, GameCell cell, bool darken = false) {
-      if (Theme == null)
+      if (Theme == null) {
         return;
+      }
 
       targetColor = darken ? targetColor.Darkened(0.5f) : targetColor;
 
@@ -84,7 +98,8 @@ public partial class HOBPlayerController {
     private void UpdateHighlightLogic() {
       ClearAllHighlights();
 
-      if (Theme == null) {
+
+      if (Theme == null || ProjectSettings.GetSetting("application/devmode", false).AsBool()) {
         return;
       }
 

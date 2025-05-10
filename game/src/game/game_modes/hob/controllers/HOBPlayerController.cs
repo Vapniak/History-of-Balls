@@ -135,8 +135,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     if (raycastResult == null) {
       HoveredCell = null;
-
-      GameBoard.SetMouseHighlight(false);
       return;
     }
 
@@ -147,15 +145,6 @@ public partial class HOBPlayerController : PlayerController, IMatchController {
 
     if (cell != HoveredCell) {
       HoveredCell = cell;
-    }
-
-    var viewport = GetViewport();
-
-    if (HoveredCell == null || _isPanning || _isOrbiting || (viewport.GuiGetHoveredControl() != null && viewport.GuiGetHoveredControl().GetParent() is Control control && control.Visible)) {
-      GameBoard.SetMouseHighlight(false);
-    }
-    else {
-      GameBoard.SetMouseHighlight(true);
     }
   }
 
