@@ -1,9 +1,46 @@
-[gd_resource type="Resource" script_class="Campaign" load_steps=8 format=3 uid="uid://drj5np6jx7mr0"]
+[gd_resource type="Resource" script_class="Campaign" load_steps=13 format=3 uid="uid://drj5np6jx7mr0"]
 
 [ext_resource type="Script" path="res://src/core/campaign/CampaignTrait.cs" id="1_bp6aq"]
 [ext_resource type="Script" path="res://src/core/campaign/Campaign.cs" id="1_teede"]
 [ext_resource type="Texture2D" uid="uid://33685dmlg00d" path="res://assets/textures/HoB-renders/HoB-cards-renders/card3-render1.png" id="1_ty68h"]
 [ext_resource type="Resource" uid="uid://c1hgyrlyu8uf5" path="res://res/data/missions/defense_of_great_wall.tres" id="2_jw0ya"]
+[ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="3_kjnw3"]
+
+[sub_resource type="Resource" id="Resource_ri6fj"]
+script = ExtResource("3_kjnw3")
+MissionName = "Evacuating Civilians to Shelters"
+Description = ""
+ObjectivesText = ""
+MusicTrackName = ""
+Locked = true
+PlayerSpawnDatas = []
+
+[sub_resource type="Resource" id="Resource_6id24"]
+script = ExtResource("3_kjnw3")
+MissionName = "Evacuation Beyond the Wall"
+Description = ""
+ObjectivesText = ""
+MusicTrackName = ""
+Locked = true
+PlayerSpawnDatas = []
+
+[sub_resource type="Resource" id="Resource_kmty3"]
+script = ExtResource("3_kjnw3")
+MissionName = "Guarding the Research Base"
+Description = ""
+ObjectivesText = ""
+MusicTrackName = ""
+Locked = true
+PlayerSpawnDatas = []
+
+[sub_resource type="Resource" id="Resource_qfdt1"]
+script = ExtResource("3_kjnw3")
+MissionName = "The Final Plague"
+Description = ""
+ObjectivesText = ""
+MusicTrackName = ""
+Locked = true
+PlayerSpawnDatas = []
 
 [sub_resource type="Resource" id="Resource_votb8"]
 script = ExtResource("1_bp6aq")
@@ -25,5 +62,5 @@ script = ExtResource("1_teede")
 Number = "III"
 Name = "Modernity"
 Traits = [SubResource("Resource_votb8"), SubResource("Resource_n56d6"), SubResource("Resource_0wsvq")]
-Missions = [ExtResource("2_jw0ya")]
+Missions = [ExtResource("2_jw0ya"), SubResource("Resource_ri6fj"), SubResource("Resource_6id24"), SubResource("Resource_kmty3"), SubResource("Resource_qfdt1")]
 Image = ExtResource("1_ty68h")

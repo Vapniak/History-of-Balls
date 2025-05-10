@@ -24,7 +24,7 @@ resources_spreadsheet_view/freeze_first_column=false
 [application]
 
 config/name="History of Balls"
-config/version="vBeta-1.0.2"
+config/version="vBeta-1.0.3"
 run/main_scene="res://src/game/main.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
@@ -254,8 +254,8 @@ textures/canvas_textures/default_texture_filter=2
 textures/default_filters/anisotropic_filtering_level=3
 scaling_3d/mode=2
 scaling_3d/fsr_sharpness=0.0
-anti_aliasing/quality/msaa_2d=1
-anti_aliasing/quality/msaa_3d=1
+anti_aliasing/quality/msaa_2d=2
+anti_aliasing/quality/msaa_3d=2
 environment/defaults/default_environment="res://res/default_env.tres"
 
 [shader_globals]
