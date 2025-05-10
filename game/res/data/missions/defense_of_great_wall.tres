@@ -31,32 +31,32 @@ script = ExtResource("1_po167")
 [sub_resource type="Resource" id="Resource_cl4bo"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("13_vh1ef")
-SpawnAt = Array[Vector2i]([Vector2i(2, 8)])
+SpawnAt = Array[Vector2i]([Vector2i(2, 8), Vector2i(2, 35)])
 
 [sub_resource type="Resource" id="Resource_hv6xy"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("14_8ykwh")
-SpawnAt = Array[Vector2i]([Vector2i(5, 7)])
+SpawnAt = Array[Vector2i]([Vector2i(5, 7), Vector2i(6, 33), Vector2i(7, 5)])
 
 [sub_resource type="Resource" id="Resource_7m2dp"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("15_kvgaj")
-SpawnAt = Array[Vector2i]([Vector2i(13, 4)])
+SpawnAt = Array[Vector2i]([Vector2i(13, 4), Vector2i(17, 7), Vector2i(1, 36), Vector2i(9, 16), Vector2i(2, 19), Vector2i(7, 24)])
 
 [sub_resource type="Resource" id="Resource_llh18"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("12_7n6au")
-SpawnAt = Array[Vector2i]([Vector2i(4, 15)])
+SpawnAt = Array[Vector2i]([Vector2i(4, 15), Vector2i(8, 4), Vector2i(13, 17), Vector2i(2, 36), Vector2i(11, 31), Vector2i(16, 23)])
 
 [sub_resource type="Resource" id="Resource_w27d0"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("11_bqbts")
-SpawnAt = Array[Vector2i]([Vector2i(8, 19)])
+SpawnAt = Array[Vector2i]([Vector2i(8, 19), Vector2i(9, 35)])
 
 [sub_resource type="Resource" id="Resource_447yn"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("12_mkbmf")
-SpawnAt = Array[Vector2i]([Vector2i(13, 29)])
+SpawnAt = Array[Vector2i]([Vector2i(13, 29), Vector2i(2, 4), Vector2i(2, 5), Vector2i(3, 5), Vector2i(11, 17), Vector2i(19, 3), Vector2i(21, 7), Vector2i(25, 5), Vector2i(8, 30), Vector2i(2, 37), Vector2i(13, 29), Vector2i(12, 16)])
 
 [sub_resource type="Resource" id="Resource_1xlih"]
 script = ExtResource("5_6fcsb")
@@ -79,32 +79,32 @@ ProducableEntities = []
 [sub_resource type="Resource" id="Resource_8bllb"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("6_tbiu2")
-SpawnAt = Array[Vector2i]([Vector2i(28, 29)])
+SpawnAt = Array[Vector2i]([Vector2i(43, 19)])
 
 [sub_resource type="Resource" id="Resource_aom64"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("8_jfeml")
-SpawnAt = Array[Vector2i]([Vector2i(31, 33)])
+SpawnAt = Array[Vector2i]([Vector2i(38, 3), Vector2i(36, 10), Vector2i(31, 29), Vector2i(29, 33)])
 
 [sub_resource type="Resource" id="Resource_qcsld"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("9_mljl7")
-SpawnAt = Array[Vector2i]([Vector2i(24, 35)])
+SpawnAt = Array[Vector2i]([Vector2i(37, 5), Vector2i(31, 16), Vector2i(33, 22), Vector2i(20, 39), Vector2i(24, 35), Vector2i(38, 23)])
 
 [sub_resource type="Resource" id="Resource_72eny"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("11_3t6ty")
-SpawnAt = Array[Vector2i]([Vector2i(25, 22)])
+SpawnAt = Array[Vector2i]([Vector2i(25, 22), Vector2i(32, 5), Vector2i(42, 7), Vector2i(30, 14), Vector2i(30, 26), Vector2i(23, 32), Vector2i(16, 37), Vector2i(33, 32), Vector2i(32, 34)])
 
 [sub_resource type="Resource" id="Resource_3lu6t"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("12_2rjjt")
-SpawnAt = Array[Vector2i]([Vector2i(25, 27)])
+SpawnAt = Array[Vector2i]([Vector2i(25, 27), Vector2i(34, 4), Vector2i(36, 7)])
 
 [sub_resource type="Resource" id="Resource_eifa2"]
 script = ExtResource("7_y8pgs")
 EntityData = ExtResource("13_swxjf")
-SpawnAt = Array[Vector2i]([Vector2i(26, 29)])
+SpawnAt = Array[Vector2i]([Vector2i(26, 27), Vector2i(32, 3), Vector2i(36, 9), Vector2i(0, 0)])
 
 [sub_resource type="Resource" id="Resource_0ftva"]
 script = ExtResource("5_6fcsb")
@@ -127,7 +127,7 @@ Move under cover of darkness. Encircle them. Break their will to fight. Every fa
 “This Wall was built to keep out invaders. This time, there is no army—only death incarnate. A wave is coming, and nothing can hold it back. Tonight, the Wall will fall.”"
 ObjectivesText = "Breakthrough the Great Wall 🏯
 Infect the Chinese bases 💀"
-MusicTrackName = "medival"
+MusicTrackName = "modernity"
 Locked = false
 Map = ExtResource("2_848g0")
 PlayerSpawnDatas = [SubResource("Resource_1xlih"), SubResource("Resource_0ftva")]

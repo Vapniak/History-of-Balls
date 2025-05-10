@@ -62,9 +62,9 @@ public partial class HexMesh : MeshInstance3D {
       _surfaceTool.GenerateNormals();
     }
 
-    if (_currentConfig.GenerateTangents) {
-      _surfaceTool.GenerateTangents();
-    }
+    // if (_currentConfig.GenerateTangents) {
+    //   _surfaceTool.GenerateTangents();
+    // }
 
     _surfaceTool.Index();
     Mesh = _surfaceTool.Commit();

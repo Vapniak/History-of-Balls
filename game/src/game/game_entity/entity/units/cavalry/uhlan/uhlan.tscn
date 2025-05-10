@@ -1,12 +1,12 @@
 [gd_scene load_steps=5 format=3 uid="uid://tvv1ucrhdb2q"]
 
-[ext_resource type="Script" path="res://src/core/entity/EntityBody.cs" id="1_y0kcy"]
+[ext_resource type="Script" path="res://src/game/game_entity/entity/units/UnitBody.cs" id="1_5bu1x"]
 [ext_resource type="PackedScene" uid="uid://js814k2u826w" path="res://src/game/game_entity/entity/units/country_balls/poland_ball.tscn" id="3_cv26b"]
 [ext_resource type="Script" path="res://addons/FollowParent/FollowParent3D/FollowParent3D.gd" id="4_nvcxu"]
 [ext_resource type="PackedScene" uid="uid://dav214mrji7cw" path="res://assets/models/objects/elements/poland/poland-Lanca.fbx" id="4_t18st"]
 
 [node name="Uhlan" type="Node3D"]
-script = ExtResource("1_y0kcy")
+script = ExtResource("1_5bu1x")
 
 [node name="PolandBall" parent="." instance=ExtResource("3_cv26b")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016458, 0.00556636)

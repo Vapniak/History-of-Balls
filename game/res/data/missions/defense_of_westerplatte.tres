@@ -87,7 +87,7 @@ ProducableEntities = [ExtResource("13_1s2o2"), ExtResource("14_xlsmi"), ExtResou
 [sub_resource type="Resource" id="Resource_rmdru"]
 script = ExtResource("9_dxpyx")
 EntityData = ExtResource("10_jwg2v")
-SpawnAt = Array[Vector2i]([Vector2i(31, 27), Vector2i(36, 22)])
+SpawnAt = Array[Vector2i]([Vector2i(31, 27), Vector2i(36, 22), Vector2i(31, 24), Vector2i(38, 21)])
 
 [sub_resource type="Resource" id="Resource_wh1at"]
 script = ExtResource("9_dxpyx")
