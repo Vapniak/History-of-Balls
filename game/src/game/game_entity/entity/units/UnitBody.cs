@@ -20,11 +20,11 @@ public partial class UnitBody : EntityBody {
 
     IdleAnimTween = CreateTween();
     IdleAnimTween.SetLoops();
-    IdleAnimTween.SetTrans(Tween.TransitionType.Back);
+    IdleAnimTween.SetTrans(Tween.TransitionType.Quad);
     var strech = 1.05f;
     var squash = 0.95f;
-    IdleAnimTween.TweenProperty(this, "scale", new Vector3(strech, squash, strech), 0.5f);
-    IdleAnimTween.TweenProperty(this, "scale", new Vector3(squash, strech, squash), 0.5f);
+    IdleAnimTween.TweenProperty(this, "scale", new Vector3(strech, squash, strech), 0.3f).SetEase(Tween.EaseType.In);
+    IdleAnimTween.TweenProperty(this, "scale", new Vector3(squash, strech, squash), 0.4f).SetEase(Tween.EaseType.Out);
   }
 
   public async Task StopIdleAnim() {
