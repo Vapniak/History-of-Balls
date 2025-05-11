@@ -35,7 +35,7 @@ Modifiers = [SubResource("Resource_dxsjy")]
 
 [sub_resource type="Resource" id="Resource_psfsa"]
 script = ExtResource("2_jcjyg")
-Magnitude = 7.0
+Magnitude = 17.0
 
 [sub_resource type="Resource" id="Resource_ybqte"]
 script = ExtResource("3_fqo0i")

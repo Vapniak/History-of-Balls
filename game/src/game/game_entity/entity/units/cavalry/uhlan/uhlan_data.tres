@@ -1,10 +1,10 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://b1iormtddabtt"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=33 format=3 uid="uid://b1iormtddabtt"]
 
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_deddb"]
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_h2d32"]
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_m8vv2"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_7jqsd"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="2_dbyvj"]
+[ext_resource type="Resource" uid="uid://dqobghlbsg814" path="res://src/game/game_entity/entity/units/cavalry/uhlan/max_health.tres" id="2_ep6fb"]
 [ext_resource type="Resource" uid="uid://bflof1b7lyv80" path="res://src/game/game_entity/ability/attack/melee/cavalry_melee_attack_ability.tres" id="3_7a6o7"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_lciok"]
 [ext_resource type="Resource" uid="uid://cn8fvqlw2mbf3" path="res://src/core/entity/attribute_sets/unit_attribute_sets.tres" id="4_n71ln"]
@@ -14,61 +14,48 @@
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_1qa30"]
 [ext_resource type="Resource" uid="uid://bfy341j87lym6" path="res://src/game/game_entity/entity/units/cavalry/cavalry_tags.tres" id="6_j7rdo"]
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="7_83qfs"]
+[ext_resource type="Resource" uid="uid://bai20lu03xmcm" path="res://src/game/game_entity/entity/units/cavalry/uhlan/damage.tres" id="7_lsp3y"]
 [ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="8_l1fum"]
+[ext_resource type="Resource" uid="uid://cn870otta205f" path="res://src/game/game_entity/entity/units/cavalry/uhlan/range.tres" id="9_dl8mo"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_omf4v"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_pmc0i"]
+[ext_resource type="Resource" uid="uid://b8y7l82j0xri3" path="res://src/game/game_entity/entity/units/cavalry/uhlan/move.tres" id="11_lgmuj"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="14_85u1t"]
-
-[sub_resource type="Resource" id="Resource_ari61"]
-script = ExtResource("2_7jqsd")
-Magnitude = 22.0
 
 [sub_resource type="Resource" id="Resource_tpcx5"]
 script = ExtResource("3_lciok")
 ModifierType = 2
-ModifierMagnitude = SubResource("Resource_ari61")
+ModifierMagnitude = ExtResource("2_ep6fb")
 
 [sub_resource type="Resource" id="Resource_x8dvt"]
 script = ExtResource("4_qj4bh")
 Attribute = ExtResource("1_m8vv2")
 Modifiers = [SubResource("Resource_tpcx5")]
 
-[sub_resource type="Resource" id="Resource_os4pf"]
-script = ExtResource("2_7jqsd")
-Magnitude = 8.0
-
 [sub_resource type="Resource" id="Resource_ea6r3"]
 script = ExtResource("3_lciok")
 ModifierType = 2
-ModifierMagnitude = SubResource("Resource_os4pf")
+ModifierMagnitude = ExtResource("7_lsp3y")
 
 [sub_resource type="Resource" id="Resource_q1bbj"]
 script = ExtResource("4_qj4bh")
 Attribute = ExtResource("6_1qa30")
 Modifiers = [SubResource("Resource_ea6r3")]
 
-[sub_resource type="Resource" id="Resource_hm5vs"]
-script = ExtResource("2_7jqsd")
-Magnitude = 1.0
-
 [sub_resource type="Resource" id="Resource_ndguh"]
 script = ExtResource("3_lciok")
 ModifierType = 2
-ModifierMagnitude = SubResource("Resource_hm5vs")
+ModifierMagnitude = ExtResource("9_dl8mo")
 
 [sub_resource type="Resource" id="Resource_7qx8f"]
 script = ExtResource("4_qj4bh")
 Attribute = ExtResource("7_83qfs")
 Modifiers = [SubResource("Resource_ndguh")]
 
-[sub_resource type="Resource" id="Resource_gbgk6"]
-script = ExtResource("2_7jqsd")
-Magnitude = 4.0
-
 [sub_resource type="Resource" id="Resource_k2siw"]
 script = ExtResource("3_lciok")
 ModifierType = 2
-ModifierMagnitude = SubResource("Resource_gbgk6")
+ModifierMagnitude = ExtResource("11_lgmuj")
 
 [sub_resource type="Resource" id="Resource_6nk65"]
 script = ExtResource("4_qj4bh")

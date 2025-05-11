@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=42 format=3 uid="uid://c1hgyrlyu8uf5"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=45 format=3 uid="uid://c1hgyrlyu8uf5"]
 
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_e0wnv"]
 [ext_resource type="Script" path="res://src/game/game_modes/hob/control/ControlGameModeConfig.cs" id="1_po167"]
@@ -17,13 +17,15 @@
 [ext_resource type="Resource" uid="uid://bso3uogf8erwv" path="res://src/game/game_entity/entity/units/infantry/infantry_solider/infantry_solider_data.tres" id="11_3t6ty"]
 [ext_resource type="Resource" uid="uid://bwd01vt71tx4t" path="res://src/game/game_entity/entity/units/cavalry/rotten_spectres/rotten_spectres_data.tres" id="11_bqbts"]
 [ext_resource type="Resource" uid="uid://bpiloh8t4bi1j" path="res://src/game/game_entity/entity/units/cavalry/ztq_15/ztg_15_data.tres" id="12_2rjjt"]
-[ext_resource type="Resource" uid="uid://btk8fpakbwdr7" path="res://src/game/game_entity/entity/units/ranged/shadows_of_the_plague/shadows_of_the_plague.tres" id="12_7n6au"]
+[ext_resource type="Resource" uid="uid://btk8fpakbwdr7" path="res://src/game/game_entity/entity/units/ranged/shadows_of_the_plague/shadows_of_the_plague_data.tres" id="12_7n6au"]
 [ext_resource type="Resource" uid="uid://c44cuggfxyfcq" path="res://src/game/game_entity/entity/units/infantry/bloody_marionettes/bloody_marionettes_data.tres" id="12_mkbmf"]
 [ext_resource type="Resource" uid="uid://tfvl8pf6bhew" path="res://src/game/game_entity/entity/units/ranged/j_20/j_20_data.tres" id="13_swxjf"]
 [ext_resource type="Resource" uid="uid://dbs4m8l5q61gv" path="res://src/game/game_entity/entity/structures/city/zombie_city/zombie_city_data.tres" id="13_vh1ef"]
 [ext_resource type="Resource" uid="uid://bhwicx2el1kxe" path="res://src/game/game_entity/entity/structures/factory/zombie_factory/zombie_factory_data.tres" id="14_8ykwh"]
 [ext_resource type="Resource" uid="uid://c0rsi625qrx8w" path="res://src/game/game_entity/entity/structures/village/zombie_village/zombie_village_data.tres" id="15_kvgaj"]
 [ext_resource type="Resource" uid="uid://b0wkuafvd27xp" path="res://res/data/countries/china/china_owned_entities.tres" id="16_e5fhy"]
+[ext_resource type="Resource" uid="uid://b8jmfywt3xy1x" path="res://src/game/game_entity/ability/effects/infantry_2_cost_effect.tres" id="17_x1b2v"]
+[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="19_n851y"]
 
 [sub_resource type="Resource" id="Resource_l0br1"]
 script = ExtResource("1_po167")
@@ -72,9 +74,15 @@ ProfileName = "AI Profile"
 Agressiveness = 0.147
 Expansiveness = 0.189
 
+[sub_resource type="Resource" id="Resource_aai6n"]
+script = ExtResource("19_n851y")
+Entity = ExtResource("11_3t6ty")
+CostEffect = ExtResource("17_x1b2v")
+ProductionTime = 3
+
 [sub_resource type="Resource" id="Resource_2dp7d"]
 script = ExtResource("5_hxkus")
-ProducableEntities = []
+ProducableEntities = [SubResource("Resource_aai6n")]
 
 [sub_resource type="Resource" id="Resource_8bllb"]
 script = ExtResource("7_y8pgs")

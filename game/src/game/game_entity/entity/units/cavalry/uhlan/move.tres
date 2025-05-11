@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SimpleFloatModifierMagnitude" load_steps=2 format=3 uid="uid://b8y7l82j0xri3"]
+
+[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="1_fiv8n"]
+
+[resource]
+script = ExtResource("1_fiv8n")
+Magnitude = 4.0

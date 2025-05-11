@@ -1,17 +1,20 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=34 format=3 uid="uid://c44cuggfxyfcq"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=33 format=3 uid="uid://c44cuggfxyfcq"]
 
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_f2rrq"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_h6kge"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_oq2ta"]
+[ext_resource type="Resource" uid="uid://chnar7yvak0t8" path="res://src/game/game_entity/entity/units/infantry/bloody_marionettes/max_health.tres" id="2_36qkb"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_paivo"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_k746w"]
 [ext_resource type="Resource" uid="uid://b8kricapbq0ox" path="res://src/game/game_entity/ability/effects/modifiers/health_attribute_mod.tres" id="5_5w8fs"]
 [ext_resource type="Resource" uid="uid://clcpgp1dflcbf" path="res://res/data/attributes/move_points.tres" id="6_rso1j"]
+[ext_resource type="Resource" uid="uid://rhjwy7j83npl" path="res://src/game/game_entity/entity/units/infantry/bloody_marionettes/move.tres" id="7_67158"]
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="7_sm7ae"]
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="8_qpb4o"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_jxmgp"]
+[ext_resource type="Resource" uid="uid://bvu0frrv0oy64" path="res://src/game/game_entity/entity/units/infantry/bloody_marionettes/damage.tres" id="9_sr0mt"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_v3qlk"]
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="11_b51a3"]
+[ext_resource type="Resource" uid="uid://bp4ob3s8k54wx" path="res://src/game/game_entity/entity/units/infantry/bloody_marionettes/range.tres" id="11_od480"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="12_44th5"]
 [ext_resource type="Resource" uid="uid://bteucqwcukcnq" path="res://src/game/game_entity/ability/move/walk/walk_move_ability.tres" id="13_j0q7f"]
 [ext_resource type="Resource" uid="uid://trtvj503md1n" path="res://src/game/game_entity/ability/attack/melee/melee_attack_ability.tres" id="14_byomc"]
@@ -19,56 +22,40 @@
 [ext_resource type="PackedScene" uid="uid://bw4csr5ej5yww" path="res://src/game/game_entity/entity/units/infantry/bloody_marionettes/bloody_marionettes.tscn" id="16_e4mho"]
 [ext_resource type="Resource" uid="uid://c36at6bgy0ijj" path="res://src/game/game_entity/entity/units/infantry/infantry_tags.tres" id="17_ncxj8"]
 
-[sub_resource type="Resource" id="Resource_l71gq"]
-script = ExtResource("2_oq2ta")
-Magnitude = 10.0
-
 [sub_resource type="Resource" id="Resource_fb1w8"]
 script = ExtResource("3_paivo")
-ModifierType = 0
-ModifierMagnitude = SubResource("Resource_l71gq")
+ModifierType = 2
+ModifierMagnitude = ExtResource("2_36qkb")
 
 [sub_resource type="Resource" id="Resource_qtiuk"]
 script = ExtResource("4_k746w")
 Attribute = ExtResource("1_f2rrq")
 Modifiers = [SubResource("Resource_fb1w8")]
 
-[sub_resource type="Resource" id="Resource_6dyaw"]
-script = ExtResource("2_oq2ta")
-Magnitude = 1.0
-
 [sub_resource type="Resource" id="Resource_kvtxm"]
 script = ExtResource("3_paivo")
-ModifierType = 0
-ModifierMagnitude = SubResource("Resource_6dyaw")
+ModifierType = 2
+ModifierMagnitude = ExtResource("7_67158")
 
 [sub_resource type="Resource" id="Resource_ymj5g"]
 script = ExtResource("4_k746w")
 Attribute = ExtResource("6_rso1j")
 Modifiers = [SubResource("Resource_kvtxm")]
 
-[sub_resource type="Resource" id="Resource_3pgku"]
-script = ExtResource("2_oq2ta")
-Magnitude = 0.0
-
 [sub_resource type="Resource" id="Resource_5akac"]
 script = ExtResource("3_paivo")
-ModifierType = 0
-ModifierMagnitude = SubResource("Resource_3pgku")
+ModifierType = 2
+ModifierMagnitude = ExtResource("9_sr0mt")
 
 [sub_resource type="Resource" id="Resource_rfx00"]
 script = ExtResource("4_k746w")
 Attribute = ExtResource("7_sm7ae")
 Modifiers = [SubResource("Resource_5akac")]
 
-[sub_resource type="Resource" id="Resource_hbuiw"]
-script = ExtResource("2_oq2ta")
-Magnitude = 0.0
-
 [sub_resource type="Resource" id="Resource_mjill"]
 script = ExtResource("3_paivo")
-ModifierType = 0
-ModifierMagnitude = SubResource("Resource_hbuiw")
+ModifierType = 2
+ModifierMagnitude = ExtResource("11_od480")
 
 [sub_resource type="Resource" id="Resource_fehl6"]
 script = ExtResource("4_k746w")

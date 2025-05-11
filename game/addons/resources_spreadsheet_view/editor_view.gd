@@ -321,7 +321,7 @@ func _update_row(row_index : int, color_rows : bool = true):
 	var next_color := Color.WHITE
 	var column_editors : Array = _selection.column_editors
   # IMPORTANT: this is where the resource name is visible
-	var shortened_path : String = rows[row_index].resource_path.get_file().split(".")[0]
+	var shortened_path : String = rows[row_index].resource_path
 	for i in columns.size():
 		if node_table_root.get_child_count() <= (row_index - first_row) * columns.size() + i:
 			current_node = column_editors[i].create_cell(self)

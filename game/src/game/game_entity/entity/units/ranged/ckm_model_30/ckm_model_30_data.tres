@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="EntityData" load_steps=38 format=3 uid="uid://3tjr86r46xhp"]
+[gd_resource type="Resource" script_class="EntityData" load_steps=31 format=3 uid="uid://3tjr86r46xhp"]
 
 [ext_resource type="Script" path="res://src/game/game_entity/ability/initialize_stats/InitializeStatsAbility.cs" id="1_fs6nq"]
 [ext_resource type="Resource" uid="uid://icdrb28htvlw" path="res://res/data/attributes/max_health.tres" id="1_k7mr2"]
 [ext_resource type="Script" path="res://src/core/entity/EntityData.cs" id="1_kuwsa"]
-[ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/modifiers/SimpleFloatModifierMagnitude.cs" id="2_pbk6f"]
+[ext_resource type="Resource" uid="uid://ceyppaq2ul2hd" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/max_health.tres" id="2_kg46c"]
 [ext_resource type="Resource" uid="uid://ti1rg3w2yxc0" path="res://src/game/game_entity/ability/capture/capture_ability.tres" id="2_vpmkm"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectModifier.cs" id="3_rhi85"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayAttributeModifier.cs" id="4_b3gua"]
@@ -11,7 +11,9 @@
 [ext_resource type="PackedScene" uid="uid://csr08kub6ohwa" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/ckm_model_30.tscn" id="5_adl5i"]
 [ext_resource type="Resource" uid="uid://c04dwjixvc642" path="res://src/game/game_entity/entity/units/ranged/ranged_tags.tres" id="6_hxxmj"]
 [ext_resource type="Resource" uid="uid://ft10lu5nlm3x" path="res://res/data/attributes/damage.tres" id="6_wppcj"]
+[ext_resource type="Resource" uid="uid://fcmg1c7mcrpc" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/damage.tres" id="7_g7uoe"]
 [ext_resource type="Resource" uid="uid://bj4wiia5nljwj" path="res://res/data/attributes/range.tres" id="8_5ykf7"]
+[ext_resource type="Resource" uid="uid://c1n2rj0wlp2tj" path="res://src/game/game_entity/entity/units/ranged/ckm_model_30/range.tres" id="9_kg8rx"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectDefinition.cs" id="9_na4i6"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/effects/GameplayEffectResource.cs" id="10_ohp16"]
 [ext_resource type="Resource" uid="uid://c7h4rpllt3v" path="res://src/core/entity/attribute_sets/attack_attribute_set.tres" id="13_gdh82"]
@@ -19,42 +21,30 @@
 [ext_resource type="Resource" uid="uid://d4eit2hgljauy" path="res://src/core/entity/attribute_sets/health_attribute_set.tres" id="14_pm673"]
 [ext_resource type="Script" path="res://addons/gameplay_ability_system/src/attributes/AttributeSetsContainer.cs" id="15_cn5bs"]
 
-[sub_resource type="Resource" id="Resource_1kjfc"]
-script = ExtResource("2_pbk6f")
-Magnitude = 25.0
-
 [sub_resource type="Resource" id="Resource_4a62g"]
 script = ExtResource("3_rhi85")
 ModifierType = 2
-ModifierMagnitude = SubResource("Resource_1kjfc")
+ModifierMagnitude = ExtResource("2_kg46c")
 
 [sub_resource type="Resource" id="Resource_cie05"]
 script = ExtResource("4_b3gua")
 Attribute = ExtResource("1_k7mr2")
 Modifiers = [SubResource("Resource_4a62g")]
 
-[sub_resource type="Resource" id="Resource_t3rju"]
-script = ExtResource("2_pbk6f")
-Magnitude = 9.0
-
 [sub_resource type="Resource" id="Resource_el2qf"]
 script = ExtResource("3_rhi85")
 ModifierType = 2
-ModifierMagnitude = SubResource("Resource_t3rju")
+ModifierMagnitude = ExtResource("7_g7uoe")
 
 [sub_resource type="Resource" id="Resource_4w42v"]
 script = ExtResource("4_b3gua")
 Attribute = ExtResource("6_wppcj")
 Modifiers = [SubResource("Resource_el2qf")]
 
-[sub_resource type="Resource" id="Resource_kh5c6"]
-script = ExtResource("2_pbk6f")
-Magnitude = 2.0
-
 [sub_resource type="Resource" id="Resource_oem1p"]
 script = ExtResource("3_rhi85")
 ModifierType = 2
-ModifierMagnitude = SubResource("Resource_kh5c6")
+ModifierMagnitude = ExtResource("9_kg8rx")
 
 [sub_resource type="Resource" id="Resource_bqjn0"]
 script = ExtResource("4_b3gua")
@@ -81,40 +71,6 @@ ActivateOnGranted = false
 RemoveOnEnd = false
 AbilityTriggers = null
 
-[sub_resource type="Resource" id="Resource_btlkb"]
-script = ExtResource("2_pbk6f")
-Magnitude = 2.0
-
-[sub_resource type="Resource" id="Resource_ou88w"]
-script = ExtResource("3_rhi85")
-ModifierType = 1
-ModifierMagnitude = SubResource("Resource_btlkb")
-
-[sub_resource type="Resource" id="Resource_7goa8"]
-script = ExtResource("4_b3gua")
-Attribute = ExtResource("8_5ykf7")
-Modifiers = [SubResource("Resource_ou88w")]
-
-[sub_resource type="Resource" id="Resource_u4aoa"]
-script = ExtResource("9_na4i6")
-DurationPolicy = 0
-AttributeModifiers = Array[Object]([SubResource("Resource_7goa8")])
-DurationMultiplier = 0.0
-
-[sub_resource type="Resource" id="Resource_n100v"]
-script = ExtResource("10_ohp16")
-EffectDefinition = SubResource("Resource_u4aoa")
-
-[sub_resource type="Resource" id="Resource_py6dh"]
-script = ExtResource("1_fs6nq")
-InitializeStatsEffects = SubResource("Resource_n100v")
-ShowInUI = true
-UIOrder = 0
-AbilityName = "Ability"
-ActivateOnGranted = false
-RemoveOnEnd = false
-AbilityTriggers = null
-
 [sub_resource type="Resource" id="Resource_amqch"]
 script = ExtResource("15_cn5bs")
 AttributeSets = Array[Object]([ExtResource("13_gdh82"), ExtResource("14_pm673")])
@@ -123,6 +79,6 @@ AttributeSets = Array[Object]([ExtResource("13_gdh82"), ExtResource("14_pm673")]
 script = ExtResource("1_kuwsa")
 EntityName = "CKM Model 30"
 AttributeSetsContainer = SubResource("Resource_amqch")
-Abilities = Array[Object]([SubResource("Resource_pe3mm"), ExtResource("2_vpmkm"), ExtResource("14_ny16l"), SubResource("Resource_py6dh")])
+Abilities = Array[Object]([SubResource("Resource_pe3mm"), ExtResource("2_vpmkm"), ExtResource("14_ny16l")])
 Tags = ExtResource("6_hxxmj")
 Body = ExtResource("5_adl5i")

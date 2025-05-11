@@ -210,6 +210,118 @@
       }
     },
     "res://src/game/game_entity/entity/units/": {
+      "Abilities": {
+        "visibility": 0
+      },
+      "AttributeSetsContainer": {
+        "visibility": 0
+      },
+      "Body": {
+        "visibility": 0
+      },
+      "CostEffect": {
+        "visibility": 0
+      },
+      "Entity": {
+        "visibility": 0
+      },
+      "EntityName": {
+        "visibility": 0
+      },
+      "ProductionTime": {
+        "visibility": 0
+      },
+      "Tags": {
+        "visibility": 0
+      },
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units/attribute/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units/ranged/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units::Abilities/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects::EffectDefinition/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers::Modifiers/": {
+      "metadata/_custom_type_script": {
+        "visibility": 0
+      },
+      "resource_local_to_scene": {
+        "visibility": 0
+      },
+      "resource_name": {
+        "visibility": 0
+      }
+    },
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers::Modifiers::ModifierMagnitude/": {
       "metadata/_custom_type_script": {
         "visibility": 0
       },
@@ -671,7 +783,15 @@
     "res://src/game/game_entity/entity/structures::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/",
     "res://src/game/game_entity/entity/units/",
     "res://res/data/missions/",
-    "::SpawnedEntities/"
+    "::SpawnedEntities/",
+    "res://src/game/game_entity/entity/units/attribute/",
+    "res://src/game/game_entity/entity/units::Abilities/",
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects/",
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects::EffectDefinition/",
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers/",
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers::Modifiers/",
+    "res://src/game/game_entity/entity/units::Abilities::InitializeStatsEffects::EffectDefinition::AttributeModifiers::Modifiers::ModifierMagnitude/",
+    "res://src/game/game_entity/entity/units/ranged/"
   ],
   "table_functions": {
     "filter": [
