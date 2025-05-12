@@ -1,4 +1,4 @@
-[gd_resource type="Resource" script_class="MissionData" load_steps=45 format=3 uid="uid://c1hgyrlyu8uf5"]
+[gd_resource type="Resource" script_class="MissionData" load_steps=43 format=3 uid="uid://c1hgyrlyu8uf5"]
 
 [ext_resource type="Script" path="res://src/core/campaign/mission/MissionData.cs" id="1_e0wnv"]
 [ext_resource type="Script" path="res://src/game/game_modes/hob/control/ControlGameModeConfig.cs" id="1_po167"]
@@ -24,8 +24,7 @@
 [ext_resource type="Resource" uid="uid://bhwicx2el1kxe" path="res://src/game/game_entity/entity/structures/factory/zombie_factory/zombie_factory_data.tres" id="14_8ykwh"]
 [ext_resource type="Resource" uid="uid://c0rsi625qrx8w" path="res://src/game/game_entity/entity/structures/village/zombie_village/zombie_village_data.tres" id="15_kvgaj"]
 [ext_resource type="Resource" uid="uid://b0wkuafvd27xp" path="res://res/data/countries/china/china_owned_entities.tres" id="16_e5fhy"]
-[ext_resource type="Resource" uid="uid://b8jmfywt3xy1x" path="res://src/game/game_entity/ability/effects/infantry_2_cost_effect.tres" id="17_x1b2v"]
-[ext_resource type="Script" path="res://src/game/game_entity/ability/entity_production/ProductionConfig.cs" id="19_n851y"]
+[ext_resource type="Resource" uid="uid://bahessqfvanug" path="res://src/game/game_entity/entity/units/infantry/infantry_solider/infantry_soldier_production_data.tres" id="17_dfb4v"]
 
 [sub_resource type="Resource" id="Resource_l0br1"]
 script = ExtResource("1_po167")
@@ -74,15 +73,9 @@ ProfileName = "AI Profile"
 Agressiveness = 0.147
 Expansiveness = 0.189
 
-[sub_resource type="Resource" id="Resource_aai6n"]
-script = ExtResource("19_n851y")
-Entity = ExtResource("11_3t6ty")
-CostEffect = ExtResource("17_x1b2v")
-ProductionTime = 3
-
 [sub_resource type="Resource" id="Resource_2dp7d"]
 script = ExtResource("5_hxkus")
-ProducableEntities = [SubResource("Resource_aai6n")]
+ProducableEntities = [ExtResource("17_dfb4v")]
 
 [sub_resource type="Resource" id="Resource_8bllb"]
 script = ExtResource("7_y8pgs")
