@@ -59,7 +59,7 @@ public partial class StemmedMusicStreamPlayer : Node {
       stem.Stop(fadeOutTime);
     }
 
-    GetTree().CreateTimer(fadeOutTime).Timeout += () => EmitSignal(SignalName.Stopped);
+    GetTree().CreateTimer(fadeOutTime, ignoreTimeScale: true).Timeout += () => EmitSignal(SignalName.Stopped);
   }
 
   public void SetVolume(float volume) {

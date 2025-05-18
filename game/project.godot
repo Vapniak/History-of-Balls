@@ -24,7 +24,7 @@ resources_spreadsheet_view/freeze_first_column=false
 [application]
 
 config/name="History of Balls"
-config/version="vBeta-1.0.3"
+config/version="vBeta-1.0.4"
 run/main_scene="res://src/game/main.tscn"
 config/use_custom_user_dir=true
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
