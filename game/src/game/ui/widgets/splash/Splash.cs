@@ -16,7 +16,6 @@ public partial class Splash : Control {
   public override void _Ready() {
     _videoStreamPlayer.Finished += () => {
       if (_videoStreamPlayer.Stream == _firstVideo) {
-        MusicManager.Instance.Play("music", "intro");
         _videoStreamPlayer.Stream = _secondVideo;
         _canSkip = true;
         _videoStreamPlayer.Play();
