@@ -1,6 +1,6 @@
 # History of Balls
 
-**Winner of T3G III Edition (2024)** | [🏆 Competition Results](https://t3g.pl/aktualnosci/wyniki-iii-edycji-turnieju-trojgamicznego/)
+**Winner of T3G III Edition (2024-2025)** | [🏆 Competition Results](https://t3g.pl/aktualnosci/wyniki-iii-edycji-turnieju-trojgamicznego/)
 
 [![Godot 4.3](https://img.shields.io/badge/Godot-4.3.0_(Mono)-478CBF?logo=godotengine&logoColor=white)](https://godotengine.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
@@ -28,7 +28,7 @@ You can download and play the game for free on itch.io:
 
 This game was developed for and won awards at the following competitions:
 
-- **[T3G](https://t3g.pl/)** - **[2st Place, Best Gameplay And Mechanics] (2024)**
+- **[T3G](https://t3g.pl/)** - **[2st Place, Best Gameplay And Mechanics] (2024-2025)**
 
 ## 👥 Credits
 
