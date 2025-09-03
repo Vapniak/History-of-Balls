@@ -42,6 +42,8 @@ This game was developed for and won awards at the following competitions:
 
     [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin)](www.linkedin.com/in/łukasz-kucharczyk-5601792b6)
     [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github)](https://github.com/Luki20091)
+- Feliks - 3D Artist
+- Raven - 2D Artist
 
 
 **Special Thanks**
@@ -49,7 +51,7 @@ This game was developed for and won awards at the following competitions:
 
 ## 📸 Media & Socials
 
-- **[Instagram](https://www.instagram.com/boomballer_studio)** - 
+- **[Instagram](https://www.instagram.com/boomballer_studio)** - See our posts during the development.
 - **[YouTube](https://www.youtube.com/@BoomBallerStudio)** - Watch the trailer and more devlogs.
 
 ## 🧾 License
