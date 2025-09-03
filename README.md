@@ -34,13 +34,13 @@ This game was developed for and won awards at the following competitions:
 
 - **[Oliwier Adamczyk | Vapniak](https://github.com/Vapniak)** - Lead Programmer
     
-    [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin)](linkedin.com/in/oliwier-adamczyk-721403349)
+    [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin)](https://www.linkedin.com/in/oliwier-adamczyk-721403349/)
     [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github)](https://github.com/Vapniak)
     [![YouTube](https://img.shields.io/badge/-YouTube-FF0000?logo=youtube)](https://www.youtube.com/@vapniak7)
 
 - **[Łukasz Kucharczyk](https://github.com/Luki20091)** - Art Team Leader, Concept Artist
 
-    [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin)](www.linkedin.com/in/łukasz-kucharczyk-5601792b6)
+    [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin)](https://www.linkedin.com/in/łukasz-kucharczyk-5601792b6)
     [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github)](https://github.com/Luki20091)
 - Feliks - 3D Artist
 - Raven - 2D Artist
