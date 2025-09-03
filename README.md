@@ -67,13 +67,12 @@ See the **[LICENSE](LICENSE)** file in this repository for full details.
 
 ## 🚀 For Developers: Building from Source
 
-1. **Open the project with Godot 4.3.0 Mono**.
-2. Clone this repository:
+1. Clone this repository:
     ```bash
     git clone https://github.com/Vapniak/History-of-Balls
     ```
-3. Open the project in Godot by selecting the `project.godot` file.
-4. Build and run the project from the editor.
+2. **Open the project with Godot 4.3.0 Mono**.
+3. Build and run the project from the editor.
 
 ---
 
