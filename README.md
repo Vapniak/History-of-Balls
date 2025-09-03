@@ -42,6 +42,7 @@ This game was developed for and won awards at the following competitions:
 
     [![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin)](https://www.linkedin.com/in/łukasz-kucharczyk-5601792b6)
     [![GitHub](https://img.shields.io/badge/-GitHub-181717?logo=github)](https://github.com/Luki20091)
+- Krolog - Game Designer
 - Feliks - 3D Artist
 - Raven - 2D Artist
 
