@@ -1,1 +1,0 @@
-This repository is proprietary. By contributing, you agree to the terms in [LICENSE](LICENSE).
