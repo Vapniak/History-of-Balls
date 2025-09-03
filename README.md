@@ -48,7 +48,7 @@ This game was developed for and won awards at the following competitions:
 
 
 **Special Thanks**
-- Thank playtesters, advisors, or anyone else who helped.
+- Thanks to the guardian for his commitment and organization of travel
 
 ## 📸 Media & Socials
 
